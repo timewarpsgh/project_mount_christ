@@ -1,21 +1,58 @@
 from dataclasses import dataclass
+import pygame
+import pygame_gui
+
+from gui import Gui
 
 
 @dataclass
-class User:
-    id: int
-    name: str
+class Game:
+
+    def __init__(self):
+        pygame.init()
+        pygame.display.set_caption('Quick Start')
+
+        self.window_surface = pygame.display.set_mode((800, 600))
+
+        self.background = pygame.Surface((800, 600))
+        self.background.fill(pygame.Color('#550000'))
+
+        self.is_running = True
+
+        self.clock = pygame.time.Clock()
+
+        # init gui
+        self.gui = Gui()
 
 
-def test():
-    user = User(1, 'Alex')
-    print(user)
+    def run(self):
+        while self.is_running:
+
+            # get time_delta(limit frame rate)
+            time_delta = self.clock.tick(60) / 1000.0
+
+            # update
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.is_running = False
+
+                self.gui.process_event(event)
+
+
+            self.gui.update(time_delta)
+
+            # draw
+            self.window_surface.blit(self.background, (0, 0))
+            self.gui.draw(self.window_surface)
+
+            # flip
+            pygame.display.update()
 
 
 def main():
-    test()
+    game = Game()
+    game.run()
 
 
 if __name__ == '__main__':
     main()
-

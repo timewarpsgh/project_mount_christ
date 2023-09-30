@@ -1,0 +1,7 @@
+libs needed:
+    front end
+        pygame, pygamegui
+    network
+        protobuf
+    back end
+        asyncio, sqlalchemy

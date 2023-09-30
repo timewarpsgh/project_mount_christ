@@ -13,11 +13,35 @@ background.fill(pygame.Color('#550000'))
 # init manager
 manager = pygame_gui.UIManager((800, 600), '../../data/fonts/font_theme.json')
 
+# add ui window to
+ui_window = pygame_gui.elements.UIWindow(
+    rect=pygame.Rect((0, 0), (300, 300)),
+    manager=manager,
+)
+
 # add buttion to manager
 hello_button = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((350, 275), (100, 50)),
-    text='你好',
-    manager=manager)
+    relative_rect=pygame.Rect((0, 0), (100, 50)),
+    text='登录',
+    manager=manager,
+    container=ui_window,
+)
+
+# add entry box
+entry_box_account = pygame_gui.elements.UITextEntryBox(
+    relative_rect=pygame.Rect((0, 50), (100, 50)),
+    initial_text='账号',
+    manager=manager,
+    container=ui_window,
+)
+
+# add entry box
+entry_box_password = pygame_gui.elements.UITextEntryBox(
+    relative_rect=pygame.Rect((0, 100), (100, 50)),
+    initial_text='密码',
+    manager=manager,
+    container=ui_window,
+)
 
 
 clock = pygame.time.Clock()
@@ -35,7 +59,8 @@ while is_running:
 
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == hello_button:
-                print('Hello World!')
+                print(f'entry_box_account: {entry_box_account.get_text()}')
+                print(f'entry_box_account: {entry_box_password.get_text()}')
 
         manager.process_events(event)
 

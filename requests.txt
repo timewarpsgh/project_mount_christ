@@ -7,3 +7,7 @@ libs needed:
         asyncio, sqlalchemy
 
 
+
+cmds
+    # compile .proto file
+    protoc --python_out=. .\login.proto

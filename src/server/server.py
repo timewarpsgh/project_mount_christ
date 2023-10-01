@@ -1,4 +1,8 @@
 import socket
+
+import sys
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
+
 from login_pb2 import Login
 
 
@@ -15,7 +19,7 @@ data = connection.recv(1024)
 login2 = Login()
 
 login2.ParseFromString(data)
-print("Received from client: ")
+print(f"Received from client: {len(data)} bytes")
 print(login2.account)
 print(login2.password)
 

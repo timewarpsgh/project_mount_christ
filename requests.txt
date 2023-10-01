@@ -1,3 +1,26 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+cmds
+    # compile .proto file
+    protoc --python_out=. .\login.proto
+
+
 libs needed:
     front end
         pygame, pygamegui
@@ -6,8 +29,7 @@ libs needed:
     back end
         asyncio, sqlalchemy
 
-
-
-cmds
-    # compile .proto file
-    protoc --python_out=. .\login.proto
+packet format
+    2 bytes(opcode),
+    2 bytes(len of content),
+    x bytes(content for object)

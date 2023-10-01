@@ -1,4 +1,9 @@
 import socket
+
+import sys
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
+
+
 from login_pb2 import Login
 
 
@@ -15,7 +20,7 @@ print(login.password)
 
 bytes = login.SerializeToString()
 print(bytes)
-
+print(f'len fo bytes: {len(bytes)}')
 
 client_socket.sendall(bytes)
 

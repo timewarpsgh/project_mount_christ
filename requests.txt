@@ -1,4 +1,8 @@
-packet format  ON
+server uses asyncio ON
+
+
+
+packet format  OK
     2 bytes(opcode),
     2 bytes(len of content),
     x bytes(content for object)

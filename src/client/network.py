@@ -1,6 +1,8 @@
 import socket
 
 import sys
+import time
+
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
 
@@ -38,8 +40,10 @@ def main():
 
     client_socket.sendall(packet.bytes)
 
-    data = client_socket.recv(1024)
-    print("Received from server: " + data.decode())
+    # data = client_socket.recv(1024)
+    # print("Received from server: " + data.decode())
+
+    # time.sleep(1000)
 
     client_socket.close()
 

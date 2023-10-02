@@ -2,13 +2,12 @@ from enum import Enum, auto
 
 
 class OpCodeType(Enum):
-    C_LOGIN = 0x000
-    C_NEW_ACCOUNT = 0X001
-
+    C_LOGIN = auto() # 1
+    C_NEW_ACCOUNT = auto() # 2
 
 
 def main():
-    print(OpCodeType.C_NEW_ACCOUNT.value)
+    print(OpCodeType.C_XX.value)
 
 
 if __name__ == '__main__':

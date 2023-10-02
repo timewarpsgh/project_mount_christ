@@ -1,11 +1,7 @@
-
-
-
-
-
-
-
-
+packet format  ON
+    2 bytes(opcode),
+    2 bytes(len of content),
+    x bytes(content for object)
 
 
 
@@ -29,7 +25,3 @@ libs needed:
     back end
         asyncio, sqlalchemy
 
-packet format
-    2 bytes(opcode),
-    2 bytes(len of content),
-    x bytes(content for object)

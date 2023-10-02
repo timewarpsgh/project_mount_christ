@@ -1,48 +1,13 @@
 import os
 import sys
-import pickle
 
 import asyncio
 
-sys.path.append(os.path.abspath('../common'))
-
-from packet_type import *
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
 
-GET_USER_INPUT = False
-
-AUTO_SEND_MSGS_FOR_CLIENT_1 = [
-    # enter world
-    'C_CREATE_ACCOUNT@test_name9@test_pwd',
-
-    'C_LOGIN@test_name@test_pwd',
-    'C_GET_WORLDS@',
-    'C_GET_PCS_IN_WORLD@1',
-    # 'create_pc@role_1',
-    # 'enter_world_as_pc@49',
-    # 'move_to@100@100',
-    # 'select_target@50',
-    # in world now
-    # 'move_to@1@2',
-    # 'enter_port@33',
-    # 'sail',
-    # 'discover@11',
-    # 'buy_ship@1@hawk11',
-    # 'buy_ship@2@harry11',
-    # 'sell_ship@harry11',
-    # 'buy_commodity@22@5@hawk11',
-    # 'buy_commodity@22@6@hawk11',
-    # 'sell_commodity@22@hawk11',
-    # 'lv_up',
-
-    # 'select_target@50',
-
-    # 'enter_battle_with_target',
-    # 'attack_target',
-    # 'all_ships_operate',
-    # logout
-    # 'logout',
-]
+from login_pb2 import Login
+from opcodes import OpCodeType
 
 
 class SerMsgMgr:
@@ -59,8 +24,18 @@ class SerMsgMgr:
     async def S_GET_PCS_IN_WORLD_RESP(self, packet):
         pass
 
+
+class Packet:
+
+    def __init__(self, probuf_obj):
+        two_bytes_for_opcode = OpCodeType.C_LOGIN.value.to_bytes(2)
+        bytes_for_obj = probuf_obj.SerializeToString()
+        two_bytes_for_obj_len = len(bytes_for_obj).to_bytes(2)
+        self.bytes = two_bytes_for_opcode + two_bytes_for_obj_len + bytes_for_obj
+        print(f'packet bytes: {self.bytes}')
+
+
 class Client:
-    CMDS_IN_SER_MSG_MGR = SerMsgMgr.__dict__
 
     def __init__(self, client_id):
         self.client_id = client_id
@@ -183,33 +158,25 @@ class Client:
 
     async def send_co(self):
         # get auto_send_msgs bases on client
-        if self.client_id == '1':
-            auto_send_msgs = AUTO_SEND_MSGS_FOR_CLIENT_1
-        elif self.client_id == '2':
-            auto_send_msgs = AUTO_SEND_MSGS_FOR_CLIENT_2
-        elif self.client_id == '3':
-            auto_send_msgs = AUTO_SEND_MSGS_FOR_CLIENT_3
 
-        # for each msg
-        for msg in auto_send_msgs:
-            if GET_USER_INPUT:
-                msg = await aioconsole.ainput()
+        # encode object
+        login = Login()
 
-            await asyncio.sleep(0.2)
+        login.account = '1234哈哈'
+        login.password = '222'
+        print(login.account)
+        print(login.password)
 
-            # parse cmd
-            cmd, args = self.parse_msg(msg)
+        bytes = login.SerializeToString()
+        print(bytes)
+        print(f'len fo bytes: {len(bytes)}')
 
-            packet = self.make_packet(cmd, args)
+        packet = Packet(login)
 
-            pickled_obj = pickle.dumps(packet)
-            packet_class_name = type(packet).__name__
-            msg = f'{packet_class_name}:{pickled_obj}'
 
-            # send msg
-            print(f'\n>>>> Sent Packet: {packet}\n')
-            self.writer.write(msg.encode())
-            await self.writer.drain()
+
+        self.writer.write(packet.bytes)
+        await self.writer.drain()
 
     async def recv_co(self):
         while True:
@@ -220,7 +187,10 @@ class Client:
             if not data:
                 exit()
 
-            await self.handle_server_msg(data)
+            print(f'got data {data}')
+
+
+            # await self.handle_server_msg(data)
 
     async def handle_server_msg(self, data):
 
@@ -243,7 +213,7 @@ class Client:
     async def start(self):
         # conn
         reader, writer = await asyncio.open_connection(
-            '127.0.0.1', 8888)
+            'localhost', 12345)
         self.reader = reader
         self.writer = writer
 

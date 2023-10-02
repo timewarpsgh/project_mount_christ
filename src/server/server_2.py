@@ -101,6 +101,9 @@ class SmallServer:
                 print(f'client disconnected!!')
                 break
 
+            # send back
+            self.writer.write(b'got msg')
+            await self.writer.drain()
 
 class Server:
 

@@ -11,101 +11,75 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 from login_pb2 import Login
 
 
-EXECUTOR = ThreadPoolExecutor()
-
-
 class Session:
     def __init__(self, server, reader, writer):
-        self.client_addr = writer.get_extra_info('peername')
+        self.addr = writer.get_extra_info('peername')
         self.server = server
         self.reader = reader
         self.writer = writer
 
-        self.client_account_id = None
-        self.client_world_id = None
-        self.client_pc_id = None
-        self.role = None
+        self.got_packets = []
+        self.to_send_packets = []
 
+    def receive_packets(self, data):
+        print(f'got data from client')
+        print(data)
+        opcode_bytes = data[:2]
+        print(f'opcode_bytes: {opcode_bytes}')
+        obj_len_bytes = data[2:4]
+        print(f'obj_len_bytes: {obj_len_bytes}')
+        obj_bytes = data[4:]
 
-    def send_to_this_client(self, pc_id, msg):
-        small_server = self.server.pc_id_2_small_server[pc_id]
-        small_server.send_to_client(msg)
+        print(f'obj_bytes: {obj_bytes}')
+        login2 = Login()
+        login2.ParseFromString(obj_bytes)
+        print(login2.account)
+        print(login2.password)
 
-    def send_packet_to_client(self, packet):
-        pickled_obj = pickle.dumps(packet)
-        packet_class_name = type(packet).__name__
-        self.send_to_client(f'{packet_class_name}:{pickled_obj}')
-        print(f'\n>>>> Sent Packet: {packet}')
+        self.got_packets.append(login2)
+        print(f'got packet')
 
-    def send_to_client(self, msg):
-        self.writer.write(msg.encode())
-        # await self.writer.drain()
+    def process_got_packets(self):
+        for packet in self.got_packets:
+            print(f'processing packet {packet}')
+            self.to_send_packets.append(b'got login request')
 
-    def send_to_other_clients(self, msg):
-        """other clients means nearby clients"""
-        # get_nearby_roles
-        role_id_2_ins = self.server.aoi_mgr.get_nearby_roles(self.role)
+    async def send_co(self):
 
-        for role_id in role_id_2_ins.keys():
-            if role_id == self.client_pc_id:
-                continue
-            small_server = self.server.pc_id_2_small_server[role_id]
-            small_server.send_to_client(msg)
+        while self.to_send_packets:
+            packet = self.to_send_packets.pop()
+            self.writer.write(packet)
 
-    def send_to_other_non_target_clients(self, msg):
-        """other clients means nearby clients"""
-        # get_nearby_roles
-        role_id_2_ins = self.server.aoi_mgr.get_nearby_roles(self.role)
+        await self.writer.drain()
 
-        for role_id in role_id_2_ins.keys():
-            if role_id == self.client_pc_id or role_id == self.role.target_role.pc_id:
-                continue
-            small_server = self.server.pc_id_2_small_server[role_id]
-            small_server.send_to_client(msg)
-
-    async def main(self):
-
-
-        # self.send_to_client('hello client:')
-
-        # loop
+    async def recv_co(self):
         while True:
             # recv msg
             data = await self.reader.read(5000)
-            print(f'got data from client')
-            print(data)
-            opcode_bytes = data[:2]
-            print(f'opcode_bytes: {opcode_bytes}')
-            obj_len_bytes = data[2:4]
-            print(f'obj_len_bytes: {obj_len_bytes}')
-            obj_bytes = data[4:]
 
-            print(f'obj_bytes: {obj_bytes}')
-            login2 = Login()
-            login2.ParseFromString(obj_bytes)
-            print(login2.account)
-            print(login2.password)
-
-
+            # if disconn
             if data == b'':
-                self.server.rm_session(self.client_addr)
+                self.server.rm_session(self.addr)
                 break
 
-            # send back
-            self.writer.write(b'got msg')
-            await self.writer.drain()
+            self.receive_packets(data)
+            self.process_got_packets()
+
+    async def main(self):
+
+        await asyncio.gather(
+            self.recv_co(),
+            self.send_co(),
+        )
+
 
 class Server:
 
     def __init__(self):
         self.addr_2_session = {}
 
-
-        self.pc_id_2_role = {}
-        self.pc_id_2_small_server = {}
-
     def add_session(self, session):
-        self.addr_2_session[session.client_addr] = session
+        self.addr_2_session[session.addr] = session
         print(f'\n#### !!new connection, now self.connected_clients: '
               f'{self.addr_2_session}')
 

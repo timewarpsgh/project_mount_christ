@@ -22,7 +22,7 @@ class Session:
         self.to_send_packets = []
 
     def receive_packets(self, data):
-        print(f'got data from client')
+        print(f'######### got data from client')
         print(data)
         opcode_bytes = data[:2]
         print(f'opcode_bytes: {opcode_bytes}')
@@ -40,22 +40,27 @@ class Session:
         print(f'got packet')
 
     def process_got_packets(self):
-        for packet in self.got_packets:
+        while self.got_packets:
+            packet = self.got_packets.pop()
             print(f'processing packet {packet}')
             self.to_send_packets.append(b'got login request')
+            print(f'to_send_packets: {self.to_send_packets}')
 
     async def send_co(self):
+        while True:
+            await asyncio.sleep(0.1)
 
-        while self.to_send_packets:
-            packet = self.to_send_packets.pop()
-            self.writer.write(packet)
+            while self.to_send_packets:
+                packet = self.to_send_packets.pop()
+                self.writer.write(packet)
 
-        await self.writer.drain()
+            await self.writer.drain()
 
     async def recv_co(self):
         while True:
             # recv msg
             data = await self.reader.read(5000)
+            print(f'got data from client')
 
             # if disconn
             if data == b'':

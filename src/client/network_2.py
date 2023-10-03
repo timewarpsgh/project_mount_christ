@@ -178,6 +178,27 @@ class Client:
         self.writer.write(packet.bytes)
         await self.writer.drain()
 
+        await asyncio.sleep(2)
+
+
+        # encode object
+        login = Login()
+
+        login.account = 'login2'
+        login.password = 'login2'
+        print(login.account)
+        print(login.password)
+
+        bytes = login.SerializeToString()
+        print(bytes)
+        print(f'len fo bytes: {len(bytes)}')
+
+        packet = Packet(login)
+
+        self.writer.write(packet.bytes)
+        await self.writer.drain()
+        print('sent login 2!!')
+
     async def recv_co(self):
         while True:
             # recv

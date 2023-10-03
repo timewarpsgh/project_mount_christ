@@ -4,9 +4,6 @@ import asyncio
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor
 
-import sys
-
-
 
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
@@ -17,9 +14,9 @@ from login_pb2 import Login
 EXECUTOR = ThreadPoolExecutor()
 
 
-class SmallServer:
+class Session:
     def __init__(self, server, reader, writer):
-        self.client_addr = None
+        self.client_addr = writer.get_extra_info('peername')
         self.server = server
         self.reader = reader
         self.writer = writer
@@ -67,14 +64,7 @@ class SmallServer:
             small_server.send_to_client(msg)
 
     async def main(self):
-        # just connected
-        # add to server.client_addr_2_small_server
-        addr = self.writer.get_extra_info('peername')
-        self.server.client_addr_2_small_server[addr] = self
-        print(f'\n#### !!new connection, now self.connected_clients: '
-              f'{self.server.client_addr_2_small_server}')
 
-        self.client_addr = addr
 
         # self.send_to_client('hello client:')
 
@@ -98,7 +88,7 @@ class SmallServer:
 
 
             if data == b'':
-                print(f'client disconnected!!')
+                self.server.rm_session(self.client_addr)
                 break
 
             # send back
@@ -108,15 +98,26 @@ class SmallServer:
 class Server:
 
     def __init__(self):
-        self.client_addr_2_small_server = {}
+        self.addr_2_session = {}
+
+
         self.pc_id_2_role = {}
         self.pc_id_2_small_server = {}
 
-    async def client_connected(self, reader, writer):
-        """client connected"""
+    def add_session(self, session):
+        self.addr_2_session[session.client_addr] = session
+        print(f'\n#### !!new connection, now self.connected_clients: '
+              f'{self.addr_2_session}')
 
-        small_server = SmallServer(self, reader, writer)
-        await small_server.main()
+    def rm_session(self, addr):
+        del self.addr_2_session[addr]
+        print(f'client disconnected!!')
+        print(f'addr_2_session: {self.addr_2_session}')
+
+    async def client_connected(self, reader, writer):
+        session = Session(self, reader, writer)
+        self.add_session(session)
+        await session.main()
 
     async def main(self):
         server = await asyncio.start_server(

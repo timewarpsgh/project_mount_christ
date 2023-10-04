@@ -1,6 +1,9 @@
 
 
 server:
+    send Packet adapts to dif opcodes ON
+
+
     recv different packets ON
 
     send packets

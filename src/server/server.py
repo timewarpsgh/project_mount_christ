@@ -6,11 +6,13 @@ from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor
 
 
+from packet_handler import PacketHandler
+
 # import from dir
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
-from login_pb2 import Login
+from login_pb2 import Login, NewAccount
 from opcodes import OpCodeType
 
 
@@ -38,6 +40,16 @@ class Session:
         self.to_send_packets = Queue() # each packet is a protbuf
         self.__bytes_buffer = b''
 
+        self.packet_handler = PacketHandler(self)
+
+    def __opcode_2_protbuf_obj(self, opcode_bytes):
+        opcode_type_value = int.from_bytes(opcode_bytes)
+
+        if opcode_type_value == OpCodeType.C_LOGIN.value:
+            return Login()
+        if opcode_type_value == OpCodeType.C_NEW_ACCOUNT.value:
+            return NewAccount()
+
     def receive_packets(self, bytes):
         self.__bytes_buffer += bytes
 
@@ -48,10 +60,12 @@ class Session:
 
             if len(self.__bytes_buffer) >= 4 + obj_bytes_cnt:
                 obj_bytes = self.__bytes_buffer[4:4 + obj_bytes_cnt]
-                login2 = Login()
-                login2.ParseFromString(obj_bytes)
-                self.got_packets.put(login2)
-                print(f'### got packet\n{login2}')
+
+                protbuf_obj = self.__opcode_2_protbuf_obj(opcode_bytes)
+
+                protbuf_obj.ParseFromString(obj_bytes)
+                self.got_packets.put(protbuf_obj)
+                print(f'\n### got packet {type(protbuf_obj)}')
 
                 # slice bytes_buffer
                 self.__bytes_buffer = self.__bytes_buffer[4 + obj_bytes_cnt: ]
@@ -64,12 +78,9 @@ class Session:
     def process_got_packets(self):
         while not self.got_packets.empty():
             packet = self.got_packets.get()
-            print(f'### processing packet\n{packet}')
+            print(f'### processing packet {type(packet)}')
 
-            login = Login()
-            login.account = '111'
-            login.password = '222'
-            self.send(login)
+            self.packet_handler.handle_packet(packet)
 
     async def send_co(self):
         while True:
@@ -77,7 +88,7 @@ class Session:
 
             while not self.to_send_packets.empty():
                 protbuf_obj = self.to_send_packets.get()
-                print(f'### sent packet ###\n{protbuf_obj}')
+                print(f'### sent packet {type(protbuf_obj)}')
                 packet = Packet(protbuf_obj)
                 self.writer.write(packet.get_bytes())
 

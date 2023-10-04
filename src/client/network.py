@@ -6,7 +6,7 @@ import asyncio
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
 
-from login_pb2 import Login
+from login_pb2 import Login, NewAccount
 from opcodes import OpCodeType
 
 
@@ -28,7 +28,7 @@ class SerMsgMgr:
 class Packet:
 
     def __init__(self, probuf_obj):
-        two_bytes_for_opcode = OpCodeType.C_LOGIN.value.to_bytes(2)
+        two_bytes_for_opcode = OpCodeType.C_NEW_ACCOUNT.value.to_bytes(2)
         bytes_for_obj = probuf_obj.SerializeToString()
         two_bytes_for_obj_len = len(bytes_for_obj).to_bytes(2)
         self.bytes = two_bytes_for_opcode + two_bytes_for_obj_len + bytes_for_obj
@@ -182,7 +182,7 @@ class Client:
 
 
         # encode object
-        login = Login()
+        login = NewAccount()
 
         login.account = 'login2'
         login.password = 'login2'

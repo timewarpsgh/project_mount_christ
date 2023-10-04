@@ -12,12 +12,8 @@ from packet_handler import PacketHandler
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
-from login_pb2 import Login, NewAccount, LoginRes, LoginResType
-from opcodes import OpCodeType
-
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
-from shared import Packet, opcode_2_protbuf_obj, \
-    protbuf_obj_2_opcode_value, Connection
+from shared import Connection
 
 
 class Session(Connection):

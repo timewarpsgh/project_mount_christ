@@ -22,13 +22,11 @@ class PacketHandler:
             self.__handle_new_account(packet)
 
     def __handle_login(self, login):
-        print(f'__handle_login')
         login_res = LoginRes()
         login_res.login_res_type = LoginRes.LoginResType.OK
         self.session.send(login_res)
 
     def __handle_new_account(self, new_account):
-        print(f'__handle_new_account')
         new_account_res = NewAccountRes()
         new_account_res.new_account_res_type = NewAccountRes.NewAccountResType.OK
         self.session.send(new_account_res)

@@ -9,7 +9,7 @@ from login_pb2 import Login, NewAccount, LoginRes, NewAccountRes
 from opcodes import OpCodeType
 
 
-class Packet:
+class FullPacket:
 
     def __init__(self, probuf_obj):
         opcode_value = protbuf_obj_2_opcode_value(probuf_obj)
@@ -43,8 +43,8 @@ class Connection:
             while not self.to_send_packets.empty():
                 protbuf_obj = self.to_send_packets.get()
                 print(f'### sent packet {type(protbuf_obj)}\n')
-                packet = Packet(protbuf_obj)
-                self.writer.write(packet.get_bytes())
+                full_packet = FullPacket(protbuf_obj)
+                self.writer.write(full_packet.get_bytes())
 
             await self.writer.drain()
 
@@ -90,34 +90,27 @@ class Connection:
     def process_got_packets(self):
         while not self.got_packets.empty():
             packet = self.got_packets.get()
-            print(f'### processing packet {type(packet)}')
-
             self.packet_handler.handle_packet(packet)
+
+
+## d and d_reversed
+d = {
+    'Login': 1,
+    'LoginRes': 2,
+    'NewAccount': 3,
+    'NewAccountRes': 4,
+}
+
+d_reversed = {v: k for k, v in d.items()}
 
 
 def opcode_2_protbuf_obj(opcode_bytes):
     opcode_type_value = int.from_bytes(opcode_bytes)
-
-    if opcode_type_value == OpCodeType.C_LOGIN.value:
-        return Login()
-    elif opcode_type_value == OpCodeType.S_LOGIN_RES.value:
-        return LoginRes()
-
-    elif opcode_type_value == OpCodeType.C_NEW_ACCOUNT.value:
-        return NewAccount()
-    elif opcode_type_value == OpCodeType.S_NEW_ACCOUNT_RES.value:
-        return NewAccountRes()
+    return eval(d_reversed[opcode_type_value])()
 
 
 def protbuf_obj_2_opcode_value(protbuff_obj):
     """for sending"""
-    if isinstance(protbuff_obj, Login):
-        return OpCodeType.C_LOGIN.value
-    elif isinstance(protbuff_obj, LoginRes):
-        return OpCodeType.S_LOGIN_RES.value
-
-    elif isinstance(protbuff_obj, NewAccount):
-        return OpCodeType.C_NEW_ACCOUNT.value
-
-    elif isinstance(protbuff_obj, NewAccountRes):
-        return OpCodeType.S_NEW_ACCOUNT_RES.value
+    type_of_protbuff_obj_str = type(protbuff_obj).__name__
+    opcode_value = d[type_of_protbuff_obj_str]
+    return opcode_value

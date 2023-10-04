@@ -2,10 +2,10 @@ from enum import Enum, auto
 
 
 class OpCodeType(Enum):
-    C_LOGIN = auto() # 1
-    S_LOGIN_RES = auto()
-    C_NEW_ACCOUNT = auto()
-    S_NEW_ACCOUNT_RES = auto()
+    Login = auto() # 1
+    LoginRes = auto()
+    NewAccount = auto()
+    NewAccountRes = auto()
 
 
 def main():

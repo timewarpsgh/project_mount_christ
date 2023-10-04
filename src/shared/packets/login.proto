@@ -1,18 +1,29 @@
+// login
 message Login {
-  required string account = 1;
-  required string password = 2;
-}
-
-enum LoginResType {
-    OK = 0;
-    WRONG_PASSWORD_OR_ACCOUNT = 1;
+    required string account = 1;
+    required string password = 2;
 }
 
 message LoginRes {
-  required LoginResType login_res_type = 1;
+    enum LoginResType {
+        OK = 0;
+        WRONG_PASSWORD_OR_ACCOUNT = 1;
+    }
+
+    required LoginResType login_res_type = 1;
 }
 
+// new account
 message NewAccount {
-  required string account = 1;
-  required string password = 2;
+    required string account = 1;
+    required string password = 2;
+}
+
+message NewAccountRes {
+    enum NewAccountResType {
+        OK = 0;
+        ACCOUNT_EXISTS = 1;
+    }
+
+    required NewAccountResType new_account_res_type = 1;
 }

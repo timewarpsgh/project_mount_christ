@@ -13,19 +13,23 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0blogin.proto\"*\n\x05Login\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t\"1\n\x08LoginRes\x12%\n\x0elogin_res_type\x18\x01 \x02(\x0e\x32\r.LoginResType\"/\n\nNewAccount\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t*5\n\x0cLoginResType\x12\x06\n\x02OK\x10\x00\x12\x1d\n\x19WRONG_PASSWORD_OR_ACCOUNT\x10\x01')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0blogin.proto\"*\n\x05Login\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t\"q\n\x08LoginRes\x12.\n\x0elogin_res_type\x18\x01 \x02(\x0e\x32\x16.LoginRes.LoginResType\"5\n\x0cLoginResType\x12\x06\n\x02OK\x10\x00\x12\x1d\n\x19WRONG_PASSWORD_OR_ACCOUNT\x10\x01\"/\n\nNewAccount\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t\"\x80\x01\n\rNewAccountRes\x12>\n\x14new_account_res_type\x18\x01 \x02(\x0e\x32 .NewAccountRes.NewAccountResType\"/\n\x11NewAccountResType\x12\x06\n\x02OK\x10\x00\x12\x12\n\x0e\x41\x43\x43OUNT_EXISTS\x10\x01')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'login_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
-  _globals['_LOGINRESTYPE']._serialized_start=159
-  _globals['_LOGINRESTYPE']._serialized_end=212
   _globals['_LOGIN']._serialized_start=15
   _globals['_LOGIN']._serialized_end=57
   _globals['_LOGINRES']._serialized_start=59
-  _globals['_LOGINRES']._serialized_end=108
-  _globals['_NEWACCOUNT']._serialized_start=110
-  _globals['_NEWACCOUNT']._serialized_end=157
+  _globals['_LOGINRES']._serialized_end=172
+  _globals['_LOGINRES_LOGINRESTYPE']._serialized_start=119
+  _globals['_LOGINRES_LOGINRESTYPE']._serialized_end=172
+  _globals['_NEWACCOUNT']._serialized_start=174
+  _globals['_NEWACCOUNT']._serialized_end=221
+  _globals['_NEWACCOUNTRES']._serialized_start=224
+  _globals['_NEWACCOUNTRES']._serialized_end=352
+  _globals['_NEWACCOUNTRES_NEWACCOUNTRESTYPE']._serialized_start=305
+  _globals['_NEWACCOUNTRES_NEWACCOUNTRESTYPE']._serialized_end=352
 # @@protoc_insertion_point(module_scope)

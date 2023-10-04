@@ -23,14 +23,19 @@ def opcode_2_protbuf_obj(opcode_bytes):
 
     if opcode_type_value == OpCodeType.C_LOGIN.value:
         return Login()
+    elif opcode_type_value == OpCodeType.S_LOGIN_RES.value:
+        return LoginRes()
+
     elif opcode_type_value == OpCodeType.C_NEW_ACCOUNT.value:
         return NewAccount()
+
 
 def protbuf_obj_2_opcode_value(protbuff_obj):
     """for sending"""
     if isinstance(protbuff_obj, Login):
         return OpCodeType.C_LOGIN.value
-    elif isinstance(protbuff_obj, NewAccount):
-        return OpCodeType.C_NEW_ACCOUNT.value
     elif isinstance(protbuff_obj, LoginRes):
         return OpCodeType.S_LOGIN_RES.value
+
+    elif isinstance(protbuff_obj, NewAccount):
+        return OpCodeType.C_NEW_ACCOUNT.value

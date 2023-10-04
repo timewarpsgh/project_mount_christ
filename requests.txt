@@ -1,12 +1,6 @@
 
 
-server:
-    send Packet adapts to dif opcodes OK
-
-
-    recv different packets ON
-
-    send packets
+client use send and recv code from server OK
 
 
 

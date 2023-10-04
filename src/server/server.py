@@ -27,6 +27,7 @@ class Packet:
 
 
 class Session:
+
     def __init__(self, server, reader, writer):
         self.addr = writer.get_extra_info('peername')
         self.server = server

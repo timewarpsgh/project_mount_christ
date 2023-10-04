@@ -3,7 +3,8 @@ from enum import Enum, auto
 
 class OpCodeType(Enum):
     C_LOGIN = auto() # 1
-    C_NEW_ACCOUNT = auto() # 2
+    S_LOGIN_RES = auto()
+    C_NEW_ACCOUNT = auto()
 
 
 def main():

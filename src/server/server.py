@@ -12,20 +12,11 @@ from packet_handler import PacketHandler
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
-from login_pb2 import Login, NewAccount
+from login_pb2 import Login, NewAccount, LoginRes, LoginResType
 from opcodes import OpCodeType
 
-
-class Packet:
-
-    def __init__(self, probuf_obj):
-        two_bytes_for_opcode = OpCodeType.C_LOGIN.value.to_bytes(2)
-        bytes_for_obj = probuf_obj.SerializeToString()
-        two_bytes_for_obj_len = len(bytes_for_obj).to_bytes(2)
-        self.__bytes = two_bytes_for_opcode + two_bytes_for_obj_len + bytes_for_obj
-
-    def get_bytes(self):
-        return self.__bytes
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
+from shared import Packet, opcode_2_protbuf_obj, protbuf_obj_2_opcode_value
 
 
 class Session:
@@ -42,14 +33,6 @@ class Session:
 
         self.packet_handler = PacketHandler(self)
 
-    def __opcode_2_protbuf_obj(self, opcode_bytes):
-        opcode_type_value = int.from_bytes(opcode_bytes)
-
-        if opcode_type_value == OpCodeType.C_LOGIN.value:
-            return Login()
-        if opcode_type_value == OpCodeType.C_NEW_ACCOUNT.value:
-            return NewAccount()
-
     def receive_packets(self, bytes):
         self.__bytes_buffer += bytes
 
@@ -61,7 +44,7 @@ class Session:
             if len(self.__bytes_buffer) >= 4 + obj_bytes_cnt:
                 obj_bytes = self.__bytes_buffer[4:4 + obj_bytes_cnt]
 
-                protbuf_obj = self.__opcode_2_protbuf_obj(opcode_bytes)
+                protbuf_obj = opcode_2_protbuf_obj(opcode_bytes)
 
                 protbuf_obj.ParseFromString(obj_bytes)
                 self.got_packets.put(protbuf_obj)
@@ -89,7 +72,8 @@ class Session:
             while not self.to_send_packets.empty():
                 protbuf_obj = self.to_send_packets.get()
                 print(f'### sent packet {type(protbuf_obj)}')
-                packet = Packet(protbuf_obj)
+                opcode_value = protbuf_obj_2_opcode_value(protbuf_obj)
+                packet = Packet(protbuf_obj, opcode_value)
                 self.writer.write(packet.get_bytes())
 
             await self.writer.drain()

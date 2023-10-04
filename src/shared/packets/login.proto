@@ -3,6 +3,15 @@ message Login {
   required string password = 2;
 }
 
+enum LoginResType {
+    OK = 0;
+    WRONG_PASSWORD_OR_ACCOUNT = 1;
+}
+
+message LoginRes {
+  required LoginResType login_res_type = 1;
+}
+
 message NewAccount {
   required string account = 1;
   required string password = 2;

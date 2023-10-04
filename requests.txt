@@ -1,7 +1,7 @@
 
 
 server:
-    send Packet adapts to dif opcodes ON
+    send Packet adapts to dif opcodes OK
 
 
     recv different packets ON

@@ -13,15 +13,19 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0blogin.proto\"*\n\x05Login\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t\"/\n\nNewAccount\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0blogin.proto\"*\n\x05Login\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t\"1\n\x08LoginRes\x12%\n\x0elogin_res_type\x18\x01 \x02(\x0e\x32\r.LoginResType\"/\n\nNewAccount\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t*5\n\x0cLoginResType\x12\x06\n\x02OK\x10\x00\x12\x1d\n\x19WRONG_PASSWORD_OR_ACCOUNT\x10\x01')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'login_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
+  _globals['_LOGINRESTYPE']._serialized_start=159
+  _globals['_LOGINRESTYPE']._serialized_end=212
   _globals['_LOGIN']._serialized_start=15
   _globals['_LOGIN']._serialized_end=57
-  _globals['_NEWACCOUNT']._serialized_start=59
-  _globals['_NEWACCOUNT']._serialized_end=106
+  _globals['_LOGINRES']._serialized_start=59
+  _globals['_LOGINRES']._serialized_end=108
+  _globals['_NEWACCOUNT']._serialized_start=110
+  _globals['_NEWACCOUNT']._serialized_end=157
 # @@protoc_insertion_point(module_scope)

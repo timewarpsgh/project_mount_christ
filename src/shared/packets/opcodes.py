@@ -7,6 +7,7 @@ class OpCodeType(Enum):
     C_NEW_ACCOUNT = auto()
     S_NEW_ACCOUNT_RES = auto()
 
+
 def main():
     print(OpCodeType.C_XX.value)
 

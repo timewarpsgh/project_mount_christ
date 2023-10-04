@@ -1,3 +1,19 @@
+// new account
+message NewAccount {
+    required string account = 1;
+    required string password = 2;
+}
+
+message NewAccountRes {
+    enum NewAccountResType {
+        OK = 0;
+        ACCOUNT_EXISTS = 1;
+    }
+
+    required NewAccountResType new_account_res_type = 1;
+}
+
+
 // login
 message Login {
     required string account = 1;
@@ -13,17 +29,16 @@ message LoginRes {
     required LoginResType login_res_type = 1;
 }
 
-// new account
-message NewAccount {
-    required string account = 1;
-    required string password = 2;
+// new role
+message NewRole {
+    required string name = 1;
 }
 
-message NewAccountRes {
-    enum NewAccountResType {
+message NewRoleRes {
+    enum NewRoleResType {
         OK = 0;
-        ACCOUNT_EXISTS = 1;
+        NAME_EXISTS = 1;
     }
 
-    required NewAccountResType new_account_res_type = 1;
+    required NewRoleResType new_role_res_type = 1;
 }

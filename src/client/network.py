@@ -8,7 +8,7 @@ from packet_handler import PacketHandler
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
 
-from login_pb2 import Login, NewAccount
+from login_pb2 import *
 
 
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
@@ -28,6 +28,13 @@ class Client(Connection):
 
     async def gui_co(self):
         # FOR TESING
+        new_account = NewAccount()
+        new_account.account = '33'
+        new_account.password = '44'
+        self.send(new_account)
+
+        await asyncio.sleep(0.3)
+
         login = Login()
         login.account = '111'
         login.password = '222'
@@ -35,11 +42,9 @@ class Client(Connection):
 
         await asyncio.sleep(0.3)
 
-        new_account = NewAccount()
-        new_account.account = '33'
-        new_account.password = '44'
-        self.send(new_account)
-
+        new_role = NewRole()
+        new_role.name = 'test_role_name'
+        self.send(new_role)
 
         # if GUI_ON:
         #     gui = GUI(client=self)

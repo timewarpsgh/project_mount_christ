@@ -1,6 +1,8 @@
 
+see how easy it's to add new packets OK
 
-only need to write opcodes and .proto file ON
+
+only need to write opcodes and .proto file OK
 
 
 add NewAccountRes OK

@@ -2,10 +2,14 @@ from enum import Enum, auto
 
 
 class OpCodeType(Enum):
-    Login = auto() # 1
-    LoginRes = auto()
     NewAccount = auto()
     NewAccountRes = auto()
+
+    Login = auto() # 1
+    LoginRes = auto()
+
+    NewRole = auto()
+    NewRoleRes = auto()
 
 
 def gen_opcode_2_value():

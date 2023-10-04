@@ -12,7 +12,7 @@ class PacketHandler:
         self.session = session
 
     def handle_packet(self, packet):
-        print(f'handling server packet ')
+        print(f'handling server packet \n\n ')
         # if isinstance(packet, Login):
         #     self.__handle_login(packet)
         # elif isinstance(packet, NewAccount):

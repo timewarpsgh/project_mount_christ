@@ -9,6 +9,19 @@ from login_pb2 import Login, NewAccount, LoginRes, LoginResType
 from opcodes import OpCodeType
 
 
+class Packet:
+
+    def __init__(self, probuf_obj):
+        opcode_value = protbuf_obj_2_opcode_value(probuf_obj)
+        two_bytes_for_opcode = opcode_value.to_bytes(2)
+        bytes_for_obj = probuf_obj.SerializeToString()
+        two_bytes_for_obj_len = len(bytes_for_obj).to_bytes(2)
+        self.__bytes = two_bytes_for_opcode + two_bytes_for_obj_len + bytes_for_obj
+
+    def get_bytes(self):
+        return self.__bytes
+
+
 class Connection:
 
     def __init__(self, reader, writer):
@@ -30,8 +43,7 @@ class Connection:
             while not self.to_send_packets.empty():
                 protbuf_obj = self.to_send_packets.get()
                 print(f'### sent packet {type(protbuf_obj)}\n')
-                opcode_value = protbuf_obj_2_opcode_value(protbuf_obj)
-                packet = Packet(protbuf_obj, opcode_value)
+                packet = Packet(protbuf_obj)
                 self.writer.write(packet.get_bytes())
 
             await self.writer.drain()
@@ -81,18 +93,6 @@ class Connection:
             print(f'### processing packet {type(packet)}')
 
             self.packet_handler.handle_packet(packet)
-
-
-class Packet:
-
-    def __init__(self, probuf_obj, opcode_value):
-        two_bytes_for_opcode = opcode_value.to_bytes(2)
-        bytes_for_obj = probuf_obj.SerializeToString()
-        two_bytes_for_obj_len = len(bytes_for_obj).to_bytes(2)
-        self.__bytes = two_bytes_for_opcode + two_bytes_for_obj_len + bytes_for_obj
-
-    def get_bytes(self):
-        return self.__bytes
 
 
 def opcode_2_protbuf_obj(opcode_bytes):

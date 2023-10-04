@@ -1,19 +1,10 @@
-
-
-client use send and recv code from server OK
-
+reduce duplicate code in server and client ON
 
 
 
-use queue instead of list for got_packets OK
-server uses asyncio OK
 
 
 
-packet format  OK
-    2 bytes(opcode),
-    2 bytes(len of content),
-    x bytes(content for object)
 
 
 

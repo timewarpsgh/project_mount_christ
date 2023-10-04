@@ -5,7 +5,7 @@ import asyncio
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
-from login_pb2 import Login, NewAccount, LoginRes, NewAccountRes
+from login_pb2 import *
 from opcodes import OPCODE_2_VALUE, VALUE_2_OPCODE
 
 
@@ -48,7 +48,7 @@ class Connection:
 
             while not self.to_send_packets.empty():
                 protbuf_obj = self.to_send_packets.get()
-                print(f'### sent packet {type(protbuf_obj)}\n')
+                print(f'### sent packet {type(protbuf_obj).__name__}\n')
                 full_packet = FullPacket(protbuf_obj)
                 self.writer.write(full_packet.get_bytes())
 
@@ -89,7 +89,7 @@ class Connection:
                 protbuf_obj = self.__opcode_2_protbuf_obj(opcode_bytes)
                 protbuf_obj.ParseFromString(obj_bytes)
                 self.got_packets.put(protbuf_obj)
-                print(f'### got packet {type(protbuf_obj)}')
+                print(f'### got packet {type(protbuf_obj).__name__}')
 
                 # slice self.__bytes_buffer
                 self.__bytes_buffer = self.__bytes_buffer[4 + obj_bytes_cnt:]

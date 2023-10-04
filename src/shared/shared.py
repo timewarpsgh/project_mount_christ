@@ -6,13 +6,13 @@ import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
 from login_pb2 import Login, NewAccount, LoginRes, NewAccountRes
-from opcodes import OpCodeType
+from opcodes import OPCODE_2_VALUE, VALUE_2_OPCODE
 
 
 class FullPacket:
 
     def __init__(self, probuf_obj):
-        opcode_value = protbuf_obj_2_opcode_value(probuf_obj)
+        opcode_value = self.__protbuf_obj_2_opcode_value(probuf_obj)
         two_bytes_for_opcode = opcode_value.to_bytes(2)
         bytes_for_obj = probuf_obj.SerializeToString()
         two_bytes_for_obj_len = len(bytes_for_obj).to_bytes(2)
@@ -20,6 +20,12 @@ class FullPacket:
 
     def get_bytes(self):
         return self.__bytes
+
+    def __protbuf_obj_2_opcode_value(self, protbuff_obj):
+        """for sending"""
+        type_of_protbuff_obj_str = type(protbuff_obj).__name__
+        opcode_value = OPCODE_2_VALUE[type_of_protbuff_obj_str]
+        return opcode_value
 
 
 class Connection:
@@ -65,6 +71,10 @@ class Connection:
         """virtual(to be implemented by sub_class)"""
         pass
 
+    def __opcode_2_protbuf_obj(self, opcode_bytes):
+        opcode_type_value = int.from_bytes(opcode_bytes)
+        return eval(VALUE_2_OPCODE[opcode_type_value])()
+
     def receive_packets(self, bytes):
         self.__bytes_buffer += bytes
 
@@ -76,8 +86,7 @@ class Connection:
             if len(self.__bytes_buffer) >= 4 + obj_bytes_cnt:
                 obj_bytes = self.__bytes_buffer[4:4 + obj_bytes_cnt]
 
-                protbuf_obj = opcode_2_protbuf_obj(opcode_bytes)
-
+                protbuf_obj = self.__opcode_2_protbuf_obj(opcode_bytes)
                 protbuf_obj.ParseFromString(obj_bytes)
                 self.got_packets.put(protbuf_obj)
                 print(f'### got packet {type(protbuf_obj)}')
@@ -93,24 +102,11 @@ class Connection:
             self.packet_handler.handle_packet(packet)
 
 
-## d and d_reversed
-d = {
-    'Login': 1,
-    'LoginRes': 2,
-    'NewAccount': 3,
-    'NewAccountRes': 4,
-}
-
-d_reversed = {v: k for k, v in d.items()}
 
 
-def opcode_2_protbuf_obj(opcode_bytes):
-    opcode_type_value = int.from_bytes(opcode_bytes)
-    return eval(d_reversed[opcode_type_value])()
 
 
-def protbuf_obj_2_opcode_value(protbuff_obj):
-    """for sending"""
-    type_of_protbuff_obj_str = type(protbuff_obj).__name__
-    opcode_value = d[type_of_protbuff_obj_str]
-    return opcode_value
+
+
+
+

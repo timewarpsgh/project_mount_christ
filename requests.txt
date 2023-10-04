@@ -1,15 +1,9 @@
 
 
+only need to write opcodes and .proto file ON
+
+
 add NewAccountRes OK
-
-
-
-
-
-
-
-
-
 
 reduce duplicate code in server and client OK
 

@@ -8,8 +8,20 @@ class OpCodeType(Enum):
     NewAccountRes = auto()
 
 
+def gen_opcode_2_value():
+    d = {}
+    for type in OpCodeType:
+        d[str(type)[11:]] = type.value
+    return d
+
+
+OPCODE_2_VALUE = gen_opcode_2_value()
+VALUE_2_OPCODE = {v: k for k, v in OPCODE_2_VALUE.items()}
+
+
 def main():
-    print(OpCodeType.C_XX.value)
+    print(OPCODE_2_VALUE)
+    print(VALUE_2_OPCODE)
 
 
 if __name__ == '__main__':

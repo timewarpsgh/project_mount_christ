@@ -2,3 +2,8 @@ message Login {
   required string account = 1;
   required string password = 2;
 }
+
+message NewAccount {
+  required string account = 1;
+  required string password = 2;
+}

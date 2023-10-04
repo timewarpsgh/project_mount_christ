@@ -1,4 +1,6 @@
-reduce duplicate code in server and client ON
+
+
+add NewAccountRes OK
 
 
 
@@ -9,9 +11,7 @@ reduce duplicate code in server and client ON
 
 
 
-
-
-
+reduce duplicate code in server and client OK
 
 
 

@@ -5,7 +5,7 @@ import asyncio
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
-from login_pb2 import Login, NewAccount, LoginRes, LoginResType
+from login_pb2 import Login, NewAccount, LoginRes, NewAccountRes
 from opcodes import OpCodeType
 
 
@@ -105,6 +105,8 @@ def opcode_2_protbuf_obj(opcode_bytes):
 
     elif opcode_type_value == OpCodeType.C_NEW_ACCOUNT.value:
         return NewAccount()
+    elif opcode_type_value == OpCodeType.S_NEW_ACCOUNT_RES.value:
+        return NewAccountRes()
 
 
 def protbuf_obj_2_opcode_value(protbuff_obj):
@@ -116,3 +118,6 @@ def protbuf_obj_2_opcode_value(protbuff_obj):
 
     elif isinstance(protbuff_obj, NewAccount):
         return OpCodeType.C_NEW_ACCOUNT.value
+
+    elif isinstance(protbuff_obj, NewAccountRes):
+        return OpCodeType.S_NEW_ACCOUNT_RES.value

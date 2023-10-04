@@ -1,4 +1,11 @@
-server uses asyncio ON
+
+
+
+
+
+
+use queue instead of list for got_packets OK
+server uses asyncio OK
 
 
 

@@ -1,5 +1,9 @@
 
 
+server:
+    recv different packets ON
+
+    send packets
 
 
 

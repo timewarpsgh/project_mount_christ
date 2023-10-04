@@ -178,7 +178,7 @@ class Client:
         self.writer.write(packet.bytes)
         await self.writer.drain()
 
-        await asyncio.sleep(2)
+        await asyncio.sleep(0.5)
 
 
         # encode object

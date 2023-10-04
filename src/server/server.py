@@ -6,10 +6,24 @@ from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor
 
 
+# import from dir
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
 from login_pb2 import Login
+from opcodes import OpCodeType
+
+
+class Packet:
+
+    def __init__(self, probuf_obj):
+        two_bytes_for_opcode = OpCodeType.C_LOGIN.value.to_bytes(2)
+        bytes_for_obj = probuf_obj.SerializeToString()
+        two_bytes_for_obj_len = len(bytes_for_obj).to_bytes(2)
+        self.__bytes = two_bytes_for_opcode + two_bytes_for_obj_len + bytes_for_obj
+
+    def get_bytes(self):
+        return self.__bytes
 
 
 class Session:
@@ -19,56 +33,66 @@ class Session:
         self.reader = reader
         self.writer = writer
 
-        self.got_packets = Queue()
-        self.to_send_packets = Queue()
+        self.got_packets = Queue() # each packet is a protbuf
+        self.to_send_packets = Queue() # each packet is a protbuf
+        self.__bytes_buffer = b''
 
-    def receive_packets(self, data):
-        print(f'######### got data from client')
-        print(data)
-        opcode_bytes = data[:2]
-        print(f'opcode_bytes: {opcode_bytes}')
-        obj_len_bytes = data[2:4]
-        print(f'obj_len_bytes: {obj_len_bytes}')
-        obj_bytes = data[4:]
+    def receive_packets(self, bytes):
+        self.__bytes_buffer += bytes
 
-        print(f'obj_bytes: {obj_bytes}')
-        login2 = Login()
-        login2.ParseFromString(obj_bytes)
-        print(login2.account)
-        print(login2.password)
+        while len(self.__bytes_buffer) >= 4:
+            opcode_bytes = self.__bytes_buffer[:2]
+            obj_len_bytes = self.__bytes_buffer[2:4]
+            obj_bytes_cnt = int.from_bytes(obj_len_bytes)
 
-        self.got_packets.put(login2)
-        print(f'got packet')
+            if len(self.__bytes_buffer) >= 4 + obj_bytes_cnt:
+                obj_bytes = self.__bytes_buffer[4:4 + obj_bytes_cnt]
+                login2 = Login()
+                login2.ParseFromString(obj_bytes)
+                self.got_packets.put(login2)
+                print(f'### got packet\n{login2}')
+
+                # slice bytes_buffer
+                self.__bytes_buffer = self.__bytes_buffer[4 + obj_bytes_cnt: ]
+            else:
+                break
+
+    def send(self, protbuf_obj):
+        self.to_send_packets.put(protbuf_obj)
 
     def process_got_packets(self):
         while not self.got_packets.empty():
             packet = self.got_packets.get()
-            print(f'processing packet {packet}')
-            self.to_send_packets.put(b'got login request')
-            print(f'to_send_packets: {self.to_send_packets}')
+            print(f'### processing packet\n{packet}')
+
+            login = Login()
+            login.account = '111'
+            login.password = '222'
+            self.send(login)
 
     async def send_co(self):
         while True:
             await asyncio.sleep(0.1)
 
             while not self.to_send_packets.empty():
-                packet = self.to_send_packets.get()
-                self.writer.write(packet)
+                protbuf_obj = self.to_send_packets.get()
+                print(f'### sent packet ###\n{protbuf_obj}')
+                packet = Packet(protbuf_obj)
+                self.writer.write(packet.get_bytes())
 
             await self.writer.drain()
 
     async def recv_co(self):
         while True:
             # recv msg
-            data = await self.reader.read(5000)
-            print(f'got data from client')
+            bytes = await self.reader.read(5000)
 
             # if disconn
-            if data == b'':
+            if bytes == b'':
                 self.server.rm_session(self.addr)
                 break
 
-            self.receive_packets(data)
+            self.receive_packets(bytes)
             self.process_got_packets()
 
     async def main(self):
@@ -87,7 +111,7 @@ class Server:
     def add_session(self, session):
         self.addr_2_session[session.addr] = session
         print(f'\n#### !!new connection, now self.connected_clients: '
-              f'{self.addr_2_session}')
+              f'{self.addr_2_session}\n')
 
     def rm_session(self, addr):
         del self.addr_2_session[addr]

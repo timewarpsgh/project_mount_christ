@@ -4,8 +4,6 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
 from login_pb2 import *
 
-from opcodes import OpCodeType
-
 
 class PacketHandler:
 

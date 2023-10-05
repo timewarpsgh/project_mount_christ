@@ -18,6 +18,8 @@ class PacketHandler:
     def _handle_NewAccountRes(self, new_account_res):
         print(f'handle new_account_res')
         print(new_account_res.new_account_res_type)
+        if new_account_res.new_account_res_type == NewAccountRes.NewAccountResType.OK:
+            print(f'new account OK!!!')
 
     def _handle_LoginRes(self, login_res):
         print(f'handle login_res')

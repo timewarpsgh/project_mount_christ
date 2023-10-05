@@ -8,6 +8,14 @@ PATH_TO_DB = r'D:\data\code\python\project_mount_christ\data\server_data.sqlite'
 
 Base = declarative_base()
 
+def create_session():
+	engine = create_engine(f'sqlite:///{PATH_TO_DB}')
+	Session = sessionmaker(bind=engine)
+	session = Session()
+
+	return session
+
+SESSION = create_session()
 
 class Account(Base):
 	# table
@@ -43,12 +51,7 @@ class Role(Base):
 	account_id = Column(Integer)
 
 
-def create_session():
-	engine = create_engine(f'sqlite:///{PATH_TO_DB}')
-	Session = sessionmaker(bind=engine)
-	session = Session()
 
-	return session
 
 
 def create_tables():

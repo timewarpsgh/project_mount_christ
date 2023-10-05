@@ -27,6 +27,7 @@ class PacketHandler:
 
     async def handle_LoginRes(self, login_res):
         print(f'handle login_res')
+        print(f'{login_res.login_res_type}')
 
     async def handle_NewRoleRes(self, new_role_res):
         print(f'handle new_role_res')

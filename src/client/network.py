@@ -36,8 +36,8 @@ class Client(Connection):
         await asyncio.sleep(0.3)
 
         login = Login()
-        login.account = '111'
-        login.password = '222'
+        login.account = 'test_account_name11'
+        login.password = 'test_pwd'
         self.send(login)
 
         await asyncio.sleep(0.3)

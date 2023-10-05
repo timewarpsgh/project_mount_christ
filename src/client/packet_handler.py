@@ -6,6 +6,7 @@ from login_pb2 import *
 
 
 class PacketHandler:
+    """client"""
 
     def __init__(self, session):
         self.session = session

@@ -16,8 +16,8 @@ class Account(Base):
 	# id
 	id = Column(Integer, primary_key=True)
 
-	name = Column(String(20))
-	pwd = Column(String(20))
+	account = Column(String(20))
+	password = Column(String(20))
 
 
 class World(Base):

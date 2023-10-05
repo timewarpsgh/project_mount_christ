@@ -29,8 +29,8 @@ class Client(Connection):
     async def gui_co(self):
         # FOR TESING
         new_account = NewAccount()
-        new_account.account = '33'
-        new_account.password = '44'
+        new_account.account = 'test_account_name1'
+        new_account.password = 'test_pwd'
         self.send(new_account)
 
         await asyncio.sleep(0.3)

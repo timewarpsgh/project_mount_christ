@@ -11,19 +11,22 @@ class PacketHandler:
     def __init__(self, session):
         self.session = session
 
-    def handle_packet(self, packet):
+    async def handle_packet(self, packet):
         packet_name = type(packet).__name__
-        getattr(self, f'_handle_{packet_name}')(packet)
+        print(f'{packet_name=}')
+        await getattr(self, f'handle_{packet_name}')(packet)
         print()
 
-    def _handle_NewAccountRes(self, new_account_res):
+    async def handle_NewAccountRes(self, new_account_res):
         print(f'handle new_account_res')
         print(new_account_res.new_account_res_type)
         if new_account_res.new_account_res_type == NewAccountRes.NewAccountResType.OK:
             print(f'new account OK!!!')
+        else:
+            print(f'account name exits!!!')
 
-    def _handle_LoginRes(self, login_res):
+    async def handle_LoginRes(self, login_res):
         print(f'handle login_res')
 
-    def _handle_NewRoleRes(self, new_role_res):
+    async def handle_NewRoleRes(self, new_role_res):
         print(f'handle new_role_res')

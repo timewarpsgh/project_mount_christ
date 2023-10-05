@@ -65,7 +65,7 @@ class Connection:
                 break
 
             self.receive_packets(bytes)
-            self.process_got_packets()
+            await self.process_got_packets()
 
     def on_disconnect(self):
         """virtual(to be implemented by sub_class)"""
@@ -96,10 +96,10 @@ class Connection:
             else:
                 break
 
-    def process_got_packets(self):
+    async def process_got_packets(self):
         while not self.got_packets.empty():
             packet = self.got_packets.get()
-            self.packet_handler.handle_packet(packet)
+            await self.packet_handler.handle_packet(packet)
 
 
 

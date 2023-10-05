@@ -13,16 +13,17 @@ class PacketHandler:
     def handle_packet(self, packet):
         packet_name = type(packet).__name__
         getattr(self, f'_handle_{packet_name}')(packet)
-
-    def _handle_Login(self, login):
-        login_res = LoginRes()
-        login_res.login_res_type = LoginRes.LoginResType.OK
-        self.session.send(login_res)
+        print()
 
     def _handle_NewAccount(self, new_account):
         new_account_res = NewAccountRes()
         new_account_res.new_account_res_type = NewAccountRes.NewAccountResType.OK
         self.session.send(new_account_res)
+
+    def _handle_Login(self, login):
+        login_res = LoginRes()
+        login_res.login_res_type = LoginRes.LoginResType.OK
+        self.session.send(login_res)
 
     def _handle_NewRole(self, new_role):
         new_role_res = NewRoleRes()

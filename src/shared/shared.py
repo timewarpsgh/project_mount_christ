@@ -41,6 +41,7 @@ class Connection:
 
     def send(self, protbuf_obj):
         self.to_send_packets.put(protbuf_obj)
+        print(f'### send packet {type(protbuf_obj).__name__}')
 
     async def send_co(self):
         while True:
@@ -48,7 +49,6 @@ class Connection:
 
             while not self.to_send_packets.empty():
                 protbuf_obj = self.to_send_packets.get()
-                print(f'### sent packet {type(protbuf_obj).__name__}\n')
                 full_packet = FullPacket(protbuf_obj)
                 self.writer.write(full_packet.get_bytes())
 

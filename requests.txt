@@ -1,15 +1,13 @@
 
-
-refactor PacketHandler on server OK
-
-
-see how easy it's to add new packets OK
-only need to write opcodes and .proto file OK
+PacketHandler on client OK
 
 
-add NewAccountRes OK
 
-reduce duplicate code in server and client OK
+
+
+
+
+
 
 
 

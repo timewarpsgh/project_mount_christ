@@ -2,8 +2,7 @@
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
-from login_pb2 import Login, NewAccount, LoginRes
-from opcodes import OpCodeType
+from login_pb2 import *
 
 
 class PacketHandler:
@@ -12,22 +11,16 @@ class PacketHandler:
         self.session = session
 
     def handle_packet(self, packet):
-        print(f'handling server packet \n\n ')
-        # if isinstance(packet, Login):
-        #     self.__handle_login(packet)
-        # elif isinstance(packet, NewAccount):
-        #     self.__handle_new_account(packet)
+        packet_name = type(packet).__name__
+        getattr(self, f'_handle_{packet_name}')(packet)
+        print()
 
-    # def __handle_login(self, login):
-    #     print(f'__handle_login')
-    #     login_res = LoginRes()
-    #     login_res.login_res_type = LoginResType.OK
-    #     self.session.send(login_res)
-    #
-    # def __handle_new_account(self, new_account):
-    #     print(f'__handle_new_account')
-    #
-    #     login = NewAccount()
-    #     login.account = '111'
-    #     login.password = '222'
-    #     self.session.send(login)
+    def _handle_NewAccountRes(self, new_account_res):
+        print(f'handle new_account_res')
+        print(new_account_res.new_account_res_type)
+
+    def _handle_LoginRes(self, login_res):
+        print(f'handle login_res')
+
+    def _handle_NewRoleRes(self, new_role_res):
+        print(f'handle new_role_res')

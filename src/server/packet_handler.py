@@ -47,12 +47,8 @@ class PacketHandler:
             return NewAccountRes.NewAccountResType.OK
 
     async def handle_NewAccount(self, new_account):
-        print(time.time())
-        print(time.time())
-
         # add new account to db
         res_type = await run_in_threads(self.__get_new_account_res, new_account)
-        print(time.time())
 
         new_account_res = NewAccountRes()
         new_account_res.new_account_res_type = res_type

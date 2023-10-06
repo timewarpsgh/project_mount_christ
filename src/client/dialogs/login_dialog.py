@@ -1,6 +1,12 @@
 import pygame_gui
 import pygame
 
+import sys
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
+
+
+from login_pb2 import *
+
 
 class LoginDialog:
 
@@ -43,3 +49,8 @@ class LoginDialog:
             if event.ui_element == self.login_button:
                 print(f'account: {self.entry_box_account.get_text()}')
                 print(f'password: {self.entry_box_password.get_text()}')
+
+                login = Login()
+                login.account = self.entry_box_account.get_text()
+                login.password = self.entry_box_password.get_text()
+                self.client.send(login)

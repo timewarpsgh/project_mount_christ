@@ -1,62 +1,61 @@
-from dataclasses import dataclass
-import pygame
-import pygame_gui
+import os
+import sys
+from queue import Queue
 import asyncio
 
-from gui import Gui
+from packet_handler import PacketHandler
+
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
 
-@dataclass
-class Game:
-
-    def __init__(self, client=None):
-        self.client = client
-
-        pygame.init()
-        pygame.display.set_caption('Quick Start')
-
-        self.window_surface = pygame.display.set_mode((800, 600))
-
-        self.background = pygame.Surface((800, 600))
-        self.background.fill(pygame.Color('#550000'))
-
-        self.is_running = True
-
-        self.clock = pygame.time.Clock()
-
-        # init gui
-        self.gui = Gui(client)
+from login_pb2 import *
 
 
-    async def run(self):
-        while self.is_running:
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
+from shared import Connection
 
-            # get time_delta(limit frame rate)
-            time_delta = self.clock.tick(60) / 1000.0
-
-            # update
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.is_running = False
-
-                self.gui.process_event(event)
+from game import Game
 
 
-            self.gui.update(time_delta)
+IS_GAME_ON = True
 
-            # draw
-            self.window_surface.blit(self.background, (0, 0))
-            self.gui.draw(self.window_surface)
 
-            # flip
-            pygame.display.update()
+class Client(Connection):
 
-            await asyncio.sleep(0.001)
+    def __init__(self):
+        Connection.__init__(self, reader=None, writer=None)
+
+        self.game = None
+        self.packet_handler = PacketHandler(self)
+
+    def on_disconnect(self):
+        exit()
+
+    async def gui_co(self):
+        if IS_GAME_ON:
+            self.game = Game(self)
+            await self.game.run()
+        else:
+            return
+
+    async def main(self):
+        # conn
+        reader, writer = await asyncio.open_connection(
+            'localhost', 12345)
+        self.reader = reader
+        self.writer = writer
+
+        # Schedule three calls *concurrently*:
+        await asyncio.gather(
+            self.send_co(),
+            self.recv_co(),
+            self.gui_co(),
+        )
 
 
 def main():
-    game = Game()
-    asyncio.run(game.run())
+    c = Client()
+    asyncio.run(c.main())
 
 
 if __name__ == '__main__':

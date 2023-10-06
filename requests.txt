@@ -1,10 +1,18 @@
 
+
+
+
+
+
+
+rename classes ON
+client gui process got packets ON
+
+
+
+
 send login packet via gui OK
-
 send new account packet via gui OK
-
-
-database ON
 
 
 cmds

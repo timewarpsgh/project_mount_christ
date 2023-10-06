@@ -34,6 +34,5 @@ class PacketHandler:
         else:
             MyMsgWindow(msg='account or password not right!', mgr=self.client.game.gui.mgr)
 
-
     async def handle_NewRoleRes(self, new_role_res):
         print(f'handle new_role_res')

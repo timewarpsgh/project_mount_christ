@@ -29,6 +29,17 @@ message LoginRes {
     required LoginResType login_res_type = 1;
 }
 
+
+// get worlds
+message GetWorlds {
+    required string any_str = 1;
+}
+
+message GetWorldsRes {
+    repeated string worlds = 1;
+}
+
+
 // new role
 message NewRole {
     required string name = 1;

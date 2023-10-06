@@ -8,7 +8,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
 from login_pb2 import *
 
-from models import SESSION, Account
+from models import SESSION, Account, World
 
 EXECUTOR = ThreadPoolExecutor()
 
@@ -70,6 +70,18 @@ class PacketHandler:
         login_res = LoginRes()
         login_res.login_res_type = res_type
         self.session.send(login_res)
+
+    def __get_worlds(self, any):
+        worlds = SESSION.query(World).all()
+        worlds = [world.name for world in worlds]
+        return worlds
+
+    async def handle_GetWorlds(self, get_worlds):
+        worlds = await run_in_threads(self.__get_worlds, '')
+
+        get_worlds_res = GetWorldsRes()
+        get_worlds_res.worlds.extend(worlds)
+        self.session.send(get_worlds_res)
 
     async def handle_NewRole(self, new_role):
         new_role_res = NewRoleRes()

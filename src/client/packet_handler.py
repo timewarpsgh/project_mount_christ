@@ -31,8 +31,22 @@ class PacketHandler:
     async def handle_LoginRes(self, login_res):
         if login_res.login_res_type == LoginRes.LoginResType.OK:
             MyMsgWindow(msg='login OK!', mgr=self.client.game.gui.mgr)
+
+            get_worlds = GetWorlds()
+            get_worlds.any_str = '1'
+            self.client.send(get_worlds)
+
         else:
             MyMsgWindow(msg='account or password not right!', mgr=self.client.game.gui.mgr)
 
+    async def handle_GetWorldsRes(self, get_worlds_res):
+        worlds_menu = pygame_gui.elements.UISelectionList(
+            item_list=get_worlds_res.worlds,
+            relative_rect=pygame.Rect((0, 300), (250, 160)),
+            manager=self.client.game.gui.mgr,
+        )
+
     async def handle_NewRoleRes(self, new_role_res):
         print(f'handle new_role_res')
+
+

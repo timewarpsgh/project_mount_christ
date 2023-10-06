@@ -8,6 +8,9 @@ class OpCodeType(Enum):
     Login = auto() # 1
     LoginRes = auto()
 
+    GetWorlds = auto()
+    GetWorldsRes = auto()
+
     NewRole = auto()
     NewRoleRes = auto()
 

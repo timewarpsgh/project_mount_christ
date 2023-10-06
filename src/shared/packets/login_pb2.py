@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0blogin.proto\"/\n\nNewAccount\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t\"\x80\x01\n\rNewAccountRes\x12>\n\x14new_account_res_type\x18\x01 \x02(\x0e\x32 .NewAccountRes.NewAccountResType\"/\n\x11NewAccountResType\x12\x06\n\x02OK\x10\x00\x12\x12\n\x0e\x41\x43\x43OUNT_EXISTS\x10\x01\"*\n\x05Login\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t\"q\n\x08LoginRes\x12.\n\x0elogin_res_type\x18\x01 \x02(\x0e\x32\x16.LoginRes.LoginResType\"5\n\x0cLoginResType\x12\x06\n\x02OK\x10\x00\x12\x1d\n\x19WRONG_PASSWORD_OR_ACCOUNT\x10\x01\"\x17\n\x07NewRole\x12\x0c\n\x04name\x18\x01 \x02(\t\"n\n\nNewRoleRes\x12\x35\n\x11new_role_res_type\x18\x01 \x02(\x0e\x32\x1a.NewRoleRes.NewRoleResType\")\n\x0eNewRoleResType\x12\x06\n\x02OK\x10\x00\x12\x0f\n\x0bNAME_EXISTS\x10\x01')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0blogin.proto\"/\n\nNewAccount\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t\"\x80\x01\n\rNewAccountRes\x12>\n\x14new_account_res_type\x18\x01 \x02(\x0e\x32 .NewAccountRes.NewAccountResType\"/\n\x11NewAccountResType\x12\x06\n\x02OK\x10\x00\x12\x12\n\x0e\x41\x43\x43OUNT_EXISTS\x10\x01\"*\n\x05Login\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t\"q\n\x08LoginRes\x12.\n\x0elogin_res_type\x18\x01 \x02(\x0e\x32\x16.LoginRes.LoginResType\"5\n\x0cLoginResType\x12\x06\n\x02OK\x10\x00\x12\x1d\n\x19WRONG_PASSWORD_OR_ACCOUNT\x10\x01\"\x1c\n\tGetWorlds\x12\x0f\n\x07\x61ny_str\x18\x01 \x02(\t\"\x1e\n\x0cGetWorldsRes\x12\x0e\n\x06worlds\x18\x01 \x03(\t\"\x17\n\x07NewRole\x12\x0c\n\x04name\x18\x01 \x02(\t\"n\n\nNewRoleRes\x12\x35\n\x11new_role_res_type\x18\x01 \x02(\x0e\x32\x1a.NewRoleRes.NewRoleResType\")\n\x0eNewRoleResType\x12\x06\n\x02OK\x10\x00\x12\x0f\n\x0bNAME_EXISTS\x10\x01')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,10 +32,14 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_LOGINRES']._serialized_end=352
   _globals['_LOGINRES_LOGINRESTYPE']._serialized_start=299
   _globals['_LOGINRES_LOGINRESTYPE']._serialized_end=352
-  _globals['_NEWROLE']._serialized_start=354
-  _globals['_NEWROLE']._serialized_end=377
-  _globals['_NEWROLERES']._serialized_start=379
-  _globals['_NEWROLERES']._serialized_end=489
-  _globals['_NEWROLERES_NEWROLERESTYPE']._serialized_start=448
-  _globals['_NEWROLERES_NEWROLERESTYPE']._serialized_end=489
+  _globals['_GETWORLDS']._serialized_start=354
+  _globals['_GETWORLDS']._serialized_end=382
+  _globals['_GETWORLDSRES']._serialized_start=384
+  _globals['_GETWORLDSRES']._serialized_end=414
+  _globals['_NEWROLE']._serialized_start=416
+  _globals['_NEWROLE']._serialized_end=439
+  _globals['_NEWROLERES']._serialized_start=441
+  _globals['_NEWROLERES']._serialized_end=551
+  _globals['_NEWROLERES_NEWROLERESTYPE']._serialized_start=510
+  _globals['_NEWROLERES_NEWROLERESTYPE']._serialized_end=551
 # @@protoc_insertion_point(module_scope)

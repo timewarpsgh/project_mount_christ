@@ -1,7 +1,11 @@
-client gui process got packets ON
 
 
 
+
+
+
+
+client gui process got packets OK
 rename classes OK
 send login packet via gui OK
 send new account packet via gui OK

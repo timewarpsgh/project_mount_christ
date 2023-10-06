@@ -4,8 +4,9 @@ import pygame
 
 class LoginDialog:
 
-    def __init__(self, mgr):
+    def __init__(self, mgr, client):
         self.mgr = mgr
+        self.client = client
 
         # add ui window
         self.ui_window = pygame_gui.elements.UIWindow(

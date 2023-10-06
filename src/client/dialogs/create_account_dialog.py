@@ -1,11 +1,18 @@
 import pygame_gui
 import pygame
 
+import sys
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
+
+
+from login_pb2 import *
+
 
 class CreateAccountDialog:
 
-    def __init__(self, mgr):
+    def __init__(self, mgr, client):
         self.mgr = mgr
+        self.client = client
 
         # add ui window
         self.ui_window = pygame_gui.elements.UIWindow(
@@ -42,3 +49,8 @@ class CreateAccountDialog:
             if event.ui_element == self.create_account_button:
                 print(f'account: {self.entry_box_account.get_text()}')
                 print(f'password: {self.entry_box_password.get_text()}')
+
+                new_account = NewAccount()
+                new_account.account = self.entry_box_account.get_text()
+                new_account.password = self.entry_box_password.get_text()
+                self.client.send(new_account)

@@ -14,44 +14,48 @@ from login_pb2 import *
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 from shared import Connection
 
+from client import Game
+
+
+IS_GUI_ON = True
+
 
 class Client(Connection):
 
     def __init__(self):
         Connection.__init__(self, reader=None, writer=None)
 
-        self.gui = None
+        self.game = None
         self.packet_handler = PacketHandler(self)
 
     def on_disconnect(self):
         exit()
 
     async def gui_co(self):
-        # FOR TESING
-        new_account = NewAccount()
-        new_account.account = 'test_account_name1'
-        new_account.password = 'test_pwd'
-        self.send(new_account)
+        # # FOR TESING
+        # new_account = NewAccount()
+        # new_account.account = 'test_account_name1'
+        # new_account.password = 'test_pwd'
+        # self.send(new_account)
+        #
+        # await asyncio.sleep(0.3)
+        #
+        # login = Login()
+        # login.account = 'test_account_name1'
+        # login.password = 'test_pwd'
+        # self.send(login)
+        #
+        # await asyncio.sleep(0.3)
+        #
+        # new_role = NewRole()
+        # new_role.name = 'test_role_name'
+        # self.send(new_role)
 
-        await asyncio.sleep(0.3)
-
-        login = Login()
-        login.account = 'test_account_name1'
-        login.password = 'test_pwd'
-        self.send(login)
-
-        await asyncio.sleep(0.3)
-
-        new_role = NewRole()
-        new_role.name = 'test_role_name'
-        self.send(new_role)
-
-        # if GUI_ON:
-        #     gui = GUI(client=self)
-        #     self.gui = gui
-        #     await gui.run()
-        # else:
-        #     return
+        if IS_GUI_ON:
+            self.game = Game(self)
+            await self.game.run()
+        else:
+            return
 
     async def main(self):
         # conn

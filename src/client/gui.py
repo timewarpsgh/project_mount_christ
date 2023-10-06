@@ -7,11 +7,13 @@ from dialogs.create_account_dialog import CreateAccountDialog
 
 
 class Gui:
-    def __init__(self):
+    def __init__(self, client):
+        self.client = client
+
         self.mgr = pygame_gui.UIManager((800, 600), '../../data/fonts/font_theme.json')
 
-        self.login_diglog = LoginDialog(self.mgr)
-        self.create_account_dialog = CreateAccountDialog(self.mgr)
+        self.login_diglog = LoginDialog(self.mgr, client)
+        self.create_account_dialog = CreateAccountDialog(self.mgr, client)
 
     def process_event(self, event):
         self.mgr.process_events(event)

@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 import pygame
 import pygame_gui
+import asyncio
 
 from gui import Gui
 
@@ -8,7 +9,9 @@ from gui import Gui
 @dataclass
 class Game:
 
-    def __init__(self):
+    def __init__(self, client=None):
+        self.client = client
+
         pygame.init()
         pygame.display.set_caption('Quick Start')
 
@@ -22,10 +25,10 @@ class Game:
         self.clock = pygame.time.Clock()
 
         # init gui
-        self.gui = Gui()
+        self.gui = Gui(client)
 
 
-    def run(self):
+    async def run(self):
         while self.is_running:
 
             # get time_delta(limit frame rate)
@@ -48,10 +51,12 @@ class Game:
             # flip
             pygame.display.update()
 
+            await asyncio.sleep(0.001)
+
 
 def main():
     game = Game()
-    game.run()
+    asyncio.run(game.run())
 
 
 if __name__ == '__main__':

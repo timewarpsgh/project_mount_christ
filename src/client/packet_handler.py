@@ -1,15 +1,20 @@
+import pygame
+import pygame_gui
+
 # import from dir
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
 from login_pb2 import *
 
+from my_ui_elements import MyMsgWindow
+
 
 class PacketHandler:
     """client"""
 
-    def __init__(self, session):
-        self.session = session
+    def __init__(self, client):
+        self.client = client
 
     async def handle_packet(self, packet):
         packet_name = type(packet).__name__
@@ -18,16 +23,17 @@ class PacketHandler:
         print()
 
     async def handle_NewAccountRes(self, new_account_res):
-        print(f'handle new_account_res')
-        print(new_account_res.new_account_res_type)
         if new_account_res.new_account_res_type == NewAccountRes.NewAccountResType.OK:
-            print(f'new account OK!!!')
+            MyMsgWindow(msg='new account created!', mgr=self.client.game.gui.mgr)
         else:
-            print(f'account name exits!!!')
+            MyMsgWindow(msg='account name exists!', mgr=self.client.game.gui.mgr)
 
     async def handle_LoginRes(self, login_res):
-        print(f'handle login_res')
-        print(f'{login_res.login_res_type}')
+        if login_res.login_res_type == LoginRes.LoginResType.OK:
+            MyMsgWindow(msg='login OK!', mgr=self.client.game.gui.mgr)
+        else:
+            MyMsgWindow(msg='account or password not right!', mgr=self.client.game.gui.mgr)
+
 
     async def handle_NewRoleRes(self, new_role_res):
         print(f'handle new_role_res')

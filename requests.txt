@@ -1,16 +1,8 @@
-
-
-
-
-
-
-
-rename classes ON
 client gui process got packets ON
 
 
 
-
+rename classes OK
 send login packet via gui OK
 send new account packet via gui OK
 

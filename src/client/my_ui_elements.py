@@ -13,3 +13,22 @@ class MyMsgWindow:
         )
 
         msg_windows.dismiss_button.set_text('OK')
+
+
+class MyMenuWindow:
+
+    def __init__(self, title, option_2_callback, mgr):
+        ui_window = pygame_gui.elements.UIWindow(
+            rect=pygame.Rect((0, 0), (300, 300)),
+            manager=mgr,
+            window_display_title=title,
+        )
+
+        worlds_menu = pygame_gui.elements.UISelectionList(
+            item_list=list(option_2_callback.keys()),
+            relative_rect=pygame.Rect((0, 0), (280, 160)),
+            manager=mgr,
+            container=ui_window,
+        )
+
+        worlds_menu.option_2_callback = option_2_callback

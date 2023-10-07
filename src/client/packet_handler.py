@@ -1,5 +1,6 @@
 import pygame
 import pygame_gui
+from functools import partial
 
 # import from dir
 import sys
@@ -7,7 +8,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
 from login_pb2 import *
 
-from my_ui_elements import MyMsgWindow
+from my_ui_elements import MyMsgWindow, MyMenuWindow
 
 
 class PacketHandler:
@@ -39,11 +40,18 @@ class PacketHandler:
         else:
             MyMsgWindow(msg='account or password not right!', mgr=self.client.game.gui.mgr)
 
+    def func(self, world):
+        print(f'deal with {world}')
+        MyMsgWindow(msg=world, mgr=self.client.game.gui.mgr)
+
     async def handle_GetWorldsRes(self, get_worlds_res):
-        worlds_menu = pygame_gui.elements.UISelectionList(
-            item_list=get_worlds_res.worlds,
-            relative_rect=pygame.Rect((0, 300), (250, 160)),
-            manager=self.client.game.gui.mgr,
+        option_2_callback = {world: partial(self.func, world) for world in get_worlds_res.worlds}
+        print(f'{option_2_callback=}')
+
+        menu = MyMenuWindow(
+            title='choose world',
+            option_2_callback=option_2_callback,
+            mgr=self.client.game.gui.mgr
         )
 
     async def handle_NewRoleRes(self, new_role_res):

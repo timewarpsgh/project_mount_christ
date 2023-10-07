@@ -21,6 +21,11 @@ class Gui:
         self.login_diglog.process_event(event)
         self.create_account_dialog.process_event(event)
 
+        # when menu item chosen
+        if event.type == pygame_gui.UI_SELECTION_LIST_NEW_SELECTION:
+            # call corresponding func
+            event.ui_element.option_2_callback[event.text]()
+
     def update(self, time_delta):
         self.mgr.update(time_delta)
 

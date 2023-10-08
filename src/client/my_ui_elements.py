@@ -26,7 +26,7 @@ class MyMenuWindow:
 
         worlds_menu = pygame_gui.elements.UISelectionList(
             item_list=list(option_2_callback.keys()),
-            relative_rect=pygame.Rect((0, 0), (280, 160)),
+            relative_rect=pygame.Rect((0, 0), (265, 300)),
             manager=mgr,
             container=ui_window,
         )

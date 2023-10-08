@@ -1,6 +1,6 @@
 
 
-button clicked ON
+button clicked OK
 
 
 get roles in world ON

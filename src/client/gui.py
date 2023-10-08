@@ -18,8 +18,12 @@ class Gui:
     def process_event(self, event):
         self.mgr.process_events(event)
 
-        self.login_diglog.process_event(event)
-        self.create_account_dialog.process_event(event)
+        # when button clicked
+        if event.type == pygame_gui.UI_BUTTON_PRESSED:
+            try:
+                event.ui_element.on_click()
+            except:
+                pass
 
         # when menu item chosen
         if event.type == pygame_gui.UI_SELECTION_LIST_NEW_SELECTION:

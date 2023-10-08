@@ -1,11 +1,13 @@
 import pygame_gui
 import pygame
+from functools import partial
 
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
 
 from login_pb2 import *
+from my_ui_elements import MyButton
 
 
 class LoginDialog:
@@ -21,11 +23,12 @@ class LoginDialog:
         )
 
         # add buttion to manager
-        self.login_button = pygame_gui.elements.UIButton(
+        self.login_button = MyButton(
             relative_rect=pygame.Rect((0, 0), (100, 50)),
             text='登录',
             manager=self.mgr,
             container=self.ui_window,
+            on_click=partial(self.__login),
         )
 
         # add entry box
@@ -44,13 +47,10 @@ class LoginDialog:
             container=self.ui_window,
         )
 
-    def process_event(self, event):
-        if event.type == pygame_gui.UI_BUTTON_PRESSED:
-            if event.ui_element == self.login_button:
-                print(f'account: {self.entry_box_account.get_text()}')
-                print(f'password: {self.entry_box_password.get_text()}')
+    def __login(self):
+        login = Login()
+        login.account = self.entry_box_account.get_text()
+        login.password = self.entry_box_password.get_text()
+        self.client.send(login)
 
-                login = Login()
-                login.account = self.entry_box_account.get_text()
-                login.password = self.entry_box_password.get_text()
-                self.client.send(login)
+

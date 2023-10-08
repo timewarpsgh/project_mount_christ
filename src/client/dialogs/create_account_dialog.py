@@ -1,11 +1,14 @@
 import pygame_gui
 import pygame
+from functools import partial
+
 
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
 
 from login_pb2 import *
+from my_ui_elements import MyButton
 
 
 class CreateAccountDialog:
@@ -21,11 +24,12 @@ class CreateAccountDialog:
         )
 
         # add buttion to manager
-        self.create_account_button = pygame_gui.elements.UIButton(
+        self.create_account_button = MyButton(
             relative_rect=pygame.Rect((0, 0), (100, 50)),
             text='创建账号',
             manager=self.mgr,
             container=self.ui_window,
+            on_click=partial(self.__create_account),
         )
 
         # add entry box
@@ -44,13 +48,11 @@ class CreateAccountDialog:
             container=self.ui_window,
         )
 
-    def process_event(self, event):
-        if event.type == pygame_gui.UI_BUTTON_PRESSED:
-            if event.ui_element == self.create_account_button:
-                print(f'account: {self.entry_box_account.get_text()}')
-                print(f'password: {self.entry_box_password.get_text()}')
+    def __create_account(self):
+        new_account = NewAccount()
+        new_account.account = self.entry_box_account.get_text()
+        new_account.password = self.entry_box_password.get_text()
+        self.client.send(new_account)
 
-                new_account = NewAccount()
-                new_account.account = self.entry_box_account.get_text()
-                new_account.password = self.entry_box_password.get_text()
-                self.client.send(new_account)
+
+

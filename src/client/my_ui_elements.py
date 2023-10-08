@@ -32,3 +32,16 @@ class MyMenuWindow:
         )
 
         worlds_menu.option_2_callback = option_2_callback
+
+
+class MyButton:
+
+    def __init__(self, relative_rect, text, manager, container, on_click):
+        button = pygame_gui.elements.UIButton(
+            relative_rect=relative_rect,
+            text=text,
+            manager=manager,
+            container=container,
+        )
+
+        button.on_click = on_click

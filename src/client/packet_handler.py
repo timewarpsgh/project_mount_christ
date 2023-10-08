@@ -45,8 +45,8 @@ class PacketHandler:
         MyMsgWindow(msg=world, mgr=self.client.game.gui.mgr)
 
     async def handle_GetWorldsRes(self, get_worlds_res):
-        option_2_callback = {world: partial(self.func, world) for world in get_worlds_res.worlds}
-        print(f'{option_2_callback=}')
+        option_2_callback = {world: partial(self.func, world)
+                             for world in get_worlds_res.worlds}
 
         menu = MyMenuWindow(
             title='choose world',

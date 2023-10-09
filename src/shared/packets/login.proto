@@ -63,6 +63,7 @@ message GetRolesInWorldRes {
 // new role
 message NewRole {
     required string name = 1;
+    required int32 world_id = 2;
 }
 
 message NewRoleRes {

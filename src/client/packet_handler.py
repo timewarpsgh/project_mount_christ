@@ -9,6 +9,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 from login_pb2 import *
 
 from my_ui_elements import MyMsgWindow, MyMenuWindow
+from dialogs.create_role_dialog import CreateRoleDialog
 
 
 class PacketHandler:
@@ -16,6 +17,7 @@ class PacketHandler:
 
     def __init__(self, client):
         self.client = client
+        self.world_id = None
 
     async def handle_packet(self, packet):
         packet_name = type(packet).__name__
@@ -41,6 +43,8 @@ class PacketHandler:
         get_roles_in_world.world_id = world_id
         self.client.send(get_roles_in_world)
 
+        self.world_id = world_id
+
     async def handle_GetWorldsRes(self, get_worlds_res):
         option_2_callback = {world.name: partial(self.__get_roles_in_world, world.id)
                              for world in get_worlds_res.worlds}
@@ -51,9 +55,17 @@ class PacketHandler:
             mgr=self.client.game.gui.mgr
         )
 
+    def __enter_world(self, role_name):
+        print(f'enter world as {role_name}')
+
+    def __make_create_role_dialog(self):
+        CreateRoleDialog(self.client.game.gui.mgr, self.client, self.world_id)
+
     async def handle_GetRolesInWorldRes(self, get_roles_in_world_res):
-        option_2_callback = {role.name: 1
+        option_2_callback = {role.name: partial(self.__enter_world, role.name)
                              for role in get_roles_in_world_res.roles}
+
+        option_2_callback['create_role'] = partial(self.__make_create_role_dialog)
 
         menu = MyMenuWindow(
             title='choose role',

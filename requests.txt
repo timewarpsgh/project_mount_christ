@@ -1,17 +1,14 @@
+simple create role in world OK
+
+do more on __create_new_role
+
+
 
 
 get roles in world OK
 
 
 
-create role in world ON
-
-
-
-client gui process got packets OK
-rename classes OK
-send login packet via gui OK
-send new account packet via gui OK
 
 
 cmds

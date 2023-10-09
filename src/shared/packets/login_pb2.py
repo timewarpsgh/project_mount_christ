@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0blogin.proto\"/\n\nNewAccount\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t\"\x80\x01\n\rNewAccountRes\x12>\n\x14new_account_res_type\x18\x01 \x02(\x0e\x32 .NewAccountRes.NewAccountResType\"/\n\x11NewAccountResType\x12\x06\n\x02OK\x10\x00\x12\x12\n\x0e\x41\x43\x43OUNT_EXISTS\x10\x01\"*\n\x05Login\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t\"q\n\x08LoginRes\x12.\n\x0elogin_res_type\x18\x01 \x02(\x0e\x32\x16.LoginRes.LoginResType\"5\n\x0cLoginResType\x12\x06\n\x02OK\x10\x00\x12\x1d\n\x19WRONG_PASSWORD_OR_ACCOUNT\x10\x01\"\x1c\n\tGetWorlds\x12\x0f\n\x07\x61ny_str\x18\x01 \x02(\t\"\x1e\n\x0cGetWorldsRes\x12\x0e\n\x06worlds\x18\x01 \x03(\t\"\x17\n\x07NewRole\x12\x0c\n\x04name\x18\x01 \x02(\t\"n\n\nNewRoleRes\x12\x35\n\x11new_role_res_type\x18\x01 \x02(\x0e\x32\x1a.NewRoleRes.NewRoleResType\")\n\x0eNewRoleResType\x12\x06\n\x02OK\x10\x00\x12\x0f\n\x0bNAME_EXISTS\x10\x01')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0blogin.proto\"/\n\nNewAccount\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t\"\x80\x01\n\rNewAccountRes\x12>\n\x14new_account_res_type\x18\x01 \x02(\x0e\x32 .NewAccountRes.NewAccountResType\"/\n\x11NewAccountResType\x12\x06\n\x02OK\x10\x00\x12\x12\n\x0e\x41\x43\x43OUNT_EXISTS\x10\x01\"*\n\x05Login\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t\"q\n\x08LoginRes\x12.\n\x0elogin_res_type\x18\x01 \x02(\x0e\x32\x16.LoginRes.LoginResType\"5\n\x0cLoginResType\x12\x06\n\x02OK\x10\x00\x12\x1d\n\x19WRONG_PASSWORD_OR_ACCOUNT\x10\x01\"\x0b\n\tGetWorlds\"!\n\x05World\x12\n\n\x02id\x18\x01 \x02(\x05\x12\x0c\n\x04name\x18\x02 \x02(\t\"&\n\x0cGetWorldsRes\x12\x16\n\x06worlds\x18\x01 \x03(\x0b\x32\x06.World\"#\n\x0fGetRolesInWorld\x12\x10\n\x08world_id\x18\x01 \x02(\x05\"\x14\n\x04Role\x12\x0c\n\x04name\x18\x01 \x02(\t\"*\n\x12GetRolesInWorldRes\x12\x14\n\x05roles\x18\x01 \x03(\x0b\x32\x05.Role\"\x17\n\x07NewRole\x12\x0c\n\x04name\x18\x01 \x02(\t\"n\n\nNewRoleRes\x12\x35\n\x11new_role_res_type\x18\x01 \x02(\x0e\x32\x1a.NewRoleRes.NewRoleResType\")\n\x0eNewRoleResType\x12\x06\n\x02OK\x10\x00\x12\x0f\n\x0bNAME_EXISTS\x10\x01')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,13 +33,21 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_LOGINRES_LOGINRESTYPE']._serialized_start=299
   _globals['_LOGINRES_LOGINRESTYPE']._serialized_end=352
   _globals['_GETWORLDS']._serialized_start=354
-  _globals['_GETWORLDS']._serialized_end=382
-  _globals['_GETWORLDSRES']._serialized_start=384
-  _globals['_GETWORLDSRES']._serialized_end=414
-  _globals['_NEWROLE']._serialized_start=416
-  _globals['_NEWROLE']._serialized_end=439
-  _globals['_NEWROLERES']._serialized_start=441
-  _globals['_NEWROLERES']._serialized_end=551
-  _globals['_NEWROLERES_NEWROLERESTYPE']._serialized_start=510
-  _globals['_NEWROLERES_NEWROLERESTYPE']._serialized_end=551
+  _globals['_GETWORLDS']._serialized_end=365
+  _globals['_WORLD']._serialized_start=367
+  _globals['_WORLD']._serialized_end=400
+  _globals['_GETWORLDSRES']._serialized_start=402
+  _globals['_GETWORLDSRES']._serialized_end=440
+  _globals['_GETROLESINWORLD']._serialized_start=442
+  _globals['_GETROLESINWORLD']._serialized_end=477
+  _globals['_ROLE']._serialized_start=479
+  _globals['_ROLE']._serialized_end=499
+  _globals['_GETROLESINWORLDRES']._serialized_start=501
+  _globals['_GETROLESINWORLDRES']._serialized_end=543
+  _globals['_NEWROLE']._serialized_start=545
+  _globals['_NEWROLE']._serialized_end=568
+  _globals['_NEWROLERES']._serialized_start=570
+  _globals['_NEWROLERES']._serialized_end=680
+  _globals['_NEWROLERES_NEWROLERESTYPE']._serialized_start=639
+  _globals['_NEWROLERES_NEWROLERESTYPE']._serialized_end=680
 # @@protoc_insertion_point(module_scope)

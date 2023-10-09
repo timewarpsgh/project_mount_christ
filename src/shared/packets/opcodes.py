@@ -11,6 +11,9 @@ class OpCodeType(Enum):
     GetWorlds = auto()
     GetWorldsRes = auto()
 
+    GetRolesInWorld = auto()
+    GetRolesInWorldRes = auto()
+
     NewRole = auto()
     NewRoleRes = auto()
 

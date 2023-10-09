@@ -32,11 +32,31 @@ message LoginRes {
 
 // get worlds
 message GetWorlds {
-    required string any_str = 1;
+}
+
+message World {
+    required int32 id = 1;
+    required string name = 2;
 }
 
 message GetWorldsRes {
-    repeated string worlds = 1;
+
+
+    repeated World worlds = 1;
+}
+
+
+// get roles in world
+message GetRolesInWorld {
+    required int32 world_id = 1;
+}
+
+message Role {
+    required string name = 1;
+}
+
+message GetRolesInWorldRes {
+    repeated Role roles = 1;
 }
 
 

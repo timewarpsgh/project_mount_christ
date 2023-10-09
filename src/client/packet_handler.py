@@ -32,21 +32,31 @@ class PacketHandler:
     async def handle_LoginRes(self, login_res):
         if login_res.login_res_type == LoginRes.LoginResType.OK:
             get_worlds = GetWorlds()
-            get_worlds.any_str = '1'
             self.client.send(get_worlds)
         else:
             MyMsgWindow(msg='account or password not right!', mgr=self.client.game.gui.mgr)
 
-    def func(self, world):
-        print(f'deal with {world}')
-        MyMsgWindow(msg=world, mgr=self.client.game.gui.mgr)
+    def __get_roles_in_world(self, world_id):
+        get_roles_in_world = GetRolesInWorld()
+        get_roles_in_world.world_id = world_id
+        self.client.send(get_roles_in_world)
 
     async def handle_GetWorldsRes(self, get_worlds_res):
-        option_2_callback = {world: partial(self.func, world)
+        option_2_callback = {world.name: partial(self.__get_roles_in_world, world.id)
                              for world in get_worlds_res.worlds}
 
         menu = MyMenuWindow(
             title='choose world',
+            option_2_callback=option_2_callback,
+            mgr=self.client.game.gui.mgr
+        )
+
+    async def handle_GetRolesInWorldRes(self, get_roles_in_world_res):
+        option_2_callback = {role.name: 1
+                             for role in get_roles_in_world_res.roles}
+
+        menu = MyMenuWindow(
+            title='choose role',
             option_2_callback=option_2_callback,
             mgr=self.client.game.gui.mgr
         )

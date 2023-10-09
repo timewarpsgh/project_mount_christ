@@ -8,7 +8,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
 from login_pb2 import *
 
-from models import SESSION, Account, World
+from models import SESSION, Account, World as WorldModel, Role as RoleModel
 
 EXECUTOR = ThreadPoolExecutor()
 
@@ -24,6 +24,7 @@ class PacketHandler:
 
     def __init__(self, session):
         self.session = session
+        self.account_id = None
 
     async def handle_packet(self, packet):
         packet_name = type(packet).__name__
@@ -60,6 +61,7 @@ class PacketHandler:
             password=login.password).first()
 
         if account:
+            self.account_id = account.id
             return LoginRes.LoginResType.OK
         else:
             return LoginRes.LoginResType.WRONG_PASSWORD_OR_ACCOUNT
@@ -72,8 +74,14 @@ class PacketHandler:
         self.session.send(login_res)
 
     def __get_worlds(self, any):
-        worlds = SESSION.query(World).all()
-        worlds = [world.name for world in worlds]
+        worlds_models = SESSION.query(WorldModel).all()
+        worlds = []
+        for world_model in worlds_models:
+            world = World()
+            world.id = world_model.id
+            world.name = world_model.name
+
+            worlds.append(world)
         return worlds
 
     async def handle_GetWorlds(self, get_worlds):
@@ -82,6 +90,30 @@ class PacketHandler:
         get_worlds_res = GetWorldsRes()
         get_worlds_res.worlds.extend(worlds)
         self.session.send(get_worlds_res)
+
+    def __get_roles(self, get_roles_in_world):
+        world_id = get_roles_in_world.world_id
+        account_id = self.account_id
+
+        roles_models = SESSION.query(RoleModel).\
+            filter_by(world_id=world_id).\
+            filter_by(account_id=account_id).\
+            all()
+
+        roles = []
+        for role_model in roles_models:
+            role = Role()
+            role.name = role_model.name
+            roles.append(role)
+
+        return roles
+
+    async def handle_GetRolesInWorld(self, get_roles_in_world):
+        roles = await run_in_threads(self.__get_roles, get_roles_in_world)
+
+        get_roles_in_world_res = GetRolesInWorldRes()
+        get_roles_in_world_res.roles.extend(roles)
+        self.session.send(get_roles_in_world_res)
 
     async def handle_NewRole(self, new_role):
         new_role_res = NewRoleRes()

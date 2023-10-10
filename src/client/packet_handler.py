@@ -74,6 +74,16 @@ class PacketHandler:
         )
 
     async def handle_NewRoleRes(self, new_role_res):
-        print(f'handle new_role_res')
+        if new_role_res.new_role_res_type == NewRoleRes.NewRoleResType.OK:
+            print(f'new role created!')
+            MyMsgWindow(
+                msg='new role created!',
+                mgr=self.client.game.gui.mgr
+            )
+        else:
+            MyMsgWindow(
+                msg='name exits!',
+                mgr=self.client.game.gui.mgr
+            )
 
 

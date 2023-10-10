@@ -116,21 +116,27 @@ class PacketHandler:
         self.session.send(get_roles_in_world_res)
 
     def __create_new_role(self, new_role):
-        new_obj = RoleModel(
-            name=new_role.name,
-            world_id=new_role.world_id,
-            account_id=self.account_id
-        )
+        role_model = SESSION.query(RoleModel).\
+            filter_by(name=new_role.name, world_id=new_role.world_id).\
+            first()
 
-        SESSION.add(new_obj)
-        SESSION.commit()
+        if role_model:
+            return NewRoleRes.NewRoleResType.NAME_EXISTS
+        else:
+            new_obj = RoleModel(
+                name=new_role.name,
+                world_id=new_role.world_id,
+                account_id=self.account_id
+            )
 
-        return 123
+            SESSION.add(new_obj)
+            SESSION.commit()
 
+            return NewRoleRes.NewRoleResType.OK
 
     async def handle_NewRole(self, new_role):
-        roles = await run_in_threads(self.__create_new_role, new_role)
+        res_type = await run_in_threads(self.__create_new_role, new_role)
 
         new_role_res = NewRoleRes()
-        new_role_res.new_role_res_type = NewRoleRes.NewRoleResType.OK
+        new_role_res.new_role_res_type = res_type
         self.session.send(new_role_res)

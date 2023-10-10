@@ -55,14 +55,16 @@ class PacketHandler:
             mgr=self.client.game.gui.mgr
         )
 
-    def __enter_world(self, role_name):
-        print(f'enter world as {role_name}')
+    def __enter_world(self, role_id):
+        enter_world = EnterWorld()
+        enter_world.role_id = role_id
+        self.client.send(enter_world)
 
     def __make_create_role_dialog(self):
         CreateRoleDialog(self.client.game.gui.mgr, self.client, self.world_id)
 
     async def handle_GetRolesInWorldRes(self, get_roles_in_world_res):
-        option_2_callback = {role.name: partial(self.__enter_world, role.name)
+        option_2_callback = {role.name: partial(self.__enter_world, role.id)
                              for role in get_roles_in_world_res.roles}
 
         option_2_callback['create_role'] = partial(self.__make_create_role_dialog)
@@ -86,4 +88,16 @@ class PacketHandler:
                 mgr=self.client.game.gui.mgr
             )
 
+    async def handle_EnterWorldRes(self, enter_world_res):
+        if enter_world_res.is_ok:
+            role = enter_world_res.role_entered
 
+            MyMsgWindow(
+                msg=f'{role.name} entered world! {role.map_id=}',
+                mgr=self.client.game.gui.mgr
+            )
+        else:
+            MyMsgWindow(
+                msg='failed to enter world!',
+                mgr=self.client.game.gui.mgr
+            )

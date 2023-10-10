@@ -50,8 +50,9 @@ class Role(Base):
 	world_id = Column(Integer)
 	account_id = Column(Integer)
 
-
-
+	map_id = Column(Integer)
+	x = Column(Integer)
+	y = Column(Integer)
 
 
 def create_tables():

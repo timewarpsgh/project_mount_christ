@@ -52,7 +52,8 @@ message GetRolesInWorld {
 }
 
 message Role {
-    required string name = 1;
+    required int32 id = 1;
+    required string name = 2;
 }
 
 message GetRolesInWorldRes {
@@ -73,4 +74,23 @@ message NewRoleRes {
     }
 
     required NewRoleResType new_role_res_type = 1;
+}
+
+
+// enter world
+message EnterWorld {
+    required int32 role_id = 1;
+}
+
+message RoleEntered {
+    required int32 id = 1;
+    required string name = 2;
+    required int32 map_id = 3;
+    required int32 x = 4;
+    required int32 y = 5;
+}
+
+message EnterWorldRes {
+    required bool is_ok = 1;
+    optional RoleEntered role_entered = 2;
 }

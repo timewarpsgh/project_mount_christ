@@ -1,15 +1,55 @@
+simple enter_world OK
+
+show pic with position and hide ui after enter world ON
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 hide create_account_dialog OK
-
-
-
-
-
 validate on __create_new_role OK
 simple create role in world OK
 get roles in world OK
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

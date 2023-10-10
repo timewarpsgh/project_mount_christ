@@ -103,6 +103,7 @@ class PacketHandler:
         roles = []
         for role_model in roles_models:
             role = Role()
+            role.id = role_model.id
             role.name = role_model.name
             roles.append(role)
 
@@ -140,3 +141,32 @@ class PacketHandler:
         new_role_res = NewRoleRes()
         new_role_res.new_role_res_type = res_type
         self.session.send(new_role_res)
+
+    def __enter_world(self, enter_world):
+        role = SESSION.query(RoleModel).\
+            filter_by(id=enter_world.role_id, account_id=self.account_id).\
+            first()
+
+        if role:
+            role_entered = RoleEntered()
+            role_entered.id = role.id
+            role_entered.name = role.name
+            role_entered.map_id = role.map_id
+            role_entered.x = role.x
+            role_entered.y = role.y
+
+
+            enter_world_res = EnterWorldRes()
+            enter_world_res.is_ok = True
+            enter_world_res.role_entered.CopyFrom(role_entered)
+
+            return enter_world_res
+        else:
+            enter_world_res = EnterWorldRes()
+            enter_world_res.is_ok = False
+
+            return enter_world_res
+
+    async def handle_EnterWorld(self, enter_world):
+        enter_world_res = await run_in_threads(self.__enter_world, enter_world)
+        self.session.send(enter_world_res)

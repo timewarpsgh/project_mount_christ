@@ -4,10 +4,11 @@ from functools import partial
 
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
-
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\client\dialogs')
 
 from login_pb2 import *
 from my_ui_elements import MyButton
+from create_account_dialog import CreateAccountDialog
 
 
 class LoginDialog:
@@ -47,6 +48,15 @@ class LoginDialog:
             container=self.ui_window,
         )
 
+        # add buttion to manager
+        self.no_account_button = MyButton(
+            relative_rect=pygame.Rect((0, 200), (100, 50)),
+            text='没有账号？',
+            manager=self.mgr,
+            container=self.ui_window,
+            on_click=partial(self.__make_create_account_dialog),
+        )
+
     def __login(self):
         login = Login()
         login.account = self.entry_box_account.get_text()
@@ -54,3 +64,5 @@ class LoginDialog:
         self.client.send(login)
 
 
+    def __make_create_account_dialog(self):
+        CreateAccountDialog(self.mgr, self.client)

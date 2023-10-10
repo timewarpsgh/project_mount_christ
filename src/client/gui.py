@@ -13,7 +13,6 @@ class Gui:
         self.mgr = pygame_gui.UIManager((800, 600), '../../data/fonts/font_theme.json')
 
         self.login_diglog = LoginDialog(self.mgr, client)
-        self.create_account_dialog = CreateAccountDialog(self.mgr, client)
 
     def process_event(self, event):
         self.mgr.process_events(event)

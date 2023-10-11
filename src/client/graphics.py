@@ -1,0 +1,65 @@
+import pygame
+
+
+class SP(pygame.sprite.Sprite):
+
+    def __init__(self, image, x, y):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image = image
+        self.rect = image.get_rect().move(x, y)
+
+    def change_img(self, img):
+        self.image = img
+
+    def move_to(self, x, y):
+        self.rect = self.image.get_rect().move(x, y)
+
+
+class Graphics:
+
+    def __init__(self, client=None):
+        self.client = client
+
+        self.imgs = self.__load_images()
+
+        self.id_2_role = {}
+
+        # sprites
+        self.sprites = pygame.sprite.Group()
+
+        # add to sprites
+        self.sprites.add(SP(self.imgs['background'], 0, 0))
+        self.sprites.add(SP(self.imgs['role'], 300, 150))
+        self.sprites.add(SP(self.imgs['hud'], 0, 0))
+
+    def __load_images(self):
+        imgs = {}
+
+        imgs['background'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\port.png')
+        imgs['role'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\role.png')
+        imgs['hud'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\hud.png')
+
+        return imgs
+
+    def __load_image(self, path_to_img, set_transparent=True):
+        image = pygame.image.load(path_to_img).convert()
+
+        if set_transparent:
+            colorkey = image.get_at((0, 0))
+            image.set_colorkey(colorkey, pygame.RLEACCEL)
+            return image
+        else:
+            return image
+
+    def process_event(self, event):
+        print(event)
+
+
+    def update(self, time_delta):
+        pass
+
+
+    def draw(self, window_surface):
+        # draw objs
+        self.sprites.draw(window_surface)

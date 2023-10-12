@@ -23,7 +23,7 @@ class SP(pygame.sprite.Sprite):
 class Graphics:
 
     def __init__(self, client=None, model=None):
-        self.font = pygame.font.SysFont("arial", FONT_SIZE)
+        self.font = pygame.font.Font(r"D:\data\code\python\project_mount_christ\data\fonts\siyuanheiti.ttf", FONT_SIZE)
 
         # client
         self.client = client

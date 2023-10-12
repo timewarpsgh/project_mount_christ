@@ -1,5 +1,5 @@
 show role with name   OK
-show role with name chinese ON
+show role with name chinese OK
 
 
 

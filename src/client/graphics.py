@@ -61,5 +61,8 @@ class Graphics:
 
 
     def draw(self, window_surface):
+        if not self.client.packet_handler.is_in_game:
+            return
+
         # draw objs
         self.sprites.draw(window_surface)

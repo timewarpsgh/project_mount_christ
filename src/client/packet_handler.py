@@ -18,6 +18,7 @@ class PacketHandler:
     def __init__(self, client):
         self.client = client
         self.world_id = None
+        self.is_in_game = False
 
     async def handle_packet(self, packet):
         packet_name = type(packet).__name__
@@ -99,6 +100,7 @@ class PacketHandler:
 
             self.client.game.gui.mgr.clear_and_reset()
 
+            self.is_in_game = True
 
         else:
             MyMsgWindow(

@@ -1,5 +1,9 @@
 import pygame
 
+FONT_SIZE = 16
+YELLOW = (255, 255, 0)
+RED = (255, 0, 0)
+
 
 class SP(pygame.sprite.Sprite):
 
@@ -19,6 +23,8 @@ class SP(pygame.sprite.Sprite):
 class Graphics:
 
     def __init__(self, client=None, model=None):
+        self.font = pygame.font.SysFont("arial", FONT_SIZE)
+
         # client
         self.client = client
 
@@ -33,10 +39,12 @@ class Graphics:
 
         self.sp_background = SP(self.imgs['background'], 0, 0)
         self.sp_role = SP(self.imgs['role'], 300, 150)
+        self.sp_role_name = SP(self.font.render('name', True, YELLOW), 300, 150)
         self.sp_hud = SP(self.imgs['hud'], 0, 0)
 
         self.sprites.add(self.sp_background)
         self.sprites.add(self.sp_role)
+        self.sprites.add(self.sp_role_name)
         self.sprites.add(self.sp_hud)
 
     def __load_images(self):

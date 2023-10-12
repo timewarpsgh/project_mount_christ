@@ -1,14 +1,16 @@
 
 
 
-Graphics draws bg, role and hud OK
 
-hide ui after enter world ON
+hide ui after enter world OK
+show graphics only after enter world
+
 show pic with position and  ON
 
 
 
 
+Graphics draws bg, role and hud OK
 
 
 

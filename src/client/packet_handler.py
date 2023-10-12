@@ -96,6 +96,10 @@ class PacketHandler:
                 msg=f'{role.name} entered world! {role.map_id=}',
                 mgr=self.client.game.gui.mgr
             )
+
+            self.client.game.gui.mgr.clear_and_reset()
+
+
         else:
             MyMsgWindow(
                 msg='failed to enter world!',

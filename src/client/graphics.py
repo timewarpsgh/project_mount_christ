@@ -18,20 +18,26 @@ class SP(pygame.sprite.Sprite):
 
 class Graphics:
 
-    def __init__(self, client=None):
+    def __init__(self, client=None, model=None):
+        # client
         self.client = client
 
-        self.imgs = self.__load_images()
+        # model
+        self.model = model
 
-        self.id_2_role = {}
+        # imgs
+        self.imgs = self.__load_images()
 
         # sprites
         self.sprites = pygame.sprite.Group()
 
-        # add to sprites
-        self.sprites.add(SP(self.imgs['background'], 0, 0))
-        self.sprites.add(SP(self.imgs['role'], 300, 150))
-        self.sprites.add(SP(self.imgs['hud'], 0, 0))
+        self.sp_background = SP(self.imgs['background'], 0, 0)
+        self.sp_role = SP(self.imgs['role'], 300, 150)
+        self.sp_hud = SP(self.imgs['hud'], 0, 0)
+
+        self.sprites.add(self.sp_background)
+        self.sprites.add(self.sp_role)
+        self.sprites.add(self.sp_hud)
 
     def __load_images(self):
         imgs = {}

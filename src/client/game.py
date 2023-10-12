@@ -5,7 +5,7 @@ import asyncio
 
 from gui import Gui
 from graphics import Graphics
-
+from model import Model
 
 @dataclass
 class Game:
@@ -29,7 +29,7 @@ class Game:
         self.gui = Gui(client)
 
         # init graphics
-        self.graphics = Graphics(client)
+        self.graphics = Graphics(client, Model())
 
 
     async def run(self):

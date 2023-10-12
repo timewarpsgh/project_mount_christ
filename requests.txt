@@ -5,7 +5,7 @@
 hide ui after enter world OK
 show graphics only after enter world OK
 
-show pic with position and  ON
+show pic with position   OK
 
 
 

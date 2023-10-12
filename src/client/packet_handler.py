@@ -10,6 +10,7 @@ from login_pb2 import *
 
 from my_ui_elements import MyMsgWindow, MyMenuWindow
 from dialogs.create_role_dialog import CreateRoleDialog
+from model import Model, Role
 
 
 class PacketHandler:
@@ -99,6 +100,14 @@ class PacketHandler:
             )
 
             self.client.game.gui.mgr.clear_and_reset()
+
+            self.client.game.graphics.model.role = Role(
+                name=role.name,
+                x=role.x,
+                y=role.y,
+            )
+
+            self.client.game.graphics.sp_role.move_to(role.x * 100, role.y * 100)
 
             self.is_in_game = True
 

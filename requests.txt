@@ -1,5 +1,11 @@
-show role with name   OK
-show role with name chinese OK
+
+
+show user move ON
+
+show other roles appear
+show other roles disappear
+show other roles move
+
 
 
 

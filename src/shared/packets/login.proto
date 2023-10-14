@@ -94,3 +94,12 @@ message EnterWorldRes {
     required bool is_ok = 1;
     optional RoleEntered role_entered = 2;
 }
+
+// role appeared from server
+message RoleAppeared {
+    required int32 id = 1;
+    required string name = 2;
+    required int32 x = 3;
+    required int32 y = 4;
+
+}

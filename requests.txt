@@ -1,10 +1,15 @@
 
 
-show user move ON
+show other roles appear (2)   OK
+show other roles appear (3)   ON
 
-show other roles appear
 show other roles disappear
 show other roles move
+
+
+show user move ON
+
+
 
 
 

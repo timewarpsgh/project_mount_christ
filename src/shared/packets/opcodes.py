@@ -20,6 +20,8 @@ class OpCodeType(Enum):
     EnterWorld = auto()
     EnterWorldRes = auto()
 
+    RoleAppeared = auto()
+
 
 def gen_opcode_2_value():
     d = {}

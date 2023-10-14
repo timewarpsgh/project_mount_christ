@@ -121,3 +121,14 @@ class PacketHandler:
                 msg='failed to enter world!',
                 mgr=self.client.game.gui.mgr
             )
+
+    async def handle_RoleAppeared(self, role_appeared):
+        print(f'!!!!get packet role_appeared for {role_appeared.name}')
+        role = Role(
+            name=role_appeared.name,
+            x=role_appeared.x,
+            y=role_appeared.y,
+        )
+
+        self.client.game.graphics.model.id_2_role[role_appeared.id] = role
+        self.client.game.graphics.add_sp_role(role)

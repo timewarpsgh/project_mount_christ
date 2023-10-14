@@ -26,6 +26,8 @@ class Session(Connection):
         self.packet_handler = PacketHandler(self)
 
     def on_disconnect(self):
+        if self.packet_handler.role:
+            self.server.rm_role(self.packet_handler.role.id)
         self.server.rm_session(self.addr)
 
     async def main(self):
@@ -40,6 +42,23 @@ class Server:
 
     def __init__(self):
         self.addr_2_session = {}
+        self.id_2_role = {}
+
+    def add_role(self, id, role):
+        self.id_2_role[id] = role
+        print(f'role added! {self.id_2_role=}')
+
+    def rm_role(self, id):
+        del self.id_2_role[id]
+        print(f'role removed! now {self.id_2_role=}')
+
+    def get_nearby_roles(self, role_id):
+        nearby_roles = []
+        for id, role in self.id_2_role.items():
+            if id == role_id:
+                continue
+            nearby_roles.append(role)
+        return nearby_roles
 
     def add_session(self, session):
         self.addr_2_session[session.addr] = session

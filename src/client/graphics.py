@@ -66,6 +66,16 @@ class Graphics:
         else:
             return image
 
+    def add_sp_role(self, role):
+        sp_role = SP(self.imgs['role'], role.x * 100, role.y * 100)
+        sp_role_name = SP(self.font.render('name', True, YELLOW), role.x * 100, role.y * 100)
+
+        self.sprites.add(sp_role)
+        self.sprites.add(sp_role_name)
+
+    def rm_sp_role(self):
+        pass
+
     def process_event(self, event):
         print(event)
 

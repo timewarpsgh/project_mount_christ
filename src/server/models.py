@@ -27,9 +27,6 @@ class Account(Base):
 	account = Column(String(20))
 	password = Column(String(20))
 
-	is_online = Column(Boolean)
-	last_login_time = Column(Dat)
-
 
 class World(Base):
 	# table

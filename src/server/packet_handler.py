@@ -130,7 +130,10 @@ class PacketHandler:
             new_obj = RoleModel(
                 name=new_role.name,
                 world_id=new_role.world_id,
-                account_id=self.account_id
+                account_id=self.account_id,
+                map_id=2,
+                x=4,
+                y=2,
             )
 
             SESSION.add(new_obj)

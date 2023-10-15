@@ -103,3 +103,8 @@ message RoleAppeared {
     required int32 y = 4;
 
 }
+
+// role disappeared from server
+message RoleDisappeared {
+    required int32 id = 1;
+}

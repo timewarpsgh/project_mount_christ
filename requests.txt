@@ -1,11 +1,9 @@
+show other roles disappear  OK
 
-show other roles appear (3 roles in all)   OK
 
-show other roles disappear
+
 show other roles move
-
-
-show user move ON
+show user move
 
 
 

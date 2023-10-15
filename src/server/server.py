@@ -27,7 +27,14 @@ class Session(Connection):
 
     def on_disconnect(self):
         if self.packet_handler.role:
+            nearby_roles = self.server.get_nearby_roles(self.packet_handler.role.id)
+            for nearby_role in nearby_roles:
+                nearby_role.session.packet_handler.on_disconnect_signal(self.packet_handler.role)
+
             self.server.rm_role(self.packet_handler.role.id)
+
+
+
         self.server.rm_session(self.addr)
 
     async def main(self):

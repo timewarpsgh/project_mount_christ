@@ -211,3 +211,7 @@ class PacketHandler:
             nearby_role.session.send(my_role_appeared)
             self.session.send(role_appeared)
 
+    def on_disconnect_signal(self, role_to_disappear):
+        role_disappeared = RoleDisappeared()
+        role_disappeared.id = role_to_disappear.id
+        self.session.send(role_disappeared)

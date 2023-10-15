@@ -125,6 +125,7 @@ class PacketHandler:
     async def handle_RoleAppeared(self, role_appeared):
         print(f'!!!!get packet role_appeared for {role_appeared.name}')
         role = Role(
+            id=role_appeared.id,
             name=role_appeared.name,
             x=role_appeared.x,
             y=role_appeared.y,
@@ -132,3 +133,7 @@ class PacketHandler:
 
         self.client.game.graphics.model.id_2_role[role_appeared.id] = role
         self.client.game.graphics.add_sp_role(role)
+
+    async def handle_RoleDisappeared(self, role_disappeared):
+        del self.client.game.graphics.model.id_2_role[role_disappeared.id]
+        self.client.game.graphics.rm_sp_role(role_disappeared.id)

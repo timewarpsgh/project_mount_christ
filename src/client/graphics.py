@@ -47,6 +47,10 @@ class Graphics:
         self.sprites.add(self.sp_role_name)
         self.sprites.add(self.sp_hud)
 
+
+        self.id_2_sp_role = {}
+        self.id_2_sp_role_name = {}
+
     def __load_images(self):
         imgs = {}
 
@@ -73,8 +77,14 @@ class Graphics:
         self.sprites.add(sp_role)
         self.sprites.add(sp_role_name)
 
-    def rm_sp_role(self):
-        pass
+        self.id_2_sp_role[role.id] = sp_role
+        self.id_2_sp_role_name[role.id] = sp_role_name
+
+    def rm_sp_role(self, id):
+        self.id_2_sp_role[id].kill()
+        del self.id_2_sp_role[id]
+        self.id_2_sp_role_name[id].kill()
+        del self.id_2_sp_role_name[id]
 
     def process_event(self, event):
         print(event)

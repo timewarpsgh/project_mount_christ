@@ -2,9 +2,10 @@ from dataclasses import dataclass
 
 @dataclass
 class Role:
-    name: str
-    x: int
-    y: int
+    id: int=None
+    name: str=None
+    x: int=None
+    y: int=None
 
 
 class Model:

@@ -1,0 +1,165 @@
+Project Mount Christ (Unchated Waters 2 Online ) Game Design [how it looks to a player]
+
+
+Feels like unchated waters 2.
+
+But it's an online game. You can interact with roles in port and at sea controlled by other players.
+
+keep it close to history and possible, no magic.
+
+Graphics need to be changed, can use old graphics during early dev,
+new assets need to match the old ones.
+
+
+MAPS
+    one world map [uncharted at the beginning]， has many ports
+    100 ports [about 7 tile sheets, 6 capitals]
+    each port has some builidngs with functions
+        Harbor [sail supply]
+        Market [buy sell price_index investment_state invest]
+        Bar [recruit_crew dismiss_crew treat meet fire_mate waitress]
+        DryDock [buy_used_ship new_ship repair sell_ship remodel]
+        JobHouse [job_assignment:
+                    trade(deliver from A to B)
+                    discovery(send letter, retrieve box)
+                    fight (defeat someone)
+                  ]
+        Church [pray donate  + some buff]
+        Palace [(only in capitals) meet_ruler trade_permission letter_of_marque join
+                    contry_info(allied ports lasts for one year)
+                ]
+        Bank [check_balance deposit withdraw borrow repay]
+        ItemShop [buy_item sell_item(equipments, consumables)  AUCTION_HOUSE]
+        Inn [sleep(double xp) gossip port_info(allied nation)  walk_around]
+
+        FortuneHouse [life career love mates]
+        Msc [enter]
+
+    6 * 6 battle ground instances, CD one month (6 nations * 6 fleets, 1 pirate nation)
+
+NPCS
+    static npcs outside buildings (oldman, dog)
+    moving npcs in ports(man, woman)
+
+    npc in bar/inn (a name in menu)
+    npc at sea (a moving ship)
+
+PLAYERS
+
+    a player has:
+
+        basic stats
+            name(from mates[0])
+
+            map_id
+            x
+            y
+            direction_type
+            speed
+
+            target
+            money
+            money_in_bank
+
+            xp_for_mates [from selling cargo, selling discovered rare items, selling plundered cargo and ship]
+
+        mates (have hire requirement, leadership and lv)
+            name
+            image_id
+            nation
+
+            lv
+            points
+            assigned_duty
+
+            # trained skills
+            'leadership': 50,
+
+            'navigation': 50,
+            'accounting': 50,
+            'battle': 50
+
+            # talents (given, can not be learned)
+            'navigation': 0,
+            'accounting': 0,
+            'battle': 0,
+
+
+        ships (have use requirement)
+            name
+            ship_type
+
+            material_type(armor against cannons)
+
+            captain(a mate)
+            accountant (trade)
+            first_mate (battle)
+            chief_navigator (sail)
+
+
+            now_durability
+            max_durability
+
+            tacking (head wind speed)
+            power (tail wind speed)
+
+            capacity (= max_crew + max_guns + cargo_hold)
+
+            now_crew
+            min_crew
+            max_crew
+
+            now_guns
+            type_of_guns
+            max_guns
+
+            cargo_hold
+                water
+                food
+                material
+                cannon
+
+                cargo_cnt:
+                cargo_name:
+
+
+            # in battle
+            x
+            y
+            direction
+            target
+            attack_method_type
+
+
+        items (have use requirement, from item_shop and discovery)
+            equipments [swords, armors, telescope, sextant]
+            consumables [lime juice, rat poison, ]
+            papers [letter_of_marque, free_trade]
+
+        discoveries (have lv and navigation requirements)
+
+        quests [main_story, from job_house ]
+
+        auras (from pray and consumables)
+
+        ports( 7 capitals, including one for pirates (Tunis),
+               other ports,
+                   each can be allied to a nation [has a player or npc governor]
+
+                   the governor call this port home and
+                   gets more xp boost after sleeping at inn:
+
+
+                   or neutral
+           )
+
+        social [
+            target player: inspect, trade, add_friend, whisper
+            chat: say, whisper, party, nation, world
+            party of 5: trade (1 pilot, 1 escort, 3 merchants), guard port, treasure finding
+        ]
+
+
+
+
+

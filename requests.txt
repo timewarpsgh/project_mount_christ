@@ -1,18 +1,23 @@
-show other roles disappear  OK
+TO DO:
 
+    deploy wow vanilla to learn OK
 
-
-show other roles move
-show user move
-
-
-
-
+    make design doc ON
+    make implemtent doc  ON
 
 
 
 
 
+    show self and others move ON
+        self
+        others
+
+
+
+DONE:
+
+    show other roles disappear  OK
 
 
 

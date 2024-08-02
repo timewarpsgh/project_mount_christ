@@ -108,3 +108,27 @@ message RoleAppeared {
 message RoleDisappeared {
     required int32 id = 1;
 }
+
+// move
+enum DirectionType {
+    N = 0;
+    NE = 1;
+    E = 2;
+    SE = 3;
+    S = 4;
+    SW = 5;
+    W = 6;
+    NW = 7;
+}
+
+message Move {
+    required DirectionType direction = 1;
+}
+
+// role moved
+message RoleMoved {
+    required int32 id = 1;
+    required int32 x = 2;
+    required int32 y = 3;
+    required DirectionType direction = 4;
+}

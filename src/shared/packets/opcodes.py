@@ -23,6 +23,8 @@ class OpCodeType(Enum):
     RoleAppeared = auto()
     RoleDisappeared = auto()
 
+    Move = auto()
+    RoleMoved = auto()
 
 def gen_opcode_2_value():
     d = {}

@@ -11,6 +11,13 @@ Graphics need to be changed, can use old graphics during early dev,
 new assets need to match the old ones.
 
 
+WORLD TIME
+    1492  January, Feburary, March... December
+    [ticks for players both in port and at sea,
+     at sea, days pass quickly with Dawn, Noon, Dusk, Night,
+     in port, time of day is determined at port call time.
+    ]
+
 MAPS
     one world map [uncharted at the beginning]， has many ports
     100 ports [about 7 tile sheets, 6 capitals]
@@ -36,11 +43,11 @@ MAPS
         Msc [enter]
 
     6 * 6 battle ground instances, CD one month (6 nations * 6 fleets, 1 pirate nation)
-
+		
 NPCS
     static npcs outside buildings (oldman, dog)
     moving npcs in ports(man, woman)
-
+	
     npc in bar/inn (a name in menu)
     npc at sea (a moving ship)
 
@@ -63,7 +70,7 @@ PLAYERS
 
             xp_for_mates [from selling cargo, selling discovered rare items, selling plundered cargo and ship]
 
-        mates (have hire requirement, leadership and lv)
+        mates (have hire requirement, leadership and lv, each mate has a story?!!! )
             name
             image_id
             nation
@@ -136,13 +143,13 @@ PLAYERS
             consumables [lime juice, rat poison, ]
             papers [letter_of_marque, free_trade]
 
-        discoveries (have lv and navigation requirements)
+        discoveries [have lv and navigation requirements]
 
         quests [main_story, from job_house ]
 
-        auras (from pray and consumables)
+        auras [from pray and consumables]
 
-        ports( 7 capitals, including one for pirates (Tunis),
+        ports [ 7 capitals, including one for pirates (Tunis),
                other ports,
                    each can be allied to a nation [has a player or npc governor]
 
@@ -151,14 +158,13 @@ PLAYERS
 
 
                    or neutral
-           )
+        ]
 
-        social [
+        social (friends and enemies) [
             target player: inspect, trade, add_friend, whisper
             chat: say, whisper, party, nation, world
             party of 5: trade (1 pilot, 1 escort, 3 merchants), guard port, treasure finding
         ]
-
 
 
 

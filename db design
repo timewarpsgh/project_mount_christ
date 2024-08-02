@@ -113,9 +113,79 @@ dbs
             navigation_required
             item_2_drop_rate: {1: 0.1, 2: 0.05}
 
+        npc_role
+            id
+            mate_id
+            nation
+            lv
+            x
+            y
+            port_id
+
+
+        npc_ship (instanced when battle begins)
+            id
+            npc_role_id
+            name
+            ship_template_id
+
+            material_type(armor against cannons)
+
+            captain(a mate)
+            accountant (trade)
+            first_mate (battle)
+            chief_navigator (sail)
+
+
+            now_durability
+            max_durability
+
+            tacking (head wind speed)
+            power (tail wind speed)
+
+            capacity (= max_crew + max_guns + cargo_hold)
+
+            now_crew
+            min_crew
+            max_crew
+
+            now_guns
+            type_of_guns
+            max_guns
+
+            cargo_hold
+                water
+                food
+                material
+                cannon
+
+                cargo_cnt:
+                cargo_id: random
+
+
+            # in battle
+            x
+            y
+            direction
+            target
+            attack_method_type
+
+        area_winds_and_currents
+            id
+            start_x
+            start_y
+            end_x
+            end_y
+
+            spring_fall
+            summer
+
 
     role
         role
+            id
+
+
 
         mates
         ships

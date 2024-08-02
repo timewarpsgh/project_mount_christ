@@ -1,0 +1,138 @@
+dbs
+
+    realm
+        account
+            id
+            username
+            password
+            join_date
+            last_login
+            is_online
+            gm_lv
+
+        realm
+            id
+            name
+            ip_address
+            port
+
+    world
+
+        port
+            id
+            name
+            x
+            y
+
+
+            maid_id: fixed
+            mate_id: maybe random after restart
+            economy
+            industry
+            invest_from_nations: [0 0 0 0 0 0 0]
+
+            economy_id (determines cargo sold)
+            industry_id (determines ships sold)
+            items_ids: [1, 20, 40, -21(night only)]
+
+            building_locations[[x,y],[x,y]  ]
+
+            tile_set
+
+            governer_role_id
+
+        maid
+            id
+            name
+            image_id
+
+
+        mate_template
+            id
+            name
+            image_id
+            nation
+            lv
+
+            navigation
+            accounting
+            battle
+
+            talent_in_navigation (1,2,3 30%, 60% 90% get additional point)
+            talent_in_accounting
+            talent_in_battle
+
+        ship_template
+            id
+            type_name
+            image_id
+            durability
+            tacking
+            power
+            capacity
+            max_guns
+            min_crew
+            max_crew
+            buy_price
+            sell_price
+
+            available_industry_ids [2, 3, 5]
+            required_industry_value
+
+        cargo_template
+            id
+            name
+            cargo_type
+            buy_price [market_id_0: 10, market_id_1: 20,]
+            sell_price [1, 2, 3, 4, 5]
+            available_economy_ids [2, 3, 5]
+            required_economy_value
+
+            special_buy_price_at_port_id {1: 100, 2:120}
+
+        item_template
+            id
+            name
+            image_id
+            description
+
+            buy_price
+            sell_price
+
+            item_type
+
+        village
+            id
+            name
+            image_id
+            description
+            x
+            y
+            latitude
+            longitude
+            navigation_required
+            item_2_drop_rate: {1: 0.1, 2: 0.05}
+
+
+    role
+        role
+
+        mates
+        ships
+        items
+
+        world_map_opened_grids
+
+
+        discoveries
+
+        quests
+
+        auras
+
+        social
+
+
+
+
+

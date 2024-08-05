@@ -89,8 +89,8 @@ class CargoTemplate(BASE):
 
 	name = Column(String(20))
 	cargo_type = Column(String(20))
-	buy_price = Column(String)  #[market_id_0: 10, market_id_1: 20, ]
-	sell_price = Column(String)  #	[1, 2, 3, 4, 5]
+	buy_price = Column(String)
+	sell_price = Column(String)
 
 	required_economy_value = Column(Integer)
 

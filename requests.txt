@@ -14,8 +14,9 @@ TO DO:
 
         fill ship table OK
 
-        fill cargo table
-        fill item table
+        fill cargo table OK
+
+        fill item table ON
 
 
     populate role db ON

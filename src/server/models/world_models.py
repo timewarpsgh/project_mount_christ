@@ -62,7 +62,7 @@ class Maid(BASE):
 
 class MateTemplate(BASE):
 	# table
-	__tablename__ = 'mate'
+	__tablename__ = 'mate_template'
 
 	# id
 	id = Column(Integer, primary_key=True)
@@ -79,6 +79,20 @@ class MateTemplate(BASE):
 	talent_in_navigation = Column(Integer)
 	talent_in_accounting = Column(Integer)
 	talent_in_battle = Column(Integer)
+
+
+class CargoTemplate(BASE):
+
+	__tablename__ = 'cargo_template'
+
+	id = Column(Integer, primary_key=True)
+
+	name = Column(String(20))
+	cargo_type = Column(String(20))
+	buy_price = Column(String)  #[market_id_0: 10, market_id_1: 20, ]
+	sell_price = Column(String)  #	[1, 2, 3, 4, 5]
+
+	required_economy_value = Column(Integer)
 
 
 class ShipTemplate(BASE):

@@ -1,9 +1,12 @@
 TO DO:
 
-    deploy wow vanilla to learn OK
 
-    make design doc ON
-    make implemtent doc  ON
+
+    make game design doc  OK
+    make db design doc  OK
+
+    populate world db ON
+    populate role db ON
 
 
 
@@ -19,7 +22,7 @@ DONE:
 
     show other roles disappear  OK
 
-
+    deploy wow vanilla to learn OK
 
 
 

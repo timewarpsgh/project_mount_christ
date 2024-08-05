@@ -5,7 +5,7 @@ import sqlalchemy
 import json
 
 
-PATH_TO_DB = r'D:\data\code\python\project_mount_christ\data\role_db.sqlite'
+PATH_TO_DB = r'/data/world_db.sqlite'
 BASE = sqlalchemy.orm.declarative_base()
 
 
@@ -20,14 +20,15 @@ def create_session():
 SESSION = create_session()
 
 
-class Role(BASE):
+class Maid(BASE):
 	# table
-	__tablename__ = 'role'
+	__tablename__ = 'maid'
 
 	# id
 	id = Column(Integer, primary_key=True)
 
 	name = Column(String(20))
+	img_id = Column(String(20))
 
 
 

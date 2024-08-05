@@ -1,7 +1,7 @@
 import sys
 import os
 
-PATH_TO_DIR = r'D:\data\code\python\project_mount_christ\src\server'
+PATH_TO_DIR = r'D:\data\code\python\project_mount_christ\src\server\models'
 sys.path.append(PATH_TO_DIR)
 
 from world_models import SESSION, Maid

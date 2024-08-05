@@ -1,12 +1,13 @@
 TO DO:
 
-
-
     make game design doc  OK
     make db design doc  OK
 
+
     populate world db ON
         populate maid table OK
+
+        init port table ON
 
 
     populate role db ON

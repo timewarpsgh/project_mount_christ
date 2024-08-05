@@ -5,7 +5,7 @@ import sqlalchemy
 import json
 
 
-PATH_TO_DB = r'D:\data\code\python\project_mount_christ\data\world_db.sqlite'
+PATH_TO_DB = r'/data/logon_db.sqlite'
 BASE = sqlalchemy.orm.declarative_base()
 
 
@@ -20,16 +20,25 @@ def create_session():
 SESSION = create_session()
 
 
-class Maid(BASE):
+class Account(BASE):
 	# table
-	__tablename__ = 'maid'
+	__tablename__ = 'account'
+
+	# id
+	id = Column(Integer, primary_key=True)
+
+	account = Column(String(20))
+	password = Column(String(20))
+
+
+class World(BASE):
+	# table
+	__tablename__ = 'world'
 
 	# id
 	id = Column(Integer, primary_key=True)
 
 	name = Column(String(20))
-	img_id = Column(String(20))
-
 
 
 

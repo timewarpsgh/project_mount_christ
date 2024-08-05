@@ -60,7 +60,7 @@ class Maid(BASE):
 	img_id = Column(String(20))
 
 
-class Mate(BASE):
+class MateTemplate(BASE):
 	# table
 	__tablename__ = 'mate'
 
@@ -79,6 +79,28 @@ class Mate(BASE):
 	talent_in_navigation = Column(Integer)
 	talent_in_accounting = Column(Integer)
 	talent_in_battle = Column(Integer)
+
+
+class ShipTemplate(BASE):
+	__tablename__ = 'ship_template'
+
+	id = Column(Integer, primary_key=True)
+
+	name = Column(String(20))
+	img_id = Column(String(20))
+
+	durability = Column(Integer)
+
+	tacking = Column(Integer)
+	power = Column(Integer)
+
+	capacity = Column(Integer)
+	max_guns = Column(Integer)
+	min_crew = Column(Integer)
+	max_crew = Column(Integer)
+	buy_price = Column(Integer)
+
+	required_industry_value = Column(Integer)
 
 
 def create_tables():

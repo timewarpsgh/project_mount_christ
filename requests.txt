@@ -10,7 +10,10 @@ TO DO:
         fill port table OK
 
         fill mate table OK
-        fill ship table
+
+
+        fill ship table OK
+
         fill cargo table
         fill item table
 

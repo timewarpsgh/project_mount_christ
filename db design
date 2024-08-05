@@ -65,7 +65,7 @@ dbs
 
         ship_template
             id
-            type_name
+            name
             image_id
             durability
             tacking
@@ -77,7 +77,6 @@ dbs
             buy_price
             sell_price
 
-            available_industry_ids [2, 3, 5]
             required_industry_value
 
         cargo_template

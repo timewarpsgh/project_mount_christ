@@ -170,26 +170,89 @@ dbs
             target
             attack_method_type
 
-        area_winds_and_currents
-            id
-            start_x
-            start_y
-            end_x
-            end_y
-
-            spring_fall
-            summer
-
 
     role
         role
             id
+            name
 
+            map_id
+            x
+            y
+            direction
+            speed
 
 
         mates
+            id
+            role_id
+
+            name
+            image_id
+            nation
+
+            lv
+            points
+            assigned_duty
+
+            # trained skills
+            'leadership': 50,
+
+            'navigation': 50,
+            'accounting': 50,
+            'battle': 50
+
+            # talents (given, can not be learned)
+            'navigation': 0,
+            'accounting': 0,
+            'battle': 0,
+
         ships
+            id
+            role_id
+
+            name
+            ship_type
+
+            material_type(armor against cannons)
+
+            captain(id of a mate)
+            accountant (trade)
+            first_mate (battle)
+            chief_navigator (sail)
+
+
+            now_durability
+            max_durability
+
+            tacking (head wind speed)
+            power (tail wind speed)
+
+            capacity (= max_crew + max_guns + cargo_hold)
+
+            now_crew
+            min_crew
+            max_crew
+
+            now_guns
+            type_of_guns
+            max_guns
+
+            cargo_hold
+                water: 1
+                food: 2
+                material
+                cannon
+
+                cargo_cnt:
+                cargo_id:
+
         items
+            id
+            template_id
+            role_id
+            count
+
 
         world_map_opened_grids
 

@@ -5,7 +5,7 @@ import sqlalchemy
 import json
 
 
-PATH_TO_DB = r'/data/world_db.sqlite'
+PATH_TO_DB = r'D:\data\code\python\project_mount_christ\data\world_db.sqlite'
 BASE = sqlalchemy.orm.declarative_base()
 
 
@@ -58,10 +58,6 @@ class Maid(BASE):
 
 	name = Column(String(20))
 	img_id = Column(String(20))
-
-
-
-
 
 def create_tables():
 	# ceate all above tables if not there yet

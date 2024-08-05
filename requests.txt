@@ -7,7 +7,7 @@ TO DO:
     populate world db ON
         populate maid table OK
 
-        init port table ON
+        fill port table OK
 
 
     populate role db ON

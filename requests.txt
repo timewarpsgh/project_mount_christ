@@ -1,29 +1,20 @@
 TO DO:
 
-    make game design doc  OK
-    make db design doc  OK
-
 
     populate world db ON
-        populate maid table OK
-
-        fill port table OK
-
-        fill mate table OK
-
-
-        fill ship table OK
-
-        fill cargo table OK
-
-        fill item table OK
 
         fill village table OK
 
-        fill npc_role table
+        fill npc_role table LATER
+
+
+    migrate server_db to new dbs ON
 
 
     populate role db ON
+
+    run client to get port info (ships, cargo, items, etc.) ON
+
 
 
 
@@ -38,9 +29,9 @@ TO DO:
 DONE:
 
     show other roles disappear  OK
-
     deploy wow vanilla to learn OK
-
+    make game design doc  OK
+    make db design doc  OK
 
 
 

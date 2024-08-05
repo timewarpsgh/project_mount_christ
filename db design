@@ -176,11 +176,15 @@ dbs
             id
             name
 
+            world_id
+            account_id
+
             map_id
             x
             y
-            direction
-            speed
+
+            #direction
+            #speed
 
 
         mates

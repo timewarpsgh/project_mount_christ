@@ -5,7 +5,7 @@ import sqlalchemy
 import json
 
 
-PATH_TO_DB = r'/data/logon_db.sqlite'
+PATH_TO_DB = r'D:\data\code\python\project_mount_christ\data\logon_db.sqlite'
 BASE = sqlalchemy.orm.declarative_base()
 
 

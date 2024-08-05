@@ -5,7 +5,7 @@ import sqlalchemy
 import json
 
 
-PATH_TO_DB = r'/data/role_db.sqlite'
+PATH_TO_DB = r'D:\data\code\python\project_mount_christ\data\role_db.sqlite'
 BASE = sqlalchemy.orm.declarative_base()
 
 
@@ -28,8 +28,12 @@ class Role(BASE):
 	id = Column(Integer, primary_key=True)
 
 	name = Column(String(20))
+	world_id = Column(Integer)
+	account_id = Column(Integer)
 
-
+	map_id = Column(Integer)
+	x = Column(Integer)
+	y = Column(Integer)
 
 
 

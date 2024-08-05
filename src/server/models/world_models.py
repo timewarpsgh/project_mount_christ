@@ -59,6 +59,28 @@ class Maid(BASE):
 	name = Column(String(20))
 	img_id = Column(String(20))
 
+
+class Mate(BASE):
+	# table
+	__tablename__ = 'mate'
+
+	# id
+	id = Column(Integer, primary_key=True)
+
+	name = Column(String(20))
+	img_id = Column(String(20))
+	nation = Column(String)
+	lv = Column(Integer)
+
+	navigation = Column(Integer)
+	accounting = Column(Integer)
+	battle = Column(Integer)
+
+	talent_in_navigation = Column(Integer)
+	talent_in_accounting = Column(Integer)
+	talent_in_battle = Column(Integer)
+
+
 def create_tables():
 	# ceate all above tables if not there yet
 	engine = create_engine(f'sqlite:///{PATH_TO_DB}')

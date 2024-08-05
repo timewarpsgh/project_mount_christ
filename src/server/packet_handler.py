@@ -5,10 +5,15 @@ from concurrent.futures import ThreadPoolExecutor
 # import from dir
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
 
 from login_pb2 import *
 
-from models import SESSION, Account, World as WorldModel, Role as RoleModel
+# from models import SESSION, Account, World as WorldModel, Role as RoleModel
+
+from logon_models import Account, World as WorldModel, SESSION as LOGON_SESSION
+from role_models import Role as RoleModel, SESSION as ROLE_SESSION
+
 import model
 
 
@@ -35,7 +40,7 @@ class PacketHandler:
         print()
 
     def __get_new_account_res(self, new_account):
-        account = SESSION.query(Account).\
+        account = LOGON_SESSION.query(Account).\
             filter_by(account=new_account.account).\
             first()
 
@@ -46,8 +51,8 @@ class PacketHandler:
                 account=new_account.account,
                 password=new_account.password,
             )
-            SESSION.add(new_obj)
-            SESSION.commit()
+            LOGON_SESSION.add(new_obj)
+            LOGON_SESSION.commit()
             return NewAccountRes.NewAccountResType.OK
 
     async def handle_NewAccount(self, new_account):
@@ -59,7 +64,7 @@ class PacketHandler:
         self.session.send(new_account_res)
 
     def __get_login_res(self, login):
-        account = SESSION.query(Account).filter_by(
+        account = LOGON_SESSION.query(Account).filter_by(
             account=login.account,
             password=login.password).first()
 
@@ -77,7 +82,7 @@ class PacketHandler:
         self.session.send(login_res)
 
     def __get_worlds(self, any):
-        worlds_models = SESSION.query(WorldModel).all()
+        worlds_models = LOGON_SESSION.query(WorldModel).all()
         worlds = []
         for world_model in worlds_models:
             world = World()
@@ -98,7 +103,7 @@ class PacketHandler:
         world_id = get_roles_in_world.world_id
         account_id = self.account_id
 
-        roles_models = SESSION.query(RoleModel).\
+        roles_models = ROLE_SESSION.query(RoleModel).\
             filter_by(world_id=world_id).\
             filter_by(account_id=account_id).\
             all()
@@ -120,7 +125,7 @@ class PacketHandler:
         self.session.send(get_roles_in_world_res)
 
     def __create_new_role(self, new_role):
-        role_model = SESSION.query(RoleModel).\
+        role_model = ROLE_SESSION.query(RoleModel).\
             filter_by(name=new_role.name, world_id=new_role.world_id).\
             first()
 
@@ -136,8 +141,8 @@ class PacketHandler:
                 y=2,
             )
 
-            SESSION.add(new_obj)
-            SESSION.commit()
+            ROLE_SESSION.add(new_obj)
+            ROLE_SESSION.commit()
 
             return NewRoleRes.NewRoleResType.OK
 
@@ -149,7 +154,7 @@ class PacketHandler:
         self.session.send(new_role_res)
 
     def __enter_world(self, enter_world):
-        role = SESSION.query(RoleModel).\
+        role = ROLE_SESSION.query(RoleModel).\
             filter_by(id=enter_world.role_id, account_id=self.account_id).\
             first()
 

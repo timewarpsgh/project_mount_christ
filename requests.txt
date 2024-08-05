@@ -6,6 +6,9 @@ TO DO:
     make db design doc  OK
 
     populate world db ON
+        populate maid table OK
+
+
     populate role db ON
 
 

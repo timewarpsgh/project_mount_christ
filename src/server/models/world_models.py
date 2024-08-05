@@ -117,6 +117,21 @@ class ShipTemplate(BASE):
 	required_industry_value = Column(Integer)
 
 
+class ItemTemplate(BASE):
+
+	__tablename__ = 'item_template'
+
+	id = Column(Integer, primary_key=True)
+
+	name = Column(String)
+	description = Column(String)
+	img_id = Column(String)
+
+	item_type = Column(String)
+
+	buy_price = Column(Integer)
+
+
 def create_tables():
 	# ceate all above tables if not there yet
 	engine = create_engine(f'sqlite:///{PATH_TO_DB}')

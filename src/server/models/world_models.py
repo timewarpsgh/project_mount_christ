@@ -132,6 +132,25 @@ class ItemTemplate(BASE):
 	buy_price = Column(Integer)
 
 
+class Village(BASE):
+
+	__tablename__ = 'village'
+
+	id = Column(Integer, primary_key=True)
+
+	name = Column(String)
+	description = Column(String)
+	img_id = Column(String)
+
+	x = Column(Integer)
+	y = Column(Integer)
+	latitude = Column(String)
+	longitude = Column(String)
+
+	navigation_required = Column(Integer)
+	item_id_2_drop_rate = Column(String)
+
+
 def create_tables():
 	# ceate all above tables if not there yet
 	engine = create_engine(f'sqlite:///{PATH_TO_DB}')

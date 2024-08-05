@@ -18,6 +18,10 @@ TO DO:
 
         fill item table OK
 
+        fill village table OK
+
+        fill npc_role table
+
 
     populate role db ON
 

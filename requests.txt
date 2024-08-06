@@ -9,7 +9,7 @@ TO DO:
 
 
         get port cargo right OK
-
+        debug server packet handlers better (print trace back) OK
 
     run client to get port info (ships, cargo, items, etc.) ON
 

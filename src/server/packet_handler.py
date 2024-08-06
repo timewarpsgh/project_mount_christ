@@ -1,6 +1,7 @@
 import time
 import asyncio
 import json
+import traceback
 from concurrent.futures import ThreadPoolExecutor
 
 # import from dir
@@ -38,8 +39,13 @@ class PacketHandler:
 
     async def handle_packet(self, packet):
         packet_name = type(packet).__name__
-        await getattr(self, f'handle_{packet_name}')(packet)
-        print()
+        try:
+            await getattr(self, f'handle_{packet_name}')(packet)
+        except Exception as e:
+            print(f'{packet_name} error: {e}')
+            traceback.print_exc()
+        else:
+            print()
 
     def __get_new_account_res(self, new_account):
         account = LOGON_SESSION.query(Account).\

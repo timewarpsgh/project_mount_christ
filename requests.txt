@@ -1,21 +1,13 @@
 TO DO:
 
 
-
-
-    run pygame_gui co to show port options(test) ON
-        pygame_gui already used OK
-        show port available cargos OK
-
-
-        get port cargo right OK
-        debug server packet handlers better (print trace back) OK
-
     run client to get port info (ships, cargo, items, etc.) ON
 
+    show other building menus OK
 
+    show other options(role options) ON
 
-
+    show role items, ships, mates, etc
 
 
     show self and others move ON
@@ -37,7 +29,13 @@ DONE:
     migrate server_db to new dbs OK
 
 
+    run pygame_gui co to show port options(test) OK
+    pygame_gui already used OK
+    show port available cargos OK
 
+
+    get port cargo right OK
+    debug server packet handlers better (print trace back) OK
 
 
 

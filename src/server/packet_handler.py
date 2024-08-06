@@ -1,5 +1,6 @@
 import time
 import asyncio
+import json
 from concurrent.futures import ThreadPoolExecutor
 
 # import from dir
@@ -11,6 +12,9 @@ from login_pb2 import *
 
 from logon_models import Account, World as WorldModel, SESSION as LOGON_SESSION
 from role_models import Role as RoleModel, SESSION as ROLE_SESSION
+
+from object_mgr import sObjectMgr
+
 
 import model
 
@@ -164,6 +168,7 @@ class PacketHandler:
                 name=role.name,
                 x=role.x,
                 y=role.y,
+                map_id=role.map_id,
             )
 
             # add self.role to server
@@ -214,14 +219,18 @@ class PacketHandler:
             nearby_role.session.send(my_role_appeared)
             self.session.send(role_appeared)
 
-    def __get_available_cargos(self, any):
+    def __get_available_cargos(self):
+        port = sObjectMgr.get_port(self.role.map_id)
+        cargo_ids = sObjectMgr.get_cargo_ids(port.economy_id)
         available_cargos = []
 
-        for i in range(2):
+        for cargo_id in cargo_ids:
+            cargo_template = sObjectMgr.get_cargo_template(cargo_id)
             available_cargo = AvailableCargo()
-            available_cargo.id = i
-            available_cargo.name = str(i)
-            available_cargo.price = i
+            available_cargo.id = cargo_template.id
+            available_cargo.name = cargo_template.name
+
+            available_cargo.price = json.loads(cargo_template.buy_price)[str(port.economy_id)]
 
             available_cargos.append(available_cargo)
 
@@ -229,7 +238,7 @@ class PacketHandler:
 
     async def handle_GetAvailableCargos(self, get_available_cargos):
 
-        available_cargos = self.__get_available_cargos('')
+        available_cargos = self.__get_available_cargos()
 
         get_available_cargos_res = GetAvailableCargosRes()
         get_available_cargos_res.available_cargos.extend(available_cargos)

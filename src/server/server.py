@@ -7,6 +7,8 @@ from concurrent.futures import ThreadPoolExecutor
 
 
 from packet_handler import PacketHandler
+from object_mgr import sObjectMgr
+
 
 # import from dir
 import sys

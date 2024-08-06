@@ -145,11 +145,11 @@ class PacketHandler:
     async def handle_GetAvailableCargosRes(self, get_available_cargos_res):
         print(get_available_cargos_res)
 
-        # option_2_callback = {world.name: partial(self.__get_roles_in_world, world.id)
-        #                      for world in get_worlds_res.worlds}
-        #
-        # menu = MyMenuWindow(
-        #     title='choose world',
-        #     option_2_callback=option_2_callback,
-        #     mgr=self.client.game.gui.mgr
-        # )
+        option_2_callback = {f'{cargo.name} {cargo.price}': ''
+                             for cargo in get_available_cargos_res.available_cargos}
+
+        MyMenuWindow(
+            title='',
+            option_2_callback=option_2_callback,
+            mgr=self.client.game.gui.mgr
+        )

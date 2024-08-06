@@ -8,6 +8,9 @@ TO DO:
         show port available cargos OK
 
 
+        get port cargo right OK
+
+
     run client to get port info (ships, cargo, items, etc.) ON
 
 

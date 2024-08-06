@@ -8,7 +8,7 @@ class Role:
     name: str
     x: int
     y: int
-
+    map_id: int
 
 class Model:
 

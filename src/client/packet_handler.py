@@ -10,6 +10,7 @@ from login_pb2 import *
 
 from my_ui_elements import MyMsgWindow, MyMenuWindow
 from dialogs.create_role_dialog import CreateRoleDialog
+from dialogs.options_dialog import OptionsDialog
 from model import Model, Role
 from graphics import YELLOW
 
@@ -102,6 +103,9 @@ class PacketHandler:
             # clear gui
             self.client.game.gui.mgr.clear_and_reset()
 
+            # init options dialog
+            OptionsDialog(self.client.game.gui.mgr, self.client)
+
             # ini role
             self.client.game.graphics.model.role = Role(
                 name=role.name,
@@ -137,3 +141,15 @@ class PacketHandler:
     async def handle_RoleDisappeared(self, role_disappeared):
         del self.client.game.graphics.model.id_2_role[role_disappeared.id]
         self.client.game.graphics.rm_sp_role(role_disappeared.id)
+
+    async def handle_GetAvailableCargosRes(self, get_available_cargos_res):
+        print(get_available_cargos_res)
+
+        # option_2_callback = {world.name: partial(self.__get_roles_in_world, world.id)
+        #                      for world in get_worlds_res.worlds}
+        #
+        # menu = MyMenuWindow(
+        #     title='choose world',
+        #     option_2_callback=option_2_callback,
+        #     mgr=self.client.game.gui.mgr
+        # )

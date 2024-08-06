@@ -35,7 +35,7 @@ class LoginDialog:
         # add entry box
         self.entry_box_account = pygame_gui.elements.UITextEntryBox(
             relative_rect=pygame.Rect((0, 50), (100, 50)),
-            initial_text='账号',
+            initial_text='t1',
             manager=self.mgr,
             container=self.ui_window,
         )
@@ -43,7 +43,7 @@ class LoginDialog:
         # add entry box
         self.entry_box_password = pygame_gui.elements.UITextEntryBox(
             relative_rect=pygame.Rect((0, 100), (100, 50)),
-            initial_text='密码',
+            initial_text='t1',
             manager=self.mgr,
             container=self.ui_window,
         )

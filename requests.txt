@@ -1,17 +1,12 @@
 TO DO:
 
 
-    populate world db ON
-
-        fill village table OK
-
-        fill npc_role table LATER
 
 
-    migrate server_db to new dbs ON
+    run pygame_gui co to show port options(test) ON
+        pygame_gui already used OK
+        show port available cargos OK
 
-
-    populate role db ON
 
     run client to get port info (ships, cargo, items, etc.) ON
 
@@ -33,27 +28,10 @@ DONE:
     make game design doc  OK
     make db design doc  OK
 
+    populate world db OK
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    migrate server_db to new dbs OK
 
 
 

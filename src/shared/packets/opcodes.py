@@ -23,6 +23,9 @@ class OpCodeType(Enum):
     RoleAppeared = auto()
     RoleDisappeared = auto()
 
+    GetAvailableCargos = auto()
+    GetAvailableCargosRes = auto()
+
     Move = auto()
     RoleMoved = auto()
 

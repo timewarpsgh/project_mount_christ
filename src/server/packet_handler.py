@@ -9,8 +9,6 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
 
 from login_pb2 import *
 
-# from models import SESSION, Account, World as WorldModel, Role as RoleModel
-
 from logon_models import Account, World as WorldModel, SESSION as LOGON_SESSION
 from role_models import Role as RoleModel, SESSION as ROLE_SESSION
 
@@ -215,6 +213,27 @@ class PacketHandler:
 
             nearby_role.session.send(my_role_appeared)
             self.session.send(role_appeared)
+
+    def __get_available_cargos(self, any):
+        available_cargos = []
+
+        for i in range(2):
+            available_cargo = AvailableCargo()
+            available_cargo.id = i
+            available_cargo.name = str(i)
+            available_cargo.price = i
+
+            available_cargos.append(available_cargo)
+
+        return available_cargos
+
+    async def handle_GetAvailableCargos(self, get_available_cargos):
+
+        available_cargos = self.__get_available_cargos('')
+
+        get_available_cargos_res = GetAvailableCargosRes()
+        get_available_cargos_res.available_cargos.extend(available_cargos)
+        self.session.send(get_available_cargos_res)
 
     def on_disconnect_signal(self, role_to_disappear):
         role_disappeared = RoleDisappeared()

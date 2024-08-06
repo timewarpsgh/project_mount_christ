@@ -109,6 +109,31 @@ message RoleDisappeared {
     required int32 id = 1;
 }
 
+// get available cargos
+message GetAvailableCargos {
+}
+
+message AvailableCargo {
+    required int32 id = 1;
+    required string name = 2;
+    required int32 price = 3;
+}
+
+message GetAvailableCargosRes {
+    repeated AvailableCargo available_cargos = 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 // move
 enum DirectionType {
     N = 0;

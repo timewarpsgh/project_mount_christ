@@ -1,4 +1,10 @@
 import pygame
+import os
+import sys
+from login_pb2 import *
+
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
+
 
 FONT_SIZE = 16
 YELLOW = (255, 255, 0)
@@ -86,8 +92,41 @@ class Graphics:
         self.id_2_sp_role_name[id].kill()
         del self.id_2_sp_role_name[id]
 
+    def move_sp_role(self, id, x, y):
+        print(self.id_2_sp_role)
+        print(id)
+
+        self.id_2_sp_role[id].move_to(x, y)
+        self.id_2_sp_role_name[id].move_to(x, y)
+
     def process_event(self, event):
-        pass
+        if event.type == pygame.KEYDOWN:
+            # movements
+            print('keydown !!!!!1')
+            if event.key == pygame.K_d:
+                # move east
+                move = Move()
+                move.dir_type = DirType.E
+                self.client.send(move)
+
+            elif event.key == pygame.K_a:
+                # move west
+                move = Move()
+                move.dir_type = DirType.W
+                self.client.send(move)
+
+            elif event.key == pygame.K_w:
+                # move north
+                move = Move()
+                move.dir_type = DirType.N
+                self.client.send(move)
+
+            elif event.key == pygame.K_s:
+                # move south
+                move = Move()
+                move.dir_type = DirType.S
+                self.client.send(move)
+
 
     def update(self, time_delta):
         pass

@@ -1,6 +1,7 @@
 import pygame
 import pygame_gui
 from functools import partial
+import traceback
 
 # import from dir
 import sys
@@ -25,8 +26,14 @@ class PacketHandler:
     async def handle_packet(self, packet):
         packet_name = type(packet).__name__
         print(f'{packet_name=}')
-        await getattr(self, f'handle_{packet_name}')(packet)
-        print()
+        try:
+            await getattr(self, f'handle_{packet_name}')(packet)
+        except Exception as e:
+            print(f'{packet_name} error: {e}')
+            traceback.print_exc()
+        else:
+            print()
+
 
     async def handle_NewAccountRes(self, new_account_res):
         if new_account_res.new_account_res_type == NewAccountRes.NewAccountResType.OK:
@@ -108,6 +115,7 @@ class PacketHandler:
 
             # ini role
             self.client.game.graphics.model.role = Role(
+                id=role.id,
                 name=role.name,
                 x=role.x,
                 y=role.y,
@@ -153,3 +161,24 @@ class PacketHandler:
             option_2_callback=option_2_callback,
             mgr=self.client.game.gui.mgr
         )
+
+    async def handle_RoleMoved(self, role_moved):
+        print('role id', role_moved.id)
+        print('my id', self.client.game.graphics.model.role.id)
+
+
+
+
+        if role_moved.id == self.client.game.graphics.model.role.id:
+
+            print('you moved!!')
+
+            role_model = self.client.game.graphics.model.role
+            role_model.x = role_moved.x + 300
+            role_model.y = role_moved.y + 150
+
+            self.client.game.graphics.sp_role.move_to(role_model.x, role_model.y)
+            self.client.game.graphics.sp_role_name.move_to(role_model.x, role_model.y)
+
+        else:
+            print('someoneelse moved!!')

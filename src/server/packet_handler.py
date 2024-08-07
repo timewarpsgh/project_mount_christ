@@ -250,6 +250,29 @@ class PacketHandler:
         get_available_cargos_res.available_cargos.extend(available_cargos)
         self.session.send(get_available_cargos_res)
 
+    async def handle_Move(self, move):
+        if move.dir_type == DirType.E:
+            self.role.x += 5
+        elif move.dir_type == DirType.W:
+            self.role.x -= 5
+        elif move.dir_type == DirType.N:
+            self.role.y -= 5
+        elif move.dir_type == DirType.S:
+            self.role.y += 5
+
+        role_moved = RoleMoved()
+        role_moved.id = self.role.id
+        role_moved.x = self.role.x
+        role_moved.y = self.role.y
+        role_moved.dir_type = move.dir_type
+
+        self.session.send(role_moved)
+
+
+
+
+
+
     def on_disconnect_signal(self, role_to_disappear):
         role_disappeared = RoleDisappeared()
         role_disappeared.id = role_to_disappear.id

@@ -124,18 +124,8 @@ message GetAvailableCargosRes {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 // move
-enum DirectionType {
+enum DirType {
     N = 0;
     NE = 1;
     E = 2;
@@ -147,7 +137,7 @@ enum DirectionType {
 }
 
 message Move {
-    required DirectionType direction = 1;
+    required DirType dir_type = 1;
 }
 
 // role moved
@@ -155,5 +145,5 @@ message RoleMoved {
     required int32 id = 1;
     required int32 x = 2;
     required int32 y = 3;
-    required DirectionType direction = 4;
+    required DirType dir_type = 4;
 }

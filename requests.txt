@@ -1,18 +1,12 @@
 TO DO:
 
-    show other building menus OK
-
-    show other menus OK
-
-    press esc to close a menu, excluding the last one OK
-
-
-
-    show role items, ships, mates, etc
-
 
     show self and others move ON
-        self
+        self  OK
+            press W, send move N packet, server handels and send role moved to packet to all palyers.
+
+            AD,SW OK
+
         others
 
 
@@ -37,6 +31,10 @@ DONE:
 
     get port cargo right OK
     debug server packet handlers better (print trace back) OK
+
+    show other building menus OK
+    show other menus OK
+    press esc to close a menu, excluding the last one OK
 
 
 

@@ -43,7 +43,9 @@ class Game:
                 if event.type == pygame.QUIT:
                     self.is_running = False
 
+                self.graphics.process_event(event)
                 self.gui.process_event(event)
+
 
             # update based on time_delta
             self.gui.update(time_delta)

@@ -104,7 +104,7 @@ class PacketHandler:
             self.client.game.gui.mgr.clear_and_reset()
 
             # init options dialog
-            OptionsDialog(self.client.game.gui.mgr, self.client)
+            self.client.game.gui.options_dialog = OptionsDialog(self.client.game.gui.mgr, self.client)
 
             # ini role
             self.client.game.graphics.model.role = Role(

@@ -47,6 +47,7 @@ class Game:
 
             # update based on time_delta
             self.gui.update(time_delta)
+            self.graphics.update(time_delta)
 
             # draw graphics
             self.window_surface.fill((0, 0, 0))

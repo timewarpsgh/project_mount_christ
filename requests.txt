@@ -1,11 +1,12 @@
 TO DO:
 
-
-    run client to get port info (ships, cargo, items, etc.) ON
-
     show other building menus OK
 
     show other menus OK
+
+    press esc to close a menu, excluding the last one OK
+
+
 
     show role items, ships, mates, etc
 

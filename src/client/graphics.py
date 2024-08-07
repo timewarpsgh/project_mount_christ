@@ -87,12 +87,10 @@ class Graphics:
         del self.id_2_sp_role_name[id]
 
     def process_event(self, event):
-        print(event)
-
+        pass
 
     def update(self, time_delta):
         pass
-
 
     def draw(self, window_surface):
         if not self.client.packet_handler.is_in_game:

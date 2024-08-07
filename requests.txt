@@ -5,7 +5,7 @@ TO DO:
 
     show other building menus OK
 
-    show other options(role options) ON
+    show other menus OK
 
     show role items, ships, mates, etc
 

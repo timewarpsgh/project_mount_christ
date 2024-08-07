@@ -52,5 +52,3 @@ sObjectMgr = ObjectMgr()
 print(f'########## inited sObjectMgr')
 print(len(sObjectMgr.id_2_port), 'ports')
 print(len(sObjectMgr.id_2_cargo_template), 'cargo_templates')
-
-print(sObjectMgr.economy_id_2_cargo_ids)

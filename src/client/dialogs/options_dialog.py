@@ -20,18 +20,21 @@ class OptionsDialog:
 
         # add ui window
         self.ui_window = pygame_gui.elements.UIWindow(
-            rect=pygame.Rect((0, 500), (300, 50)),
+            rect=pygame.Rect((0, 500), (750, 50)),
             manager=self.mgr,
         )
 
-        # add buttion to manager
-        self.login_button = MyButton(
-            relative_rect=pygame.Rect((0, 0), (100, 50)),
-            text='Buildings',
-            manager=self.mgr,
-            container=self.ui_window,
-            on_click=partial(self.__show_buildings_menu),
-        )
+        # buttons to add
+        buttons_texts = ['Buildings', 'Options', 'Fight', 'Cmds', 'Items', 'Mates', 'Ships']
+
+        for id, button_text in enumerate(buttons_texts):
+            MyButton(
+                relative_rect=pygame.Rect((0 + id * 100, 0), (100, 50)),
+                text=button_text,
+                manager=self.mgr,
+                container=self.ui_window,
+                on_click=partial(getattr(self, f'show_{button_text.lower()}_menu')),
+            )
 
 
     def __send_get_available_cargos(self):
@@ -191,7 +194,7 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
-    def __show_buildings_menu(self):
+    def show_buildings_menu(self):
         option_2_callback = {
             'Market': partial(self.__show_market_menu),
             'Bar': partial(self.__show_bar_menu),
@@ -213,3 +216,89 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
+    def show_options_menu(self):
+        option_2_callback = {
+            'Language(L)': '',
+            'Sounds': '',
+            'Hot Keys': '',
+            'Exit': '',
+        }
+
+        MyMenuWindow(
+            title='',
+            option_2_callback=option_2_callback,
+            mgr=self.mgr
+        )
+
+    def show_fight_menu(self):
+
+        option_2_callback = {
+            'View Enemy Ships': '',
+            'All Ships Target': '',
+            'All Ships Strategy': '',
+            'One Ship Target': '',
+            'One Ship Strategy': '',
+            'Escape Battle': '',
+        }
+
+        MyMenuWindow(
+            title='',
+            option_2_callback=option_2_callback,
+            mgr=self.mgr
+        )
+
+    def show_cmds_menu(self):
+        option_2_callback = {
+            'Enter Building (F)': '',
+            'Enter Port (M)': '',
+            'Go Ashore (G)': '',
+            'Battle (B)': '',
+            'Measure Cooridinate': '',
+        }
+
+        MyMenuWindow(
+            title='',
+            option_2_callback=option_2_callback,
+            mgr=self.mgr
+        )
+
+    def show_items_menu(self):
+        option_2_callback = {
+            'Equipments': '',
+            'Items': '',
+            'Discoveries': '',
+            'Diary': '',
+            'World Map': '',
+            'Port Map': ''
+        }
+
+        MyMenuWindow(
+            title='',
+            option_2_callback=option_2_callback,
+            mgr=self.mgr
+        )
+
+    def show_mates_menu(self):
+        option_2_callback = {
+            'Admiral Info': '',
+            'Mate Info': '',
+        }
+
+        MyMenuWindow(
+            title='',
+            option_2_callback=option_2_callback,
+            mgr=self.mgr
+        )
+
+    def show_ships_menu(self):
+        option_2_callback = {
+            'Fleet Info': '',
+            'Ship Info': '',
+            'Swap Ships': '',
+        }
+
+        MyMenuWindow(
+            title='',
+            option_2_callback=option_2_callback,
+            mgr=self.mgr
+        )

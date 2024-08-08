@@ -262,6 +262,70 @@ class PacketHandler:
             proto_ships.append(proto_ship)
 
         return proto_ships
+
+    def __query_mates_in_db(self, role_id):
+        mates = ROLE_SESSION.query(MateModel).\
+            filter_by(role_id=role_id).\
+            all()
+        return mates
+
+    def __fill_mates_in_ram(self, role, mates):
+        for mate in mates:
+            mate_obj = model.Mate(
+                id=mate.id,
+                role_id=mate.role_id,
+
+                name=mate.name,
+                img_id=mate.img_id,
+                nation=mate.nation,
+
+                lv=mate.lv,
+                points=mate.points,
+                assigned_duty=mate.assigned_duty,
+                ship_id=mate.ship_id,
+
+                leadership=mate.leadership,
+                navigation=mate.navigation,
+                accounting=mate.accounting,
+                battle=mate.battle,
+
+                talent_in_navigation=mate.talent_in_navigation,
+                talent_in_accounting=mate.talent_in_accounting,
+                talent_in_battle=mate.talent_in_battle,
+            )
+
+            role.mate_mgr.add_mate(mate_obj)
+
+
+    def __gen_proto_mates(self, mates):
+        proto_mates = []
+        for mate in mates:
+            proto_mate = Mate(
+                id=mate.id,
+                role_id=mate.role_id,
+
+                name=mate.name,
+                img_id=mate.img_id,
+                nation=mate.nation,
+
+                lv=mate.lv,
+                points=mate.points,
+                assigned_duty=mate.assigned_duty,
+                ship_id=mate.ship_id,
+
+                leadership=mate.leadership,
+                navigation=mate.navigation,
+                accounting=mate.accounting,
+                battle=mate.battle,
+
+                talent_in_navigation=mate.talent_in_navigation,
+                talent_in_accounting=mate.talent_in_accounting,
+                talent_in_battle=mate.talent_in_battle,
+            )
+            proto_mates.append(proto_mate)
+
+        return proto_mates
+
     def __enter_world(self, enter_world):
         role = ROLE_SESSION.query(RoleModel).\
             filter_by(id=enter_world.role_id, account_id=self.account_id).\
@@ -278,17 +342,24 @@ class PacketHandler:
                 map_id=role.map_id,
             )
 
-            self.role.ship_mgr = model.ShipMgr(self.role)
-            self.role.mate_mgr = model.MateMgr(self.role)
-
-            # fill ships .. and mates
-            ships = self.__query_ships_in_db(enter_world.role_id)
-            self.__fill_ships_in_ram(self.role, ships)
-
-            proto_ships = self.__gen_proto_ships(ships)
-
             # add self.role to server
             self.session.server.add_role(role.id, self.role)
+
+            # init ship_mgr
+            self.role.ship_mgr = model.ShipMgr(self.role)
+
+            # fill ships
+            ships = self.__query_ships_in_db(enter_world.role_id)
+            self.__fill_ships_in_ram(self.role, ships)
+            proto_ships = self.__gen_proto_ships(ships)
+
+            # init mate_mgr
+            self.role.mate_mgr = model.MateMgr(self.role)
+
+            # fill mates
+            mates = self.__query_mates_in_db(enter_world.role_id)
+            self.__fill_mates_in_ram(self.role, mates)
+            proto_mates = self.__gen_proto_mates(mates)
 
             # prepare packet to send to client
             role_entered = RoleEntered()
@@ -298,15 +369,17 @@ class PacketHandler:
             role_entered.x = role.x
             role_entered.y = role.y
 
-            # fill ships in protocol
+            # fill ships and mates in protocol
             role_entered.ships.extend(proto_ships)
-
+            role_entered.mates.extend(proto_mates)
 
             enter_world_res = EnterWorldRes()
             enter_world_res.is_ok = True
             enter_world_res.role_entered.CopyFrom(role_entered)
 
             return enter_world_res
+
+
         else:
             enter_world_res = EnterWorldRes()
             enter_world_res.is_ok = False

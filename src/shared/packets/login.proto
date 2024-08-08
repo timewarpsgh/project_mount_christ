@@ -122,6 +122,30 @@ message Ship {
   optional int32 chief_navigator = 26;
 }
 
+message Mate {
+  required int32 id = 1;
+  required int32 role_id = 2;
+
+  required string name = 3;
+  required int32 img_id = 4;
+  required string nation = 5;
+
+  required int32 lv = 6;
+  required int32 points = 7;
+  required string assigned_duty = 8;
+  required int32 ship_id = 9;
+
+  required int32 leadership = 10;
+
+  required int32 navigation = 11;
+  required int32 accounting = 12;
+  required int32 battle = 13;
+
+  required int32 talent_in_navigation = 14;
+  required int32 talent_in_accounting = 15;
+  required int32 talent_in_battle = 16;
+}
+
 
 message RoleEntered {
     required int32 id = 1;
@@ -131,6 +155,7 @@ message RoleEntered {
     required int32 y = 5;
 
     repeated Ship ships = 6;
+    repeated Mate mates = 7;
 }
 
 message EnterWorldRes {

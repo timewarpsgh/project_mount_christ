@@ -39,6 +39,13 @@ class OptionsDialog:
             )
 
 
+    def __make_menu(self, dict):
+        MyMenuWindow(
+            title='',
+            option_2_callback=dict,
+            mgr=self.mgr
+        )
+
     def __send_get_available_cargos(self):
         self.client.send(GetAvailableCargos())
 
@@ -200,6 +207,101 @@ class OptionsDialog:
 
         self.client.send(Disconnect())
 
+    def __show_one_ship_states(self, ship):
+        print(f'show states for {ship.id}')
+        dict = {
+            'name/type/captain': f'{ship.name}/{ship.ship_template_id}/{ship.captain}',
+            '1': '',
+            'tacking/power/speed': f'{ship.tacking}/{ship.power}',
+            'durability': f'{ship.now_durability}/{ship.max_durability}',
+            '2': '',
+            'capacity': f'{ship.capacity}',
+            'guns/max_guns': f'{ship.now_guns}/{ship.max_guns}',
+            'min_crew/crew/max_crew': f'{ship.min_crew}/{ship.now_crew}/{ship.max_crew}',
+            '3': '',
+            'useful_capacity': f'{ship.capacity}',
+        }
+
+        # make text from dict
+        text = self.__dict_2_txt(dict)
+
+        # get ship image
+        ship_image = sAssetMgr.images['ships']['carrack']
+
+        MyPanelWindow(
+            rect=pygame.Rect((59, 12), (350, 400)),
+            ui_manager=self.mgr,
+            text=text,
+            image=ship_image,
+        )
+
+    def __dict_2_txt(self, dict):
+        text = ''
+        for k, v in dict.items():
+            if k.isdigit():
+                text += f'<br>'
+            else:
+                text += f'{k}: {v}<br>'
+        return text
+
+    def __show_ship_info_menu(self):
+        ship_mgr = self.client.game.graphics.model.role.ship_mgr
+
+        option_2_callback = {
+        }
+
+        for id, ship in ship_mgr.id_2_ship.items():
+            option_2_callback[ship.name] = partial(self.__show_one_ship_states, ship_mgr.get_ship(id))
+
+
+        MyMenuWindow(
+            title='',
+            option_2_callback=option_2_callback,
+            mgr=self.mgr
+        )
+
+    def __show_one_mate_states(self, mate):
+
+        dict = {
+            'name/nation': f"{mate.name}/{mate.nation}",
+            'duty': mate.assigned_duty,
+            '1': '',
+            'lv/points': f"{mate.lv}/{mate.points}",
+            '2': '',
+            'navigation/accounting/battle': f"{mate.navigation}/{mate.accounting}/{mate.battle}",
+
+            '3': '',
+            'talent in navigation/accounting/battle':
+                f"{mate.talent_in_navigation}/{mate.talent_in_accounting}/{mate.talent_in_battle}",
+        }
+
+        # make text from dict
+        text = self.__dict_2_txt(dict)
+
+        # get ship image
+        ship_image = sAssetMgr.images['ships']['carrack']
+
+        MyPanelWindow(
+            rect=pygame.Rect((59, 12), (350, 400)),
+            ui_manager=self.mgr,
+            text=text,
+            image=ship_image,
+        )
+
+
+
+
+    def __show_mate_info_menu(self):
+        mate_mgr = self.client.game.graphics.model.role.mate_mgr
+
+        option_2_callback = {
+        }
+
+        for id, mate in mate_mgr.id_2_mate.items():
+            option_2_callback[mate.name] = partial(self.__show_one_mate_states, mate_mgr.get_mate(id))
+
+        self.__make_menu(option_2_callback)
+
     def show_buildings_menu(self):
         option_2_callback = {
             'Market': partial(self.__show_market_menu),
@@ -287,7 +389,7 @@ class OptionsDialog:
     def show_mates_menu(self):
         option_2_callback = {
             'Admiral Info': '',
-            'Mate Info': '',
+            'Mate Info': partial(self.__show_mate_info_menu),
         }
 
         MyMenuWindow(
@@ -296,56 +398,6 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
-
-    def __show_one_ship_states(self, ship):
-        print(f'show states for {ship.id}')
-        dict = {
-            'name/type/captain': f'{ship.name}/{ship.ship_template_id}/{ship.captain}',
-            '1': '',
-            'tacking/power/speed': f'{ship.tacking}/{ship.power}',
-            'durability': f'{ship.now_durability}/{ship.max_durability}',
-            '2': '',
-            'capacity': f'{ship.capacity}',
-            'guns/max_guns': f'{ship.now_guns}/{ship.max_guns}',
-            'min_crew/crew/max_crew': f'{ship.min_crew}/{ship.now_crew}/{ship.max_crew}',
-            '3': '',
-            'useful_capacity': f'{ship.capacity}',
-        }
-
-        # make text from dict
-        text = ''
-        for k, v in dict.items():
-            if k.isdigit():
-                text += f'<br>'
-            else:
-                text += f'{k}: {v}<br>'
-
-        # get ship image
-        ship_image = sAssetMgr.images['ships']['carrack']
-
-        MyPanelWindow(
-            rect=pygame.Rect((59, 12), (350, 400)),
-            ui_manager=self.mgr,
-            text=text,
-            image=ship_image,
-        )
-
-
-    def __show_ship_info_menu(self):
-        ship_mgr = self.client.game.graphics.model.role.ship_mgr
-
-        option_2_callback = {
-        }
-
-        for id, ship in ship_mgr.id_2_ship.items():
-            option_2_callback[ship.name] = partial(self.__show_one_ship_states, ship_mgr.get_ship(id))
-
-
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
 
     def show_ships_menu(self):
         option_2_callback = {

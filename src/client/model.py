@@ -45,27 +45,27 @@ class Ship:
 @dataclass
 class Mate:
 
-    id: int
-    role_id: int
+    id: int=None
+    role_id: int=None
 
-    name: str
-    img_id: int
-    nation: str
+    name: str=None
+    img_id: int=None
+    nation: str=None
 
-    lv: int
-    points: int
-    assigned_duty: str
-    ship_id: int
+    lv: int=None
+    points: int=None
+    assigned_duty: str=None
+    ship_id: int=None
 
-    leadership: int
+    leadership: int=None
 
-    navigation: int
-    accounting: int
-    battle: int
+    navigation: int=None
+    accounting: int=None
+    battle: int=None
 
-    talent_in_navigation: int
-    talent_in_accounting: int
-    talent_in_battle: int
+    talent_in_navigation: int=None
+    talent_in_accounting: int=None
+    talent_in_battle: int=None
 
 
 class ShipMgr:

@@ -12,7 +12,7 @@ from login_pb2 import *
 from my_ui_elements import MyMsgWindow, MyMenuWindow
 from dialogs.create_role_dialog import CreateRoleDialog
 from dialogs.options_dialog import OptionsDialog
-from model import Model, Role, ShipMgr
+from model import Model, Role, ShipMgr, MateMgr
 import model
 from graphics import YELLOW
 
@@ -112,6 +112,35 @@ class PacketHandler:
                 mgr=self.client.game.gui.mgr
             )
 
+    def __add_mate_to_mate_mgr(self, prot_mate):
+        model_role = self.client.game.graphics.model.role
+
+        model_mate = model.Mate(
+            id=prot_mate.id,
+            role_id=prot_mate.role_id,
+
+            name=prot_mate.name,
+            img_id=prot_mate.img_id,
+            nation=prot_mate.nation,
+
+            lv=prot_mate.lv,
+            points=prot_mate.points,
+            assigned_duty=prot_mate.assigned_duty,
+            ship_id=prot_mate.ship_id,
+
+            leadership=prot_mate.leadership,
+
+            navigation=prot_mate.navigation,
+            accounting=prot_mate.accounting,
+            battle=prot_mate.battle,
+
+            talent_in_navigation=prot_mate.talent_in_navigation,
+            talent_in_accounting=prot_mate.talent_in_accounting,
+            talent_in_battle=prot_mate.talent_in_battle,
+        )
+
+        model_role.mate_mgr.add_mate(model_mate)
+
     def __add_ship_to_ship_mgr(self, prot_ship):
         model_role = self.client.game.graphics.model.role
 
@@ -182,6 +211,7 @@ class PacketHandler:
             )
             model_role = self.client.game.graphics.model.role
             model_role.ship_mgr = ShipMgr(model_role)
+            model_role.mate_mgr = MateMgr(model_role)
 
             self.client.game.graphics.sp_role.move_to(role.x * 100, role.y * 100)
             self.client.game.graphics.sp_role_name.move_to(role.x * 100, role.y * 100)
@@ -192,6 +222,11 @@ class PacketHandler:
             for prot_ship in role.ships:
                 print(f'added ship {prot_ship.id} ######## ')
                 self.__add_ship_to_ship_mgr(prot_ship)
+
+            # init mates
+            for prot_mate in role.mates:
+                print(f'added mate {prot_mate.id} ######## ')
+                self.__add_mate_to_mate_mgr(prot_mate)
 
 
             # print(self.client.game.graphics.model.role.ship_mgr.get_ship(1).name)

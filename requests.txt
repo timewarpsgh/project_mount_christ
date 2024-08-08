@@ -22,8 +22,8 @@ TO DO:
 
 
 
-        show role's ships using data in client model ON
-            when ships/ship_info clicked: show each ship's name
+        show role's ships using data in client model OK
+
 
 
 

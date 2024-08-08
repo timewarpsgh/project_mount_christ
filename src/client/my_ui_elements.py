@@ -45,3 +45,34 @@ class MyButton:
         )
 
         button.on_click = on_click
+
+class MyPanelWindow(pygame_gui.elements.UIWindow):
+    """displays info"""
+    def __init__(self, rect, ui_manager, text, image='none'):
+
+        # super
+        super().__init__(rect, ui_manager,
+                         window_display_title='',
+                         object_id='#scaling_window',
+                         resizable=True)
+
+
+        # image
+        if image:
+            pygame_gui.elements.UIImage(
+                pygame.Rect((0, 0), (image.get_rect().size)),
+                image,
+                ui_manager,
+                container=self,
+                anchors={'top': 'top', 'bottom': 'bottom',
+                       'left': 'left', 'right': 'right'})
+
+        # text box
+        if text:
+            pygame_gui.elements.UITextBox(
+                html_text=text,
+                relative_rect=pygame.Rect(0, 200, 320, 10), #pygame.Rect(0, image.get_rect().height, 320, 10)
+                manager=ui_manager,
+                wrap_to_height=True,
+                container=self)
+

@@ -10,7 +10,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\client')
 from login_pb2 import *
 from my_ui_elements import MyButton
 from create_account_dialog import CreateAccountDialog
-from my_ui_elements import MyMenuWindow
+from my_ui_elements import MyMenuWindow, MyPanelWindow
 
 class OptionsDialog:
 
@@ -294,10 +294,58 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
+
+    def __show_one_ship_states(self, ship):
+        print(f'show states for {ship.id}')
+        dict = {
+            'name/type/captain': f'{ship.name}/{ship.ship_template_id}/{ship.captain}',
+            '1': '',
+            'tacking/power/speed': f'{ship.tacking}/{ship.power}',
+            'durability': f'{ship.now_durability}/{ship.max_durability}',
+            '2': '',
+            'capacity': f'{ship.capacity}',
+            'guns/max_guns': f'{ship.now_guns}/{ship.max_guns}',
+            'min_crew/crew/max_crew': f'{ship.min_crew}/{ship.now_crew}/{ship.max_crew}',
+            '3': '',
+            'useful_capacity': f'{ship.capacity}',
+        }
+
+        # make text from dict
+        text = ''
+        for k, v in dict.items():
+            if k.isdigit():
+                text += f'<br>'
+            else:
+                text += f'{k}: {v}<br>'
+
+        MyPanelWindow(
+            rect=pygame.Rect((59, 12), (350, 400)),
+            ui_manager=self.mgr,
+            text=text,
+            image=None,
+        )
+
+
+    def __show_ship_info_menu(self):
+        ship_mgr = self.client.game.graphics.model.role.ship_mgr
+
+        option_2_callback = {
+        }
+
+        for id, ship in ship_mgr.id_2_ship.items():
+            option_2_callback[ship.name] = partial(self.__show_one_ship_states, ship_mgr.get_ship(id))
+
+
+        MyMenuWindow(
+            title='',
+            option_2_callback=option_2_callback,
+            mgr=self.mgr
+        )
+
     def show_ships_menu(self):
         option_2_callback = {
             'Fleet Info': '',
-            'Ship Info': '',
+            'Ship Info': partial(self.__show_ship_info_menu),
             'Swap Ships': '',
         }
 

@@ -210,9 +210,6 @@ class PacketHandler:
 
             role.ship_mgr.add_ship(ship_obj)
 
-
-
-
     def __query_ships_in_db(self, role_id):
         ships = ROLE_SESSION.query(ShipModel).\
             filter_by(role_id=role_id).\

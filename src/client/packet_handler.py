@@ -113,8 +113,7 @@ class PacketHandler:
             )
 
     def __add_ship_to_ship_mgr(self, prot_ship):
-        role = self.client.game.graphics.model.role
-        role.ship_mgr = ShipMgr(role)
+        model_role = self.client.game.graphics.model.role
 
         model_ship = model.Ship(
             id=prot_ship.id,
@@ -156,8 +155,7 @@ class PacketHandler:
             chief_navigator=prot_ship.chief_navigator,
         )
 
-
-        role.ship_mgr.add_ship(model_ship)
+        model_role.ship_mgr.add_ship(model_ship)
 
 
     async def handle_EnterWorldRes(self, enter_world_res):
@@ -182,6 +180,8 @@ class PacketHandler:
                 x=role.x,
                 y=role.y,
             )
+            model_role = self.client.game.graphics.model.role
+            model_role.ship_mgr = ShipMgr(model_role)
 
             self.client.game.graphics.sp_role.move_to(role.x * 100, role.y * 100)
             self.client.game.graphics.sp_role_name.move_to(role.x * 100, role.y * 100)
@@ -190,10 +190,11 @@ class PacketHandler:
 
             # init ships
             for prot_ship in role.ships:
+                print(f'added ship {prot_ship.id} ######## ')
                 self.__add_ship_to_ship_mgr(prot_ship)
 
 
-            print(self.client.game.graphics.model.role.ship_mgr.get_ship(1).name)
+            # print(self.client.game.graphics.model.role.ship_mgr.get_ship(1).name)
 
             self.is_in_game = True
 

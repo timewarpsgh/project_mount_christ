@@ -147,3 +147,7 @@ message RoleMoved {
     required int32 y = 3;
     required DirType dir_type = 4;
 }
+
+// disconnect from client
+message Disconnect {
+}

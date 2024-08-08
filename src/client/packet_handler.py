@@ -166,9 +166,6 @@ class PacketHandler:
         print('role id', role_moved.id)
         print('my id', self.client.game.graphics.model.role.id)
 
-
-
-
         if role_moved.id == self.client.game.graphics.model.role.id:
 
             print('you moved!!')
@@ -182,3 +179,5 @@ class PacketHandler:
 
         else:
             print('someoneelse moved!!')
+
+            self.client.game.graphics.move_sp_role(role_moved.id, role_moved.x + 300, role_moved.y + 150)

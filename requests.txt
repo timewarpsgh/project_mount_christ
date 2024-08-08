@@ -4,10 +4,13 @@ TO DO:
     show self and others move ON
         self  OK
             press W, send move N packet, server handels and send role moved to packet to all palyers.
-
             AD,SW OK
 
-        others
+        others  OK
+
+        exit right, so one role see another role disappear ON
+
+
 
 
 

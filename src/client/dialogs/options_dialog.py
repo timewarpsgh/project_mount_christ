@@ -194,6 +194,10 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
+    def __exit_game(self):
+
+        self.client.send(Disconnect())
+
     def show_buildings_menu(self):
         option_2_callback = {
             'Market': partial(self.__show_market_menu),
@@ -221,7 +225,7 @@ class OptionsDialog:
             'Language(L)': '',
             'Sounds': '',
             'Hot Keys': '',
-            'Exit': '',
+            'Exit': partial(self.__exit_game),
         }
 
         MyMenuWindow(

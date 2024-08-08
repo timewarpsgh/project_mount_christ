@@ -260,17 +260,28 @@ class PacketHandler:
         elif move.dir_type == DirType.S:
             self.role.y += 5
 
+        # notify presence of nearby_roles
+        nearby_roles = self.session.server.get_nearby_roles(self.role.id)
+
+        # make packet
         role_moved = RoleMoved()
         role_moved.id = self.role.id
         role_moved.x = self.role.x
         role_moved.y = self.role.y
         role_moved.dir_type = move.dir_type
 
+
+        for nearby_role in nearby_roles:
+            nearby_role.session.send(role_moved)
+
         self.session.send(role_moved)
 
+    async def handle_Disconnect(self, disconnect):
+        print('got disconn packet from client')
+        self.session.writer.close()
+        await self.session.writer.wait_closed()
 
-
-
+        # self.session.on_disconnect()
 
 
     def on_disconnect_signal(self, role_to_disappear):

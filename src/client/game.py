@@ -1,7 +1,9 @@
+import sys
 from dataclasses import dataclass
 import pygame
 import pygame_gui
 import asyncio
+from login_pb2 import *
 
 from gui import Gui
 from graphics import Graphics
@@ -41,7 +43,9 @@ class Game:
             # update based on events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.is_running = False
+                    print('pygame quit event detected')
+
+                    self.client.send(Disconnect())
 
                 self.graphics.process_event(event)
                 self.gui.process_event(event)

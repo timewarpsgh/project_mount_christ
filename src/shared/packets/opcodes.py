@@ -29,6 +29,8 @@ class OpCodeType(Enum):
     Move = auto()
     RoleMoved = auto()
 
+    Disconnect = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

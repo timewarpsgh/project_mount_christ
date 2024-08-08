@@ -28,6 +28,8 @@ class Session(Connection):
         self.packet_handler = PacketHandler(self)
 
     def on_disconnect(self):
+        print('someone disconnectd!!!!')
+
         if self.packet_handler.role:
             nearby_roles = self.server.get_nearby_roles(self.packet_handler.role.id)
             for nearby_role in nearby_roles:
@@ -82,7 +84,12 @@ class Server:
     async def client_connected(self, reader, writer):
         session = Session(self, reader, writer)
         self.add_session(session)
-        await session.main()
+        try:
+            await session.main()
+        except Exception as e:
+            print(f'some error occured: {e}')
+        else:
+            pass
 
     async def main(self):
         server = await asyncio.start_server(

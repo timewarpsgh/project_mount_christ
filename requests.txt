@@ -16,13 +16,14 @@ TO DO:
         load role's ships on enter game OK
 
         role in client now has ships in ship_mgr OK
+        bypass login option (in packet_handler.py BYPASS_LOGIN)  OK
 
 
 
-        bypass login option  OK
+
 
         show role's ships using data in client model ON
-
+            when ships/ship_info clicked: show each ship's name
 
 
 

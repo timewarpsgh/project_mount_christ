@@ -192,7 +192,7 @@ dbs
             role_id
 
             name
-            image_id
+            img_id
             nation
 
             lv
@@ -242,14 +242,14 @@ dbs
             type_of_guns
             max_guns
 
-            cargo_hold
-                water: 1
-                food: 2
-                material
-                cannon
+            #cargo_hold
+            water: 1
+            food: 2
+            material: 2
+            cannon: 3
 
-                cargo_cnt:
-                cargo_id:
+            cargo_cnt: 50
+            cargo_id: 2
 
         items
             id

@@ -36,6 +36,76 @@ class Role(BASE):
 	y = Column(Integer)
 
 
+class Mate(BASE):
+	# table
+	__tablename__ = 'mate'
+
+	# id
+	id = Column(Integer, primary_key=True)
+	role_id = Column(Integer)
+
+	name = Column(String)
+	img_id = Column(Integer)
+	nation = Column(String)
+
+	lv = Column(Integer)
+	points = Column(Integer)
+	assigned_duty = Column(String)
+	ship_id = Column(Integer)
+
+	leadership = Column(Integer)
+
+	navigation = Column(Integer)
+	accounting = Column(Integer)
+	battle = Column(Integer)
+
+	talent_in_navigation = Column(Integer)
+	talent_in_accounting = Column(Integer)
+	talent_in_battle = Column(Integer)
+
+
+class Ship(BASE):
+	# table
+	__tablename__ = 'ship'
+
+	# id
+	id = Column(Integer, primary_key=True)
+	role_id = Column(Integer)
+
+	name = Column(String)
+	ship_templated_id = Column(Integer)
+
+
+	material_type = Column(Integer)
+	captain = Column(Integer)
+	accountant = Column(Integer)
+	first_mate = Column(Integer)
+	chief_navigator = Column(Integer)
+
+	now_durability = Column(Integer)
+	max_durability = Column(Integer)
+
+	tacking = Column(Integer)
+	power = Column(Integer)
+
+	capacity = Column(Integer)
+
+	now_crew = Column(Integer)
+	min_crew = Column(Integer)
+	max_crew = Column(Integer)
+
+	now_guns = Column(Integer)
+	type_of_guns = Column(Integer)
+	max_guns = Column(Integer)
+
+	water = Column(Integer)
+	food = Column(Integer)
+	material = Column(Integer)
+	cannon = Column(Integer)
+
+	cargo_cnt = Column(Integer)
+	cargo_id = Column(Integer)
+
 
 def create_tables():
 	# ceate all above tables if not there yet

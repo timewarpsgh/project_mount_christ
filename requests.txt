@@ -24,6 +24,7 @@ TO DO:
 
         show role's ships using data in client model OK
 
+        show ship info image OK
 
 
 

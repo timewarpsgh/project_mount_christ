@@ -8,6 +8,8 @@ from login_pb2 import *
 from gui import Gui
 from graphics import Graphics
 from model import Model
+from asset_mgr import sAssetMgr
+
 
 @dataclass
 class Game:
@@ -26,6 +28,9 @@ class Game:
         self.is_running = True
 
         self.clock = pygame.time.Clock()
+
+        # load images
+        sAssetMgr.load_images()
 
         # init gui
         self.gui = Gui(client)

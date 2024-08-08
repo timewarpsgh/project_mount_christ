@@ -71,7 +71,7 @@ class MyPanelWindow(pygame_gui.elements.UIWindow):
         if text:
             pygame_gui.elements.UITextBox(
                 html_text=text,
-                relative_rect=pygame.Rect(0, 200, 320, 10), #pygame.Rect(0, image.get_rect().height, 320, 10)
+                relative_rect=pygame.Rect(0, image.get_rect().height, 320, 10), #pygame.Rect(0, image.get_rect().height, 320, 10)
                 manager=ui_manager,
                 wrap_to_height=True,
                 container=self)

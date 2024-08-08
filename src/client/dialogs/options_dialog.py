@@ -11,6 +11,8 @@ from login_pb2 import *
 from my_ui_elements import MyButton
 from create_account_dialog import CreateAccountDialog
 from my_ui_elements import MyMenuWindow, MyPanelWindow
+from asset_mgr import sAssetMgr
+
 
 class OptionsDialog:
 
@@ -318,11 +320,14 @@ class OptionsDialog:
             else:
                 text += f'{k}: {v}<br>'
 
+        # get ship image
+        ship_image = sAssetMgr.images['ships']['carrack']
+
         MyPanelWindow(
             rect=pygame.Rect((59, 12), (350, 400)),
             ui_manager=self.mgr,
             text=text,
-            image=None,
+            image=ship_image,
         )
 
 

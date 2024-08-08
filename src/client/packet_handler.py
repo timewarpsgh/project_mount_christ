@@ -16,6 +16,10 @@ from model import Model, Role, ShipMgr
 import model
 from graphics import YELLOW
 
+
+BYPASS_LOGIN = True
+
+
 class PacketHandler:
     """client"""
 
@@ -66,6 +70,11 @@ class PacketHandler:
             mgr=self.client.game.gui.mgr
         )
 
+        # bypass choose world
+        if BYPASS_LOGIN:
+            self.__get_roles_in_world(1)
+
+
     def __enter_world(self, role_id):
         enter_world = EnterWorld()
         enter_world.role_id = role_id
@@ -85,6 +94,10 @@ class PacketHandler:
             option_2_callback=option_2_callback,
             mgr=self.client.game.gui.mgr
         )
+
+        # bypass choose role
+        if BYPASS_LOGIN:
+            self.__enter_world(1)
 
     async def handle_NewRoleRes(self, new_role_res):
         if new_role_res.new_role_res_type == NewRoleRes.NewRoleResType.OK:

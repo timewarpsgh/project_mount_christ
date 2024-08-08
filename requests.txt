@@ -19,7 +19,10 @@ TO DO:
 
 
 
-        show role's ships using data in client model
+        bypass login option  OK
+
+        show role's ships using data in client model ON
+
 
 
 

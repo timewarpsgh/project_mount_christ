@@ -12,7 +12,11 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
 from login_pb2 import *
 
 from logon_models import Account, World as WorldModel, SESSION as LOGON_SESSION
-from role_models import Role as RoleModel, SESSION as ROLE_SESSION
+from role_models import \
+    Role as RoleModel, \
+    SESSION as ROLE_SESSION, \
+    Ship as ShipModel, \
+    Mate as MateModel
 
 from object_mgr import sObjectMgr
 
@@ -161,6 +165,106 @@ class PacketHandler:
         new_role_res.new_role_res_type = res_type
         self.session.send(new_role_res)
 
+
+    def __fill_ships_in_ram(self, role, ships):
+
+        for ship in ships:
+            ship_obj = model.Ship(
+                id=ship.id,
+                role_id=ship.role_id,
+
+                name=ship.name,
+                ship_template_id=ship.ship_template_id,
+
+                material_type=ship.material_type,
+
+                now_durability=ship.now_durability,
+                max_durability=ship.max_durability,
+
+                tacking=ship.tacking,
+                power=ship.power,
+
+                capacity=ship.capacity,
+
+                now_crew=ship.now_crew,
+                min_crew=ship.min_crew,
+                max_crew=ship.max_crew,
+
+                now_guns=ship.now_guns,
+                type_of_guns=ship.type_of_guns,
+                max_guns=ship.max_guns,
+
+                water=ship.water,
+                food=ship.food,
+                material=ship.material,
+                cannon=ship.cannon,
+
+                cargo_cnt=ship.cargo_cnt,
+                cargo_id=ship.cargo_id,
+
+                captain=ship.captain,
+                accountant=ship.accountant,
+                first_mate=ship.first_mate,
+                chief_navigator=ship.chief_navigator,
+            )
+
+            role.ship_mgr.add_ship(ship_obj)
+
+
+
+
+    def __query_ships_in_db(self, role_id):
+        ships = ROLE_SESSION.query(ShipModel).\
+            filter_by(role_id=role_id).\
+            all()
+        return ships
+
+    def __gen_proto_ships(self, ships):
+        proto_ships = []
+        for ship in ships:
+            proto_ship = Ship(
+                id=ship.id,
+                role_id=ship.role_id,
+
+                name=ship.name,
+                ship_template_id=ship.ship_template_id,
+
+                material_type=ship.material_type,
+
+                now_durability=ship.now_durability,
+                max_durability=ship.max_durability,
+
+                tacking=ship.tacking,
+                power=ship.power,
+
+                capacity=ship.capacity,
+
+                now_crew=ship.now_crew,
+                min_crew=ship.min_crew,
+                max_crew=ship.max_crew,
+
+                now_guns=ship.now_guns,
+                type_of_guns=ship.type_of_guns,
+                max_guns=ship.max_guns,
+
+                water=ship.water,
+                food=ship.food,
+                material=ship.material,
+                cannon=ship.cannon,
+
+                cargo_cnt=ship.cargo_cnt,
+                cargo_id=ship.cargo_id,
+
+                captain=ship.captain,
+                accountant=ship.accountant,
+                first_mate=ship.first_mate,
+                chief_navigator=ship.chief_navigator,
+
+            )
+
+            proto_ships.append(proto_ship)
+
+        return proto_ships
     def __enter_world(self, enter_world):
         role = ROLE_SESSION.query(RoleModel).\
             filter_by(id=enter_world.role_id, account_id=self.account_id).\
@@ -177,16 +281,28 @@ class PacketHandler:
                 map_id=role.map_id,
             )
 
+            self.role.ship_mgr = model.ShipMgr(self.role)
+            self.role.mate_mgr = model.MateMgr(self.role)
+
+            # fill ships .. and mates
+            ships = self.__query_ships_in_db(enter_world.role_id)
+            self.__fill_ships_in_ram(self.role, ships)
+
+            proto_ships = self.__gen_proto_ships(ships)
+
             # add self.role to server
             self.session.server.add_role(role.id, self.role)
 
-            # send packet to client
+            # prepare packet to send to client
             role_entered = RoleEntered()
             role_entered.id = role.id
             role_entered.name = role.name
             role_entered.map_id = role.map_id
             role_entered.x = role.x
             role_entered.y = role.y
+
+            # fill ships in protocol
+            role_entered.ships.extend(proto_ships)
 
 
             enter_world_res = EnterWorldRes()

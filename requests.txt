@@ -13,7 +13,12 @@ TO DO:
         role has ships and mates in db OK
 
 
-        load role's ships on enter game
+        load role's ships on enter game OK
+
+        role in client now has ships in ship_mgr OK
+
+
+
         show role's ships using data in client model
 
 

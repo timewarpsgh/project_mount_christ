@@ -12,7 +12,8 @@ from login_pb2 import *
 from my_ui_elements import MyMsgWindow, MyMenuWindow
 from dialogs.create_role_dialog import CreateRoleDialog
 from dialogs.options_dialog import OptionsDialog
-from model import Model, Role
+from model import Model, Role, ShipMgr
+import model
 from graphics import YELLOW
 
 class PacketHandler:
@@ -98,6 +99,54 @@ class PacketHandler:
                 mgr=self.client.game.gui.mgr
             )
 
+    def __add_ship_to_ship_mgr(self, prot_ship):
+        role = self.client.game.graphics.model.role
+        role.ship_mgr = ShipMgr(role)
+
+        model_ship = model.Ship(
+            id=prot_ship.id,
+            role_id=prot_ship.role_id,
+
+            name=prot_ship.name,
+            ship_template_id=prot_ship.ship_template_id,
+
+            material_type=prot_ship.material_type,
+
+            now_durability=prot_ship.now_durability,
+            max_durability=prot_ship.max_durability,
+
+            tacking=prot_ship.tacking,
+            power=prot_ship.power,
+
+            capacity=prot_ship.capacity,
+
+
+            now_crew=prot_ship.now_crew,
+            min_crew=prot_ship.min_crew,
+            max_crew=prot_ship.max_crew,
+
+            now_guns=prot_ship.now_guns,
+            type_of_guns=prot_ship.type_of_guns,
+            max_guns=prot_ship.max_guns,
+
+            water=prot_ship.water,
+            food=prot_ship.food,
+            material=prot_ship.material,
+            cannon=prot_ship.cannon,
+
+            cargo_cnt=prot_ship.cargo_cnt,
+            cargo_id=prot_ship.cargo_id,
+
+            captain=prot_ship.captain,
+            accountant=prot_ship.accountant,
+            first_mate=prot_ship.first_mate,
+            chief_navigator=prot_ship.chief_navigator,
+        )
+
+
+        role.ship_mgr.add_ship(model_ship)
+
+
     async def handle_EnterWorldRes(self, enter_world_res):
         if enter_world_res.is_ok:
             role = enter_world_res.role_entered
@@ -125,6 +174,13 @@ class PacketHandler:
             self.client.game.graphics.sp_role_name.move_to(role.x * 100, role.y * 100)
             self.client.game.graphics.sp_role_name.change_img(self.client.game.graphics.font.render(role.name, True, YELLOW))
 
+
+            # init ships
+            for prot_ship in role.ships:
+                self.__add_ship_to_ship_mgr(prot_ship)
+
+
+            print(self.client.game.graphics.model.role.ship_mgr.get_ship(1).name)
 
             self.is_in_game = True
 

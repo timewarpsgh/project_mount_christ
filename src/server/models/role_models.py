@@ -73,7 +73,7 @@ class Ship(BASE):
 	role_id = Column(Integer)
 
 	name = Column(String)
-	ship_templated_id = Column(Integer)
+	ship_template_id = Column(Integer)
 
 
 	material_type = Column(Integer)

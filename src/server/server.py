@@ -55,6 +55,9 @@ class Server:
         self.addr_2_session = {}
         self.id_2_role = {}
 
+    def get_role(self, id):
+        return self.id_2_role[id]
+
     def add_role(self, id, role):
         self.id_2_role[id] = role
         print(f'role added! {self.id_2_role=}')

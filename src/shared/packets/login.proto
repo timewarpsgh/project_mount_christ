@@ -82,12 +82,55 @@ message EnterWorld {
     required int32 role_id = 1;
 }
 
+
+message Ship {
+  required int32 id = 1;
+  required int32 role_id = 2;
+
+  required string name = 3;
+  required int32 ship_template_id = 4;
+
+  required int32 material_type = 5;
+
+  required int32 now_durability = 6;
+  required int32 max_durability = 7;
+
+  required int32 tacking = 8;
+  required int32 power = 9;
+
+  required int32 capacity = 10;
+
+  required int32 now_crew = 11;
+  required int32 min_crew = 12;
+  required int32 max_crew = 13;
+
+  required int32 now_guns = 14;
+  required int32 type_of_guns = 15;
+  required int32 max_guns = 16;
+
+  required int32 water = 17;
+  required int32 food = 18;
+  required int32 material = 19;
+  required int32 cannon = 20;
+
+  required int32 cargo_cnt = 21;
+  required int32 cargo_id = 22;
+
+  optional int32 captain = 23;
+  optional int32 accountant = 24;
+  optional int32 first_mate = 25;
+  optional int32 chief_navigator = 26;
+}
+
+
 message RoleEntered {
     required int32 id = 1;
     required string name = 2;
     required int32 map_id = 3;
     required int32 x = 4;
     required int32 y = 5;
+
+    repeated Ship ships = 6;
 }
 
 message EnterWorldRes {

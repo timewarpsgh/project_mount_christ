@@ -22,5 +22,10 @@ class AssetMgr:
         path_to_ships_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\ships"
         load_images_in_dir(self.images['ships'], path_to_ships_imgs)
 
+        self.images['figures'] = {}
+        path_to_figures_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\figures"
+        load_images_in_dir(self.images['figures'], path_to_figures_imgs)
+
+
 
 sAssetMgr = AssetMgr()

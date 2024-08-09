@@ -260,6 +260,19 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
+    def __figure_x_y_2_image(self, x=8, y=8):
+        figure_width = 65
+        figure_height = 81
+
+        figures_image = sAssetMgr.images['figures']['figures']
+        figure_surface = pygame.Surface((figure_width, figure_height))
+        x_coord = -figure_width * (x - 1) - 3
+        y_coord = -figure_height * (y - 1) - 3
+        rect = pygame.Rect(x_coord, y_coord, figure_width, figure_height)
+        figure_surface.blit(figures_image, rect)
+
+        return figure_surface
+
     def __show_one_mate_states(self, mate):
 
         dict = {
@@ -279,13 +292,13 @@ class OptionsDialog:
         text = self.__dict_2_txt(dict)
 
         # get ship image
-        ship_image = sAssetMgr.images['ships']['carrack']
+        mate_image = self.__figure_x_y_2_image(1, 1)
 
         MyPanelWindow(
             rect=pygame.Rect((59, 12), (350, 400)),
             ui_manager=self.mgr,
             text=text,
-            image=ship_image,
+            image=mate_image,
         )
 
 

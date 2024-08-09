@@ -24,7 +24,7 @@ TO DO:
 
         show mate info OK
 
-        show mate image ON
+        show mate image OK
 
 
 

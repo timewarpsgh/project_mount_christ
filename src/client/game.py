@@ -31,6 +31,7 @@ class Game:
 
         # load images
         sAssetMgr.load_images()
+        sAssetMgr.load_sounds()
 
         # init gui
         self.gui = Gui(client)

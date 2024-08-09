@@ -15,6 +15,7 @@ from dialogs.options_dialog import OptionsDialog
 from model import Model, Role, ShipMgr, MateMgr
 import model
 from graphics import YELLOW
+from asset_mgr import sAssetMgr
 
 
 BYPASS_LOGIN = True
@@ -284,6 +285,8 @@ class PacketHandler:
 
     async def handle_MoneyChanged(self, money_changed):
         self.__get_role().money = money_changed.money
+        sAssetMgr.sounds['deal'].play()
+
 
     async def handle_ShipCargoChanged(self, ship_cargo_changed):
         ship = self.__get_role().ship_mgr.get_ship(ship_cargo_changed.ship_id)

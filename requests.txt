@@ -1,12 +1,13 @@
 TO DO:
 
 
-
     have money OK
-
     buy cargo to a ship OK
 
-    play money changed sound ON
+
+    play money changed sound OK
+
+
 
     buy ship
 

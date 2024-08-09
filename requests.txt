@@ -1,30 +1,10 @@
 TO DO:
 
 
-    show self and others move ON
-        self  OK
-            press W, send move N packet, server handels and send role moved to packet to all palyers.
-            AD,SW OK
 
-        others  OK
-
-        exit right, so one role see another role disappear OK
-
-        role has ships and mates in db OK
-
-
-        load role's ships on enter game OK
-
-        role in client now has ships in ship_mgr OK
-        bypass login option (in packet_handler.py BYPASS_LOGIN)  OK
-
-        show role's ships using data in client model OK
-
-        show ship info image OK
-
-        show mate info OK
-
-        show mate image OK
+    have money OK
+    buy cargo
+    buy ship
 
 
 

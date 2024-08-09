@@ -34,6 +34,7 @@ class Role(BASE):
 	map_id = Column(Integer)
 	x = Column(Integer)
 	y = Column(Integer)
+	money = Column(Integer)
 
 
 class Mate(BASE):

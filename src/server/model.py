@@ -115,6 +115,7 @@ class Role:
     x: int=None
     y: int=None
     map_id: int=None
+    money: int=None
 
     ship_mgr: ShipMgr=None
     mate_mgr: MateMgr=None

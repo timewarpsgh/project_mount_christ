@@ -153,9 +153,10 @@ message RoleEntered {
     required int32 map_id = 3;
     required int32 x = 4;
     required int32 y = 5;
+    required int32 money = 6;
 
-    repeated Ship ships = 6;
-    repeated Mate mates = 7;
+    repeated Ship ships = 7;
+    repeated Mate mates = 8;
 }
 
 message EnterWorldRes {

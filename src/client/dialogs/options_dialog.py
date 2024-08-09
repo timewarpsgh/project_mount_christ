@@ -393,6 +393,8 @@ class OptionsDialog:
             'Port Map': ''
         }
 
+        option_2_callback[f'Gold Coins {self.client.game.graphics.model.role.money}'] = ''
+
         MyMenuWindow(
             title='',
             option_2_callback=option_2_callback,

@@ -208,6 +208,7 @@ class PacketHandler:
                 name=role.name,
                 x=role.x,
                 y=role.y,
+                money=role.money,
             )
             model_role = self.client.game.graphics.model.role
             model_role.ship_mgr = ShipMgr(model_role)

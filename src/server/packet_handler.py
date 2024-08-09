@@ -340,6 +340,7 @@ class PacketHandler:
                 x=role.x,
                 y=role.y,
                 map_id=role.map_id,
+                money=role.money,
             )
 
             # add self.role to server
@@ -368,6 +369,7 @@ class PacketHandler:
             role_entered.map_id = role.map_id
             role_entered.x = role.x
             role_entered.y = role.y
+            role_entered.money = role.money
 
             # fill ships and mates in protocol
             role_entered.ships.extend(proto_ships)

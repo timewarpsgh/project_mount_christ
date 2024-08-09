@@ -471,6 +471,48 @@ class PacketHandler:
 
         # self.session.on_disconnect()
 
+    async def handle_BuyCargo(self, buy_cargo):
+        cargo_id = buy_cargo.cargo_id
+        cnt = buy_cargo.cnt
+        ship_id = buy_cargo.ship_id
+
+        print(f'cnt: {cnt}')
+
+        # get cost
+        cost = 0
+        cargo_template = sObjectMgr.get_cargo_template(cargo_id)
+        economy_id_str_2_buy_price = json.loads(cargo_template.buy_price)
+
+        port = sObjectMgr.get_port(self.role.map_id)
+
+        # port dosen't have this cargo
+        if str(port.economy_id) not in economy_id_str_2_buy_price:
+            print("port dosen't have this cargo")
+            return
+
+        buy_price = economy_id_str_2_buy_price[str(port.economy_id)]
+        cost = cnt * buy_price
+
+        # not enough money
+        if not self.role.money  >= cost:
+            print("not enough money")
+            return
+
+        # update ram
+        self.role.money -= cost
+        self.role.ship_mgr.get_ship(ship_id).add_cargo(cargo_id, cnt)
+
+        # tell client
+        money_changed = MoneyChanged()
+        money_changed.money = self.role.money
+        self.session.send(money_changed)
+
+        ship_cargo_changed = ShipCargoChanged()
+        ship_cargo_changed.ship_id = ship_id
+        ship_cargo_changed.cargo_id = cargo_id
+        ship_cargo_changed.cnt = cnt
+        self.session.send(ship_cargo_changed)
+
 
     def on_disconnect_signal(self, role_to_disappear):
         role_disappeared = RoleDisappeared()

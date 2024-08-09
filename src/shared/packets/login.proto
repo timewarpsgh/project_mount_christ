@@ -220,3 +220,20 @@ message RoleMoved {
 // disconnect from client
 message Disconnect {
 }
+
+// buy cargo
+message BuyCargo {
+    required int32 cargo_id = 1;
+    required int32 cnt = 2;
+    required int32 ship_id = 3;
+}
+
+message MoneyChanged {
+    required int32 money = 1;
+}
+
+message ShipCargoChanged {
+    required int32 cargo_id = 1;
+    required int32 cnt = 2;
+    required int32 ship_id = 3;
+}

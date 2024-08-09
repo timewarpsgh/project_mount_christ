@@ -257,16 +257,7 @@ class PacketHandler:
         self.client.game.graphics.rm_sp_role(role_disappeared.id)
 
     async def handle_GetAvailableCargosRes(self, get_available_cargos_res):
-        print(get_available_cargos_res)
-
-        option_2_callback = {f'{cargo.name} {cargo.price}': ''
-                             for cargo in get_available_cargos_res.available_cargos}
-
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.client.game.gui.mgr
-        )
+        self.client.game.gui.options_dialog.show_available_cargos_menu(get_available_cargos_res)
 
     async def handle_RoleMoved(self, role_moved):
         print('role id', role_moved.id)
@@ -287,3 +278,13 @@ class PacketHandler:
             print('someoneelse moved!!')
 
             self.client.game.graphics.move_sp_role(role_moved.id, role_moved.x + 300, role_moved.y + 150)
+
+    def __get_role(self):
+        return self.client.game.graphics.model.role
+
+    async def handle_MoneyChanged(self, money_changed):
+        self.__get_role().money = money_changed.money
+
+    async def handle_ShipCargoChanged(self, ship_cargo_changed):
+        ship = self.__get_role().ship_mgr.get_ship(ship_cargo_changed.ship_id)
+        ship.add_cargo(ship_cargo_changed.cargo_id, ship_cargo_changed.cnt)

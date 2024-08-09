@@ -31,6 +31,10 @@ class OpCodeType(Enum):
 
     Disconnect = auto()
 
+    BuyCargo = auto()
+    MoneyChanged = auto()
+    ShipCargoChanged = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

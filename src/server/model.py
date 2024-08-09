@@ -42,6 +42,10 @@ class Ship:
     first_mate: int=None
     chief_navigator: int=None
 
+    def add_cargo(self, cargo_id, cargo_cnt):
+        self.cargo_id = cargo_id
+        self.cargo_cnt = cargo_cnt
+
 @dataclass
 class Mate:
 

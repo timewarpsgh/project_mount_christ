@@ -10,6 +10,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\client')
 from login_pb2 import *
 from my_ui_elements import MyButton
 from create_account_dialog import CreateAccountDialog
+from packet_params_dialog import PacketParamsDialog
 from my_ui_elements import MyMenuWindow, MyPanelWindow
 from asset_mgr import sAssetMgr
 
@@ -218,8 +219,9 @@ class OptionsDialog:
             'capacity': f'{ship.capacity}',
             'guns/max_guns': f'{ship.now_guns}/{ship.max_guns}',
             'min_crew/crew/max_crew': f'{ship.min_crew}/{ship.now_crew}/{ship.max_crew}',
-            '3': '',
             'useful_capacity': f'{ship.capacity}',
+            'cargo_id/cnt': f'{ship.cargo_id}/{ship.cargo_cnt}'
+
         }
 
         # make text from dict
@@ -426,3 +428,29 @@ class OptionsDialog:
             option_2_callback=option_2_callback,
             mgr=self.mgr
         )
+
+
+    def __show_cargo_cnt_to_load_to_ship_dialog(self, cargo_id, ship_id):
+        # ask user to enter cnt
+        buy_cargo = BuyCargo()
+        buy_cargo.cargo_id = cargo_id
+        buy_cargo.ship_id = ship_id
+
+        PacketParamsDialog(self.mgr, self.client, ['cnt'], buy_cargo)
+
+    def __show_ships_to_load_cargo_menu(self, cargo_id):
+        ship_mgr = self.client.game.graphics.model.role.ship_mgr
+
+        option_2_callback = {
+        }
+
+        for ship_id, ship in ship_mgr.id_2_ship.items():
+            option_2_callback[ship.name] = partial(self.__show_cargo_cnt_to_load_to_ship_dialog, cargo_id, ship_id)
+
+        self.__make_menu(option_2_callback)
+
+    def show_available_cargos_menu(self, get_available_cargos_res):
+        option_2_callback = {f'{cargo.name} {cargo.price}': partial(self.__show_ships_to_load_cargo_menu, cargo.id)
+                             for cargo in get_available_cargos_res.available_cargos}
+
+        self.__make_menu(option_2_callback)

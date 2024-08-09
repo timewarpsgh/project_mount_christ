@@ -3,7 +3,11 @@ TO DO:
 
 
     have money OK
-    buy cargo
+
+    buy cargo to a ship OK
+
+    play money changed sound ON
+
     buy ship
 
 

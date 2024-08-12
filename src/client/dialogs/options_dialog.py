@@ -78,7 +78,7 @@ class OptionsDialog:
     def pop_some_menus(self, cnt):
         for i in range(cnt):
             stacked_windows = self.ui_window.window_stack.get_stack()
-            if len(stacked_windows) >= 2:
+            if len(stacked_windows) >= 3:
                 top_window = stacked_windows.pop()
                 top_window.kill()
 

@@ -16,8 +16,16 @@ TO DO:
         ok -> send sell packet (ship_id, cargo_id, cnt)
 
 
+    gm cmds， via chat window 你好
+
+        chat window
+
+        change map
+        change xy
+
+
     buy ship  ON
-      show available ships in this port   ON
+      show available ships in this port   ON你好
 
 
 

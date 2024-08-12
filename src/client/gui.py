@@ -14,6 +14,7 @@ class Gui:
 
         self.login_diglog = LoginDialog(self.mgr, client)
         self.options_dialog = None
+        self.chat_dialog = None
 
     def process_event(self, event):
         self.mgr.process_events(event)

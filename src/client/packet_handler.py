@@ -12,6 +12,7 @@ from login_pb2 import *
 from my_ui_elements import MyMsgWindow, MyMenuWindow
 from dialogs.create_role_dialog import CreateRoleDialog
 from dialogs.options_dialog import OptionsDialog
+from dialogs.chat_dialog import ChatDialog
 from model import Model, Role, ShipMgr, MateMgr
 import model
 from graphics import YELLOW
@@ -202,6 +203,9 @@ class PacketHandler:
 
             # init options dialog
             self.client.game.gui.options_dialog = OptionsDialog(self.client.game.gui.mgr, self.client)
+
+            # init chat dialog
+            self.client.game.gui.chat_dialog = ChatDialog(self.client.game.gui.mgr, self.client)
 
             # ini role
             self.client.game.graphics.model.role = Role(

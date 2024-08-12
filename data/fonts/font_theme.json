@@ -16,5 +16,23 @@
             "size": "15",
             "regular_path":"../../data/fonts/siyuanheiti.ttf"
         }
+    },
+    "text_entry_line":
+    {
+        "font":
+        {
+            "name": "MS Gothic",
+            "size": "15",
+            "regular_path":"../../data/fonts/siyuanheiti.ttf"
+        }
+    },
+    "text_entry_box":
+    {
+        "font":
+        {
+            "name": "MS Gothic",
+            "size": "15",
+            "regular_path":"../../data/fonts/siyuanheiti.ttf"
+        }
     }
 }

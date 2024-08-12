@@ -29,7 +29,7 @@ TO DO:
             GM
                 change map:  .map 1   OK
                 change xy    .xy 10 20  OK
-                gm level ON
+                gm level   OK
 
     buy ship  ON
       show available ships in this port   ON你好

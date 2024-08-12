@@ -29,6 +29,7 @@ class Account(BASE):
 
 	account = Column(String(20))
 	password = Column(String(20))
+	gm_lv = Column(Integer)
 
 
 class World(BASE):

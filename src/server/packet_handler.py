@@ -39,6 +39,7 @@ class PacketHandler:
     def __init__(self, session):
         self.session = session
         self.account_id = None
+        self.account = None
         self.role = None
 
     async def handle_packet(self, packet):
@@ -82,6 +83,7 @@ class PacketHandler:
 
         if account:
             self.account_id = account.id
+            self.account = account
             return LoginRes.LoginResType.OK
         else:
             return LoginRes.LoginResType.WRONG_PASSWORD_OR_ACCOUNT
@@ -603,18 +605,21 @@ class PacketHandler:
 
     async def handle_Chat(self, chat):
         if chat.chat_type == ChatType.SAY:
+
             # handle gm cmds
-            account_has_gm_right = True
-            if chat.text.startswith('.') and account_has_gm_right:
-                self.__handle_gm_cmd(chat.text)
-            else:
-                # normal say chat
-                pack = GotChat(
-                    origin_name=self.role.name,
-                    chat_type=ChatType.SAY,
-                    text=chat.text,
-                )
-                self.send_to_nearby_roles(pack, include_self=True)
+            if chat.text.startswith('.'):
+                if self.account.gm_lv:
+                   if self.account.gm_lv >= 9:
+                        self.__handle_gm_cmd(chat.text)
+                        return
+
+            # normal say chat
+            pack = GotChat(
+                origin_name=self.role.name,
+                chat_type=ChatType.SAY,
+                text=chat.text,
+            )
+            self.send_to_nearby_roles(pack, include_self=True)
 
     def on_disconnect_signal(self, role_to_disappear):
         role_disappeared = RoleDisappeared()

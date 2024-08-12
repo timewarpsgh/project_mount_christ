@@ -102,7 +102,6 @@ class Graphics:
     def process_event(self, event):
         if event.type == pygame.KEYDOWN:
             # movements
-            print('keydown !!!!!1')
             if event.key == pygame.K_d:
                 # move east
                 move = Move()

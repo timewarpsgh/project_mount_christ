@@ -40,6 +40,9 @@ class OpCodeType(Enum):
     SellCargoInShip = auto()
     PopSomeMenus = auto()
 
+    Chat = auto()
+    GotChat = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

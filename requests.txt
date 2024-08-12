@@ -18,10 +18,17 @@ TO DO:
 
     gm cmds， via chat window 你好
 
-        chat window
+        chat window OK
+            say  OK
+            remove console print ON
+            whisper
+            party
+            nation
+            world
 
-        change map
-        change xy
+            GM
+                change map
+                change xy
 
 
     buy ship  ON

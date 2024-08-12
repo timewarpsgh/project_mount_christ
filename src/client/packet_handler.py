@@ -304,3 +304,11 @@ class PacketHandler:
 
     async def handle_PopSomeMenus(self, pop_some_menus):
         self.__get_options_dialog().pop_some_menus(pop_some_menus.cnt)
+
+    async def handle_GotChat(self, got_chat):
+        self.client.game.gui.chat_dialog.add_chat(
+            chat_type=got_chat.chat_type,
+            origin_name=got_chat.origin_name,
+            text=got_chat.text)
+
+

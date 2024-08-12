@@ -260,3 +260,27 @@ message SellCargoInShip {
 message PopSomeMenus {
     required int32 cnt = 1;
 }
+
+// chat
+
+enum ChatType {
+    SAY = 0;
+    WHISPER = 1;
+    PARTY = 2;
+    NATION = 3;
+    GLOBAL = 4;
+    SYSTEM = 5;
+}
+
+message Chat {
+    required ChatType chat_type = 1;
+    required string text = 2;
+    optional string whisper_target_name = 3;
+}
+
+message GotChat {
+    required string origin_name = 1;
+    required ChatType chat_type = 2;
+    required string text = 3;
+    optional string whisper_target_name = 4;
+}

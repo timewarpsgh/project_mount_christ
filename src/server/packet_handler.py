@@ -560,6 +560,23 @@ class PacketHandler:
         self.session.send(ShipCargoChanged(ship_id=ship_id, cargo_id=ship.cargo_id, cnt=ship.cargo_cnt))
         self.session.send(PopSomeMenus(cnt=2))
 
+    def send_to_nearby_roles(self, packet, include_self=False):
+        # notify presence of nearby_roles
+        nearby_roles = self.session.server.get_nearby_roles(self.role.id)
+        for nearby_role in nearby_roles:
+            nearby_role.session.send(packet)
+
+        if include_self:
+            self.session.send(packet)
+
+    async def handle_Chat(self, chat):
+        if chat.chat_type == ChatType.SAY:
+            pack = GotChat(
+                origin_name=self.role.name,
+                chat_type=ChatType.SAY,
+                text=chat.text,
+            )
+            self.send_to_nearby_roles(pack, include_self=True)
 
     def on_disconnect_signal(self, role_to_disappear):
         role_disappeared = RoleDisappeared()

@@ -20,7 +20,7 @@ TO DO:
 
         chat window OK
             say  OK
-            remove console print ON
+            remove console print OK
             whisper
             party
             nation

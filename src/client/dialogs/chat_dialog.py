@@ -1,16 +1,18 @@
 import pygame_gui
 import pygame
 from functools import partial
-from pygame_gui._constants import UI_TEXT_ENTRY_FINISHED
+import html
+from pygame_gui._constants import UI_TEXT_ENTRY_FINISHED, UI_TEXT_ENTRY_CHANGED
+from pygame_gui._constants import UI_CONSOLE_COMMAND_ENTERED
 
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
-
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\client')
 
 from login_pb2 import *
+from my_ui_console_window import MyUIConsoleWindow
 
-
-class ChatDialog(pygame_gui.windows.UIConsoleWindow):
+class ChatDialog(MyUIConsoleWindow):
 
     def __init__(self, mgr, client):
         self.mgr = mgr
@@ -21,6 +23,8 @@ class ChatDialog(pygame_gui.windows.UIConsoleWindow):
 
 
     def process_event(self, event: pygame.event.Event) -> bool:
+
+        # send packet
         if event.type == UI_TEXT_ENTRY_FINISHED and event.ui_element == self.command_entry:
             text = self.command_entry.get_text()
             print(text)
@@ -32,8 +36,7 @@ class ChatDialog(pygame_gui.windows.UIConsoleWindow):
 
             self.client.send(packet)
 
-
-
+        # call super
         super().process_event(event)
 
 

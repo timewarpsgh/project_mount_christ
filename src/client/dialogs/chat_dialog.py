@@ -44,9 +44,17 @@ class ChatDialog(MyUIConsoleWindow):
         if chat_type == ChatType.SAY:
             chat_type_str = 'says'
 
-        self.add_output_line_to_log(
-            f'{origin_name} {chat_type_str} {text}',
-            is_bold=True,
-            remove_line_break=False,
-            escape_html=True
-        )
+            self.add_output_line_to_log(
+                f'{origin_name} {chat_type_str} {text}',
+                is_bold=False,
+                remove_line_break=False,
+                escape_html=True
+            )
+
+        elif chat_type == ChatType.SYSTEM:
+            self.add_output_line_to_log(
+                f'SYSTEM {text}',
+                is_bold=True,
+                remove_line_break=False,
+                escape_html=True
+            )

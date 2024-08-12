@@ -569,14 +569,52 @@ class PacketHandler:
         if include_self:
             self.session.send(packet)
 
-    async def handle_Chat(self, chat):
-        if chat.chat_type == ChatType.SAY:
+    def __handle_gm_cmd(self, text):
+        split_items = text[1:].split()
+        cmd = split_items[0]
+        params = split_items[1:]
+
+        if cmd == 'map':
+            map_id = int(params[0])
+
+            self.role.map_id = map_id
+
             pack = GotChat(
                 origin_name=self.role.name,
-                chat_type=ChatType.SAY,
-                text=chat.text,
+                chat_type=ChatType.SYSTEM,
+                text=f'map changed to {map_id}',
             )
-            self.send_to_nearby_roles(pack, include_self=True)
+            self.session.send(pack)
+
+        elif cmd == 'xy':
+            x = int(params[0])
+            y = int(params[1])
+
+            self.role.x = x
+            self.role.y = y
+
+            pack = GotChat(
+                origin_name=self.role.name,
+                chat_type=ChatType.SYSTEM,
+                text=f'xy changed to {x} {y}',
+            )
+            self.session.send(pack)
+
+
+    async def handle_Chat(self, chat):
+        if chat.chat_type == ChatType.SAY:
+            # handle gm cmds
+            account_has_gm_right = True
+            if chat.text.startswith('.') and account_has_gm_right:
+                self.__handle_gm_cmd(chat.text)
+            else:
+                # normal say chat
+                pack = GotChat(
+                    origin_name=self.role.name,
+                    chat_type=ChatType.SAY,
+                    text=chat.text,
+                )
+                self.send_to_nearby_roles(pack, include_self=True)
 
     def on_disconnect_signal(self, role_to_disappear):
         role_disappeared = RoleDisappeared()

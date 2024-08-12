@@ -34,11 +34,7 @@ class Gui:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 print('escape pressed!!!!')
-
-                stacked_windows = self.options_dialog.ui_window.window_stack.get_stack()
-                if len(stacked_windows) >= 2:
-                    top_window = stacked_windows.pop()
-                    top_window.kill()
+                self.options_dialog.pop_some_menus(cnt=1)
 
 
     def update(self, time_delta):

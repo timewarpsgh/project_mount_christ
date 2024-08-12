@@ -291,3 +291,12 @@ class PacketHandler:
     async def handle_ShipCargoChanged(self, ship_cargo_changed):
         ship = self.__get_role().ship_mgr.get_ship(ship_cargo_changed.ship_id)
         ship.add_cargo(ship_cargo_changed.cargo_id, ship_cargo_changed.cnt)
+
+    def __get_options_dialog(self):
+        return self.client.game.gui.options_dialog
+
+    async def handle_CargoToSellInShip(self, cargo_to_sell_in_ship):
+        self.__get_options_dialog().show_cargo_to_sell_in_ship_menu(cargo_to_sell_in_ship)
+
+    async def handle_PopSomeMenus(self, pop_some_menus):
+        self.__get_options_dialog().pop_some_menus(pop_some_menus.cnt)

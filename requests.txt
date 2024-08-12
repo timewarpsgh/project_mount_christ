@@ -9,7 +9,16 @@ TO DO:
 
 
 
-    buy ship
+    sell cargo OK
+        click sell -> list of ships
+        click ship -> send packet get_cargo_cnt_and_sell_price(ship_id)
+        cargo -> ask cnt, ok button
+        ok -> send sell packet (ship_id, cargo_id, cnt)
+
+
+    buy ship  ON
+      show available ships in this port   ON
+
 
 
 
@@ -17,22 +26,6 @@ TO DO:
 
 
 DONE:
-
-    show other roles disappear  OK
-    deploy wow vanilla to learn OK
-    make game design doc  OK
-    make db design doc  OK
-
-    populate world db OK
-
-
-    migrate server_db to new dbs OK
-
-
-    run pygame_gui co to show port options(test) OK
-    pygame_gui already used OK
-    show port available cargos OK
-
 
     get port cargo right OK
     debug server packet handlers better (print trace back) OK

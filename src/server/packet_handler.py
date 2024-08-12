@@ -513,6 +513,53 @@ class PacketHandler:
         ship_cargo_changed.cnt = cnt
         self.session.send(ship_cargo_changed)
 
+    async def handle_GetCargoCntAndSellPrice(self, get_cargo_cnt_and_sell_price):
+        ship_id = get_cargo_cnt_and_sell_price.ship_id
+        ship = self.role.ship_mgr.get_ship(ship_id)
+
+        if not ship.cargo_id:
+            return
+
+        # get sell price
+        cargo_template = sObjectMgr.get_cargo_template(ship.cargo_id)
+        port = sObjectMgr.get_port(self.role.map_id)
+        sell_price = json.loads(cargo_template.sell_price)[str(port.economy_id)]
+
+        packet = CargoToSellInShip()
+        packet.cargo_id = ship.cargo_id
+        packet.cargo_name = cargo_template.name
+        packet.cnt = ship.cargo_cnt
+        packet.sell_price = sell_price
+        packet.ship_id = ship_id
+        self.session.send(packet)
+
+
+    async def handle_SellCargoInShip(self, sell_cargo_in_ship):
+        ship_id = sell_cargo_in_ship.ship_id
+        cargo_id = sell_cargo_in_ship.cargo_id
+        cnt = sell_cargo_in_ship.cnt
+
+        ship = self.role.ship_mgr.get_ship(ship_id)
+
+        if not ship.cargo_id:
+            return
+        if not ship.cargo_cnt >= cnt:
+            return
+
+        # get sell price
+        cargo_template = sObjectMgr.get_cargo_template(cargo_id)
+        port = sObjectMgr.get_port(self.role.map_id)
+        sell_price = json.loads(cargo_template.sell_price)[str(port.economy_id)]
+
+        # change ram
+        self.role.money += cnt * sell_price
+        ship.remove_cargo(cargo_id, cnt)
+
+        # tell client
+        self.session.send(MoneyChanged(money=self.role.money))
+        self.session.send(ShipCargoChanged(ship_id=ship_id, cargo_id=ship.cargo_id, cnt=ship.cargo_cnt))
+        self.session.send(PopSomeMenus(cnt=2))
+
 
     def on_disconnect_signal(self, role_to_disappear):
         role_disappeared = RoleDisappeared()

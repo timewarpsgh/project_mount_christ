@@ -46,6 +46,13 @@ class Ship:
         self.cargo_id = cargo_id
         self.cargo_cnt = cargo_cnt
 
+    def remove_cargo(self, cargo_id, cargo_cnt):
+        if self.cargo_id == cargo_id:
+            self.cargo_cnt -= cargo_cnt
+            if self.cargo_cnt <= 0:
+                self.cargo_cnt = 0
+                self.cargo_id = 0
+
 @dataclass
 class Mate:
 

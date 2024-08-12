@@ -237,3 +237,26 @@ message ShipCargoChanged {
     required int32 cnt = 2;
     required int32 ship_id = 3;
 }
+
+//sell cargo
+message GetCargoCntAndSellPrice {
+    required int32 ship_id = 1;
+}
+
+message CargoToSellInShip {
+    required int32 cargo_id = 1;
+    required string cargo_name = 2;
+    required int32 cnt = 3;
+    required int32 sell_price = 4;
+    required int32 ship_id = 5;
+}
+
+message SellCargoInShip {
+    required int32 ship_id = 1;
+    required int32 cargo_id = 2;
+    required int32 cnt = 3;
+}
+
+message PopSomeMenus {
+    required int32 cnt = 1;
+}

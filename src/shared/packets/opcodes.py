@@ -35,6 +35,11 @@ class OpCodeType(Enum):
     MoneyChanged = auto()
     ShipCargoChanged = auto()
 
+    GetCargoCntAndSellPrice = auto()
+    CargoToSellInShip = auto()
+    SellCargoInShip = auto()
+    PopSomeMenus = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

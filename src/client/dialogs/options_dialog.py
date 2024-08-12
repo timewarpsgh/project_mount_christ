@@ -50,10 +50,66 @@ class OptionsDialog:
     def __send_get_available_cargos(self):
         self.client.send(GetAvailableCargos())
 
+    def get_ship_mgr(self):
+        return self.client.game.graphics.model.role.ship_mgr
+
+    def get_mate_mgr(self):
+        return self.client.game.graphics.model.role.mate_mgr
+
+    def __send_packet_to_get_cargo_cnt_and_sell_price(self, ship_id):
+        packet = GetCargoCntAndSellPrice()
+        packet.ship_id = ship_id
+
+        self.client.send(packet)
+
+    def __show_ships_with_cargo_to_sell(self):
+        ship_mgr = self.get_ship_mgr()
+
+        option_2_callback = {
+        }
+
+        for ship_id, ship in ship_mgr.id_2_ship.items():
+            option_2_callback[ship.name] = partial(self.__send_packet_to_get_cargo_cnt_and_sell_price, ship_id)
+
+
+        self.__make_menu(option_2_callback)
+
+
+    def pop_some_menus(self, cnt):
+        for i in range(cnt):
+            stacked_windows = self.ui_window.window_stack.get_stack()
+            if len(stacked_windows) >= 2:
+                top_window = stacked_windows.pop()
+                top_window.kill()
+
+    def __ask_cargo_cnt_to_sell(self, cargo_id, ship_id):
+
+        # ask user to enter cnt
+        parcket = SellCargoInShip()
+        parcket.cargo_id = cargo_id
+        parcket.ship_id = ship_id
+
+        PacketParamsDialog(self.mgr, self.client, ['cnt'], parcket)
+
+    def show_cargo_to_sell_in_ship_menu(self, cargo_to_sell_in_ship):
+        cargo_id = cargo_to_sell_in_ship.cargo_id
+        cargo_name = cargo_to_sell_in_ship.cargo_name
+        cnt = cargo_to_sell_in_ship.cnt
+        sell_price = cargo_to_sell_in_ship.sell_price
+        ship_id = cargo_to_sell_in_ship.ship_id
+
+        option_2_callback = {
+            f'{cargo_name} [{cnt}] {sell_price}': partial(self.__ask_cargo_cnt_to_sell, cargo_id, ship_id),
+        }
+
+        self.__make_menu(option_2_callback)
+
+
+
     def __show_market_menu(self):
         option_2_callback = {
             'Buy': partial(self.__send_get_available_cargos),
-            'Sell': '',
+            'Sell': partial(self.__show_ships_with_cargo_to_sell),
             'Price Index': '',
             'Investment State': '',
             'Invest': '',

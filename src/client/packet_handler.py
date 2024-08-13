@@ -219,8 +219,8 @@ class PacketHandler:
             model_role.ship_mgr = ShipMgr(model_role)
             model_role.mate_mgr = MateMgr(model_role)
 
-            self.client.game.graphics.sp_role.move_to(role.x * 100, role.y * 100)
-            self.client.game.graphics.sp_role_name.move_to(role.x * 100, role.y * 100)
+            self.client.game.graphics.sp_role.move_to(role.x, role.y)
+            self.client.game.graphics.sp_role_name.move_to(role.x, role.y)
             self.client.game.graphics.sp_role_name.change_img(self.client.game.graphics.font.render(role.name, True, YELLOW))
 
 
@@ -273,8 +273,8 @@ class PacketHandler:
             print('you moved!!')
 
             role_model = self.client.game.graphics.model.role
-            role_model.x = role_moved.x + 300
-            role_model.y = role_moved.y + 150
+            role_model.x = role_moved.x
+            role_model.y = role_moved.y
 
             self.client.game.graphics.sp_role.move_to(role_model.x, role_model.y)
             self.client.game.graphics.sp_role_name.move_to(role_model.x, role_model.y)
@@ -282,7 +282,7 @@ class PacketHandler:
         else:
             print('someoneelse moved!!')
 
-            self.client.game.graphics.move_sp_role(role_moved.id, role_moved.x + 300, role_moved.y + 150)
+            self.client.game.graphics.move_sp_role(role_moved.id, role_moved.x, role_moved.y)
 
     def __get_role(self):
         return self.client.game.graphics.model.role

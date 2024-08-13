@@ -77,8 +77,8 @@ class Graphics:
             return image
 
     def add_sp_role(self, role):
-        sp_role = SP(self.imgs['role'], role.x * 100, role.y * 100)
-        sp_role_name = SP(self.font.render(role.name, True, YELLOW), role.x * 100, role.y * 100)
+        sp_role = SP(self.imgs['role'], role.x, role.y)
+        sp_role_name = SP(self.font.render(role.name, True, YELLOW), role.x, role.y)
 
         self.sprites.add(sp_role)
         self.sprites.add(sp_role_name)

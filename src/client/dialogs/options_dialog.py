@@ -6,6 +6,7 @@ import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\client\dialogs')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\client')
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 from login_pb2 import *
 from my_ui_elements import MyButton
@@ -13,6 +14,9 @@ from create_account_dialog import CreateAccountDialog
 from packet_params_dialog import PacketParamsDialog
 from my_ui_elements import MyMenuWindow, MyPanelWindow
 from asset_mgr import sAssetMgr
+
+from object_mgr import sObjectMgr
+
 
 
 class OptionsDialog:
@@ -426,11 +430,24 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
+    def __try_to_discover(self):
+        x = self.client.game.graphics.model.role.x
+        y = self.client.game.graphics.model.role.y
+
+        print(x, y)
+
+        village_id_in_range = None
+        for id, village in sObjectMgr.id_2_village.items():
+            if abs(village.x - x) <= 1 and abs(village.y - y) <= 1:
+                village_id_in_range = id
+
+        print(f'village_id_in_range: {village_id_in_range}')
+
     def show_cmds_menu(self):
         option_2_callback = {
             'Enter Building (F)': '',
             'Enter Port (M)': '',
-            'Go Ashore (G)': '',
+            'Go Ashore (G)': partial(self.__try_to_discover),
             'Battle (B)': '',
             'Measure Cooridinate': '',
         }

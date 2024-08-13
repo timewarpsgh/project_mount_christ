@@ -7,8 +7,6 @@ from concurrent.futures import ThreadPoolExecutor
 
 
 from packet_handler import PacketHandler
-from object_mgr import sObjectMgr
-
 
 # import from dir
 import sys
@@ -17,6 +15,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 from shared import Connection
 
+from object_mgr import sObjectMgr
 
 class Session(Connection):
 

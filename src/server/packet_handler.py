@@ -8,6 +8,7 @@ from concurrent.futures import ThreadPoolExecutor
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 from login_pb2 import *
 
@@ -599,6 +600,14 @@ class PacketHandler:
                 origin_name=self.role.name,
                 chat_type=ChatType.SYSTEM,
                 text=f'xy changed to {x} {y}',
+            )
+            self.session.send(pack)
+
+            pack = RoleMoved(
+                id=self.role.id,
+                x=self.role.x,
+                y=self.role.y,
+                dir_type=DirType.E,
             )
             self.session.send(pack)
 

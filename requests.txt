@@ -8,7 +8,10 @@ TO DO:
             role.x y in client added some 300!! OK
 
 
-        server checks and sends back discovered(village_id)
+        server checks and sends back discovered(village_id)  OK
+
+        load villages in db OK
+        show discoveries in items tab OK
 
     world map fog
 

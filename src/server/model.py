@@ -117,6 +117,18 @@ class MateMgr:
         return self.id_2_mate[mate_id]
 
 
+class DiscoveryMgr:
+
+    def __init__(self):
+        self.ids_set = set()
+
+    def add(self, discovery_id):
+        self.ids_set.add(discovery_id)
+
+    def get_ids_set(self):
+        return self.ids_set
+
+
 @dataclass
 class Role:
     session: any=None
@@ -130,7 +142,7 @@ class Role:
 
     ship_mgr: ShipMgr=None
     mate_mgr: MateMgr=None
-
+    discovery_mgr: DiscoveryMgr=None
 
 class Model:
 

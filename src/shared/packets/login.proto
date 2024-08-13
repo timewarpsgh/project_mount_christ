@@ -157,6 +157,7 @@ message RoleEntered {
 
     repeated Ship ships = 7;
     repeated Mate mates = 8;
+    required string discovery_ids_json_str = 9;
 }
 
 message EnterWorldRes {
@@ -262,7 +263,6 @@ message PopSomeMenus {
 }
 
 // chat
-
 enum ChatType {
     SAY = 0;
     WHISPER = 1;
@@ -283,4 +283,13 @@ message GotChat {
     required ChatType chat_type = 2;
     required string text = 3;
     optional string whisper_target_name = 4;
+}
+
+// discover
+message Discover {
+    required int32 village_id = 1;
+}
+
+message Discovered {
+    required int32 village_id = 1;
 }

@@ -43,6 +43,9 @@ class OpCodeType(Enum):
     Chat = auto()
     GotChat = auto()
 
+    Discover = auto()
+    Discovered = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

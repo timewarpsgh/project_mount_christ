@@ -16,7 +16,7 @@ from my_ui_elements import MyMenuWindow, MyPanelWindow
 from asset_mgr import sAssetMgr
 
 from object_mgr import sObjectMgr
-
+import constants as c
 
 
 class OptionsDialog:
@@ -443,6 +443,10 @@ class OptionsDialog:
 
         print(f'village_id_in_range: {village_id_in_range}')
 
+        if village_id_in_range:
+            self.client.send(Discover(village_id=village_id_in_range))
+
+
     def show_cmds_menu(self):
         option_2_callback = {
             'Enter Building (F)': '',
@@ -458,11 +462,64 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
+    def __get_role(self):
+        return self.client.game.graphics.model.role
+
+    def __item_x_y_2_image(self, x, y):
+        discoveries_and_items_images = sAssetMgr.images['discoveries_and_items']['discoveries_and_items']
+        discovery_surface = pygame.Surface((c.ITEMS_IMAGE_SIZE, c.ITEMS_IMAGE_SIZE))
+        x_coord = -c.ITEMS_IMAGE_SIZE * (x - 1)
+        y_coord = -c.ITEMS_IMAGE_SIZE * (y - 1)
+        rect = pygame.Rect(x_coord, y_coord, c.ITEMS_IMAGE_SIZE, c.ITEMS_IMAGE_SIZE)
+        discovery_surface.blit(discoveries_and_items_images, rect)
+
+        return discovery_surface
+
+    def __show_one_discovery(self, village):
+
+        split_items = village.img_id.split('_')
+        img_x = int(split_items[0])
+        img_y = int(split_items[1])
+
+        # dict
+        dict = {
+            'name': village.name,
+            'description': village.description,
+        }
+
+        # make text from dict
+        text = ''
+        for k, v in dict.items():
+            text += f'{v}<br>'
+
+        # get figure image
+        item_img = self.__item_x_y_2_image(img_x, img_y)
+
+
+        MyPanelWindow(
+            rect=pygame.Rect((59, 50), (350, 400)),
+            ui_manager=self.mgr,
+            text=text,
+            image=item_img,
+        )
+
+
+    def __show_discoveries_menu(self):
+
+        option_2_callback = {}
+
+        for id in self.__get_role().discovery_mgr.ids_set:
+            village = sObjectMgr.get_village(id)
+            option_2_callback[village.name] = partial(self.__show_one_discovery, village)
+
+        self.__make_menu(option_2_callback)
+
+
     def show_items_menu(self):
         option_2_callback = {
             'Equipments': '',
             'Items': '',
-            'Discoveries': '',
+            'Discoveries': partial(self.__show_discoveries_menu),
             'Diary': '',
             'World Map': '',
             'Port Map': ''

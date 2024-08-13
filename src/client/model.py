@@ -3,73 +3,78 @@ from dataclasses import dataclass
 
 @dataclass
 class Ship:
+    id: int = None
+    role_id: int = None
 
-    id: int=None
-    role_id: int=None
+    name: str = None
+    ship_template_id: int = None
 
-    name: str=None
-    ship_template_id: int=None
+    material_type: int = None
 
+    now_durability: int = None
+    max_durability: int = None
 
-    material_type: int=None
+    tacking: int = None
+    power: int = None
 
-    now_durability: int=None
-    max_durability: int=None
+    capacity: int = None
 
-    tacking: int=None
-    power: int=None
+    now_crew: int = None
+    min_crew: int = None
+    max_crew: int = None
 
-    capacity: int=None
+    now_guns: int = None
+    type_of_guns: int = None
+    max_guns: int = None
 
-    now_crew: int=None
-    min_crew: int=None
-    max_crew: int=None
+    water: int = None
+    food: int = None
+    material: int = None
+    cannon: int = None
 
-    now_guns: int=None
-    type_of_guns: int=None
-    max_guns: int=None
+    cargo_cnt: int = None
+    cargo_id: int = None
 
-    water: int=None
-    food: int=None
-    material: int=None
-    cannon: int=None
-
-    cargo_cnt: int=None
-    cargo_id: int=None
-
-    captain: int=None
-    accountant: int=None
-    first_mate: int=None
-    chief_navigator: int=None
+    captain: int = None
+    accountant: int = None
+    first_mate: int = None
+    chief_navigator: int = None
 
     def add_cargo(self, cargo_id, cargo_cnt):
         self.cargo_id = cargo_id
         self.cargo_cnt = cargo_cnt
 
+    def remove_cargo(self, cargo_id, cargo_cnt):
+        if self.cargo_id == cargo_id:
+            self.cargo_cnt -= cargo_cnt
+            if self.cargo_cnt <= 0:
+                self.cargo_cnt = 0
+                self.cargo_id = 0
+
+
 @dataclass
 class Mate:
+    id: int = None
+    role_id: int = None
 
-    id: int=None
-    role_id: int=None
+    name: str = None
+    img_id: int = None
+    nation: str = None
 
-    name: str=None
-    img_id: int=None
-    nation: str=None
+    lv: int = None
+    points: int = None
+    assigned_duty: str = None
+    ship_id: int = None
 
-    lv: int=None
-    points: int=None
-    assigned_duty: str=None
-    ship_id: int=None
+    leadership: int = None
 
-    leadership: int=None
+    navigation: int = None
+    accounting: int = None
+    battle: int = None
 
-    navigation: int=None
-    accounting: int=None
-    battle: int=None
-
-    talent_in_navigation: int=None
-    talent_in_accounting: int=None
-    talent_in_battle: int=None
+    talent_in_navigation: int = None
+    talent_in_accounting: int = None
+    talent_in_battle: int = None
 
 
 class ShipMgr:
@@ -110,19 +115,32 @@ class MateMgr:
         return self.id_2_mate[mate_id]
 
 
+class DiscoveryMgr:
+
+    def __init__(self):
+        self.ids_set = set()
+
+    def add(self, discovery_id):
+        self.ids_set.add(discovery_id)
+
+    def get_ids_set(self):
+        return self.ids_set
+
+
 @dataclass
 class Role:
-    session: any=None
+    session: any = None
 
-    id: int=None
-    name: str=None
-    x: int=None
-    y: int=None
-    map_id: int=None
-    money: int=None
+    id: int = None
+    name: str = None
+    x: int = None
+    y: int = None
+    map_id: int = None
+    money: int = None
 
-    ship_mgr: ShipMgr=None
-    mate_mgr: MateMgr=None
+    ship_mgr: ShipMgr = None
+    mate_mgr: MateMgr = None
+    discovery_mgr: DiscoveryMgr = None
 
 
 class Model:

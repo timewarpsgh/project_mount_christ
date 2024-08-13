@@ -349,6 +349,12 @@ class PacketHandler:
             # add self.role to server
             self.session.server.add_role(role.id, self.role)
 
+            # init discovery_mgr
+            self.role.discovery_mgr = model.DiscoveryMgr()
+            discovery_ids = json.loads(role.discovery_ids_json_str)
+            for discovery_id in discovery_ids:
+                self.role.discovery_mgr.add(discovery_id)
+
             # init ship_mgr
             self.role.ship_mgr = model.ShipMgr(self.role)
 
@@ -373,6 +379,7 @@ class PacketHandler:
             role_entered.x = role.x
             role_entered.y = role.y
             role_entered.money = role.money
+            role_entered.discovery_ids_json_str = role.discovery_ids_json_str
 
             # fill ships and mates in protocol
             role_entered.ships.extend(proto_ships)
@@ -629,6 +636,24 @@ class PacketHandler:
                 text=chat.text,
             )
             self.send_to_nearby_roles(pack, include_self=True)
+
+    async def handle_Discover(self, discover):
+        village_id = discover.village_id
+
+        village = sObjectMgr.get_village(village_id)
+        if abs(village.x - self.role.x) <= 1 and abs(village.y - self.role.y) <= 1:
+            if village_id not in self.role.discovery_mgr.get_ids_set():
+                self.role.discovery_mgr.add(village_id)
+
+                pack = GotChat(
+                    origin_name=self.role.name,
+                    chat_type=ChatType.SYSTEM,
+                    text=f'discovered {village.name}',
+                )
+                self.session.send(pack)
+
+                self.session.send(Discovered(village_id=village_id))
+
 
     def on_disconnect_signal(self, role_to_disappear):
         role_disappeared = RoleDisappeared()

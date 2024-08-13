@@ -1,6 +1,7 @@
 import pygame
 import pygame_gui
 from functools import partial
+import json
 import traceback
 
 # import from dir
@@ -13,7 +14,7 @@ from my_ui_elements import MyMsgWindow, MyMenuWindow
 from dialogs.create_role_dialog import CreateRoleDialog
 from dialogs.options_dialog import OptionsDialog
 from dialogs.chat_dialog import ChatDialog
-from model import Model, Role, ShipMgr, MateMgr
+from model import Model, Role, ShipMgr, MateMgr, DiscoveryMgr
 import model
 from graphics import YELLOW
 from asset_mgr import sAssetMgr
@@ -218,6 +219,7 @@ class PacketHandler:
             model_role = self.client.game.graphics.model.role
             model_role.ship_mgr = ShipMgr(model_role)
             model_role.mate_mgr = MateMgr(model_role)
+            model_role.discovery_mgr = DiscoveryMgr()
 
             self.client.game.graphics.sp_role.move_to(role.x, role.y)
             self.client.game.graphics.sp_role_name.move_to(role.x, role.y)
@@ -234,6 +236,10 @@ class PacketHandler:
                 print(f'added mate {prot_mate.id} ######## ')
                 self.__add_mate_to_mate_mgr(prot_mate)
 
+            # init discoveries
+            discovery_ids = json.loads(role.discovery_ids_json_str)
+            for discovery_id in discovery_ids:
+                model_role.discovery_mgr.add(discovery_id)
 
             # print(self.client.game.graphics.model.role.ship_mgr.get_ship(1).name)
 
@@ -311,4 +317,8 @@ class PacketHandler:
             origin_name=got_chat.origin_name,
             text=got_chat.text)
 
+    async def handle_Discovered(self, discovered):
+        self.__get_role().discovery_mgr.add(discovered.village_id)
+        # play sound
+        sAssetMgr.sounds['discover'].play()
 

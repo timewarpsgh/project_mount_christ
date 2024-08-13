@@ -185,8 +185,11 @@ dbs
 
             money
 
+            discovery_ids_json_str
+
             #direction
             #speed
+
 
 
         mates
@@ -261,9 +264,6 @@ dbs
 
 
         world_map_opened_grids
-
-
-        discoveries
 
         quests
 

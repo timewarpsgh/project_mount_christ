@@ -36,6 +36,8 @@ class Role(BASE):
 	y = Column(Integer)
 	money = Column(Integer)
 
+	discovery_ids_json_str = Column(String)
+
 
 class Mate(BASE):
 	# table

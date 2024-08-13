@@ -81,6 +81,8 @@ class Graphics:
         print('chaning bg')
         self.sp_background.change_img(self.imgs['sea'])
 
+    def change_background_sp_to_port(self):
+        self.sp_background.change_img(self.imgs['background'])
 
     def add_sp_role(self, role):
         sp_role = SP(self.imgs['role'], role.x, role.y)

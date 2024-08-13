@@ -304,3 +304,8 @@ message MapChanged {
     required int32 x = 3;
     required int32 y = 4;
 }
+
+// enter port
+message EnterPort {
+    required int32 id = 1;
+}

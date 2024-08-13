@@ -48,6 +48,8 @@ class OpCodeType(Enum):
 
     Sail = auto()
     MapChanged = auto()
+    EnterPort = auto()
+
 
 def gen_opcode_2_value():
     d = {}

@@ -144,5 +144,22 @@ BLUE = (0,0,128)
 TRANS_GRAY = (50, 50, 50, 35)
 TRANS_BLANK = (0, 0, 0, 0)
 
+
+ID_2_BUILDING_TYPE = {
+    1: 'market',
+    2: 'bar',
+    3: 'dry_dock',
+    4: 'harbor',
+    5: 'inn',
+    6: 'palace',
+    7: 'job_house',
+    8: 'msc',
+    9: 'bank',
+    10: 'item_shop',
+    11: 'church',
+    12: 'fortune_house',
+}
+
+
 if __name__ == '__main__':
     print(SAILABLE_TILES)

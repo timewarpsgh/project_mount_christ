@@ -7,6 +7,7 @@ import traceback
 # import from dir
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 from login_pb2 import *
 
@@ -18,7 +19,7 @@ from model import Model, Role, ShipMgr, MateMgr, DiscoveryMgr
 import model
 from graphics import YELLOW
 from asset_mgr import sAssetMgr
-
+from object_mgr import sObjectMgr
 
 BYPASS_LOGIN = True
 
@@ -333,4 +334,9 @@ class PacketHandler:
             role.x = map_changed.x
             role.y = map_changed.y
 
-            self.client.game.graphics.change_background_sp_to_sea()
+            if role.map_id == 0:
+                self.client.game.graphics.change_background_sp_to_sea()
+            else:
+                port = sObjectMgr.get_port(role.map_id)
+                print(f'entered port {port.name}')
+                self.client.game.graphics.change_background_sp_to_port()

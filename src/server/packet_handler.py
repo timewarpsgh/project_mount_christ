@@ -661,14 +661,49 @@ class PacketHandler:
     async def handle_Sail(self, sail):
         port = sObjectMgr.get_port(self.role.map_id)
 
+        self.role.map_id = 0
+        self.role.x = port.x
+        self.role.y = port.y
+
         packet = MapChanged(
             role_id = self.role.id,
             map_id=0,
             x=port.x,
             y=port.y
         )
-
         self.send_to_nearby_roles(packet, include_self=True)
+
+    async def handle_EnterPort(self, enter_port):
+        port_id = enter_port.id
+
+        port = sObjectMgr.get_port(port_id)
+        if abs(port.x - self.role.x) <= 1 and abs(port.y - self.role.y) <= 1:
+            # change map_id
+            self.role.map_id = port_id
+
+            # change x y to harbor x y
+            # should be inited beforehand (later)
+            dict = json.loads(port.building_locations)
+
+            harbor_x = dict['4']['x']
+            harbor_y = dict['4']['y']
+
+            self.role.x = harbor_x
+            self.role.y = harbor_y
+
+            # send map changed packet
+            packet = MapChanged(
+                role_id=self.role.id,
+                map_id=port_id,
+                x=harbor_x,
+                y=harbor_y,
+            )
+            self.send_to_nearby_roles(packet, include_self=True)
+
+        else:
+            pass
+
+
 
 
     def on_disconnect_signal(self, role_to_disappear):

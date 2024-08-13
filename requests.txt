@@ -17,10 +17,10 @@ TO DO:
 
     show world map OK
 
-    change map   ON
+    change map   OK
         to sea (sail)   OK
 
-        to port (enter port)   ON
+        to port (enter port)   OK
 
 
 

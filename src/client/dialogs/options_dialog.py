@@ -325,146 +325,6 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
-    def __figure_x_y_2_image(self, x=8, y=8):
-        figure_width = 65
-        figure_height = 81
-
-        figures_image = sAssetMgr.images['figures']['figures']
-        figure_surface = pygame.Surface((figure_width, figure_height))
-        x_coord = -figure_width * (x - 1) - 3
-        y_coord = -figure_height * (y - 1) - 3
-        rect = pygame.Rect(x_coord, y_coord, figure_width, figure_height)
-        figure_surface.blit(figures_image, rect)
-
-        return figure_surface
-
-    def __show_one_mate_states(self, mate):
-
-        dict = {
-            'name/nation': f"{mate.name}/{mate.nation}",
-            'duty': mate.assigned_duty,
-            '1': '',
-            'lv/points': f"{mate.lv}/{mate.points}",
-            '2': '',
-            'navigation/accounting/battle': f"{mate.navigation}/{mate.accounting}/{mate.battle}",
-
-            '3': '',
-            'talent in navigation/accounting/battle':
-                f"{mate.talent_in_navigation}/{mate.talent_in_accounting}/{mate.talent_in_battle}",
-        }
-
-        # make text from dict
-        text = self.__dict_2_txt(dict)
-
-        # get ship image
-        mate_image = self.__figure_x_y_2_image(1, 1)
-
-        MyPanelWindow(
-            rect=pygame.Rect((59, 12), (350, 400)),
-            ui_manager=self.mgr,
-            text=text,
-            image=mate_image,
-        )
-
-
-
-
-    def __show_mate_info_menu(self):
-        mate_mgr = self.client.game.graphics.model.role.mate_mgr
-
-        option_2_callback = {
-        }
-
-        for id, mate in mate_mgr.id_2_mate.items():
-            option_2_callback[mate.name] = partial(self.__show_one_mate_states, mate_mgr.get_mate(id))
-
-        self.__make_menu(option_2_callback)
-
-    def show_buildings_menu(self):
-        option_2_callback = {
-            'Market': partial(self.__show_market_menu),
-            'Bar': partial(self.__show_bar_menu),
-            'Dry Dock': partial(self.__show_dry_dock_menu),
-            'Harbor': partial(self.__show_harbor_menu),
-            'Inn': partial(self.__show_inn_menu),
-            'Palace': partial(self.__show_palace_menu),
-            'Job House': partial(self.__show_job_house_menu),
-            'Misc': 'test',
-            'Bank': partial(self.__show_bank_menu),
-            'Item Shop': partial(self.__show_item_shop_menu),
-            'Church': partial(self.__show_church_menu),
-            'Fortune House': partial(self.__show_fortune_house_menu),
-        }
-
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
-
-    def show_options_menu(self):
-        option_2_callback = {
-            'Language(L)': '',
-            'Sounds': '',
-            'Hot Keys': '',
-            'Exit': partial(self.__exit_game),
-        }
-
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
-
-    def show_fight_menu(self):
-
-        option_2_callback = {
-            'View Enemy Ships': '',
-            'All Ships Target': '',
-            'All Ships Strategy': '',
-            'One Ship Target': '',
-            'One Ship Strategy': '',
-            'Escape Battle': '',
-        }
-
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
-
-    def __try_to_discover(self):
-        x = self.client.game.graphics.model.role.x
-        y = self.client.game.graphics.model.role.y
-
-        print(x, y)
-
-        village_id_in_range = None
-        for id, village in sObjectMgr.id_2_village.items():
-            if abs(village.x - x) <= 1 and abs(village.y - y) <= 1:
-                village_id_in_range = id
-
-        print(f'village_id_in_range: {village_id_in_range}')
-
-        if village_id_in_range:
-            self.client.send(Discover(village_id=village_id_in_range))
-
-
-    def show_cmds_menu(self):
-        option_2_callback = {
-            'Enter Building (F)': '',
-            'Enter Port (M)': '',
-            'Go Ashore (G)': partial(self.__try_to_discover),
-            'Battle (B)': '',
-            'Measure Cooridinate': '',
-        }
-
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
-
     def __get_role(self):
         return self.client.game.graphics.model.role
 
@@ -539,6 +399,185 @@ class OptionsDialog:
         # sound
         sAssetMgr.sounds['map'].play()
 
+    def show_available_cargos_menu(self, get_available_cargos_res):
+        option_2_callback = {f'{cargo.name} {cargo.price}': partial(self.__show_ships_to_load_cargo_menu, cargo.id)
+                             for cargo in get_available_cargos_res.available_cargos}
+
+        self.__make_menu(option_2_callback)
+
+    def __figure_x_y_2_image(self, x=8, y=8):
+        figure_width = 65
+        figure_height = 81
+
+        figures_image = sAssetMgr.images['figures']['figures']
+        figure_surface = pygame.Surface((figure_width, figure_height))
+        x_coord = -figure_width * (x - 1) - 3
+        y_coord = -figure_height * (y - 1) - 3
+        rect = pygame.Rect(x_coord, y_coord, figure_width, figure_height)
+        figure_surface.blit(figures_image, rect)
+
+        return figure_surface
+
+    def __show_one_mate_states(self, mate):
+
+        dict = {
+            'name/nation': f"{mate.name}/{mate.nation}",
+            'duty': mate.assigned_duty,
+            '1': '',
+            'lv/points': f"{mate.lv}/{mate.points}",
+            '2': '',
+            'navigation/accounting/battle': f"{mate.navigation}/{mate.accounting}/{mate.battle}",
+
+            '3': '',
+            'talent in navigation/accounting/battle':
+                f"{mate.talent_in_navigation}/{mate.talent_in_accounting}/{mate.talent_in_battle}",
+        }
+
+        # make text from dict
+        text = self.__dict_2_txt(dict)
+
+        # get ship image
+        mate_image = self.__figure_x_y_2_image(1, 1)
+
+        MyPanelWindow(
+            rect=pygame.Rect((59, 12), (350, 400)),
+            ui_manager=self.mgr,
+            text=text,
+            image=mate_image,
+        )
+
+    def __try_to_discover(self):
+        x = self.client.game.graphics.model.role.x
+        y = self.client.game.graphics.model.role.y
+
+        print(x, y)
+
+        village_id_in_range = None
+        for id, village in sObjectMgr.id_2_village.items():
+            if abs(village.x - x) <= 1 and abs(village.y - y) <= 1:
+                village_id_in_range = id
+
+        print(f'village_id_in_range: {village_id_in_range}')
+
+        if village_id_in_range:
+            self.client.send(Discover(village_id=village_id_in_range))
+
+
+    def __show_mate_info_menu(self):
+        mate_mgr = self.client.game.graphics.model.role.mate_mgr
+
+        option_2_callback = {
+        }
+
+        for id, mate in mate_mgr.id_2_mate.items():
+            option_2_callback[mate.name] = partial(self.__show_one_mate_states, mate_mgr.get_mate(id))
+
+        self.__make_menu(option_2_callback)
+
+    def __show_cargo_cnt_to_load_to_ship_dialog(self, cargo_id, ship_id):
+        # ask user to enter cnt
+        buy_cargo = BuyCargo()
+        buy_cargo.cargo_id = cargo_id
+        buy_cargo.ship_id = ship_id
+
+        PacketParamsDialog(self.mgr, self.client, ['cnt'], buy_cargo)
+
+    def __show_ships_to_load_cargo_menu(self, cargo_id):
+        ship_mgr = self.client.game.graphics.model.role.ship_mgr
+
+        option_2_callback = {
+        }
+
+        for ship_id, ship in ship_mgr.id_2_ship.items():
+            option_2_callback[ship.name] = partial(self.__show_cargo_cnt_to_load_to_ship_dialog, cargo_id, ship_id)
+
+        self.__make_menu(option_2_callback)
+
+
+
+    def show_buildings_menu(self):
+        option_2_callback = {
+            'Market': partial(self.__show_market_menu),
+            'Bar': partial(self.__show_bar_menu),
+            'Dry Dock': partial(self.__show_dry_dock_menu),
+            'Harbor': partial(self.__show_harbor_menu),
+            'Inn': partial(self.__show_inn_menu),
+            'Palace': partial(self.__show_palace_menu),
+            'Job House': partial(self.__show_job_house_menu),
+            'Misc': 'test',
+            'Bank': partial(self.__show_bank_menu),
+            'Item Shop': partial(self.__show_item_shop_menu),
+            'Church': partial(self.__show_church_menu),
+            'Fortune House': partial(self.__show_fortune_house_menu),
+        }
+
+        MyMenuWindow(
+            title='',
+            option_2_callback=option_2_callback,
+            mgr=self.mgr
+        )
+
+    def show_options_menu(self):
+        option_2_callback = {
+            'Language(L)': '',
+            'Sounds': '',
+            'Hot Keys': '',
+            'Exit': partial(self.__exit_game),
+        }
+
+        MyMenuWindow(
+            title='',
+            option_2_callback=option_2_callback,
+            mgr=self.mgr
+        )
+
+    def show_fight_menu(self):
+
+        option_2_callback = {
+            'View Enemy Ships': '',
+            'All Ships Target': '',
+            'All Ships Strategy': '',
+            'One Ship Target': '',
+            'One Ship Strategy': '',
+            'Escape Battle': '',
+        }
+
+        MyMenuWindow(
+            title='',
+            option_2_callback=option_2_callback,
+            mgr=self.mgr
+        )
+
+    def __enter_port(self):
+        # get nearby port_id
+        role = self.__get_role()
+
+        nearby_port_id = None
+        for id, port in sObjectMgr.id_2_port.items():
+            if abs(port.x - role.x) <= 1 and abs(port.y - role.y) <= 1:
+                nearby_port_id = id
+
+        if nearby_port_id:
+            self.client.send(EnterPort(id=nearby_port_id))
+        else:
+            print('no port to call!')
+
+    def show_cmds_menu(self):
+        option_2_callback = {
+            'Enter Building (F)': '',
+            'Enter Port (M)': partial(self.__enter_port),
+            'Go Ashore (G)': partial(self.__try_to_discover),
+            'Battle (B)': '',
+            'Measure Cooridinate': '',
+        }
+
+        MyMenuWindow(
+            title='',
+            option_2_callback=option_2_callback,
+            mgr=self.mgr
+        )
+
+
     def show_items_menu(self):
         option_2_callback = {
             'Equipments': '',
@@ -584,27 +623,3 @@ class OptionsDialog:
         )
 
 
-    def __show_cargo_cnt_to_load_to_ship_dialog(self, cargo_id, ship_id):
-        # ask user to enter cnt
-        buy_cargo = BuyCargo()
-        buy_cargo.cargo_id = cargo_id
-        buy_cargo.ship_id = ship_id
-
-        PacketParamsDialog(self.mgr, self.client, ['cnt'], buy_cargo)
-
-    def __show_ships_to_load_cargo_menu(self, cargo_id):
-        ship_mgr = self.client.game.graphics.model.role.ship_mgr
-
-        option_2_callback = {
-        }
-
-        for ship_id, ship in ship_mgr.id_2_ship.items():
-            option_2_callback[ship.name] = partial(self.__show_cargo_cnt_to_load_to_ship_dialog, cargo_id, ship_id)
-
-        self.__make_menu(option_2_callback)
-
-    def show_available_cargos_menu(self, get_available_cargos_res):
-        option_2_callback = {f'{cargo.name} {cargo.price}': partial(self.__show_ships_to_load_cargo_menu, cargo.id)
-                             for cargo in get_available_cargos_res.available_cargos}
-
-        self.__make_menu(option_2_callback)

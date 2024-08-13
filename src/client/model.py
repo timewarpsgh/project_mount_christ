@@ -137,6 +137,7 @@ class Role:
     y: int = None
     map_id: int = None
     money: int = None
+    seen_grids: any = None  # numpy matrix
 
     ship_mgr: ShipMgr = None
     mate_mgr: MateMgr = None

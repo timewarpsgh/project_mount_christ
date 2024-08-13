@@ -1,3 +1,13 @@
+# seen grids
+SEEN_GRIDS_COLS = 64
+SEEN_GRIDS_ROWS = 32
+
+
+
+
+
+
+
 # settings
 DAEMON_MODE = False
 

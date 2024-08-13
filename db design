@@ -186,6 +186,8 @@ dbs
             money
 
             discovery_ids_json_str
+            seen_grids
+
 
             #direction
             #speed

@@ -158,6 +158,7 @@ message RoleEntered {
     repeated Ship ships = 7;
     repeated Mate mates = 8;
     optional string discovery_ids_json_str = 9;
+    repeated int32 seen_grids_64_int32s = 10;
 }
 
 message EnterWorldRes {

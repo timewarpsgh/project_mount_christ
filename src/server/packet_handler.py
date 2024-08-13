@@ -2,6 +2,7 @@ import time
 import asyncio
 import json
 import traceback
+import numpy as np
 from concurrent.futures import ThreadPoolExecutor
 
 # import from dir
@@ -11,6 +12,8 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 from login_pb2 import *
+
+import constants as c
 
 from logon_models import Account, World as WorldModel, SESSION as LOGON_SESSION
 from role_models import \
@@ -329,6 +332,27 @@ class PacketHandler:
 
         return proto_mates
 
+    def __get_matrix_from_seen_grids(self, role):
+        two_d_list = json.loads(role.seen_grids)
+        matrix = np.array(two_d_list)
+        return matrix
+
+    def __get_64_int32s_from_seen_grids(self, matrix):
+
+        ints = [0] * c.SEEN_GRIDS_COLS
+        for i in range(c.SEEN_GRIDS_COLS):
+
+            col_vals = matrix[:, i]
+
+            bit_str = ''.join(str(x) for x in col_vals)
+
+            # turn bit_str with 32 bits into a int32 number
+            int_num = int(bit_str, 2)
+
+            ints[i] = int_num
+
+        return ints
+
     def __enter_world(self, enter_world):
         role = ROLE_SESSION.query(RoleModel).\
             filter_by(id=enter_world.role_id, account_id=self.account_id).\
@@ -345,6 +369,9 @@ class PacketHandler:
                 map_id=role.map_id,
                 money=role.money,
             )
+
+            # init seen grids
+            self.role.seen_grids = self.__get_matrix_from_seen_grids(role)
 
             # add self.role to server
             self.session.server.add_role(role.id, self.role)
@@ -384,6 +411,8 @@ class PacketHandler:
             role_entered.money = role.money
             if role.discovery_ids_json_str:
                 role_entered.discovery_ids_json_str = role.discovery_ids_json_str
+            ints = self.__get_64_int32s_from_seen_grids(self.role.seen_grids)
+            role_entered.seen_grids_64_int32s.extend(ints)
 
             # fill ships and mates in protocol
             role_entered.ships.extend(proto_ships)

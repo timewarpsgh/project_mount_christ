@@ -22,10 +22,11 @@ TO DO:
 
         to port (enter port)   OK
 
+    world map fog  ON
+        client has matrix now OK
+        client show fog based on matrix ON
 
 
-
-    world map fog
 
 
 

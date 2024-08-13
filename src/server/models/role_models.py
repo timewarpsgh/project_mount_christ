@@ -35,6 +35,7 @@ class Role(BASE):
 	x = Column(Integer)
 	y = Column(Integer)
 	money = Column(Integer)
+	seen_grids = Column(String)
 
 	discovery_ids_json_str = Column(String)
 

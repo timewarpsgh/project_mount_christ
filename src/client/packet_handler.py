@@ -3,6 +3,7 @@ import pygame_gui
 from functools import partial
 import json
 import traceback
+import numpy as np
 
 # import from dir
 import sys
@@ -20,6 +21,8 @@ import model
 from graphics import YELLOW
 from asset_mgr import sAssetMgr
 from object_mgr import sObjectMgr
+import constants as c
+
 
 BYPASS_LOGIN = True
 
@@ -191,6 +194,35 @@ class PacketHandler:
         model_role.ship_mgr.add_ship(model_ship)
 
 
+    def __get_matrix_from_64_int32s(self, role):
+        matrix = None
+
+        for my_int in role.seen_grids_64_int32s:
+
+            # int to 32 bits
+            bin_str = bin(my_int)
+            bin_str = bin_str[2:]
+            bin_str = '0' * (32 - len(bin_str)) + bin_str
+
+            # turn to a list of ints
+            list_of_ints = [int(x) for x in bin_str]
+            row = np.array(list_of_ints)
+            col = row.reshape(c.SEEN_GRIDS_ROWS, 1)
+
+            if matrix is not None:
+                # add one col to the right
+                matrix = np.hstack((matrix, col))
+            else:
+                matrix = col
+
+        print(matrix.shape)
+
+        # get one element in matrix
+        print(matrix[20, 63])
+
+        return matrix
+
+
     async def handle_EnterWorldRes(self, enter_world_res):
         if enter_world_res.is_ok:
             role = enter_world_res.role_entered
@@ -244,6 +276,9 @@ class PacketHandler:
                 discovery_ids = []
             for discovery_id in discovery_ids:
                 model_role.discovery_mgr.add(discovery_id)
+
+            # init seen grids
+            model_role.seen_grids = self.__get_matrix_from_64_int32s(role)
 
             # print(self.client.game.graphics.model.role.ship_mgr.get_ship(1).name)
 

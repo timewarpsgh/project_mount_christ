@@ -215,11 +215,6 @@ class PacketHandler:
             else:
                 matrix = col
 
-        print(matrix.shape)
-
-        # get one element in matrix
-        print(matrix[20, 63])
-
         return matrix
 
 
@@ -279,8 +274,6 @@ class PacketHandler:
 
             # init seen grids
             model_role.seen_grids = self.__get_matrix_from_64_int32s(role)
-
-            # print(self.client.game.graphics.model.role.ship_mgr.get_ship(1).name)
 
             self.is_in_game = True
 

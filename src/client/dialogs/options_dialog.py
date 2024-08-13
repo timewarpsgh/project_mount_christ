@@ -380,21 +380,43 @@ class OptionsDialog:
 
     def __show_world_map(self):
         # image
-        world_map_grids_image = sAssetMgr.images['world_map']['world_map_grids']
-        image_rect = world_map_grids_image.get_rect()
+        world_map_image = sAssetMgr.images['world_map']['wolrd_map_without_grids']
+
+        # shrink image
+        world_map_image = pygame.transform.scale(world_map_image, (800, 400))
+
+        grid_size = 13
+
+        map_mosaic = sAssetMgr.images['world_map']['map_mosaic']
+        map_mosaic = pygame.transform.scale(map_mosaic, (grid_size, grid_size))
+
+        start_x = 0
+        start_y = 0
+
+        #
+        matrix = self.__get_role().seen_grids
+        # iterate through matrix
+        rows, cols = matrix.shape
+
+
+
+        for x in range(rows):
+            for y in range(cols):
+                if matrix[x][y] == 0:
+                    # paste figure image onto img
+                    start_x_y = (start_x + y * grid_size, start_y + x * grid_size)
+                    world_map_image.blit(map_mosaic, start_x_y)
+
+
+        image_rect = world_map_image.get_rect()
         text = ''
 
         MyPanelWindow(
             rect=pygame.Rect((10, 10), (image_rect.width, (image_rect.height + 60))),
             ui_manager=self.mgr,
             text=text,
-            image=world_map_grids_image,
+            image=world_map_image,
         )
-
-
-        #
-        # PanelWindow(pygame.Rect((10, 10), (image_rect.width, (image_rect.height + 60))),
-        #             self.game.ui_manager, text, self.game, world_map_grids_image)
 
         # sound
         sAssetMgr.sounds['map'].play()
@@ -493,7 +515,19 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def __enter_port(self):
+        # get nearby port_id
+        role = self.__get_role()
 
+        nearby_port_id = None
+        for id, port in sObjectMgr.id_2_port.items():
+            if abs(port.x - role.x) <= 1 and abs(port.y - role.y) <= 1:
+                nearby_port_id = id
+
+        if nearby_port_id:
+            self.client.send(EnterPort(id=nearby_port_id))
+        else:
+            print('no port to call!')
 
     def show_buildings_menu(self):
         option_2_callback = {
@@ -548,19 +582,6 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
-    def __enter_port(self):
-        # get nearby port_id
-        role = self.__get_role()
-
-        nearby_port_id = None
-        for id, port in sObjectMgr.id_2_port.items():
-            if abs(port.x - role.x) <= 1 and abs(port.y - role.y) <= 1:
-                nearby_port_id = id
-
-        if nearby_port_id:
-            self.client.send(EnterPort(id=nearby_port_id))
-        else:
-            print('no port to call!')
 
     def show_cmds_menu(self):
         option_2_callback = {

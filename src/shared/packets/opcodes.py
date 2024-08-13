@@ -46,6 +46,9 @@ class OpCodeType(Enum):
     Discover = auto()
     Discovered = auto()
 
+    Sail = auto()
+    MapChanged = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

@@ -158,9 +158,12 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
+    def __send_sail_request(self):
+        self.client.send(Sail())
+
     def __show_harbor_menu(self):
         option_2_callback = {
-            'Sail': '',
+            'Sail': partial(self.__send_sail_request),
             'Load Supply': '',
             'Unload Supply': '',
         }

@@ -658,6 +658,18 @@ class PacketHandler:
 
                 self.session.send(Discovered(village_id=village_id))
 
+    async def handle_Sail(self, sail):
+        port = sObjectMgr.get_port(self.role.map_id)
+
+        packet = MapChanged(
+            role_id = self.role.id,
+            map_id=0,
+            x=port.x,
+            y=port.y
+        )
+
+        self.send_to_nearby_roles(packet, include_self=True)
+
 
     def on_disconnect_signal(self, role_to_disappear):
         role_disappeared = RoleDisappeared()

@@ -293,3 +293,14 @@ message Discover {
 message Discovered {
     required int32 village_id = 1;
 }
+
+// sail
+message Sail {
+}
+
+message MapChanged {
+    required int32 role_id = 1;
+    required int32 map_id = 2;
+    required int32 x = 3;
+    required int32 y = 4;
+}

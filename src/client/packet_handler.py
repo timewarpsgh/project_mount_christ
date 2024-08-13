@@ -325,3 +325,12 @@ class PacketHandler:
         # play sound
         sAssetMgr.sounds['discover'].play()
 
+    async def handle_MapChanged(self, map_changed):
+        role = self.__get_role()
+
+        if map_changed.role_id == role.id:
+            role.map_id = map_changed.map_id
+            role.x = map_changed.x
+            role.y = map_changed.y
+
+            self.client.game.graphics.change_background_sp_to_sea()

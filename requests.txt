@@ -15,12 +15,16 @@ TO DO:
 
     init role with no discoveries bug  OK
 
-    change map
-        to port
-        to sea
-
-
     show world map OK
+
+    change map   ON
+        to sea (sail)   OK
+
+        to port (enter port)   ON
+
+
+
+
     world map fog
 
 

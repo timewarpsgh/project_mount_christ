@@ -63,6 +63,7 @@ class Graphics:
         imgs['background'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\port.png')
         imgs['role'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\role.png')
         imgs['hud'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\hud.png')
+        imgs['sea'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\sea.png')
 
         return imgs
 
@@ -75,6 +76,11 @@ class Graphics:
             return image
         else:
             return image
+
+    def change_background_sp_to_sea(self):
+        print('chaning bg')
+        self.sp_background.change_img(self.imgs['sea'])
+
 
     def add_sp_role(self, role):
         sp_role = SP(self.imgs['role'], role.x, role.y)

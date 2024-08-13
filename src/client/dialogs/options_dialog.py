@@ -515,13 +515,34 @@ class OptionsDialog:
         self.__make_menu(option_2_callback)
 
 
+    def __show_world_map(self):
+        # image
+        world_map_grids_image = sAssetMgr.images['world_map']['world_map_grids']
+        image_rect = world_map_grids_image.get_rect()
+        text = ''
+
+        MyPanelWindow(
+            rect=pygame.Rect((10, 10), (image_rect.width, (image_rect.height + 60))),
+            ui_manager=self.mgr,
+            text=text,
+            image=world_map_grids_image,
+        )
+
+
+        #
+        # PanelWindow(pygame.Rect((10, 10), (image_rect.width, (image_rect.height + 60))),
+        #             self.game.ui_manager, text, self.game, world_map_grids_image)
+
+        # sound
+        sAssetMgr.sounds['map'].play()
+
     def show_items_menu(self):
         option_2_callback = {
             'Equipments': '',
             'Items': '',
             'Discoveries': partial(self.__show_discoveries_menu),
             'Diary': '',
-            'World Map': '',
+            'World Map': partial(self.__show_world_map),
             'Port Map': ''
         }
 

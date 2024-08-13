@@ -37,6 +37,12 @@ class AssetMgr:
         path_to_discoveries_and_items_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\discoveries_and_items"
         load_images_in_dir(self.images['discoveries_and_items'], path_to_discoveries_and_items_imgs)
 
+        self.images['world_map'] = {}
+        path_to_world_map_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\world_map"
+
+        load_images_in_dir(self.images['world_map'], path_to_world_map_imgs)
+
+
     def load_sounds(self):
         load_sounds_in_dir(self.sounds, f"D:\data\code\python\project_mount_christ\data\sounds\effect")
 

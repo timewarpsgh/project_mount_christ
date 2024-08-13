@@ -16,13 +16,14 @@ TO DO:
     init role with no discoveries bug  OK
 
     change map
-
-
-    world map fog
-
-    change map
         to port
         to sea
+
+
+    show world map OK
+    world map fog
+
+
 
     fight
 

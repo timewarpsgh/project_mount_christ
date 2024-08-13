@@ -20,7 +20,7 @@ from graphics import YELLOW
 from asset_mgr import sAssetMgr
 
 
-BYPASS_LOGIN = False
+BYPASS_LOGIN = True
 
 
 class PacketHandler:

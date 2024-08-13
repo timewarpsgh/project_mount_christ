@@ -157,7 +157,7 @@ message RoleEntered {
 
     repeated Ship ships = 7;
     repeated Mate mates = 8;
-    required string discovery_ids_json_str = 9;
+    optional string discovery_ids_json_str = 9;
 }
 
 message EnterWorldRes {

@@ -351,7 +351,10 @@ class PacketHandler:
 
             # init discovery_mgr
             self.role.discovery_mgr = model.DiscoveryMgr()
-            discovery_ids = json.loads(role.discovery_ids_json_str)
+            if role.discovery_ids_json_str:
+                discovery_ids = json.loads(role.discovery_ids_json_str)
+            else:
+                discovery_ids = []
             for discovery_id in discovery_ids:
                 self.role.discovery_mgr.add(discovery_id)
 
@@ -379,7 +382,8 @@ class PacketHandler:
             role_entered.x = role.x
             role_entered.y = role.y
             role_entered.money = role.money
-            role_entered.discovery_ids_json_str = role.discovery_ids_json_str
+            if role.discovery_ids_json_str:
+                role_entered.discovery_ids_json_str = role.discovery_ids_json_str
 
             # fill ships and mates in protocol
             role_entered.ships.extend(proto_ships)

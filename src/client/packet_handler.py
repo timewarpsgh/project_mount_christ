@@ -20,7 +20,7 @@ from graphics import YELLOW
 from asset_mgr import sAssetMgr
 
 
-BYPASS_LOGIN = True
+BYPASS_LOGIN = False
 
 
 class PacketHandler:
@@ -237,7 +237,10 @@ class PacketHandler:
                 self.__add_mate_to_mate_mgr(prot_mate)
 
             # init discoveries
-            discovery_ids = json.loads(role.discovery_ids_json_str)
+            if role.discovery_ids_json_str:
+                discovery_ids = json.loads(role.discovery_ids_json_str)
+            else:
+                discovery_ids = []
             for discovery_id in discovery_ids:
                 model_role.discovery_mgr.add(discovery_id)
 

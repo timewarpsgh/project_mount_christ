@@ -1,6 +1,6 @@
 TO DO:
 
-    discover ON
+    discover OK
         move to target village
         click go ashore
         send discover(village_id)   ON
@@ -12,6 +12,11 @@ TO DO:
 
         load villages in db OK
         show discoveries in items tab OK
+
+    init role with no discoveries bug  OK
+
+    change map
+
 
     world map fog
 

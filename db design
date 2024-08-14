@@ -113,14 +113,12 @@ dbs
             navigation_required
             item_2_drop_rate: {1: 0.1, 2: 0.05}
 
-        npc_role
+        npc
             id
             mate_id
-            nation
-            lv
             x
             y
-            port_id
+            map_id
 
 
         npc_ship (instanced when battle begins)
@@ -132,10 +130,6 @@ dbs
             material_type(armor against cannons)
 
             captain(a mate)
-            accountant (trade)
-            first_mate (battle)
-            chief_navigator (sail)
-
 
             now_durability
             max_durability
@@ -146,12 +140,9 @@ dbs
             capacity (= max_crew + max_guns + cargo_hold)
 
             now_crew
-            min_crew
-            max_crew
 
             now_guns
             type_of_guns
-            max_guns
 
             cargo_hold
                 water

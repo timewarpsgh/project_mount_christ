@@ -16,6 +16,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 from shared import Connection
 
 from object_mgr import sObjectMgr
+from npc_mgr import sNpcMgr
 
 class Session(Connection):
 

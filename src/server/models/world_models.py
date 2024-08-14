@@ -151,6 +151,19 @@ class Village(BASE):
 	item_id_2_drop_rate = Column(String)
 
 
+class Npc(BASE):
+
+	__tablename__ = 'npc'
+
+	id = Column(Integer, primary_key=True)
+	mate_id = Column(Integer)
+
+	x = Column(Integer)
+	y = Column(Integer)
+	map_id = Column(Integer)
+
+
+
 def create_tables():
 	# ceate all above tables if not there yet
 	engine = create_engine(f'sqlite:///{PATH_TO_DB}')

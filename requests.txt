@@ -1,26 +1,5 @@
 TO DO:
 
-    discover OK
-        move to target village
-        click go ashore
-        send discover(village_id)   ON
-
-            role.x y in client added some 300!! OK
-
-
-        server checks and sends back discovered(village_id)  OK
-
-        load villages in db OK
-        show discoveries in items tab OK
-
-    init role with no discoveries bug  OK
-
-    show world map OK
-
-    change map   OK
-        to sea (sail)   OK
-
-        to port (enter port)   OK
 
     world map fog  OK
         client has matrix now OK
@@ -32,11 +11,19 @@ TO DO:
 
 
 
-    fight
+    move to fight npc fleet ON
+        npc fleet as moving instances, not disappear after enter battle, has cd,
+        so everyone has access
 
+        sNpcMgr in server OK
 
+        1 fleet 1st, not moving
+        1 moving fleet
+        each nation has a fleet
+        each nation has 6 fleets
 
-
+    move to fight player fleet later
+        both disappear
 
 
 
@@ -47,17 +34,27 @@ TO DO:
 
 DONE:
 
+   discover OK
+    move to target village
+    click go ashore
+    send discover(village_id)   ON
 
-    have money OK
-    buy cargo to a ship OK
+        role.x y in client added some 300!! OK
 
 
-    play money changed sound OK
+    server checks and sends back discovered(village_id)  OK
 
+    load villages in db OK
+    show discoveries in items tab OK
 
+    init role with no discoveries bug  OK
 
-    sell cargo OK
+    show world map OK
 
+    change map   OK
+        to sea (sail)   OK
+
+        to port (enter port)   OK
 
 
 cmds

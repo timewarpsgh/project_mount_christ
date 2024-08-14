@@ -50,6 +50,8 @@ class OpCodeType(Enum):
     MapChanged = auto()
     EnterPort = auto()
 
+    OpenedGrid = auto()
+
 
 def gen_opcode_2_value():
     d = {}

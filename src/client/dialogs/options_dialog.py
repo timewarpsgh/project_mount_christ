@@ -404,7 +404,7 @@ class OptionsDialog:
             for y in range(cols):
                 if matrix[x][y] == 0:
                     # paste figure image onto img
-                    start_x_y = (start_x + y * grid_size, start_y + x * grid_size)
+                    start_x_y = (start_y + y * grid_size, start_x + x * grid_size)
                     world_map_image.blit(map_mosaic, start_x_y)
 
 

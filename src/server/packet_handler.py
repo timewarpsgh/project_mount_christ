@@ -56,6 +56,11 @@ class PacketHandler:
         else:
             print()
 
+    def on_disconnect_signal(self, role_to_disappear):
+        role_disappeared = RoleDisappeared()
+        role_disappeared.id = role_to_disappear.id
+        self.session.send(role_disappeared)
+
     def __get_new_account_res(self, new_account):
         account = LOGON_SESSION.query(Account).\
             filter_by(account=new_account.account).\
@@ -481,6 +486,11 @@ class PacketHandler:
         get_available_cargos_res.available_cargos.extend(available_cargos)
         self.session.send(get_available_cargos_res)
 
+    def __get_grid_xy(self, x, y):
+        grid_x = int(y/c.SIZE_OF_ONE_GRID)
+        grid_y = int(x/c.SIZE_OF_ONE_GRID)
+        return grid_x, grid_y
+
     async def handle_Move(self, move):
         if move.dir_type == DirType.E:
             self.role.x += 5
@@ -491,8 +501,15 @@ class PacketHandler:
         elif move.dir_type == DirType.S:
             self.role.y += 5
 
-        # notify presence of nearby_roles
-        nearby_roles = self.session.server.get_nearby_roles(self.role.id)
+        # check opened grid?
+        grid_x, grid_y = self.__get_grid_xy(self.role.x, self.role.y)
+        print(f'{grid_x=}')
+        print(f'{grid_y=}')
+        if self.role.seen_grids[grid_x][grid_y] == 0:
+            self.role.seen_grids[grid_x][grid_y] = 1
+            self.session.send(OpenedGrid(grid_x=grid_x, grid_y=grid_y))
+
+
 
         # make packet
         role_moved = RoleMoved()
@@ -500,12 +517,7 @@ class PacketHandler:
         role_moved.x = self.role.x
         role_moved.y = self.role.y
         role_moved.dir_type = move.dir_type
-
-
-        for nearby_role in nearby_roles:
-            nearby_role.session.send(role_moved)
-
-        self.session.send(role_moved)
+        self.send_to_nearby_roles(role_moved, include_self=True)
 
     async def handle_Disconnect(self, disconnect):
         print('got disconn packet from client')
@@ -735,7 +747,3 @@ class PacketHandler:
 
 
 
-    def on_disconnect_signal(self, role_to_disappear):
-        role_disappeared = RoleDisappeared()
-        role_disappeared.id = role_to_disappear.id
-        self.session.send(role_disappeared)

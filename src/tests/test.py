@@ -1,0 +1,11 @@
+# 1080
+# 2160
+
+WORLD_MAP_COLUMNS = 2160
+WORLD_MAP_ROWS = 1080
+
+s = 1080/32
+print(s)
+
+a = 2160/64
+print(a)

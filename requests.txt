@@ -25,7 +25,7 @@ TO DO:
     world map fog  ON
         client has matrix now OK
         client show fog based on matrix OK
-        move to clear fog ON
+        move to clear fog OK
 
 
 

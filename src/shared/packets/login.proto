@@ -310,3 +310,9 @@ message MapChanged {
 message EnterPort {
     required int32 id = 1;
 }
+
+// opened grid from server
+message OpenedGrid {
+    required int32 grid_x = 1;
+    required int32 grid_y = 2;
+}

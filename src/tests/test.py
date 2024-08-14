@@ -4,8 +4,10 @@
 WORLD_MAP_COLUMNS = 2160
 WORLD_MAP_ROWS = 1080
 
-s = 1080/32
-print(s)
+x = 900 # 2160
+y = 262 # 1080
 
-a = 2160/64
+a = 800 / 64
+
 print(a)
+

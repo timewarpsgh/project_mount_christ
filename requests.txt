@@ -22,12 +22,13 @@ TO DO:
 
         to port (enter port)   OK
 
-    world map fog  ON
+    world map fog  OK
         client has matrix now OK
         client show fog based on matrix OK
         move to clear fog OK
 
 
+    show my position on world map right OK
 
 
 

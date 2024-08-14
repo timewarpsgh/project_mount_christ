@@ -379,16 +379,25 @@ class OptionsDialog:
 
 
     def __show_world_map(self):
+        print('my xy')
+        print(self.__get_role().x)
+        print(self.__get_role().y)
+
         # image
-        world_map_image = sAssetMgr.images['world_map']['wolrd_map_without_grids']
+        world_map_image = sAssetMgr.images['world_map']['world_map_from_uw2']
 
         # shrink image
-        world_map_image = pygame.transform.scale(world_map_image, (800, 400))
+        world_map_image = pygame.transform.scale(world_map_image, (800, 400))  # 800, 400
 
         grid_size = 13
+        strict_grid_size = 12.5
 
         map_mosaic = sAssetMgr.images['world_map']['map_mosaic']
         map_mosaic = pygame.transform.scale(map_mosaic, (grid_size, grid_size))
+
+        # my positiion
+        my_position_img = sAssetMgr.images['world_map']['my_position_on_map']
+        my_position_img = pygame.transform.scale(my_position_img, (3, 3))
 
         start_x = 0
         start_y = 0
@@ -404,8 +413,15 @@ class OptionsDialog:
             for y in range(cols):
                 if matrix[x][y] == 0:
                     # paste figure image onto img
-                    start_x_y = (start_y + y * grid_size, start_x + x * grid_size)
+                    start_x_y = (start_y + int(y * strict_grid_size), start_x + int(x * strict_grid_size))
                     world_map_image.blit(map_mosaic, start_x_y)
+
+        # paste my position img
+        my_x = int(800 * (self.__get_role().x / 2160))
+        my_y = int(400 * (self.__get_role().y / 1080))
+        print(my_x, my_y)
+
+        world_map_image.blit(my_position_img, (my_x, my_y))
 
 
         image_rect = world_map_image.get_rect()

@@ -387,3 +387,37 @@ class PacketHandler:
 
     async def handle_EscapedNpcBattle(self, escaped_npc_battle):
         self.client.game.graphics.change_background_sp_to_sea()
+
+    async def handle_YouWonNpcBattle(self, you_won_npc_battle):
+        for ship in you_won_npc_battle.ships:
+            model_ship = model.Ship(
+                id=ship.id,
+                role_id=ship.role_id,
+                name=ship.name,
+
+                ship_template_id=ship.ship_template_id,
+                material_type=ship.material_type,
+                now_durability=ship.now_durability,
+                max_durability=ship.max_durability,
+                tacking=ship.tacking,
+                power=ship.power,
+                capacity=ship.capacity,
+                now_crew=ship.now_crew,
+                min_crew=ship.min_crew,
+                max_crew=ship.max_crew,
+                now_guns=ship.now_guns,
+                type_of_guns=ship.type_of_guns,
+                max_guns=ship.max_guns,
+                water=ship.water,
+                food=ship.food,
+                material=ship.material,
+                cannon=ship.cannon,
+                cargo_cnt=ship.cargo_cnt,
+                cargo_id=ship.cargo_id,
+                captain=ship.captain,
+                accountant=ship.accountant,
+                first_mate=ship.first_mate,
+                chief_navigator=ship.chief_navigator
+            )
+            self.__get_role().ship_mgr.add_ship(model_ship)
+            print(f'you won ship {ship.name}')

@@ -19,7 +19,7 @@ TO DO:
 
         1 fleet 1st, not moving
             enter and escape battle OK
-
+            .win_npc OK
 
         1 moving fleet
         each nation has a fleet

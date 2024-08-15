@@ -26,6 +26,7 @@ from object_mgr import sObjectMgr
 from npc_mgr import sNpcMgr
 
 import model
+import copy
 
 
 EXECUTOR = ThreadPoolExecutor()
@@ -663,6 +664,55 @@ class PacketHandler:
             )
             self.session.send(pack)
 
+        elif cmd == 'win_npc':
+            for id, ship in self.role.npc_instance.ship_mgr.id_2_ship.items():
+                ship.role_id = self.role.id
+                self.role.ship_mgr.add_ship(ship)
+
+            pack = YouWonNpcBattle()
+            ships = self.__gen_won_ships(self.role.npc_instance.ship_mgr.id_2_ship)
+            pack.ships.extend(ships)
+            self.session.send(pack)
+            self.session.send(EscapedNpcBattle())
+
+            self.role.npc_instance = None
+            self.role.battle_npc_id = None
+
+    def __gen_won_ships(self, id_2_ship):
+        ships_prots = []
+        for id, ship in id_2_ship.items():
+             ship_prot = Ship(
+                id=ship.id,
+                role_id=self.role.id,
+                name=ship.name,
+
+                ship_template_id=ship.ship_template_id,
+                material_type=ship.material_type,
+                now_durability=ship.now_durability,
+                max_durability=ship.max_durability,
+                tacking=ship.tacking,
+                power=ship.power,
+                capacity=ship.capacity,
+                now_crew=ship.now_crew,
+                min_crew=ship.min_crew,
+                max_crew=ship.max_crew,
+                now_guns=ship.now_guns,
+                type_of_guns=ship.type_of_guns,
+                max_guns=ship.max_guns,
+                water=ship.water,
+                food=ship.food,
+                material=ship.material,
+                cannon=ship.cannon,
+                cargo_cnt=ship.cargo_cnt,
+                cargo_id=ship.cargo_id,
+                captain=ship.captain,
+                accountant=ship.accountant,
+                first_mate=ship.first_mate,
+                chief_navigator=ship.chief_navigator
+             )
+             ships_prots.append(ship_prot)
+
+        return ships_prots
 
     async def handle_Chat(self, chat):
         if chat.chat_type == ChatType.SAY:
@@ -751,6 +801,13 @@ class PacketHandler:
         npc = sNpcMgr.get_npc(npc_id)
 
         if abs(npc.x - self.role.x) <= 1 and abs(npc.y - self.role.y) <= 1:
+
+            self.role.battle_npc_id = npc_id
+
+            # gen npc_instance (each role has its own instance)
+            npc_instance = copy.deepcopy(npc)
+            self.role.npc_instance = npc_instance
+
             self.session.send(EnteredBattleWithNpc(npc_id=npc_id))
 
     async def handle_EscapeNpcBattle(self, escape_npc_battle):

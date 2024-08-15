@@ -58,6 +58,8 @@ class OpCodeType(Enum):
     EscapeNpcBattle = auto()
     EscapedNpcBattle = auto()
 
+    YouWonNpcBattle = auto()
+
 
 def gen_opcode_2_value():
     d = {}

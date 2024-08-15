@@ -334,3 +334,8 @@ message EscapeNpcBattle {
 
 message EscapedNpcBattle {
 }
+
+// win npc
+message YouWonNpcBattle {
+    repeated Ship ships = 1;
+}

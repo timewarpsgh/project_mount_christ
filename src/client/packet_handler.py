@@ -375,3 +375,15 @@ class PacketHandler:
         grid_y = opened_grid.grid_y
         self.__get_role().seen_grids[grid_x][grid_y] = 1
         print(f'opened grid!!!!! {grid_x} {grid_y}')
+
+
+    async def handle_EnteredBattleWithNpc(self, entered_battle_with_npc):
+        print(f'entered battle with npc {entered_battle_with_npc.npc_id}')
+
+
+        self.__get_role().battle_npc_id = entered_battle_with_npc.npc_id
+
+        self.client.game.graphics.change_background_sp_to_battle_ground()
+
+    async def handle_EscapedNpcBattle(self, escaped_npc_battle):
+        self.client.game.graphics.change_background_sp_to_sea()

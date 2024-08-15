@@ -18,10 +18,12 @@ from role_models import SESSION as ROLE_SESSION, \
 @dataclass
 class Npc:
     id: int = None
-    mate: Mate = None
+
     x: int = None
     y: int = None
     map_id: int = None
+
+    mate: Mate = None
     ship_mgr: ShipMgr = None
 
 

@@ -316,3 +316,21 @@ message OpenedGrid {
     required int32 grid_x = 1;
     required int32 grid_y = 2;
 }
+
+// fight npc
+message FightNpc {
+    required int32 npc_id = 1;
+}
+
+message EnteredBattleWithNpc {
+    required int32 npc_id = 1;
+
+}
+
+// escape battle
+message EscapeNpcBattle {
+    required int32 npc_id = 1;
+}
+
+message EscapedNpcBattle {
+}

@@ -143,6 +143,8 @@ class Role:
     mate_mgr: MateMgr = None
     discovery_mgr: DiscoveryMgr = None
 
+    battle_npc_id: int = None
+
 
 class Model:
 

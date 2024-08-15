@@ -23,7 +23,7 @@ from role_models import \
     Mate as MateModel
 
 from object_mgr import sObjectMgr
-
+from npc_mgr import sNpcMgr
 
 import model
 
@@ -745,5 +745,14 @@ class PacketHandler:
             pass
 
 
+    async def handle_FightNpc(self, fight_npc):
+        npc_id = fight_npc.npc_id
 
+        npc = sNpcMgr.get_npc(npc_id)
 
+        if abs(npc.x - self.role.x) <= 1 and abs(npc.y - self.role.y) <= 1:
+            self.session.send(EnteredBattleWithNpc(npc_id=npc_id))
+
+    async def handle_EscapeNpcBattle(self, escape_npc_battle):
+        npc_id = escape_npc_battle.npc_id
+        self.session.send(EscapedNpcBattle())

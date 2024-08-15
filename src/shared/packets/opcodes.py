@@ -52,6 +52,12 @@ class OpCodeType(Enum):
 
     OpenedGrid = auto()
 
+    FightNpc = auto()
+    EnteredBattleWithNpc = auto()
+
+    EscapeNpcBattle = auto()
+    EscapedNpcBattle = auto()
+
 
 def gen_opcode_2_value():
     d = {}

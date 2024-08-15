@@ -531,6 +531,18 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def __fight_npc(self):
+        PacketParamsDialog(
+            mgr=self.mgr,
+            client=self.client,
+            params_names=['npc_id'],
+            packet=FightNpc(),
+        )
+
+    def __escape_battle(self):
+        npc_id = self.__get_role().battle_npc_id
+        self.client.send(EscapeNpcBattle(npc_id=npc_id))
+
     def __enter_port(self):
         # get nearby port_id
         role = self.__get_role()
@@ -589,7 +601,7 @@ class OptionsDialog:
             'All Ships Strategy': '',
             'One Ship Target': '',
             'One Ship Strategy': '',
-            'Escape Battle': '',
+            'Escape Battle': partial(self.__escape_battle),
         }
 
         MyMenuWindow(
@@ -599,12 +611,15 @@ class OptionsDialog:
         )
 
 
+
+
     def show_cmds_menu(self):
         option_2_callback = {
             'Enter Building (F)': '',
             'Enter Port (M)': partial(self.__enter_port),
             'Go Ashore (G)': partial(self.__try_to_discover),
-            'Battle (B)': '',
+            'Fight Npc (B)': partial(self.__fight_npc),
+            'Fight Role (B)': '',
             'Measure Cooridinate': '',
         }
 

@@ -64,6 +64,7 @@ class Graphics:
         imgs['role'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\role.png')
         imgs['hud'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\hud.png')
         imgs['sea'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\sea.png')
+        imgs['battle_ground'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\battle_ground.png')
 
         return imgs
 
@@ -83,6 +84,9 @@ class Graphics:
 
     def change_background_sp_to_port(self):
         self.sp_background.change_img(self.imgs['background'])
+
+    def change_background_sp_to_battle_ground(self):
+        self.sp_background.change_img(self.imgs['battle_ground'])
 
     def add_sp_role(self, role):
         sp_role = SP(self.imgs['role'], role.x, role.y)

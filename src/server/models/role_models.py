@@ -50,7 +50,7 @@ class Mate(BASE):
 	npc_id = Column(Integer)
 
 	name = Column(String)
-	img_id = Column(Integer)
+	img_id = Column(String)
 	nation = Column(String)
 
 	lv = Column(Integer)

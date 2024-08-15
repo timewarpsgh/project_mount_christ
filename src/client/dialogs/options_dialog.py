@@ -495,7 +495,11 @@ class OptionsDialog:
         text = self.__dict_2_txt(dict)
 
         # get ship image
-        mate_image = self.__figure_x_y_2_image(1, 1)
+        split_items = mate.img_id.split('_')
+        x = int(split_items[0])
+        y = int(split_items[1])
+
+        mate_image = self.__figure_x_y_2_image(x, y)
 
         MyPanelWindow(
             rect=pygame.Rect((59, 12), (350, 400)),

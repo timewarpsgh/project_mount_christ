@@ -127,7 +127,7 @@ message Mate {
   required int32 role_id = 2;
 
   required string name = 3;
-  required int32 img_id = 4;
+  required string img_id = 4;
   required string nation = 5;
 
   required int32 lv = 6;

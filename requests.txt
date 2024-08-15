@@ -20,7 +20,7 @@ TO DO:
 
             .lose_to_npc OK
 
-            show captain img ON
+            show captain img OK
 
 
         2nd npc fleet, somewhere else OK

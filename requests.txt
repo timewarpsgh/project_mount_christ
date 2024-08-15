@@ -1,23 +1,13 @@
 TO DO:
 
 
-    world map fog  OK
-        client has matrix now OK
-        client show fog based on matrix OK
-        move to clear fog OK
-
-
-    show my position on world map right OK
-
-
-
     move to fight npc fleet ON
         npc fleet as moving instances, not disappear after enter battle, has cd,
         so everyone has access
 
         sNpcMgr in server OK
 
-        1 fleet 1st, not moving
+        1 fleet 1st, not moving  OK
             enter and escape battle OK
             .win_npc OK
 
@@ -28,16 +18,15 @@ TO DO:
 
             show ship img and type right OK
 
+        2nd npc fleet, somewhere else OK
 
-        1 moving fleet
-        each nation has a fleet
-        each nation has 6 fleets
+
 
     move to fight player fleet later
         both disappear
 
 
-
+    battle process
 
 
 
@@ -45,28 +34,19 @@ TO DO:
 
 DONE:
 
-   discover OK
-    move to target village
-    click go ashore
-    send discover(village_id)   ON
 
-        role.x y in client added some 300!! OK
+    sNpcMgr in server OK
 
+        1 fleet 1st, not moving  OK
+            enter and escape battle OK
+            .win_npc OK
 
-    server checks and sends back discovered(village_id)  OK
+            new ship needs its own id OK
+            sell ship, maybe use it(then need my own ship_id) OK
 
-    load villages in db OK
-    show discoveries in items tab OK
+            buy ship OK
 
-    init role with no discoveries bug  OK
-
-    show world map OK
-
-    change map   OK
-        to sea (sail)   OK
-
-        to port (enter port)   OK
-
+            show ship img and type right OK
 
 cmds
     # compile .proto file

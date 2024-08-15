@@ -1,34 +1,16 @@
 TO DO:
 
 
-    move to fight npc fleet ON
-        npc fleet as moving instances, not disappear after enter battle, has cd,
-        so everyone has access
-
-        sNpcMgr in server OK
-
-        1 fleet 1st, not moving  OK
-            enter and escape battle OK
-            .win_npc OK
-
-            new ship needs its own id OK
-            sell ship, maybe use it(then need my own ship_id) OK
-
-            buy ship OK
-
-            show ship img and type right OK
-
-            .lose_to_npc OK
-
-            show captain img OK
-
-
-        2nd npc fleet, somewhere else OK
+    fight npc fleet OK
 
 
 
-    move to fight player fleet   ON
-        both disappear
+
+    fight player fleet   ON
+        enter
+        escape
+        win
+        lose
 
 
     battle process

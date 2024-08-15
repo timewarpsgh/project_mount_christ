@@ -104,7 +104,10 @@ class PacketHandler:
 
         # bypass choose role
         if BYPASS_LOGIN:
-            self.__enter_world(1)
+            if 1 in [role.id for role in get_roles_in_world_res.roles]:
+                self.__enter_world(1)
+            elif 2 in [role.id for role in get_roles_in_world_res.roles]:
+                self.__enter_world(2)
 
     async def handle_NewRoleRes(self, new_role_res):
         if new_role_res.new_role_res_type == NewRoleRes.NewRoleResType.OK:

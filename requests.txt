@@ -22,7 +22,7 @@ TO DO:
 
 
 
-    move to fight player fleet later
+    move to fight player fleet   ON
         both disappear
 
 

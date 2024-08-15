@@ -670,7 +670,7 @@ class PacketHandler:
             for id, ship in self.role.npc_instance.ship_mgr.id_2_ship.items():
                 new_ship_id = sIdMgr.gen_new_ship_id()
                 ship.id = new_ship_id
-
+                ship.name = self.role.ship_mgr.get_new_ship_name()
                 ship.role_id = self.role.id
                 self.role.ship_mgr.add_ship(ship)
 
@@ -894,10 +894,7 @@ class PacketHandler:
         if not self.role.money >= price:
             return
 
-        new_ship_name = self.__try_get_new_ship_name()
-
-        if new_ship_name is None:
-            return
+        new_ship_name = self.role.ship_mgr.get_new_ship_name()
 
         new_model_ship = model.Ship(
             id=sIdMgr.gen_new_ship_id(),
@@ -941,19 +938,3 @@ class PacketHandler:
 
         self.session.send(GotNewShip(ship=self.__gen_new_ship_proto(new_model_ship)))
 
-    def __try_get_new_ship_name(self):
-        # try to get unique name
-        max_attempt = 5
-        attempts = 0
-        is_name_found = False
-        new_ship_name = None
-
-        while not is_name_found and attempts < max_attempt:
-            new_ship_name = str(random.randint(0, 20))
-
-            if not new_ship_name in self.role.ship_mgr.get_ships_names():
-                is_name_found = True
-
-            attempts += 1
-
-        return new_ship_name

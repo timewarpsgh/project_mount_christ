@@ -26,6 +26,8 @@ TO DO:
 
             buy ship OK
 
+            show ship img and type right OK
+
 
         1 moving fleet
         each nation has a fleet

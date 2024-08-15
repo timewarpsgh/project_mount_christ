@@ -290,9 +290,11 @@ class OptionsDialog:
         self.client.send(Disconnect())
 
     def __show_one_ship_states(self, ship):
+        ship_template = sObjectMgr.get_ship_template(ship.ship_template_id)
+
         print(f'show states for {ship.id}')
         dict = {
-            'name/type/captain': f'{ship.name}/{ship.ship_template_id}/{ship.captain}',
+            'name/type/captain': f'{ship.name}/{ship_template.name}/{ship.captain}',
             '1': '',
             'tacking/power/speed': f'{ship.tacking}/{ship.power}',
             'durability': f'{ship.now_durability}/{ship.max_durability}',
@@ -309,7 +311,7 @@ class OptionsDialog:
         text = self.__dict_2_txt(dict)
 
         # get ship image
-        ship_image = sAssetMgr.images['ships']['carrack']
+        ship_image = sAssetMgr.images['ships'][ship_template.name.lower()]
 
         MyPanelWindow(
             rect=pygame.Rect((59, 12), (350, 400)),

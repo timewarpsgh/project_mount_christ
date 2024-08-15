@@ -421,3 +421,7 @@ class PacketHandler:
             )
             self.__get_role().ship_mgr.add_ship(model_ship)
             print(f'you won ship {ship.name}')
+
+
+    async def handle_ShipRemoved(self, ship_removed):
+        self.__get_role().ship_mgr.rm_ship(ship_removed.id)

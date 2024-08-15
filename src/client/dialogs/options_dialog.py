@@ -143,12 +143,27 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
+
+    def __sell_ship(self, id):
+        self.client.send(SellShip(id=id))
+
+    def __show_ships_to_sell(self):
+        option_2_callback = {
+        }
+
+        for id, ship in self.get_ship_mgr().id_2_ship.items():
+            ship_template = sObjectMgr.get_ship_template(ship.ship_template_id)
+            sell_price = int(ship_template.buy_price / 2)
+            option_2_callback[f'{ship.name} {sell_price}'] = partial(self.__sell_ship, id)
+
+        self.__make_menu(option_2_callback)
+
     def __show_dry_dock_menu(self):
         option_2_callback = {
             'New Ship': '',
             'Used Ship': '',
             'Repair': '',
-            'Sell': '',
+            'Sell': partial(self.__show_ships_to_sell),
             'Remodel': '',
         }
 

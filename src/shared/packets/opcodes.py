@@ -60,6 +60,9 @@ class OpCodeType(Enum):
 
     YouWonNpcBattle = auto()
 
+    SellShip = auto()
+    ShipRemoved = auto()
+
 
 def gen_opcode_2_value():
     d = {}

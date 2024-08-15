@@ -21,8 +21,8 @@ TO DO:
             enter and escape battle OK
             .win_npc OK
 
-            new ship needs its own id 
-            sell ship, maybe use it(then need my own ship_id) ON
+            new ship needs its own id OK
+            sell ship, maybe use it(then need my own ship_id) OK
 
             buy ship,
 

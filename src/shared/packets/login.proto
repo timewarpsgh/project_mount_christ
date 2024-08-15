@@ -339,3 +339,12 @@ message EscapedNpcBattle {
 message YouWonNpcBattle {
     repeated Ship ships = 1;
 }
+
+// sell ship
+message SellShip {
+    required int32 id = 1;
+}
+
+message ShipRemoved{
+    required int32 id = 1;
+}

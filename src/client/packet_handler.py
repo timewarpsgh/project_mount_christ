@@ -388,40 +388,56 @@ class PacketHandler:
     async def handle_EscapedNpcBattle(self, escaped_npc_battle):
         self.client.game.graphics.change_background_sp_to_sea()
 
+    def __proto_ship_2_model_ship(self, ship):
+        model_ship = model.Ship(
+            id=ship.id,
+            role_id=ship.role_id,
+            name=ship.name,
+
+            ship_template_id=ship.ship_template_id,
+            material_type=ship.material_type,
+            now_durability=ship.now_durability,
+            max_durability=ship.max_durability,
+            tacking=ship.tacking,
+            power=ship.power,
+            capacity=ship.capacity,
+            now_crew=ship.now_crew,
+            min_crew=ship.min_crew,
+            max_crew=ship.max_crew,
+            now_guns=ship.now_guns,
+            type_of_guns=ship.type_of_guns,
+            max_guns=ship.max_guns,
+            water=ship.water,
+            food=ship.food,
+            material=ship.material,
+            cannon=ship.cannon,
+            cargo_cnt=ship.cargo_cnt,
+            cargo_id=ship.cargo_id,
+            captain=ship.captain,
+            accountant=ship.accountant,
+            first_mate=ship.first_mate,
+            chief_navigator=ship.chief_navigator
+        )
+
+        return model_ship
+
     async def handle_YouWonNpcBattle(self, you_won_npc_battle):
         for ship in you_won_npc_battle.ships:
-            model_ship = model.Ship(
-                id=ship.id,
-                role_id=ship.role_id,
-                name=ship.name,
-
-                ship_template_id=ship.ship_template_id,
-                material_type=ship.material_type,
-                now_durability=ship.now_durability,
-                max_durability=ship.max_durability,
-                tacking=ship.tacking,
-                power=ship.power,
-                capacity=ship.capacity,
-                now_crew=ship.now_crew,
-                min_crew=ship.min_crew,
-                max_crew=ship.max_crew,
-                now_guns=ship.now_guns,
-                type_of_guns=ship.type_of_guns,
-                max_guns=ship.max_guns,
-                water=ship.water,
-                food=ship.food,
-                material=ship.material,
-                cannon=ship.cannon,
-                cargo_cnt=ship.cargo_cnt,
-                cargo_id=ship.cargo_id,
-                captain=ship.captain,
-                accountant=ship.accountant,
-                first_mate=ship.first_mate,
-                chief_navigator=ship.chief_navigator
-            )
+            model_ship = self.__proto_ship_2_model_ship(ship)
             self.__get_role().ship_mgr.add_ship(model_ship)
             print(f'you won ship {ship.name}')
 
 
     async def handle_ShipRemoved(self, ship_removed):
         self.__get_role().ship_mgr.rm_ship(ship_removed.id)
+
+    async def handle_ShipsToBuy(self, ships_to_buy):
+        print('ships to buy')
+        # get options_dialog
+        options_dialog = self.__get_options_dialog()
+        options_dialog.show_ships_to_buy_menu(ships_to_buy)
+
+    async def handle_GotNewShip(self, got_new_ship):
+        print('got new ship')
+        model_ship = self.__proto_ship_2_model_ship(got_new_ship.ship)
+        self.__get_role().ship_mgr.add_ship(model_ship)

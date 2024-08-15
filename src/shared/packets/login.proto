@@ -348,3 +348,24 @@ message SellShip {
 message ShipRemoved{
     required int32 id = 1;
 }
+
+// buy ship
+message GetShipsToBuy {
+}
+
+message ShipToBuy {
+    required int32 template_id = 1;
+    required int32 price = 2;
+}
+
+message ShipsToBuy {
+    repeated ShipToBuy ships_to_buy = 1;
+}
+
+message BuyShip{
+    required int32 template_id = 1;
+}
+
+message GotNewShip{
+    required Ship ship = 1;
+}

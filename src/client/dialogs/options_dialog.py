@@ -158,10 +158,13 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def __get_ships_to_buy(self):
+        self.client.send(GetShipsToBuy())
+
     def __show_dry_dock_menu(self):
         option_2_callback = {
             'New Ship': '',
-            'Used Ship': '',
+            'Used Ship': partial(self.__get_ships_to_buy),
             'Repair': '',
             'Sell': partial(self.__show_ships_to_sell),
             'Remodel': '',
@@ -331,7 +334,7 @@ class OptionsDialog:
         }
 
         for id, ship in ship_mgr.id_2_ship.items():
-            option_2_callback[ship.name] = partial(self.__show_one_ship_states, ship_mgr.get_ship(id))
+            option_2_callback[f'{ship.name}'] = partial(self.__show_one_ship_states, ship_mgr.get_ship(id))
 
 
         MyMenuWindow(
@@ -557,6 +560,26 @@ class OptionsDialog:
     def __escape_battle(self):
         npc_id = self.__get_role().battle_npc_id
         self.client.send(EscapeNpcBattle(npc_id=npc_id))
+
+
+    def __buy_ship(self, template_id):
+
+        self.client.send(BuyShip(template_id=template_id))
+
+    def show_ships_to_buy_menu(self, ships_to_buy):
+        option_2_callback = {
+        }
+
+        for ship_to_buy in ships_to_buy.ships_to_buy:
+            template_id = ship_to_buy.template_id
+            ship_template = sObjectMgr.get_ship_template(template_id)
+
+            name = ship_template.name
+            price = ship_to_buy.price
+
+            option_2_callback[f'{name} {price}'] = partial(self.__buy_ship, template_id)
+
+        self.__make_menu(option_2_callback)
 
     def __enter_port(self):
         # get nearby port_id

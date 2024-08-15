@@ -3,6 +3,7 @@ import asyncio
 import json
 import traceback
 import numpy as np
+import random
 from concurrent.futures import ThreadPoolExecutor
 
 # import from dir
@@ -832,3 +833,127 @@ class PacketHandler:
         self.session.send(MoneyChanged(money=self.role.money))
         self.session.send(ShipRemoved(id=id))
         self.session.send(PopSomeMenus(cnt=1))
+
+    def __get_ships_to_buy(self, ship_ids):
+        ships_to_buy = []
+
+        for id in ship_ids:
+            ship_template = sObjectMgr.get_ship_template(id)
+            ship_to_buy = ShipToBuy(template_id=id, price=ship_template.buy_price)
+            ships_to_buy.append(ship_to_buy)
+
+        return ships_to_buy
+
+    async def handle_GetShipsToBuy(self, get_ships_to_buy):
+        port = sObjectMgr.get_port(self.role.map_id)
+
+        ship_ids = sObjectMgr.get_ship_ids(port.economy_id)
+
+        pack = ShipsToBuy()
+        ships_to_buy = self.__get_ships_to_buy(ship_ids)
+        pack.ships_to_buy.extend(ships_to_buy)
+        self.session.send(pack)
+
+    def __gen_new_ship_proto(self, new_model_ship):
+        new_ship_proto = Ship(
+            id=new_model_ship.id,
+            role_id=new_model_ship.role_id,
+            name=new_model_ship.name,
+            ship_template_id=new_model_ship.ship_template_id,
+            material_type=new_model_ship.material_type,
+            now_durability=new_model_ship.now_durability,
+            max_durability=new_model_ship.max_durability,
+            tacking=new_model_ship.tacking,
+            power=new_model_ship.power,
+            capacity=new_model_ship.capacity,
+            now_crew=new_model_ship.now_crew,
+            min_crew=new_model_ship.min_crew,
+            max_crew=new_model_ship.max_crew,
+            now_guns=new_model_ship.now_guns,
+            type_of_guns=new_model_ship.type_of_guns,
+            max_guns=new_model_ship.max_guns,
+            water=new_model_ship.water,
+            food=new_model_ship.food,
+            material=new_model_ship.material,
+            cannon=new_model_ship.cannon,
+            cargo_cnt=new_model_ship.cargo_cnt,
+            cargo_id=new_model_ship.cargo_id,
+            captain=new_model_ship.captain,
+            accountant=new_model_ship.accountant,
+            first_mate=new_model_ship.first_mate,
+            chief_navigator=new_model_ship.chief_navigator
+        )
+
+        return new_ship_proto
+
+    async def handle_BuyShip(self, buy_ship):
+        ship_template_id = buy_ship.template_id
+        ship_template = sObjectMgr.get_ship_template(ship_template_id)
+        price = ship_template.buy_price
+
+        if not self.role.money >= price:
+            return
+
+        new_ship_name = self.__try_get_new_ship_name()
+
+        if new_ship_name is None:
+            return
+
+        new_model_ship = model.Ship(
+            id=sIdMgr.gen_new_ship_id(),
+            role_id=self.role.id,
+
+            name=new_ship_name,
+            ship_template_id=ship_template_id,
+
+            material_type=0,
+
+            now_durability=ship_template.durability,
+            max_durability=ship_template.durability,
+
+            tacking=ship_template.tacking,
+            power=ship_template.power,
+
+            capacity=ship_template.capacity,
+
+            now_crew=0,
+            min_crew=ship_template.min_crew,
+            max_crew=ship_template.max_crew,
+
+            now_guns=0,
+            type_of_guns=0,
+            max_guns=ship_template.max_guns,
+
+            water=0,
+            food=0,
+            material=0,
+            cannon=0,
+
+            cargo_cnt=0,
+            cargo_id=0,
+        )
+
+        self.role.money -= price
+        self.role.ship_mgr.add_ship(new_model_ship)
+
+        # tell client
+        self.session.send(MoneyChanged(money=self.role.money))
+
+        self.session.send(GotNewShip(ship=self.__gen_new_ship_proto(new_model_ship)))
+
+    def __try_get_new_ship_name(self):
+        # try to get unique name
+        max_attempt = 5
+        attempts = 0
+        is_name_found = False
+        new_ship_name = None
+
+        while not is_name_found and attempts < max_attempt:
+            new_ship_name = str(random.randint(0, 20))
+
+            if not new_ship_name in self.role.ship_mgr.get_ships_names():
+                is_name_found = True
+
+            attempts += 1
+
+        return new_ship_name

@@ -24,6 +24,40 @@ class ObjectMgr:
         self.id_2_ship_template = {}
         self.__load_id_2_ship_template()
 
+        self.economy_id_2_ship_ids = {}
+        self.__init_economy_id_2_ship_ids()
+
+    def __init_economy_id_2_ship_ids(self):
+        self.economy_id_2_ship_ids = {
+            #### 'Iberia', ####
+            0: [1, 19, 6, 8, 20, 9, 10, 11],
+
+            #### 'Northern Europe', ####
+            1: [2, 19, 7, 13, 14, 9, 20, 22, 11, 15, 16, 17],
+
+            #### 'The Mediterranean', ####
+            2: [19, 5, 6, 4, 20, 9, 10, 21],
+
+            #### 'Ottoman Empire', ####
+            4: [19, 6, 20, 9, 12, 10, 21],
+
+            #### 'Middle East' , Southeast Asia, and Far East ####
+            9: [19, 3, 12],
+            10: [19, 3, 12],
+            11: [19, 3, 12],
+            12: [19, 3, 12, 18],
+
+            #### 'Africa', ####
+            3: [19, 7, 9, 10],
+            5: [19, 7, 9, 10],
+            8: [19, 7, 9, 10],
+
+            #### 'America', ####
+            6: [8, 13, 9, 10, 11],
+            7: [8, 13, 9, 10, 11]
+        }
+
+
     def __load_id_2_ship_template(self):
         for ship_template in WORLD_SESSION.query(ShipTemplate).all():
             self.id_2_ship_template[ship_template.id] = ship_template
@@ -66,6 +100,9 @@ class ObjectMgr:
 
     def get_ship_template(self, id):
         return self.id_2_ship_template[id]
+
+    def get_ship_ids(self, economy_id):
+        return self.economy_id_2_ship_ids[economy_id]
 
 # singleton
 sObjectMgr = ObjectMgr()

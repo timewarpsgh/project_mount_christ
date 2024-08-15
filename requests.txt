@@ -24,7 +24,7 @@ TO DO:
             new ship needs its own id OK
             sell ship, maybe use it(then need my own ship_id) OK
 
-            buy ship,
+            buy ship OK
 
 
         1 moving fleet

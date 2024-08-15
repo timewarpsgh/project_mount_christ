@@ -97,6 +97,9 @@ class ShipMgr:
     def get_ship(self, ship_id):
         return self.id_2_ship[ship_id]
 
+    def get_ships_names(self):
+        return [ship.name for ship in self.id_2_ship.values()]
+
 
 class MateMgr:
 

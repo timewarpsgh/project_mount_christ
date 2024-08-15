@@ -63,6 +63,12 @@ class OpCodeType(Enum):
     SellShip = auto()
     ShipRemoved = auto()
 
+    GetShipsToBuy = auto()
+    ShipsToBuy = auto()
+
+    BuyShip = auto()
+    GotNewShip = auto()
+
 
 def gen_opcode_2_value():
     d = {}

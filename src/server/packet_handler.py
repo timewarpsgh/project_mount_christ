@@ -24,6 +24,7 @@ from role_models import \
 
 from object_mgr import sObjectMgr
 from npc_mgr import sNpcMgr
+from id_mgr import sIdMgr
 
 import model
 import copy
@@ -666,6 +667,9 @@ class PacketHandler:
 
         elif cmd == 'win_npc':
             for id, ship in self.role.npc_instance.ship_mgr.id_2_ship.items():
+                new_ship_id = sIdMgr.gen_new_ship_id()
+                ship.id = new_ship_id
+
                 ship.role_id = self.role.id
                 self.role.ship_mgr.add_ship(ship)
 

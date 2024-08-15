@@ -21,6 +21,12 @@ TO DO:
             enter and escape battle OK
             .win_npc OK
 
+            new ship needs its own id 
+            sell ship, maybe use it(then need my own ship_id) ON
+
+            buy ship,
+
+
         1 moving fleet
         each nation has a fleet
         each nation has 6 fleets

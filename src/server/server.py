@@ -17,6 +17,7 @@ from shared import Connection
 
 from object_mgr import sObjectMgr
 from npc_mgr import sNpcMgr
+from id_mgr import sIdMgr
 
 class Session(Connection):
 

@@ -18,6 +18,11 @@ TO DO:
 
             show ship img and type right OK
 
+            .lose_to_npc OK
+
+            show captain img ON
+
+
         2nd npc fleet, somewhere else OK
 
 

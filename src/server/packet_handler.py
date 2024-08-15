@@ -683,6 +683,32 @@ class PacketHandler:
             self.role.npc_instance = None
             self.role.battle_npc_id = None
 
+        elif cmd == 'lose_to_npc':
+            # lose all except flag ship
+
+            # get ids_to_remove
+            ids_to_remove = []
+
+            for id, ship in self.role.ship_mgr.id_2_ship.items():
+                captain_mate =self.role.mate_mgr.get_mate(ship.captain)
+
+                if captain_mate.name == self.role.name:
+                    continue
+
+                ids_to_remove.append(id)
+
+            for id in ids_to_remove:
+                self.role.ship_mgr.rm_ship(id)
+                self.session.send(ShipRemoved(id=id))
+
+            self.session.send(EscapedNpcBattle())
+
+            self.role.npc_instance = None
+            self.role.battle_npc_id = None
+
+
+
+
     def __gen_won_ships(self, id_2_ship):
         ships_prots = []
         for id, ship in id_2_ship.items():

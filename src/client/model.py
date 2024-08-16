@@ -112,7 +112,7 @@ class MateMgr:
         del self.id_2_mate[mate_id]
 
     def get_mate(self, mate_id):
-        return self.id_2_mate[mate_id]
+        return self.id_2_mate.get(mate_id)
 
 
 class DiscoveryMgr:

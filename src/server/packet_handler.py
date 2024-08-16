@@ -627,87 +627,96 @@ class PacketHandler:
         if include_self:
             self.session.send(packet)
 
+    def _handle_gm_cmd_map(self, params):
+        map_id = int(params[0])
+
+        self.role.map_id = map_id
+
+        pack = GotChat(
+            origin_name=self.role.name,
+            chat_type=ChatType.SYSTEM,
+            text=f'map changed to {map_id}',
+        )
+        self.session.send(pack)
+
+    def _handle_gm_cmd_xy(self, params):
+        x = int(params[0])
+        y = int(params[1])
+
+        self.role.x = x
+        self.role.y = y
+
+        pack = GotChat(
+            origin_name=self.role.name,
+            chat_type=ChatType.SYSTEM,
+            text=f'xy changed to {x} {y}',
+        )
+        self.session.send(pack)
+
+        pack = RoleMoved(
+            id=self.role.id,
+            x=self.role.x,
+            y=self.role.y,
+            dir_type=DirType.E,
+        )
+        self.session.send(pack)
+
+    def _handle_gm_cmd_win_npc(self, params):
+        for id, ship in self.role.npc_instance.ship_mgr.id_2_ship.items():
+            new_ship_id = sIdMgr.gen_new_ship_id()
+            ship.id = new_ship_id
+            ship.name = self.role.ship_mgr.get_new_ship_name()
+            ship.role_id = self.role.id
+            self.role.ship_mgr.add_ship(ship)
+
+        pack = YouWonNpcBattle()
+        ships = self.__gen_won_ships(self.role.npc_instance.ship_mgr.id_2_ship)
+        pack.ships.extend(ships)
+        self.session.send(pack)
+        self.session.send(EscapedNpcBattle())
+
+        self.role.npc_instance = None
+        self.role.battle_npc_id = None
+
+    def _handle_gm_cmd_lose_to_npc(self, params):
+        # lose all except flag ship
+
+        # get ids_to_remove
+        ids_to_remove = []
+
+        for id, ship in self.role.ship_mgr.id_2_ship.items():
+            captain_mate = self.role.mate_mgr.get_mate(ship.captain)
+
+            if not captain_mate:
+                ids_to_remove.append(id)
+                continue
+
+            if captain_mate.name == self.role.name:
+                continue
+
+            ids_to_remove.append(id)
+
+        for id in ids_to_remove:
+            self.role.ship_mgr.rm_ship(id)
+            self.session.send(ShipRemoved(id=id))
+
+        self.session.send(EscapedNpcBattle())
+
+        self.role.npc_instance = None
+        self.role.battle_npc_id = None
+
     def __handle_gm_cmd(self, text):
         split_items = text[1:].split()
         cmd = split_items[0]
         params = split_items[1:]
 
-        if cmd == 'map':
-            map_id = int(params[0])
-
-            self.role.map_id = map_id
-
-            pack = GotChat(
-                origin_name=self.role.name,
-                chat_type=ChatType.SYSTEM,
-                text=f'map changed to {map_id}',
-            )
-            self.session.send(pack)
-
-        elif cmd == 'xy':
-            x = int(params[0])
-            y = int(params[1])
-
-            self.role.x = x
-            self.role.y = y
-
-            pack = GotChat(
-                origin_name=self.role.name,
-                chat_type=ChatType.SYSTEM,
-                text=f'xy changed to {x} {y}',
-            )
-            self.session.send(pack)
-
-            pack = RoleMoved(
-                id=self.role.id,
-                x=self.role.x,
-                y=self.role.y,
-                dir_type=DirType.E,
-            )
-            self.session.send(pack)
-
-        elif cmd == 'win_npc':
-            for id, ship in self.role.npc_instance.ship_mgr.id_2_ship.items():
-                new_ship_id = sIdMgr.gen_new_ship_id()
-                ship.id = new_ship_id
-                ship.name = self.role.ship_mgr.get_new_ship_name()
-                ship.role_id = self.role.id
-                self.role.ship_mgr.add_ship(ship)
-
-            pack = YouWonNpcBattle()
-            ships = self.__gen_won_ships(self.role.npc_instance.ship_mgr.id_2_ship)
-            pack.ships.extend(ships)
-            self.session.send(pack)
-            self.session.send(EscapedNpcBattle())
-
-            self.role.npc_instance = None
-            self.role.battle_npc_id = None
-
-        elif cmd == 'lose_to_npc':
-            # lose all except flag ship
-
-            # get ids_to_remove
-            ids_to_remove = []
-
-            for id, ship in self.role.ship_mgr.id_2_ship.items():
-                captain_mate =self.role.mate_mgr.get_mate(ship.captain)
-
-                if captain_mate.name == self.role.name:
-                    continue
-
-                ids_to_remove.append(id)
-
-            for id in ids_to_remove:
-                self.role.ship_mgr.rm_ship(id)
-                self.session.send(ShipRemoved(id=id))
-
-            self.session.send(EscapedNpcBattle())
-
-            self.role.npc_instance = None
-            self.role.battle_npc_id = None
-
-
-
+        try:
+            getattr(self, f'_handle_gm_cmd_{cmd}')(params)
+        except Exception as e:
+            print(f'handle gm cmd error: {e}')
+            traceback.print_exc()
+        else:
+            print()
 
     def __gen_won_ships(self, id_2_ship):
         ships_prots = []

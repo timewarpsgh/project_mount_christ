@@ -9,7 +9,7 @@ TO DO:
     fight player fleet   ON
         enter fight with role  OK
         escape role battle  OK
-        win
+        .win_role ON
         lose
 
 

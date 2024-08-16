@@ -114,8 +114,6 @@ class NpcMgr:
 
             self.id_2_npc[npc_model.id] = npc
 
-            print('initting npc_mgr !!!!!!!!!!')
-            print(npc.mate.name)
             for id, ship in npc.ship_mgr.id_2_ship.items():
                 print(ship.name)
 

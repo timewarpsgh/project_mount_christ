@@ -10,7 +10,7 @@ TO DO:
         enter fight with role  OK
         escape role battle  OK
         .win_role OK
-        lose
+        .lose_to_role OK
 
 
     battle process

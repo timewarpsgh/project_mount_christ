@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import login_pb2 as pb
 
 
 @dataclass
@@ -151,6 +152,52 @@ class Role:
 
     battle_npc_id: int=None
     battle_role_id: int=None
+
+    def get_flag_ship(self):
+        for id, ship in self.ship_mgr.id_2_ship.items():
+            mate_id = ship.captain
+            if not mate_id:
+                continue
+
+            mate = self.mate_mgr.get_mate(mate_id)
+            if mate.name == self.name:
+                return ship
+
+    def get_non_flag_ships_ids(self):
+        flag_ship = self.get_flag_ship()
+        return [id for id, ship in self.ship_mgr.id_2_ship.items() if id != flag_ship.id]
+
+    def win(self, target_role):
+
+        for id in target_role.get_non_flag_ships_ids():
+            # add to my role
+            ship = target_role.ship_mgr.get_ship(id)
+            prev_ship_name = ship.name
+            ship.name = self.ship_mgr.get_new_ship_name()
+            ship.role_id = self.id
+            self.ship_mgr.add_ship(ship)
+
+            ship_proto = self.session.packet_handler._gen_new_ship_proto(ship)
+            self.session.send(pb.GotNewShip(ship=ship_proto))
+            self.session.send(pb.GotChat(
+                chat_type=pb.ChatType.SYSTEM,
+                text=f'acquired ship {prev_ship_name} as {ship.name}',
+            ))
+
+            # remove from target role
+            target_role.ship_mgr.rm_ship(id)
+            target_role.session.send(pb.ShipRemoved(id=id))
+            target_role.session.send(pb.GotChat(
+                chat_type=pb.ChatType.SYSTEM,
+                text=f'lost ship {prev_ship_name}',
+            ))
+
+        # tell client
+        self.session.send(pb.EscapedRoleBattle())
+        target_role.session.send(pb.EscapedRoleBattle())
+
+        target_role.battle_role_id = None
+        self.battle_role_id = None
 
 class Model:
 

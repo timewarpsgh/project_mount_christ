@@ -678,30 +678,9 @@ class PacketHandler:
         self.role.npc_instance = None
         self.role.battle_npc_id = None
 
-    def __get_ship_ids_except_flagship(self, role):
-        ship_ids_except_flagship = []
-
-        for id, ship in role.ship_mgr.id_2_ship.items():
-            captain_mate = role.mate_mgr.get_mate(ship.captain)
-
-            if not captain_mate:
-                ship_ids_except_flagship.append(id)
-                continue
-
-            if captain_mate.name == role.name:
-                continue
-
-            ship_ids_except_flagship.append(id)
-
-        return ship_ids_except_flagship
-
     def _handle_gm_cmd_lose_to_npc(self, params):
         # lose all except flag ship
-
-        # get ids_to_remove
-        ship_ids_except_flagship = self.__get_ship_ids_except_flagship(self.role)
-
-        for id in ship_ids_except_flagship:
+        for id in self.role.get_non_flag_ships_ids():
             self.role.ship_mgr.rm_ship(id)
             self.session.send(ShipRemoved(id=id))
 
@@ -724,38 +703,15 @@ class PacketHandler:
         if not target_role:
             return
 
-        # get ship_ids_except_flagship
-        ship_ids_except_flagship = self.__get_ship_ids_except_flagship(target_role)
+        self.role.win(target_role)
 
-        for id in ship_ids_except_flagship:
-            # add to my role
-            ship = target_role.ship_mgr.get_ship(id)
-            prev_ship_name = ship.name
-            ship.name = self.role.ship_mgr.get_new_ship_name()
-            ship.role_id = self.role.id
-            self.role.ship_mgr.add_ship(ship)
+    def _handle_gm_cmd_lose_to_role(self, params):
+        # get target role
+        target_role = self.__get_target_role()
+        if not target_role:
+            return
 
-            ship_proto = self.__gen_new_ship_proto(ship)
-            self.session.send(GotNewShip(ship=ship_proto))
-            self.session.send(GotChat(
-                chat_type=ChatType.SYSTEM,
-                text=f'acquired ship {prev_ship_name} as {ship.name}',
-            ))
-
-            # remove from target role
-            target_role.ship_mgr.rm_ship(id)
-            target_role.session.send(ShipRemoved(id=id))
-            target_role.session.send(GotChat(
-                chat_type=ChatType.SYSTEM,
-                text=f'lost ship {prev_ship_name}',
-            ))
-
-        # tell client
-        self.session.send(EscapedRoleBattle())
-        target_role.session.send(EscapedRoleBattle())
-
-        target_role.battle_role_id = None
-        self.role.battle_role_id = None
+        target_role.win(self.role)
 
 
     def __handle_gm_cmd(self, text):
@@ -774,7 +730,7 @@ class PacketHandler:
     def __gen_won_ships(self, id_2_ship):
         ships_prots = []
         for id, ship in id_2_ship.items():
-             ship_prot = self.__gen_new_ship_proto(ship)
+             ship_prot = self._gen_new_ship_proto(ship)
              ships_prots.append(ship_prot)
 
         return ships_prots
@@ -917,7 +873,7 @@ class PacketHandler:
         pack.ships_to_buy.extend(ships_to_buy)
         self.session.send(pack)
 
-    def __gen_new_ship_proto(self, new_model_ship):
+    def _gen_new_ship_proto(self, new_model_ship):
         new_ship_proto = Ship(
             id=new_model_ship.id,
             role_id=new_model_ship.role_id,
@@ -999,7 +955,7 @@ class PacketHandler:
         # tell client
         self.session.send(MoneyChanged(money=self.role.money))
 
-        self.session.send(GotNewShip(ship=self.__gen_new_ship_proto(new_model_ship)))
+        self.session.send(GotNewShip(ship=self._gen_new_ship_proto(new_model_ship)))
 
     async def handle_FightRole(self, fight_role):
         role_id = fight_role.role_id

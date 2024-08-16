@@ -389,6 +389,8 @@ class PacketHandler:
         self.client.game.graphics.change_background_sp_to_battle_ground()
 
     async def handle_EscapedNpcBattle(self, escaped_npc_battle):
+
+        self.__get_role().battle_npc_id = None
         self.client.game.graphics.change_background_sp_to_sea()
 
     def __proto_ship_2_model_ship(self, ship):
@@ -449,5 +451,10 @@ class PacketHandler:
         return self.client.game.graphics
 
     async def handle_EnteredBattleWithRole(self, entered_battle_with_role):
-        print(f'entered battle with role {entered_battle_with_role.role_id}')
+        self.__get_role().battle_role_id = entered_battle_with_role.role_id
+
         self.__get_graphics().change_background_sp_to_battle_ground()
+
+    async def handle_EscapedRoleBattle(self, escaped_role_battle):
+        self.__get_role().battle_role_id = None
+        self.__get_graphics().change_background_sp_to_sea()

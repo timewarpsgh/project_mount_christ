@@ -144,7 +144,7 @@ class Role:
     discovery_mgr: DiscoveryMgr = None
 
     battle_npc_id: int = None
-
+    battle_role_id: int = None
 
 class Model:
 

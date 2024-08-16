@@ -843,6 +843,9 @@ class PacketHandler:
 
     async def handle_EscapeNpcBattle(self, escape_npc_battle):
         npc_id = escape_npc_battle.npc_id
+
+        self.role.battle_npc_id = None
+
         self.session.send(EscapedNpcBattle())
 
 
@@ -975,3 +978,12 @@ class PacketHandler:
 
             self.session.send(EnteredBattleWithRole(role_id=target_role.id))
             target_role.session.send(EnteredBattleWithRole(role_id=self.role.id))
+
+    async def handle_EscapeRoleBattle(self, escape_role_battle):
+        target_role = self.session.server.get_role(self.role.battle_role_id)
+
+        target_role.session.send(EscapedRoleBattle())
+        self.session.send(EscapedRoleBattle())
+
+        target_role.battle_role_id = None
+        self.role.battle_role_id = None

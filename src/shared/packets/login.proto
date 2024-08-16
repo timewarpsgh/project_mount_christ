@@ -378,3 +378,10 @@ message FightRole {
 message EnteredBattleWithRole {
     required int32 role_id = 1;
 }
+
+// escape role battle
+message EscapeRoleBattle {
+}
+
+message EscapedRoleBattle {
+}

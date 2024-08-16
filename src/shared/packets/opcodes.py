@@ -72,6 +72,9 @@ class OpCodeType(Enum):
     FightRole = auto()
     EnteredBattleWithRole = auto()
 
+    EscapeRoleBattle = auto()
+    EscapedRoleBattle = auto()
+
 
 def gen_opcode_2_value():
     d = {}

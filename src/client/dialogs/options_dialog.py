@@ -572,9 +572,13 @@ class OptionsDialog:
         )
 
     def __escape_battle(self):
-        npc_id = self.__get_role().battle_npc_id
-        self.client.send(EscapeNpcBattle(npc_id=npc_id))
+        battle_npc_id = self.__get_role().battle_npc_id
+        battle_role_id = self.__get_role().battle_role_id
 
+        if battle_npc_id:
+            self.client.send(EscapeNpcBattle(npc_id=battle_npc_id))
+        elif battle_role_id:
+            self.client.send(EscapeRoleBattle())
 
     def __buy_ship(self, template_id):
 

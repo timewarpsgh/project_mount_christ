@@ -40,6 +40,7 @@ class Game:
         self.graphics = Graphics(client, Model())
 
 
+
     async def run(self):
         while self.is_running:
 

@@ -962,7 +962,7 @@ class PacketHandler:
 
         target_role = self.session.server.get_role(role_id)
 
-        if abs(target_role.x - self.role.x) <= 1 and abs(target_role.y - self.role.y) <= 1:
+        if self.role.is_close_to_role(target_role):
             self.role.battle_role_id = target_role.id
             target_role.battle_role_id = self.role.id
 

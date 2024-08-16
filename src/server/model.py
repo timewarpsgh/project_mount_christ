@@ -167,6 +167,9 @@ class Role:
         flag_ship = self.get_flag_ship()
         return [id for id, ship in self.ship_mgr.id_2_ship.items() if id != flag_ship.id]
 
+
+    def is_close_to_role(self, target_role):
+        return abs(self.x - target_role.x) <= 1 and abs(self.y - target_role.y) <= 1
     def win(self, target_role):
 
         for id in target_role.get_non_flag_ships_ids():

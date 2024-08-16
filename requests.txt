@@ -3,19 +3,19 @@ TO DO:
 
     fight npc fleet OK
 
+    fight player fleet   OK
+
+    battle process with player   ON
+        auto test ON
+            start server
+            start client 1
+            start client 2
+        show battle_timer   ON
 
 
-
-    fight player fleet   ON
-        enter fight with role  OK
-        escape role battle  OK
-        .win_role OK
-        .lose_to_role OK
-
-
-    battle process
-
-
+        show ships in battle
+        flagship attack, then switch
+        after flagship attack, other ships attack, then switch
 
 
 

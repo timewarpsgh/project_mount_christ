@@ -11,6 +11,8 @@ from my_ui_elements import MyButton
 from create_account_dialog import CreateAccountDialog
 
 
+AUTO_CLICK_LOGIN = True
+
 class LoginDialog:
 
     def __init__(self, mgr, client):
@@ -29,13 +31,13 @@ class LoginDialog:
             text='登录',
             manager=self.mgr,
             container=self.ui_window,
-            on_click=partial(self.__login),
+            on_click=partial(self.login),
         )
 
         # add entry box
         self.entry_box_account = pygame_gui.elements.UITextEntryBox(
             relative_rect=pygame.Rect((0, 50), (100, 50)),
-            initial_text='t1',
+            initial_text=self.client.account_and_password,
             manager=self.mgr,
             container=self.ui_window,
         )
@@ -43,7 +45,7 @@ class LoginDialog:
         # add entry box
         self.entry_box_password = pygame_gui.elements.UITextEntryBox(
             relative_rect=pygame.Rect((0, 100), (100, 50)),
-            initial_text='t1',
+            initial_text=self.client.account_and_password,
             manager=self.mgr,
             container=self.ui_window,
         )
@@ -57,7 +59,10 @@ class LoginDialog:
             on_click=partial(self.__make_create_account_dialog),
         )
 
-    def __login(self):
+        if AUTO_CLICK_LOGIN:
+            self.login()
+
+    def login(self):
         login = Login()
         login.account = self.entry_box_account.get_text()
         login.password = self.entry_box_password.get_text()

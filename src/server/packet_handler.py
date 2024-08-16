@@ -964,3 +964,14 @@ class PacketHandler:
 
         self.session.send(GotNewShip(ship=self.__gen_new_ship_proto(new_model_ship)))
 
+    async def handle_FightRole(self, fight_role):
+        role_id = fight_role.role_id
+
+        target_role = self.session.server.get_role(role_id)
+
+        if abs(target_role.x - self.role.x) <= 1 and abs(target_role.y - self.role.y) <= 1:
+            self.role.battle_role_id = target_role.id
+            target_role.battle_role_id = self.role.id
+
+            self.session.send(EnteredBattleWithRole(role_id=target_role.id))
+            target_role.session.send(EnteredBattleWithRole(role_id=self.role.id))

@@ -69,6 +69,9 @@ class OpCodeType(Enum):
     BuyShip = auto()
     GotNewShip = auto()
 
+    FightRole = auto()
+    EnteredBattleWithRole = auto()
+
 
 def gen_opcode_2_value():
     d = {}

@@ -369,3 +369,12 @@ message BuyShip{
 message GotNewShip{
     required Ship ship = 1;
 }
+
+// fight role
+message FightRole {
+    required int32 role_id = 1;
+}
+
+message EnteredBattleWithRole {
+    required int32 role_id = 1;
+}

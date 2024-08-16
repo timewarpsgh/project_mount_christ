@@ -7,7 +7,7 @@ TO DO:
 
 
     fight player fleet   ON
-        enter
+        enter fight with role  OK
         escape
         win
         lose

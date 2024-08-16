@@ -563,6 +563,14 @@ class OptionsDialog:
             packet=FightNpc(),
         )
 
+    def __fight_role(self):
+        PacketParamsDialog(
+            mgr=self.mgr,
+            client=self.client,
+            params_names=['role_id'],
+            packet=FightRole(),
+        )
+
     def __escape_battle(self):
         npc_id = self.__get_role().battle_npc_id
         self.client.send(EscapeNpcBattle(npc_id=npc_id))
@@ -663,7 +671,7 @@ class OptionsDialog:
             'Enter Port (M)': partial(self.__enter_port),
             'Go Ashore (G)': partial(self.__try_to_discover),
             'Fight Npc (B)': partial(self.__fight_npc),
-            'Fight Role (B)': '',
+            'Fight Role (B)': partial(self.__fight_role),
             'Measure Cooridinate': '',
         }
 

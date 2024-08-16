@@ -444,3 +444,10 @@ class PacketHandler:
         print('got new ship')
         model_ship = self.__proto_ship_2_model_ship(got_new_ship.ship)
         self.__get_role().ship_mgr.add_ship(model_ship)
+
+    def __get_graphics(self):
+        return self.client.game.graphics
+
+    async def handle_EnteredBattleWithRole(self, entered_battle_with_role):
+        print(f'entered battle with role {entered_battle_with_role.role_id}')
+        self.__get_graphics().change_background_sp_to_battle_ground()

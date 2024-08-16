@@ -678,25 +678,30 @@ class PacketHandler:
         self.role.npc_instance = None
         self.role.battle_npc_id = None
 
+    def __get_ship_ids_except_flagship(self, role):
+        ship_ids_except_flagship = []
+
+        for id, ship in role.ship_mgr.id_2_ship.items():
+            captain_mate = role.mate_mgr.get_mate(ship.captain)
+
+            if not captain_mate:
+                ship_ids_except_flagship.append(id)
+                continue
+
+            if captain_mate.name == role.name:
+                continue
+
+            ship_ids_except_flagship.append(id)
+
+        return ship_ids_except_flagship
+
     def _handle_gm_cmd_lose_to_npc(self, params):
         # lose all except flag ship
 
         # get ids_to_remove
-        ids_to_remove = []
+        ship_ids_except_flagship = self.__get_ship_ids_except_flagship(self.role)
 
-        for id, ship in self.role.ship_mgr.id_2_ship.items():
-            captain_mate = self.role.mate_mgr.get_mate(ship.captain)
-
-            if not captain_mate:
-                ids_to_remove.append(id)
-                continue
-
-            if captain_mate.name == self.role.name:
-                continue
-
-            ids_to_remove.append(id)
-
-        for id in ids_to_remove:
+        for id in ship_ids_except_flagship:
             self.role.ship_mgr.rm_ship(id)
             self.session.send(ShipRemoved(id=id))
 
@@ -704,6 +709,54 @@ class PacketHandler:
 
         self.role.npc_instance = None
         self.role.battle_npc_id = None
+
+    def __get_target_role(self):
+        if self.role.battle_role_id:
+            target_role = self.session.server.get_role(self.role.battle_role_id)
+            return target_role
+        else:
+            return None
+
+    def _handle_gm_cmd_win_role(self, params):
+
+        # get target role
+        target_role = self.__get_target_role()
+        if not target_role:
+            return
+
+        # get ship_ids_except_flagship
+        ship_ids_except_flagship = self.__get_ship_ids_except_flagship(target_role)
+
+        for id in ship_ids_except_flagship:
+            # add to my role
+            ship = target_role.ship_mgr.get_ship(id)
+            prev_ship_name = ship.name
+            ship.name = self.role.ship_mgr.get_new_ship_name()
+            ship.role_id = self.role.id
+            self.role.ship_mgr.add_ship(ship)
+
+            ship_proto = self.__gen_new_ship_proto(ship)
+            self.session.send(GotNewShip(ship=ship_proto))
+            self.session.send(GotChat(
+                chat_type=ChatType.SYSTEM,
+                text=f'acquired ship {prev_ship_name} as {ship.name}',
+            ))
+
+            # remove from target role
+            target_role.ship_mgr.rm_ship(id)
+            target_role.session.send(ShipRemoved(id=id))
+            target_role.session.send(GotChat(
+                chat_type=ChatType.SYSTEM,
+                text=f'lost ship {prev_ship_name}',
+            ))
+
+        # tell client
+        self.session.send(EscapedRoleBattle())
+        target_role.session.send(EscapedRoleBattle())
+
+        target_role.battle_role_id = None
+        self.role.battle_role_id = None
+
 
     def __handle_gm_cmd(self, text):
         split_items = text[1:].split()
@@ -721,35 +774,7 @@ class PacketHandler:
     def __gen_won_ships(self, id_2_ship):
         ships_prots = []
         for id, ship in id_2_ship.items():
-             ship_prot = Ship(
-                id=ship.id,
-                role_id=self.role.id,
-                name=ship.name,
-
-                ship_template_id=ship.ship_template_id,
-                material_type=ship.material_type,
-                now_durability=ship.now_durability,
-                max_durability=ship.max_durability,
-                tacking=ship.tacking,
-                power=ship.power,
-                capacity=ship.capacity,
-                now_crew=ship.now_crew,
-                min_crew=ship.min_crew,
-                max_crew=ship.max_crew,
-                now_guns=ship.now_guns,
-                type_of_guns=ship.type_of_guns,
-                max_guns=ship.max_guns,
-                water=ship.water,
-                food=ship.food,
-                material=ship.material,
-                cannon=ship.cannon,
-                cargo_cnt=ship.cargo_cnt,
-                cargo_id=ship.cargo_id,
-                captain=ship.captain,
-                accountant=ship.accountant,
-                first_mate=ship.first_mate,
-                chief_navigator=ship.chief_navigator
-             )
+             ship_prot = self.__gen_new_ship_proto(ship)
              ships_prots.append(ship_prot)
 
         return ships_prots

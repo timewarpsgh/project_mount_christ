@@ -145,6 +145,8 @@ class Role:
 
     battle_npc_id: int = None
     battle_role_id: int = None
+    battle_timer: int = None
+    is_battle_timer_mine: bool = None
 
 class Model:
 

@@ -458,3 +458,12 @@ class PacketHandler:
     async def handle_EscapedRoleBattle(self, escaped_role_battle):
         self.__get_role().battle_role_id = None
         self.__get_graphics().change_background_sp_to_sea()
+
+    async def handle_BattleTimerStarted(self, battle_timer_started):
+        print('battle_timer_started')
+        print(battle_timer_started.battle_timer)
+        print(battle_timer_started.role_id)
+
+        self.__get_role().battle_timer = battle_timer_started.battle_timer
+        self.__get_role().is_battle_timer_mine = battle_timer_started.role_id == self.__get_role().id
+

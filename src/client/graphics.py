@@ -4,11 +4,51 @@ import sys
 from login_pb2 import *
 
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
+import constants as c
+
+from asset_mgr import sAssetMgr
 
 FONT_SIZE = 16
 YELLOW = (255, 255, 0)
 RED = (255, 0, 0)
+
+
+class Text():
+    def __init__(self, text, color=c.BLACK):
+        self.image = sAssetMgr.font.render(text, True, color)
+        self.rect = self.image.get_rect()
+
+
+# class BattleStates(pygame.sprite.Sprite):
+#     def __init__(self):
+#         pygame.sprite.Sprite.__init__(self)
+#
+#         self.image = pygame.Surface((c.WINDOW_WIDTH, c.WINDOW_HIGHT)).convert_alpha()
+#         self.image.fill(c.TRANS_BLANK)
+#
+#         self.rect = self.image.get_rect()
+#         self.rect.x = 0
+#         self.rect.y = 0
+#
+#     def update(self):
+#         self._change_state()
+#         self._draw()
+#
+#     def _change_state(self):
+#         self.image.fill(c.TRANS_BLANK)
+#         self.__draw_my_ships_states()
+#
+#     def __draw_my_ships_states(self):
+#         # my timer
+#         timer_text = Text('50', c.YELLOW)
+#         timer_text.rect.x = 20
+#         timer_text.rect.y = 5
+#         self.image.blit(timer_text.image, timer_text.rect)
+#
+#     def _draw(self):
+#         self.game.screen_surface.blit(self.image, self.rect)
 
 
 class SP(pygame.sprite.Sprite):
@@ -138,10 +178,34 @@ class Graphics:
                 move.dir_type = DirType.S
                 self.client.send(move)
 
+            # test key
+            elif event.key == pygame.K_t:
+                self.client.send(FightRole(role_id=2))
 
-    def update(self, time_delta):
-        pass
+    def update(self, time_diff):
+        if self.model.role:
+            if self.model.role.battle_timer:
+                self.model.role.battle_timer -= time_diff
 
+                if self.model.role.is_battle_timer_mine:
+                    text = 'your turn'
+                else:
+                    text = 'enemy turn'
+
+                timer_text = Text(f'{text} {int(self.model.role.battle_timer)}', c.YELLOW)
+                timer_text.rect.x = 100
+                timer_text.rect.y = 50
+
+                battle_ground_img = self.imgs['battle_ground']
+                # new img now
+                width, height = battle_ground_img.get_rect().size
+
+                battle_ground_img = pygame.transform.scale(battle_ground_img, (width, height))  # 800, 400
+
+                battle_ground_img.blit(timer_text.image, timer_text.rect)
+
+                # self.sp_background.change_img(new_img)
+                self.sp_background.change_img(battle_ground_img)
     def draw(self, window_surface):
         if not self.client.packet_handler.is_in_game:
             return

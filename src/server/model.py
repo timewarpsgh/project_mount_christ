@@ -1,5 +1,10 @@
 from dataclasses import dataclass
 import login_pb2 as pb
+# import from dir
+import sys
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
+
+import constants as c
 
 
 @dataclass
@@ -152,6 +157,7 @@ class Role:
 
     battle_npc_id: int=None
     battle_role_id: int=None
+    battle_timer: int=None
 
     def get_flag_ship(self):
         for id, ship in self.ship_mgr.id_2_ship.items():
@@ -170,6 +176,7 @@ class Role:
 
     def is_close_to_role(self, target_role):
         return abs(self.x - target_role.x) <= 1 and abs(self.y - target_role.y) <= 1
+
     def win(self, target_role):
 
         for id in target_role.get_non_flag_ships_ids():
@@ -201,6 +208,30 @@ class Role:
 
         target_role.battle_role_id = None
         self.battle_role_id = None
+
+    def update(self, time_diff):
+        if self.battle_timer:
+            self.battle_timer -= time_diff
+            # print(f'battle timer for {self.name}: {self.battle_timer}')
+
+            if self.battle_timer <= 0:
+
+                # set mine to none
+                self.battle_timer = None
+                # print(f'battle timer for {self.name} set to None')
+
+                # switch timer
+                if self.battle_role_id:
+                    enemy_role = self.session.server.get_role(self.battle_role_id)
+                    enemy_role.battle_timer = c.BATTLE_TIMER_IN_SECONDS
+
+                    pack = pb.BattleTimerStarted(
+                        battle_timer=enemy_role.battle_timer,
+                        role_id=enemy_role.id,
+                    )
+                    self.session.send(pack)
+                    enemy_role.session.send(pack)
+
 
 class Model:
 

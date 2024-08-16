@@ -385,3 +385,9 @@ message EscapeRoleBattle {
 
 message EscapedRoleBattle {
 }
+
+// battle timer
+message BattleTimerStarted {
+    required int32 battle_timer = 1;
+    required int32 role_id = 2;
+}

@@ -969,6 +969,18 @@ class PacketHandler:
             self.session.send(EnteredBattleWithRole(role_id=target_role.id))
             target_role.session.send(EnteredBattleWithRole(role_id=self.role.id))
 
+            # init battle_timer (updated each session update)
+            self.role.battle_timer = c.BATTLE_TIMER_IN_SECONDS
+
+            pack = BattleTimerStarted(
+                battle_timer=self.role.battle_timer,
+                role_id=self.role.id,
+            )
+            self.session.send(pack)
+            target_role.session.send(pack)
+
+
+
     async def handle_EscapeRoleBattle(self, escape_role_battle):
         target_role = self.session.server.get_role(self.role.battle_role_id)
 

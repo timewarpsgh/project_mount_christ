@@ -1,5 +1,11 @@
 import pygame
 import os
+# import from dir
+import sys
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
+
+import constants as c
+
 
 def load_images_in_dir(dict, path_to_dir, accept=('.png', '.jpg', '.bmp', '.gif')):
     """loads all imgs in dir into dict"""
@@ -22,7 +28,8 @@ class AssetMgr:
     def __init__(self):
         self.images = {}
         self.sounds = {}
-
+        pygame.init()
+        self.font = pygame.font.Font(r"D:\data\code\python\project_mount_christ\data\fonts\siyuanheiti.ttf", c.FONT_SIZE)
     def load_images(self):
         self.images['ships'] = {}
 

@@ -28,6 +28,8 @@ class Session(Connection):
         self.addr = writer.get_extra_info('peername')
         self.packet_handler = PacketHandler(self)
 
+        self.previous_time = asyncio.get_event_loop().time()
+
     def on_disconnect(self):
         print('someone disconnectd!!!!')
 
@@ -42,11 +44,31 @@ class Session(Connection):
 
         self.server.rm_session(self.addr)
 
+    async def update(self):
+
+
+        while True:
+            if self.packet_handler.role:
+
+                current_time = asyncio.get_event_loop().time()
+                time_diff = current_time - self.previous_time
+                self.previous_time = current_time
+
+                self.packet_handler.role.update(time_diff)
+
+            else:
+                pass
+
+            await asyncio.sleep(0.1)
+
+
+
     async def main(self):
 
         await asyncio.gather(
             self.recv_co(),
             self.send_co(),
+            self.update()
         )
 
 

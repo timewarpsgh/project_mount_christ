@@ -663,21 +663,7 @@ class PacketHandler:
         self.session.send(pack)
 
     def _handle_gm_cmd_win_npc(self, params):
-        for id, ship in self.role.npc_instance.ship_mgr.id_2_ship.items():
-            new_ship_id = sIdMgr.gen_new_ship_id()
-            ship.id = new_ship_id
-            ship.name = self.role.ship_mgr.get_new_ship_name()
-            ship.role_id = self.role.id
-            self.role.ship_mgr.add_ship(ship)
-
-        pack = YouWonNpcBattle()
-        ships_prots = self.role.npc_instance.ship_mgr.gen_ships_prots()
-        pack.ships.extend(ships_prots)
-        self.session.send(pack)
-        self.session.send(EscapedNpcBattle())
-
-        self.role.npc_instance = None
-        self.role.battle_npc_id = None
+        self.role.win_npc()
 
     def _handle_gm_cmd_lose_to_npc(self, params):
         # lose all except flag ship
@@ -1166,7 +1152,7 @@ class PacketHandler:
             if is_sunk:
 
                 if enemy_ship.id == flag_ship.id:
-                    # self.role.win(enemy_npc)
+                    self.role.win_npc()
                     return
 
                 if enemy_ship.id not in enemy_npc.ship_mgr.id_2_ship:

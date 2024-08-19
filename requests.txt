@@ -11,7 +11,11 @@ TO DO:
 
         i attack npc OK
 
+        can win npc OK
+
         npc needs to win when my flagship sinks ON
+
+
 
 
 

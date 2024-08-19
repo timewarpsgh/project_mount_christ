@@ -30,6 +30,8 @@ class Session(Connection):
 
         self.previous_time = asyncio.get_event_loop().time()
 
+
+
     def on_disconnect(self):
         print('someone disconnectd!!!!')
 
@@ -77,6 +79,8 @@ class Server:
     def __init__(self):
         self.addr_2_session = {}
         self.id_2_role = {}
+
+        self.id_mgr = sIdMgr
 
     def get_npc(self, id):
         return sNpcMgr.get_npc(id)

@@ -67,7 +67,7 @@ class Ship:
     def shoot(self, ship):
         self.cannon -= 1
 
-        damage = 10
+        damage = 50
         ship.now_durability -= damage
 
         is_sunk = False
@@ -396,6 +396,22 @@ class Role:
             if self.battle_timer <= 0:
                 await self.switch_turn_with_enemy()
 
+    def win_npc(self):
+        for id, ship in self.npc_instance.ship_mgr.id_2_ship.items():
+            new_ship_id = self.session.server.id_mgr.gen_new_ship_id()
+            ship.id = new_ship_id
+            ship.name = self.ship_mgr.get_new_ship_name()
+            ship.role_id = self.id
+            self.ship_mgr.add_ship(ship)
+
+        pack = pb.YouWonNpcBattle()
+        ships_prots = self.npc_instance.ship_mgr.gen_ships_prots()
+        pack.ships.extend(ships_prots)
+        self.session.send(pack)
+        self.session.send(pb.EscapedNpcBattle())
+
+        self.npc_instance = None
+        self.battle_npc_id = None
 
 
 class Model:

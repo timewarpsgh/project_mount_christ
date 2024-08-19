@@ -379,10 +379,15 @@ class PacketHandler:
     def __get_graphics(self):
         return self.client.game.graphics
 
+    def __get_model(self):
+        return self.client.game.graphics.model
+
     async def handle_EnteredBattleWithRole(self, entered_battle_with_role):
+
+        # change model
         self.__get_role().battle_role_id = entered_battle_with_role.role_id
-        # get model
-        enemy_role = self.__get_graphics().model.get_role(entered_battle_with_role.role_id)
+
+        enemy_role = self.__get_model().get_role_by_id(entered_battle_with_role.role_id)
         enemy_role.ship_mgr = ShipMgr(enemy_role)
 
         ships_prots = entered_battle_with_role.ships
@@ -391,8 +396,11 @@ class PacketHandler:
 
             enemy_role.ship_mgr.add_ship(ship)
             print(f'added enemy ship {ship.name}')
+            print(f'{entered_battle_with_role.role_id}=')
 
+        # change graphics
         self.__get_graphics().change_background_sp_to_battle_ground()
+
 
     async def handle_EscapedRoleBattle(self, escaped_role_battle):
         self.__get_role().battle_role_id = None

@@ -190,6 +190,7 @@ class Graphics:
             if self.model.role.battle_timer > 0:
                 self.model.role.battle_timer -= time_diff
 
+                # update and draw battle timer
                 if self.model.role.is_battle_timer_mine:
                     text = 'your turn'
                 else:
@@ -206,6 +207,20 @@ class Graphics:
                 battle_ground_img = pygame.transform.scale(battle_ground_img, (width, height))  # 800, 400
 
                 battle_ground_img.blit(timer_text.image, timer_text.rect)
+
+                # update my ships
+
+
+                # draw enemy ships
+                enemy_role = self.model.get_enemy_role()
+
+                if not enemy_role:
+                    return
+
+                enemy_ships = enemy_role.ship_mgr.id_2_ship.values()
+                for id, ship in enumerate(enemy_ships):
+                    ship_in_battle_img = sAssetMgr.images['ship_in_battle']['up']
+                    battle_ground_img.blit(ship_in_battle_img, (80, 50 + 40 * id))
 
                 # self.sp_background.change_img(new_img)
                 self.sp_background.change_img(battle_ground_img)

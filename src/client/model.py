@@ -190,7 +190,13 @@ class Model:
 
     def __init__(self):
         self.role = None
-        self.id_2_role = {}
+        self.id_2_role = {} # other roles
 
-    def get_role(self, id):
+    def get_role_by_id(self, id):
         return self.id_2_role.get(id)
+
+    def get_enemy_role(self):
+        if not self.role.battle_role_id:
+            return None
+
+        return self.get_role_by_id(self.role.battle_role_id)

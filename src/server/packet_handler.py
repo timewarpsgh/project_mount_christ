@@ -1030,6 +1030,10 @@ class PacketHandler:
         return self.session.server.get_role(self.role.battle_role_id)
 
     async def handle_AllShipsAttack(self, all_ships_attack):
+        if not self.role.battle_timer:
+            return
+
+
         # get enemy role
         enemy_role = self.get_enemy_role()
         flag_ship = enemy_role.get_flag_ship()
@@ -1072,3 +1076,5 @@ class PacketHandler:
 
             await asyncio.sleep(1)
 
+        # switch battle timer
+        self.role.switch_turn_with_enemy()

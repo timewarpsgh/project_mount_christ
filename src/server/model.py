@@ -298,28 +298,32 @@ class Role:
         target_role.battle_role_id = None
         self.battle_role_id = None
 
+
+    def switch_turn_with_enemy(self):
+        # set mine to none
+        self.battle_timer = None
+        # print(f'battle timer for {self.name} set to None')
+
+        # switch timer
+        if self.battle_role_id:
+            enemy_role = self.session.server.get_role(self.battle_role_id)
+            enemy_role.battle_timer = c.BATTLE_TIMER_IN_SECONDS
+
+            pack = pb.BattleTimerStarted(
+                battle_timer=enemy_role.battle_timer,
+                role_id=enemy_role.id,
+            )
+            self.session.send(pack)
+            enemy_role.session.send(pack)
+
     def update(self, time_diff):
         if self.battle_timer:
             self.battle_timer -= time_diff
             # print(f'battle timer for {self.name}: {self.battle_timer}')
 
             if self.battle_timer <= 0:
+                self.switch_turn_with_enemy()
 
-                # set mine to none
-                self.battle_timer = None
-                # print(f'battle timer for {self.name} set to None')
-
-                # switch timer
-                if self.battle_role_id:
-                    enemy_role = self.session.server.get_role(self.battle_role_id)
-                    enemy_role.battle_timer = c.BATTLE_TIMER_IN_SECONDS
-
-                    pack = pb.BattleTimerStarted(
-                        battle_timer=enemy_role.battle_timer,
-                        role_id=enemy_role.id,
-                    )
-                    self.session.send(pack)
-                    enemy_role.session.send(pack)
 
 
 class Model:

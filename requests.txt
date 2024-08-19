@@ -33,7 +33,8 @@ TO DO:
         change battle ground OK
 
 
-        engage
+        can only shoot with battle timer, switch side after all ship attack OK
+
 
 
 

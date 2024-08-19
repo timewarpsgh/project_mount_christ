@@ -419,5 +419,8 @@ class PacketHandler:
         self.__get_role().is_battle_timer_mine = battle_timer_started.role_id == self.__get_role().id
 
     async def handle_ShipAttacked(self, ship_attacked):
-        # show ship attacked
-        pass
+        # show cannon_ball
+        # show ship attacked damage
+        dst_damage = ship_attacked.dst_damage
+
+        self.__get_graphics().show_damage(dst_damage, 400, 50)

@@ -17,6 +17,9 @@ TO DO:
 
 
         all ships attack  OK
+
+        show attack damge anime OK
+
         then switch
 
 

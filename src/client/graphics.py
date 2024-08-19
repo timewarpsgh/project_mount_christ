@@ -21,36 +21,6 @@ class Text():
         self.rect = self.image.get_rect()
 
 
-# class BattleStates(pygame.sprite.Sprite):
-#     def __init__(self):
-#         pygame.sprite.Sprite.__init__(self)
-#
-#         self.image = pygame.Surface((c.WINDOW_WIDTH, c.WINDOW_HIGHT)).convert_alpha()
-#         self.image.fill(c.TRANS_BLANK)
-#
-#         self.rect = self.image.get_rect()
-#         self.rect.x = 0
-#         self.rect.y = 0
-#
-#     def update(self):
-#         self._change_state()
-#         self._draw()
-#
-#     def _change_state(self):
-#         self.image.fill(c.TRANS_BLANK)
-#         self.__draw_my_ships_states()
-#
-#     def __draw_my_ships_states(self):
-#         # my timer
-#         timer_text = Text('50', c.YELLOW)
-#         timer_text.rect.x = 20
-#         timer_text.rect.y = 5
-#         self.image.blit(timer_text.image, timer_text.rect)
-#
-#     def _draw(self):
-#         self.game.screen_surface.blit(self.image, self.rect)
-
-
 class SP(pygame.sprite.Sprite):
 
     def __init__(self, image, x, y):
@@ -64,6 +34,45 @@ class SP(pygame.sprite.Sprite):
 
     def move_to(self, x, y):
         self.rect = self.image.get_rect().move(x, y)
+
+
+class ShootDamageNumber(SP):
+    def __init__(self, number, x, y, color=c.YELLOW):
+        image = sAssetMgr.font.render(str(number), True, color)
+        super().__init__(image, x, y)
+
+        self.frames = [None] * 60
+        scale = 3
+        for i in range(len(self.frames)):
+            scale -= 0.03
+            self.frames[i] = pygame.transform.scale(self.image,
+                                                (int(self.rect.width * scale),
+                                                 int(self.rect.height * scale)))
+        self.frame_index = -1
+
+        self.image = self.frames[-1]
+
+        self.rect.x = x
+        self.rect.y = y
+
+        self.x_speed = 1.4
+        self.y_speed = 3
+        self.d_y = 0.15
+
+    def update(self):
+        print('updating damage sp')
+        self._change_state()
+
+    def _change_state(self):
+        if self.frame_index < len(self.frames) - 1:
+            self.frame_index += 1
+            self.image = self.frames[self.frame_index]
+
+            self.rect.y -= self.y_speed
+            self.y_speed -= self.d_y
+            self.rect.x += self.x_speed
+        else:
+            self.kill()
 
 
 class Graphics:
@@ -183,6 +192,9 @@ class Graphics:
                 self.client.send(FightRole(role_id=2))
 
     def update(self, time_diff):
+        # update sprites group
+        self.sprites.update()
+
         if self.model.role:
             if not self.model.role.battle_timer:
                 return
@@ -197,7 +209,7 @@ class Graphics:
                     text = 'enemy turn'
 
                 timer_text = Text(f'{text} {int(self.model.role.battle_timer)}', c.YELLOW)
-                timer_text.rect.x = 100
+                timer_text.rect.x = 300
                 timer_text.rect.y = 50
 
                 battle_ground_img = self.imgs['battle_ground']
@@ -233,3 +245,7 @@ class Graphics:
 
         # draw objs
         self.sprites.draw(window_surface)
+
+    def show_damage(self, damage, x, y):
+        shoot_damage_number = ShootDamageNumber(damage, x, y)
+        self.sprites.add(shoot_damage_number)

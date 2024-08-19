@@ -4,6 +4,7 @@ from functools import partial
 import json
 import traceback
 import numpy as np
+import asyncio
 
 # import from dir
 import sys
@@ -421,12 +422,18 @@ class PacketHandler:
     async def handle_ShipAttacked(self, ship_attacked):
         # show cannon_ball
         # show ship attacked damage
-        dst_damage = ship_attacked.dst_damage
+        src_id = ship_attacked.src_id
         dst_id = ship_attacked.dst_id
+        dst_damage = ship_attacked.dst_damage
 
-        ship = self.__get_model().get_ship_in_battle_by_id(dst_id)
+        src_ship = self.__get_model().get_ship_in_battle_by_id(src_id)
+        dst_ship = self.__get_model().get_ship_in_battle_by_id(dst_id)
 
-        self.__get_graphics().show_damage(dst_damage, ship.x, ship.y)
+        self.__get_graphics().show_cannon(src_ship.x, src_ship.y, dst_ship.x, dst_ship.y)
+        sAssetMgr.sounds['shoot'].play()
+        await asyncio.sleep(0.8)
+        self.__get_graphics().show_damage(dst_damage, dst_ship.x, dst_ship.y)
+        sAssetMgr.sounds['explosion'].play()
 
     async def handle_ShipMoved(self, ship_moved):
         id = ship_moved.id

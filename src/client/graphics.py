@@ -74,6 +74,28 @@ class ShootDamageNumber(SP):
             self.kill()
 
 
+class CannonBall(SP):
+    def __init__(self, x, y, d_x, d_y):
+
+        super().__init__(sAssetMgr.images['in_battle']['cannon'], x, y)
+
+        self.d_x = d_x
+        self.d_y = d_y
+
+        self.steps_to_change = 60
+        self.step_index = 0
+
+        self.unit_x_change = int(self.d_x / self.steps_to_change)
+        self.unit_y_change = int(self.d_y / self.steps_to_change)
+
+    def update(self):
+        self.rect.x += self.unit_x_change
+        self.rect.y += self.unit_y_change
+        self.step_index += 1
+        if self.step_index == self.steps_to_change:
+            self.kill()
+
+
 class Graphics:
 
     def __init__(self, client=None, model=None):
@@ -250,3 +272,8 @@ class Graphics:
     def show_damage(self, damage, x, y):
         shoot_damage_number = ShootDamageNumber(damage, x, y)
         self.sprites.add(shoot_damage_number)
+
+
+    def show_cannon(self, x, y, d_x, d_y):
+        cannon = CannonBall(x, y, d_x, d_y)
+        self.sprites.add(cannon)

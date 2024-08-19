@@ -25,7 +25,10 @@ TO DO:
         choose random ship to attck, until flag_ship is not alive OK
 
 
-        show cannon_ball
+        show cannon_ball  OK
+
+        play shooting sound, and hit sound OK
+
 
         then switch
 

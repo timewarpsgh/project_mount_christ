@@ -1042,6 +1042,16 @@ class PacketHandler:
 
             enemy_ship = enemy_role.get_random_ship()
 
+            for i in range(3):
+                ship.move(pb.DirType.E)
+                pack = pb.ShipMoved(
+                    id=ship.id,
+                    x=ship.x,
+                    y=ship.y,
+                )
+                self.send_to_self_and_enemy(pack)
+                await asyncio.sleep(0.3)
+
             damage, is_sunk = ship.shoot(enemy_ship)
 
             pack = pb.ShipAttacked(

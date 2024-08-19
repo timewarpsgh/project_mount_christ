@@ -80,6 +80,12 @@ class Ship:
         self.now_crew -= 5
         ship.now_crew -= 5
 
+    def move(self, dir):
+        if dir == pb.DirType.E:
+            self.x += 5
+
+
+
     def attack(self, ship):
         # shoot or engage based on strategy
         pass

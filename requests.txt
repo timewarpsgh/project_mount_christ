@@ -36,6 +36,8 @@ TO DO:
         can only shoot with battle timer, switch side after all ship attack OK
 
 
+        each ship, move 3 steps and then attack OK
+
 
 
         after flagship attack, other ships attack, then switch

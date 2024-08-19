@@ -328,7 +328,7 @@ message FightNpc {
 
 message EnteredBattleWithNpc {
     required int32 npc_id = 1;
-
+    repeated Ship ships = 2;
 }
 
 // escape battle

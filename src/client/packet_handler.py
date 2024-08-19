@@ -17,7 +17,7 @@ from my_ui_elements import MyMsgWindow, MyMenuWindow
 from dialogs.create_role_dialog import CreateRoleDialog
 from dialogs.options_dialog import OptionsDialog
 from dialogs.chat_dialog import ChatDialog
-from model import Model, Role, ShipMgr, MateMgr, DiscoveryMgr
+from model import Model, Role, ShipMgr, MateMgr, DiscoveryMgr, Npc
 import model
 from graphics import YELLOW
 from asset_mgr import sAssetMgr
@@ -346,10 +346,32 @@ class PacketHandler:
     async def handle_EnteredBattleWithNpc(self, entered_battle_with_npc):
         print(f'entered battle with npc {entered_battle_with_npc.npc_id}')
 
+        npc_id = entered_battle_with_npc.npc_id
+        self.__get_role().battle_npc_id = npc_id
 
-        self.__get_role().battle_npc_id = entered_battle_with_npc.npc_id
+        print(f'{npc_id=}')
+
+        print(f' id_2_npc {self.__get_model().id_2_npc}')
+
+        # init npc if not in model yet, add npc to model
+        if npc_id not in self.__get_model().id_2_npc:
+            npc = Npc(
+                id=npc_id,
+            )
+            self.__get_model().add_npc(npc)
+
+        enemy_npc = self.__get_model().get_npc_by_id(npc_id)
+        enemy_npc.ship_mgr = ShipMgr(enemy_npc)
+
+        ships_prots = entered_battle_with_npc.ships
+        for ship_prot in ships_prots:
+            ship = model.Ship(ship_prot)
+
+            enemy_npc.ship_mgr.add_ship(ship)
+            print(f'added enemy ship {ship.name}')
 
         self.client.game.graphics.change_background_sp_to_battle_ground()
+
 
     async def handle_EscapedNpcBattle(self, escaped_npc_battle):
 

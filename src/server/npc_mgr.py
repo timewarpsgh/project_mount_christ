@@ -25,7 +25,7 @@ class Npc:
 
     mate: Mate = None
     ship_mgr: ShipMgr = None
-
+    battle_timer: int = None
 
 class NpcMgr:
 

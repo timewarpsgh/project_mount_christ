@@ -78,6 +78,9 @@ class Server:
         self.addr_2_session = {}
         self.id_2_role = {}
 
+    def get_npc(self, id):
+        return sNpcMgr.get_npc(id)
+
     def get_role(self, id):
         return self.id_2_role[id]
 

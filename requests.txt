@@ -7,6 +7,12 @@ TO DO:
 
     fight with npc (maybe view npc as role in client) ON
         test key(Y) to fight with npc OK
+        npc needs to move when my timer expires OK
+
+        i attack npc ON
+
+        npc needs to win when my flagship sinks ON
+
 
 
 

@@ -66,7 +66,7 @@ class Ship:
     def shoot(self, ship):
         self.cannon -= 1
 
-        damage = 25
+        damage = 10
         ship.now_durability -= damage
 
         is_sunk = False
@@ -322,6 +322,70 @@ class Role:
             )
             self.session.send(pack)
             enemy_role.session.send(pack)
+
+        elif self.battle_npc_id:
+            enemy_npc = self.session.server.get_npc(self.battle_npc_id)
+            enemy_npc.battle_timer = c.BATTLE_TIMER_IN_SECONDS
+
+            pack = pb.BattleTimerStarted(
+                battle_timer=enemy_npc.battle_timer,
+                role_id=0,
+            )
+            self.session.send(pack)
+
+            # enemy npc attack
+
+            # get enemy role
+            enemy_role = self
+            flag_ship = enemy_role.get_flag_ship()
+
+            for ship in enemy_npc.ship_mgr.id_2_ship.values():
+
+                enemy_ship = enemy_role.get_random_ship()
+
+                damage, is_sunk = ship.shoot(enemy_ship)
+
+                pack = pb.ShipAttacked(
+                    src_id=ship.id,
+                    dst_id=enemy_ship.id,
+                    attack_method_type=pb.AttackMethodType.SHOOT,
+                    dst_damage=damage,
+                )
+                self.session.send(pack)
+
+                pack = pb.GotChat(
+                    text=f"{ship.name} shot {enemy_ship.name} and dealt {damage} damage",
+                    chat_type=pb.ChatType.SYSTEM
+                )
+                self.session.send(pack)
+
+                if is_sunk:
+
+                    if enemy_ship.id == flag_ship.id:
+                        # self.role.win(enemy_role)
+                        return
+
+                    if enemy_ship.id not in enemy_role.ship_mgr.id_2_ship:
+                        continue
+
+                    enemy_role.ship_mgr.rm_ship(enemy_ship.id)
+
+                    pack = pb.ShipRemoved(
+                        id=enemy_ship.id
+                    )
+                    self.session.send(pack)
+
+                # await asyncio.sleep(1)
+
+            # give back timer
+            self.battle_timer = c.BATTLE_TIMER_IN_SECONDS
+            pack = pb.BattleTimerStarted(
+                battle_timer=self.battle_timer,
+                role_id=self.id,
+            )
+            self.session.send(pack)
+
+
 
     def update(self, time_diff):
         if self.battle_timer:

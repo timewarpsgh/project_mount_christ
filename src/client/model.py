@@ -194,14 +194,39 @@ class Role:
     battle_timer: int = None
     is_battle_timer_mine: bool = None
 
+
+@dataclass
+class Npc:
+    id: int = None
+
+    x: int = None
+    y: int = None
+    map_id: int = None
+
+    mate: Mate = None
+    ship_mgr: ShipMgr = None
+
+
 class Model:
 
     def __init__(self):
         self.role = None
         self.id_2_role = {} # other roles
+        self.id_2_npc = {}
+
+    def add_npc(self, npc):
+        self.id_2_npc[npc.id] = npc
+
+    def get_npc_by_id(self, id):
+        return self.id_2_npc.get(id)
 
     def get_role_by_id(self, id):
         return self.id_2_role.get(id)
+
+    def get_enemy_npc(self):
+        if not self.role.battle_npc_id:
+            return None
+        return self.get_npc_by_id(self.role.battle_npc_id)
 
     def get_enemy_role(self):
         if not self.role.battle_role_id:
@@ -212,5 +237,9 @@ class Model:
     def get_ship_in_battle_by_id(self, id):
         if id in self.role.ship_mgr.id_2_ship:
             return self.role.ship_mgr.get_ship(id)
+
+        elif self.role.battle_npc_id:
+            return self.get_enemy_npc().ship_mgr.get_ship(id)
+
         else:
             return self.get_enemy_role().ship_mgr.get_ship(id)

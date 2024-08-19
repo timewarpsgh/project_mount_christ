@@ -10,6 +10,8 @@ TO DO:
 
         show battle_timer   OK
 
+        can escape only when battle timer is on OK
+
 
         show ships in battle
         flagship attack, then switch

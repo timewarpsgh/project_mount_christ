@@ -184,7 +184,10 @@ class Graphics:
 
     def update(self, time_diff):
         if self.model.role:
-            if self.model.role.battle_timer:
+            if not self.model.role.battle_timer:
+                return
+
+            if self.model.role.battle_timer > 0:
                 self.model.role.battle_timer -= time_diff
 
                 if self.model.role.is_battle_timer_mine:

@@ -154,45 +154,7 @@ class PacketHandler:
     def __add_ship_to_ship_mgr(self, prot_ship):
         model_role = self.client.game.graphics.model.role
 
-        model_ship = model.Ship(
-            id=prot_ship.id,
-            role_id=prot_ship.role_id,
-
-            name=prot_ship.name,
-            ship_template_id=prot_ship.ship_template_id,
-
-            material_type=prot_ship.material_type,
-
-            now_durability=prot_ship.now_durability,
-            max_durability=prot_ship.max_durability,
-
-            tacking=prot_ship.tacking,
-            power=prot_ship.power,
-
-            capacity=prot_ship.capacity,
-
-
-            now_crew=prot_ship.now_crew,
-            min_crew=prot_ship.min_crew,
-            max_crew=prot_ship.max_crew,
-
-            now_guns=prot_ship.now_guns,
-            type_of_guns=prot_ship.type_of_guns,
-            max_guns=prot_ship.max_guns,
-
-            water=prot_ship.water,
-            food=prot_ship.food,
-            material=prot_ship.material,
-            cannon=prot_ship.cannon,
-
-            cargo_cnt=prot_ship.cargo_cnt,
-            cargo_id=prot_ship.cargo_id,
-
-            captain=prot_ship.captain,
-            accountant=prot_ship.accountant,
-            first_mate=prot_ship.first_mate,
-            chief_navigator=prot_ship.chief_navigator,
-        )
+        model_ship = model.Ship(prot_ship)
 
         model_role.ship_mgr.add_ship(model_ship)
 
@@ -393,42 +355,9 @@ class PacketHandler:
         self.__get_role().battle_npc_id = None
         self.client.game.graphics.change_background_sp_to_sea()
 
-    def __proto_ship_2_model_ship(self, ship):
-        model_ship = model.Ship(
-            id=ship.id,
-            role_id=ship.role_id,
-            name=ship.name,
-
-            ship_template_id=ship.ship_template_id,
-            material_type=ship.material_type,
-            now_durability=ship.now_durability,
-            max_durability=ship.max_durability,
-            tacking=ship.tacking,
-            power=ship.power,
-            capacity=ship.capacity,
-            now_crew=ship.now_crew,
-            min_crew=ship.min_crew,
-            max_crew=ship.max_crew,
-            now_guns=ship.now_guns,
-            type_of_guns=ship.type_of_guns,
-            max_guns=ship.max_guns,
-            water=ship.water,
-            food=ship.food,
-            material=ship.material,
-            cannon=ship.cannon,
-            cargo_cnt=ship.cargo_cnt,
-            cargo_id=ship.cargo_id,
-            captain=ship.captain,
-            accountant=ship.accountant,
-            first_mate=ship.first_mate,
-            chief_navigator=ship.chief_navigator
-        )
-
-        return model_ship
-
     async def handle_YouWonNpcBattle(self, you_won_npc_battle):
         for ship in you_won_npc_battle.ships:
-            model_ship = self.__proto_ship_2_model_ship(ship)
+            model_ship = model.Ship(ship)
             self.__get_role().ship_mgr.add_ship(model_ship)
             print(f'you won ship {ship.name}')
 
@@ -444,7 +373,7 @@ class PacketHandler:
 
     async def handle_GotNewShip(self, got_new_ship):
         print('got new ship')
-        model_ship = self.__proto_ship_2_model_ship(got_new_ship.ship)
+        model_ship = model.Ship(got_new_ship.ship)
         self.__get_role().ship_mgr.add_ship(model_ship)
 
     def __get_graphics(self):
@@ -452,6 +381,16 @@ class PacketHandler:
 
     async def handle_EnteredBattleWithRole(self, entered_battle_with_role):
         self.__get_role().battle_role_id = entered_battle_with_role.role_id
+        # get model
+        enemy_role = self.__get_graphics().model.get_role(entered_battle_with_role.role_id)
+        enemy_role.ship_mgr = ShipMgr(enemy_role)
+
+        ships_prots = entered_battle_with_role.ships
+        for ship_prot in ships_prots:
+            ship = model.Ship(ship_prot)
+
+            enemy_role.ship_mgr.add_ship(ship)
+            print(f'added enemy ship {ship.name}')
 
         self.__get_graphics().change_background_sp_to_battle_ground()
 

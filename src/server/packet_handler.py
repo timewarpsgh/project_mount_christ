@@ -959,17 +959,17 @@ class PacketHandler:
             self.role.battle_role_id = target_role.id
             target_role.battle_role_id = self.role.id
 
-
             pack = EnteredBattleWithRole(
-                role_id=target_role.id
-                # ships=_
+                role_id=target_role.id,
+                ships=target_role.ship_mgr.gen_ships_prots(),
             )
             self.session.send(pack)
 
-            pack = EnteredBattleWithRole(role_id=self.role.id)
+            pack = EnteredBattleWithRole(
+                role_id=self.role.id,
+                ships=self.role.ship_mgr.gen_ships_prots(),
+            )
             target_role.session.send(pack)
-
-
 
 
             # init battle_timer (updated each session update)

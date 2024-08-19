@@ -40,6 +40,44 @@ class Ship:
     first_mate: int = None
     chief_navigator: int = None
 
+    def __init__(self, prot_ship):
+        self.id = prot_ship.id
+        self.role_id = prot_ship.role_id
+
+        self.name = prot_ship.name
+        self.ship_template_id = prot_ship.ship_template_id
+
+        self.material_type = prot_ship.material_type
+
+        self.now_durability = prot_ship.now_durability
+        self.max_durability = prot_ship.max_durability
+
+        self.tacking = prot_ship.tacking
+        self.power = prot_ship.power
+
+        self.capacity = prot_ship.capacity
+
+        self.now_crew = prot_ship.now_crew
+        self.min_crew = prot_ship.min_crew
+        self.max_crew = prot_ship.max_crew
+
+        self.now_guns = prot_ship.now_guns
+        self.type_of_guns = prot_ship.type_of_guns
+        self.max_guns = prot_ship.max_guns
+
+        self.water = prot_ship.water
+        self.food = prot_ship.food
+        self.material = prot_ship.material
+        self.cannon = prot_ship.cannon
+
+        self.cargo_cnt = prot_ship.cargo_cnt
+        self.cargo_id = prot_ship.cargo_id
+
+        self.captain = prot_ship.captain
+        self.accountant = prot_ship.accountant
+        self.first_mate = prot_ship.first_mate
+        self.chief_navigator = prot_ship.chief_navigator
+
     def add_cargo(self, cargo_id, cargo_cnt):
         self.cargo_id = cargo_id
         self.cargo_cnt = cargo_cnt
@@ -153,3 +191,6 @@ class Model:
     def __init__(self):
         self.role = None
         self.id_2_role = {}
+
+    def get_role(self, id):
+        return self.id_2_role.get(id)

@@ -38,6 +38,7 @@ TO DO:
 
         each ship, move 3 steps and then attack OK
 
+        only shoot if target is in range OK
 
 
         after flagship attack, other ships attack, then switch

@@ -1052,6 +1052,9 @@ class PacketHandler:
                 self.send_to_self_and_enemy(pack)
                 await asyncio.sleep(0.3)
 
+            if not ship.is_target_in_range(enemy_ship):
+                continue
+
             damage, is_sunk = ship.shoot(enemy_ship)
 
             pack = pb.ShipAttacked(

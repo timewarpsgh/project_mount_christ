@@ -82,9 +82,10 @@ class Ship:
 
     def move(self, dir):
         if dir == pb.DirType.E:
-            self.x += 5
+            self.x += 50
 
-
+    def is_target_in_range(self, ship):
+        return abs(self.x - ship.x) <= 200 and abs(self.y - ship.y) <= 200
 
     def attack(self, ship):
         # shoot or engage based on strategy

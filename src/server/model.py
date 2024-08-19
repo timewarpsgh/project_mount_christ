@@ -363,7 +363,7 @@ class Role:
                 if is_sunk:
 
                     if enemy_ship.id == flag_ship.id:
-                        # self.role.win(enemy_role)
+                        self.lose_to_npc()
                         return
 
                     if enemy_ship.id not in enemy_role.ship_mgr.id_2_ship:
@@ -413,6 +413,15 @@ class Role:
         self.npc_instance = None
         self.battle_npc_id = None
 
+    def lose_to_npc(self):
+        for id in self.get_non_flag_ships_ids():
+            self.ship_mgr.rm_ship(id)
+            self.session.send(pb.ShipRemoved(id=id))
+
+        self.session.send(pb.EscapedNpcBattle())
+
+        self.npc_instance = None
+        self.battle_npc_id = None
 
 class Model:
 

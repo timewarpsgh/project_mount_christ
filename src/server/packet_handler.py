@@ -667,14 +667,7 @@ class PacketHandler:
 
     def _handle_gm_cmd_lose_to_npc(self, params):
         # lose all except flag ship
-        for id in self.role.get_non_flag_ships_ids():
-            self.role.ship_mgr.rm_ship(id)
-            self.session.send(ShipRemoved(id=id))
-
-        self.session.send(EscapedNpcBattle())
-
-        self.role.npc_instance = None
-        self.role.battle_npc_id = None
+        self.role.lose_to_npc()
 
     def __get_target_role(self):
         if self.role.battle_role_id:

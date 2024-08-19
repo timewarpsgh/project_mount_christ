@@ -13,7 +13,12 @@ TO DO:
         can escape only when battle timer is on OK
 
 
-        show ships in battle
+        refactored gen_ship_prot to ship class OK
+
+        show ships in battle   ON
+
+
+
         flagship attack, then switch
         after flagship attack, other ships attack, then switch
 

@@ -670,8 +670,8 @@ class PacketHandler:
             self.role.ship_mgr.add_ship(ship)
 
         pack = YouWonNpcBattle()
-        ships = self.__gen_won_ships(self.role.npc_instance.ship_mgr.id_2_ship)
-        pack.ships.extend(ships)
+        ships_prots = self.role.npc_instance.ship_mgr.gen_ships_prots()
+        pack.ships.extend(ships_prots)
         self.session.send(pack)
         self.session.send(EscapedNpcBattle())
 
@@ -726,14 +726,6 @@ class PacketHandler:
             traceback.print_exc()
         else:
             print()
-
-    def __gen_won_ships(self, id_2_ship):
-        ships_prots = []
-        for id, ship in id_2_ship.items():
-             ship_prot = self._gen_new_ship_proto(ship)
-             ships_prots.append(ship_prot)
-
-        return ships_prots
 
     async def handle_Chat(self, chat):
         if chat.chat_type == ChatType.SAY:
@@ -873,7 +865,7 @@ class PacketHandler:
         pack.ships_to_buy.extend(ships_to_buy)
         self.session.send(pack)
 
-    def _gen_new_ship_proto(self, new_model_ship):
+    def _gen_ship_proto(self, new_model_ship):
         new_ship_proto = Ship(
             id=new_model_ship.id,
             role_id=new_model_ship.role_id,
@@ -955,7 +947,7 @@ class PacketHandler:
         # tell client
         self.session.send(MoneyChanged(money=self.role.money))
 
-        self.session.send(GotNewShip(ship=self._gen_new_ship_proto(new_model_ship)))
+        self.session.send(GotNewShip(ship=new_model_ship.gen_ship_proto()))
 
     async def handle_FightRole(self, fight_role):
         role_id = fight_role.role_id
@@ -963,11 +955,22 @@ class PacketHandler:
         target_role = self.session.server.get_role(role_id)
 
         if self.role.is_close_to_role(target_role):
+            # init battle_role_id and enemy ships
             self.role.battle_role_id = target_role.id
             target_role.battle_role_id = self.role.id
 
-            self.session.send(EnteredBattleWithRole(role_id=target_role.id))
-            target_role.session.send(EnteredBattleWithRole(role_id=self.role.id))
+
+            pack = EnteredBattleWithRole(
+                role_id=target_role.id
+                # ships=_
+            )
+            self.session.send(pack)
+
+            pack = EnteredBattleWithRole(role_id=self.role.id)
+            target_role.session.send(pack)
+
+
+
 
             # init battle_timer (updated each session update)
             self.role.battle_timer = c.BATTLE_TIMER_IN_SECONDS

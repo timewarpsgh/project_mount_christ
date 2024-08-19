@@ -59,6 +59,39 @@ class Ship:
                 self.cargo_cnt = 0
                 self.cargo_id = 0
 
+    def gen_ship_proto(self):
+        ship_proto = pb.Ship(
+            id=self.id,
+            role_id=self.role_id,
+            name=self.name,
+            ship_template_id=self.ship_template_id,
+            material_type=self.material_type,
+            now_durability=self.now_durability,
+            max_durability=self.max_durability,
+            tacking=self.tacking,
+            power=self.power,
+            capacity=self.capacity,
+            now_crew=self.now_crew,
+            min_crew=self.min_crew,
+            max_crew=self.max_crew,
+            now_guns=self.now_guns,
+            type_of_guns=self.type_of_guns,
+            max_guns=self.max_guns,
+            water=self.water,
+            food=self.food,
+            material=self.material,
+            cannon=self.cannon,
+            cargo_cnt=self.cargo_cnt,
+            cargo_id=self.cargo_id,
+            captain=self.captain,
+            accountant=self.accountant,
+            first_mate=self.first_mate,
+            chief_navigator=self.chief_navigator
+        )
+
+        return ship_proto
+
+
 @dataclass
 class Mate:
 
@@ -107,6 +140,13 @@ class ShipMgr:
         new_ship_name = str(len(self.id_2_ship) + 1)
         return new_ship_name
 
+    def gen_ships_prots(self):
+        ships_prots = []
+        for ship in self.id_2_ship.values():
+             ship_proto = ship.gen_ship_proto()
+             ships_prots.append(ship_proto)
+
+        return ships_prots
 
 class MateMgr:
 
@@ -187,7 +227,7 @@ class Role:
             ship.role_id = self.id
             self.ship_mgr.add_ship(ship)
 
-            ship_proto = self.session.packet_handler._gen_new_ship_proto(ship)
+            ship_proto = ship.gen_ship_proto()
             self.session.send(pb.GotNewShip(ship=ship_proto))
             self.session.send(pb.GotChat(
                 chat_type=pb.ChatType.SYSTEM,

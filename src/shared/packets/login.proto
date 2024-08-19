@@ -375,8 +375,10 @@ message FightRole {
     required int32 role_id = 1;
 }
 
+
 message EnteredBattleWithRole {
     required int32 role_id = 1;
+    repeated Ship ships = 2;
 }
 
 // escape role battle

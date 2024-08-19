@@ -212,6 +212,9 @@ class Graphics:
             elif event.key == pygame.K_t:
                 self.client.send(FightRole(role_id=2))
 
+            elif event.key == pygame.K_y:
+                self.client.send(FightNpc(npc_id=1))
+
     def update(self, time_diff):
         # update sprites group
         self.sprites.update()

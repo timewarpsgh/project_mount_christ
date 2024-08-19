@@ -1,11 +1,39 @@
 TO DO:
 
+    battle process with player   OK
+        each ship, move 3 steps and then attack OK
+        only shoot if target is in range OK
+        show cannon pos right OK
+
+    fight with npc (maybe view npc as role in client) ON
+        test key(Y) to fight with npc OK
+
+
+
+
+
+
+DONE:
+
+
+    sNpcMgr in server OK
+
+        1 fleet 1st, not moving  OK
+            enter and escape battle OK
+            .win_npc OK
+
+            new ship needs its own id OK
+            sell ship, maybe use it(then need my own ship_id) OK
+
+            buy ship OK
+
+            show ship img and type right OK
+
 
     fight npc fleet OK
 
     fight player fleet   OK
 
-    battle process with player   ON
         auto test OK
 
         show battle_timer   OK
@@ -34,37 +62,6 @@ TO DO:
 
 
         can only shoot with battle timer, switch side after all ship attack OK
-
-
-        each ship, move 3 steps and then attack OK
-
-        only shoot if target is in range OK
-
-        show cannon pos right OK
-
-        fight with npc ON
-
-
-
-        after flagship attack, other ships attack, then switch
-
-
-
-DONE:
-
-
-    sNpcMgr in server OK
-
-        1 fleet 1st, not moving  OK
-            enter and escape battle OK
-            .win_npc OK
-
-            new ship needs its own id OK
-            sell ship, maybe use it(then need my own ship_id) OK
-
-            buy ship OK
-
-            show ship img and type right OK
 
 cmds
     # compile .proto file

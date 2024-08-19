@@ -54,7 +54,7 @@ class Session(Connection):
                 time_diff = current_time - self.previous_time
                 self.previous_time = current_time
 
-                self.packet_handler.role.update(time_diff)
+                await self.packet_handler.role.update(time_diff)
 
             else:
                 pass

@@ -1058,11 +1058,10 @@ class PacketHandler:
     def get_enemy_role(self):
         return self.session.server.get_role(self.role.battle_role_id)
 
-    async def handle_AllShipsAttack(self, all_ships_attack):
-        if not self.role.battle_timer:
-            return
+    def get_enemy_npc(self):
+        return self.session.server.get_npc(self.role.battle_npc_id)
 
-
+    async def all_ships_attack_role(self):
         # get enemy role
         enemy_role = self.get_enemy_role()
         flag_ship = enemy_role.get_flag_ship()
@@ -1070,7 +1069,6 @@ class PacketHandler:
         for ship in self.role.ship_mgr.id_2_ship.values():
 
             enemy_ship = enemy_role.get_random_ship()
-
 
             # move and check is_in_range
 
@@ -1123,3 +1121,74 @@ class PacketHandler:
 
         # switch battle timer
         self.role.switch_turn_with_enemy()
+
+    async def all_ships_attack_npc(self):
+        # get enemy role
+        enemy_npc = self.role.npc_instance
+        # flag_ship = enemy_npc.get_flag_ship()
+        flag_ship = list(enemy_npc.ship_mgr.id_2_ship.values())[0]
+
+        for ship in self.role.ship_mgr.id_2_ship.values():
+
+            enemy_ship = enemy_npc.get_random_ship()
+
+            # move and check is_in_range
+
+            # for i in range(3):
+            #     ship.move(pb.DirType.E)
+            #     pack = pb.ShipMoved(
+            #         id=ship.id,
+            #         x=ship.x,
+            #         y=ship.y,
+            #     )
+            #     self.send_to_self_and_enemy(pack)
+            #     await asyncio.sleep(0.3)
+            #
+            # if not ship.is_target_in_range(enemy_ship):
+            #     continue
+
+            damage, is_sunk = ship.shoot(enemy_ship)
+
+            pack = pb.ShipAttacked(
+                src_id=ship.id,
+                dst_id=enemy_ship.id,
+                attack_method_type=pb.AttackMethodType.SHOOT,
+                dst_damage=damage,
+            )
+            self.session.send(pack)
+
+            pack = pb.GotChat(
+                text=f"{ship.name} shot {enemy_ship.name} and dealt {damage} damage",
+                chat_type=pb.ChatType.SYSTEM
+            )
+            self.session.send(pack)
+
+            if is_sunk:
+
+                if enemy_ship.id == flag_ship.id:
+                    # self.role.win(enemy_npc)
+                    return
+
+                if enemy_ship.id not in enemy_npc.ship_mgr.id_2_ship:
+                    continue
+
+                enemy_npc.ship_mgr.rm_ship(enemy_ship.id)
+
+                pack = pb.ShipRemoved(
+                    id=enemy_ship.id
+                )
+                self.session.send(pack)
+
+            await asyncio.sleep(1)
+
+        # switch battle timer
+        self.role.switch_turn_with_enemy()
+
+    async def handle_AllShipsAttack(self, all_ships_attack):
+        if not self.role.battle_timer:
+            return
+
+        if self.role.battle_role_id:
+            await self.all_ships_attack_role()
+        elif self.role.battle_npc_id:
+            await self.all_ships_attack_npc()

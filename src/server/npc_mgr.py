@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from model import Mate, ShipMgr, Ship
+from model import Role, Mate, ShipMgr, Ship
 
 import json
 
@@ -15,8 +15,9 @@ from role_models import SESSION as ROLE_SESSION, \
     Ship as ShipModel
 
 
+
 @dataclass
-class Npc:
+class Npc(Role):
     id: int = None
 
     x: int = None

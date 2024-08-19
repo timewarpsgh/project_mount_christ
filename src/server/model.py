@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import asyncio
 import random
 import login_pb2 as pb
 # import from dir
@@ -245,7 +246,7 @@ class Role:
     battle_npc_id: int=None
     battle_role_id: int=None
     battle_timer: int=None
-
+    npc_instance: any=None
 
     def get_enemy_role(self):
         self.session.server.get_role(self.battle_role_id)
@@ -306,7 +307,7 @@ class Role:
         self.battle_role_id = None
 
 
-    def switch_turn_with_enemy(self):
+    async def switch_turn_with_enemy(self):
         # set mine to none
         self.battle_timer = None
         # print(f'battle timer for {self.name} set to None')
@@ -324,7 +325,7 @@ class Role:
             enemy_role.session.send(pack)
 
         elif self.battle_npc_id:
-            enemy_npc = self.session.server.get_npc(self.battle_npc_id)
+            enemy_npc = self.npc_instance
             enemy_npc.battle_timer = c.BATTLE_TIMER_IN_SECONDS
 
             pack = pb.BattleTimerStarted(
@@ -375,7 +376,7 @@ class Role:
                     )
                     self.session.send(pack)
 
-                # await asyncio.sleep(1)
+                await asyncio.sleep(1)
 
             # give back timer
             self.battle_timer = c.BATTLE_TIMER_IN_SECONDS
@@ -387,13 +388,13 @@ class Role:
 
 
 
-    def update(self, time_diff):
+    async def update(self, time_diff):
         if self.battle_timer:
             self.battle_timer -= time_diff
             # print(f'battle timer for {self.name}: {self.battle_timer}')
 
             if self.battle_timer <= 0:
-                self.switch_turn_with_enemy()
+                await self.switch_turn_with_enemy()
 
 
 

@@ -30,7 +30,10 @@ TO DO:
         play shooting sound, and hit sound OK
 
 
-        then switch
+        change battle ground OK
+
+
+        engage
 
 
 

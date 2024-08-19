@@ -134,7 +134,7 @@ class Graphics:
         imgs['role'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\role.png')
         imgs['hud'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\hud.png')
         imgs['sea'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\sea.png')
-        imgs['battle_ground'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\battle_ground.png')
+        imgs['battle_ground'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\in_battle\battle.PNG')
 
         return imgs
 

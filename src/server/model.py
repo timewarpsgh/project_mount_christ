@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import random
 import login_pb2 as pb
 # import from dir
 import sys
@@ -48,6 +49,9 @@ class Ship:
     first_mate: int=None
     chief_navigator: int=None
 
+    x: int=None
+    y: int=None
+
     def add_cargo(self, cargo_id, cargo_cnt):
         self.cargo_id = cargo_id
         self.cargo_cnt = cargo_cnt
@@ -80,6 +84,9 @@ class Ship:
         # shoot or engage based on strategy
         pass
 
+    def is_alive(self):
+        return self.now_durability > 0
+
     def gen_ship_proto(self):
         ship_proto = pb.Ship(
             id=self.id,
@@ -107,7 +114,9 @@ class Ship:
             captain=self.captain,
             accountant=self.accountant,
             first_mate=self.first_mate,
-            chief_navigator=self.chief_navigator
+            chief_navigator=self.chief_navigator,
+            x=self.x,
+            y=self.y,
         )
 
         return ship_proto
@@ -160,6 +169,16 @@ class ShipMgr:
     def get_new_ship_name(self):
         new_ship_name = str(len(self.id_2_ship) + 1)
         return new_ship_name
+
+    def init_ships_positions_in_battle(self, is_attacker=True):
+
+        for id, ship in enumerate(self.id_2_ship.values()):
+            if is_attacker:
+                ship.x = 80
+                ship.y = 40 + id * 40
+            else:
+                ship.x = 500
+                ship.y = 40 + id * 40
 
     def gen_ships_prots(self):
         ships_prots = []
@@ -233,6 +252,11 @@ class Role:
             mate = self.mate_mgr.get_mate(mate_id)
             if mate.name == self.name:
                 return ship
+
+
+    def get_random_ship(self):
+        ship_ids = self.ship_mgr.id_2_ship.keys()
+        return self.ship_mgr.id_2_ship[random.choice(list(ship_ids))]
 
     def get_non_flag_ships_ids(self):
         flag_ship = self.get_flag_ship()

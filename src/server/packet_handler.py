@@ -960,18 +960,40 @@ class PacketHandler:
             self.role.battle_role_id = target_role.id
             target_role.battle_role_id = self.role.id
 
+            self.role.ship_mgr.init_ships_positions_in_battle(is_attacker=True)
+
+
+
+
+            target_role.ship_mgr.init_ships_positions_in_battle(is_attacker=False)
+
             pack = EnteredBattleWithRole(
                 role_id=target_role.id,
                 ships=target_role.ship_mgr.gen_ships_prots(),
             )
             self.session.send(pack)
+            # init my ships pos
+            for id, ship in self.role.ship_mgr.id_2_ship.items():
+                self.session.send(pb.ShipMoved(
+                    id=id,
+                    x=ship.x,
+                    y=ship.y,
+                ))
+
+
 
             pack = EnteredBattleWithRole(
                 role_id=self.role.id,
                 ships=self.role.ship_mgr.gen_ships_prots(),
             )
             target_role.session.send(pack)
-
+            # init enemy ships pos
+            for id, ship in target_role.ship_mgr.id_2_ship.items():
+                target_role.session.send(pb.ShipMoved(
+                    id=id,
+                    x=ship.x,
+                    y=ship.y,
+                ))
 
             # init battle_timer (updated each session update)
             self.role.battle_timer = c.BATTLE_TIMER_IN_SECONDS
@@ -1010,9 +1032,12 @@ class PacketHandler:
     async def handle_AllShipsAttack(self, all_ships_attack):
         # get enemy role
         enemy_role = self.get_enemy_role()
-        enemy_ship = enemy_role.get_flag_ship()
+        flag_ship = enemy_role.get_flag_ship()
 
-        for id, ship in self.role.ship_mgr.id_2_ship.items():
+        for ship in self.role.ship_mgr.id_2_ship.values():
+
+            enemy_ship = enemy_role.get_random_ship()
+
             damage, is_sunk = ship.shoot(enemy_ship)
 
             pack = pb.ShipAttacked(
@@ -1030,6 +1055,11 @@ class PacketHandler:
             self.send_to_self_and_enemy(pack)
 
             if is_sunk:
+
+                if enemy_ship.id == flag_ship.id:
+                    self.role.win(enemy_role)
+                    return
+
                 if enemy_ship.id not in enemy_role.ship_mgr.id_2_ship:
                     continue
 

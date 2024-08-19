@@ -60,7 +60,6 @@ class ShootDamageNumber(SP):
         self.d_y = 0.15
 
     def update(self):
-        print('updating damage sp')
         self._change_state()
 
     def _change_state(self):
@@ -224,7 +223,9 @@ class Graphics:
                 my_ships = self.model.role.ship_mgr.id_2_ship.values()
                 for id, ship in enumerate(my_ships):
                     ship_in_battle_img = sAssetMgr.images['ship_in_battle']['up']
-                    battle_ground_img.blit(ship_in_battle_img, (80, 50 + 40 * id))
+
+
+                    battle_ground_img.blit(ship_in_battle_img, (ship.x, ship.y))
 
                 # draw enemy ships
                 enemy_role = self.model.get_enemy_role()
@@ -235,7 +236,7 @@ class Graphics:
                 enemy_ships = enemy_role.ship_mgr.id_2_ship.values()
                 for id, ship in enumerate(enemy_ships):
                     ship_in_battle_img = sAssetMgr.images['ship_in_battle']['up']
-                    battle_ground_img.blit(ship_in_battle_img, (500, 50 + 40 * id))
+                    battle_ground_img.blit(ship_in_battle_img, (ship.x, ship.y))
 
                 # self.sp_background.change_img(new_img)
                 self.sp_background.change_img(battle_ground_img)

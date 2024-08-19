@@ -120,6 +120,10 @@ message Ship {
   optional int32 accountant = 24;
   optional int32 first_mate = 25;
   optional int32 chief_navigator = 26;
+
+  optional int32 x = 27;
+  optional int32 y = 28;
+
 }
 
 message Mate {
@@ -409,4 +413,10 @@ message ShipAttacked{
     required AttackMethodType attack_method_type = 3;
     optional int32 src_damage = 4;
     required int32 dst_damage = 5;
+}
+
+message ShipMoved{
+    required int32 id = 1;
+    required int32 x = 2;
+    required int32 y = 3;
 }

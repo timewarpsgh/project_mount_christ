@@ -40,6 +40,9 @@ class Ship:
     first_mate: int = None
     chief_navigator: int = None
 
+    x: int = None
+    y: int = None
+
     def __init__(self, prot_ship):
         self.id = prot_ship.id
         self.role_id = prot_ship.role_id
@@ -77,6 +80,9 @@ class Ship:
         self.accountant = prot_ship.accountant
         self.first_mate = prot_ship.first_mate
         self.chief_navigator = prot_ship.chief_navigator
+
+        self.x = prot_ship.x
+        self.y = prot_ship.y
 
     def add_cargo(self, cargo_id, cargo_cnt):
         self.cargo_id = cargo_id
@@ -202,3 +208,9 @@ class Model:
             return None
 
         return self.get_role_by_id(self.role.battle_role_id)
+
+    def get_ship_in_battle_by_id(self, id):
+        if id in self.role.ship_mgr.id_2_ship:
+            return self.role.ship_mgr.get_ship(id)
+        else:
+            return self.get_enemy_role().ship_mgr.get_ship(id)

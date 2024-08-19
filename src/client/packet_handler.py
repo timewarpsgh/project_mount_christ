@@ -422,5 +422,17 @@ class PacketHandler:
         # show cannon_ball
         # show ship attacked damage
         dst_damage = ship_attacked.dst_damage
+        dst_id = ship_attacked.dst_id
 
-        self.__get_graphics().show_damage(dst_damage, 400, 50)
+        ship = self.__get_model().get_ship_in_battle_by_id(dst_id)
+
+        self.__get_graphics().show_damage(dst_damage, ship.x, ship.y)
+
+    async def handle_ShipMoved(self, ship_moved):
+        id = ship_moved.id
+        x = ship_moved.x
+        y = ship_moved.y
+
+        ship = self.__get_model().get_ship_in_battle_by_id(id)
+        ship.x = x
+        ship.y = y

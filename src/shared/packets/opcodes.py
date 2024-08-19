@@ -78,6 +78,7 @@ class OpCodeType(Enum):
     BattleTimerStarted = auto()
     AllShipsAttack = auto()
     ShipAttacked = auto()
+    ShipMoved = auto()
 
 def gen_opcode_2_value():
     d = {}

@@ -429,9 +429,12 @@ class PacketHandler:
         src_ship = self.__get_model().get_ship_in_battle_by_id(src_id)
         dst_ship = self.__get_model().get_ship_in_battle_by_id(dst_id)
 
-        self.__get_graphics().show_cannon(src_ship.x, src_ship.y, dst_ship.x, dst_ship.y)
+        d_x = dst_ship.x - src_ship.x
+        d_y = dst_ship.y - src_ship.y
+
+        self.__get_graphics().show_cannon(src_ship.x, src_ship.y, d_x, d_y)
         sAssetMgr.sounds['shoot'].play()
-        await asyncio.sleep(0.8)
+        await asyncio.sleep(1)
         self.__get_graphics().show_damage(dst_damage, dst_ship.x, dst_ship.y)
         sAssetMgr.sounds['explosion'].play()
 

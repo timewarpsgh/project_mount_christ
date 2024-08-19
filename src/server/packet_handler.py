@@ -1042,18 +1042,21 @@ class PacketHandler:
 
             enemy_ship = enemy_role.get_random_ship()
 
-            for i in range(3):
-                ship.move(pb.DirType.E)
-                pack = pb.ShipMoved(
-                    id=ship.id,
-                    x=ship.x,
-                    y=ship.y,
-                )
-                self.send_to_self_and_enemy(pack)
-                await asyncio.sleep(0.3)
 
-            if not ship.is_target_in_range(enemy_ship):
-                continue
+            # move and check is_in_range
+
+            # for i in range(3):
+            #     ship.move(pb.DirType.E)
+            #     pack = pb.ShipMoved(
+            #         id=ship.id,
+            #         x=ship.x,
+            #         y=ship.y,
+            #     )
+            #     self.send_to_self_and_enemy(pack)
+            #     await asyncio.sleep(0.3)
+            #
+            # if not ship.is_target_in_range(enemy_ship):
+            #     continue
 
             damage, is_sunk = ship.shoot(enemy_ship)
 

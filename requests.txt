@@ -40,6 +40,11 @@ TO DO:
 
         only shoot if target is in range OK
 
+        show cannon pos right OK
+
+        fight with npc ON
+
+
 
         after flagship attack, other ships attack, then switch
 

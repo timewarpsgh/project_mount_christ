@@ -12,10 +12,10 @@ TO DO:
         i attack npc OK
 
         can win npc OK
-
         can lose to npc OK
 
-
+        win role  OK
+        lose to role OK
 
 
 

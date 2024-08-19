@@ -217,6 +217,9 @@ class Graphics:
                 # draw enemy ships
                 enemy_role = self.model.get_enemy_role()
 
+                if not enemy_role:
+                    return
+
                 enemy_ships = enemy_role.ship_mgr.id_2_ship.values()
                 for id, ship in enumerate(enemy_ships):
                     ship_in_battle_img = sAssetMgr.images['ship_in_battle']['up']

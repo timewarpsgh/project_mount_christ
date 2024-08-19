@@ -59,6 +59,27 @@ class Ship:
                 self.cargo_cnt = 0
                 self.cargo_id = 0
 
+    def shoot(self, ship):
+        self.cannon -= 1
+
+        damage = 25
+        ship.now_durability -= damage
+
+        is_sunk = False
+        if ship.now_durability <= 0:
+            is_sunk = True
+
+
+        return damage, is_sunk
+
+    def engage(self, ship):
+        self.now_crew -= 5
+        ship.now_crew -= 5
+
+    def attack(self, ship):
+        # shoot or engage based on strategy
+        pass
+
     def gen_ship_proto(self):
         ship_proto = pb.Ship(
             id=self.id,
@@ -198,6 +219,10 @@ class Role:
     battle_npc_id: int=None
     battle_role_id: int=None
     battle_timer: int=None
+
+
+    def get_enemy_role(self):
+        self.session.server.get_role(self.battle_role_id)
 
     def get_flag_ship(self):
         for id, ship in self.ship_mgr.id_2_ship.items():

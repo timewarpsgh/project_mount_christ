@@ -13,6 +13,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 from login_pb2 import *
+import login_pb2 as pb
 
 import constants as c
 
@@ -996,3 +997,48 @@ class PacketHandler:
 
         target_role.battle_role_id = None
         self.role.battle_role_id = None
+
+    def send_to_self_and_enemy(self, pack):
+        enemy_role = self.get_enemy_role()
+
+        self.session.send(pack)
+        enemy_role.session.send(pack)
+
+    def get_enemy_role(self):
+        return self.session.server.get_role(self.role.battle_role_id)
+
+    async def handle_AllShipsAttack(self, all_ships_attack):
+        # get enemy role
+        enemy_role = self.get_enemy_role()
+        enemy_ship = enemy_role.get_flag_ship()
+
+        for id, ship in self.role.ship_mgr.id_2_ship.items():
+            damage, is_sunk = ship.shoot(enemy_ship)
+
+            pack = pb.ShipAttacked(
+                src_id=ship.id,
+                dst_id=enemy_ship.id,
+                attack_method_type=pb.AttackMethodType.SHOOT,
+                dst_damage=damage,
+            )
+            self.send_to_self_and_enemy(pack)
+
+            pack = pb.GotChat(
+                text=f"{ship.name} shot {enemy_ship.name} and dealt {damage} damage",
+                chat_type=pb.ChatType.SYSTEM
+            )
+            self.send_to_self_and_enemy(pack)
+
+            if is_sunk:
+                if enemy_ship.id not in enemy_role.ship_mgr.id_2_ship:
+                    continue
+
+                enemy_role.ship_mgr.rm_ship(enemy_ship.id)
+
+                pack = pb.ShipRemoved(
+                    id=enemy_ship.id
+                )
+                self.send_to_self_and_enemy(pack)
+
+            await asyncio.sleep(1)
+

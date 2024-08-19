@@ -393,3 +393,20 @@ message BattleTimerStarted {
     required int32 battle_timer = 1;
     required int32 role_id = 2;
 }
+
+// AllShipsAttack
+message AllShipsAttack {
+}
+
+enum AttackMethodType {
+    SHOOT = 0;
+    ENGAGE = 1;
+}
+
+message ShipAttacked{
+    required int32 src_id = 1;
+    required int32 dst_id = 2;
+    required AttackMethodType attack_method_type = 3;
+    optional int32 src_damage = 4;
+    required int32 dst_damage = 5;
+}

@@ -128,6 +128,8 @@ class ShipMgr:
         self.id_2_ship[ship.id] = ship
 
     def rm_ship(self, ship_id):
+        if ship_id not in self.id_2_ship:
+            return
         del self.id_2_ship[ship_id]
 
     def get_ship(self, ship_id):

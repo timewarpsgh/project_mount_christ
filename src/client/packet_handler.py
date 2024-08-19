@@ -364,6 +364,9 @@ class PacketHandler:
 
     async def handle_ShipRemoved(self, ship_removed):
         self.__get_role().ship_mgr.rm_ship(ship_removed.id)
+        enemy_role = self.__get_model().get_enemy_role()
+        if enemy_role:
+            enemy_role.ship_mgr.rm_ship(ship_removed.id)
 
     async def handle_ShipsToBuy(self, ships_to_buy):
         print('ships to buy')
@@ -415,3 +418,6 @@ class PacketHandler:
         self.__get_role().battle_timer = battle_timer_started.battle_timer
         self.__get_role().is_battle_timer_mine = battle_timer_started.role_id == self.__get_role().id
 
+    async def handle_ShipAttacked(self, ship_attacked):
+        # show ship attacked
+        pass

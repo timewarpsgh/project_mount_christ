@@ -208,19 +208,19 @@ class Graphics:
 
                 battle_ground_img.blit(timer_text.image, timer_text.rect)
 
-                # update my ships
-
+                # draw my ships
+                my_ships = self.model.role.ship_mgr.id_2_ship.values()
+                for id, ship in enumerate(my_ships):
+                    ship_in_battle_img = sAssetMgr.images['ship_in_battle']['up']
+                    battle_ground_img.blit(ship_in_battle_img, (80, 50 + 40 * id))
 
                 # draw enemy ships
                 enemy_role = self.model.get_enemy_role()
 
-                if not enemy_role:
-                    return
-
                 enemy_ships = enemy_role.ship_mgr.id_2_ship.values()
                 for id, ship in enumerate(enemy_ships):
                     ship_in_battle_img = sAssetMgr.images['ship_in_battle']['up']
-                    battle_ground_img.blit(ship_in_battle_img, (80, 50 + 40 * id))
+                    battle_ground_img.blit(ship_in_battle_img, (500, 50 + 40 * id))
 
                 # self.sp_background.change_img(new_img)
                 self.sp_background.change_img(battle_ground_img)

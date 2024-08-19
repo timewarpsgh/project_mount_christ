@@ -19,7 +19,7 @@ TO DO:
             client enemy_role.ship_mgr has ships now OK
             show enemy ships and my ships ON
                 show enemy ships OK
-                show my ships ON
+                show my ships in battle OK
 
 
         flagship attack, then switch

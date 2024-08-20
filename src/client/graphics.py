@@ -171,6 +171,7 @@ class Graphics:
 
     def change_background_sp_to_battle_ground(self):
         self.sp_background.change_img(self.imgs['battle_ground'])
+        self.sp_background.move_to(0, 0)
 
     def add_sp_role(self, role):
         sp_role = SP(self.imgs['role'], role.x, role.y)

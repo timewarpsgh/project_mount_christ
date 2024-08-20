@@ -6,8 +6,6 @@ TO DO:
         fight npc/role to win/lose/escape
 
 
-    hud
-
     backgound
         buildings  OK
 

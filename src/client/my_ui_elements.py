@@ -1,6 +1,14 @@
 import pygame
 import pygame_gui
 
+import sys
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\client\dialogs')
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\client')
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
+
+import constants as c
+
 
 class MyMsgWindow:
 
@@ -19,14 +27,14 @@ class MyMenuWindow:
 
     def __init__(self, title, option_2_callback, mgr):
         ui_window = pygame_gui.elements.UIWindow(
-            rect=pygame.Rect((0, 0), (300, 300)),
+            rect=pygame.Rect((c.WINDOW_WIDTH - 265, 120), (280, 300)),
             manager=mgr,
             window_display_title=title,
         )
 
         worlds_menu = pygame_gui.elements.UISelectionList(
             item_list=list(option_2_callback.keys()),
-            relative_rect=pygame.Rect((0, 0), (265, 300)),
+            relative_rect=pygame.Rect((0, 0), (250, 300)),
             manager=mgr,
             container=ui_window,
         )

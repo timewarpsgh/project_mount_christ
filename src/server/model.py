@@ -7,7 +7,7 @@ import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 import constants as c
-
+from object_mgr import sObjectMgr
 
 @dataclass
 class Ship:
@@ -247,6 +247,27 @@ class Role:
     battle_role_id: int=None
     battle_timer: int=None
     npc_instance: any=None
+
+    def enter_port(self, port_id):
+        # change map_id
+        self.map_id = port_id
+
+        # change x y to harbor x y
+        # should be inited beforehand (later)
+
+        harbor_x, harbor_y = sObjectMgr.get_building_xy_in_port(building_id=4, port_id=port_id)
+
+        self.x = harbor_x
+        self.y = harbor_y
+
+        # send map changed packet
+        packet = pb.MapChanged(
+            role_id=self.id,
+            map_id=port_id,
+            x=harbor_x,
+            y=harbor_y,
+        )
+        self.session.packet_handler.send_to_nearby_roles(packet, include_self=True)
 
     def get_enemy_role(self):
         self.session.packet_handler.get_enemy_role()

@@ -631,7 +631,7 @@ class PacketHandler:
     def _handle_gm_cmd_map(self, params):
         map_id = int(params[0])
 
-        self.role.map_id = map_id
+        self.role.enter_port(map_id)
 
         pack = GotChat(
             origin_name=self.role.name,
@@ -762,28 +762,7 @@ class PacketHandler:
 
         port = sObjectMgr.get_port(port_id)
         if abs(port.x - self.role.x) <= 1 and abs(port.y - self.role.y) <= 1:
-            # change map_id
-            self.role.map_id = port_id
-
-            # change x y to harbor x y
-            # should be inited beforehand (later)
-            dict = json.loads(port.building_locations)
-
-            harbor_x = dict['4']['x']
-            harbor_y = dict['4']['y']
-
-            self.role.x = harbor_x
-            self.role.y = harbor_y
-
-            # send map changed packet
-            packet = MapChanged(
-                role_id=self.role.id,
-                map_id=port_id,
-                x=harbor_x,
-                y=harbor_y,
-            )
-            self.send_to_nearby_roles(packet, include_self=True)
-
+            self.role.enter_port(port_id)
         else:
             pass
 

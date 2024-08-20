@@ -13,6 +13,7 @@ TO DO:
             enter port, show port img  OK
             show location at harbor OK
 
+            .map  enters port OK
 
             on enter world, already in port,
 

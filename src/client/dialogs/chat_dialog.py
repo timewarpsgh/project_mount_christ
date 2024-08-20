@@ -18,7 +18,7 @@ class ChatDialog(MyUIConsoleWindow):
         self.mgr = mgr
         self.client = client
         super().__init__(
-            rect=pygame.rect.Rect((60, 280), (400, 200)),
+            rect=pygame.rect.Rect((100, 280), (400, 200)),
             manager=mgr)
 
 

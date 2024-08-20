@@ -182,7 +182,7 @@ class ShipMgr:
 
         for id, ship in enumerate(self.id_2_ship.values()):
             if is_attacker:
-                ship.x = 80
+                ship.x = 150
                 ship.y = 40 + id * 80
             else:
                 ship.x = 500

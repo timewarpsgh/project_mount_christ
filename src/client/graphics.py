@@ -116,12 +116,14 @@ class Graphics:
         self.sp_background = SP(self.imgs['background'], 0, 0)
         self.sp_role = SP(self.imgs['role'], 300, 150)
         self.sp_role_name = SP(self.font.render('name', True, YELLOW), 300, 150)
-        self.sp_hud = SP(self.imgs['hud'], 0, 0)
+        self.sp_hud_left = SP(sAssetMgr.images['huds']['hud_left'], 0, 0)
+        self.sp_hud_right = SP(sAssetMgr.images['huds']['hud_right'], c.WINDOW_WIDTH - c.HUD_WIDTH, 0)
 
         self.sprites.add(self.sp_background)
         self.sprites.add(self.sp_role)
         self.sprites.add(self.sp_role_name)
-        self.sprites.add(self.sp_hud)
+        self.sprites.add(self.sp_hud_left)
+        self.sprites.add(self.sp_hud_right)
 
 
         self.id_2_sp_role = {}
@@ -154,6 +156,18 @@ class Graphics:
 
     def change_background_sp_to_port(self):
         self.sp_background.change_img(self.imgs['background'])
+
+    def change_background_sp_to_building(self, building_name):
+        # bg and figure
+        building_bg_img = sAssetMgr.images['buildings']['building_bg']
+        building_bg_img = pygame.transform.scale(building_bg_img, building_bg_img.get_rect().size)  # 800, 400
+
+        building_bg_img.blit(sAssetMgr.images['buildings'][building_name], (5, 5))
+        figure_image_width = sAssetMgr.images['buildings'][building_name].get_rect().width
+        building_bg_img.blit(sAssetMgr.images['buildings']['building_chat'], (figure_image_width + 10, 5))
+
+        self.sp_background.change_img(building_bg_img)
+        self.sp_background.move_to(c.HUD_WIDTH, 0)
 
     def change_background_sp_to_battle_ground(self):
         self.sp_background.change_img(self.imgs['battle_ground'])

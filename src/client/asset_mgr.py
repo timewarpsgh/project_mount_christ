@@ -57,6 +57,13 @@ class AssetMgr:
         path_to_in_battle_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\in_battle"
         load_images_in_dir(self.images['in_battle'], path_to_in_battle_imgs)
 
+        self.images['huds'] = {}
+        path_to_huds_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\huds"
+        load_images_in_dir(self.images['huds'], path_to_huds_imgs)
+
+        self.images['buildings'] = {}
+        path_to_buildings_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\buildings"
+        load_images_in_dir(self.images['buildings'], path_to_buildings_imgs)
 
     def load_sounds(self):
         load_sounds_in_dir(self.sounds, f"D:\data\code\python\project_mount_christ\data\sounds\effect")

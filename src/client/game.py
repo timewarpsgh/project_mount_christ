@@ -9,7 +9,12 @@ from gui import Gui
 from graphics import Graphics
 from model import Model
 from asset_mgr import sAssetMgr
+# import from dir
+import sys
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
+import constants as c
 
 @dataclass
 class Game:
@@ -20,7 +25,7 @@ class Game:
         pygame.init()
         pygame.display.set_caption('Quick Start')
 
-        self.window_surface = pygame.display.set_mode((800, 600))
+        self.window_surface = pygame.display.set_mode((c.WINDOW_WIDTH, c.WINDOW_HEIGHT))
 
         # self.background = pygame.Surface((800, 600))
         # self.background.fill(pygame.Color('#550000'))

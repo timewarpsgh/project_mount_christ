@@ -8,29 +8,13 @@ TO DO:
 
     backgound
         buildings  OK
+        port OK
+        sea map OK
 
-        port map_maker ON
-            enter port, show port img  OK
-            show location at harbor OK
-
-            .map  enters port OK
-
-            on enter world, already in port  OK
-
-            sail to see sea map   OK
-
-            move to move port map OK
-            move to move sea map  OK
-
-            gen new partial sea map ON
-                trigger new map making  OK
-
-
-                refactor map making to graphics OK
-
-
-
-        sea
+    sp_role
+        in port
+        at sea
+        is_in_battle
 
     movement
 

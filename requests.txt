@@ -1,26 +1,9 @@
 TO DO:
 
-    battle process with player   OK
-        each ship, move 3 steps and then attack OK
-        only shoot if target is in range OK
-        show cannon pos right OK
-
-    fight with npc (maybe view npc as role in client) ON
-        test key(Y) to fight with npc OK
-        npc needs to move when my timer expires OK
-
-        i attack npc OK
-
-        can win npc OK
-        can lose to npc OK
-
-        win role  OK
-        lose to role OK
-
-        i choose npc flag ship to attack OK
-        cannon not right OK
-
-
+    basic game mechanic OK
+        discover
+        trade
+        fight npc/role to win/lose/escape
 
 
 

@@ -152,9 +152,26 @@ class Graphics:
         else:
             return image
 
-    def change_background_sp_to_sea(self):
+    def change_background_sp_to_sea(self, x=None, y=None):
         print('chaning bg')
-        self.sp_background.change_img(self.imgs['sea'])
+        if not x or not y:
+
+            self.sp_background.change_img(self.imgs['sea'])
+        else:
+            if sMapMaker.world_map_piddle is None:
+                sMapMaker.set_world_piddle()
+                sMapMaker.set_world_map_tiles()
+
+            partial_sea_map = sMapMaker.make_partial_world_map(x, y, save_img=True)
+
+            self.sp_background.change_img(partial_sea_map)
+
+            x = 3 * c.PIXELS_COVERED_EACH_MOVE - \
+                (c.PIXELS_COVERED_EACH_MOVE * c.PARTIAL_WORLD_MAP_TILES_IN_ONE_DIRECTION // 2)
+            y = - 4 * c.PIXELS_COVERED_EACH_MOVE - \
+                (c.PIXELS_COVERED_EACH_MOVE * c.PARTIAL_WORLD_MAP_TILES_IN_ONE_DIRECTION // 2)
+            self.sp_background.move_to(x, y)
+
 
     def change_background_sp_to_port(self, port_id, x, y):
 

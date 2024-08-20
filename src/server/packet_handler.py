@@ -444,6 +444,9 @@ class PacketHandler:
         enter_world_res = await run_in_threads(self.__enter_world, enter_world)
         self.session.send(enter_world_res)
 
+        # enter port for tesing!!!!!!
+        self.role.enter_port(self.role.map_id)
+
         # notify presence of nearby_roles
         nearby_roles = self.session.server.get_nearby_roles(self.role.id)
 
@@ -507,8 +510,6 @@ class PacketHandler:
 
         # check opened grid?
         grid_x, grid_y = self.__get_grid_xy(self.role.x, self.role.y)
-        print(f'{grid_x=}')
-        print(f'{grid_y=}')
         if self.role.seen_grids[grid_x][grid_y] == 0:
             self.role.seen_grids[grid_x][grid_y] = 1
             self.session.send(OpenedGrid(grid_x=grid_x, grid_y=grid_y))

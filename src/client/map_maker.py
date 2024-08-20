@@ -13,7 +13,8 @@ from object_mgr import sObjectMgr
 
 class MapMaker():
     def __init__(self):
-        pass
+        self.world_map_tiles = None
+        self.world_map_piddle = None
 
     def make_port_piddle_and_map(self, port_index, time_of_day='random', save_img=False):
         port_index -= 1
@@ -116,7 +117,7 @@ class MapMaker():
         # each time option
         for time_option in c.TIME_OF_DAY_OPTIONS:
             # read img
-            img = Image.open(f"../../assets/images/world_map/{time_option}.png")
+            img = Image.open(f"../../data/imgs/world_map/{time_option}.png")
 
             # cut to tiles
             world_map_tiles = ['']
@@ -143,7 +144,7 @@ class MapMaker():
 
         # get piddle from txt
         num_array = ''
-        with open("../../assets/images/world_map/w_map_piddle_array.txt", 'r') as myfile:
+        with open("../../data/imgs/world_map/w_map_piddle_array.txt", 'r') as myfile:
             num_array = myfile.read()
 
         nums_list = num_array.split(',')
@@ -153,7 +154,7 @@ class MapMaker():
         # set
         self.world_map_piddle = piddle
 
-    def make_partial_world_map(self, x_tile, y_tile, time_of_day='random'):
+    def make_partial_world_map(self, x_tile, y_tile, time_of_day='random', save_img=False):
         """a small rectangular part of the world map.
             can be used after setting world_map_tiles and world_map_piddle.
         """
@@ -184,11 +185,15 @@ class MapMaker():
                 img = tiles[int(sea_piddle[r, i])]
                 sea_img.paste(img, position)
 
+        # save img
+        if save_img:
+            sea_img.save("sea_img.png")
+
         # PIL image to pygame image
         mode = sea_img.mode
         size = sea_img.size
         data = sea_img.tobytes()
-        sea_img = pygame.image.fromstring(data, size, mode)
+        sea_img = pygame.image.frombytes(data, size, mode)
 
         # set to not drawing
         self.drawing_partial_map = False
@@ -196,7 +201,6 @@ class MapMaker():
         # ret
         return sea_img
 
-        # sea_img.save("sea_img.png")
 
     def make_world_map(self):
         pass
@@ -206,8 +210,8 @@ sMapMaker = MapMaker()
 
 if __name__ == '__main__':
     map_maker = MapMaker()
-    # map_maker.make_port_piddle(1
+    map_maker.set_world_piddle()
+    map_maker.set_world_map_tiles()
+    map_maker.make_partial_world_map(500,	240, save_img=True)
 
-    port_id = 17
-    port_piddle, port_map = map_maker.make_port_piddle_and_map(port_id, 'random', save_img=True)
 

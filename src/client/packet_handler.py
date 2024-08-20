@@ -329,7 +329,7 @@ class PacketHandler:
             role.y = map_changed.y
 
             if role.map_id == 0:
-                self.client.game.graphics.change_background_sp_to_sea()
+                self.client.game.graphics.change_background_sp_to_sea(role.x, role.y)
             else:
                 port = sObjectMgr.get_port(role.map_id)
                 print(f'entered port {port.name}')

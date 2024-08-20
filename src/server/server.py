@@ -90,7 +90,6 @@ class Server:
 
     def add_role(self, id, role):
         self.id_2_role[id] = role
-        print(f'role added! {self.id_2_role=}')
 
     def rm_role(self, id):
         del self.id_2_role[id]

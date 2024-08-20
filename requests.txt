@@ -15,7 +15,9 @@ TO DO:
 
             .map  enters port OK
 
-            on enter world, already in port,
+            on enter world, already in port  OK
+
+            sail to see sea map   OK
 
 
         sea

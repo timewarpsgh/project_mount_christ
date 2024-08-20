@@ -333,7 +333,7 @@ class PacketHandler:
             else:
                 port = sObjectMgr.get_port(role.map_id)
                 print(f'entered port {port.name}')
-                self.client.game.graphics.change_background_sp_to_port()
+                self.client.game.graphics.change_background_sp_to_port(role.map_id, role.x, role.y)
 
 
     async def handle_OpenedGrid(self, opened_grid):

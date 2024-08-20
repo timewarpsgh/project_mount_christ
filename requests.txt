@@ -9,9 +9,11 @@ TO DO:
     backgound
         buildings  OK
 
+        port map_maker ON
+            enter port, show port img  OK
+            on enter world, already in port,
 
 
-        port
         sea
 
     movement

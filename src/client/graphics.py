@@ -9,6 +9,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 import constants as c
 
 from asset_mgr import sAssetMgr
+from map_maker import sMapMaker
 
 FONT_SIZE = 16
 YELLOW = (255, 255, 0)
@@ -154,8 +155,11 @@ class Graphics:
         print('chaning bg')
         self.sp_background.change_img(self.imgs['sea'])
 
-    def change_background_sp_to_port(self):
-        self.sp_background.change_img(self.imgs['background'])
+    def change_background_sp_to_port(self, port_id, x, y):
+
+        port_piddle, port_map = sMapMaker.make_port_piddle_and_map(port_id)
+
+        self.sp_background.change_img(port_map)
 
     def change_background_sp_to_building(self, building_name):
         # bg and figure

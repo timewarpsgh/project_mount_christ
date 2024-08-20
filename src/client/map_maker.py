@@ -15,7 +15,7 @@ class MapMaker():
     def __init__(self):
         pass
 
-    def make_port_piddle_and_map(self, port_index, time_of_day='random'):
+    def make_port_piddle_and_map(self, port_index, time_of_day='random', save_img=False):
         port_index -= 1
         """make a port's tile matrix and image"""
         # normal and supply ports
@@ -29,7 +29,9 @@ class MapMaker():
 
         # make map
         port_map_pil_img = self.make_port_map(port_piddle, port_index, time_of_day)
-        port_map_pil_img.save(f"test_port_img.png")
+
+        if save_img:
+            port_map_pil_img.save(f"test_port_img.png")
 
         mode = port_map_pil_img.mode
         size = port_map_pil_img.size

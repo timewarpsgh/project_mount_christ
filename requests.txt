@@ -24,7 +24,9 @@ TO DO:
 
             gen new partial sea map ON
                 trigger new map making  OK
-                refactor map making to graphics ON
+
+
+                refactor map making to graphics OK
 
 
 

@@ -270,61 +270,27 @@ class PacketHandler:
         self.client.game.gui.options_dialog.show_available_cargos_menu(get_available_cargos_res)
 
     async def handle_RoleMoved(self, role_moved):
-        print('role id', role_moved.id)
-        print('my id', self.client.game.graphics.model.role.id)
 
         # self move
         if role_moved.id == self.client.game.graphics.model.role.id:
 
-            print('you moved!!')
-
+            # update role
             role_model = self.__get_role()
             role_model.x = role_moved.x
             role_model.y = role_moved.y
 
             # at sea
             if role_model.map_id == 0:
-
-                # if need to draw new map
-                if abs(role_moved.x - sMapMaker.x_tile) >= 12 or abs(role_moved.y - sMapMaker.y_tile) >= 12:
-                    print("out of box! time to draw new map")
-
-                    # if self.my_role.y <= c.WORLD_MAP_MAX_Y_TO_DRAW_NEW_PARTIAL_WORLD_MAP and \
-                    #         self.my_role.y >= c.WORLD_MAP_MIN_Y_TO_DRAW_NEW_PARTIAL_WORLD_MAP:
-                    #     if self.my_role.x >= c.WORLD_MAP_MIN_X_TO_DRAW_NEW_PARTIAL_WORLD_MAP and \
-                    #             self.my_role.x <= c.WORLD_MAP_MAX_X_TO_DRAW_NEW_PARTIAL_WORLD_MAP:
-
-                            # # get time_of_day
-                            # if (self.time_of_day_index + 1) >= len(c.TIME_OF_DAY_OPTIONS):
-                            #     self.time_of_day_index = 0
-                            # else:
-                            #     self.time_of_day_index += 1
-                            # time_of_day = c.TIME_OF_DAY_OPTIONS[self.time_of_day_index]
-
-                    # make sea image
-                    new_partial_sea_map = sMapMaker.make_partial_world_map(role_moved.x, role_moved.y, save_img=True)
-                    self.__get_graphics().sp_background.change_img(new_partial_sea_map)
-                    x, y = self.__get_graphics().role_xy_at_sea_2_xy_on_screen(role_moved.x, role_moved.y)
-                    self.__get_graphics().sp_background.move_to(x, y)
-                # else
-                else:
-                    x, y = self.__get_graphics().role_xy_at_sea_2_xy_on_screen(role_model.x, role_model.y)
-                    self.__get_graphics().sp_background.move_to(x, y)
+                self.__get_graphics().move_sea_bg(role_model.x, role_model.y)
 
             # in port
             else:
-
                 # role_xy_in_port_to_xy_on_screen
-                x, y = self.__get_graphics().\
-                    role_xy_in_port_2_xy_on_screen(role_model.x, role_model.y)
-                self.__get_graphics().sp_background.move_to(x, y)
-
+                self.__get_graphics().move_port_bg(role_model.x, role_model.y)
 
         # other role move
         else:
-            print('someoneelse moved!!')
-
-            self.client.game.graphics.move_sp_role(role_moved.id, role_moved.x, role_moved.y)
+            self.__get_graphics().move_sp_role(role_moved.id, role_moved.x, role_moved.y)
 
     def __get_role(self):
         return self.client.game.graphics.model.role

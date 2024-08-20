@@ -152,6 +152,41 @@ class Graphics:
         else:
             return image
 
+    def move_port_bg(self, x, y):
+        x, y = self.role_xy_in_port_2_xy_on_screen(x, y)
+        self.sp_background.move_to(x, y)
+
+    def move_sea_bg(self, x, y):
+        # if out of range
+        if abs(x - sMapMaker.x_tile) >= 12 or abs(y - sMapMaker.y_tile) >= 12:
+            print("out of box! time to draw new map")
+
+            # edge case
+            tile_size = c.PIXELS_COVERED_EACH_MOVE
+            x_in_pixels = x * tile_size
+            y_in_pixels = y * tile_size
+
+            if y_in_pixels > c.WORLD_MAP_MAX_Y_TO_DRAW_NEW_PARTIAL_WORLD_MAP or \
+                    y_in_pixels < c.WORLD_MAP_MIN_Y_TO_DRAW_NEW_PARTIAL_WORLD_MAP:
+                return
+
+            if x_in_pixels > c.WORLD_MAP_MAX_X_TO_DRAW_NEW_PARTIAL_WORLD_MAP or \
+                    x_in_pixels < c.WORLD_MAP_MIN_X_TO_DRAW_NEW_PARTIAL_WORLD_MAP:
+                return
+
+            # make new sea image
+            new_partial_sea_map = sMapMaker.make_partial_world_map(x, y)
+            self.sp_background.change_img(new_partial_sea_map)
+
+            # move img
+            x, y = self.role_xy_at_sea_2_xy_on_screen(x, y)
+            self.sp_background.move_to(x, y)
+
+        # else
+        else:
+            x, y = self.role_xy_at_sea_2_xy_on_screen(x, y)
+            self.sp_background.move_to(x, y)
+
     def role_xy_in_port_2_xy_on_screen(self, x, y):
         x = -x * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_WIDTH // 2
         y = -y * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_HEIGHT // 2

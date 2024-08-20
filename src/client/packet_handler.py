@@ -187,39 +187,21 @@ class PacketHandler:
 
     async def handle_EnterWorldRes(self, enter_world_res):
         if enter_world_res.is_ok:
+            # rename pack
             role = enter_world_res.role_entered
 
-            MyMsgWindow(
-                msg=f'{role.name} entered world! {role.map_id=}',
-                mgr=self.client.game.gui.mgr
-            )
-
-            # clear gui
-            self.client.game.gui.mgr.clear_and_reset()
-
-            # init options dialog
-            self.client.game.gui.options_dialog = OptionsDialog(self.client.game.gui.mgr, self.client)
-
-            # init chat dialog
-            self.client.game.gui.chat_dialog = ChatDialog(self.client.game.gui.mgr, self.client)
-
             # ini role
-            self.client.game.graphics.model.role = Role(
+            self.__get_model().role = Role(
                 id=role.id,
                 name=role.name,
                 x=role.x,
                 y=role.y,
                 money=role.money,
             )
-            model_role = self.client.game.graphics.model.role
+            model_role = self.__get_role()
             model_role.ship_mgr = ShipMgr(model_role)
             model_role.mate_mgr = MateMgr(model_role)
             model_role.discovery_mgr = DiscoveryMgr()
-
-            self.client.game.graphics.sp_role.move_to(role.x, role.y)
-            self.client.game.graphics.sp_role_name.move_to(role.x, role.y)
-            self.client.game.graphics.sp_role_name.change_img(self.client.game.graphics.font.render(role.name, True, YELLOW))
-
 
             # init ships
             for prot_ship in role.ships:
@@ -242,6 +224,14 @@ class PacketHandler:
             # init seen grids
             model_role.seen_grids = self.__get_matrix_from_64_int32s(role)
 
+            # clear gui
+            self.client.game.gui.mgr.clear_and_reset()
+            # init options dialog
+            self.client.game.gui.options_dialog = OptionsDialog(self.client.game.gui.mgr, self.client)
+            # init chat dialog
+            self.client.game.gui.chat_dialog = ChatDialog(self.client.game.gui.mgr, self.client)
+
+            # set is_in_game for client
             self.is_in_game = True
 
         else:

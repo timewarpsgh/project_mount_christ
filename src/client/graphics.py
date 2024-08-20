@@ -98,6 +98,52 @@ class CannonBall(SP):
             self.kill()
 
 
+class RoleSP(SP):
+
+    def __init__(self, model, image, x, y):
+        super().__init__(image, x, y)
+        self.model = model
+
+        self.is_using_port_img = False
+        self.is_using_sea_img = False
+        self.is_using_battle_img = False
+
+    def update(self):
+        if not self.model.role:
+            return
+
+        if self.model.role.is_in_port() and not self.is_using_port_img:
+            self.change_img(sAssetMgr.images['player']['person_in_port'])
+            self.is_using_port_img = True
+            self.is_using_sea_img = False
+            self.is_using_battle_img = False
+
+        elif self.model.role.is_at_sea() and not self.is_using_sea_img:
+            # self.change_img(sAssetMgr.images['player']['ship_at_sea'])
+
+            self.change_img(self.__ship_x_y_ship_image(1, 1))
+            self.is_using_sea_img = True
+            self.is_using_port_img = False
+            self.is_using_battle_img = False
+
+        elif self.model.role.is_in_battle() and not self.is_using_battle_img:
+            self.change_img(sAssetMgr.images['player']['role_in_battle'])
+            self.is_using_battle_img = True
+            self.is_using_port_img = False
+            self.is_using_port_img = False
+
+    def __ship_x_y_ship_image(self, x, y):
+        ship_tile_set_img = sAssetMgr.images['player']['ship-tileset']
+        tile_size = c.SHIP_SIZE_IN_PIXEL
+        # make a [transparent] pygame surface
+        ship_surface = pygame.Surface((tile_size, tile_size), pygame.SRCALPHA)
+        x_coord = -tile_size * (x - 1)
+        y_coord = -tile_size * (y - 1)
+        rect = pygame.Rect(x_coord, y_coord, tile_size, tile_size)
+        ship_surface.blit(ship_tile_set_img, rect)
+
+        return ship_surface
+
 class Graphics:
 
     def __init__(self, client=None, model=None):
@@ -116,14 +162,14 @@ class Graphics:
         self.sprites = pygame.sprite.Group()
 
         self.sp_background = SP(self.imgs['background'], 0, 0)
-        self.sp_role = SP(self.imgs['role'], 300, 150)
-        self.sp_role_name = SP(self.font.render('name', True, YELLOW), 300, 150)
+        self.sp_role = RoleSP(model, sAssetMgr.images['player']['person_in_port'], c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
+        # self.sp_role_name = SP(self.font.render('name', True, YELLOW), c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
         self.sp_hud_left = SP(sAssetMgr.images['huds']['hud_left'], 0, 0)
         self.sp_hud_right = SP(sAssetMgr.images['huds']['hud_right'], c.WINDOW_WIDTH - c.HUD_WIDTH, 0)
 
         self.sprites.add(self.sp_background)
         self.sprites.add(self.sp_role)
-        self.sprites.add(self.sp_role_name)
+        # self.sprites.add(self.sp_role_name)
         self.sprites.add(self.sp_hud_left)
         self.sprites.add(self.sp_hud_right)
 

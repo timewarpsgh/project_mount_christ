@@ -11,7 +11,7 @@ TO DO:
         port OK
         sea map OK
 
-    sp_role
+    sp_role  ON
         in port
         at sea
         is_in_battle

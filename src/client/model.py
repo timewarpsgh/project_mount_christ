@@ -194,6 +194,24 @@ class Role:
     battle_timer: int = None
     is_battle_timer_mine: bool = None
 
+    def is_in_port(self):
+        if self.map_id != 0:
+            return True
+        else:
+            return False
+
+    def is_at_sea(self):
+        if self.map_id == 0:
+            return True
+        else:
+            return False
+
+    def is_in_battle(self):
+        if self.battle_npc_id or self.battle_role_id:
+            return True
+        else:
+            return False
+
 
 @dataclass
 class Npc:

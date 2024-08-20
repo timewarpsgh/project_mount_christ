@@ -15,6 +15,8 @@ class MapMaker():
     def __init__(self):
         self.world_map_tiles = None
         self.world_map_piddle = None
+        self.x_tile = None
+        self.y_tile = None
 
     def make_port_piddle_and_map(self, port_index, time_of_day='random', save_img=False):
         port_index -= 1

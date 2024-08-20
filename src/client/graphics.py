@@ -131,10 +131,6 @@ class Graphics:
         self.id_2_sp_role = {}
         self.id_2_sp_role_name = {}
 
-
-        self.partial_world_map_x = None
-        self.partial_world_map_y = None
-
     def __load_images(self):
         imgs = {}
 
@@ -163,10 +159,10 @@ class Graphics:
         return x, y
 
     def role_xy_at_sea_2_xy_on_screen(self, x, y):
-        x = -(x - self.partial_world_map_x) * c.PIXELS_COVERED_EACH_MOVE - \
+        x = -(x - sMapMaker.x_tile - 3) * c.PIXELS_COVERED_EACH_MOVE - \
             (c.PIXELS_COVERED_EACH_MOVE * c.PARTIAL_WORLD_MAP_TILES_IN_ONE_DIRECTION // 2)
 
-        y = -(y - self.partial_world_map_y) * c.PIXELS_COVERED_EACH_MOVE - \
+        y = -(y - sMapMaker.y_tile + 4) * c.PIXELS_COVERED_EACH_MOVE - \
             (c.PIXELS_COVERED_EACH_MOVE * c.PARTIAL_WORLD_MAP_TILES_IN_ONE_DIRECTION // 2)
         return x, y
 
@@ -181,18 +177,9 @@ class Graphics:
                 sMapMaker.set_world_map_tiles()
 
             partial_sea_map = sMapMaker.make_partial_world_map(x, y, save_img=True)
-
-            # set partial_world_map_x and y
-            self.partial_world_map_x = x
-            self.partial_world_map_y = y
-
             self.sp_background.change_img(partial_sea_map)
 
             x, y = self.role_xy_at_sea_2_xy_on_screen(x, y)
-            # x = 3 * c.PIXELS_COVERED_EACH_MOVE - \
-            #     (c.PIXELS_COVERED_EACH_MOVE * c.PARTIAL_WORLD_MAP_TILES_IN_ONE_DIRECTION // 2)
-            # y = - 4 * c.PIXELS_COVERED_EACH_MOVE - \
-            #     (c.PIXELS_COVERED_EACH_MOVE * c.PARTIAL_WORLD_MAP_TILES_IN_ONE_DIRECTION // 2)
             self.sp_background.move_to(x, y)
 
 

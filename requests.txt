@@ -22,7 +22,10 @@ TO DO:
             move to move port map OK
             move to move sea map  OK
 
-            gen new partial sea map
+            gen new partial sea map ON
+                trigger new map making  OK
+                refactor map making to graphics ON
+
 
 
         sea

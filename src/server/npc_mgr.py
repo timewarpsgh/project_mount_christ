@@ -28,6 +28,10 @@ class Npc(Role):
     ship_mgr: ShipMgr = None
     battle_timer: int = None
 
+    def get_flag_ship(self):
+        flag_ship = list(self.ship_mgr.id_2_ship.values())[0]
+        return flag_ship
+
 class NpcMgr:
 
     def __init__(self):

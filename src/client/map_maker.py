@@ -31,6 +31,7 @@ class MapMaker():
         port_map_pil_img = self.make_port_map(port_piddle, port_index, time_of_day)
 
         if save_img:
+            print('port img saved!!!')
             port_map_pil_img.save(f"test_port_img.png")
 
         mode = port_map_pil_img.mode
@@ -207,7 +208,6 @@ if __name__ == '__main__':
     map_maker = MapMaker()
     # map_maker.make_port_piddle(1
 
-    port_id = 66
-    port_piddle, port_map = map_maker.make_port_piddle_and_map(port_id, 'random')
-    print(port_piddle)
-    print(port_map)
+    port_id = 17
+    port_piddle, port_map = map_maker.make_port_piddle_and_map(port_id, 'random', save_img=True)
+

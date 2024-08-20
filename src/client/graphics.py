@@ -10,6 +10,7 @@ import constants as c
 
 from asset_mgr import sAssetMgr
 from map_maker import sMapMaker
+from object_mgr import sObjectMgr
 
 FONT_SIZE = 16
 YELLOW = (255, 255, 0)
@@ -157,9 +158,16 @@ class Graphics:
 
     def change_background_sp_to_port(self, port_id, x, y):
 
-        port_piddle, port_map = sMapMaker.make_port_piddle_and_map(port_id)
+        port_piddle, port_map = sMapMaker.make_port_piddle_and_map(port_id, save_img=True)
 
         self.sp_background.change_img(port_map)
+
+        # london harbor 58, 62 4(harbor)
+        building_x, building_y = sObjectMgr.get_building_xy_in_port(building_id=4, port_id=port_id)
+
+        x = -building_x * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_WIDTH // 2
+        y = -building_y * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_HEIGHT // 2
+        self.sp_background.move_to(x, y)
 
     def change_background_sp_to_building(self, building_name):
         # bg and figure

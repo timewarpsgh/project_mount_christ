@@ -11,6 +11,9 @@ TO DO:
 
         port map_maker ON
             enter port, show port img  OK
+            show location at harbor OK
+
+
             on enter world, already in port,
 
 

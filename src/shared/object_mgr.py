@@ -88,6 +88,13 @@ class ObjectMgr:
     def get_port(self, id):
         return self.id_2_port[id]
 
+    def get_building_xy_in_port(self, building_id, port_id):
+        port = self.get_port(port_id)
+        dict = json.loads(port.building_locations)
+        x = dict[str(building_id)]['x']
+        y = dict[str(building_id)]['y']
+        return x, y
+
     def get_cargo_template(self, id):
         return self.id_2_cargo_template[id]
 

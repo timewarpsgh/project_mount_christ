@@ -448,8 +448,12 @@ class PacketHandler:
         dst_id = ship_attacked.dst_id
         dst_damage = ship_attacked.dst_damage
 
+        print(f'ship attacked {src_id} {dst_id} {dst_damage}')
+
         src_ship = self.__get_model().get_ship_in_battle_by_id(src_id)
         dst_ship = self.__get_model().get_ship_in_battle_by_id(dst_id)
+
+        print(f'target ship x y: {dst_ship.x}  {dst_ship.y}')
 
         d_x = dst_ship.x - src_ship.x
         d_y = dst_ship.y - src_ship.y

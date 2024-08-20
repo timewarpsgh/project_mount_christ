@@ -183,10 +183,10 @@ class ShipMgr:
         for id, ship in enumerate(self.id_2_ship.values()):
             if is_attacker:
                 ship.x = 80
-                ship.y = 40 + id * 40
+                ship.y = 40 + id * 80
             else:
                 ship.x = 500
-                ship.y = 40 + id * 40
+                ship.y = 40 + id * 80
 
     def gen_ships_prots(self):
         ships_prots = []
@@ -431,7 +431,9 @@ class Role:
 
         for ship in self.ship_mgr.id_2_ship.values():
 
-            enemy_ship = enemy_npc.get_random_ship()
+            # enemy_ship = enemy_npc.get_random_ship()
+
+            enemy_ship = flag_ship
 
             # move and check is_in_range
 

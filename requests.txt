@@ -17,8 +17,8 @@ TO DO:
         win role  OK
         lose to role OK
 
-        npc choose flag ship  target ON
-        refactor npc move (in role.update) OK
+        i choose npc flag ship to attack OK
+        cannon not right OK
 
 
 

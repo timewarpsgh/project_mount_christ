@@ -235,6 +235,7 @@ class Model:
         return self.get_role_by_id(self.role.battle_role_id)
 
     def get_ship_in_battle_by_id(self, id):
+
         if id in self.role.ship_mgr.id_2_ship:
             return self.role.ship_mgr.get_ship(id)
 

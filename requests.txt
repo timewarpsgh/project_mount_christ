@@ -19,6 +19,11 @@ TO DO:
 
             sail to see sea map   OK
 
+            move to move port map OK
+            move to move sea map  OK
+
+            gen new partial sea map
+
 
         sea
 

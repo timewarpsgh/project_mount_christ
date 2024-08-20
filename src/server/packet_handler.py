@@ -499,22 +499,23 @@ class PacketHandler:
         return grid_x, grid_y
 
     async def handle_Move(self, move):
+        move_distance = c.PIXELS_COVERED_EACH_MOVE
+        move_distance = 1 # 1 tile 16 pixels
+
         if move.dir_type == DirType.E:
-            self.role.x += 5
+            self.role.x += move_distance
         elif move.dir_type == DirType.W:
-            self.role.x -= 5
+            self.role.x -= move_distance
         elif move.dir_type == DirType.N:
-            self.role.y -= 5
+            self.role.y -= move_distance
         elif move.dir_type == DirType.S:
-            self.role.y += 5
+            self.role.y += move_distance
 
         # check opened grid?
         grid_x, grid_y = self.__get_grid_xy(self.role.x, self.role.y)
         if self.role.seen_grids[grid_x][grid_y] == 0:
             self.role.seen_grids[grid_x][grid_y] = 1
             self.session.send(OpenedGrid(grid_x=grid_x, grid_y=grid_y))
-
-
 
         # make packet
         role_moved = RoleMoved()

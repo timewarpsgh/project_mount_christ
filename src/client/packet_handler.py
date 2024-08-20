@@ -272,17 +272,29 @@ class PacketHandler:
         print('role id', role_moved.id)
         print('my id', self.client.game.graphics.model.role.id)
 
+        # self move
         if role_moved.id == self.client.game.graphics.model.role.id:
 
             print('you moved!!')
 
-            role_model = self.client.game.graphics.model.role
+            role_model = self.__get_role()
             role_model.x = role_moved.x
             role_model.y = role_moved.y
 
-            self.client.game.graphics.sp_role.move_to(role_model.x, role_model.y)
-            self.client.game.graphics.sp_role_name.move_to(role_model.x, role_model.y)
+            # at sea
+            if role_model.map_id == 0:
+                x, y = self.__get_graphics().role_xy_at_sea_2_xy_on_screen(role_model.x, role_model.y)
+                self.__get_graphics().sp_background.move_to(x, y)
+            # in port
+            else:
 
+                # role_xy_in_port_to_xy_on_screen
+                x, y = self.__get_graphics().\
+                    role_xy_in_port_2_xy_on_screen(role_model.x, role_model.y)
+                self.__get_graphics().sp_background.move_to(x, y)
+
+
+        # other role move
         else:
             print('someoneelse moved!!')
 

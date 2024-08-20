@@ -131,6 +131,10 @@ class Graphics:
         self.id_2_sp_role = {}
         self.id_2_sp_role_name = {}
 
+
+        self.partial_world_map_x = None
+        self.partial_world_map_y = None
+
     def __load_images(self):
         imgs = {}
 
@@ -152,6 +156,20 @@ class Graphics:
         else:
             return image
 
+    def role_xy_in_port_2_xy_on_screen(self, x, y):
+        x = -x * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_WIDTH // 2
+        y = -y * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_HEIGHT // 2
+
+        return x, y
+
+    def role_xy_at_sea_2_xy_on_screen(self, x, y):
+        x = -(x - self.partial_world_map_x) * c.PIXELS_COVERED_EACH_MOVE - \
+            (c.PIXELS_COVERED_EACH_MOVE * c.PARTIAL_WORLD_MAP_TILES_IN_ONE_DIRECTION // 2)
+
+        y = -(y - self.partial_world_map_y) * c.PIXELS_COVERED_EACH_MOVE - \
+            (c.PIXELS_COVERED_EACH_MOVE * c.PARTIAL_WORLD_MAP_TILES_IN_ONE_DIRECTION // 2)
+        return x, y
+
     def change_background_sp_to_sea(self, x=None, y=None):
         print('chaning bg')
         if not x or not y:
@@ -164,12 +182,17 @@ class Graphics:
 
             partial_sea_map = sMapMaker.make_partial_world_map(x, y, save_img=True)
 
+            # set partial_world_map_x and y
+            self.partial_world_map_x = x
+            self.partial_world_map_y = y
+
             self.sp_background.change_img(partial_sea_map)
 
-            x = 3 * c.PIXELS_COVERED_EACH_MOVE - \
-                (c.PIXELS_COVERED_EACH_MOVE * c.PARTIAL_WORLD_MAP_TILES_IN_ONE_DIRECTION // 2)
-            y = - 4 * c.PIXELS_COVERED_EACH_MOVE - \
-                (c.PIXELS_COVERED_EACH_MOVE * c.PARTIAL_WORLD_MAP_TILES_IN_ONE_DIRECTION // 2)
+            x, y = self.role_xy_at_sea_2_xy_on_screen(x, y)
+            # x = 3 * c.PIXELS_COVERED_EACH_MOVE - \
+            #     (c.PIXELS_COVERED_EACH_MOVE * c.PARTIAL_WORLD_MAP_TILES_IN_ONE_DIRECTION // 2)
+            # y = - 4 * c.PIXELS_COVERED_EACH_MOVE - \
+            #     (c.PIXELS_COVERED_EACH_MOVE * c.PARTIAL_WORLD_MAP_TILES_IN_ONE_DIRECTION // 2)
             self.sp_background.move_to(x, y)
 
 
@@ -179,11 +202,7 @@ class Graphics:
 
         self.sp_background.change_img(port_map)
 
-        # london harbor 58, 62 4(harbor)
-        building_x, building_y = sObjectMgr.get_building_xy_in_port(building_id=4, port_id=port_id)
-
-        x = -building_x * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_WIDTH // 2
-        y = -building_y * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_HEIGHT // 2
+        x, y = self.role_xy_in_port_2_xy_on_screen(x, y)
         self.sp_background.move_to(x, y)
 
     def change_background_sp_to_building(self, building_name):

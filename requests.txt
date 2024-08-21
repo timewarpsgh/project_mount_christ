@@ -26,6 +26,7 @@ TO DO:
 
     hud ON
        gui lower OK
+       customize gui  OK
 
 
 

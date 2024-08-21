@@ -27,8 +27,9 @@ class OptionsDialog:
 
         # add ui window
         self.ui_window = pygame_gui.elements.UIWindow(
-            rect=pygame.Rect((-20, c.WINDOW_HEIGHT - 100 + 5), (c.WINDOW_WIDTH + 40, 50 + 70)),
+            rect=pygame.Rect((-20 + 5, c.WINDOW_HEIGHT - 100 + 30), (c.WINDOW_WIDTH + 40, 50)),
             manager=self.mgr,
+            object_id='#options_window',
         )
 
         # buttons to add

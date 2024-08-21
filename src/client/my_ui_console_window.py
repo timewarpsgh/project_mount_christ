@@ -39,7 +39,9 @@ class MyUIConsoleWindow(UIWindow):
                          window_display_title=window_title,
                          object_id=object_id,
                          resizable=True,
-                         visible=visible)
+                         visible=visible,
+                         )
+
 
         self.default_log_prefix = '> '
         self.log_prefix = self.default_log_prefix

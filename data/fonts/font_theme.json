@@ -1,11 +1,20 @@
 {
-    "button":
-    {
-        "font":
-        {
-            "name": "MS Gothic",
-            "size": "16",
-            "regular_path":"../../data/fonts/siyuanheiti.ttf"
+    "button": {
+        "font": {
+          "name": "MS Gothic",
+          "size": "14",
+          "regular_path": "../../data/fonts/siyuanheiti.ttf"
+        },
+        "images": {
+          "normal_image": {
+            "path": "../../data/imgs/game_icon/button_bg_normal.png"
+          },
+          "hovered_image": {
+            "path": "../../data/imgs/game_icon/button_bg_hovered.png"
+          }
+        },
+        "colours": {
+          "normal_text": "#000000"
         }
     },
     "text_box":
@@ -34,5 +43,60 @@
             "size": "15",
             "regular_path":"../../data/fonts/siyuanheiti.ttf"
         }
+    },
+    "#log":
+    {
+         "colours":
+         {
+             "dark_bg": "#19191940"
+         }
+    },
+    "#command_entry":
+    {
+         "colours":
+         {
+             "dark_bg": "#19191940"
+         }
+    },
+    "#console_window":
+    {
+         "colours":
+         {
+             "dark_bg": "#19191940"
+         },
+         "misc":
+         {
+             "enable_title_bar": "0"
+         }
+    },
+    "#options_window":
+    {
+         "colours":
+         {
+             "dark_bg": "#19191940"
+         },
+         "misc":
+         {
+             "enable_title_bar": "0"
+         }
+    },
+    "window":
+    {
+         "colours":
+         {
+             "dark_bg": "#00000000"
+         },
+
+         "misc":
+         {
+             "enable_title_bar": "0"
+         }
+    },
+    "selection_list":
+    {
+         "colours":
+         {
+             "dark_bg": "#00000000"
+         }
     }
 }

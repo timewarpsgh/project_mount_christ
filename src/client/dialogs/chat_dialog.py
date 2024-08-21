@@ -18,8 +18,10 @@ class ChatDialog(MyUIConsoleWindow):
         self.mgr = mgr
         self.client = client
         super().__init__(
-            rect=pygame.rect.Rect((90, 280), (400, 160)),
-            manager=mgr)
+            rect=pygame.rect.Rect((90, 295), (400, 160)),
+            manager=mgr,
+            object_id='#console_window'
+        )
 
 
     def process_event(self, event: pygame.event.Event) -> bool:

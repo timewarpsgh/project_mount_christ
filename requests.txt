@@ -11,20 +11,22 @@ TO DO:
         port OK
         sea map OK
 
-    sp_role  ON
+    sp_role  OK
 
         at sea dir OK
-
         in port  change frame each move      OK
-
         enter and exit building OK
-
         after escape battle, show sea img OK
-
         after enter battle with role, hide role sp OK
 
 
-        is_in_battle
+
+    sea map placement OK
+
+
+    hud ON
+        lower ON
+
 
     movement
 

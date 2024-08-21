@@ -279,7 +279,13 @@ class PacketHandler:
 
             # in port
             else:
-                # role_xy_in_port_to_xy_on_screen
+                sp_role = self.__get_graphics().sp_role
+                if sp_role.now_frame == 0:
+                    sp_role.now_frame = 1
+                else:
+                    sp_role.now_frame = 0
+
+                sp_role.change_img(sp_role.frames['in_port'][role_model.dir][sp_role.now_frame])
                 self.__get_graphics().move_port_bg(role_model.x, role_model.y)
 
         # other role move

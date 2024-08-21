@@ -102,26 +102,29 @@ class CannonBall(SP):
 class RoleSP(SP):
 
     def __init__(self, model, image, x, y):
-        super().__init__(image, x, y)
+        self.frames = {
+            'at_sea' : {
+                # dir type
+                pb.DirType.N : [self.__x_y_to_image(1, 2), self.__x_y_to_image(2, 2)],
+                pb.DirType.E : [self.__x_y_to_image(3, 2), self.__x_y_to_image(4, 2)],
+                pb.DirType.S : [self.__x_y_to_image(5, 2), self.__x_y_to_image(6, 2)],
+                pb.DirType.W: [self.__x_y_to_image(7, 2), self.__x_y_to_image(8, 2)],
+            },
+            'in_port': {
+                pb.DirType.N : [self.__x_y_to_image(1, 1, False), self.__x_y_to_image(2, 1, False)],
+                pb.DirType.E : [self.__x_y_to_image(3, 1, False), self.__x_y_to_image(4, 1, False)],
+                pb.DirType.S : [self.__x_y_to_image(5, 1, False), self.__x_y_to_image(6, 1, False)],
+                pb.DirType.W: [self.__x_y_to_image(7, 1, False), self.__x_y_to_image(8, 1, False)],
+
+            }
+        }
+
+        super().__init__(self.frames['in_port'][pb.DirType.N][0], x, y)
         self.model = model
 
         self.is_using_port_img = False
         self.is_using_sea_img = False
         self.is_using_battle_img = False
-
-        self.frames = {
-            'at_sea' : {
-                # dir type
-                pb.DirType.N : [self.__ship_x_y_ship_image(1, 2), self.__ship_x_y_ship_image(2, 2)],
-                pb.DirType.E : [self.__ship_x_y_ship_image(3, 2), self.__ship_x_y_ship_image(4, 2)],
-                pb.DirType.S : [self.__ship_x_y_ship_image(5, 2), self.__ship_x_y_ship_image(6, 2)],
-                pb.DirType.W: [self.__ship_x_y_ship_image(7, 2), self.__ship_x_y_ship_image(8, 2)],
-            },
-            'in_port': {
-                'n': [],
-
-            }
-        }
 
         self.now_frame = 0
         self.frame_counter = 0
@@ -136,21 +139,26 @@ class RoleSP(SP):
         self.__update_frame()
 
     def __update_frame(self):
-        if self.frame_counter == self.frame_counter_max:
-            self.frame_counter = 0
-            self.now_frame += 1
-            if self.now_frame == len(self.frames['at_sea'][pb.DirType.N]):
-                self.now_frame = 0
+        if self.model.role.is_at_sea():
 
-            if self.model.role.is_at_sea():
-                self.change_img(self.frames['at_sea'][self.model.role.dir][self.now_frame])
+            if self.frame_counter == self.frame_counter_max:
+                self.frame_counter = 0
+                self.now_frame += 1
+                if self.now_frame == len(self.frames['at_sea'][pb.DirType.N]):
+                    self.now_frame = 0
 
-        else:
-            self.frame_counter += 1
+                if self.model.role.is_at_sea():
+                    self.change_img(self.frames['at_sea'][self.model.role.dir][self.now_frame])
+
+                # elif self.model.role.is_in_port():
+                #     self.change_img(self.frames['in_port'][self.model.role.dir][0])
+
+            else:
+                self.frame_counter += 1
 
     def __update_img_based_on_location(self):
         if self.model.role.is_in_port() and not self.is_using_port_img:
-            self.change_img(sAssetMgr.images['player']['person_in_port'])
+            self.change_img(self.frames['in_port'][self.model.role.dir][0])
             self.is_using_port_img = True
             self.is_using_sea_img = False
             self.is_using_battle_img = False
@@ -158,7 +166,7 @@ class RoleSP(SP):
         elif self.model.role.is_at_sea() and not self.is_using_sea_img:
             # self.change_img(sAssetMgr.images['player']['ship_at_sea'])
 
-            self.change_img(self.__ship_x_y_ship_image(3, 2))
+            self.change_img(self.frames['at_sea'][self.model.role.dir][0])
             self.is_using_sea_img = True
             self.is_using_port_img = False
             self.is_using_battle_img = False
@@ -169,15 +177,19 @@ class RoleSP(SP):
             self.is_using_port_img = False
             self.is_using_port_img = False
 
-    def __ship_x_y_ship_image(self, x, y):
-        ship_tile_set_img = sAssetMgr.images['player']['ship-tileset']
+    def __x_y_to_image(self, x, y, is_ship=True):
+        if is_ship:
+            tile_set_img = sAssetMgr.images['player']['ship-tileset']
+        else:
+            tile_set_img = sAssetMgr.images['player']['person_tileset']
+
         tile_size = c.SHIP_SIZE_IN_PIXEL
         # make a [transparent] pygame surface
         ship_surface = pygame.Surface((tile_size, tile_size), pygame.SRCALPHA)
         x_coord = -tile_size * (x - 1)
         y_coord = -tile_size * (y - 1)
         rect = pygame.Rect(x_coord, y_coord, tile_size, tile_size)
-        ship_surface.blit(ship_tile_set_img, rect)
+        ship_surface.blit(tile_set_img, rect)
 
         return ship_surface
 
@@ -200,7 +212,7 @@ class Graphics:
         self.sprites = pygame.sprite.Group()
 
         self.sp_background = SP(self.imgs['background'], 0, 0)
-        self.sp_role = RoleSP(model, sAssetMgr.images['player']['person_in_port'], c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
+        self.sp_role = RoleSP(model, None, c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
         # self.sp_role_name = SP(self.font.render('name', True, YELLOW), c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
         self.sp_hud_left = SP(sAssetMgr.images['huds']['hud_left'], 0, 0)
         self.sp_hud_right = SP(sAssetMgr.images['huds']['hud_right'], c.WINDOW_WIDTH - c.HUD_WIDTH, 0)

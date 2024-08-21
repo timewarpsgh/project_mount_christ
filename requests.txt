@@ -25,7 +25,8 @@ TO DO:
 
 
     hud ON
-        lower ON
+       gui lower OK
+
 
 
     movement

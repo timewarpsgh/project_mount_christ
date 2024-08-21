@@ -196,6 +196,7 @@ class PacketHandler:
                 name=role.name,
                 x=role.x,
                 y=role.y,
+                dir=role.dir,
                 money=role.money,
             )
             model_role = self.__get_role()
@@ -268,9 +269,12 @@ class PacketHandler:
             role_model = self.__get_role()
             role_model.x = role_moved.x
             role_model.y = role_moved.y
+            role_model.dir = role_moved.dir_type
 
             # at sea
             if role_model.map_id == 0:
+                sp_role = self.__get_graphics().sp_role
+                sp_role.change_img(sp_role.frames['at_sea'][role_model.dir][0])
                 self.__get_graphics().move_sea_bg(role_model.x, role_model.y)
 
             # in port

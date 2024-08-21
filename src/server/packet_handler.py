@@ -375,6 +375,7 @@ class PacketHandler:
                 name=role.name,
                 x=role.x,
                 y=role.y,
+                dir=role.dir,
                 map_id=role.map_id,
                 money=role.money,
             )
@@ -417,6 +418,7 @@ class PacketHandler:
             role_entered.map_id = role.map_id
             role_entered.x = role.x
             role_entered.y = role.y
+            role_entered.dir = role.dir
             role_entered.money = role.money
             if role.discovery_ids_json_str:
                 role_entered.discovery_ids_json_str = role.discovery_ids_json_str

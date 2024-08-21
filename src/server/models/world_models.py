@@ -160,6 +160,7 @@ class Npc(BASE):
 
 	x = Column(Integer)
 	y = Column(Integer)
+	dir = Column(Integer)
 	map_id = Column(Integer)
 
 

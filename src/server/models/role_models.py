@@ -34,6 +34,7 @@ class Role(BASE):
 	map_id = Column(Integer)
 	x = Column(Integer)
 	y = Column(Integer)
+	dir = Column(Integer)
 	money = Column(Integer)
 	seen_grids = Column(String)
 

@@ -2,6 +2,7 @@ import pygame
 import os
 import sys
 from login_pb2 import *
+import login_pb2 as pb
 
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
@@ -108,10 +109,46 @@ class RoleSP(SP):
         self.is_using_sea_img = False
         self.is_using_battle_img = False
 
+        self.frames = {
+            'at_sea' : {
+                # dir type
+                pb.DirType.N : [self.__ship_x_y_ship_image(1, 2), self.__ship_x_y_ship_image(2, 2)],
+                pb.DirType.E : [self.__ship_x_y_ship_image(3, 2), self.__ship_x_y_ship_image(4, 2)],
+                pb.DirType.S : [self.__ship_x_y_ship_image(5, 2), self.__ship_x_y_ship_image(6, 2)],
+                pb.DirType.W: [self.__ship_x_y_ship_image(7, 2), self.__ship_x_y_ship_image(8, 2)],
+            },
+            'in_port': {
+                'n': [],
+
+            }
+        }
+
+        self.now_frame = 0
+        self.frame_counter = 0
+        self.frame_counter_max = 30
+
+
     def update(self):
         if not self.model.role:
             return
 
+        self.__update_img_based_on_location()
+        self.__update_frame()
+
+    def __update_frame(self):
+        if self.frame_counter == self.frame_counter_max:
+            self.frame_counter = 0
+            self.now_frame += 1
+            if self.now_frame == len(self.frames['at_sea'][pb.DirType.N]):
+                self.now_frame = 0
+
+            if self.model.role.is_at_sea():
+                self.change_img(self.frames['at_sea'][self.model.role.dir][self.now_frame])
+
+        else:
+            self.frame_counter += 1
+
+    def __update_img_based_on_location(self):
         if self.model.role.is_in_port() and not self.is_using_port_img:
             self.change_img(sAssetMgr.images['player']['person_in_port'])
             self.is_using_port_img = True
@@ -121,7 +158,7 @@ class RoleSP(SP):
         elif self.model.role.is_at_sea() and not self.is_using_sea_img:
             # self.change_img(sAssetMgr.images['player']['ship_at_sea'])
 
-            self.change_img(self.__ship_x_y_ship_image(1, 1))
+            self.change_img(self.__ship_x_y_ship_image(3, 2))
             self.is_using_sea_img = True
             self.is_using_port_img = False
             self.is_using_battle_img = False
@@ -143,6 +180,7 @@ class RoleSP(SP):
         ship_surface.blit(ship_tile_set_img, rect)
 
         return ship_surface
+
 
 class Graphics:
 

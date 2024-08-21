@@ -22,6 +22,7 @@ class Npc(Role):
 
     x: int = None
     y: int = None
+    dir: int = None
     map_id: int = None
 
     mate: Mate = None
@@ -112,6 +113,7 @@ class NpcMgr:
                 mate=self.__get_mate(npc_model.id),
                 x=npc_model.x,
                 y=npc_model.y,
+                dir=npc_model.dir,
                 map_id=npc_model.map_id,
                 ship_mgr=self.__get_ship_mgr(npc_model.id)
 

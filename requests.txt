@@ -12,8 +12,11 @@ TO DO:
         sea map OK
 
     sp_role  ON
+
+        at sea dir OK
+
         in port
-        at sea
+
         is_in_battle
 
     movement

@@ -235,6 +235,7 @@ class Role:
     name: str=None
     x: int=None
     y: int=None
+    dir: int=None
     map_id: int=None
     money: int=None
     seen_grids: any=None  # numpy matrix

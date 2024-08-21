@@ -173,7 +173,7 @@ class RoleSP(SP):
             self.change_img(sAssetMgr.images['player']['role_in_battle'])
             self.is_using_battle_img = True
             self.is_using_port_img = False
-            self.is_using_port_img = False
+            self.is_using_sea_img = False
 
     def __x_y_to_image(self, x, y, is_ship=True):
         if is_ship:

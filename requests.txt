@@ -21,6 +21,8 @@ TO DO:
 
         after escape battle, show sea img OK
 
+        after enter battle with role, hide role sp OK
+
 
         is_in_battle
 

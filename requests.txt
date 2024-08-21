@@ -19,9 +19,8 @@ TO DO:
 
         enter and exit building OK
 
+        after escape battle, show sea img OK
 
-
-        after escape battle, show sea img ON
 
         is_in_battle
 

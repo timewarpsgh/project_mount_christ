@@ -328,10 +328,12 @@ class PacketHandler:
         role = self.__get_role()
 
         if map_changed.role_id == role.id:
+            # update model
             role.map_id = map_changed.map_id
             role.x = map_changed.x
             role.y = map_changed.y
 
+            # update graphics
             if role.map_id == 0:
                 self.client.game.graphics.change_background_sp_to_sea(role.x, role.y)
             else:
@@ -378,9 +380,12 @@ class PacketHandler:
 
 
     async def handle_EscapedNpcBattle(self, escaped_npc_battle):
+        role = self.__get_role()
 
-        self.__get_role().battle_npc_id = None
-        self.client.game.graphics.change_background_sp_to_sea()
+        role.battle_npc_id = None
+        role.battle_timer = None
+
+        self.__get_graphics().change_background_sp_to_sea(role.x, role.y)
 
     async def handle_YouWonNpcBattle(self, you_won_npc_battle):
         for ship in you_won_npc_battle.ships:
@@ -433,9 +438,12 @@ class PacketHandler:
 
 
     async def handle_EscapedRoleBattle(self, escaped_role_battle):
-        self.__get_role().battle_role_id = None
-        self.__get_role().battle_timer = None
-        self.__get_graphics().change_background_sp_to_sea()
+        role = self.__get_role()
+
+        role.battle_role_id = None
+        role.battle_timer = None
+
+        self.__get_graphics().change_background_sp_to_sea(role.x, role.y)
 
     async def handle_BattleTimerStarted(self, battle_timer_started):
         print('battle_timer_started')

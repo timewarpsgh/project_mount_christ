@@ -104,18 +104,16 @@ class RoleSP(SP):
     def __init__(self, model, image, x, y):
         self.frames = {
             'at_sea' : {
-                # dir type
                 pb.DirType.N : [self.__x_y_to_image(1, 2), self.__x_y_to_image(2, 2)],
                 pb.DirType.E : [self.__x_y_to_image(3, 2), self.__x_y_to_image(4, 2)],
                 pb.DirType.S : [self.__x_y_to_image(5, 2), self.__x_y_to_image(6, 2)],
-                pb.DirType.W: [self.__x_y_to_image(7, 2), self.__x_y_to_image(8, 2)],
+                pb.DirType.W : [self.__x_y_to_image(7, 2), self.__x_y_to_image(8, 2)],
             },
             'in_port': {
                 pb.DirType.N : [self.__x_y_to_image(1, 1, False), self.__x_y_to_image(2, 1, False)],
                 pb.DirType.E : [self.__x_y_to_image(3, 1, False), self.__x_y_to_image(4, 1, False)],
                 pb.DirType.S : [self.__x_y_to_image(5, 1, False), self.__x_y_to_image(6, 1, False)],
-                pb.DirType.W: [self.__x_y_to_image(7, 1, False), self.__x_y_to_image(8, 1, False)],
-
+                pb.DirType.W : [self.__x_y_to_image(7, 1, False), self.__x_y_to_image(8, 1, False)],
             }
         }
 
@@ -136,9 +134,9 @@ class RoleSP(SP):
             return
 
         self.__update_img_based_on_location()
-        self.__update_frame()
+        self.__update_at_sea_frame()
 
-    def __update_frame(self):
+    def __update_at_sea_frame(self):
         if self.model.role.is_at_sea():
 
             if self.frame_counter == self.frame_counter_max:
@@ -469,3 +467,9 @@ class Graphics:
     def show_cannon(self, x, y, d_x, d_y):
         cannon = CannonBall(x, y, d_x, d_y)
         self.sprites.add(cannon)
+
+    def hide_role_sprite(self):
+        self.sp_role.change_img(sAssetMgr.images['player']['role_in_battle'])
+
+    def unhide_role_sprite(self):
+        self.sp_role.change_img(self.sp_role.frames['in_port'][pb.DirType.N][0])

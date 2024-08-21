@@ -115,7 +115,10 @@ class OptionsDialog:
     def __change_building_bg(self, building_name):
         self.__get_graphics().change_background_sp_to_building(building_name)
 
-    def __show_market_menu(self):
+    def show_market_menu(self):
+        # hide role sp
+        self.__get_graphics().hide_role_sprite()
+
         self.__change_building_bg('market')
 
         option_2_callback = {
@@ -126,6 +129,7 @@ class OptionsDialog:
             'Invest': '',
             'Defeat Administrator': '',
             'Manage': '',
+            'Exit': partial(self.__exit_building),
         }
 
         MyMenuWindow(
@@ -134,7 +138,7 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
-    def __show_bar_menu(self):
+    def show_bar_menu(self):
         self.__change_building_bg('bar')
 
         option_2_callback = {
@@ -144,6 +148,7 @@ class OptionsDialog:
             'Meet': '',
             'Fire Mate': '',
             'Waitress': '',
+            'Exit': partial(self.__exit_building),
         }
 
         MyMenuWindow(
@@ -170,7 +175,7 @@ class OptionsDialog:
     def __get_ships_to_buy(self):
         self.client.send(GetShipsToBuy())
 
-    def __show_dry_dock_menu(self):
+    def show_dry_dock_menu(self):
         self.__change_building_bg('dry_dock')
 
         option_2_callback = {
@@ -179,6 +184,7 @@ class OptionsDialog:
             'Repair': '',
             'Sell': partial(self.__show_ships_to_sell),
             'Remodel': '',
+            'Exit': partial(self.__exit_building),
         }
 
         MyMenuWindow(
@@ -187,16 +193,24 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
+    def __exit_building(self):
+        self.pop_some_menus(1)
+        self.__get_graphics().unhide_role_sprite()
+
+        role = self.__get_role()
+        self.__get_graphics().change_background_sp_to_port(role.map_id, role.x, role.y)
+
     def __send_sail_request(self):
         self.client.send(Sail())
 
-    def __show_harbor_menu(self):
+    def show_harbor_menu(self):
         self.__change_building_bg('harbor')
 
         option_2_callback = {
             'Sail': partial(self.__send_sail_request),
             'Load Supply': '',
             'Unload Supply': '',
+            'Exit': partial(self.__exit_building),
         }
 
         MyMenuWindow(
@@ -205,7 +219,7 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
-    def __show_inn_menu(self):
+    def show_inn_menu(self):
         self.__change_building_bg('inn')
 
         option_2_callback = {
@@ -213,6 +227,7 @@ class OptionsDialog:
             'Gossip': '',
             'Port Info': '',
             'Walk Around': '',
+            'Exit': partial(self.__exit_building),
         }
 
         MyMenuWindow(
@@ -221,7 +236,7 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
-    def __show_palace_menu(self):
+    def show_palace_menu(self):
         self.__change_building_bg('palace')
 
         option_2_callback = {
@@ -229,6 +244,7 @@ class OptionsDialog:
             'Defect': '',
             'Gold Aid': '',
             'Ship Aid': '',
+            'Exit': partial(self.__exit_building),
         }
 
         MyMenuWindow(
@@ -237,12 +253,13 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
-    def __show_job_house_menu(self):
+    def show_job_house_menu(self):
         self.__change_building_bg('job_house')
 
         option_2_callback = {
             'Job Assignment': '',
             'Country Info': '',
+            'Exit': partial(self.__exit_building),
         }
 
         MyMenuWindow(
@@ -251,7 +268,7 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
-    def __show_bank_menu(self):
+    def show_bank_menu(self):
         self.__change_building_bg('bank')
 
         option_2_callback = {
@@ -260,6 +277,7 @@ class OptionsDialog:
             'Withdraw': '',
             'Borrow': '',
             'Repay': '',
+            'Exit': partial(self.__exit_building),
         }
 
         MyMenuWindow(
@@ -268,12 +286,13 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
-    def __show_item_shop_menu(self):
+    def show_item_shop_menu(self):
         self.__change_building_bg('item_shop')
 
         option_2_callback = {
             'Buy': '',
             'Sell': '',
+            'Exit': partial(self.__exit_building),
         }
 
         MyMenuWindow(
@@ -282,12 +301,13 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
-    def __show_church_menu(self):
+    def show_church_menu(self):
         self.__change_building_bg('church')
 
         option_2_callback = {
             'Pray': '',
             'Donate': '',
+            'Exit': partial(self.__exit_building),
         }
 
         MyMenuWindow(
@@ -296,7 +316,7 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
-    def __show_fortune_house_menu(self):
+    def show_fortune_house_menu(self):
         self.__change_building_bg('fortune_house')
 
         option_2_callback = {
@@ -304,6 +324,7 @@ class OptionsDialog:
             'Career': '',
             'Love': '',
             'Mates': '',
+            'Exit': partial(self.__exit_building),
         }
 
         MyMenuWindow(
@@ -629,6 +650,32 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def __enter_building(self):
+        x = self.__get_role().x
+        y = self.__get_role().y
+
+        port_id = self.__get_role().map_id
+
+        for building_id, building_name in c.ID_2_BUILDING_TYPE.items():
+
+            b_x, b_y = sObjectMgr.get_building_xy_in_port(building_id, port_id)
+
+            if x == b_x and y == b_y:
+                # enter building
+                print(f'enter building: {building_name}')
+                # self.__show_market_menu()
+
+                self.__get_graphics().hide_role_sprite()
+
+                self.pop_some_menus(cnt=1)
+
+                getattr(self, f'show_{building_name}_menu')()
+
+
+
+                return
+
+
     def __enter_port(self):
         # get nearby port_id
         role = self.__get_role()
@@ -645,18 +692,18 @@ class OptionsDialog:
 
     def show_buildings_menu(self):
         option_2_callback = {
-            'Market': partial(self.__show_market_menu),
-            'Bar': partial(self.__show_bar_menu),
-            'Dry Dock': partial(self.__show_dry_dock_menu),
-            'Harbor': partial(self.__show_harbor_menu),
-            'Inn': partial(self.__show_inn_menu),
-            'Palace': partial(self.__show_palace_menu),
-            'Job House': partial(self.__show_job_house_menu),
+            'Market': partial(self.show_market_menu),
+            'Bar': partial(self.show_bar_menu),
+            'Dry Dock': partial(self.show_dry_dock_menu),
+            'Harbor': partial(self.show_harbor_menu),
+            'Inn': partial(self.show_inn_menu),
+            'Palace': partial(self.show_palace_menu),
+            'Job House': partial(self.show_job_house_menu),
             'Misc': 'test',
-            'Bank': partial(self.__show_bank_menu),
-            'Item Shop': partial(self.__show_item_shop_menu),
-            'Church': partial(self.__show_church_menu),
-            'Fortune House': partial(self.__show_fortune_house_menu),
+            'Bank': partial(self.show_bank_menu),
+            'Item Shop': partial(self.show_item_shop_menu),
+            'Church': partial(self.show_church_menu),
+            'Fortune House': partial(self.show_fortune_house_menu),
         }
 
         MyMenuWindow(
@@ -702,7 +749,7 @@ class OptionsDialog:
 
     def show_cmds_menu(self):
         option_2_callback = {
-            'Enter Building (F)': '',
+            'Enter Building (F)': partial(self.__enter_building),
             'Enter Port (M)': partial(self.__enter_port),
             'Go Ashore (G)': partial(self.__try_to_discover),
             'Fight Npc (B)': partial(self.__fight_npc),

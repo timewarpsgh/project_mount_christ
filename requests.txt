@@ -17,7 +17,11 @@ TO DO:
 
         in port  change frame each move      OK
 
-        don't show while in building or in battle ON
+        enter and exit building OK
+
+
+
+        after escape battle, show sea img ON
 
         is_in_battle
 

@@ -202,7 +202,7 @@ class Role:
             return False
 
     def is_at_sea(self):
-        if self.map_id == 0:
+        if self.map_id == 0 and not self.is_in_battle():
             return True
         else:
             return False

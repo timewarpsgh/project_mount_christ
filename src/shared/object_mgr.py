@@ -91,6 +91,10 @@ class ObjectMgr:
     def get_building_xy_in_port(self, building_id, port_id):
         port = self.get_port(port_id)
         dict = json.loads(port.building_locations)
+
+        if str(building_id) not in dict:
+            return None, None
+
         x = dict[str(building_id)]['x']
         y = dict[str(building_id)]['y']
         return x, y

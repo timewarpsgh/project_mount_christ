@@ -196,7 +196,7 @@ class Role:
     is_battle_timer_mine: bool = None
 
     def is_in_port(self):
-        if self.map_id != 0:
+        if self.map_id != 0 and self.map_id is not None:
             return True
         else:
             return False

@@ -31,14 +31,10 @@ TO DO:
             only show top window OK
             my panel window needs panel OK
 
-        right hud:
-            in port: port name, region, economy, industry
-            at sea: at sea, speed, days spent,
+        right hud: OK
         left hud:  OK
-            time
-            gold
 
-    continus movement
+    continus movement ON
 
 
 

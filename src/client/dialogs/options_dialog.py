@@ -37,7 +37,7 @@ class OptionsDialog:
 
         for id, button_text in enumerate(buttons_texts):
             MyButton(
-                relative_rect=pygame.Rect((0 + id * 100, 0), (100, 50)),
+                relative_rect=pygame.Rect((0 + id * 100, 0), (120, 60)),
                 text=button_text,
                 manager=self.mgr,
                 container=self.ui_window,

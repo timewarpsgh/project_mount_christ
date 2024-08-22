@@ -205,23 +205,54 @@ class HudLeft(SP):
             return
 
         new_image = self.img_src.copy()
-        new_image.blit(Text('Century 16').image, (10, 18))
-        new_image.blit(Text('Spring').image, (10, 142))
 
-        new_image.blit(Text('Lv \n  1').image, (10, 240))
+        x = 10
+
+        new_image.blit(Text('Century 16').image, (x, 18))
+        new_image.blit(Text('Spring').image, (x, 142))
+
+        new_image.blit(Text('Lv \n  1').image, (x, 240))
 
         ingots = Text(f'Gold Ingots \n  {self.model.role.money // 10000}').image
         coins = Text(  f'Gold Coins \n  {self.model.role.money % 10000}').image
-        new_image.blit(ingots, (10, 280))
-        new_image.blit(coins, (10, 320))
+        new_image.blit(ingots, (x, 280))
+        new_image.blit(coins, (x, 320))
 
 
         self.change_img(new_image)
 
 
-    def draw(self):
-        pass
-        # super().draw()
+class HudRight(SP):
+
+    def __init__(self, model, image, x, y):
+        super().__init__(image, x, y)
+        self.model = model
+
+    def update(self):
+        if not self.model.role:
+            return
+
+        new_image = self.img_src.copy()
+        x = 10
+        if self.model.role.is_in_port():
+
+            port = sObjectMgr.get_port(self.model.role.map_id)
+            region = c.REGIONS[port.region_id]
+
+            new_image.blit(Text(f'{port.name}').image, (x, 5))
+            new_image.blit(Text(f'{region}').image, (x, 20))
+
+            new_image.blit(Text(f'Economy \n  {port.economy}').image, (x, 120))
+            new_image.blit(Text(f'Industry \n  {port.industry}').image, (x, 160))
+
+        elif self.model.role.is_at_sea():
+            new_image.blit(Text(f'At Sea').image, (x, 5))
+            new_image.blit(Text(f'Speed \n  10 Knots').image, (x, 120))
+            new_image.blit(Text(f'Days spent \n  8').image, (x, 160))
+        else:
+            pass
+
+        self.change_img(new_image)
 
 
 class Graphics:
@@ -245,7 +276,7 @@ class Graphics:
         self.sp_role = RoleSP(model, None, c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
         # self.sp_role_name = SP(self.font.render('name', True, YELLOW), c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
         self.sp_hud_left = HudLeft(model, sAssetMgr.images['huds']['hud_left'], 0, 0)
-        self.sp_hud_right = SP(sAssetMgr.images['huds']['hud_right'], c.WINDOW_WIDTH - c.HUD_WIDTH, 0)
+        self.sp_hud_right = HudRight(model, sAssetMgr.images['huds']['hud_right'], c.WINDOW_WIDTH - c.HUD_WIDTH, 0)
 
         self.sprites.add(self.sp_background)
         self.sprites.add(self.sp_role)

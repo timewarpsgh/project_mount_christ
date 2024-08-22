@@ -171,6 +171,32 @@ ID_2_BUILDING_TYPE = {
     12: 'fortune_house',
 }
 
+REGIONS = [
+    'Europe',
+    'New World',
+    'West Africa',
+    'East Africa',
+    'Middle East',
+    'India',
+    'Southeast Asia',
+    'Far East',
+]
+
+MARKETS =  [
+    'Iberia',
+    'Northern Europe',
+    'The Mediterranean',
+    'North Africa',
+    'Ottoman Empire',
+    'West Africa',
+    'Central America',
+    'South America',
+    'East Africa',
+    'Middle East',
+    'India',
+    'Southeast Asia',
+    'Far East',
+]
 
 if __name__ == '__main__':
     print(SAILABLE_TILES)

@@ -9,6 +9,17 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 import constants as c
 
+def only_show_top_window(mgr):
+
+    stacked_windows = mgr.get_window_stack().get_stack()
+
+    length = len(stacked_windows)
+    for i, window in enumerate(stacked_windows):
+        if i in [0, 1, length - 1]:
+            window.show()
+        else:
+            window.hide()
+
 
 class MyMsgWindow:
 
@@ -26,22 +37,36 @@ class MyMsgWindow:
 class MyMenuWindow:
 
     def __init__(self, title, option_2_callback, mgr):
+
+        len_of_options = len(option_2_callback)
+        if len_of_options <= 2:
+            len_of_options = 3
+
+        height = len_of_options * 23
+
         ui_window = pygame_gui.elements.UIWindow(
-            rect=pygame.Rect((c.WINDOW_WIDTH - 265, 120), (280, 300)),
+            rect=pygame.Rect((c.WINDOW_WIDTH - 265, 120), (280, height)),
             manager=mgr,
             window_display_title=title,
-            object_id='#menu_window'
         )
 
-        worlds_menu = pygame_gui.elements.UISelectionList(
-            item_list=list(option_2_callback.keys()),
-            relative_rect=pygame.Rect((0, 0), (250, 300)),
+        panel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect((0, 0), (250, height)),
             manager=mgr,
             container=ui_window,
         )
 
+
+        worlds_menu = pygame_gui.elements.UISelectionList(
+            item_list=list(option_2_callback.keys()),
+            relative_rect=pygame.Rect((0, 0), (245, height)),
+            manager=mgr,
+            container=panel,
+        )
+
         worlds_menu.option_2_callback = option_2_callback
 
+        only_show_top_window(mgr)
 
 class MyButton:
 

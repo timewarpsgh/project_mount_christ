@@ -27,7 +27,8 @@ TO DO:
     hud ON
        gui lower OK
        customize gui  OK
-
+        change window to panel ON
+            only show top window OK
 
 
     movement

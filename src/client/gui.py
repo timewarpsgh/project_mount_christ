@@ -4,7 +4,6 @@ import pygame
 from dialogs.login_dialog import LoginDialog
 from dialogs.create_account_dialog import CreateAccountDialog
 
-
 class Gui:
     def __init__(self, client):
         self.client = client

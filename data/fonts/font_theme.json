@@ -14,7 +14,9 @@
           }
         },
         "colours": {
-          "normal_text": "#000000"
+          "normal_text": "#000000",
+          "selected_text": "#000000",
+          "hovered_text": "#000000"
         }
     },
     "text_box":
@@ -82,11 +84,6 @@
     },
     "window":
     {
-         "colours":
-         {
-             "dark_bg": "#00000000"
-         },
-
          "misc":
          {
              "enable_title_bar": "0"
@@ -97,6 +94,14 @@
          "colours":
          {
              "dark_bg": "#00000000"
+         }
+    },
+    "panel":
+    {
+         "images": {
+             "background_image": {
+               "path": "../../data/imgs/game_icon/button_bg_normal.png"
+             }
          }
     }
 }

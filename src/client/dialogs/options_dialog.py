@@ -9,7 +9,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\client')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 from login_pb2 import *
-from my_ui_elements import MyButton
+from my_ui_elements import MyButton, only_show_top_window
 from create_account_dialog import CreateAccountDialog
 from packet_params_dialog import PacketParamsDialog
 from my_ui_elements import MyMenuWindow, MyPanelWindow
@@ -52,6 +52,7 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
+
     def __send_get_available_cargos(self):
         self.client.send(GetAvailableCargos())
 
@@ -86,6 +87,9 @@ class OptionsDialog:
             if len(stacked_windows) >= 3:
                 top_window = stacked_windows.pop()
                 top_window.kill()
+
+                only_show_top_window(self.mgr)
+
 
     def __ask_cargo_cnt_to_sell(self, cargo_id, ship_id):
 

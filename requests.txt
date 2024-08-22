@@ -29,9 +29,17 @@ TO DO:
        customize gui  OK
         change window to panel ON
             only show top window OK
-            my panel window needs panel ON
+            my panel window needs panel OK
 
-    movement
+        right hud:
+            in port: port name, region, economy, industry
+            at sea: at sea, speed, days spent,
+        left hud:  OK
+            time
+            gold
+
+    continus movement
+
 
 
 

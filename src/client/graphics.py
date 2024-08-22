@@ -29,8 +29,10 @@ class SP(pygame.sprite.Sprite):
     def __init__(self, image, x, y):
         pygame.sprite.Sprite.__init__(self)
 
+
         self.image = image
         self.rect = image.get_rect().move(x, y)
+        self.img_src = image
 
     def change_img(self, img):
         self.image = img
@@ -191,6 +193,36 @@ class RoleSP(SP):
 
         return ship_surface
 
+class HudLeft(SP):
+
+    def __init__(self, model, image, x, y):
+        super().__init__(image, x, y)
+
+        self.model = model
+
+    def update(self):
+        if not self.model.role:
+            return
+
+        new_image = self.img_src.copy()
+        new_image.blit(Text('Century 16').image, (10, 18))
+        new_image.blit(Text('Spring').image, (10, 142))
+
+        new_image.blit(Text('Lv \n  1').image, (10, 240))
+
+        ingots = Text(f'Gold Ingots \n  {self.model.role.money // 10000}').image
+        coins = Text(  f'Gold Coins \n  {self.model.role.money % 10000}').image
+        new_image.blit(ingots, (10, 280))
+        new_image.blit(coins, (10, 320))
+
+
+        self.change_img(new_image)
+
+
+    def draw(self):
+        pass
+        # super().draw()
+
 
 class Graphics:
 
@@ -212,7 +244,7 @@ class Graphics:
         self.sp_background = SP(self.imgs['background'], 0, 0)
         self.sp_role = RoleSP(model, None, c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
         # self.sp_role_name = SP(self.font.render('name', True, YELLOW), c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
-        self.sp_hud_left = SP(sAssetMgr.images['huds']['hud_left'], 0, 0)
+        self.sp_hud_left = HudLeft(model, sAssetMgr.images['huds']['hud_left'], 0, 0)
         self.sp_hud_right = SP(sAssetMgr.images['huds']['hud_right'], c.WINDOW_WIDTH - c.HUD_WIDTH, 0)
 
         self.sprites.add(self.sp_background)

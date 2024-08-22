@@ -26,7 +26,13 @@
             "name": "MS Gothic",
             "size": "15",
             "regular_path":"../../data/fonts/siyuanheiti.ttf"
-        }
+        },
+        "colours":
+         {
+             "dark_bg": "#00000000",
+             "normal_text": "#000000",
+             "normal_border": "#00000000"
+         }
     },
     "text_entry_line":
     {
@@ -100,7 +106,7 @@
     {
          "images": {
              "background_image": {
-               "path": "../../data/imgs/game_icon/button_bg_normal.png"
+               "path": "../../data/imgs/buildings/huge_panel_canvas.png"
              }
          }
     }

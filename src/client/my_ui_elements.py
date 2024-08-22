@@ -42,7 +42,7 @@ class MyMenuWindow:
         if len_of_options <= 2:
             len_of_options = 3
 
-        height = len_of_options * 23
+        height = len_of_options * 20 + 40
 
         ui_window = pygame_gui.elements.UIWindow(
             rect=pygame.Rect((c.WINDOW_WIDTH - 265, 120), (280, height)),
@@ -80,16 +80,21 @@ class MyButton:
 
         button.on_click = on_click
 
-class MyPanelWindow(pygame_gui.elements.UIWindow):
+class MyPanelWindow():
     """displays info"""
     def __init__(self, rect, ui_manager, text, image='none'):
 
-        # super
-        super().__init__(rect, ui_manager,
-                         window_display_title='',
-                         object_id='#scaling_window',
-                         resizable=True)
+        ui_window = pygame_gui.elements.UIWindow(
+            rect=rect,
+            manager=ui_manager,
+            window_display_title='',
+        )
 
+        panel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect((0, 0), (rect.width, rect.height)),
+            manager=ui_manager,
+            container=ui_window,
+        )
 
         # image
         if image:
@@ -97,7 +102,7 @@ class MyPanelWindow(pygame_gui.elements.UIWindow):
                 pygame.Rect((0, 0), (image.get_rect().size)),
                 image,
                 ui_manager,
-                container=self,
+                container=panel,
                 anchors={'top': 'top', 'bottom': 'bottom',
                        'left': 'left', 'right': 'right'})
 
@@ -108,5 +113,5 @@ class MyPanelWindow(pygame_gui.elements.UIWindow):
                 relative_rect=pygame.Rect(0, image.get_rect().height, 320, 10), #pygame.Rect(0, image.get_rect().height, 320, 10)
                 manager=ui_manager,
                 wrap_to_height=True,
-                container=self)
+                container=panel)
 

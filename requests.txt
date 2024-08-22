@@ -29,7 +29,7 @@ TO DO:
        customize gui  OK
         change window to panel ON
             only show top window OK
-
+            my panel window needs panel ON
 
     movement
 

@@ -236,6 +236,8 @@ class Role:
     x: int=None
     y: int=None
     dir: int=None
+    is_moving: bool=False
+    move_timer: int=None
     map_id: int=None
     money: int=None
     seen_grids: any=None  # numpy matrix
@@ -248,6 +250,38 @@ class Role:
     battle_role_id: int=None
     battle_timer: int=None
     npc_instance: any=None
+
+    def __get_grid_xy(self, x, y):
+        grid_x = int(y / c.SIZE_OF_ONE_GRID)
+        grid_y = int(x / c.SIZE_OF_ONE_GRID)
+        return grid_x, grid_y
+
+    def move(self, dir):
+
+        distance = 1
+
+        if dir == pb.DirType.E:
+            self.x += distance
+        elif dir == pb.DirType.W:
+            self.x -= distance
+        elif dir == pb.DirType.N:
+            self.y -= distance
+        elif dir == pb.DirType.S:
+            self.y += distance
+
+        # make packet
+        pack = pb.RoleMoved()
+        pack.id = self.id
+        pack.x = self.x
+        pack.y = self.y
+        pack.dir_type = dir
+        self.session.packet_handler.send_to_nearby_roles(pack, include_self=True)
+
+        # check opened grid?
+        grid_x, grid_y = self.__get_grid_xy(self.x, self.y)
+        if self.seen_grids[grid_x][grid_y] == 0:
+            self.seen_grids[grid_x][grid_y] = 1
+            self.session.send(pb.OpenedGrid(grid_x=grid_x, grid_y=grid_y))
 
     def enter_port(self, port_id):
         # change map_id
@@ -412,6 +446,18 @@ class Role:
             await self.npc_all_ships_attack_me()
 
     async def update(self, time_diff):
+        # movment
+        if self.is_moving:
+            print('updating move timer')
+
+            self.move_timer -= time_diff
+
+            print('updated move timer')
+            if self.move_timer <= 0:
+                self.move(self.dir)
+                self.move_timer = c.MOVE_TIMER_IN_PORT
+
+        # battle timer
         if self.battle_timer:
             self.battle_timer -= time_diff
 

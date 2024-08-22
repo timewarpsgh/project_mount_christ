@@ -428,27 +428,19 @@ class Graphics:
             # movements
             if event.key == pygame.K_d:
                 # move east
-                move = Move()
-                move.dir_type = DirType.E
-                self.client.send(move)
+                self.client.send(pb.StartMoving(dir_type=pb.DirType.E))
 
             elif event.key == pygame.K_a:
                 # move west
-                move = Move()
-                move.dir_type = DirType.W
-                self.client.send(move)
+                self.client.send(pb.StartMoving(dir_type=pb.DirType.W))
 
             elif event.key == pygame.K_w:
                 # move north
-                move = Move()
-                move.dir_type = DirType.N
-                self.client.send(move)
+                self.client.send(pb.StartMoving(dir_type=pb.DirType.N))
 
             elif event.key == pygame.K_s:
                 # move south
-                move = Move()
-                move.dir_type = DirType.S
-                self.client.send(move)
+                self.client.send(pb.StartMoving(dir_type=pb.DirType.S))
 
             # test key
             elif event.key == pygame.K_t:
@@ -456,6 +448,10 @@ class Graphics:
 
             elif event.key == pygame.K_y:
                 self.client.send(FightNpc(npc_id=1))
+
+        elif event.type == pygame.KEYUP:
+            if event.key in [pygame.K_d, pygame.K_a, pygame.K_w, pygame.K_s]:
+                self.client.send(pb.StopMoving())
 
     def update(self, time_diff):
         # update sprites group

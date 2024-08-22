@@ -216,6 +216,13 @@ message Move {
     required DirType dir_type = 1;
 }
 
+message StartMoving {
+    required DirType dir_type = 1;
+}
+
+message StopMoving {
+}
+
 // role moved
 message RoleMoved {
     required int32 id = 1;

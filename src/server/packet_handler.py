@@ -495,37 +495,16 @@ class PacketHandler:
         get_available_cargos_res.available_cargos.extend(available_cargos)
         self.session.send(get_available_cargos_res)
 
-    def __get_grid_xy(self, x, y):
-        grid_x = int(y/c.SIZE_OF_ONE_GRID)
-        grid_y = int(x/c.SIZE_OF_ONE_GRID)
-        return grid_x, grid_y
-
     async def handle_Move(self, move):
-        move_distance = c.PIXELS_COVERED_EACH_MOVE
-        move_distance = 1 # 1 tile 16 pixels
+        self.role.move(move.dir_type)
 
-        if move.dir_type == DirType.E:
-            self.role.x += move_distance
-        elif move.dir_type == DirType.W:
-            self.role.x -= move_distance
-        elif move.dir_type == DirType.N:
-            self.role.y -= move_distance
-        elif move.dir_type == DirType.S:
-            self.role.y += move_distance
+    async def handle_StartMoving(self, start_moving):
+        self.role.dir = start_moving.dir_type
+        self.role.is_moving = True
+        self.role.move_timer = c.MOVE_TIMER_IN_PORT
 
-        # check opened grid?
-        grid_x, grid_y = self.__get_grid_xy(self.role.x, self.role.y)
-        if self.role.seen_grids[grid_x][grid_y] == 0:
-            self.role.seen_grids[grid_x][grid_y] = 1
-            self.session.send(OpenedGrid(grid_x=grid_x, grid_y=grid_y))
-
-        # make packet
-        role_moved = RoleMoved()
-        role_moved.id = self.role.id
-        role_moved.x = self.role.x
-        role_moved.y = self.role.y
-        role_moved.dir_type = move.dir_type
-        self.send_to_nearby_roles(role_moved, include_self=True)
+    async def handle_StopMoving(self, stop_moving):
+        self.role.is_moving = False
 
     async def handle_Disconnect(self, disconnect):
         print('got disconn packet from client')

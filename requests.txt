@@ -34,8 +34,13 @@ TO DO:
         right hud: OK
         left hud:  OK
 
-    continus movement ON
-
+    continus movement OK (but sending too many packs?)
+        in port  ON
+            key down -> send start_moving(dir) -> server.role.is_moving = True, updates pos each iter
+            key up   -> stop_moving()
+        at sea
+            key down -> send start_moving(dir)
+            key up   -> do not stop moving, stop when entered port
 
 
 

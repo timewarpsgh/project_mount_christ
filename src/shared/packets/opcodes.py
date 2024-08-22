@@ -27,6 +27,8 @@ class OpCodeType(Enum):
     GetAvailableCargosRes = auto()
 
     Move = auto()
+    StartMoving = auto()
+    StopMoving = auto()
     RoleMoved = auto()
 
     Disconnect = auto()
@@ -79,6 +81,8 @@ class OpCodeType(Enum):
     AllShipsAttack = auto()
     ShipAttacked = auto()
     ShipMoved = auto()
+
+
 
 def gen_opcode_2_value():
     d = {}

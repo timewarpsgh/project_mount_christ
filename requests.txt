@@ -35,13 +35,15 @@ TO DO:
         left hud:  OK
 
     continus movement OK (but sending too many packs?)
-        in port  ON
+        in port  OK
             key down -> send start_moving(dir) -> server.role.is_moving = True, updates pos each iter
             key up   -> stop_moving()
-        at sea
+        at sea   ON
             key down -> send start_moving(dir)
             key up   -> do not stop moving, stop when entered port
 
+    moving not smooth ON
+    sending too many packs ON
 
 
 DONE:

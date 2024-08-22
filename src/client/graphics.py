@@ -34,12 +34,52 @@ class SP(pygame.sprite.Sprite):
         self.rect = image.get_rect().move(x, y)
         self.img_src = image
 
+    def update(self, time_diff):
+        pass
+
     def change_img(self, img):
         self.image = img
 
     def move_to(self, x, y):
         self.rect = self.image.get_rect().move(x, y)
 
+
+def lerp(a, b, t):
+    """Linear interpolation between two points."""
+    return a + (b - a) * t
+
+class BackGround(SP):
+    def __init__(self, image, x, y):
+        super().__init__(image, x, y)
+
+        self.start_time = None
+        self.target_position = None
+        self.duration = None
+    def update(self, time_diff):
+        if not self.start_time:
+            return
+
+        # Calculate elapsed time and interpolate the position
+        current_time = pygame.time.get_ticks() / 1000.0
+        elapsed_time = current_time - self.start_time
+
+        if elapsed_time < self.duration:
+            t = elapsed_time / self.duration
+            position = (lerp(self.start_position[0], self.target_position[0], t),
+                        lerp(self.start_position[1], self.target_position[1], t))
+        else:
+            position = self.target_position
+
+        self.rect.x = position[0]
+        self.rect.y = position[1]
+        self.image.get_rect().move(self.rect.x, self.rect.y)
+
+    def move_to_smoothly(self, x, y, given_time):
+
+        self.start_time = pygame.time.get_ticks() / 1000.0
+        self.start_position = (self.rect.x, self.rect.y)
+        self.target_position = (x, y)
+        self.duration = given_time
 
 class ShootDamageNumber(SP):
     def __init__(self, number, x, y, color=c.YELLOW):
@@ -64,7 +104,7 @@ class ShootDamageNumber(SP):
         self.y_speed = 3
         self.d_y = 0.15
 
-    def update(self):
+    def update(self, time_diff):
         self._change_state()
 
     def _change_state(self):
@@ -93,7 +133,7 @@ class CannonBall(SP):
         self.unit_x_change = int(self.d_x / self.steps_to_change)
         self.unit_y_change = int(self.d_y / self.steps_to_change)
 
-    def update(self):
+    def update(self, time_diff):
         self.rect.x += self.unit_x_change
         self.rect.y += self.unit_y_change
         self.step_index += 1
@@ -131,7 +171,7 @@ class RoleSP(SP):
         self.frame_counter_max = 30
 
 
-    def update(self):
+    def update(self, time_diff):
         if not self.model.role:
             return
 
@@ -200,7 +240,7 @@ class HudLeft(SP):
 
         self.model = model
 
-    def update(self):
+    def update(self, time_diff):
         if not self.model.role:
             return
 
@@ -228,7 +268,7 @@ class HudRight(SP):
         super().__init__(image, x, y)
         self.model = model
 
-    def update(self):
+    def update(self, time_diff):
         if not self.model.role:
             return
 
@@ -272,7 +312,7 @@ class Graphics:
         # sprites
         self.sprites = pygame.sprite.Group()
 
-        self.sp_background = SP(self.imgs['background'], 0, 0)
+        self.sp_background = BackGround(self.imgs['background'], 0, 0)
         self.sp_role = RoleSP(model, None, c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
         # self.sp_role_name = SP(self.font.render('name', True, YELLOW), c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
         self.sp_hud_left = HudLeft(model, sAssetMgr.images['huds']['hud_left'], 0, 0)
@@ -311,7 +351,7 @@ class Graphics:
 
     def move_port_bg(self, x, y):
         x, y = self.role_xy_in_port_2_xy_on_screen(x, y)
-        self.sp_background.move_to(x, y)
+        self.sp_background.move_to_smoothly(x, y, given_time=0.1)
 
     def move_sea_bg(self, x, y):
         # if out of range
@@ -342,7 +382,7 @@ class Graphics:
         # else
         else:
             x, y = self.role_xy_at_sea_2_xy_on_screen(x, y)
-            self.sp_background.move_to(x, y)
+            self.sp_background.move_to_smoothly(x, y, 0.1)
 
     def role_xy_in_port_2_xy_on_screen(self, x, y):
         x = -x * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_WIDTH // 2
@@ -451,11 +491,12 @@ class Graphics:
 
         elif event.type == pygame.KEYUP:
             if event.key in [pygame.K_d, pygame.K_a, pygame.K_w, pygame.K_s]:
-                self.client.send(pb.StopMoving())
+                if self.model.role.is_in_port():
+                    self.client.send(pb.StopMoving())
 
     def update(self, time_diff):
         # update sprites group
-        self.sprites.update()
+        self.sprites.update(time_diff)
 
         if self.model.role:
             if not self.model.role.battle_timer:

@@ -501,10 +501,36 @@ class PacketHandler:
     async def handle_StartMoving(self, start_moving):
         self.role.dir = start_moving.dir_type
         self.role.is_moving = True
-        self.role.move_timer = c.MOVE_TIMER_IN_PORT
+        self.role.speed = c.PORT_SPEED
+        self.role.move_timer = 0
+
+        pack = pb.StartedMoving(
+            id=self.role.id,
+            src_x=self.role.x,
+            src_y=self.role.y,
+            dir=self.role.dir,
+            speed=self.role.speed,
+        )
+        self.send_to_nearby_roles(pack, include_self=True)
 
     async def handle_StopMoving(self, stop_moving):
         self.role.is_moving = False
+
+        tolerant_diff = 4
+
+        # if abs(self.role.x - stop_moving.x) <= tolerant_diff and \
+        #         abs(self.role.y - stop_moving.y) <= tolerant_diff:
+        self.role.x = stop_moving.x
+        self.role.y = stop_moving.y
+        self.role.dir = stop_moving.dir
+
+        pack = pb.StoppedMoving(
+            id=self.role.id,
+            src_x=self.role.x,
+            src_y=self.role.y,
+            dir=self.role.dir,
+        )
+        self.send_to_nearby_roles(pack, include_self=True)
 
     async def handle_Disconnect(self, disconnect):
         print('got disconn packet from client')

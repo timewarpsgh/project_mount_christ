@@ -50,7 +50,7 @@ class Game:
         while self.is_running:
 
             # get time_delta(limit frame rate)
-            time_delta = self.clock.tick(c.FRAME_RATE)
+            time_delta = self.clock.tick(c.FRAME_RATE) / 1000.0
 
             # update based on events
             for event in pygame.event.get():
@@ -66,6 +66,7 @@ class Game:
             # update based on time_delta
             self.gui.update(time_delta)
             self.graphics.update(time_delta)
+            self.graphics.model.update(time_delta)
 
             # draw graphics
             self.window_surface.fill((0, 0, 0))
@@ -75,7 +76,7 @@ class Game:
             # flip
             pygame.display.update()
 
-            await asyncio.sleep(0.00001)
+            await asyncio.sleep(0.0000001)
 
 
 def main():

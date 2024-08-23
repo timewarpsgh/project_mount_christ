@@ -28,7 +28,9 @@ class OpCodeType(Enum):
 
     Move = auto()
     StartMoving = auto()
+    StartedMoving = auto()
     StopMoving = auto()
+    StoppedMoving = auto()
     RoleMoved = auto()
 
     Disconnect = auto()

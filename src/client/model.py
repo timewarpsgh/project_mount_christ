@@ -1,5 +1,10 @@
+import sys
 from dataclasses import dataclass
+import login_pb2 as pb
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
+import constants as c
 
 @dataclass
 class Ship:
@@ -176,12 +181,16 @@ class DiscoveryMgr:
 @dataclass
 class Role:
     session: any = None
+    graphics: any = None
 
     id: int = None
     name: str = None
     x: int = None
     y: int = None
     dir: int = None
+    is_moving: bool = None
+    speed: float = None
+    move_timer: float = None
     map_id: int = None
     money: int = None
     seen_grids: any = None  # numpy matrix
@@ -213,7 +222,57 @@ class Role:
         else:
             return False
 
+    def start_moving(self, dir):
+        self.is_moving = True
+        self.dir = dir
+        self.speed = c.PORT_SPEED
+        self.move_timer = -1
 
+        self.graphics.client.send(pb.StartMoving(dir_type=dir))
+
+    def stop_moving(self):
+        self.is_moving = False
+
+        pack = pb.StopMoving(
+            x=self.x,
+            y=self.y,
+            dir=self.dir,
+        )
+        self.graphics.client.send(pack)
+
+    def move(self, dir):
+        distance = 1
+
+        if dir == pb.DirType.E:
+            self.x += distance
+        elif dir == pb.DirType.W:
+            self.x -= distance
+        elif dir == pb.DirType.N:
+            self.y -= distance
+        elif dir == pb.DirType.S:
+            self.y += distance
+
+        print(f'client model role moved!!!! to {self.x}  {self.y}')
+        # tell graphics to move
+        sp_role = self.graphics.sp_role
+        if sp_role.now_frame == 0:
+            sp_role.now_frame = 1
+        else:
+            sp_role.now_frame = 0
+
+        sp_role.change_img(sp_role.frames['in_port'][self.dir][sp_role.now_frame])
+
+        self.graphics.move_port_bg(self.x, self.y)
+
+    def update(self, time_diff):
+        # movment
+        if self.is_moving:
+            self.move_timer -= time_diff
+            if self.move_timer <= 0:
+                self.move(self.dir)
+                self.move_timer = c.PIXELS_COVERED_EACH_MOVE / self.speed
+                print(f'new timer {self.move_timer}')
+                print(f'timee diff: { time_diff}')
 @dataclass
 class Npc:
     id: int = None
@@ -263,3 +322,9 @@ class Model:
 
         else:
             return self.get_enemy_role().ship_mgr.get_ship(id)
+
+    def update(self, time_delta):
+        if not self.role:
+            return
+
+        self.role.update(time_delta)

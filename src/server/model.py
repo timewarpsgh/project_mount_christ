@@ -237,6 +237,7 @@ class Role:
     y: int=None
     dir: int=None
     is_moving: bool=False
+    speed: float=None
     move_timer: int=None
     map_id: int=None
     money: int=None
@@ -270,12 +271,12 @@ class Role:
             self.y += distance
 
         # make packet
-        pack = pb.RoleMoved()
-        pack.id = self.id
-        pack.x = self.x
-        pack.y = self.y
-        pack.dir_type = dir
-        self.session.packet_handler.send_to_nearby_roles(pack, include_self=True)
+        # pack = pb.RoleMoved()
+        # pack.id = self.id
+        # pack.x = self.x
+        # pack.y = self.y
+        # pack.dir_type = dir
+        # self.session.packet_handler.send_to_nearby_roles(pack, include_self=True)
 
         # check opened grid?
         grid_x, grid_y = self.__get_grid_xy(self.x, self.y)
@@ -455,7 +456,7 @@ class Role:
             print('updated move timer')
             if self.move_timer <= 0:
                 self.move(self.dir)
-                self.move_timer = c.MOVE_TIMER_IN_PORT
+                self.move_timer = c.PIXELS_COVERED_EACH_MOVE / self.speed
 
         # battle timer
         if self.battle_timer:

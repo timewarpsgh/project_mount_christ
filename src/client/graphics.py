@@ -356,7 +356,7 @@ class Graphics:
 
     def move_port_bg(self, x, y):
         x, y = self.role_xy_in_port_2_xy_on_screen(x, y)
-        self.sp_background.move_to_smoothly(x, y, given_time=0.08)
+        self.sp_background.move_to_smoothly(x, y, given_time=0.2)
 
     def move_sea_bg(self, x, y):
         # if out of range
@@ -413,7 +413,7 @@ class Graphics:
                 sMapMaker.set_world_piddle()
                 sMapMaker.set_world_map_tiles()
 
-            partial_sea_map = sMapMaker.make_partial_world_map(x, y, save_img=True)
+            partial_sea_map = sMapMaker.make_partial_world_map(x, y)
             self.sp_background.change_img(partial_sea_map)
 
             x, y = self.role_xy_at_sea_2_xy_on_screen(x, y)
@@ -422,7 +422,7 @@ class Graphics:
 
     def change_background_sp_to_port(self, port_id, x, y):
 
-        port_piddle, port_map = sMapMaker.make_port_piddle_and_map(port_id, save_img=True)
+        port_piddle, port_map = sMapMaker.make_port_piddle_and_map(port_id)
 
         self.sp_background.change_img(port_map)
 
@@ -473,19 +473,21 @@ class Graphics:
             # movements
             if event.key == pygame.K_d:
                 # move east
-                self.client.send(pb.StartMoving(dir_type=pb.DirType.E))
+                # self.client.send(pb.StartMoving(dir_type=pb.DirType.E))
+                self.model.role.start_moving(pb.DirType.E)
 
             elif event.key == pygame.K_a:
                 # move west
-                self.client.send(pb.StartMoving(dir_type=pb.DirType.W))
-
+                # self.client.send(pb.StartMoving(dir_type=pb.DirType.W))
+                self.model.role.start_moving(pb.DirType.W)
             elif event.key == pygame.K_w:
                 # move north
-                self.client.send(pb.StartMoving(dir_type=pb.DirType.N))
-
+                # self.client.send(pb.StartMoving(dir_type=pb.DirType.N))
+                self.model.role.start_moving(pb.DirType.N)
             elif event.key == pygame.K_s:
                 # move south
-                self.client.send(pb.StartMoving(dir_type=pb.DirType.S))
+                # self.client.send(pb.StartMoving(dir_type=pb.DirType.S))
+                self.model.role.start_moving(pb.DirType.S)
 
             # test key
             elif event.key == pygame.K_t:
@@ -497,7 +499,7 @@ class Graphics:
         elif event.type == pygame.KEYUP:
             if event.key in [pygame.K_d, pygame.K_a, pygame.K_w, pygame.K_s]:
                 if self.model.role.is_in_port():
-                    self.client.send(pb.StopMoving())
+                    self.model.role.stop_moving()
 
     def update(self, time_diff):
         # update sprites group

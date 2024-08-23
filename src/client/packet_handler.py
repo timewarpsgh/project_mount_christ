@@ -198,6 +198,7 @@ class PacketHandler:
                 y=role.y,
                 dir=role.dir,
                 money=role.money,
+                graphics = self.client.game.graphics,
             )
             model_role = self.__get_role()
             model_role.ship_mgr = ShipMgr(model_role)
@@ -484,3 +485,33 @@ class PacketHandler:
         ship = self.__get_model().get_ship_in_battle_by_id(id)
         ship.x = x
         ship.y = y
+
+    async def handle_StartedMoving(self, started_moving):
+        id = started_moving.id
+        src_x = started_moving.src_x
+        src_y = started_moving.src_y
+        dir = started_moving.dir
+        speed = started_moving.speed
+
+        if id == self.__get_role().id:
+            role = self.__get_role()
+            role.is_moving = True
+            role.speed = speed
+            role.move_timer = c.PIXELS_COVERED_EACH_MOVE / role.speed
+            role.dir = dir
+
+            print('handling pack StartedMoving')
+
+    async def handle_StoppedMoving(self, stopped_moving):
+        id = stopped_moving.id
+        src_x = stopped_moving.src_x
+        src_y = stopped_moving.src_y
+        dir = stopped_moving.dir
+
+        if id == self.__get_role().id:
+            role = self.__get_role()
+            role.is_moving = False
+            role.x = src_x
+            role.y = src_y
+            role.dir = dir
+            self.__get_graphics().move_port_bg(role.x, role.y)

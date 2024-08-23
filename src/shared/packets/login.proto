@@ -220,7 +220,26 @@ message StartMoving {
     required DirType dir_type = 1;
 }
 
+message StartedMoving {
+    required int32 id = 1;
+    required int32 src_x = 2;
+    required int32 src_y = 3;
+    required DirType dir = 4;
+    required int32 speed = 5;
+}
+
+
 message StopMoving {
+    required int32 x = 1;
+    required int32 y = 2;
+    required DirType dir = 3;
+}
+
+message StoppedMoving {
+    required int32 id = 1;
+    required int32 src_x = 2;
+    required int32 src_y = 3;
+    required DirType dir = 4;
 }
 
 // role moved

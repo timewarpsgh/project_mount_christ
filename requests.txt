@@ -49,6 +49,23 @@ TO DO:
 
 
     sending too many packs ON
+        in port
+            key down->
+                send start_moving(dir)
+                server.role.is_moving, speed -> time_between_move
+                tell client started_moving(id, src_x, src_y, dir, speed)
+
+
+            key up ->
+                send stop_moving
+                server, tell client stopped_moving(id, x, y, dir)
+
+            show role hands OK
+
+
+
+        at sea
+
 
 
 DONE:

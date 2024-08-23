@@ -70,9 +70,14 @@ class BackGround(SP):
         else:
             position = self.target_position
 
-        self.rect.x = position[0]
-        self.rect.y = position[1]
-        self.image.get_rect().move(self.rect.x, self.rect.y)
+        # only move if 4 pixels have changed
+        pixcels_to_move = 1
+        if abs(position[0] - self.rect.x) >= pixcels_to_move or \
+                abs(position[1] - self.rect.y) >= pixcels_to_move:
+            self.rect.x = position[0]
+            self.rect.y = position[1]
+            self.image.get_rect().move(self.rect.x, self.rect.y)
+
 
     def move_to_smoothly(self, x, y, given_time):
 
@@ -351,7 +356,7 @@ class Graphics:
 
     def move_port_bg(self, x, y):
         x, y = self.role_xy_in_port_2_xy_on_screen(x, y)
-        self.sp_background.move_to_smoothly(x, y, given_time=0.1)
+        self.sp_background.move_to_smoothly(x, y, given_time=0.08)
 
     def move_sea_bg(self, x, y):
         # if out of range

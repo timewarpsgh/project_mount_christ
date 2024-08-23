@@ -42,7 +42,12 @@ TO DO:
             key down -> send start_moving(dir)
             key up   -> do not stop moving, stop when entered port
 
-    moving not smooth ON
+    moving not smooth OK
+        have maybe 0.01s between each move ? (looks nice)   OK
+
+
+
+
     sending too many packs ON
 
 

@@ -64,7 +64,9 @@ TO DO:
 
 
         show building bg OK
-        smooth movement at sea ON
+        smooth movement at sea OK
+
+        sea movement between partial map change ON
 
 
 

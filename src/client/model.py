@@ -240,6 +240,18 @@ class Role:
         )
         self.graphics.client.send(pack)
 
+    def stopped_moving(self, src_x, src_y, dir):
+
+        self.is_moving = False
+        self.x = src_x
+        self.y = src_y
+        self.dir = dir
+
+        if self.is_in_port():
+            self.graphics.move_port_bg(self.x, self.y)
+        elif self.is_at_sea():
+            self.graphics.move_sea_bg(self.x, self.y)
+
     def move(self, dir):
         distance = 1
 
@@ -252,17 +264,21 @@ class Role:
         elif dir == pb.DirType.S:
             self.y += distance
 
-        print(f'client model role moved!!!! to {self.x}  {self.y}')
-        # tell graphics to move
-        sp_role = self.graphics.sp_role
-        if sp_role.now_frame == 0:
-            sp_role.now_frame = 1
-        else:
-            sp_role.now_frame = 0
+        if self.is_in_port():
+            sp_role = self.graphics.sp_role
+            if sp_role.now_frame == 0:
+                sp_role.now_frame = 1
+            else:
+                sp_role.now_frame = 0
 
-        sp_role.change_img(sp_role.frames['in_port'][self.dir][sp_role.now_frame])
+            sp_role.change_img(sp_role.frames['in_port'][self.dir][sp_role.now_frame])
 
-        self.graphics.move_port_bg(self.x, self.y)
+            self.graphics.move_port_bg(self.x, self.y)
+
+        elif self.is_at_sea():
+            sp_role = self.graphics.sp_role
+            sp_role.change_img(sp_role.frames['at_sea'][self.dir][0])
+            self.graphics.move_sea_bg(self.x, self.y)
 
     def update(self, time_diff):
         # movment

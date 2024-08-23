@@ -174,7 +174,7 @@ class RoleSP(SP):
 
         self.now_frame = 0
         self.frame_counter = 0
-        self.frame_counter_max = 30
+        self.frame_counter_max = c.FRAME_RATE // 2
 
 
     def update(self, time_diff):
@@ -383,12 +383,12 @@ class Graphics:
 
             # move img
             x, y = self.role_xy_at_sea_2_xy_on_screen(x, y)
-            self.sp_background.move_to(x, y)
+            self.sp_background.move_to_smoothly(x, y, given_time=0.2)
 
         # else
         else:
             x, y = self.role_xy_at_sea_2_xy_on_screen(x, y)
-            self.sp_background.move_to_smoothly(x, y, 0.1)
+            self.sp_background.move_to_smoothly(x, y, given_time=0.2)
 
     def role_xy_in_port_2_xy_on_screen(self, x, y):
         x = -x * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_WIDTH // 2
@@ -499,8 +499,7 @@ class Graphics:
 
         elif event.type == pygame.KEYUP:
             if event.key in [pygame.K_d, pygame.K_a, pygame.K_w, pygame.K_s]:
-                if self.model.role.is_in_port():
-                    self.model.role.stop_moving()
+                self.model.role.stop_moving()
 
     def update(self, time_diff):
         # update sprites group

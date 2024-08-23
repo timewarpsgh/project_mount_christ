@@ -63,8 +63,8 @@ TO DO:
             show role hands OK
 
 
-
-        at sea
+        show building bg OK
+        smooth movement at sea ON
 
 
 

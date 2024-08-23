@@ -69,6 +69,7 @@ class BackGround(SP):
                         lerp(self.start_position[1], self.target_position[1], t))
         else:
             position = self.target_position
+            self.start_time = None
 
         # only move if 4 pixels have changed
         pixcels_to_move = 1

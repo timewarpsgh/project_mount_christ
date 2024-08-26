@@ -18,6 +18,7 @@ from shared import Connection
 from object_mgr import sObjectMgr
 from npc_mgr import sNpcMgr
 from id_mgr import sIdMgr
+from map_maker import sMapMaker
 
 class Session(Connection):
 
@@ -119,7 +120,9 @@ class Server:
         try:
             await session.main()
         except Exception as e:
+
             print(f'some error occured: {e}')
+            traceback.print_exc()
         else:
             pass
 

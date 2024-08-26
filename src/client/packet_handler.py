@@ -1,5 +1,3 @@
-import pygame
-import pygame_gui
 from functools import partial
 import json
 import traceback
@@ -17,12 +15,10 @@ from my_ui_elements import MyMsgWindow, MyMenuWindow
 from dialogs.create_role_dialog import CreateRoleDialog
 from dialogs.options_dialog import OptionsDialog
 from dialogs.chat_dialog import ChatDialog
-from model import Model, Role, ShipMgr, MateMgr, DiscoveryMgr, Npc
+from model import Role, ShipMgr, MateMgr, DiscoveryMgr, Npc
 import model
-from graphics import YELLOW
 from asset_mgr import sAssetMgr
 from object_mgr import sObjectMgr
-from map_maker import sMapMaker
 import constants as c
 
 
@@ -335,9 +331,9 @@ class PacketHandler:
             role.y = map_changed.y
 
             # update graphics
-            if role.map_id == 0:
+            if role.is_at_sea():
                 self.client.game.graphics.change_background_sp_to_sea(role.x, role.y)
-            else:
+            elif role.is_in_port():
                 port = sObjectMgr.get_port(role.map_id)
                 print(f'entered port {port.name}')
                 self.client.game.graphics.change_background_sp_to_port(role.map_id, role.x, role.y)

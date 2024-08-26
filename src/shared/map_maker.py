@@ -3,7 +3,10 @@ from PIL import Image
 
 # add relative directory to python_path
 import sys, os
+sys.path.append(r'/src/shared/packets')
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared'))
+
+import login_pb2 as pb
 
 # import from common(dir)
 import constants as c
@@ -206,13 +209,64 @@ class MapMaker():
         return sea_img
 
 
-    def is_pos_in_port_allowed(self, x, y):
-        if self.port_piddle[x, y] in c.WALKABLE_TILES:
-            return True
-        else:
-            print('tile not allowed')
-            return False
+    def can_move_in_port(self, map_id, now_x, now_y, dir):
 
+        piddle = self.port_piddle
+
+        # x and y reversed!!!!
+        y = now_x
+        x = now_y
+
+        # basic 4 directions
+        if dir == pb.DirType.N:
+
+            # not in asia
+            if map_id < 94:
+                if piddle[x, y] in c.WALKABLE_TILES and piddle[x, y + 1] in c.WALKABLE_TILES:
+                    return True
+            # in asia
+            else:
+                if piddle[x, y] in c.WALKABLE_TILES_FOR_ASIA and piddle[x, y + 1] in c.WALKABLE_TILES_FOR_ASIA:
+                    return True
+
+        elif dir == pb.DirType.S:
+            if piddle[x + 2, y] in c.WALKABLE_TILES and piddle[x + 2, y + 1] in c.WALKABLE_TILES:
+                return True
+
+        elif dir == pb.DirType.W:
+            if piddle[x + 1, y - 1] in c.WALKABLE_TILES:
+                return True
+
+        elif dir == pb.DirType.E:
+            if piddle[x + 1, y + 2] in c.WALKABLE_TILES:
+                return True
+
+        # ret
+        return False
+
+    def can_move_at_sea(self, now_x, now_y, dir):
+        # get piddle
+        piddle = self.world_map_piddle
+
+        # x and y reversed!!!!
+        y = now_x
+        x = now_y
+
+        tile_list = c.DIRECT_2_SEA_MOVE_COLLISION_TILES[dir]
+        for tile in tile_list:
+            dx = tile[0]
+            dy = tile[1]
+            tile_id = int(piddle[x + dx, y + dy])
+            if not tile_id in c.SAILABLE_TILES:
+                return False
+
+        return True
+
+    def get_alt_dir_at_sea(self, now_x, now_y, now_dir):
+        for alt_direction in c.NOW_DIRECT_2_ALTERNATIVE_DIRECTS[now_dir]:
+            if self.can_move_at_sea(now_x, now_y, alt_direction):
+                return alt_direction
+        return None
 
 sMapMaker = MapMaker()
 

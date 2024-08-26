@@ -23,8 +23,8 @@ DONE:
     auto direction change at sea OK
     at sea, no stop  OK
 
-    server tile collision
-        at sea
+    server tile collision OK
+        at sea  ON
         in port
 
     see other players

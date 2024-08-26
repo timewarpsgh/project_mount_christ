@@ -1,5 +1,4 @@
 import pygame
-import os
 import sys
 from login_pb2 import *
 import login_pb2 as pb
@@ -56,6 +55,8 @@ class BackGround(SP):
         self.target_position = None
         self.duration = None
     def update(self, time_diff):
+
+
         if not self.start_time:
             return
 
@@ -439,6 +440,8 @@ class Graphics:
 
         self.sp_background.change_img(port_map)
 
+        # so port img looks right after enter port
+        self.sp_background.start_time = None
         x, y = self.role_xy_in_port_2_xy_on_screen(x, y)
         self.sp_background.move_to(x, y)
 

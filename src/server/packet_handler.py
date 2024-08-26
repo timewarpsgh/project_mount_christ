@@ -28,6 +28,7 @@ from object_mgr import sObjectMgr
 from npc_mgr import sNpcMgr
 from id_mgr import sIdMgr
 
+
 import model
 import copy
 
@@ -499,19 +500,7 @@ class PacketHandler:
         self.role.move(move.dir_type)
 
     async def handle_StartMoving(self, start_moving):
-        self.role.dir = start_moving.dir_type
-        self.role.is_moving = True
-        self.role.speed = c.PORT_SPEED
-        self.role.move_timer = 0
-
-        pack = pb.StartedMoving(
-            id=self.role.id,
-            src_x=self.role.x,
-            src_y=self.role.y,
-            dir=self.role.dir,
-            speed=self.role.speed,
-        )
-        self.send_to_nearby_roles(pack, include_self=True)
+        self.role.start_moving(start_moving.dir_type)
 
     async def handle_StopMoving(self, stop_moving):
         self.role.is_moving = False

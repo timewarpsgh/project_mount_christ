@@ -246,6 +246,7 @@ class Role:
 
     def stop_moving(self):
         self.is_moving = False
+        print(f'stopped moving at {self.x} {self.y}')
 
         pack = pb.StopMoving(
             x=self.x,
@@ -266,73 +267,14 @@ class Role:
         elif self.is_at_sea():
             self.graphics.move_sea_bg(self.x, self.y)
 
-    def can_move_in_port(self, dir):
-
-        piddle = sMapMaker.port_piddle
-
-        # x and y reversed!!!!
-        y = self.x
-        x = self.y
-
-        # basic 4 directions
-        if dir == pb.DirType.N:
-
-            # not in asia
-            if self.map_id < 94:
-                if piddle[x, y] in c.WALKABLE_TILES and piddle[x, y + 1] in c.WALKABLE_TILES:
-                    return True
-            # in asia
-            else:
-                if piddle[x, y] in c.WALKABLE_TILES_FOR_ASIA and piddle[x, y + 1] in c.WALKABLE_TILES_FOR_ASIA:
-                    return True
-
-        elif dir == pb.DirType.S:
-            if piddle[x + 2, y] in c.WALKABLE_TILES and piddle[x + 2, y + 1] in c.WALKABLE_TILES:
-                return True
-
-        elif dir == pb.DirType.W:
-            if piddle[x + 1, y - 1] in c.WALKABLE_TILES:
-                return True
-
-        elif dir == pb.DirType.E:
-            if piddle[x + 1, y + 2] in c.WALKABLE_TILES:
-                return True
-
-        # ret
-        return False
-
-    def can_move_at_sea(self, dir):
-        # get piddle
-        piddle = sMapMaker.world_map_piddle
-
-        # x and y reversed!!!!
-        y = self.x
-        x = self.y
-
-        tile_list = c.DIRECT_2_SEA_MOVE_COLLISION_TILES[dir]
-        for tile in tile_list:
-            dx = tile[0]
-            dy = tile[1]
-            tile_id = int(piddle[x + dx, y + dy])
-            if not tile_id in c.SAILABLE_TILES:
-                return False
-
-        return True
-
-    def get_alt_dir_at_sea(self, now_dir):
-        for alt_direction in c.NOW_DIRECT_2_ALTERNATIVE_DIRECTS[now_dir]:
-            if self.can_move_at_sea(alt_direction):
-                return alt_direction
-        return None
-
     def move(self, dir):
         # can move?
         if self.is_in_port():
-            if not self.can_move_in_port(dir):
+            if not sMapMaker.can_move_in_port(self.map_id, self.x, self.y, dir):
                 return
         elif self.is_at_sea():
-            if not self.can_move_at_sea(dir):
-                alt_dir = self.get_alt_dir_at_sea(dir)
+            if not sMapMaker.can_move_at_sea(self.x, self.y, dir):
+                alt_dir = sMapMaker.get_alt_dir_at_sea(self.x, self.y, dir)
                 if not alt_dir:
                     self.stop_moving()
                     return

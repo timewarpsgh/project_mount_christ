@@ -8,6 +8,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 import constants as c
 from object_mgr import sObjectMgr
+from map_maker import sMapMaker
 
 @dataclass
 class Ship:
@@ -257,7 +258,33 @@ class Role:
         grid_y = int(x / c.SIZE_OF_ONE_GRID)
         return grid_x, grid_y
 
+    def stop_moving(self):
+        self.is_moving = False
+
+        print(f'stopped moving at {self.x} {self.y}')
+
+        # send stopped moving to nearby clients
+
+        # pack = pb.StopMoving(
+        #     x=self.x,
+        #     y=self.y,
+        #     dir=self.dir,
+        # )
+        # self.graphics.client.send(pack)
+
     def move(self, dir):
+        # can move?
+        if self.is_in_port():
+            if not sMapMaker.can_move_in_port(self.map_id, self.x, self.y, dir):
+                return
+        elif self.is_at_sea():
+            if not sMapMaker.can_move_at_sea(self.x, self.y, dir):
+                alt_dir = sMapMaker.get_alt_dir_at_sea(self.x, self.y, dir)
+                if not alt_dir:
+                    self.stop_moving()
+                    return
+                self.move(alt_dir)
+                return
 
         distance = 1
 
@@ -268,6 +295,19 @@ class Role:
         elif dir == pb.DirType.N:
             self.y -= distance
         elif dir == pb.DirType.S:
+            self.y += distance
+
+        elif dir == pb.DirType.NE:
+            self.x += distance
+            self.y -= distance
+        elif dir == pb.DirType.NW:
+            self.x -= distance
+            self.y -= distance
+        elif dir == pb.DirType.SE:
+            self.x += distance
+            self.y += distance
+        elif dir == pb.DirType.SW:
+            self.x -= distance
             self.y += distance
 
         # make packet
@@ -449,14 +489,10 @@ class Role:
     async def update(self, time_diff):
         # movment
         if self.is_moving:
-            print('updating move timer')
-
             self.move_timer -= time_diff
-
-            print('updated move timer')
             if self.move_timer <= 0:
                 self.move(self.dir)
-                self.move_timer = c.PIXELS_COVERED_EACH_MOVE / self.speed
+                self.move_timer = self.calc_move_timer()
 
         # battle timer
         if self.battle_timer:
@@ -604,6 +640,56 @@ class Role:
 
         # switch battle timer
         await self.switch_turn_with_enemy()
+
+    def is_in_port(self):
+        if self.map_id != 0 and self.map_id is not None:
+            return True
+        else:
+            return False
+
+    def is_at_sea(self):
+        if self.map_id == 0 and not self.is_in_battle():
+            return True
+        else:
+            return False
+
+    def is_in_battle(self):
+        if self.battle_npc_id or self.battle_role_id:
+            return True
+        else:
+            return False
+
+    def start_moving(self, dir):
+        self.is_moving = True
+        self.dir = dir
+        self.move_timer = 0
+
+        if self.is_in_port():
+            self.speed = c.PORT_SPEED
+        elif self.is_at_sea():
+            self.speed = c.PORT_SPEED
+
+        pack = pb.StartedMoving(
+            id=self.id,
+            src_x=self.x,
+            src_y=self.y,
+            dir=self.dir,
+            speed=self.speed,
+        )
+        self.session.packet_handler.send_to_nearby_roles(pack, include_self=True)
+
+    def is_dir_diagnal(self):
+        if self.dir in [pb.DirType.NW, pb.DirType.NE, pb.DirType.SW, pb.DirType.SE]:
+            return True
+        else:
+            return False
+
+    def calc_move_timer(self):
+        if self.is_dir_diagnal():
+            move_timer = 1.41 * c.PIXELS_COVERED_EACH_MOVE / self.speed
+        else:
+            move_timer = c.PIXELS_COVERED_EACH_MOVE / self.speed
+        return move_timer
 
 class Model:
 

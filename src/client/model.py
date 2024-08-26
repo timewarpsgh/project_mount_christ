@@ -309,18 +309,7 @@ class Role:
         y = self.x
         x = self.y
 
-        direct_2_sea_move_collision_tiles = {
-            pb.DirType.N: [[-1, 0], [-1, 1]],
-            pb.DirType.S: [[2, 0], [2, 1]],
-            pb.DirType.E: [[0, 2], [1, 2]],
-            pb.DirType.W: [[0, -1], [1, -1]],
-            pb.DirType.NE: [[-1, 1], [-1, 2], [0, 2]],
-            pb.DirType.NW: [[0, -1], [-1, -1], [-1, 0]],
-            pb.DirType.SE: [[1, 2], [2, 2], [2, 1]],
-            pb.DirType.SW: [[2, 0], [2, -1], [1, -1]],
-        }
-
-        tile_list = direct_2_sea_move_collision_tiles[dir]
+        tile_list = c.DIRECT_2_SEA_MOVE_COLLISION_TILES[dir]
         for tile in tile_list:
             dx = tile[0]
             dy = tile[1]
@@ -330,6 +319,12 @@ class Role:
 
         return True
 
+    def get_alt_dir_at_sea(self, now_dir):
+        for alt_direction in c.NOW_DIRECT_2_ALTERNATIVE_DIRECTS[now_dir]:
+            if self.can_move_at_sea(alt_direction):
+                return alt_direction
+        return None
+
     def move(self, dir):
         # can move?
         if self.is_in_port():
@@ -337,6 +332,10 @@ class Role:
                 return
         elif self.is_at_sea():
             if not self.can_move_at_sea(dir):
+                alt_dir = self.get_alt_dir_at_sea(dir)
+                if not alt_dir:
+                    return
+                self.move(alt_dir)
                 return
 
         self.last_x = self.x

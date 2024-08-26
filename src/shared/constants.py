@@ -1,3 +1,12 @@
+import sys
+
+
+
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
+
+
+import login_pb2 as pb
+
 # seen grids
 SEEN_GRIDS_COLS = 64
 SEEN_GRIDS_ROWS = 32
@@ -169,6 +178,30 @@ ID_2_BUILDING_TYPE = {
     10: 'item_shop',
     11: 'church',
     12: 'fortune_house',
+}
+
+DIRECT_2_SEA_MOVE_COLLISION_TILES = {
+    pb.DirType.N: [[-1, 0], [-1, 1]],
+    pb.DirType.S: [[2, 0], [2, 1]],
+    pb.DirType.E: [[0, 2], [1, 2]],
+    pb.DirType.W: [[0, -1], [1, -1]],
+
+    pb.DirType.NE: [[-1, 1], [-1, 2], [0, 2]],
+    pb.DirType.NW: [[0, -1], [-1, -1], [-1, 0]],
+    pb.DirType.SE: [[1, 2], [2, 2], [2, 1]],
+    pb.DirType.SW: [[2, 0], [2, -1], [1, -1]],
+}
+
+NOW_DIRECT_2_ALTERNATIVE_DIRECTS = {
+    pb.DirType.N: [pb.DirType.NE, pb.DirType.NW],
+    pb.DirType.S: [pb.DirType.SE, pb.DirType.SW],
+    pb.DirType.E: [pb.DirType.NE, pb.DirType.SE],
+    pb.DirType.W: [pb.DirType.NW, pb.DirType.SW],
+
+    pb.DirType.NE: [pb.DirType.N, pb.DirType.E],
+    pb.DirType.NW: [pb.DirType.N, pb.DirType.W],
+    pb.DirType.SE: [pb.DirType.S, pb.DirType.E],
+    pb.DirType.SW: [pb.DirType.S, pb.DirType.W],
 }
 
 REGIONS = [

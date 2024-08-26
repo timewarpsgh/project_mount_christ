@@ -303,10 +303,10 @@ class Role:
             pb.DirType.S: [[2, 0], [2, 1]],
             pb.DirType.E: [[0, 2], [1, 2]],
             pb.DirType.W: [[0, -1], [1, -1]],
-            'ne': [[-1, 1], [-1, 2], [0, 2]],
-            'nw': [[0, -1], [-1, -1], [-1, 0]],
-            'se': [[1, 2], [2, 2], [2, 1]],
-            'sw': [[2, 0], [2, -1], [1, -1]],
+            pb.DirType.NE: [[-1, 1], [-1, 2], [0, 2]],
+            pb.DirType.NW: [[0, -1], [-1, -1], [-1, 0]],
+            pb.DirType.SE: [[1, 2], [2, 2], [2, 1]],
+            pb.DirType.SW: [[2, 0], [2, -1], [1, -1]],
         }
 
         tile_list = direct_2_sea_move_collision_tiles[dir]
@@ -320,6 +320,7 @@ class Role:
         return True
 
     def move(self, dir):
+        # can move?
         if self.is_in_port():
             if not self.can_move_in_port(dir):
                 return
@@ -340,6 +341,20 @@ class Role:
             self.y -= distance
         elif dir == pb.DirType.S:
             self.y += distance
+
+        elif dir == pb.DirType.NE:
+            self.x += distance
+            self.y -= distance
+        elif dir == pb.DirType.NW:
+            self.x -= distance
+            self.y -= distance
+        elif dir == pb.DirType.SE:
+            self.x += distance
+            self.y += distance
+        elif dir == pb.DirType.SW:
+            self.x -= distance
+            self.y += distance
+
 
         if self.is_in_port():
             sp_role = self.graphics.sp_role

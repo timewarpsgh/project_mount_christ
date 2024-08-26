@@ -156,6 +156,12 @@ class RoleSP(SP):
                 pb.DirType.E : [self.__x_y_to_image(3, 2), self.__x_y_to_image(4, 2)],
                 pb.DirType.S : [self.__x_y_to_image(5, 2), self.__x_y_to_image(6, 2)],
                 pb.DirType.W : [self.__x_y_to_image(7, 2), self.__x_y_to_image(8, 2)],
+
+                pb.DirType.NW: [self.__x_y_to_image(7, 2), self.__x_y_to_image(8, 2)],
+                pb.DirType.NE: [self.__x_y_to_image(3, 2), self.__x_y_to_image(4, 2)],
+                pb.DirType.SW: [self.__x_y_to_image(7, 2), self.__x_y_to_image(8, 2)],
+                pb.DirType.SE: [self.__x_y_to_image(3, 2), self.__x_y_to_image(4, 2)],
+
             },
             'in_port': {
                 pb.DirType.N : [self.__x_y_to_image(1, 1, False), self.__x_y_to_image(2, 1, False)],
@@ -496,11 +502,21 @@ class Graphics:
                 # self.client.send(pb.StartMoving(dir_type=pb.DirType.S))
                 self.model.role.start_moving(pb.DirType.S)
 
+            # other 4 dirs at sea
+            if event.key == pygame.K_q:
+                self.model.role.start_moving(pb.DirType.NW)
+            if event.key == pygame.K_e:
+                self.model.role.start_moving(pb.DirType.NE)
+            if event.key == pygame.K_z:
+                self.model.role.start_moving(pb.DirType.SW)
+            if event.key == pygame.K_x:
+                self.model.role.start_moving(pb.DirType.SE)
+
             # test key
-            elif event.key == pygame.K_t:
+            if event.key == pygame.K_t:
                 self.client.send(FightRole(role_id=2))
 
-            elif event.key == pygame.K_y:
+            if event.key == pygame.K_y:
                 self.client.send(FightNpc(npc_id=1))
 
         elif event.type == pygame.KEYUP:

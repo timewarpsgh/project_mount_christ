@@ -86,6 +86,7 @@ PARTIAL_WORLD_MAP_TILES = 73
 PARTIAL_WORLD_MAP_TILES_IN_ONE_DIRECTION = 36
 PORT_TILES_COUNT = 96
 GRID_TILES_COUNT = 13
+CELL_TILES_COUNT = 13
 TILES_AROUND_PORTS = [[2, 0], [2, 1], [2, -1], [-2, 0],
                       [-2, 1], [-2, -1],[0, 2], [1, 2],
                       [-1, 2], [0, -2], [1, -2], [-1, -2]]

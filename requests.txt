@@ -24,10 +24,21 @@ DONE:
     at sea, no stop  OK
 
     server tile collision OK
-        at sea  ON
-        in port
 
-    see other players
+
+
+    see other players   ON
+        when role enters, its added into a map (port, or sea)
+        port has only one cell, sea has many cells
+        nearby roles: 9 cells around center cell
+
+        when role changes map or logs out, changes cell or removed from all cells
+
+    sMapMgr in server OK
+
+
+    server not loaded map
+
     see npcs
 
 

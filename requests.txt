@@ -67,6 +67,7 @@ TO DO:
         smooth movement at sea OK
 
         smooth sea movement between partial map change OK
+        ship aninmation OK
 
 
 

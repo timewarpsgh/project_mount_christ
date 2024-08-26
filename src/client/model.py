@@ -282,7 +282,13 @@ class Role:
 
         elif self.is_at_sea():
             sp_role = self.graphics.sp_role
-            sp_role.change_img(sp_role.frames['at_sea'][self.dir][0])
+            if sp_role.now_frame == 0:
+                sp_role.now_frame = 1
+            else:
+                sp_role.now_frame = 0
+
+            sp_role.change_img(sp_role.frames['at_sea'][self.dir][sp_role.now_frame])
+
             self.graphics.move_sea_bg(self.x, self.y)
 
     def update(self, time_diff):

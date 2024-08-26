@@ -738,7 +738,9 @@ class PacketHandler:
         village_id = discover.village_id
 
         village = sObjectMgr.get_village(village_id)
-        if abs(village.x - self.role.x) <= 1 and abs(village.y - self.role.y) <= 1:
+        distance = 3
+
+        if abs(village.x - self.role.x) <= distance and abs(village.y - self.role.y) <= distance:
             if village_id not in self.role.discovery_mgr.get_ids_set():
                 self.role.discovery_mgr.add(village_id)
 

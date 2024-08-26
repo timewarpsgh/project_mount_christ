@@ -565,11 +565,11 @@ class OptionsDialog:
         x = self.client.game.graphics.model.role.x
         y = self.client.game.graphics.model.role.y
 
-        print(x, y)
+        distance = 3
 
         village_id_in_range = None
         for id, village in sObjectMgr.id_2_village.items():
-            if abs(village.x - x) <= 1 and abs(village.y - y) <= 1:
+            if abs(village.x - x) <= distance and abs(village.y - y) <= distance:
                 village_id_in_range = id
 
         print(f'village_id_in_range: {village_id_in_range}')

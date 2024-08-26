@@ -17,7 +17,7 @@ DONE:
             at sea ON
 
 
-    can discover village at sea ON
+    can discover village at sea OK
 
     8 sea directions ON
     auto direction change at sea ON

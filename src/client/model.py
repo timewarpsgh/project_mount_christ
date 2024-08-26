@@ -334,6 +334,7 @@ class Role:
             if not self.can_move_at_sea(dir):
                 alt_dir = self.get_alt_dir_at_sea(dir)
                 if not alt_dir:
+                    self.stop_moving()
                     return
                 self.move(alt_dir)
                 return

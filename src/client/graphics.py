@@ -521,7 +521,8 @@ class Graphics:
 
         elif event.type == pygame.KEYUP:
             if event.key in [pygame.K_d, pygame.K_a, pygame.K_w, pygame.K_s]:
-                self.model.role.stop_moving()
+                if self.model.role.is_in_port():
+                    self.model.role.stop_moving()
 
     def update(self, time_diff):
         # update sprites group

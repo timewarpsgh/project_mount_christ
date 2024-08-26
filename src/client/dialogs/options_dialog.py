@@ -684,6 +684,7 @@ class OptionsDialog:
     def __enter_port(self):
         # get nearby port_id
         role = self.__get_role()
+        role.stop_moving()
 
         nearby_port_id = None
         distance = 3

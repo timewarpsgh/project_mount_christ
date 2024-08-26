@@ -21,7 +21,11 @@ DONE:
     diagnal movement speed too fast OK
 
     auto direction change at sea OK
-    at sea, no stop
+    at sea, no stop  OK
+
+    server tile collision
+        at sea
+        in port
 
     see other players
     see npcs

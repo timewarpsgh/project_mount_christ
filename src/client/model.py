@@ -5,6 +5,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 import constants as c
+from map_maker import sMapMaker
 
 @dataclass
 class Ship:
@@ -254,7 +255,78 @@ class Role:
         elif self.is_at_sea():
             self.graphics.move_sea_bg(self.x, self.y)
 
+    def can_move_in_port(self, dir):
+
+        piddle = sMapMaker.port_piddle
+
+        # x and y reversed!!!!
+        y = self.x
+        x = self.y
+
+        # basic 4 directions
+        if dir == pb.DirType.N:
+
+            # not in asia
+            if self.map_id < 94:
+                if piddle[x, y] in c.WALKABLE_TILES and piddle[x, y + 1] in c.WALKABLE_TILES:
+                    return True
+            # in asia
+            else:
+                if piddle[x, y] in c.WALKABLE_TILES_FOR_ASIA and piddle[x, y + 1] in c.WALKABLE_TILES_FOR_ASIA:
+                    return True
+
+        elif dir == pb.DirType.S:
+            if piddle[x + 2, y] in c.WALKABLE_TILES and piddle[x + 2, y + 1] in c.WALKABLE_TILES:
+                return True
+
+        elif dir == pb.DirType.W:
+            if piddle[x + 1, y - 1] in c.WALKABLE_TILES:
+                return True
+
+        elif dir == pb.DirType.E:
+            if piddle[x + 1, y + 2] in c.WALKABLE_TILES:
+                return True
+
+        # ret
+        return False
+
+    def can_move_at_sea(self, dir):
+        # get piddle
+        piddle = sMapMaker.world_map_piddle
+
+        # x and y reversed!!!!
+        y = self.x
+        x = self.y
+
+        direct_2_sea_move_collision_tiles = {
+            pb.DirType.N: [[-1, 0], [-1, 1]],
+            pb.DirType.S: [[2, 0], [2, 1]],
+            pb.DirType.E: [[0, 2], [1, 2]],
+            pb.DirType.W: [[0, -1], [1, -1]],
+            'ne': [[-1, 1], [-1, 2], [0, 2]],
+            'nw': [[0, -1], [-1, -1], [-1, 0]],
+            'se': [[1, 2], [2, 2], [2, 1]],
+            'sw': [[2, 0], [2, -1], [1, -1]],
+        }
+
+        tile_list = direct_2_sea_move_collision_tiles[dir]
+        for tile in tile_list:
+            dx = tile[0]
+            dy = tile[1]
+            tile_id = int(piddle[x + dx, y + dy])
+            if not tile_id in c.SAILABLE_TILES:
+                return False
+
+        return True
+
     def move(self, dir):
+        if self.is_in_port():
+            if not self.can_move_in_port(dir):
+                return
+        elif self.is_at_sea():
+            if not self.can_move_at_sea(dir):
+                return
+
         self.last_x = self.x
         self.last_y = self.y
 

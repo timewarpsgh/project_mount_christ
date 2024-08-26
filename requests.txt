@@ -1,125 +1,27 @@
 TO DO:
 
-    basic game mechanic OK
-        discover
-        trade
-        fight npc/role to win/lose/escape
 
 
-    backgound
-        buildings  OK
-        port OK
-        sea map OK
-
-    sp_role  OK
-
-        at sea dir OK
-        in port  change frame each move      OK
-        enter and exit building OK
-        after escape battle, show sea img OK
-        after enter battle with role, hide role sp OK
-
-
-
-    sea map placement OK
-
-
-    hud ON
-       gui lower OK
-       customize gui  OK
-        change window to panel ON
-            only show top window OK
-            my panel window needs panel OK
-
-        right hud: OK
-        left hud:  OK
-
-    continus movement OK (but sending too many packs?)
-        in port  OK
-            key down -> send start_moving(dir) -> server.role.is_moving = True, updates pos each iter
-            key up   -> stop_moving()
-        at sea   ON
-            key down -> send start_moving(dir)
-            key up   -> do not stop moving, stop when entered port
-
-    moving not smooth OK
-        have maybe 0.01s between each move ? (looks nice)   OK
-
-
-
-
-    sending too many packs ON
-        in port
-            key down->
-                send start_moving(dir)
-                server.role.is_moving, speed -> time_between_move
-                tell client started_moving(id, src_x, src_y, dir, speed)
-
-
-            key up ->
-                send stop_moving
-                server, tell client stopped_moving(id, x, y, dir)
-
-            show role hands OK
-
-
-        show building bg OK
-        smooth movement at sea OK
-
-        smooth sea movement between partial map change OK
-        ship aninmation OK
 
 
 
 DONE:
 
-
-    sNpcMgr in server OK
-
-        1 fleet 1st, not moving  OK
-            enter and escape battle OK
-            .win_npc OK
-
-            new ship needs its own id OK
-            sell ship, maybe use it(then need my own ship_id) OK
-
-            buy ship OK
-
-            show ship img and type right OK
+    smooth movement  OK
+    collision ON
+        client ON
+            in port OK
+            at sea  OK
+        server  ON
+            in port ON
+            at sea ON
 
 
-    fight npc fleet OK
+    can discover village at sea ON
 
-    fight player fleet   OK
+    8 sea directions ON
+    auto direction change at sea ON
 
-        auto test OK
-
-        show battle_timer   OK
-
-        can escape only when battle timer is on OK
-        refactored gen_ship_prot to ship class OK
-
-        show ships in battle   OK
-
-
-        all ships attack  OK
-
-        show attack damge anime OK
-
-        each ship has x,y OK
-
-        choose random ship to attck, until flag_ship is not alive OK
-
-
-        show cannon_ball  OK
-
-        play shooting sound, and hit sound OK
-
-
-        change battle ground OK
-
-
-        can only shoot with battle timer, switch side after all ship attack OK
 
 cmds
     # compile .proto file

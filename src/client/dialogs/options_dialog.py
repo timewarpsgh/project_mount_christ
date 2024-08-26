@@ -686,8 +686,9 @@ class OptionsDialog:
         role = self.__get_role()
 
         nearby_port_id = None
+        distance = 3
         for id, port in sObjectMgr.id_2_port.items():
-            if abs(port.x - role.x) <= 1 and abs(port.y - role.y) <= 1:
+            if abs(port.x - role.x) <= distance and abs(port.y - role.y) <= distance:
                 nearby_port_id = id
 
         if nearby_port_id:

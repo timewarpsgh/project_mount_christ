@@ -769,8 +769,10 @@ class PacketHandler:
     async def handle_EnterPort(self, enter_port):
         port_id = enter_port.id
 
+        distance = 3
+
         port = sObjectMgr.get_port(port_id)
-        if abs(port.x - self.role.x) <= 1 and abs(port.y - self.role.y) <= 1:
+        if abs(port.x - self.role.x) <= distance and abs(port.y - self.role.y) <= distance:
             self.role.enter_port(port_id)
         else:
             pass

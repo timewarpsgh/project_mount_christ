@@ -382,12 +382,18 @@ class Graphics:
             self.sp_background.change_img(new_partial_sea_map)
 
             # move img
+            role = self.model.role
+
+            prev_x, prev_y = self.role_xy_at_sea_2_xy_on_screen(role.last_x, role.last_y)
+            self.sp_background.move_to(prev_x, prev_y)
+
             x, y = self.role_xy_at_sea_2_xy_on_screen(x, y)
             self.sp_background.move_to_smoothly(x, y, given_time=0.2)
 
         # else
         else:
             x, y = self.role_xy_at_sea_2_xy_on_screen(x, y)
+            # self.sp_background.move_to(x, y)
             self.sp_background.move_to_smoothly(x, y, given_time=0.2)
 
     def role_xy_in_port_2_xy_on_screen(self, x, y):

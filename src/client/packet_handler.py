@@ -494,11 +494,11 @@ class PacketHandler:
         speed = started_moving.speed
 
         if id == self.__get_role().id:
-            role = self.__get_role()
-            role.is_moving = True
-            role.speed = speed
-            role.move_timer = c.PIXELS_COVERED_EACH_MOVE / role.speed
-            role.dir = dir
+            # role = self.__get_role()
+            # role.is_moving = True
+            # role.speed = speed
+            # role.move_timer = c.PIXELS_COVERED_EACH_MOVE / role.speed
+            # role.dir = dir
 
             print('handling pack StartedMoving')
 

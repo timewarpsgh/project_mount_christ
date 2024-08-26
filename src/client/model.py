@@ -187,6 +187,8 @@ class Role:
     name: str = None
     x: int = None
     y: int = None
+    last_x: int = None
+    last_y: int = None
     dir: int = None
     is_moving: bool = None
     speed: float = None
@@ -253,6 +255,9 @@ class Role:
             self.graphics.move_sea_bg(self.x, self.y)
 
     def move(self, dir):
+        self.last_x = self.x
+        self.last_y = self.y
+
         distance = 1
 
         if dir == pb.DirType.E:

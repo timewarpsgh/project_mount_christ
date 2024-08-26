@@ -18,6 +18,8 @@ DONE:
 
 
     8 sea directions at sea OK
+    diagnal movement speed too fast OK
+
 
 
     auto direction change at sea ON

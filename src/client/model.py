@@ -225,11 +225,22 @@ class Role:
         else:
             return False
 
+    def is_dir_diagnal(self):
+        if self.dir in [pb.DirType.NW, pb.DirType.NE, pb.DirType.SW, pb.DirType.SE]:
+            return True
+        else:
+            return False
+
     def start_moving(self, dir):
         self.is_moving = True
         self.dir = dir
-        self.speed = c.PORT_SPEED
-        self.move_timer = -1
+        self.move_timer = 0
+
+        if self.is_in_port():
+            self.speed = c.PORT_SPEED
+        elif self.is_at_sea():
+            self.speed = c.PORT_SPEED
+
 
         self.graphics.client.send(pb.StartMoving(dir_type=dir))
 
@@ -378,15 +389,22 @@ class Role:
 
             self.graphics.move_sea_bg(self.x, self.y)
 
+    def calc_move_timer(self):
+        if self.is_dir_diagnal():
+            move_timer = 1.4 * c.PIXELS_COVERED_EACH_MOVE / self.speed
+        else:
+            move_timer = c.PIXELS_COVERED_EACH_MOVE / self.speed
+        return move_timer
+
     def update(self, time_diff):
         # movment
         if self.is_moving:
             self.move_timer -= time_diff
             if self.move_timer <= 0:
                 self.move(self.dir)
-                self.move_timer = c.PIXELS_COVERED_EACH_MOVE / self.speed
-                print(f'new timer {self.move_timer}')
-                print(f'timee diff: { time_diff}')
+                self.move_timer = self.calc_move_timer()
+
+
 @dataclass
 class Npc:
     id: int = None

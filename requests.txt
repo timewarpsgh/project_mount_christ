@@ -45,7 +45,8 @@ DONE:
         other role collision check OK
         show others move at sea ON
             press p to sail OK
-            show other role as ship ON
+            show other role as ship OK
+            see other role start moving
 
 
         show role sprite

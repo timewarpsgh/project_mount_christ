@@ -203,7 +203,10 @@ class RoleSP(SP):
             self.move_to(x, y)
 
             if self.role.dir is not None:
-                self.change_img(self.frames['in_port'][self.role.dir][0])
+                if self.role.is_in_port():
+                    self.change_img(self.frames['in_port'][self.role.dir][0])
+                elif self.role.is_at_sea():
+                    self.change_img(self.frames['at_sea'][self.role.dir][0])
 
     def __update_at_sea_frame(self):
         if self.model.role.is_at_sea():

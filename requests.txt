@@ -49,6 +49,9 @@ DONE:
             see other role(ship) start moving OK
 
             when i move, see other role, move smoothly OK
+            when i move, see other role, move smoothly, at sea OK
+
+            one side can't see other, when sailed to sea ON
 
         show role sprite
         show role movement

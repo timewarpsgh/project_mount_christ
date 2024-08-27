@@ -523,6 +523,8 @@ class PacketHandler:
             dir=self.role.dir,
         )
         self.send_to_nearby_roles(pack, include_self=True)
+        print(f'server: {self.role.id} stopped moving at ({self.role.x}, {self.role.y})')
+
 
     async def handle_Disconnect(self, disconnect):
         print('got disconn packet from client')

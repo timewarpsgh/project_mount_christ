@@ -239,7 +239,8 @@ class PacketHandler:
             )
 
     async def handle_RoleAppeared(self, role_appeared):
-        print(f'!!!!get packet role_appeared for {role_appeared.name}')
+        print(f'!!!!get packet role_appeared for '
+              f'{role_appeared.name}  {role_appeared.x} {role_appeared.y}')
         role = Role(
             id=role_appeared.id,
             name=role_appeared.name,
@@ -514,6 +515,8 @@ class PacketHandler:
         src_x = stopped_moving.src_x
         src_y = stopped_moving.src_y
         dir = stopped_moving.dir
+
+        print(f'{id} stopped moving at {src_x} {src_y}')
 
         if id == self.__get_role().id:
             role = self.__get_role()

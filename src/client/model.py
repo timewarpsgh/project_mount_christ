@@ -283,7 +283,10 @@ class Role:
             if not sMapMaker.can_move_at_sea(self.x, self.y, dir):
                 alt_dir = sMapMaker.get_alt_dir_at_sea(self.x, self.y, dir)
                 if not alt_dir:
-                    self.stop_moving()
+
+                    # don't send stop pack is not my role
+                    if self.is_mine():
+                        self.stop_moving()
                     return
                 self.move(alt_dir)
                 return
@@ -325,7 +328,6 @@ class Role:
                 y = (self.y - self.graphics.model.role.y) * c.PIXELS_COVERED_EACH_MOVE \
                     + c.WINDOW_HEIGHT // 2
 
-
                 self.graphics.move_sp_role(self.id, x, y)
 
                 return
@@ -355,18 +357,35 @@ class Role:
 
         elif self.is_at_sea():
             # not self role
-            if self.graphics is None:
+            if not self.is_mine():
+                # update pos
+                x = (self.x - self.graphics.model.role.x) * c.PIXELS_COVERED_EACH_MOVE \
+                    + c.WINDOW_WIDTH // 2
+                y = (self.y - self.graphics.model.role.y) * c.PIXELS_COVERED_EACH_MOVE \
+                    + c.WINDOW_HEIGHT // 2
+
+                self.graphics.move_sp_role(self.id, x, y)
+
                 return
-
-            sp_role = self.graphics.sp_role
-            if sp_role.now_frame == 0:
-                sp_role.now_frame = 1
             else:
-                sp_role.now_frame = 0
+                sp_role = self.graphics.sp_role
+                if sp_role.now_frame == 0:
+                    sp_role.now_frame = 1
+                else:
+                    sp_role.now_frame = 0
 
-            sp_role.change_img(sp_role.frames['at_sea'][self.dir][sp_role.now_frame])
+                sp_role.change_img(sp_role.frames['at_sea'][self.dir][sp_role.now_frame])
 
-            self.graphics.move_sea_bg(self.x, self.y)
+                self.graphics.move_sea_bg(self.x, self.y)
+
+                # move other roles
+                for id, role in self.graphics.model.id_2_role.items():
+                    x = (role.x - self.x) * c.PIXELS_COVERED_EACH_MOVE \
+                        + c.WINDOW_WIDTH // 2
+                    y = (role.y - self.y) * c.PIXELS_COVERED_EACH_MOVE \
+                        + c.WINDOW_HEIGHT // 2
+
+                    self.graphics.move_sp_role(id, x, y)
 
     def calc_move_timer(self):
         if self.is_dir_diagnal():

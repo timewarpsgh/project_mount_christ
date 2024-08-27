@@ -192,14 +192,6 @@ class RoleSP(SP):
         self.__update_at_sea_frame()
 
         if not self.is_mine:
-            # # update pos
-            # x = (self.role.x - self.model.role.x) * c.PIXELS_COVERED_EACH_MOVE \
-            #     + c.WINDOW_WIDTH // 2
-            # y = (self.role.y - self.model.role.y) * c.PIXELS_COVERED_EACH_MOVE \
-            #     + c.WINDOW_HEIGHT // 2
-            #
-            # self.move_to_smoothly(x, y, given_time=0.2)
-
             if self.role.dir is not None:
                 if self.role.is_in_port():
                     self.change_img(self.frames['in_port'][self.role.dir][0])
@@ -410,13 +402,13 @@ class Graphics:
             self.sp_background.move_to(prev_x, prev_y)
 
             x, y = self.role_xy_at_sea_2_xy_on_screen(x, y)
-            self.sp_background.move_to_smoothly(x, y, given_time=role.calc_move_timer())
+            self.sp_background.move_to_smoothly(x, y, given_time=0.2)
 
         # else
         else:
             role = self.model.role
             x, y = self.role_xy_at_sea_2_xy_on_screen(x, y)
-            self.sp_background.move_to_smoothly(x, y, given_time=role.calc_move_timer())
+            self.sp_background.move_to_smoothly(x, y, given_time=0.2)
 
     def role_xy_in_port_2_xy_on_screen(self, x, y):
         x = -x * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_WIDTH // 2
@@ -477,8 +469,8 @@ class Graphics:
         self.sp_background.move_to(0, 0)
 
     def add_sp_role(self, role):
-        x = (role.x - self.model.role.x) + c.WINDOW_WIDTH // 2
-        y = (role.y - self.model.role.y) + c.WINDOW_HEIGHT // 2
+        x = (role.x - self.model.role.x) * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_WIDTH // 2
+        y = (role.y - self.model.role.y) * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_HEIGHT // 2
         sp_role = RoleSP(self.model, role, self.imgs['role'], x, y, is_mine=False)
         sp_role_name = SP(self.font.render(role.name, True, YELLOW), x, y)
 
@@ -495,8 +487,8 @@ class Graphics:
         del self.id_2_sp_role_name[id]
 
     def move_sp_role(self, id, x, y):
-        print(self.id_2_sp_role)
-        print(id)
+        # self.id_2_sp_role[id].move_to(x, y)
+        # self.id_2_sp_role_name[id].move_to(x, y)
 
         self.id_2_sp_role[id].move_to_smoothly(x, y, given_time=0.2)
         self.id_2_sp_role_name[id].move_to_smoothly(x, y, given_time=0.2)

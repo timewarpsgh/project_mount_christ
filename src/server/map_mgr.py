@@ -14,13 +14,22 @@ class PortMap:
     def add_object(self, object):
         self.id_2_object[object.id] = object
 
+        print('port map objs')
+        print(self.id_2_object.keys())
+
     def rm_object(self, object):
         del self.id_2_object[object.id]
 
-    def get_nearby_objects(self, object):
+    def get_nearby_objects(self, object, include_self):
         # all
-        return list(self.id_2_object.values())
-
+        if include_self:
+            return list(self.id_2_object.values())
+        else:
+            objects = []
+            for obj in self.id_2_object.values():
+                if obj.id != object.id:
+                    objects.append(obj)
+            return objects
     def move_object(self, object, old_x, old_y, new_x, new_y):
         """ has no cell, so no need to move """
         pass
@@ -92,13 +101,19 @@ class SeaMap:
                     nearby_cells.append(self.cells[x][y])
         return nearby_cells
 
-    def get_nearby_objects(self, object):
+    def get_nearby_objects(self, object, include_self):
         cell = self.__get_cell(object.x, object.y)
         cells = self.__get_nearby_cells(cell)
         objects = []
         for cell in cells:
             objs = cell.get_all_objects()
-            objects.extend(objs)
+            for obj in objs:
+                if include_self:
+                    objects.append(obj)
+                else:
+                    if obj.id != object.id:
+                        objects.append(obj)
+
 
         return objects
 
@@ -138,6 +153,9 @@ class MapMgr:
 
         new_map = self.get_map(new_map_id)
         new_map.add_object(object)
+
+    def get_nearby_objects(self, object, include_self=False):
+        return self.get_map(object.map_id).get_nearby_objects(object, include_self)
 
 
 sMapMgr = MapMgr()

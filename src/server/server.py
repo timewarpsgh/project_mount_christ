@@ -1,6 +1,7 @@
 import time
 import os
 import asyncio
+import traceback
 from queue import Queue
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor
@@ -37,15 +38,15 @@ class Session(Connection):
 
     def on_disconnect(self):
         print('someone disconnectd!!!!')
+        role = self.packet_handler.role
+        if role:
+            nearby_roles = sMapMgr.get_nearby_objects(role)
+            sMapMgr.rm_object(role)
 
-        if self.packet_handler.role:
-            nearby_roles = self.server.get_nearby_roles(self.packet_handler.role.id)
             for nearby_role in nearby_roles:
-                nearby_role.session.packet_handler.on_disconnect_signal(self.packet_handler.role)
+                nearby_role.session.packet_handler.on_disconnect_signal(role)
 
-            self.server.rm_role(self.packet_handler.role.id)
-
-
+            self.server.rm_role(role.id)
 
         self.server.rm_session(self.addr)
 

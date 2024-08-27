@@ -27,7 +27,7 @@ from role_models import \
 from object_mgr import sObjectMgr
 from npc_mgr import sNpcMgr
 from id_mgr import sIdMgr
-
+from map_mgr import sMapMgr
 
 import model
 import copy
@@ -450,8 +450,11 @@ class PacketHandler:
         # enter port for tesing!!!!!!
         self.role.enter_port(self.role.map_id)
 
+        # add role to map_mgr
+        sMapMgr.add_object(self.role)
+
         # notify presence of nearby_roles
-        nearby_roles = self.session.server.get_nearby_roles(self.role.id)
+        nearby_roles = sMapMgr.get_nearby_objects(self.role)
 
         # init packet my_role_appeared
         my_role_appeared = RoleAppeared()
@@ -742,20 +745,63 @@ class PacketHandler:
 
                 self.session.send(Discovered(village_id=village_id))
 
-    async def handle_Sail(self, sail):
-        port = sObjectMgr.get_port(self.role.map_id)
 
+    def send_role_disappeared_to_nearby_roles(self):
+        nearby_roles = sMapMgr.get_nearby_objects(self.role)
+
+        for role in nearby_roles:
+            role.session.send(RoleDisappeared(id=self.role.id))
+            self.session.send(RoleDisappeared(id=role.id))
+
+    def send_role_appeared_to_nearby_roles(self):
+        nearby_roles = sMapMgr.get_nearby_objects(self.role)
+
+        for role in nearby_roles:
+            role.session.send(
+                RoleAppeared(
+                    id=self.role.id,
+                    name=self.role.name,
+                    x=self.role.x,
+                    y=self.role.y,
+                )
+            )
+
+            self.session.send(
+                RoleAppeared(
+                    id=role.id,
+                    name=role.name,
+                    x=role.x,
+                    y=role.y,
+                )
+            )
+
+
+    async def handle_Sail(self, sail):
+        # tell port nearby roles
+        self.send_role_disappeared_to_nearby_roles()
+
+        # update map_mgr
+        port = sObjectMgr.get_port(self.role.map_id)
+        sMapMgr.change_object_map(self.role,
+                                  self.role.map_id, self.role.x, self.role.y,
+                                  0, port.x, port.y)
+
+        # update model
         self.role.map_id = 0
         self.role.x = port.x
         self.role.y = port.y
 
-        packet = MapChanged(
-            role_id = self.role.id,
-            map_id=0,
-            x=port.x,
-            y=port.y
+        # tell nearby_roles_at_sea
+        self.send_role_appeared_to_nearby_roles()
+
+        self.session.send(
+            MapChanged(
+                role_id=self.role.id,
+                map_id=0,
+                x=port.x,
+                y=port.y
+            )
         )
-        self.send_to_nearby_roles(packet, include_self=True)
 
     async def handle_EnterPort(self, enter_port):
         port_id = enter_port.id
@@ -764,7 +810,18 @@ class PacketHandler:
 
         port = sObjectMgr.get_port(port_id)
         if abs(port.x - self.role.x) <= distance and abs(port.y - self.role.y) <= distance:
+            self.send_role_disappeared_to_nearby_roles()
+
+            old_x = self.role.x
+            old_y = self.role.y
+
             self.role.enter_port(port_id)
+
+            sMapMgr.change_object_map(self.role,
+                                      0, old_x, old_y,
+                                      port_id, self.role.x, self.role.y)
+
+            self.send_role_appeared_to_nearby_roles()
         else:
             pass
 

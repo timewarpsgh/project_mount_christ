@@ -27,15 +27,20 @@ DONE:
 
 
 
-    see other players   ON
-        when role enters, its added into a map (port, or sea)
-        port has only one cell, sea has many cells
-        nearby roles: 9 cells around center cell
-
-        when role changes map or logs out, changes cell or removed from all cells
 
     sMapMgr in server OK
 
+    see other players   ON
+
+
+
+
+    send to nearby players, only send to nearby players ON
+        on role enter, its added into a map (port, or sea)  OK
+        on role log out, removed from map OK
+        on role map change, change map OK
+
+        on role move, cell change maybe ON
 
     server not loaded map
 

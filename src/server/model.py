@@ -9,6 +9,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 import constants as c
 from object_mgr import sObjectMgr
 from map_maker import sMapMaker
+from map_mgr import sMapMgr
 
 @dataclass
 class Ship:
@@ -325,12 +326,10 @@ class Role:
             self.session.send(pb.OpenedGrid(grid_x=grid_x, grid_y=grid_y))
 
     def enter_port(self, port_id):
+
+
         # change map_id
         self.map_id = port_id
-
-        # change x y to harbor x y
-        # should be inited beforehand (later)
-
         harbor_x, harbor_y = sObjectMgr.get_building_xy_in_port(building_id=4, port_id=port_id)
 
         self.x = harbor_x
@@ -343,7 +342,7 @@ class Role:
             x=harbor_x,
             y=harbor_y,
         )
-        self.session.packet_handler.send_to_nearby_roles(packet, include_self=True)
+        self.session.send(packet)
 
     def get_enemy_role(self):
         self.session.packet_handler.get_enemy_role()

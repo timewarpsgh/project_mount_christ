@@ -150,7 +150,9 @@ class CannonBall(SP):
 
 class RoleSP(SP):
 
-    def __init__(self, model, image, x, y):
+    def __init__(self, model, role, image, x, y, is_mine=True):
+        self.is_mine = is_mine
+        self.role = role
         self.frames = {
             'at_sea' : {
                 pb.DirType.N : [self.__x_y_to_image(1, 2), self.__x_y_to_image(2, 2)],
@@ -187,6 +189,14 @@ class RoleSP(SP):
     def update(self, time_diff):
         if not self.model.role:
             return
+
+        if not self.is_mine:
+            # update pos
+            x = (self.role.x - self.model.role.x) * c.PIXELS_COVERED_EACH_MOVE \
+                + c.WINDOW_WIDTH // 2
+            y = (self.role.y - self.model.role.y) * c.PIXELS_COVERED_EACH_MOVE \
+                + c.WINDOW_HEIGHT // 2
+            self.move_to(x, y)
 
         self.__update_img_based_on_location()
         self.__update_at_sea_frame()
@@ -326,7 +336,7 @@ class Graphics:
         self.sprites = pygame.sprite.Group()
 
         self.sp_background = BackGround(self.imgs['background'], 0, 0)
-        self.sp_role = RoleSP(model, None, c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
+        self.sp_role = RoleSP(model, self.model.role, None, c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
         # self.sp_role_name = SP(self.font.render('name', True, YELLOW), c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
         self.sp_hud_left = HudLeft(model, sAssetMgr.images['huds']['hud_left'], 0, 0)
         self.sp_hud_right = HudRight(model, sAssetMgr.images['huds']['hud_right'], c.WINDOW_WIDTH - c.HUD_WIDTH, 0)
@@ -462,8 +472,10 @@ class Graphics:
         self.sp_background.move_to(0, 0)
 
     def add_sp_role(self, role):
-        sp_role = SP(self.imgs['role'], role.x, role.y)
-        sp_role_name = SP(self.font.render(role.name, True, YELLOW), role.x, role.y)
+        x = (role.x - self.model.role.x) + c.WINDOW_WIDTH // 2
+        y = (role.y - self.model.role.y) + c.WINDOW_HEIGHT // 2
+        sp_role = RoleSP(self.model, role, self.imgs['role'], x, y, is_mine=False)
+        sp_role_name = SP(self.font.render(role.name, True, YELLOW), x, y)
 
         self.sprites.add(sp_role)
         self.sprites.add(sp_role_name)

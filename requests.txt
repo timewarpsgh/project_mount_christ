@@ -40,6 +40,11 @@ DONE:
         on role log out, removed from map OK
         on role map change, change map OK
 
+        show role pos right OK
+
+        show role sprite
+        show role movement
+
         on role move, cell change maybe ON
 
     server not loaded map

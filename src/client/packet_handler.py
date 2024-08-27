@@ -507,3 +507,8 @@ class PacketHandler:
         if id == self.__get_role().id:
             role = self.__get_role()
             role.stopped_moving(src_x, src_y, dir)
+        else:
+            role = self.__get_model().get_role_by_id(id)
+            role.x = src_x
+            role.y = src_y
+            role.dir = dir

@@ -475,8 +475,11 @@ class Graphics:
         self.sp_background.move_to(0, 0)
 
     def add_sp_role(self, role):
-        x = (role.x - self.model.role.x) * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_WIDTH // 2
-        y = (role.y - self.model.role.y) * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_HEIGHT // 2
+        # x = (role.x - self.model.role.x) * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_WIDTH // 2
+        # y = (role.y - self.model.role.y) * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_HEIGHT // 2
+
+        x, y = role.get_x_y_between_roles(role, self.model.role)
+
         sp_role = RoleSP(self.model, role, self.imgs['role'], x, y, is_mine=False)
         sp_role_name = SP(self.font.render(role.name, True, YELLOW), x, y)
 

@@ -245,6 +245,8 @@ class PacketHandler:
         role = Role(
             id=role_appeared.id,
             name=role_appeared.name,
+            map_id=self.__get_role().map_id,
+            dir=self.__get_role().dir,
             x=role_appeared.x,
             y=role_appeared.y,
             graphics=self.client.game.graphics,

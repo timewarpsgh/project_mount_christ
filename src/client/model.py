@@ -352,7 +352,7 @@ class Role:
             if not self.is_mine():
                 x, y = self.get_x_y_between_roles(self, self.graphics.model.role)
                 self.graphics.move_sp_role(self.id, x, y, self.calc_move_timer())
-
+                self.graphics.get_sp_role(self.id).change_to_next_frame()
                 return
 
             # my role

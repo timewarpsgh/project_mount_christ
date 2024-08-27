@@ -57,7 +57,7 @@ DONE:
 
             at sea, diagnal movement smooth OK
             in port, other role anime  OK
-            at sea, other role anime
+            at sea, other role anime  OK
 
         show role sprite
         show role movement

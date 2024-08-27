@@ -454,25 +454,7 @@ class PacketHandler:
         sMapMgr.add_object(self.role)
 
         # notify presence of nearby_roles
-        nearby_roles = sMapMgr.get_nearby_objects(self.role)
-
-        # init packet my_role_appeared
-        my_role_appeared = RoleAppeared()
-        my_role_appeared.id = self.role.id
-        my_role_appeared.name = self.role.name
-        my_role_appeared.x = self.role.x
-        my_role_appeared.y = self.role.y
-
-        for nearby_role in nearby_roles:
-            # init packet role_appeared for one nearby_role
-            role_appeared = RoleAppeared()
-            role_appeared.id = nearby_role.id
-            role_appeared.name = nearby_role.name
-            role_appeared.x = nearby_role.x
-            role_appeared.y = nearby_role.y
-
-            nearby_role.session.send(my_role_appeared)
-            self.session.send(role_appeared)
+        self.send_role_appeared_to_nearby_roles()
 
     def __get_available_cargos(self):
         port = sObjectMgr.get_port(self.role.map_id)

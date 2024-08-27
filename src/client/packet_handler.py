@@ -249,7 +249,7 @@ class PacketHandler:
             graphics=self.client.game.graphics,
         )
 
-        self.client.game.graphics.model.id_2_role[role_appeared.id] = role
+        self.client.game.graphics.model.add_role(role)
         self.client.game.graphics.add_sp_role(role)
 
     async def handle_RoleDisappeared(self, role_disappeared):

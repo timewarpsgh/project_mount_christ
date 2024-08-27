@@ -51,7 +51,7 @@ DONE:
             when i move, see other role, move smoothly OK
             when i move, see other role, move smoothly, at sea OK
 
-            one side can't see other, when sailed to sea ON
+            one side can't see other, when sailed to sea OK
 
         show role sprite
         show role movement

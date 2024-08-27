@@ -422,6 +422,9 @@ class Model:
         self.id_2_role = {} # other roles
         self.id_2_npc = {}
 
+    def add_role(self, role):
+        self.id_2_role[role.id] = role
+
     def add_npc(self, npc):
         self.id_2_npc[npc.id] = npc
 

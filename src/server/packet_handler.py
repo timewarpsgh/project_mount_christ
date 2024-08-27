@@ -791,14 +791,7 @@ class PacketHandler:
         self.role.x = port.x
         self.role.y = port.y
 
-        # tell nearby_roles_at_sea
-        self.send_role_appeared_to_nearby_roles()
-
-        sea_map = sMapMgr.get_map(0)
-        print('roles at sea:')
-        for role in sea_map.get_nearby_objects(self.role, include_self=True):
-            print(role.id, role.x, role.y)
-
+        # tell client
         self.session.send(
             MapChanged(
                 role_id=self.role.id,
@@ -807,6 +800,11 @@ class PacketHandler:
                 y=port.y
             )
         )
+
+        # tell nearby_roles_at_sea
+        self.send_role_appeared_to_nearby_roles()
+
+
 
     async def handle_EnterPort(self, enter_port):
         port_id = enter_port.id

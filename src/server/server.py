@@ -85,6 +85,10 @@ class Server:
         self.id_2_role = {}
 
         self.id_mgr = sIdMgr
+        self.__init_map_maker()
+
+    def __init_map_maker(self):
+        sMapMaker.set_world_piddle()
 
     def get_npc(self, id):
         return sNpcMgr.get_npc(id)

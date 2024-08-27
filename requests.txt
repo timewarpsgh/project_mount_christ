@@ -46,7 +46,7 @@ DONE:
         show others move at sea ON
             press p to sail OK
             show other role as ship OK
-            see other role start moving
+            see other role(ship) start moving OK
 
 
         show role sprite

@@ -275,7 +275,11 @@ class Role:
 
     def move(self, dir):
         # can move?
+        print(f'server trying to move {self.id} ')
+
         if self.is_in_port():
+            return
+
             if not sMapMaker.can_move_in_port(self.map_id, self.x, self.y, dir):
                 return
         elif self.is_at_sea():
@@ -310,6 +314,8 @@ class Role:
         elif dir == pb.DirType.SW:
             self.x -= distance
             self.y += distance
+
+        print(f'{self.id} moved to {self.x} {self.y}')
 
         # make packet
         # pack = pb.RoleMoved()

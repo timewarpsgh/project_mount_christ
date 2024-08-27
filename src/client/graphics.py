@@ -74,6 +74,8 @@ class SP(pygame.sprite.Sprite):
         self.start_position = (self.rect.x, self.rect.y)
         self.target_position = (x, y)
         self.duration = given_time
+
+
 def lerp(a, b, t):
     """Linear interpolation between two points."""
     return a + (b - a) * t
@@ -182,6 +184,20 @@ class RoleSP(SP):
         self.frame_counter_max = c.FRAME_RATE // 2
 
 
+    def change_to_next_frame(self):
+        if self.now_frame == 0:
+            self.now_frame = 1
+        else:
+            self.now_frame = 0
+
+        if self.role.is_in_port():
+            img = self.frames['in_port'][self.role.dir][self.now_frame]
+        elif self.role.is_at_sea():
+            img = self.frames['at_sea'][self.role.dir][self.now_frame]
+
+        print(f'{self.role.id} changed to next frame, now frame is {self.now_frame} ')
+        self.change_img(img)
+
     def update(self, time_diff):
         if not self.model.role:
             return
@@ -191,15 +207,8 @@ class RoleSP(SP):
         self.__update_img_based_on_location()
         self.__update_at_sea_frame()
 
-        if not self.is_mine:
-            if self.role.dir is not None:
-                if self.role.is_in_port():
-                    self.change_img(self.frames['in_port'][self.role.dir][0])
-                elif self.role.is_at_sea():
-                    self.change_img(self.frames['at_sea'][self.role.dir][0])
-
     def __update_at_sea_frame(self):
-        if self.model.role.is_at_sea():
+        if self.role.is_at_sea():
 
             if self.frame_counter == self.frame_counter_max:
                 self.frame_counter = 0
@@ -207,31 +216,28 @@ class RoleSP(SP):
                 if self.now_frame == len(self.frames['at_sea'][pb.DirType.N]):
                     self.now_frame = 0
 
-                if self.model.role.is_at_sea():
-                    self.change_img(self.frames['at_sea'][self.model.role.dir][self.now_frame])
-
-                # elif self.model.role.is_in_port():
-                #     self.change_img(self.frames['in_port'][self.model.role.dir][0])
+                if self.role.is_at_sea():
+                    self.change_img(self.frames['at_sea'][self.role.dir][self.now_frame])
 
             else:
                 self.frame_counter += 1
 
     def __update_img_based_on_location(self):
-        if self.model.role.is_in_port() and not self.is_using_port_img:
-            self.change_img(self.frames['in_port'][self.model.role.dir][0])
+        if self.role.is_in_port() and not self.is_using_port_img:
+            self.change_img(self.frames['in_port'][self.role.dir][0])
             self.is_using_port_img = True
             self.is_using_sea_img = False
             self.is_using_battle_img = False
 
-        elif self.model.role.is_at_sea() and not self.is_using_sea_img:
+        elif self.role.is_at_sea() and not self.is_using_sea_img:
             # self.change_img(sAssetMgr.images['player']['ship_at_sea'])
 
-            self.change_img(self.frames['at_sea'][self.model.role.dir][0])
+            self.change_img(self.frames['at_sea'][self.role.dir][0])
             self.is_using_sea_img = True
             self.is_using_port_img = False
             self.is_using_battle_img = False
 
-        elif self.model.role.is_in_battle() and not self.is_using_battle_img:
+        elif self.role.is_in_battle() and not self.is_using_battle_img:
             self.change_img(sAssetMgr.images['player']['role_in_battle'])
             self.is_using_battle_img = True
             self.is_using_port_img = False
@@ -485,6 +491,9 @@ class Graphics:
         del self.id_2_sp_role[id]
         self.id_2_sp_role_name[id].kill()
         del self.id_2_sp_role_name[id]
+
+    def get_sp_role(self, id):
+        return self.id_2_sp_role[id]
 
     def move_sp_role(self, id, x, y, given_time):
         # self.id_2_sp_role[id].move_to(x, y)

@@ -56,7 +56,7 @@ DONE:
             send start_moving with x, y, dir OK
 
             at sea, diagnal movement smooth OK
-            in port, other role anime
+            in port, other role anime  OK
             at sea, other role anime
 
         show role sprite

@@ -197,6 +197,7 @@ class PacketHandler:
                 graphics = self.client.game.graphics,
             )
             model_role = self.__get_role()
+            self.__get_graphics().sp_role.role = model_role
             model_role.ship_mgr = ShipMgr(model_role)
             model_role.mate_mgr = MateMgr(model_role)
             model_role.discovery_mgr = DiscoveryMgr()

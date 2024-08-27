@@ -260,7 +260,7 @@ class Role:
         self.is_moving = False
         print(f'stopped moving at {self.x} {self.y}')
 
-        if self.graphics:
+        if self.is_mine():
             pack = pb.StopMoving(
                 x=self.x,
                 y=self.y,
@@ -324,74 +324,53 @@ class Role:
             self.x -= distance
             self.y += distance
 
-
+        # in port
         if self.is_in_port():
-            # not self role
+
+            # other role
             if not self.is_mine():
                 # update pos
-                x = (self.x - self.graphics.model.role.x) * c.PIXELS_COVERED_EACH_MOVE \
-                    + c.WINDOW_WIDTH // 2
-                y = (self.y - self.graphics.model.role.y) * c.PIXELS_COVERED_EACH_MOVE \
-                    + c.WINDOW_HEIGHT // 2
-
+                x, y = self.get_x_y_between_roles(self, self.graphics.model.role)
                 self.graphics.move_sp_role(self.id, x, y, self.calc_move_timer())
-
+                self.graphics.get_sp_role(self.id).change_to_next_frame()
                 return
 
+            # my role
             else:
-                sp_role = self.graphics.sp_role
-                if sp_role.now_frame == 0:
-                    sp_role.now_frame = 1
-                else:
-                    sp_role.now_frame = 0
-
-                sp_role.change_img(sp_role.frames['in_port'][self.dir][sp_role.now_frame])
-
-                print('goonna move_port_bg')
+                self.graphics.sp_role.change_to_next_frame()
                 self.graphics.move_port_bg(self.x, self.y)
 
                 # move other roles
                 for id, role in self.graphics.model.id_2_role.items():
-                    x = (role.x - self.x) * c.PIXELS_COVERED_EACH_MOVE \
-                        + c.WINDOW_WIDTH // 2
-                    y = (role.y - self.y) * c.PIXELS_COVERED_EACH_MOVE \
-                        + c.WINDOW_HEIGHT // 2
-
+                    x, y = self.get_x_y_between_roles(role, self)
                     self.graphics.move_sp_role(id, x, y, self.calc_move_timer())
 
 
-
+        # at sea
         elif self.is_at_sea():
-            # not self role
+            # other role
             if not self.is_mine():
-                # update pos
-                x = (self.x - self.graphics.model.role.x) * c.PIXELS_COVERED_EACH_MOVE \
-                    + c.WINDOW_WIDTH // 2
-                y = (self.y - self.graphics.model.role.y) * c.PIXELS_COVERED_EACH_MOVE \
-                    + c.WINDOW_HEIGHT // 2
-
+                x, y = self.get_x_y_between_roles(self, self.graphics.model.role)
                 self.graphics.move_sp_role(self.id, x, y, self.calc_move_timer())
 
                 return
+
+            # my role
             else:
-                sp_role = self.graphics.sp_role
-                if sp_role.now_frame == 0:
-                    sp_role.now_frame = 1
-                else:
-                    sp_role.now_frame = 0
-
-                sp_role.change_img(sp_role.frames['at_sea'][self.dir][sp_role.now_frame])
-
+                self.graphics.sp_role.change_to_next_frame()
                 self.graphics.move_sea_bg(self.x, self.y)
 
                 # move other roles
                 for id, role in self.graphics.model.id_2_role.items():
-                    x = (role.x - self.x) * c.PIXELS_COVERED_EACH_MOVE \
-                        + c.WINDOW_WIDTH // 2
-                    y = (role.y - self.y) * c.PIXELS_COVERED_EACH_MOVE \
-                        + c.WINDOW_HEIGHT // 2
-
+                    x, y = self.get_x_y_between_roles(role, self)
                     self.graphics.move_sp_role(id, x, y, self.calc_move_timer())
+
+    def get_x_y_between_roles(self, role1, role2):
+        x = (role1.x - role2.x) * c.PIXELS_COVERED_EACH_MOVE \
+            + c.WINDOW_WIDTH // 2
+        y = (role1.y - role2.y) * c.PIXELS_COVERED_EACH_MOVE \
+            + c.WINDOW_HEIGHT // 2
+        return x, y
 
     def calc_move_timer(self):
         if self.is_dir_diagnal():

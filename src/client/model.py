@@ -402,3 +402,6 @@ class Model:
             return
 
         self.role.update(time_delta)
+
+        for id, role in self.id_2_role.items():
+            role.update(time_delta)

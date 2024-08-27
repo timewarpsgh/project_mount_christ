@@ -41,6 +41,9 @@ DONE:
         on role map change, change map OK
 
         show role pos right OK
+        show other role start moving OK
+        other role collision check
+
 
         show role sprite
         show role movement

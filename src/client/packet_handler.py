@@ -497,6 +497,15 @@ class PacketHandler:
             # role.dir = dir
 
             print('handling pack StartedMoving')
+        else:
+            role = self.__get_model().get_role_by_id(id)
+            role.x = src_x
+            role.y = src_y
+            role.dir = dir
+            role.is_moving = True
+            role.speed = speed
+            role.move_timer = 0
+
 
     async def handle_StoppedMoving(self, stopped_moving):
         id = stopped_moving.id
@@ -512,3 +521,4 @@ class PacketHandler:
             role.x = src_x
             role.y = src_y
             role.dir = dir
+            role.is_moving = False

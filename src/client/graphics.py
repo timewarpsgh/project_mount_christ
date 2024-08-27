@@ -190,6 +190,9 @@ class RoleSP(SP):
         if not self.model.role:
             return
 
+        self.__update_img_based_on_location()
+        self.__update_at_sea_frame()
+
         if not self.is_mine:
             # update pos
             x = (self.role.x - self.model.role.x) * c.PIXELS_COVERED_EACH_MOVE \
@@ -198,8 +201,11 @@ class RoleSP(SP):
                 + c.WINDOW_HEIGHT // 2
             self.move_to(x, y)
 
-        self.__update_img_based_on_location()
-        self.__update_at_sea_frame()
+            if self.role.dir is not None:
+                print('other role dir:')
+                print(self.role.dir)
+
+                self.change_img(self.frames['in_port'][self.role.dir][0])
 
     def __update_at_sea_frame(self):
         if self.model.role.is_at_sea():

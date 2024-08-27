@@ -192,7 +192,7 @@ class Role:
     last_y: int = None
     dir: int = None
     is_moving: bool = None
-    speed: float = None
+    speed: float = c.PORT_SPEED
     move_timer: float = None
     map_id: int = None
     money: int = None
@@ -334,7 +334,7 @@ class Role:
                 y = (self.y - self.graphics.model.role.y) * c.PIXELS_COVERED_EACH_MOVE \
                     + c.WINDOW_HEIGHT // 2
 
-                self.graphics.move_sp_role(self.id, x, y)
+                self.graphics.move_sp_role(self.id, x, y, self.calc_move_timer())
 
                 return
 
@@ -357,7 +357,7 @@ class Role:
                     y = (role.y - self.y) * c.PIXELS_COVERED_EACH_MOVE \
                         + c.WINDOW_HEIGHT // 2
 
-                    self.graphics.move_sp_role(id, x, y)
+                    self.graphics.move_sp_role(id, x, y, self.calc_move_timer())
 
 
 
@@ -370,7 +370,7 @@ class Role:
                 y = (self.y - self.graphics.model.role.y) * c.PIXELS_COVERED_EACH_MOVE \
                     + c.WINDOW_HEIGHT // 2
 
-                self.graphics.move_sp_role(self.id, x, y)
+                self.graphics.move_sp_role(self.id, x, y, self.calc_move_timer())
 
                 return
             else:
@@ -391,7 +391,7 @@ class Role:
                     y = (role.y - self.y) * c.PIXELS_COVERED_EACH_MOVE \
                         + c.WINDOW_HEIGHT // 2
 
-                    self.graphics.move_sp_role(id, x, y)
+                    self.graphics.move_sp_role(id, x, y, self.calc_move_timer())
 
     def calc_move_timer(self):
         if self.is_dir_diagnal():

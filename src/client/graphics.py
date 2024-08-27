@@ -402,13 +402,13 @@ class Graphics:
             self.sp_background.move_to(prev_x, prev_y)
 
             x, y = self.role_xy_at_sea_2_xy_on_screen(x, y)
-            self.sp_background.move_to_smoothly(x, y, given_time=0.2)
+            self.sp_background.move_to_smoothly(x, y, given_time=role.calc_move_timer())
 
         # else
         else:
             role = self.model.role
             x, y = self.role_xy_at_sea_2_xy_on_screen(x, y)
-            self.sp_background.move_to_smoothly(x, y, given_time=0.2)
+            self.sp_background.move_to_smoothly(x, y, given_time=role.calc_move_timer())
 
     def role_xy_in_port_2_xy_on_screen(self, x, y):
         x = -x * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_WIDTH // 2
@@ -486,12 +486,12 @@ class Graphics:
         self.id_2_sp_role_name[id].kill()
         del self.id_2_sp_role_name[id]
 
-    def move_sp_role(self, id, x, y):
+    def move_sp_role(self, id, x, y, given_time):
         # self.id_2_sp_role[id].move_to(x, y)
         # self.id_2_sp_role_name[id].move_to(x, y)
 
-        self.id_2_sp_role[id].move_to_smoothly(x, y, given_time=0.2)
-        self.id_2_sp_role_name[id].move_to_smoothly(x, y, given_time=0.2)
+        self.id_2_sp_role[id].move_to_smoothly(x, y, given_time)
+        self.id_2_sp_role_name[id].move_to_smoothly(x, y, given_time)
 
     def process_event(self, event):
         if event.type == pygame.KEYDOWN:

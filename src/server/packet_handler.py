@@ -503,7 +503,10 @@ class PacketHandler:
         self.role.move(move.dir_type)
 
     async def handle_StartMoving(self, start_moving):
-        self.role.start_moving(start_moving.dir_type)
+        x = start_moving.src_x
+        y = start_moving.src_y
+        dir = start_moving.dir_type
+        self.role.start_moving(x, y, dir)
 
     async def handle_StopMoving(self, stop_moving):
         self.role.is_moving = False

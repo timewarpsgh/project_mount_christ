@@ -218,6 +218,8 @@ message Move {
 
 message StartMoving {
     required DirType dir_type = 1;
+    required int32 src_x = 2;
+    required int32 src_y = 3;
 }
 
 message StartedMoving {

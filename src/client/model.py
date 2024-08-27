@@ -248,7 +248,13 @@ class Role:
             self.speed = c.PORT_SPEED
 
 
-        self.graphics.client.send(pb.StartMoving(dir_type=dir))
+        self.graphics.client.send(
+            pb.StartMoving(
+                dir_type=dir,
+                src_x=self.x,
+                src_y=self.y,
+            )
+        )
 
     def stop_moving(self):
         self.is_moving = False

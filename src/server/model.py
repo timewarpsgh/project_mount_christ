@@ -664,9 +664,11 @@ class Role:
         else:
             return False
 
-    def start_moving(self, dir):
+    def start_moving(self, x, y, dir):
         self.is_moving = True
         self.dir = dir
+        self.x = x
+        self.y = y
         self.move_timer = 0
 
         if self.is_in_port():

@@ -53,6 +53,9 @@ DONE:
 
             one side can't see other, when sailed to sea OK
 
+            send start_moving with x, y, dir OK
+
+
         show role sprite
         show role movement
 

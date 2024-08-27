@@ -622,12 +622,9 @@ class PacketHandler:
 
     def send_to_nearby_roles(self, packet, include_self=False):
         # notify presence of nearby_roles
-        nearby_roles = self.session.server.get_nearby_roles(self.role.id)
-        for nearby_role in nearby_roles:
-            nearby_role.session.send(packet)
-
-        if include_self:
-            self.session.send(packet)
+        nearby_roles = sMapMgr.get_nearby_objects(self.role, include_self)
+        for role in nearby_roles:
+            role.session.send(packet)
 
     def _handle_gm_cmd_map(self, params):
         map_id = int(params[0])
@@ -756,6 +753,7 @@ class PacketHandler:
     def send_role_appeared_to_nearby_roles(self):
         nearby_roles = sMapMgr.get_nearby_objects(self.role)
 
+
         for role in nearby_roles:
             role.session.send(
                 RoleAppeared(
@@ -793,6 +791,11 @@ class PacketHandler:
 
         # tell nearby_roles_at_sea
         self.send_role_appeared_to_nearby_roles()
+
+        sea_map = sMapMgr.get_map(0)
+        print('roles at sea:')
+        for role in sea_map.get_nearby_objects(self.role, include_self=True):
+            print(role.id, role.x, role.y)
 
         self.session.send(
             MapChanged(

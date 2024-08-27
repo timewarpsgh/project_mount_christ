@@ -42,7 +42,10 @@ DONE:
 
         show role pos right OK
         show other role start moving OK
-        other role collision check
+        other role collision check OK
+        show others move at sea ON
+            press p to sail OK
+            show other role as ship ON
 
 
         show role sprite

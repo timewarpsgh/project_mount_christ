@@ -199,12 +199,10 @@ class RoleSP(SP):
                 + c.WINDOW_WIDTH // 2
             y = (self.role.y - self.model.role.y) * c.PIXELS_COVERED_EACH_MOVE \
                 + c.WINDOW_HEIGHT // 2
+
             self.move_to(x, y)
 
             if self.role.dir is not None:
-                print('other role dir:')
-                print(self.role.dir)
-
                 self.change_img(self.frames['in_port'][self.role.dir][0])
 
     def __update_at_sea_frame(self):
@@ -539,6 +537,9 @@ class Graphics:
 
             if event.key == pygame.K_y:
                 self.client.send(FightNpc(npc_id=1))
+
+            if event.key == pygame.K_p:
+                self.client.send(Sail())
 
         elif event.type == pygame.KEYUP:
             if event.key in [pygame.K_d, pygame.K_a, pygame.K_w, pygame.K_s]:

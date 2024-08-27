@@ -11,13 +11,13 @@ class PortMap:
         self.id = id
         self.id_2_object = {}
 
-    def add_object(self, object):
+    def add_object(self, object, x=None, y=None):
         self.id_2_object[object.id] = object
 
         print('port map objs')
         print(self.id_2_object.keys())
 
-    def rm_object(self, object):
+    def rm_object(self, object, x=None, y=None):
         del self.id_2_object[object.id]
 
     def get_nearby_objects(self, object, include_self):
@@ -73,12 +73,30 @@ class SeaMap:
         cell_y = y // c.CELL_TILES_COUNT
         return self.cells[cell_x][cell_y]
 
-    def add_object(self, object):
-        cell = self.__get_cell(object.x, object.y)
+    def add_object(self, object, x=None, y=None):
+        if x and y:
+            object_x = x
+            object_y = y
+        else:
+            object_x = object.x
+            object_y = object.y
+
+        cell = self.__get_cell(object_x, object_y)
+
+        print(f'added role {object.id} to cell {cell.x}, {cell.y}')
+
         cell.add_object(object)
 
-    def rm_object(self, object):
-        cell = self.__get_cell(object.x, object.y)
+    def rm_object(self, object, x=None, y=None):
+        if x and y:
+            object_x = x
+            object_y = y
+        else:
+            object_x = object.x
+            object_y = object.y
+
+
+        cell = self.__get_cell(object_x, object_y)
         cell.rm_object(object)
 
     def move_object(self, object, old_x, old_y, new_x, new_y):
@@ -138,10 +156,12 @@ class MapMgr:
     def add_object(self, object):
         map = self.get_map(object.map_id)
         map.add_object(object)
+        print(f'added role {object.id} to map {map.id}')
 
     def rm_object(self, object):
         map = self.get_map(object.map_id)
         map.rm_object(object)
+        print(f'removed role {object.id} from map {map.id}')
 
     def move_object(self, object, old_x, old_y, new_x, new_y):
         map = self.get_map(object.map_id)
@@ -149,10 +169,12 @@ class MapMgr:
 
     def change_object_map(self, object, old_map_id, old_x, old_y, new_map_id, new_x, new_y):
         old_map = self.get_map(old_map_id)
-        old_map.rm_object(object)
+        old_map.rm_object(object, old_x, old_y)
+        print(f'removed role {object.id} from map {old_map_id}')
 
         new_map = self.get_map(new_map_id)
-        new_map.add_object(object)
+        new_map.add_object(object, new_x, new_y)
+        print(f'added role {object.id} to map {new_map_id}')
 
     def get_nearby_objects(self, object, include_self=False):
         return self.get_map(object.map_id).get_nearby_objects(object, include_self)

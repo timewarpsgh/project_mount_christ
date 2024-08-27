@@ -248,12 +248,13 @@ class Role:
         self.is_moving = False
         print(f'stopped moving at {self.x} {self.y}')
 
-        pack = pb.StopMoving(
-            x=self.x,
-            y=self.y,
-            dir=self.dir,
-        )
-        self.graphics.client.send(pack)
+        if self.graphics:
+            pack = pb.StopMoving(
+                x=self.x,
+                y=self.y,
+                dir=self.dir,
+            )
+            self.graphics.client.send(pack)
 
     def stopped_moving(self, src_x, src_y, dir):
 
@@ -271,6 +272,8 @@ class Role:
         # can move?
         if self.is_in_port():
             if not sMapMaker.can_move_in_port(self.map_id, self.x, self.y, dir):
+                print(f'{self.name} can not move now!!!!!')
+                print(self.x, self.y)
                 return
         elif self.is_at_sea():
             if not sMapMaker.can_move_at_sea(self.x, self.y, dir):
@@ -310,6 +313,10 @@ class Role:
 
 
         if self.is_in_port():
+            # not self role
+            if self.graphics is None:
+                return
+
             sp_role = self.graphics.sp_role
             if sp_role.now_frame == 0:
                 sp_role.now_frame = 1
@@ -318,9 +325,14 @@ class Role:
 
             sp_role.change_img(sp_role.frames['in_port'][self.dir][sp_role.now_frame])
 
+            print('goonna move_port_bg')
             self.graphics.move_port_bg(self.x, self.y)
 
         elif self.is_at_sea():
+            # not self role
+            if self.graphics is None:
+                return
+
             sp_role = self.graphics.sp_role
             if sp_role.now_frame == 0:
                 sp_role.now_frame = 1

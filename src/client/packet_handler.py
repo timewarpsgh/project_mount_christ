@@ -499,6 +499,7 @@ class PacketHandler:
             print('handling pack StartedMoving')
         else:
             role = self.__get_model().get_role_by_id(id)
+            role.map_id = self.__get_role().map_id
             role.x = src_x
             role.y = src_y
             role.dir = dir

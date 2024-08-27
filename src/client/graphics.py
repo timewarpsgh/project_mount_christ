@@ -33,34 +33,17 @@ class SP(pygame.sprite.Sprite):
         self.rect = image.get_rect().move(x, y)
         self.img_src = image
 
-    def update(self, time_diff):
-        pass
-
-    def change_img(self, img):
-        self.image = img
-
-    def move_to(self, x, y):
-        self.rect = self.image.get_rect().move(x, y)
-
-
-def lerp(a, b, t):
-    """Linear interpolation between two points."""
-    return a + (b - a) * t
-
-class BackGround(SP):
-    def __init__(self, image, x, y):
-        super().__init__(image, x, y)
-
+        # for move_to_smoothly
         self.start_time = None
         self.target_position = None
         self.duration = None
-    def update(self, time_diff):
 
+    def update(self, time_diff):
 
         if not self.start_time:
             return
 
-        # Calculate elapsed time and interpolate the position
+            # Calculate elapsed time and interpolate the position
         current_time = pygame.time.get_ticks() / 1000.0
         elapsed_time = current_time - self.start_time
 
@@ -80,13 +63,26 @@ class BackGround(SP):
             self.rect.y = position[1]
             self.image.get_rect().move(self.rect.x, self.rect.y)
 
+    def change_img(self, img):
+        self.image = img
+
+    def move_to(self, x, y):
+        self.rect = self.image.get_rect().move(x, y)
 
     def move_to_smoothly(self, x, y, given_time):
-
         self.start_time = pygame.time.get_ticks() / 1000.0
         self.start_position = (self.rect.x, self.rect.y)
         self.target_position = (x, y)
         self.duration = given_time
+def lerp(a, b, t):
+    """Linear interpolation between two points."""
+    return a + (b - a) * t
+
+
+class BackGround(SP):
+    def __init__(self, image, x, y):
+        super().__init__(image, x, y)
+
 
 class ShootDamageNumber(SP):
     def __init__(self, number, x, y, color=c.YELLOW):
@@ -190,17 +186,19 @@ class RoleSP(SP):
         if not self.model.role:
             return
 
+        super().update(time_diff)
+
         self.__update_img_based_on_location()
         self.__update_at_sea_frame()
 
         if not self.is_mine:
-            # update pos
-            x = (self.role.x - self.model.role.x) * c.PIXELS_COVERED_EACH_MOVE \
-                + c.WINDOW_WIDTH // 2
-            y = (self.role.y - self.model.role.y) * c.PIXELS_COVERED_EACH_MOVE \
-                + c.WINDOW_HEIGHT // 2
-
-            self.move_to(x, y)
+            # # update pos
+            # x = (self.role.x - self.model.role.x) * c.PIXELS_COVERED_EACH_MOVE \
+            #     + c.WINDOW_WIDTH // 2
+            # y = (self.role.y - self.model.role.y) * c.PIXELS_COVERED_EACH_MOVE \
+            #     + c.WINDOW_HEIGHT // 2
+            #
+            # self.move_to_smoothly(x, y, given_time=0.2)
 
             if self.role.dir is not None:
                 if self.role.is_in_port():
@@ -500,8 +498,8 @@ class Graphics:
         print(self.id_2_sp_role)
         print(id)
 
-        self.id_2_sp_role[id].move_to(x, y)
-        self.id_2_sp_role_name[id].move_to(x, y)
+        self.id_2_sp_role[id].move_to_smoothly(x, y, given_time=0.2)
+        self.id_2_sp_role_name[id].move_to_smoothly(x, y, given_time=0.2)
 
     def process_event(self, event):
         if event.type == pygame.KEYDOWN:

@@ -207,6 +207,12 @@ class Role:
     battle_timer: int = None
     is_battle_timer_mine: bool = None
 
+    def is_mine(self):
+        if self.seen_grids is None:
+            return False
+        else:
+            return True
+
     def is_in_port(self):
         if self.map_id != 0 and self.map_id is not None:
             return True
@@ -272,8 +278,6 @@ class Role:
         # can move?
         if self.is_in_port():
             if not sMapMaker.can_move_in_port(self.map_id, self.x, self.y, dir):
-                print(f'{self.name} can not move now!!!!!')
-                print(self.x, self.y)
                 return
         elif self.is_at_sea():
             if not sMapMaker.can_move_at_sea(self.x, self.y, dir):
@@ -314,19 +318,40 @@ class Role:
 
         if self.is_in_port():
             # not self role
-            if self.graphics is None:
+            if not self.is_mine():
+                # update pos
+                x = (self.x - self.graphics.model.role.x) * c.PIXELS_COVERED_EACH_MOVE \
+                    + c.WINDOW_WIDTH // 2
+                y = (self.y - self.graphics.model.role.y) * c.PIXELS_COVERED_EACH_MOVE \
+                    + c.WINDOW_HEIGHT // 2
+
+
+                self.graphics.move_sp_role(self.id, x, y)
+
                 return
 
-            sp_role = self.graphics.sp_role
-            if sp_role.now_frame == 0:
-                sp_role.now_frame = 1
             else:
-                sp_role.now_frame = 0
+                sp_role = self.graphics.sp_role
+                if sp_role.now_frame == 0:
+                    sp_role.now_frame = 1
+                else:
+                    sp_role.now_frame = 0
 
-            sp_role.change_img(sp_role.frames['in_port'][self.dir][sp_role.now_frame])
+                sp_role.change_img(sp_role.frames['in_port'][self.dir][sp_role.now_frame])
 
-            print('goonna move_port_bg')
-            self.graphics.move_port_bg(self.x, self.y)
+                print('goonna move_port_bg')
+                self.graphics.move_port_bg(self.x, self.y)
+
+                # move other roles
+                for id, role in self.graphics.model.id_2_role.items():
+                    x = (role.x - self.x) * c.PIXELS_COVERED_EACH_MOVE \
+                        + c.WINDOW_WIDTH // 2
+                    y = (role.y - self.y) * c.PIXELS_COVERED_EACH_MOVE \
+                        + c.WINDOW_HEIGHT // 2
+
+                    self.graphics.move_sp_role(id, x, y)
+
+
 
         elif self.is_at_sea():
             # not self role

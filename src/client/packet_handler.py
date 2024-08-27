@@ -245,6 +245,7 @@ class PacketHandler:
             name=role_appeared.name,
             x=role_appeared.x,
             y=role_appeared.y,
+            graphics=self.client.game.graphics,
         )
 
         self.client.game.graphics.model.id_2_role[role_appeared.id] = role

@@ -128,11 +128,13 @@ class SeaMap:
     def __notify_new_and_old_nearby_cells(self, object,
                                           to_notify_new_nearby_cells,
                                           to_notify_old_nearby_cells):
-        print(f'to_notify_new_nearby_cells:')
+
+        # to_notify_new_nearby_cells
         for cell in to_notify_new_nearby_cells:
             roles = cell.get_all_objects()
 
             for role in roles:
+                # notify object appeared and started moving
                 role.session.send(
                     pb.RoleAppeared(
                         id=object.id,
@@ -142,6 +144,17 @@ class SeaMap:
                     )
                 )
 
+                if object.is_moving:
+                    pack = pb.StartedMoving(
+                        id=object.id,
+                        src_x=object.x,
+                        src_y=object.y,
+                        dir=object.dir,
+                        speed=object.speed,
+                    )
+                    role.session.send(pack)
+
+                # notify role appeared and started moving
                 object.session.send(
                     pb.RoleAppeared(
                         id=role.id,
@@ -150,7 +163,19 @@ class SeaMap:
                         y=role.y,
                     )
                 )
-        print(f'to_notify_old_nearby_cells:')
+                if role.is_moving:
+                    pack = pb.StartedMoving(
+                        id=role.id,
+                        src_x=role.x,
+                        src_y=role.y,
+                        dir=role.dir,
+                        speed=role.speed,
+                    )
+                    object.session.send(pack)
+
+
+
+        # to_notify_old_nearby_cells
         for cell in to_notify_old_nearby_cells:
             roles = cell.get_all_objects()
 

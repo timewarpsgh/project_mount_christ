@@ -64,7 +64,7 @@ DONE:
 
         on role move, cell change at sea maybe ON
             on cell change, need to tell nearby roles OK
-
+            someone appeared, and startedmoving OK
 
 
     server not loaded map

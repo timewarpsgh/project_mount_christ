@@ -276,7 +276,6 @@ class Role:
     def move(self, dir):
         # can move?
         print(f'server trying to move {self.id} ')
-
         if self.is_in_port():
             return
 
@@ -290,6 +289,9 @@ class Role:
                     return
                 self.move(alt_dir)
                 return
+
+        old_x = self.x
+        old_y = self.y
 
         distance = 1
 
@@ -317,13 +319,8 @@ class Role:
 
         print(f'{self.id} moved to {self.x} {self.y}')
 
-        # make packet
-        # pack = pb.RoleMoved()
-        # pack.id = self.id
-        # pack.x = self.x
-        # pack.y = self.y
-        # pack.dir_type = dir
-        # self.session.packet_handler.send_to_nearby_roles(pack, include_self=True)
+        # change cell maybe
+        sMapMgr.move_object(self, old_x, old_y, self.x, self.y)
 
         # check opened grid?
         grid_x, grid_y = self.__get_grid_xy(self.x, self.y)
@@ -665,11 +662,18 @@ class Role:
             return False
 
     def start_moving(self, x, y, dir):
+        old_x = self.x
+        old_y = self.y
+
+
         self.is_moving = True
         self.dir = dir
         self.x = x
         self.y = y
         self.move_timer = 0
+
+        sMapMgr.move_object(self, old_x, old_y, x, y)
+
 
         if self.is_in_port():
             self.speed = c.PORT_SPEED

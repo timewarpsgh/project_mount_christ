@@ -196,7 +196,6 @@ class RoleSP(SP):
         elif self.role.is_at_sea():
             img = self.frames['at_sea'][self.role.dir][self.now_frame]
 
-        print(f'{self.role.id} changed to next frame, now frame is {self.now_frame} ')
         self.change_img(img)
 
     def update(self, time_diff):

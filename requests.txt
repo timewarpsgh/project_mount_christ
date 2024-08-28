@@ -63,6 +63,7 @@ DONE:
         draw sprites in layer order 0-2 OK
 
         on role move, cell change at sea maybe ON
+            on cell change, need to tell nearby roles OK
 
 
 

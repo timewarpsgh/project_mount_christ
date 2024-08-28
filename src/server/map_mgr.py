@@ -4,7 +4,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 import constants as c
-
+import login_pb2 as pb
 
 class PortMap:
     def __init__(self, id):
@@ -109,14 +109,71 @@ class SeaMap:
         else:
             old_cell.rm_object(object)
             new_cell.add_object(object)
+            print(f'{object.id} moved '
+                  f'from cell {old_cell.x}, {old_cell.y} '
+                  f'to cell {new_cell.x}, {new_cell.y} ')
+
+            old_nearby_cells = self.__get_nearby_cells(old_cell)
+            new_nearby_cells = self.__get_nearby_cells(new_cell)
+            intersection = old_nearby_cells & new_nearby_cells
+            to_notify_new_nearby_cells = new_nearby_cells - intersection
+            to_notify_old_nearby_cells = old_nearby_cells - intersection
+
+            self.__notify_new_and_old_nearby_cells(
+                object,
+                to_notify_new_nearby_cells,
+                to_notify_old_nearby_cells
+            )
+
+    def __notify_new_and_old_nearby_cells(self, object,
+                                          to_notify_new_nearby_cells,
+                                          to_notify_old_nearby_cells):
+        print(f'to_notify_new_nearby_cells:')
+        for cell in to_notify_new_nearby_cells:
+            roles = cell.get_all_objects()
+
+            for role in roles:
+                role.session.send(
+                    pb.RoleAppeared(
+                        id=object.id,
+                        name=object.name,
+                        x=object.x,
+                        y=object.y,
+                    )
+                )
+
+                object.session.send(
+                    pb.RoleAppeared(
+                        id=role.id,
+                        name=role.name,
+                        x=role.x,
+                        y=role.y,
+                    )
+                )
+        print(f'to_notify_old_nearby_cells:')
+        for cell in to_notify_old_nearby_cells:
+            roles = cell.get_all_objects()
+
+            for role in roles:
+                role.session.send(
+                    pb.RoleDisappeared(
+                        id=object.id,
+                    )
+                )
+
+                object.session.send(
+                    pb.RoleDisappeared(
+                        id=role.id,
+                    )
+                )
 
     def __get_nearby_cells(self, cell):
         # get 9 cells around cell
-        nearby_cells = []
+        nearby_cells = set()
         for x in range(cell.x - 1, cell.x + 2):
             for y in range(cell.y - 1, cell.y + 2):
                 if x >= 0 and x < self.rows and y >= 0 and y < self.cols:
-                    nearby_cells.append(self.cells[x][y])
+                    nearby_cells.add(self.cells[x][y])
         return nearby_cells
 
     def get_nearby_objects(self, object, include_self):

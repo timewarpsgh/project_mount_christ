@@ -497,9 +497,15 @@ class PacketHandler:
 
         # if abs(self.role.x - stop_moving.x) <= tolerant_diff and \
         #         abs(self.role.y - stop_moving.y) <= tolerant_diff:
+        old_x = self.role.x
+        old_y = self.role.y
+
         self.role.x = stop_moving.x
         self.role.y = stop_moving.y
         self.role.dir = stop_moving.dir
+
+        sMapMgr.move_object(self.role, old_x, old_y, self.role.x, self.role.y)
+
 
         pack = pb.StoppedMoving(
             id=self.role.id,

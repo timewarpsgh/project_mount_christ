@@ -62,10 +62,11 @@ DONE:
 
         draw sprites in layer order 0-2 OK
 
-        on role move, cell change at sea maybe ON
+        on role move, cell change at sea maybe OK
             on cell change, need to tell nearby roles OK
             someone appeared, and startedmoving OK
 
+        login a third role ON
 
     server not loaded map
 

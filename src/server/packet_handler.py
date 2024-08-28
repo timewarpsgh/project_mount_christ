@@ -28,6 +28,7 @@ from object_mgr import sObjectMgr
 from npc_mgr import sNpcMgr
 from id_mgr import sIdMgr
 from map_mgr import sMapMgr
+from map_maker import sMapMaker
 
 import model
 import copy
@@ -766,6 +767,24 @@ class PacketHandler:
                 )
             )
 
+    def __get_sailable_x_y_around_port(self, port_tile_x, port_tile_y):
+        matrix = sMapMaker.world_map_piddle
+        deltas = c.TILES_AROUND_PORTS
+        for delta in deltas:
+            test_tile_x = port_tile_x + delta[1]
+            test_tile_y = port_tile_y + delta[0]
+            if int(matrix[test_tile_y, test_tile_x]) in c.SAILABLE_TILES:
+                sailable = True
+                three_nearby_tiles = c.THREE_NEARBY_TILES_OF_UP_LEFT_TILE
+                for tile in three_nearby_tiles:
+                    if not int(matrix[test_tile_y + tile[1], test_tile_x + tile[0]]) in c.SAILABLE_TILES:
+                        sailable = False
+                        break
+
+                if sailable:
+                    return test_tile_x, test_tile_y
+
+        return None, None
 
     async def handle_Sail(self, sail):
         # tell port nearby roles
@@ -773,28 +792,33 @@ class PacketHandler:
 
         # update map_mgr
         port = sObjectMgr.get_port(self.role.map_id)
+
+        sailable_x, sailable_y = self.__get_sailable_x_y_around_port(port.x, port.y)
+
+        if not sailable_x:
+            return
+
         sMapMgr.change_object_map(self.role,
                                   self.role.map_id, self.role.x, self.role.y,
-                                  0, port.x, port.y)
+                                  0, sailable_x, sailable_y)
 
         # update model
         self.role.map_id = 0
-        self.role.x = port.x
-        self.role.y = port.y
+        self.role.x = sailable_x
+        self.role.y = sailable_y
 
         # tell client
         self.session.send(
             MapChanged(
                 role_id=self.role.id,
                 map_id=0,
-                x=port.x,
-                y=port.y
+                x=sailable_x,
+                y=sailable_y,
             )
         )
 
         # tell nearby_roles_at_sea
         self.send_role_appeared_to_nearby_roles()
-
 
 
     async def handle_EnterPort(self, enter_port):
@@ -825,7 +849,9 @@ class PacketHandler:
 
         npc = sNpcMgr.get_npc(npc_id)
 
-        if abs(npc.x - self.role.x) <= 1 and abs(npc.y - self.role.y) <= 1:
+        distance = 3
+
+        if abs(npc.x - self.role.x) <= distance and abs(npc.y - self.role.y) <= distance:
 
             self.role.battle_npc_id = npc_id
 

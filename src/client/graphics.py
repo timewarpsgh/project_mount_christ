@@ -544,7 +544,12 @@ class Graphics:
                 self.client.send(FightNpc(npc_id=1))
 
             if event.key == pygame.K_p:
-                self.client.send(Sail())
+                if self.model.role.is_in_port():
+                    self.client.send(Sail())
+                elif self.model.role.is_at_sea():
+                    self.client.game.gui.options_dialog.enter_port()
+                elif self.model.role.is_in_battle():
+                    self.client.game.gui.options_dialog.escape_battle()
 
         elif event.type == pygame.KEYUP:
             if event.key in [pygame.K_d, pygame.K_a, pygame.K_w, pygame.K_s]:

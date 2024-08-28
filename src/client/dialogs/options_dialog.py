@@ -624,7 +624,7 @@ class OptionsDialog:
             packet=FightRole(),
         )
 
-    def __escape_battle(self):
+    def escape_battle(self):
         battle_npc_id = self.__get_role().battle_npc_id
         battle_role_id = self.__get_role().battle_role_id
 
@@ -681,7 +681,7 @@ class OptionsDialog:
                 return
 
 
-    def __enter_port(self):
+    def enter_port(self):
         # get nearby port_id
         role = self.__get_role()
         role.stop_moving()
@@ -741,7 +741,7 @@ class OptionsDialog:
             'All Ships Strategy': '',
             'One Ship Target': '',
             'One Ship Strategy': '',
-            'Escape Battle': partial(self.__escape_battle),
+            'Escape Battle': partial(self.escape_battle),
             'All Ships Attack': partial(self.__all_ships_attack),
         }
 
@@ -757,7 +757,7 @@ class OptionsDialog:
     def show_cmds_menu(self):
         option_2_callback = {
             'Enter Building (F)': partial(self.__enter_building),
-            'Enter Port (M)': partial(self.__enter_port),
+            'Enter Port (M)': partial(self.enter_port),
             'Go Ashore (G)': partial(self.__try_to_discover),
             'Fight Npc (B)': partial(self.__fight_npc),
             'Fight Role (B)': partial(self.__fight_role),

@@ -59,10 +59,12 @@ DONE:
             in port, other role anime  OK
             at sea, other role anime  OK
 
-        show role sprite
-        show role movement
 
-        on role move, cell change maybe ON
+        draw sprites in layer order 0-2 OK
+
+        on role move, cell change at sea maybe ON
+
+
 
     server not loaded map
 

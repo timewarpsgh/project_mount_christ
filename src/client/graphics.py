@@ -25,13 +25,14 @@ class Text():
 
 class SP(pygame.sprite.Sprite):
 
-    def __init__(self, image, x, y):
+    def __init__(self, image, x, y, z=0):
         pygame.sprite.Sprite.__init__(self)
 
 
         self.image = image
         self.rect = image.get_rect().move(x, y)
         self.img_src = image
+        self.z = z
 
         # for move_to_smoothly
         self.start_time = None
@@ -83,7 +84,7 @@ def lerp(a, b, t):
 
 class BackGround(SP):
     def __init__(self, image, x, y):
-        super().__init__(image, x, y)
+        super().__init__(image, x, y, z=0)
 
 
 class ShootDamageNumber(SP):
@@ -172,7 +173,7 @@ class RoleSP(SP):
             }
         }
 
-        super().__init__(self.frames['in_port'][pb.DirType.N][0], x, y)
+        super().__init__(self.frames['in_port'][pb.DirType.N][0], x, y, z=1)
         self.model = model
 
         self.is_using_port_img = False
@@ -262,7 +263,7 @@ class RoleSP(SP):
 class HudLeft(SP):
 
     def __init__(self, model, image, x, y):
-        super().__init__(image, x, y)
+        super().__init__(image, x, y, z=2)
 
         self.model = model
 
@@ -291,7 +292,7 @@ class HudLeft(SP):
 class HudRight(SP):
 
     def __init__(self, model, image, x, y):
-        super().__init__(image, x, y)
+        super().__init__(image, x, y, z=2)
         self.model = model
 
     def update(self, time_diff):
@@ -613,8 +614,12 @@ class Graphics:
         if not self.client.packet_handler.is_in_game:
             return
 
-        # draw objs
-        self.sprites.draw(window_surface)
+        # draw sprites in layer order
+        layers = [0, 1, 2]
+        for layer in layers:
+            for sprite in self.sprites.sprites():
+                if sprite.z == layer:
+                    window_surface.blit(sprite.image, sprite.rect)
 
     def show_damage(self, damage, x, y):
         shoot_damage_number = ShootDamageNumber(damage, x, y)

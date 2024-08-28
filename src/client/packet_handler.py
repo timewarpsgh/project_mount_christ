@@ -254,10 +254,12 @@ class PacketHandler:
             graphics=self.client.game.graphics,
         )
 
-        if role_appeared.id in self.client.game.graphics.model.id_2_role:
-            return
+
 
         self.client.game.graphics.model.add_role(role)
+
+        if role_appeared.id in self.client.game.graphics.id_2_sp_role:
+            return
         self.client.game.graphics.add_sp_role(role)
 
     async def handle_RoleDisappeared(self, role_disappeared):
@@ -431,6 +433,18 @@ class PacketHandler:
 
         # change model
         self.__get_role().battle_role_id = entered_battle_with_role.role_id
+
+        role = Role(
+            id=entered_battle_with_role.role_id,
+            name=None,
+            map_id=0,
+            dir=self.__get_role().dir,
+            x=self.__get_role().x,
+            y=self.__get_role().y,
+            graphics=self.client.game.graphics,
+        )
+        self.__get_model().add_role(role)
+
 
         enemy_role = self.__get_model().get_role_by_id(entered_battle_with_role.role_id)
         enemy_role.ship_mgr = ShipMgr(enemy_role)

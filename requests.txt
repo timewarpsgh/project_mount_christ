@@ -73,6 +73,8 @@ DONE:
         enter battle with role ON
             don't show enemy role in battle ON
             others at sea see you guys disappear OK
+            enter battle OK
+            after escape battle, I see my enemy always in one dir ON
 
         enter battle with npc ON
             i disappear

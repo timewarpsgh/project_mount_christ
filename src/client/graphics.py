@@ -481,7 +481,7 @@ class Graphics:
         x, y = role.get_x_y_between_roles(role, self.model.role)
 
         sp_role = RoleSP(self.model, role, self.imgs['role'], x, y, is_mine=False)
-        sp_role_name = SP(self.font.render(role.name, True, YELLOW), x, y)
+        sp_role_name = SP(self.font.render(role.name, True, YELLOW), x, y - 10, z=1)
 
         self.sprites.add(sp_role)
         self.sprites.add(sp_role_name)

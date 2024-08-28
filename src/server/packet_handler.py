@@ -1021,56 +1021,79 @@ class PacketHandler:
 
         target_role = self.session.server.get_role(role_id)
 
-        if self.role.is_close_to_role(target_role):
-            # init battle_role_id and enemy ships
-            self.role.battle_role_id = target_role.id
-            target_role.battle_role_id = self.role.id
-
-            self.role.ship_mgr.init_ships_positions_in_battle(is_attacker=True)
+        if not self.role.is_close_to_role(target_role):
+            return
 
 
+        self.send_role_disappeared_to_nearby_roles()
+        target_role.session.packet_handler.send_role_disappeared_to_nearby_roles()
 
-
-            target_role.ship_mgr.init_ships_positions_in_battle(is_attacker=False)
-
-            pack = EnteredBattleWithRole(
-                role_id=target_role.id,
-                ships=target_role.ship_mgr.gen_ships_prots(),
+        target_role.session.send(
+            RoleAppeared(
+                id=self.role.id,
+                name=self.role.name,
+                x=self.role.x,
+                y=self.role.y,
             )
-            self.session.send(pack)
-            # init my ships pos
-            for id, ship in self.role.ship_mgr.id_2_ship.items():
-                self.session.send(pb.ShipMoved(
-                    id=id,
-                    x=ship.x,
-                    y=ship.y,
-                ))
+        )
 
-
-
-            pack = EnteredBattleWithRole(
-                role_id=self.role.id,
-                ships=self.role.ship_mgr.gen_ships_prots(),
+        self.session.send(
+            RoleAppeared(
+                id=target_role.id,
+                name=target_role.name,
+                x=target_role.x,
+                y=target_role.y,
             )
-            target_role.session.send(pack)
-            # init enemy ships pos
-            for id, ship in target_role.ship_mgr.id_2_ship.items():
-                target_role.session.send(pb.ShipMoved(
-                    id=id,
-                    x=ship.x,
-                    y=ship.y,
-                ))
+        )
 
-            # init battle_timer (updated each session update)
-            self.role.battle_timer = c.BATTLE_TIMER_IN_SECONDS
+        sMapMgr.rm_object(self.role)
+        sMapMgr.rm_object(target_role)
 
-            pack = BattleTimerStarted(
-                battle_timer=self.role.battle_timer,
-                role_id=self.role.id,
-            )
-            self.session.send(pack)
-            target_role.session.send(pack)
+        # init battle_role_id and enemy ships
+        self.role.battle_role_id = target_role.id
+        target_role.battle_role_id = self.role.id
 
+        self.role.ship_mgr.init_ships_positions_in_battle(is_attacker=True)
+
+        target_role.ship_mgr.init_ships_positions_in_battle(is_attacker=False)
+
+        pack = EnteredBattleWithRole(
+            role_id=target_role.id,
+            ships=target_role.ship_mgr.gen_ships_prots(),
+        )
+        self.session.send(pack)
+
+        # init my ships pos
+        for id, ship in self.role.ship_mgr.id_2_ship.items():
+            self.session.send(pb.ShipMoved(
+                id=id,
+                x=ship.x,
+                y=ship.y,
+            ))
+
+        pack = EnteredBattleWithRole(
+            role_id=self.role.id,
+            ships=self.role.ship_mgr.gen_ships_prots(),
+        )
+        target_role.session.send(pack)
+
+        # init enemy ships pos
+        for id, ship in target_role.ship_mgr.id_2_ship.items():
+            target_role.session.send(pb.ShipMoved(
+                id=id,
+                x=ship.x,
+                y=ship.y,
+            ))
+
+        # init battle_timer (updated each session update)
+        self.role.battle_timer = c.BATTLE_TIMER_IN_SECONDS
+
+        pack = BattleTimerStarted(
+            battle_timer=self.role.battle_timer,
+            role_id=self.role.id,
+        )
+        self.session.send(pack)
+        target_role.session.send(pack)
 
 
     async def handle_EscapeRoleBattle(self, escape_role_battle):
@@ -1085,6 +1108,13 @@ class PacketHandler:
 
         target_role.battle_role_id = None
         self.role.battle_role_id = None
+
+        # notify nearby roles
+        sMapMgr.add_object(self.role)
+        sMapMgr.add_object(target_role)
+        self.send_role_appeared_to_nearby_roles()
+        target_role.session.packet_handler.send_role_appeared_to_nearby_roles()
+
 
     def send_to_self_and_enemy(self, pack):
         enemy_role = self.get_enemy_role()

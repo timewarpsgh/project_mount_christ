@@ -106,6 +106,8 @@ class PacketHandler:
                 self.__enter_world(1)
             elif 2 in [role.id for role in get_roles_in_world_res.roles]:
                 self.__enter_world(2)
+            elif 3 in [role.id for role in get_roles_in_world_res.roles]:
+                self.__enter_world(3)
 
     async def handle_NewRoleRes(self, new_role_res):
         if new_role_res.new_role_res_type == NewRoleRes.NewRoleResType.OK:
@@ -252,10 +254,16 @@ class PacketHandler:
             graphics=self.client.game.graphics,
         )
 
+        if role_appeared.id in self.client.game.graphics.model.id_2_role:
+            return
+
         self.client.game.graphics.model.add_role(role)
         self.client.game.graphics.add_sp_role(role)
 
     async def handle_RoleDisappeared(self, role_disappeared):
+        if role_disappeared.id not in self.client.game.graphics.model.id_2_role:
+            return
+
         del self.client.game.graphics.model.id_2_role[role_disappeared.id]
         self.client.game.graphics.rm_sp_role(role_disappeared.id)
 

@@ -70,6 +70,14 @@ DONE:
 
         sail, show ship near port, not on port OK
 
+        enter battle with role ON
+            don't show enemy role in battle ON
+            others at sea see you guys disappear OK
+
+        enter battle with npc ON
+            i disappear
+            npc stays
+
 
     server not loaded map
 

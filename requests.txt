@@ -12,8 +12,8 @@ TO DO:
         client knows npc
             add npc to map_mgr on init  OK
             sea npc appeare  OK
-            # to_notify_new_nearby_cells
-
+            to_notify_new_nearby_cells OK
+            only role objects need to be notified OK
 
             disappeared
 

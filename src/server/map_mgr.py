@@ -131,66 +131,70 @@ class SeaMap:
 
         # to_notify_new_nearby_cells
         for cell in to_notify_new_nearby_cells:
-            roles = cell.get_all_objects()
+            objects = cell.get_all_objects()
 
-            for role in roles:
+            for my_obj in objects:
                 # notify object appeared and started moving
-                role.session.send(
-                    pb.RoleAppeared(
-                        id=object.id,
-                        name=object.name,
-                        x=object.x,
-                        y=object.y,
+                if my_obj.is_role():
+                    my_obj.session.send(
+                        pb.RoleAppeared(
+                            id=object.id,
+                            name=object.name,
+                            x=object.x,
+                            y=object.y,
+                        )
                     )
-                )
 
-                if object.is_moving:
-                    pack = pb.StartedMoving(
-                        id=object.id,
-                        src_x=object.x,
-                        src_y=object.y,
-                        dir=object.dir,
-                        speed=object.speed,
-                    )
-                    role.session.send(pack)
+                    if object.is_moving:
+                        pack = pb.StartedMoving(
+                            id=object.id,
+                            src_x=object.x,
+                            src_y=object.y,
+                            dir=object.dir,
+                            speed=object.speed,
+                        )
+                        my_obj.session.send(pack)
 
                 # notify role appeared and started moving
-                object.session.send(
-                    pb.RoleAppeared(
-                        id=role.id,
-                        name=role.name,
-                        x=role.x,
-                        y=role.y,
+                if object.is_role():
+                    object.session.send(
+                        pb.RoleAppeared(
+                            id=my_obj.id,
+                            name=my_obj.name,
+                            x=my_obj.x,
+                            y=my_obj.y,
+                        )
                     )
-                )
-                if role.is_moving:
-                    pack = pb.StartedMoving(
-                        id=role.id,
-                        src_x=role.x,
-                        src_y=role.y,
-                        dir=role.dir,
-                        speed=role.speed,
-                    )
-                    object.session.send(pack)
+                    if my_obj.is_moving:
+                        pack = pb.StartedMoving(
+                            id=my_obj.id,
+                            src_x=my_obj.x,
+                            src_y=my_obj.y,
+                            dir=my_obj.dir,
+                            speed=my_obj.speed,
+                        )
+                        object.session.send(pack)
 
 
 
         # to_notify_old_nearby_cells
         for cell in to_notify_old_nearby_cells:
-            roles = cell.get_all_objects()
+            objects = cell.get_all_objects()
 
-            for role in roles:
-                role.session.send(
-                    pb.RoleDisappeared(
-                        id=object.id,
+            for my_obj in objects:
+                if my_obj.is_role():
+                    my_obj.session.send(
+                        pb.RoleDisappeared(
+                            id=object.id,
+                        )
                     )
-                )
 
-                object.session.send(
-                    pb.RoleDisappeared(
-                        id=role.id,
+                if object.is_role():
+                    object.session.send(
+                        pb.RoleDisappeared(
+                            id=my_obj.id,
+                        )
                     )
-                )
 
     def __get_nearby_cells(self, cell):
         # get 9 cells around cell

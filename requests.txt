@@ -70,11 +70,7 @@ DONE:
 
         sail, show ship near port, not on port OK
 
-        enter battle with role ON
-            don't show enemy role in battle ON
-            others at sea see you guys disappear OK
-            enter battle OK
-            after escape battle, I see my enemy always in one dir ON
+        others see two roles enter battle OK
 
         enter battle with npc ON
             i disappear

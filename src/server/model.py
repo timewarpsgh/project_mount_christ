@@ -274,7 +274,7 @@ class Role:
     def stop_moving(self):
         self.is_moving = False
 
-        print(f'stopped moving at {self.x} {self.y}')
+        print(f'{self.id} stopped moving at {self.x} {self.y}')
 
         # send stopped moving to nearby clients
 
@@ -335,6 +335,9 @@ class Role:
         sMapMgr.move_object(self, old_x, old_y, self.x, self.y)
 
         # check opened grid?
+        if self.is_npc():
+            return
+
         grid_x, grid_y = self.__get_grid_xy(self.x, self.y)
         if self.seen_grids[grid_x][grid_y] == 0:
             self.seen_grids[grid_x][grid_y] = 1
@@ -693,7 +696,7 @@ class Role:
         old_x = self.x
         old_y = self.y
 
-
+        print(f'{self.id} started moving from {x}, {y}')
         self.is_moving = True
         self.dir = dir
         self.x = x
@@ -715,8 +718,13 @@ class Role:
             dir=self.dir,
             speed=self.speed,
         )
-        self.session.packet_handler.send_to_nearby_roles(pack, include_self=True)
-
+        if self.is_role():
+            self.session.packet_handler.send_to_nearby_roles(pack, include_self=True)
+        else:
+            nearby_objects = sMapMgr.get_nearby_objects(self)
+            for object in nearby_objects:
+                if object.is_role():
+                    object.session.send(pack)
     def is_dir_diagnal(self):
         if self.dir in [pb.DirType.NW, pb.DirType.NE, pb.DirType.SW, pb.DirType.SE]:
             return True

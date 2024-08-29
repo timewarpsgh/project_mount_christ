@@ -2,13 +2,14 @@ import asyncio
 
 from dataclasses import dataclass
 from model import Role, Mate, ShipMgr, Ship
-
+import random
 import json
 
 # import from dir
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\server')
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 from world_models import Npc as NpcModel, \
     SESSION as WORLD_SESSION
 
@@ -17,6 +18,21 @@ from role_models import SESSION as ROLE_SESSION, \
     Ship as ShipModel
 
 from map_mgr import sMapMgr
+from hash_paths import HASH_PATHS
+import login_pb2 as pb
+
+
+class Path:
+    """read only. holds path from one port to another"""
+    def __init__(self, start_port_id, end_port_id):
+        self.list_of_points = HASH_PATHS[start_port_id][end_port_id]
+
+    def get_length(self):
+        return len(self.list_of_points)
+
+    def get_wp(self, id):
+        return self.list_of_points[id]
+
 
 @dataclass
 class Npc(Role):
@@ -31,9 +47,88 @@ class Npc(Role):
     ship_mgr: ShipMgr = None
     battle_timer: int = None
 
+    start_port_id: int = 30
+    end_port_id: int = None
+    is_outward: bool = True
+    now_wp_id: int = 0
+
+
     def get_flag_ship(self):
         flag_ship = list(self.ship_mgr.id_2_ship.values())[0]
         return flag_ship
+
+    def move_along_path(self):
+        """choose a random end port, reach it, and move back, and loop"""
+        # get path and direction
+        next_point = self.__get_next_point()
+        self.__move_to_next_point(next_point)
+
+    def __get_next_point(self):
+        # get path
+        path = None
+
+        if self.now_wp_id == 0:
+            # init start and end
+            self.is_outward = True
+            # self.end_port_id = random.choice(list(HASH_PATHS[self.start_port_id].keys()))
+
+            self.end_port_id = 33 # antwerp
+
+            path = Path(self.start_port_id, self.end_port_id)
+        else:
+            # get path from start and end ids
+            path = Path(self.start_port_id, self.end_port_id)
+            if (self.now_wp_id + 1) == path.get_length():
+                self.is_outward = False
+
+        # change index
+        if self.is_outward:
+            self.now_wp_id += 1
+        else:
+            self.now_wp_id -= 1
+
+        # get next point and move to it
+        next_point = path.get_wp(self.now_wp_id)
+
+        return next_point
+
+    def __move_to_next_point(self, next_point):
+        dir = self.__get_dir_to_next_point(next_point)
+        print(f'moving to next point: {next_point} {dir}')
+        self.start_moving(self.x, self.y, dir)
+        # self.move(dir)
+
+    def __get_dir_to_next_point(self, next_point):
+        next_x = next_point[0]
+        next_y = next_point[1]
+
+        # get now position
+        now_x = self.x
+        now_y = self.y
+
+        # get direction
+        dir = None
+
+        if next_y < now_y and next_x == now_x:
+            dir = pb.DirType.N
+        elif next_y > now_y and next_x == now_x:
+            dir = pb.DirType.S
+        elif next_y == now_y and next_x < now_x:
+            dir = pb.DirType.W
+        elif next_y == now_y and next_x > now_x:
+            dir = pb.DirType.E
+
+        elif next_y < now_y and next_x > now_x:
+            dir = pb.DirType.NE
+        elif next_y < now_y and next_x < now_x:
+            dir = pb.DirType.NW
+        elif next_y > now_y and next_x > now_x:
+            dir = pb.DirType.SE
+        elif next_y > now_y and next_x < now_x:
+            dir = pb.DirType.SW
+
+        return dir
+
 
 class NpcMgr:
 
@@ -46,8 +141,16 @@ class NpcMgr:
 
     async def run_loop_to_update(self):
         while True:
-            await asyncio.sleep(1)
-            print('running npc_mgr update')
+            await asyncio.sleep(2)
+            await self.update(2)
+
+    async def update(self, time_diff):
+        print('running npc_mgr update')
+        for npc in self.id_2_npc.values():
+            if npc.id == 2000000001:
+                npc.move_along_path()
+                await npc.update(time_diff)
+
 
     def __get_mate(self, npc_id):
         mate_model = ROLE_SESSION.query(MateModel).filter_by(npc_id=npc_id).first()

@@ -1,8 +1,2 @@
-d = {
-    1: 1,
-    'n1': 2,
-
-
-}
-
-print(d)
+aaa = 1
+print(aaa)

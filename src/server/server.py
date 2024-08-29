@@ -142,7 +142,7 @@ class Server:
         print(f'Serving on {addrs}')
 
         async with server:
-            # await sNpcMgr.run_loop_to_update()
+            await sNpcMgr.run_loop_to_update()
             await server.serve_forever()
 
 

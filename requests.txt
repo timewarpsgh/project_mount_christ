@@ -17,7 +17,8 @@ TO DO:
 
             npcs are roles, have ids starting from 2B OK
 
-            npc move ON
+            npc move OK
+                moving too fast ON
 
 
 

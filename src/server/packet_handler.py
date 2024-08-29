@@ -1024,27 +1024,8 @@ class PacketHandler:
         if not self.role.is_close_to_role(target_role):
             return
 
-
         self.send_role_disappeared_to_nearby_roles()
         target_role.session.packet_handler.send_role_disappeared_to_nearby_roles()
-
-        # target_role.session.send(
-        #     RoleAppeared(
-        #         id=self.role.id,
-        #         name=self.role.name,
-        #         x=self.role.x,
-        #         y=self.role.y,
-        #     )
-        # )
-        #
-        # self.session.send(
-        #     RoleAppeared(
-        #         id=target_role.id,
-        #         name=target_role.name,
-        #         x=target_role.x,
-        #         y=target_role.y,
-        #     )
-        # )
 
         sMapMgr.rm_object(self.role)
         sMapMgr.rm_object(target_role)

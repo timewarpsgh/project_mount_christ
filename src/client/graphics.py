@@ -541,7 +541,7 @@ class Graphics:
                 self.client.send(FightRole(role_id=2))
 
             if event.key == pygame.K_y:
-                self.client.send(FightNpc(npc_id=1))
+                self.client.send(FightNpc(npc_id='n1'))
 
             if event.key == pygame.K_p:
                 if self.model.role.is_in_port():

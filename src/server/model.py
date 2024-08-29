@@ -406,6 +406,13 @@ class Role:
         target_role.battle_role_id = None
         self.battle_role_id = None
 
+        # notify nearby roles
+        sMapMgr.add_object(self)
+        sMapMgr.add_object(target_role)
+        self.session.packet_handler.send_role_appeared_to_nearby_roles()
+        target_role.session.packet_handler.send_role_appeared_to_nearby_roles()
+
+
     async def npc_all_ships_attack_me(self):
         # get enemy role
         enemy_npc = self.npc_instance
@@ -521,6 +528,10 @@ class Role:
         self.npc_instance = None
         self.battle_npc_id = None
 
+        # notify nearby roles
+        sMapMgr.add_object(self)
+        self.send_role_appeared_to_nearby_roles()
+
     def lose_to_npc(self):
         for id in self.get_non_flag_ships_ids():
             self.ship_mgr.rm_ship(id)
@@ -530,6 +541,10 @@ class Role:
 
         self.npc_instance = None
         self.battle_npc_id = None
+
+        # notify nearby roles
+        sMapMgr.add_object(self)
+        self.send_role_appeared_to_nearby_roles()
 
     async def all_ships_attack_npc(self):
         # get enemy role

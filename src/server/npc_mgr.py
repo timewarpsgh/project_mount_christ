@@ -18,7 +18,7 @@ from role_models import SESSION as ROLE_SESSION, \
 
 @dataclass
 class Npc(Role):
-    id: int = None
+    id: str = None
 
     x: int = None
     y: int = None

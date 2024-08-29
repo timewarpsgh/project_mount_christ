@@ -155,7 +155,7 @@ class Npc(BASE):
 
 	__tablename__ = 'npc'
 
-	id = Column(Integer, primary_key=True)
+	id = Column(String, primary_key=True)
 	mate_id = Column(Integer)
 
 	x = Column(Integer)

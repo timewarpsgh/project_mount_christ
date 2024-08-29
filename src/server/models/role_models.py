@@ -48,7 +48,7 @@ class Mate(BASE):
 	# id
 	id = Column(Integer, primary_key=True)
 	role_id = Column(Integer)
-	npc_id = Column(Integer)
+	npc_id = Column(String)
 
 	name = Column(String)
 	img_id = Column(String)
@@ -77,7 +77,7 @@ class Ship(BASE):
 	# id
 	id = Column(Integer, primary_key=True)
 	role_id = Column(Integer)
-	npc_id = Column(Integer)
+	npc_id = Column(String)
 
 	name = Column(String)
 	ship_template_id = Column(Integer)

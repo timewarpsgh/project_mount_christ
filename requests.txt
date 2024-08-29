@@ -6,7 +6,17 @@ TO DO:
 
 
     see npc on sea map  ON
-        change npc ids to n1, n2... ON
+        change npc ids to n1, n2... OK
+        win_role and lose_to_role OK
+
+        client knows npc
+            appeared
+            disappeared
+
+
+            started moving
+            stopped moving?(maybe never stops)
+
 
     see npc move
 

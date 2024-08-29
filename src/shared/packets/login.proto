@@ -352,17 +352,17 @@ message OpenedGrid {
 
 // fight npc
 message FightNpc {
-    required int32 npc_id = 1;
+    required string npc_id = 1;
 }
 
 message EnteredBattleWithNpc {
-    required int32 npc_id = 1;
+    required string npc_id = 1;
     repeated Ship ships = 2;
 }
 
 // escape battle
 message EscapeNpcBattle {
-    required int32 npc_id = 1;
+    required string npc_id = 1;
 }
 
 message EscapedNpcBattle {

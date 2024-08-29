@@ -2,13 +2,13 @@ TO DO:
 
 
     others see two roles enter battle OK
-
     others see one role enter battle with npc OK
 
 
-    enter battle with npc ON
-            i disappear
-            npc stays
+    see npc on sea map  ON
+        change npc ids to n1, n2... ON
+
+    see npc move
 
 
     server not loaded map

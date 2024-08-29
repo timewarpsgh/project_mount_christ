@@ -118,6 +118,7 @@ class NpcMgr:
                 ship_mgr=self.__get_ship_mgr(npc_model.id)
 
             )
+            npc.name = npc.mate.name
 
             self.id_2_npc[npc_model.id] = npc
 

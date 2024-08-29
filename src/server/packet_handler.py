@@ -616,9 +616,10 @@ class PacketHandler:
 
     def send_to_nearby_roles(self, packet, include_self=False):
         # notify presence of nearby_roles
-        nearby_roles = sMapMgr.get_nearby_objects(self.role, include_self)
-        for role in nearby_roles:
-            role.session.send(packet)
+        nearby_objects = sMapMgr.get_nearby_objects(self.role, include_self)
+        for object in nearby_objects:
+            if object.is_role():
+                object.session.send(packet)
 
     def _handle_gm_cmd_map(self, params):
         map_id = int(params[0])
@@ -738,32 +739,35 @@ class PacketHandler:
 
 
     def send_role_disappeared_to_nearby_roles(self):
-        nearby_roles = sMapMgr.get_nearby_objects(self.role)
+        nearby_objects = sMapMgr.get_nearby_objects(self.role)
 
-        for role in nearby_roles:
-            role.session.send(RoleDisappeared(id=self.role.id))
-            self.session.send(RoleDisappeared(id=role.id))
+        for object in nearby_objects:
+            if object.is_role():
+                object.session.send(RoleDisappeared(id=self.role.id))
+
+            self.session.send(RoleDisappeared(id=object.id))
 
     def send_role_appeared_to_nearby_roles(self):
-        nearby_roles = sMapMgr.get_nearby_objects(self.role)
+        nearby_objects = sMapMgr.get_nearby_objects(self.role)
 
 
-        for role in nearby_roles:
-            role.session.send(
-                RoleAppeared(
-                    id=self.role.id,
-                    name=self.role.name,
-                    x=self.role.x,
-                    y=self.role.y,
+        for object in nearby_objects:
+            if object.is_role():
+                object.session.send(
+                    RoleAppeared(
+                        id=self.role.id,
+                        name=self.role.name,
+                        x=self.role.x,
+                        y=self.role.y,
+                    )
                 )
-            )
 
             self.session.send(
                 RoleAppeared(
-                    id=role.id,
-                    name=role.name,
-                    x=role.x,
-                    y=role.y,
+                    id=object.id,
+                    name=object.name,
+                    x=object.x,
+                    y=object.y,
                 )
             )
 

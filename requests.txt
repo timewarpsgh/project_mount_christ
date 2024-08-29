@@ -11,8 +11,8 @@ TO DO:
 
         client knows npc
             add npc to map_mgr on init  OK
-            appeared
-
+            sea npc appeare  OK
+            # to_notify_new_nearby_cells
 
 
             disappeared

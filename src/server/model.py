@@ -259,6 +259,18 @@ class Role:
         grid_y = int(x / c.SIZE_OF_ONE_GRID)
         return grid_x, grid_y
 
+    def is_npc(self):
+        if self.session:
+            return False
+        else:
+            return True
+
+    def is_role(self):
+        if self.session:
+            return True
+        else:
+            return False
+
     def stop_moving(self):
         self.is_moving = False
 

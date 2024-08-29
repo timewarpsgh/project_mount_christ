@@ -6,7 +6,7 @@ import json
 # import from dir
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
-
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\server')
 from world_models import Npc as NpcModel, \
     SESSION as WORLD_SESSION
 
@@ -14,7 +14,7 @@ from role_models import SESSION as ROLE_SESSION, \
     Mate as MateModel, \
     Ship as ShipModel
 
-
+from map_mgr import sMapMgr
 
 @dataclass
 class Npc(Role):
@@ -121,8 +121,7 @@ class NpcMgr:
 
             self.id_2_npc[npc_model.id] = npc
 
-            for id, ship in npc.ship_mgr.id_2_ship.items():
-                print(ship.name)
+            sMapMgr.add_object(npc)
 
 
 sNpcMgr = NpcMgr()

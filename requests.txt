@@ -10,7 +10,11 @@ TO DO:
         win_role and lose_to_role OK
 
         client knows npc
+            add npc to map_mgr on init  OK
             appeared
+
+
+
             disappeared
 
 

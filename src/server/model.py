@@ -371,7 +371,8 @@ class Role:
 
 
     def is_close_to_role(self, target_role):
-        return abs(self.x - target_role.x) <= 1 and abs(self.y - target_role.y) <= 1
+        distance = 3
+        return abs(self.x - target_role.x) <= distance and abs(self.y - target_role.y) <= distance
 
     def win(self, target_role):
 

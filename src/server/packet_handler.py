@@ -849,44 +849,47 @@ class PacketHandler:
 
         npc = sNpcMgr.get_npc(npc_id)
 
-        distance = 3
+        if not self.role.is_close_to_role(npc):
+            return
 
-        if abs(npc.x - self.role.x) <= distance and abs(npc.y - self.role.y) <= distance:
+        # notify nearby roles
+        sMapMgr.rm_object(self.role)
+        self.send_role_disappeared_to_nearby_roles()
 
-            self.role.battle_npc_id = npc_id
+        self.role.battle_npc_id = npc_id
 
-            # gen npc_instance (each role has its own instance)
-            npc_instance = copy.deepcopy(npc)
-            self.role.npc_instance = npc_instance
+        # gen npc_instance (each role has its own instance)
+        npc_instance = copy.deepcopy(npc)
+        self.role.npc_instance = npc_instance
 
-            self.role.ship_mgr.init_ships_positions_in_battle(is_attacker=True)
-            npc_instance.ship_mgr.init_ships_positions_in_battle(is_attacker=False)
+        self.role.ship_mgr.init_ships_positions_in_battle(is_attacker=True)
+        npc_instance.ship_mgr.init_ships_positions_in_battle(is_attacker=False)
 
-            pack = EnteredBattleWithNpc(
-                npc_id=npc_id,
-                ships=npc_instance.ship_mgr.gen_ships_prots(),
-            )
+        pack = EnteredBattleWithNpc(
+            npc_id=npc_id,
+            ships=npc_instance.ship_mgr.gen_ships_prots(),
+        )
 
-            self.session.send(pack)
+        self.session.send(pack)
 
-            #### copied
-            # init battle_role_id and enemy ships
-            # init my ships pos
-            for id, ship in self.role.ship_mgr.id_2_ship.items():
-                self.session.send(pb.ShipMoved(
-                    id=id,
-                    x=ship.x,
-                    y=ship.y,
-                ))
+        #### copied
+        # init battle_role_id and enemy ships
+        # init my ships pos
+        for id, ship in self.role.ship_mgr.id_2_ship.items():
+            self.session.send(pb.ShipMoved(
+                id=id,
+                x=ship.x,
+                y=ship.y,
+            ))
 
-            # init battle_timer (updated each session update)
-            self.role.battle_timer = c.BATTLE_TIMER_IN_SECONDS
+        # init battle_timer (updated each session update)
+        self.role.battle_timer = c.BATTLE_TIMER_IN_SECONDS
 
-            pack = BattleTimerStarted(
-                battle_timer=self.role.battle_timer,
-                role_id=self.role.id,
-            )
-            self.session.send(pack)
+        pack = BattleTimerStarted(
+            battle_timer=self.role.battle_timer,
+            role_id=self.role.id,
+        )
+        self.session.send(pack)
 
 
 
@@ -897,6 +900,9 @@ class PacketHandler:
 
         self.session.send(EscapedNpcBattle())
 
+        # notify nearby roles
+        sMapMgr.add_object(self.role)
+        self.send_role_appeared_to_nearby_roles()
 
     async def handle_SellShip(self, sell_ship):
         id = sell_ship.id

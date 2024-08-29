@@ -1,78 +1,12 @@
 TO DO:
 
 
+    others see two roles enter battle OK
+
+    others see one role enter battle with npc OK
 
 
-
-
-DONE:
-
-    smooth movement  OK
-    collision ON
-        client ON
-            in port OK
-            at sea  OK
-        server  ON
-            in port ON
-            at sea ON
-
-
-    8 sea directions at sea OK
-    diagnal movement speed too fast OK
-
-    auto direction change at sea OK
-    at sea, no stop  OK
-
-    server tile collision OK
-
-
-
-
-    sMapMgr in server OK
-
-    see other players   ON
-
-
-
-
-    send to nearby players, only send to nearby players ON
-        on role enter, its added into a map (port, or sea)  OK
-        on role log out, removed from map OK
-        on role map change, change map OK
-
-        show role pos right OK
-        show other role start moving OK
-        other role collision check OK
-        show others move at sea ON
-            press p to sail OK
-            show other role as ship OK
-            see other role(ship) start moving OK
-
-            when i move, see other role, move smoothly OK
-            when i move, see other role, move smoothly, at sea OK
-
-            one side can't see other, when sailed to sea OK
-
-            send start_moving with x, y, dir OK
-
-            at sea, diagnal movement smooth OK
-            in port, other role anime  OK
-            at sea, other role anime  OK
-
-
-        draw sprites in layer order 0-2 OK
-
-        on role move, cell change at sea maybe OK
-            on cell change, need to tell nearby roles OK
-            someone appeared, and startedmoving OK
-
-        login a third role OK
-
-        sail, show ship near port, not on port OK
-
-        others see two roles enter battle OK
-
-        enter battle with npc ON
+    enter battle with npc ON
             i disappear
             npc stays
 
@@ -80,6 +14,22 @@ DONE:
     server not loaded map
 
     see npcs
+
+
+
+DONE:
+
+    draw sprites in layer order 0-2 OK
+
+    on role move, cell change at sea maybe OK
+        on cell change, need to tell nearby roles OK
+        someone appeared, and startedmoving OK
+
+    login a third role OK
+
+    sail, show ship near port, not on port OK
+
+
 
 
 cmds

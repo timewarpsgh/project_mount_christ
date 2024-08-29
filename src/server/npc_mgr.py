@@ -1,3 +1,5 @@
+import asyncio
+
 from dataclasses import dataclass
 from model import Role, Mate, ShipMgr, Ship
 
@@ -41,6 +43,11 @@ class NpcMgr:
 
     def get_npc(self, id):
         return self.id_2_npc.get(id)
+
+    async def run_loop_to_update(self):
+        while True:
+            await asyncio.sleep(1)
+            print('running npc_mgr update')
 
     def __get_mate(self, npc_id):
         mate_model = ROLE_SESSION.query(MateModel).filter_by(npc_id=npc_id).first()

@@ -15,10 +15,13 @@ TO DO:
             to_notify_new_nearby_cells OK
             only role objects need to be notified OK
 
-            disappeared
+            npcs are roles, have ids starting from 2B OK
+
+            npc move ON
 
 
-            started moving
+
+
             stopped moving?(maybe never stops)
 
 

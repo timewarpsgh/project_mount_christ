@@ -173,7 +173,7 @@ message EnterWorldRes {
 
 // role appeared from server
 message RoleAppeared {
-    required string id = 1;
+    required int32 id = 1;
     required string name = 2;
     required int32 x = 3;
     required int32 y = 4;
@@ -182,7 +182,7 @@ message RoleAppeared {
 
 // role disappeared from server
 message RoleDisappeared {
-    required string id = 1;
+    required int32 id = 1;
 }
 
 // get available cargos
@@ -352,17 +352,17 @@ message OpenedGrid {
 
 // fight npc
 message FightNpc {
-    required string npc_id = 1;
+    required int32 npc_id = 1;
 }
 
 message EnteredBattleWithNpc {
-    required string npc_id = 1;
+    required int32 npc_id = 1;
     repeated Ship ships = 2;
 }
 
 // escape battle
 message EscapeNpcBattle {
-    required string npc_id = 1;
+    required int32 npc_id = 1;
 }
 
 message EscapedNpcBattle {

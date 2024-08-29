@@ -87,6 +87,7 @@ class Server:
         self.id_mgr = sIdMgr
         self.__init_map_maker()
 
+
     def __init_map_maker(self):
         sMapMaker.set_world_piddle()
 
@@ -141,7 +142,9 @@ class Server:
         print(f'Serving on {addrs}')
 
         async with server:
+            # await sNpcMgr.run_loop_to_update()
             await server.serve_forever()
+
 
 
 def main():

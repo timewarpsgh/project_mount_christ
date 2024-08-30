@@ -26,6 +26,9 @@ TO DO:
 
             can press to move on enter OK (USE CAPS)
 
+            don't check keys when chat dialog is on OK
+
+
 
             fight moving npc ON
 

@@ -506,6 +506,18 @@ class Graphics:
         self.id_2_sp_role_name[id].move_to_smoothly(x, y, given_time)
 
     def process_event(self, event):
+        # when enter pressed, turn on chat cursor
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RETURN:
+                if not self.client.game.gui.chat_dialog.command_entry.is_focused:
+                    self.client.game.gui.chat_dialog.command_entry.focus()
+
+        # don't check keys if chat cursor is on
+        if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
+            if self.client.game.gui.chat_dialog.command_entry.is_focused:
+                return
+
+        # key down
         if event.type == pygame.KEYDOWN:
             # movements
             if event.key == pygame.K_d:
@@ -544,6 +556,7 @@ class Graphics:
                 self.client.send(FightNpc(npc_id=2000000001))
 
             if event.key == pygame.K_p:
+
                 if self.model.role.is_in_port():
                     self.client.send(Sail())
                 elif self.model.role.is_at_sea():
@@ -551,6 +564,7 @@ class Graphics:
                 elif self.model.role.is_in_battle():
                     self.client.game.gui.options_dialog.escape_battle()
 
+        # key up
         elif event.type == pygame.KEYUP:
             if event.key in [pygame.K_d, pygame.K_a, pygame.K_w, pygame.K_s]:
                 if self.model.role.is_in_port():

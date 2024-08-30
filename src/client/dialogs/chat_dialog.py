@@ -29,7 +29,8 @@ class ChatDialog(MyUIConsoleWindow):
         # send packet
         if event.type == UI_TEXT_ENTRY_FINISHED and event.ui_element == self.command_entry:
             text = self.command_entry.get_text()
-            print(text)
+            if not text:
+                return
 
             packet = Chat(
                 chat_type=ChatType.SAY,
@@ -37,6 +38,8 @@ class ChatDialog(MyUIConsoleWindow):
             )
 
             self.client.send(packet)
+
+            self.command_entry.unfocus()
 
         # call super
         super().process_event(event)

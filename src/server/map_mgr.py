@@ -69,8 +69,9 @@ class SeaMap:
         return cells
 
     def __get_cell(self, x, y):
-        cell_x = x // c.CELL_TILES_COUNT
-        cell_y = y // c.CELL_TILES_COUNT
+        cell_x = y // c.CELL_TILES_COUNT
+        cell_y = x // c.CELL_TILES_COUNT
+
         return self.cells[cell_x][cell_y]
 
     def add_object(self, object, x=None, y=None):

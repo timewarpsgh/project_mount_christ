@@ -29,12 +29,10 @@ TO DO:
             don't check keys when chat dialog is on OK
 
             chat dialog text color -> yellow OK
-
             .map  .xy must change pos and notify nearby clients  OK
-
             .map OK
 
-            some maps cannot reach (jaffa, japan, changan  cell index out of range)
+            some maps cannot reach (jaffa, japan, changan  cell index out of range)[x, y reverted]  OK
 
 
 

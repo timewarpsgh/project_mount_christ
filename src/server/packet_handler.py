@@ -457,6 +457,10 @@ class PacketHandler:
         # notify presence of nearby_roles
         self.send_role_appeared_to_nearby_roles()
 
+        # sail
+        await self.handle_Sail('')
+
+
     def __get_available_cargos(self):
         port = sObjectMgr.get_port(self.role.map_id)
         cargo_ids = sObjectMgr.get_cargo_ids(port.economy_id)

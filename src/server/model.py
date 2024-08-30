@@ -544,7 +544,7 @@ class Role:
 
         # notify nearby roles
         sMapMgr.add_object(self)
-        self.send_role_appeared_to_nearby_roles()
+        self.session.packet_handler.send_role_appeared_to_nearby_roles()
 
     def lose_to_npc(self):
         for id in self.get_non_flag_ships_ids():

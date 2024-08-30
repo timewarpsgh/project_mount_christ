@@ -550,9 +550,12 @@ class Graphics:
 
             # test key
             if event.key == pygame.K_t:
+                # self.model.role.stop_moving()
                 self.client.send(FightRole(role_id=2))
 
             if event.key == pygame.K_y:
+                self.model.role.is_moving = False
+                self.sp_background.start_time = None
                 self.client.send(FightNpc(npc_id=2000000001))
 
             if event.key == pygame.K_p:
@@ -603,7 +606,6 @@ class Graphics:
                 my_ships = self.model.role.ship_mgr.id_2_ship.values()
                 for id, ship in enumerate(my_ships):
                     ship_in_battle_img = sAssetMgr.images['ship_in_battle']['up']
-
 
                     battle_ground_img.blit(ship_in_battle_img, (ship.x, ship.y))
 

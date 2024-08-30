@@ -36,7 +36,12 @@ TO DO:
 
 
 
-            fight moving npc ON
+            can't see my or enemy ships in battle now ON
+
+
+            fight moving npc OK
+            fight moving role ON
+
 
 
 

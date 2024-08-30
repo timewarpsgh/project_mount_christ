@@ -156,6 +156,7 @@ class NpcMgr:
 
 
     async def update(self, time_diff):
+        # return
         for npc in self.id_2_npc.values():
             # if npc.id == 2000000001:
             npc.move_along_path()

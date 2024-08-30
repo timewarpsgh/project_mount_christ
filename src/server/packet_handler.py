@@ -885,6 +885,8 @@ class PacketHandler:
         if not self.role.is_close_to_role(npc):
             return
 
+        self.role.is_moving = False
+
         # notify nearby roles
         sMapMgr.rm_object(self.role)
         self.send_role_disappeared_to_nearby_roles()

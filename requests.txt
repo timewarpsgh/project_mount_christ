@@ -28,7 +28,9 @@ TO DO:
 
             don't check keys when chat dialog is on OK
 
+            chat dialog text color -> yellow OK
 
+            .map  .xy must change pos and notify nearby clients ON
 
             fight moving npc ON
 

@@ -56,7 +56,8 @@
     {
          "colours":
          {
-             "dark_bg": "#19191940"
+             "dark_bg": "#19191940",
+             "normal_text": "#fca103"
          }
     },
     "#command_entry":

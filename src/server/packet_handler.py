@@ -626,14 +626,27 @@ class PacketHandler:
                 object.session.send(packet)
 
     def _handle_gm_cmd_map(self, params):
-        map_id = int(params[0])
+        port_id = int(params[0])
 
-        self.role.enter_port(map_id)
+        self.send_role_disappeared_to_nearby_roles()
+
+        old_x = self.role.x
+        old_y = self.role.y
+        old_map_id = self.role.map_id
+
+        self.role.enter_port(port_id)
+
+        sMapMgr.change_object_map(self.role,
+                                  old_map_id, old_x, old_y,
+                                  port_id, self.role.x, self.role.y)
+
+        self.send_role_appeared_to_nearby_roles()
+
 
         pack = GotChat(
             origin_name=self.role.name,
             chat_type=ChatType.SYSTEM,
-            text=f'map changed to {map_id}',
+            text=f'map_id changed to {port_id}',
         )
         self.session.send(pack)
 
@@ -641,15 +654,27 @@ class PacketHandler:
         x = int(params[0])
         y = int(params[1])
 
-        self.role.x = x
-        self.role.y = y
-
         pack = GotChat(
             origin_name=self.role.name,
             chat_type=ChatType.SYSTEM,
             text=f'xy changed to {x} {y}',
         )
         self.session.send(pack)
+
+        self.send_role_disappeared_to_nearby_roles()
+
+        old_x = self.role.x
+        old_y = self.role.y
+        old_map_id = self.role.map_id
+
+        self.role.x = x
+        self.role.y = y
+
+        sMapMgr.change_object_map(self.role,
+                                  old_map_id, old_x, old_y,
+                                  self.role.map_id, self.role.x, self.role.y)
+
+        self.send_role_appeared_to_nearby_roles()
 
         pack = RoleMoved(
             id=self.role.id,

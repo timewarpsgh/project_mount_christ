@@ -30,7 +30,13 @@ TO DO:
 
             chat dialog text color -> yellow OK
 
-            .map  .xy must change pos and notify nearby clients ON
+            .map  .xy must change pos and notify nearby clients  OK
+
+            .map OK
+
+            some maps cannot reach (jaffa, japan, changan  cell index out of range)
+
+
 
             fight moving npc ON
 

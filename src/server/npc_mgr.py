@@ -96,9 +96,7 @@ class Npc(Role):
 
     def __start_moving_to_next_point(self, next_point):
         dir = self.__get_dir_to_next_point(next_point)
-        print(f'moving to next point: {next_point} {dir}')
         self.start_moving(self.x, self.y, dir)
-        # self.move(dir)
 
     def __get_dir_to_next_point(self, next_point):
         next_x = next_point[0]
@@ -129,6 +127,9 @@ class Npc(Role):
         elif next_y > now_y and next_x < now_x:
             dir = pb.DirType.SW
 
+        if next_y == now_y and next_x == now_x:
+            dir = pb.DirType.N
+
         return dir
 
 
@@ -155,11 +156,10 @@ class NpcMgr:
 
 
     async def update(self, time_diff):
-        print('running npc_mgr update')
         for npc in self.id_2_npc.values():
-            if npc.id == 2000000001:
-                npc.move_along_path()
-                await npc.update(time_diff)
+            # if npc.id == 2000000001:
+            npc.move_along_path()
+            await npc.update(time_diff)
 
 
     def __get_mate(self, npc_id):

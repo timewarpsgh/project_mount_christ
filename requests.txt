@@ -19,6 +19,11 @@ TO DO:
 
             npc move OK
 
+            2 NPCS  OK
+
+            fight moving npc ON
+
+
 
     see npc move
 

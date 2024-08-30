@@ -287,7 +287,6 @@ class Role:
 
     def move(self, dir):
         # can move?
-        print(f'server trying to move {self.id} ')
         if self.is_in_port():
             return
 
@@ -329,7 +328,7 @@ class Role:
             self.x -= distance
             self.y += distance
 
-        print(f'{self.id} moved to {self.x} {self.y}')
+        # print(f'{self.id} moved to {self.x} {self.y}')
 
         # change cell maybe
         sMapMgr.move_object(self, old_x, old_y, self.x, self.y)
@@ -696,7 +695,6 @@ class Role:
         old_x = self.x
         old_y = self.y
 
-        print(f'{self.id} started moving from {x}, {y}')
         self.is_moving = True
         self.dir = dir
         self.x = x

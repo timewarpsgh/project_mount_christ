@@ -709,7 +709,10 @@ class Role:
         if self.is_in_port():
             self.speed = c.PORT_SPEED
         elif self.is_at_sea():
-            self.speed = c.PORT_SPEED
+            if self.is_role():
+                self.speed = c.PORT_SPEED
+            elif self.is_npc():
+                self.speed = c.NPC_SPEED
 
         pack = pb.StartedMoving(
             id=self.id,

@@ -10,6 +10,7 @@ import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\server')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 from world_models import Npc as NpcModel, \
     SESSION as WORLD_SESSION
 
@@ -20,6 +21,7 @@ from role_models import SESSION as ROLE_SESSION, \
 from map_mgr import sMapMgr
 from hash_paths import HASH_PATHS
 import login_pb2 as pb
+import constants as c
 
 
 class Path:
@@ -52,7 +54,6 @@ class Npc(Role):
     is_outward: bool = True
     now_wp_id: int = 0
 
-
     def get_flag_ship(self):
         flag_ship = list(self.ship_mgr.id_2_ship.values())[0]
         return flag_ship
@@ -61,7 +62,8 @@ class Npc(Role):
         """choose a random end port, reach it, and move back, and loop"""
         # get path and direction
         next_point = self.__get_next_point()
-        self.__move_to_next_point(next_point)
+        self.__start_moving_to_next_point(next_point)
+
 
     def __get_next_point(self):
         # get path
@@ -70,9 +72,9 @@ class Npc(Role):
         if self.now_wp_id == 0:
             # init start and end
             self.is_outward = True
-            # self.end_port_id = random.choice(list(HASH_PATHS[self.start_port_id].keys()))
+            self.end_port_id = random.choice(list(HASH_PATHS[self.start_port_id].keys()))
 
-            self.end_port_id = 33 # antwerp
+            # self.end_port_id = 33 # antwerp
 
             path = Path(self.start_port_id, self.end_port_id)
         else:
@@ -92,7 +94,7 @@ class Npc(Role):
 
         return next_point
 
-    def __move_to_next_point(self, next_point):
+    def __start_moving_to_next_point(self, next_point):
         dir = self.__get_dir_to_next_point(next_point)
         print(f'moving to next point: {next_point} {dir}')
         self.start_moving(self.x, self.y, dir)
@@ -141,8 +143,16 @@ class NpcMgr:
 
     async def run_loop_to_update(self):
         while True:
-            await asyncio.sleep(2)
-            await self.update(2)
+            prev_time = asyncio.get_event_loop().time()
+
+            sleep_time = c.PIXELS_COVERED_EACH_MOVE / c.NPC_SPEED
+
+            await asyncio.sleep(sleep_time)
+            next_time = asyncio.get_event_loop().time()
+            time_diff = next_time - prev_time
+
+            await self.update(time_diff)
+
 
     async def update(self, time_diff):
         print('running npc_mgr update')

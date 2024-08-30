@@ -18,12 +18,6 @@ TO DO:
             npcs are roles, have ids starting from 2B OK
 
             npc move OK
-                moving too fast ON
-
-
-
-
-            stopped moving?(maybe never stops)
 
 
     see npc move

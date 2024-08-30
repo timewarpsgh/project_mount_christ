@@ -1065,6 +1065,10 @@ class PacketHandler:
         if not self.role.is_close_to_role(target_role):
             return
 
+        # stop moving
+        self.role.is_moving = False
+        target_role.is_moving = False
+
         self.send_role_disappeared_to_nearby_roles()
         target_role.session.packet_handler.send_role_disappeared_to_nearby_roles()
 

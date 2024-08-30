@@ -550,7 +550,8 @@ class Graphics:
 
             # test key
             if event.key == pygame.K_t:
-                # self.model.role.stop_moving()
+                self.model.role.is_moving = False
+                self.sp_background.start_time = None
                 self.client.send(FightRole(role_id=2))
 
             if event.key == pygame.K_y:

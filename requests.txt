@@ -40,7 +40,7 @@ TO DO:
 
 
             fight moving npc OK
-            fight moving role ON
+            fight moving role OK
 
 
 

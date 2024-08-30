@@ -429,6 +429,9 @@ class PacketHandler:
 
     async def handle_EnteredBattleWithRole(self, entered_battle_with_role):
 
+        self.__get_role().is_moving = False
+        self.__get_graphics().sp_background.start_time = None
+
         # change model
         self.__get_role().battle_role_id = entered_battle_with_role.role_id
 

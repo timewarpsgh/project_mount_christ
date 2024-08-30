@@ -711,7 +711,7 @@ class PacketHandler:
             if chat.text.startswith('.'):
                 if self.account.gm_lv:
                    if self.account.gm_lv >= 9:
-                        self.__handle_gm_cmd(chat.text)
+                        self.__handle_gm_cmd(chat.text.lower())
                         return
 
             # normal say chat

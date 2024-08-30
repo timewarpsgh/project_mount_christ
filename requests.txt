@@ -24,6 +24,8 @@ TO DO:
 
             at sea on enter OK
 
+            can press to move on enter OK (USE CAPS)
+
 
             fight moving npc ON
 

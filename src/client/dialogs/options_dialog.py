@@ -452,10 +452,6 @@ class OptionsDialog:
 
 
     def __show_world_map(self):
-        print('my xy')
-        print(self.__get_role().x)
-        print(self.__get_role().y)
-
         # image
         world_map_image = sAssetMgr.images['world_map']['world_map_from_uw2']
 
@@ -475,12 +471,9 @@ class OptionsDialog:
         start_x = 0
         start_y = 0
 
-        #
         matrix = self.__get_role().seen_grids
         # iterate through matrix
         rows, cols = matrix.shape
-
-
 
         for x in range(rows):
             for y in range(cols):
@@ -489,9 +482,17 @@ class OptionsDialog:
                     start_x_y = (start_y + int(y * strict_grid_size), start_x + int(x * strict_grid_size))
                     world_map_image.blit(map_mosaic, start_x_y)
 
-        # paste my position img
-        my_x = int(800 * (self.__get_role().x / 2160))
-        my_y = int(400 * (self.__get_role().y / 1080))
+        # get my_x y based on location
+        if self.__get_role().is_in_port():
+            port = sObjectMgr.get_port(self.__get_role().map_id)
+            my_x = port.x
+            my_y = port.y
+        else:
+            my_x = self.__get_role().x
+            my_y = self.__get_role().y
+
+        my_x = int(800 * (my_x / 2160))
+        my_y = int(400 * (my_y / 1080))
         print(my_x, my_y)
 
         world_map_image.blit(my_position_img, (my_x, my_y))

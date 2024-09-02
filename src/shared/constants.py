@@ -3,9 +3,12 @@ import sys
 
 
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 
 import login_pb2 as pb
+from helpers import Point
+
 
 # seen grids
 SEEN_GRIDS_COLS = 64
@@ -234,6 +237,17 @@ MARKETS =  [
     'Southeast Asia',
     'Far East',
 ]
+
+DIR_2_VECTOR = {
+    pb.DirType.N: [Point(0, 0), Point(0, 1)],
+    pb.DirType.S: [Point(0, 0), Point(0, -1)],
+    pb.DirType.W: [Point(0, 0), Point(-1, 0)],
+    pb.DirType.E: [Point(0, 0), Point(1, 0)],
+    pb.DirType.NE: [Point(0, 0), Point(1, 1)],
+    pb.DirType.SW: [Point(0, 0), Point(-1, -1)],
+    pb.DirType.NW: [Point(0, 0), Point(-1, 1)],
+    pb.DirType.SE: [Point(0, 0), Point(1, -1)]
+}
 
 
 if __name__ == '__main__':

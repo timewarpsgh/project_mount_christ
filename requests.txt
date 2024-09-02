@@ -8,18 +8,21 @@ TO DO:
 
     fight role ON
         ship
-            move_in_cur_dir
+            move_in_cur_dir  ON
             turn_left
             turn_right
             is_target_in_range
             is_target_in_angle
             can_engage_target
+            can_shoot_target
             shoot
             engage
 
 
         move a few steps before shooting  OK
         change dir after move  OK
+        is_in_angle OK
+
 
 
 

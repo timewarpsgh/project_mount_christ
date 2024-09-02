@@ -2,6 +2,9 @@ from dataclasses import dataclass
 import asyncio
 import random
 import login_pb2 as pb
+import math
+import numpy
+
 # import from dir
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
@@ -10,6 +13,8 @@ import constants as c
 from object_mgr import sObjectMgr
 from map_maker import sMapMaker
 from map_mgr import sMapMgr
+from helpers import Point, are_vectors_in_same_direction
+
 
 @dataclass
 class Ship:
@@ -88,7 +93,7 @@ class Ship:
         self.role.send_to_self_and_enemy(pack)
 
         pack = pb.GotChat(
-            text=f"{self.name} shot {ship.name} and dealt {damage} damage",
+            text=f"{self.name} at {self.x} {self.y} shot {ship.name} at {ship.x} {ship.y} and dealt {damage} damage",
             chat_type=pb.ChatType.SYSTEM
         )
         self.role.send_to_self_and_enemy(pack)
@@ -102,10 +107,27 @@ class Ship:
     def move(self, dir):
         self.dir = dir
 
-        if dir == pb.DirType.E:
+        if dir == pb.DirType.N:
+            self.y -= 1
+        elif dir == pb.DirType.E:
             self.x += 1
+        elif dir == pb.DirType.S:
+            self.y -= 1
+        elif dir == pb.DirType.W:
+            self.x -= 1
 
-
+        elif dir == pb.DirType.NE:
+            self.x += 1
+            self.y -= 1
+        elif dir == pb.DirType.SE:
+            self.x += 1
+            self.y += 1
+        elif dir == pb.DirType.SW:
+            self.x -= 1
+            self.y += 1
+        elif dir == pb.DirType.NW:
+            self.x -= 1
+            self.y -= 1
 
         pack = pb.ShipMoved(
             id=self.id,
@@ -117,7 +139,138 @@ class Ship:
 
 
     def is_target_in_range(self, ship):
-        return abs(self.x - ship.x) <= 200 and abs(self.y - ship.y) <= 200
+        # get distance between self and ship
+        distance_squared = (self.x - ship.x) ** 2 + (self.y - ship.y) ** 2
+
+        max_in_range_distance = 10
+
+        if distance_squared <= max_in_range_distance ** 2:
+            return True
+        else:
+            return False
+
+    def __is_angel_in_range(self, angle, angel_range):
+        if angle >= angel_range[0] and angle <= angel_range[1]:
+            return True
+        else:
+            return False
+
+    def is_target_in_angle(self, ship):
+        # get angle between the ships
+        angle = math.atan2(-(ship.y - self.y), ship.x - self.x)
+        angle = math.degrees(angle)
+        angle_0 = angle
+        angle_1 = angle - 360
+        angle_2 = angle + 360
+
+        # get angel range based on self.dir
+        dir_angel = 90 - self.dir * 45
+        angle_range_low = [dir_angel - 45 - 90, dir_angel - 45] # 90 degrees
+        angle_range_high = [dir_angel + 45, dir_angel + 45 + 90] # 90 degrees
+
+
+        if self.__is_angel_in_range(angle_0, angle_range_low) or \
+                self.__is_angel_in_range(angle_0, angle_range_high):
+            return True
+
+        if self.__is_angel_in_range(angle_1, angle_range_low) or \
+                self.__is_angel_in_range(angle_1, angle_range_high):
+            return True
+
+        if self.__is_angel_in_range(angle_2, angle_range_low) or \
+                self.__is_angel_in_range(angle_2, angle_range_high):
+            return True
+
+        return False
+
+    def can_shoot(self, ship):
+        if self.is_target_in_range(ship) and self.is_target_in_angle(ship):
+            return True
+        else:
+            return False
+
+    def move_in_cur_dir(self):
+        self.move(self.dir)
+
+    def move_to_left(self):
+        new_dir = self.dir - 1
+        if new_dir < 0:
+            new_dir = 7
+
+        self.move(new_dir)
+
+    def move_to_right(self):
+        new_dir = self.dir + 1
+        if new_dir > 7:
+            new_dir = 0
+
+        self.move(new_dir)
+
+    def __is_target_point_left_of_vector(self, vector, target_point):
+        """ A,B: points of the vector
+            M: point to check
+        """
+        A = vector[0]
+        B = vector[1]
+
+        res = (B.x - A.x) * (target_point.y - A.y) - \
+              (B.y - A.y) * (target_point.x - A.x)
+        if res > 0:
+            return True
+        else:
+            return False
+
+    def __is_target_point_on_vector(self, vector, target_point):
+        """ A,B: points of the vector
+            M: point to check
+        """
+        A = vector[0]
+        B = vector[1]
+
+        res = (B.x - A.x) * (target_point.y - A.y) - \
+              (B.y - A.y) * (target_point.x - A.x)
+        if res == 0:
+            return True
+        else:
+            return False
+
+    def move_closer(self, ship):
+        # target point when self is origin
+        target_point = Point(ship.x - self.x, self.y - ship.y)
+
+        vector = c.DIR_2_VECTOR[self.dir]
+
+        is_target_left = self.__is_target_point_left_of_vector(vector, target_point)
+        if is_target_left:
+            self.move_to_left()
+        else:
+            are_same_dir = are_vectors_in_same_direction(vector[1], target_point)
+            if are_same_dir:
+                self.move_in_cur_dir()
+            else:
+                # right or 180 degrees
+                self.move_to_right()
+
+    def move_further(self, ship):
+        # target point when self is origin
+        target_point = Point(ship.x - self.x, self.y - ship.y)
+
+        vector = c.DIR_2_VECTOR[self.dir]
+
+        is_target_left = self.__is_target_point_left_of_vector(vector, target_point)
+        if is_target_left:
+            self.move_to_right()
+        else:
+            is_target_point_on_vector = self.__is_target_point_on_vector(vector, target_point)
+            if is_target_point_on_vector:
+                are_same_dir = are_vectors_in_same_direction(vector[1], target_point)
+                if not are_same_dir:
+                    self.move_in_cur_dir()
+                else:
+                    self.move_to_left()
+            else:
+                # right or 180 degrees
+                self.move_to_left()
 
     def attack(self, ship):
         # shoot or engage based on strategy
@@ -672,17 +825,25 @@ class Role:
 
         for ship in self.ship_mgr.get_ships():
             enemy_ship = enemy_role.get_random_ship()
+            ship.role = self
 
             # move and check is_in_range
-            for i in range(2):
-                # so ship has role
-                ship.role = self
-                ship.move(pb.DirType.E)
-                await asyncio.sleep(0.3)
+            has_attacked = False
+            left_steps = 4
+            for i in range(left_steps):
+                if ship.is_target_in_range(enemy_ship):
+                    # damage, is_sunk = ship.shoot(enemy_ship)
+                    if ship.is_target_in_angle(enemy_ship):
+                        damage, is_sunk = ship.shoot(enemy_ship)
+                        has_attacked = True
+                        break
+                    else:
+                        ship.move_further(enemy_ship)
+                else:
+                    ship.move_closer(enemy_ship)
+                    await asyncio.sleep(0.1)
 
-            damage, is_sunk = ship.shoot(enemy_ship)
-
-            if is_sunk:
+            if has_attacked and is_sunk:
 
                 if enemy_ship.id == flag_ship.id:
                     self.win(enemy_role)
@@ -693,7 +854,7 @@ class Role:
 
                 enemy_role.ship_mgr.rm_ship(enemy_ship.id)
 
-            await asyncio.sleep(1)
+            await asyncio.sleep(0.5)
 
         # switch battle timer
         await self.switch_turn_with_enemy()

@@ -284,6 +284,8 @@ class HudLeft(SP):
         new_image.blit(ingots, (x, 280))
         new_image.blit(coins, (x, 320))
 
+        name = Text( f'{self.model.role.name}').image
+        new_image.blit(name, (x, 360))
 
         self.change_img(new_image)
 

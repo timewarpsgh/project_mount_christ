@@ -1,56 +1,7 @@
 TO DO:
 
 
-    others see two roles enter battle OK
-    others see one role enter battle with npc OK
-
-
-    see npc on sea map  ON
-        change npc ids to n1, n2... OK
-        win_role and lose_to_role OK
-
-        client knows npc
-            add npc to map_mgr on init  OK
-            sea npc appeare  OK
-            to_notify_new_nearby_cells OK
-            only role objects need to be notified OK
-
-            npcs are roles, have ids starting from 2B OK
-
-            npc move OK
-
-            2 NPCS  OK
-
-
-            at sea on enter OK
-
-            can press to move on enter OK (USE CAPS)
-
-            don't check keys when chat dialog is on OK
-
-            chat dialog text color -> yellow OK
-            .map  .xy must change pos and notify nearby clients  OK
-            .map OK
-
-            some maps cannot reach (jaffa, japan, changan  cell index out of range)[x, y reverted]  OK
-
-
-
-            can't see my or enemy ships in battle now ON
-
-
-            fight moving npc OK
-            fight moving role OK
-
-
-
-
-    see npc move
-
-
-    server not loaded map
-
-    see npcs
+    display my name on hud OK
 
 
 

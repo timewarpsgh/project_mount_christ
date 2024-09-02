@@ -610,7 +610,8 @@ class Graphics:
                 for id, ship in enumerate(my_ships):
                     ship_in_battle_img = sAssetMgr.images['ship_in_battle']['up']
 
-                    battle_ground_img.blit(ship_in_battle_img, (ship.x, ship.y))
+                    battle_ground_img.blit(ship_in_battle_img, (ship.x * c.PIXELS_COVERED_EACH_MOVE,
+                                                                ship.y * c.PIXELS_COVERED_EACH_MOVE))
 
                 # draw enemy ships
 
@@ -628,7 +629,8 @@ class Graphics:
 
                 for id, ship in enumerate(enemy_ships):
                     ship_in_battle_img = sAssetMgr.images['ship_in_battle']['up']
-                    battle_ground_img.blit(ship_in_battle_img, (ship.x, ship.y))
+                    battle_ground_img.blit(ship_in_battle_img, (ship.x * c.PIXELS_COVERED_EACH_MOVE,
+                                                                ship.y * c.PIXELS_COVERED_EACH_MOVE))
 
                 # self.sp_background.change_img(new_img)
                 self.sp_background.change_img(battle_ground_img)

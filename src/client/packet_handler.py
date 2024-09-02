@@ -492,13 +492,16 @@ class PacketHandler:
 
         print(f'target ship x y: {dst_ship.x}  {dst_ship.y}')
 
+        pixels = c.PIXELS_COVERED_EACH_MOVE
+
         d_x = dst_ship.x - src_ship.x
         d_y = dst_ship.y - src_ship.y
 
-        self.__get_graphics().show_cannon(src_ship.x, src_ship.y, d_x, d_y)
+        self.__get_graphics().show_cannon(src_ship.x * pixels, src_ship.y * pixels,
+                                          d_x * pixels, d_y * pixels)
         sAssetMgr.sounds['shoot'].play()
         await asyncio.sleep(1)
-        self.__get_graphics().show_damage(dst_damage, dst_ship.x, dst_ship.y)
+        self.__get_graphics().show_damage(dst_damage, dst_ship.x * pixels, dst_ship.y * pixels)
         sAssetMgr.sounds['explosion'].play()
 
     async def handle_ShipMoved(self, ship_moved):

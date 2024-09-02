@@ -6,6 +6,23 @@ TO DO:
 
     menu clicked backgound OK
 
+    fight role ON
+        ship
+            move_in_cur_dir
+            turn_left
+            turn_right
+            is_target_in_range
+            is_target_in_angle
+            can_engage_target
+            shoot
+            engage
+
+
+        move a few steps before shooting  ON
+        change dir after move
+
+
+
 
 DONE:
 

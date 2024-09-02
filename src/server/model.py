@@ -85,7 +85,7 @@ class Ship:
 
     def move(self, dir):
         if dir == pb.DirType.E:
-            self.x += 50
+            self.x += 1
 
     def is_target_in_range(self, ship):
         return abs(self.x - ship.x) <= 200 and abs(self.y - ship.y) <= 200
@@ -176,6 +176,9 @@ class ShipMgr:
     def get_ship(self, ship_id):
         return self.id_2_ship[ship_id]
 
+    def get_ships(self):
+        return self.id_2_ship.values()
+
     def get_new_ship_name(self):
         new_ship_name = str(len(self.id_2_ship) + 1)
         return new_ship_name
@@ -184,11 +187,11 @@ class ShipMgr:
 
         for id, ship in enumerate(self.id_2_ship.values()):
             if is_attacker:
-                ship.x = 150
-                ship.y = 40 + id * 80
+                ship.x = 10
+                ship.y = 3 + id * 5
             else:
-                ship.x = 500
-                ship.y = 40 + id * 80
+                ship.x = 30
+                ship.y = 3 + id * 5
 
     def gen_ships_prots(self):
         ships_prots = []
@@ -632,9 +635,20 @@ class Role:
         enemy_role = self.session.packet_handler.get_enemy_role()
         flag_ship = enemy_role.get_flag_ship()
 
-        for ship in self.ship_mgr.id_2_ship.values():
+        for ship in self.ship_mgr.get_ships():
 
             enemy_ship = enemy_role.get_random_ship()
+
+            # move and check is_in_range
+            for i in range(2):
+                ship.move(pb.DirType.E)
+                pack = pb.ShipMoved(
+                    id=ship.id,
+                    x=ship.x,
+                    y=ship.y,
+                )
+                self.send_to_self_and_enemy(pack)
+                await asyncio.sleep(0.3)
 
             damage, is_sunk = ship.shoot(enemy_ship)
 

@@ -142,7 +142,7 @@ class Ship:
         # get distance between self and ship
         distance_squared = (self.x - ship.x) ** 2 + (self.y - ship.y) ** 2
 
-        max_in_range_distance = 10
+        max_in_range_distance = 3
 
         if distance_squared <= max_in_range_distance ** 2:
             return True
@@ -375,11 +375,11 @@ class ShipMgr:
 
         for id, ship in enumerate(self.id_2_ship.values()):
             if is_attacker:
-                ship.x = 10
-                ship.y = 3 + id * 5
+                ship.x = 5
+                ship.y = 3 + id * 2
             else:
-                ship.x = 30
-                ship.y = 3 + id * 5
+                ship.x = 15
+                ship.y = 3 + id * 2
 
     def gen_ships_prots(self):
         ships_prots = []
@@ -829,7 +829,7 @@ class Role:
 
             # move and check is_in_range
             has_attacked = False
-            left_steps = 4
+            left_steps = 3
             for i in range(left_steps):
                 if ship.is_target_in_range(enemy_ship):
                     # damage, is_sunk = ship.shoot(enemy_ship)

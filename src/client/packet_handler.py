@@ -492,7 +492,7 @@ class PacketHandler:
 
         print(f'target ship x y: {dst_ship.x}  {dst_ship.y}')
 
-        pixels = c.PIXELS_COVERED_EACH_MOVE
+        pixels = c.BATTLE_TILE_SIZE
 
         d_x = dst_ship.x - src_ship.x
         d_y = dst_ship.y - src_ship.y

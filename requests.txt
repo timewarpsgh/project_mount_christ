@@ -22,6 +22,8 @@ TO DO:
         move a few steps before shooting  OK
         change dir after move  OK
         is_in_angle OK
+        pixels per move in battle not right OK
+            battle tile size is 32
 
 
 

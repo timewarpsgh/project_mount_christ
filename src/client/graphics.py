@@ -608,7 +608,7 @@ class Graphics:
                 # draw my ships
                 my_ships = self.model.role.ship_mgr.id_2_ship.values()
                 for id, ship in enumerate(my_ships):
-                    ship_in_battle_img = sAssetMgr.images['ship_in_battle']['up']
+                    ship_in_battle_img = sAssetMgr.images['ship_in_battle'][str(ship.dir)]
 
                     battle_ground_img.blit(ship_in_battle_img, (ship.x * c.PIXELS_COVERED_EACH_MOVE,
                                                                 ship.y * c.PIXELS_COVERED_EACH_MOVE))
@@ -628,7 +628,7 @@ class Graphics:
                     enemy_ships = enemy_role.ship_mgr.id_2_ship.values()
 
                 for id, ship in enumerate(enemy_ships):
-                    ship_in_battle_img = sAssetMgr.images['ship_in_battle']['up']
+                    ship_in_battle_img = sAssetMgr.images['ship_in_battle'][str(ship.dir)]
                     battle_ground_img.blit(ship_in_battle_img, (ship.x * c.PIXELS_COVERED_EACH_MOVE,
                                                                 ship.y * c.PIXELS_COVERED_EACH_MOVE))
 

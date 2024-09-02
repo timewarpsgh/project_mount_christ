@@ -235,5 +235,6 @@ MARKETS =  [
     'Far East',
 ]
 
+
 if __name__ == '__main__':
     print(SAILABLE_TILES)

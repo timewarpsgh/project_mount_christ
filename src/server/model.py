@@ -16,6 +16,7 @@ class Ship:
 
     id: int=None
     role_id: int=None
+    role: any=None
 
     name: str=None
     ship_template_id: int=None
@@ -54,6 +55,7 @@ class Ship:
 
     x: int=None
     y: int=None
+    dir: int=pb.DirType.N
 
     def add_cargo(self, cargo_id, cargo_cnt):
         self.cargo_id = cargo_id
@@ -76,6 +78,20 @@ class Ship:
         if ship.now_durability <= 0:
             is_sunk = True
 
+        # send packs
+        pack = pb.ShipAttacked(
+            src_id=self.id,
+            dst_id=ship.id,
+            attack_method_type=pb.AttackMethodType.SHOOT,
+            dst_damage=damage,
+        )
+        self.role.send_to_self_and_enemy(pack)
+
+        pack = pb.GotChat(
+            text=f"{self.name} shot {ship.name} and dealt {damage} damage",
+            chat_type=pb.ChatType.SYSTEM
+        )
+        self.role.send_to_self_and_enemy(pack)
 
         return damage, is_sunk
 
@@ -84,8 +100,21 @@ class Ship:
         ship.now_crew -= 5
 
     def move(self, dir):
+        self.dir = dir
+
         if dir == pb.DirType.E:
             self.x += 1
+
+
+
+        pack = pb.ShipMoved(
+            id=self.id,
+            x=self.x,
+            y=self.y,
+            dir=self.dir,
+        )
+        self.role.send_to_self_and_enemy(pack)
+
 
     def is_target_in_range(self, ship):
         return abs(self.x - ship.x) <= 200 and abs(self.y - ship.y) <= 200
@@ -172,6 +201,12 @@ class ShipMgr:
 
     def rm_ship(self, ship_id):
         del self.id_2_ship[ship_id]
+
+        pack = pb.ShipRemoved(
+            id=ship_id
+        )
+        self.role.send_to_self_and_enemy(pack)
+
 
     def get_ship(self, ship_id):
         return self.id_2_ship[ship_id]
@@ -636,35 +671,16 @@ class Role:
         flag_ship = enemy_role.get_flag_ship()
 
         for ship in self.ship_mgr.get_ships():
-
             enemy_ship = enemy_role.get_random_ship()
 
             # move and check is_in_range
             for i in range(2):
+                # so ship has role
+                ship.role = self
                 ship.move(pb.DirType.E)
-                pack = pb.ShipMoved(
-                    id=ship.id,
-                    x=ship.x,
-                    y=ship.y,
-                )
-                self.send_to_self_and_enemy(pack)
                 await asyncio.sleep(0.3)
 
             damage, is_sunk = ship.shoot(enemy_ship)
-
-            pack = pb.ShipAttacked(
-                src_id=ship.id,
-                dst_id=enemy_ship.id,
-                attack_method_type=pb.AttackMethodType.SHOOT,
-                dst_damage=damage,
-            )
-            self.send_to_self_and_enemy(pack)
-
-            pack = pb.GotChat(
-                text=f"{ship.name} shot {enemy_ship.name} and dealt {damage} damage",
-                chat_type=pb.ChatType.SYSTEM
-            )
-            self.send_to_self_and_enemy(pack)
 
             if is_sunk:
 
@@ -676,11 +692,6 @@ class Role:
                     continue
 
                 enemy_role.ship_mgr.rm_ship(enemy_ship.id)
-
-                pack = pb.ShipRemoved(
-                    id=enemy_ship.id
-                )
-                self.send_to_self_and_enemy(pack)
 
             await asyncio.sleep(1)
 

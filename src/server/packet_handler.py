@@ -1095,6 +1095,7 @@ class PacketHandler:
                 id=id,
                 x=ship.x,
                 y=ship.y,
+                dir=ship.dir,
             ))
 
         pack = EnteredBattleWithRole(
@@ -1109,6 +1110,7 @@ class PacketHandler:
                 id=id,
                 x=ship.x,
                 y=ship.y,
+                dir=ship.dir,
             ))
 
         # init battle_timer (updated each session update)

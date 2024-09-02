@@ -18,8 +18,8 @@ TO DO:
             engage
 
 
-        move a few steps before shooting  ON
-        change dir after move
+        move a few steps before shooting  OK
+        change dir after move  OK
 
 
 

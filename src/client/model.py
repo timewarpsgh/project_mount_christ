@@ -48,6 +48,7 @@ class Ship:
 
     x: int = None
     y: int = None
+    dir: int = pb.DirType.N
 
     def __init__(self, prot_ship):
         self.id = prot_ship.id

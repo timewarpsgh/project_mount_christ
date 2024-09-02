@@ -11,6 +11,9 @@
           },
           "hovered_image": {
             "path": "../../data/imgs/game_icon/button_bg_hovered.png"
+          },
+          "selected_image": {
+            "path": "../../data/imgs/game_icon/button_bg_selected.png"
           }
         },
         "colours": {

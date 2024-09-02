@@ -23,7 +23,7 @@ TO DO:
         change dir after move  OK
         is_in_angle OK
         pixels per move in battle not right OK
-        choose rand target once ON
+        choose rand target once OK
 
 
 

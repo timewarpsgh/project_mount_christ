@@ -34,7 +34,7 @@ TO DO:
 
         refactor background drawing to bg_sp.update OK
         show ships in battle sprites OK
-        at sea show other ships sprites ON
+        at sea show other ships sprites OK
         don't stack ships ON
 
 

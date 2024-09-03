@@ -292,7 +292,19 @@ class RoleSP(SP):
                 pb.DirType.E : [self.__x_y_to_image(3, 1, False), self.__x_y_to_image(4, 1, False)],
                 pb.DirType.S : [self.__x_y_to_image(5, 1, False), self.__x_y_to_image(6, 1, False)],
                 pb.DirType.W : [self.__x_y_to_image(7, 1, False), self.__x_y_to_image(8, 1, False)],
-            }
+            },
+            'others_at_sea': {
+                pb.DirType.N: [self.__x_y_to_image(1, 4), self.__x_y_to_image(2, 4)],
+                pb.DirType.E: [self.__x_y_to_image(3, 4), self.__x_y_to_image(4, 4)],
+                pb.DirType.S: [self.__x_y_to_image(5, 4), self.__x_y_to_image(6, 4)],
+                pb.DirType.W: [self.__x_y_to_image(7, 4), self.__x_y_to_image(8, 4)],
+
+                pb.DirType.NW: [self.__x_y_to_image(7, 4), self.__x_y_to_image(8, 4)],
+                pb.DirType.NE: [self.__x_y_to_image(3, 4), self.__x_y_to_image(4, 4)],
+                pb.DirType.SW: [self.__x_y_to_image(7, 4), self.__x_y_to_image(8, 4)],
+                pb.DirType.SE: [self.__x_y_to_image(3, 4), self.__x_y_to_image(4, 4)],
+
+            },
         }
 
         super().__init__(self.frames['in_port'][pb.DirType.N][0], x, y, z=1)
@@ -316,8 +328,10 @@ class RoleSP(SP):
         if self.role.is_in_port():
             img = self.frames['in_port'][self.role.dir][self.now_frame]
         elif self.role.is_at_sea():
-            img = self.frames['at_sea'][self.role.dir][self.now_frame]
-
+            if self.is_mine:
+                img = self.frames['at_sea'][self.role.dir][self.now_frame]
+            else:
+                img = self.frames['others_at_sea'][self.role.dir][self.now_frame]
         self.change_img(img)
 
     def update(self, time_diff):
@@ -339,8 +353,10 @@ class RoleSP(SP):
                     self.now_frame = 0
 
                 if self.role.is_at_sea():
-                    self.change_img(self.frames['at_sea'][self.role.dir][self.now_frame])
-
+                    if self.is_mine:
+                        self.change_img(self.frames['at_sea'][self.role.dir][self.now_frame])
+                    else:
+                        self.change_img(self.frames['others_at_sea'][self.role.dir][self.now_frame])
             else:
                 self.frame_counter += 1
 
@@ -353,8 +369,10 @@ class RoleSP(SP):
 
         elif self.role.is_at_sea() and not self.is_using_sea_img:
             # self.change_img(sAssetMgr.images['player']['ship_at_sea'])
-
-            self.change_img(self.frames['at_sea'][self.role.dir][0])
+            if self.is_mine:
+                self.change_img(self.frames['at_sea'][self.role.dir][0])
+            else:
+                self.change_img(self.frames['others_at_sea'][self.role.dir][0])
             self.is_using_sea_img = True
             self.is_using_port_img = False
             self.is_using_battle_img = False

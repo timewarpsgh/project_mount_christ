@@ -151,9 +151,71 @@ def lerp(a, b, t):
 
 
 class BackGround(SP):
-    def __init__(self, image, x, y):
+    def __init__(self, model, image, x, y):
         super().__init__(image, x, y, z=0)
+        self.model = model
 
+    def update(self, time_diff):
+        super().update(time_diff)
+
+        # in battle update
+        if self.model.role:
+            if not self.model.role.battle_timer:
+                return
+
+            if self.model.role.battle_timer > 0:
+                self.model.role.battle_timer -= time_diff
+
+                # update and draw battle timer
+                if self.model.role.is_battle_timer_mine:
+                    text = 'your turn'
+                else:
+                    text = 'enemy turn'
+
+                timer_text = Text(f'{text} {int(self.model.role.battle_timer)}', c.YELLOW)
+                timer_text.rect.x = 300
+                timer_text.rect.y = 50
+
+                battle_ground_img = sAssetMgr.images['in_battle']['battle']
+                # new img now
+                width, height = battle_ground_img.get_rect().size
+
+                battle_ground_img = pygame.transform.scale(battle_ground_img, (width, height))  # 800, 400
+
+                battle_ground_img.blit(timer_text.image, timer_text.rect)
+
+                # pixels
+                pixels = c.BATTLE_TILE_SIZE
+
+                # draw my ships
+                my_ships = self.model.role.ship_mgr.id_2_ship.values()
+                for id, ship in enumerate(my_ships):
+                    ship_in_battle_img = sAssetMgr.images['ship_in_battle'][str(ship.dir)]
+
+                    battle_ground_img.blit(ship_in_battle_img, (ship.x * pixels,
+                                                                ship.y * pixels))
+
+                # draw enemy ships
+
+                enemy_role = self.model.get_enemy_role()
+
+                if not enemy_role:
+                    enemy_npc = self.model.get_npc_by_id(self.model.role.battle_npc_id)
+                    if not enemy_npc:
+                        return
+
+                    enemy_ships = enemy_npc.ship_mgr.id_2_ship.values()
+                else:
+
+                    enemy_ships = enemy_role.ship_mgr.id_2_ship.values()
+
+                for id, ship in enumerate(enemy_ships):
+                    ship_in_battle_img = sAssetMgr.images['ship_in_battle'][str(ship.dir)]
+                    battle_ground_img.blit(ship_in_battle_img, (ship.x * pixels,
+                                                                ship.y * pixels))
+
+                # self.sp_background.change_img(new_img)
+                self.change_img(battle_ground_img)
 
 class ShootDamageNumber(SP):
     def __init__(self, number, x, y, color=c.YELLOW):
@@ -398,7 +460,7 @@ class Graphics:
         # sprites
         self.sprites = pygame.sprite.Group()
 
-        self.sp_background = BackGround(self.imgs['background'], 0, 0)
+        self.sp_background = BackGround(model, self.imgs['background'], 0, 0)
         self.sp_role = RoleSP(model, self.model.role, None, c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
         # self.sp_role_name = SP(self.font.render('name', True, YELLOW), c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
         self.sp_hud_left = HudLeft(model, sAssetMgr.images['huds']['hud_left'], 0, 0)
@@ -639,66 +701,7 @@ class Graphics:
                     self.model.role.stop_moving()
 
     def update(self, time_diff):
-        # update sprites group
         self.sprites.update(time_diff)
-
-        if self.model.role:
-            if not self.model.role.battle_timer:
-                return
-
-            if self.model.role.battle_timer > 0:
-                self.model.role.battle_timer -= time_diff
-
-                # update and draw battle timer
-                if self.model.role.is_battle_timer_mine:
-                    text = 'your turn'
-                else:
-                    text = 'enemy turn'
-
-                timer_text = Text(f'{text} {int(self.model.role.battle_timer)}', c.YELLOW)
-                timer_text.rect.x = 300
-                timer_text.rect.y = 50
-
-                battle_ground_img = self.imgs['battle_ground']
-                # new img now
-                width, height = battle_ground_img.get_rect().size
-
-                battle_ground_img = pygame.transform.scale(battle_ground_img, (width, height))  # 800, 400
-
-                battle_ground_img.blit(timer_text.image, timer_text.rect)
-
-                # pixels
-                pixels = c.BATTLE_TILE_SIZE
-
-                # draw my ships
-                my_ships = self.model.role.ship_mgr.id_2_ship.values()
-                for id, ship in enumerate(my_ships):
-                    ship_in_battle_img = sAssetMgr.images['ship_in_battle'][str(ship.dir)]
-
-                    battle_ground_img.blit(ship_in_battle_img, (ship.x * pixels,
-                                                                ship.y * pixels))
-
-                # draw enemy ships
-
-                enemy_role = self.model.get_enemy_role()
-
-                if not enemy_role:
-                    enemy_npc = self.model.get_npc_by_id(self.model.role.battle_npc_id)
-                    if not enemy_npc:
-                        return
-
-                    enemy_ships = enemy_npc.ship_mgr.id_2_ship.values()
-                else:
-
-                    enemy_ships = enemy_role.ship_mgr.id_2_ship.values()
-
-                for id, ship in enumerate(enemy_ships):
-                    ship_in_battle_img = sAssetMgr.images['ship_in_battle'][str(ship.dir)]
-                    battle_ground_img.blit(ship_in_battle_img, (ship.x * pixels,
-                                                                ship.y * pixels))
-
-                # self.sp_background.change_img(new_img)
-                self.sp_background.change_img(battle_ground_img)
 
     def draw(self, window_surface):
         if not self.client.packet_handler.is_in_game:

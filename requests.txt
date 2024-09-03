@@ -32,6 +32,8 @@ TO DO:
         show explosion anim and refactor cannon ball using SP OK
 
 
+        refactor background drawing to bg_sp.update OK
+        show ships in battle sprites ON
         don't stack ships ON
 
 

@@ -184,9 +184,9 @@ class Ship:
         distance_squared = (self.x - ship.x) ** 2 + (self.y - ship.y) ** 2
 
         if is_for_engage:
-            max_in_range_distance = 30#1.5 # a little more than 1.4
+            max_in_range_distance = 1.5#1.5 # a little more than 1.4
         else:
-            max_in_range_distance = 30
+            max_in_range_distance = 3
 
         if distance_squared <= max_in_range_distance ** 2:
             return True

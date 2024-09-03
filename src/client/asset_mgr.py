@@ -53,6 +53,10 @@ class AssetMgr:
         path_to_world_map_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\ship_in_battle"
         load_images_in_dir(self.images['ship_in_battle'], path_to_world_map_imgs)
 
+        self.images['ship_in_battle']['enemy'] = {}
+        path_to_world_map_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\ship_in_battle\enemy"
+        load_images_in_dir(self.images['ship_in_battle']['enemy'], path_to_world_map_imgs)
+
         self.images['in_battle'] = {}
         path_to_in_battle_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\in_battle"
         load_images_in_dir(self.images['in_battle'], path_to_in_battle_imgs)

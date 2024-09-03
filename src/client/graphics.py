@@ -29,6 +29,11 @@ def get_image(sheet, x, y, width, height, colorkey=(0,0,0), scale=1):
     return image
 
 
+def lerp(a, b, t):
+    """Linear interpolation between two points."""
+    return a + (b - a) * t
+
+
 class SpriteSheet():
     def __init__(self, image, collumns, rows):
         self.image = image
@@ -145,9 +150,7 @@ class Animation(SP):
                     self.change_img(self.frames[0])
 
 
-def lerp(a, b, t):
-    """Linear interpolation between two points."""
-    return a + (b - a) * t
+
 
 
 class BackGround(SP):
@@ -196,7 +199,6 @@ class BackGround(SP):
                                                                 ship.y * pixels))
 
                 # draw enemy ships
-
                 enemy_role = self.model.get_enemy_role()
 
                 if not enemy_role:
@@ -210,7 +212,7 @@ class BackGround(SP):
                     enemy_ships = enemy_role.ship_mgr.id_2_ship.values()
 
                 for id, ship in enumerate(enemy_ships):
-                    ship_in_battle_img = sAssetMgr.images['ship_in_battle'][str(ship.dir)]
+                    ship_in_battle_img = sAssetMgr.images['ship_in_battle']['enemy'][str(ship.dir)]
                     battle_ground_img.blit(ship_in_battle_img, (ship.x * pixels,
                                                                 ship.y * pixels))
 

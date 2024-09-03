@@ -70,7 +70,7 @@ class Ship:
     y: int=None
     dir: int=pb.DirType.N
     target_ship: any=None
-    strategy: Strategy=Strategy.SHOOT
+    strategy: Strategy=Strategy.ENGAGE
     steps_left: int=3
 
     def add_cargo(self, cargo_id, cargo_cnt):
@@ -112,8 +112,38 @@ class Ship:
         return damage, is_sunk
 
     def engage(self, ship):
-        self.now_crew -= 5
-        ship.now_crew -= 5
+        self_dmg = 1
+        target_dmg = 2
+        self.now_crew -= self_dmg
+        ship.now_crew -= target_dmg
+
+
+        is_target_dead = False
+        if ship.now_crew <= 0:
+            is_target_dead = True
+
+        is_self_dead = False
+        if self.now_crew <= 0:
+            is_self_dead = True
+
+        # send packs
+        pack = pb.ShipAttacked(
+            src_id=self.id,
+            dst_id=ship.id,
+            attack_method_type=pb.AttackMethodType.ENGAGE,
+            dst_damage=target_dmg,
+            src_damage=self_dmg,
+        )
+        self.role.send_to_self_and_enemy(pack)
+
+        pack = pb.GotChat(
+            text=f"{self.name} at {self.x} {self.y} engaged {ship.name} at {ship.x} {ship.y} "
+                 f"and dealt {self_dmg} to self and {target_dmg} to enemy ",
+            chat_type=pb.ChatType.SYSTEM
+        )
+        self.role.send_to_self_and_enemy(pack)
+
+        return is_self_dead, is_target_dead
 
     def move(self, dir):
         self.dir = dir
@@ -149,11 +179,14 @@ class Ship:
         self.role.send_to_self_and_enemy(pack)
 
 
-    def is_target_in_range(self, ship):
+    def is_target_in_range(self, ship, is_for_engage=False):
         # get distance between self and ship
         distance_squared = (self.x - ship.x) ** 2 + (self.y - ship.y) ** 2
 
-        max_in_range_distance = 3
+        if is_for_engage:
+            max_in_range_distance = 1.5 # a little more than 1.4
+        else:
+            max_in_range_distance = 3
 
         if distance_squared <= max_in_range_distance ** 2:
             return True
@@ -319,25 +352,60 @@ class Ship:
 
         return has_won
 
-    def __try_to_engage(self):
-        pass
+    async def __try_to_engage(self, enemy_role, flag_ship):
+        """returns has_won"""
+        has_won = False
 
-    def __try_to_flee(self):
-        pass
+        target_ship = self.target_ship
 
-    def __try_to_hold(self):
-        pass
+        # move and check is_in_range
+        has_attacked = False
+        left_steps = 3
+        for i in range(left_steps):
+            if self.is_target_in_range(target_ship, is_for_engage=True):
+                is_self_dead, is_target_dead = self.engage(target_ship)
+                has_attacked = True
+                break
+            else:
+                self.move_closer(target_ship)
+                await asyncio.sleep(0.3)
+
+        # if has_attacked and target is_sunk
+        if has_attacked:
+            if is_target_dead:
+                if target_ship.id == flag_ship.id:
+                    self.role.win(enemy_role)
+                    has_won = True
+                    return has_won
+            elif is_self_dead:
+                pass
+
+        return has_won
+
+    async def __try_to_flee(self):
+        left_steps = 3
+        for i in range(left_steps):
+            self.move_further(self.target_ship)
+            await asyncio.sleep(0.3)
+
+    async def __try_to_hold(self):
+        left_steps = 3
+        for i in range(left_steps):
+            pass
+            await asyncio.sleep(0.3)
 
     async def move_based_on_strategy(self, enemy_role, flag_ship):
         # shoot or engage based on strategy
+        has_won = False
+
         if self.strategy == Strategy.SHOOT:
             has_won = await self.__try_to_shoot(enemy_role, flag_ship)
         elif self.strategy == Strategy.ENGAGE:
-            self.__try_to_engage(enemy_role, flag_ship)
+            has_won = await self.__try_to_engage(enemy_role, flag_ship)
         elif self.strategy == Strategy.FLEE:
-            self.__try_to_flee(enemy_role, flag_ship)
+            await self.__try_to_flee()
         elif self.strategy == Strategy.HOLD:
-            self.__try_to_hold(enemy_role, flag_ship)
+            await self.__try_to_hold()
 
         return has_won
 

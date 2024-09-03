@@ -26,8 +26,8 @@ TO DO:
         choose rand target once OK
 
         choose_strategy at start
-        4 strategy [shoot, engage, escape, hold]
-        engage
+        4 strategy [shoot, engage, escape, hold]  OK
+
 
         don't stack ships ON
 

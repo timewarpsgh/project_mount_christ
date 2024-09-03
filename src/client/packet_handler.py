@@ -10,7 +10,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 from login_pb2 import *
-
+import login_pb2 as pb
 from my_ui_elements import MyMsgWindow, MyMenuWindow
 from dialogs.create_role_dialog import CreateRoleDialog
 from dialogs.options_dialog import OptionsDialog
@@ -487,30 +487,58 @@ class PacketHandler:
         self.__get_role().is_battle_timer_mine = battle_timer_started.role_id == self.__get_role().id
 
     async def handle_ShipAttacked(self, ship_attacked):
-        # show cannon_ball
-        # show ship attacked damage
-        src_id = ship_attacked.src_id
-        dst_id = ship_attacked.dst_id
-        dst_damage = ship_attacked.dst_damage
+        # shoot
+        if ship_attacked.attack_method_type == pb.AttackMethodType.ENGAGE:
+            # show cannon_ball
+            # show ship attacked damage
+            src_id = ship_attacked.src_id
+            dst_id = ship_attacked.dst_id
+            dst_damage = ship_attacked.dst_damage
+            src_damage = ship_attacked.src_damage
 
-        print(f'ship attacked {src_id} {dst_id} {dst_damage}')
+            print(f'ships engaged {src_id} {dst_id} {src_damage} {dst_damage}')
 
-        src_ship = self.__get_model().get_ship_in_battle_by_id(src_id)
-        dst_ship = self.__get_model().get_ship_in_battle_by_id(dst_id)
+            src_ship = self.__get_model().get_ship_in_battle_by_id(src_id)
+            dst_ship = self.__get_model().get_ship_in_battle_by_id(dst_id)
 
-        print(f'target ship x y: {dst_ship.x}  {dst_ship.y}')
+            pixels = c.BATTLE_TILE_SIZE
 
-        pixels = c.BATTLE_TILE_SIZE
+            d_x = dst_ship.x - src_ship.x
+            d_y = dst_ship.y - src_ship.y
 
-        d_x = dst_ship.x - src_ship.x
-        d_y = dst_ship.y - src_ship.y
+            sAssetMgr.sounds['engage'].play()
+            self.__get_graphics().show_damage(dst_damage, dst_ship.x * pixels,
+                                              dst_ship.y * pixels, color=c.WHITE)
+            self.__get_graphics().show_damage(src_damage, src_ship.x * pixels,
+                                              src_ship.y * pixels, color=c.WHITE)
 
-        self.__get_graphics().show_cannon(src_ship.x * pixels, src_ship.y * pixels,
-                                          d_x * pixels, d_y * pixels)
-        sAssetMgr.sounds['shoot'].play()
-        await asyncio.sleep(1)
-        self.__get_graphics().show_damage(dst_damage, dst_ship.x * pixels, dst_ship.y * pixels)
-        sAssetMgr.sounds['explosion'].play()
+        # engage
+        elif ship_attacked.attack_method_type == pb.AttackMethodType.SHOOT:
+
+            # show cannon_ball
+            # show ship attacked damage
+            src_id = ship_attacked.src_id
+            dst_id = ship_attacked.dst_id
+            dst_damage = ship_attacked.dst_damage
+
+            print(f'ship shot {src_id} {dst_id} {dst_damage}')
+
+            src_ship = self.__get_model().get_ship_in_battle_by_id(src_id)
+            dst_ship = self.__get_model().get_ship_in_battle_by_id(dst_id)
+
+            print(f'target ship x y: {dst_ship.x}  {dst_ship.y}')
+
+            pixels = c.BATTLE_TILE_SIZE
+
+            d_x = dst_ship.x - src_ship.x
+            d_y = dst_ship.y - src_ship.y
+
+            self.__get_graphics().show_cannon(src_ship.x * pixels, src_ship.y * pixels,
+                                              d_x * pixels, d_y * pixels)
+            sAssetMgr.sounds['shoot'].play()
+            await asyncio.sleep(1)
+            self.__get_graphics().show_damage(dst_damage, dst_ship.x * pixels, dst_ship.y * pixels)
+            sAssetMgr.sounds['explosion'].play()
 
     async def handle_ShipMoved(self, ship_moved):
         id = ship_moved.id

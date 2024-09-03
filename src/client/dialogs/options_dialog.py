@@ -638,7 +638,7 @@ class OptionsDialog:
         elif battle_role_id:
             self.client.send(EscapeRoleBattle())
 
-    def __all_ships_attack(self):
+    def all_ships_attack(self):
         self.client.send(AllShipsAttack())
 
     def __buy_ship(self, template_id):
@@ -747,7 +747,7 @@ class OptionsDialog:
             'One Ship Target': '',
             'One Ship Strategy': '',
             'Escape Battle': partial(self.escape_battle),
-            'All Ships Attack': partial(self.__all_ships_attack),
+            'All Ships Attack': partial(self.all_ships_attack),
         }
 
         MyMenuWindow(

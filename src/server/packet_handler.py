@@ -1157,10 +1157,10 @@ class PacketHandler:
         return self.session.server.get_npc(self.role.battle_npc_id)
 
     async def handle_AllShipsAttack(self, all_ships_attack):
-        if not self.role.battle_timer:
-            return
-
-        self.role.battle_timer = None
+        # if not self.role.battle_timer:
+        #     return
+        #
+        # self.role.battle_timer = None
 
         if self.role.battle_role_id:
             await self.role.all_ships_attack_role()

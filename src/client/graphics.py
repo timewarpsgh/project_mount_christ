@@ -570,6 +570,10 @@ class Graphics:
                 elif self.model.role.is_in_battle():
                     self.client.game.gui.options_dialog.escape_battle()
 
+            if event.key == pygame.K_l:
+                if self.model.role.is_in_battle():
+                    self.client.game.gui.options_dialog.all_ships_attack()
+
         # key up
         elif event.type == pygame.KEYUP:
             if event.key in [pygame.K_d, pygame.K_a, pygame.K_w, pygame.K_s]:
@@ -649,8 +653,8 @@ class Graphics:
                 if sprite.z == layer:
                     window_surface.blit(sprite.image, sprite.rect)
 
-    def show_damage(self, damage, x, y):
-        shoot_damage_number = ShootDamageNumber(damage, x, y)
+    def show_damage(self, damage, x, y, color=c.YELLOW):
+        shoot_damage_number = ShootDamageNumber(damage, x, y, color)
         self.sprites.add(shoot_damage_number)
 
 

@@ -987,7 +987,7 @@ class Role:
                 return
 
             # wait some time
-            await asyncio.sleep(0.5)
+            await asyncio.sleep(0.8)
 
         # switch battle timer
         await self.switch_turn_with_enemy()

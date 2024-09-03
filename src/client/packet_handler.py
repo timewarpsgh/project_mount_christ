@@ -507,6 +507,9 @@ class PacketHandler:
             d_y = dst_ship.y - src_ship.y
 
             sAssetMgr.sounds['engage'].play()
+            self.__get_graphics().show_engage_sign(dst_ship.x * pixels, dst_ship.y * pixels)
+            self.__get_graphics().show_engage_sign(src_ship.x * pixels, src_ship.y * pixels)
+
             self.__get_graphics().show_damage(dst_damage, dst_ship.x * pixels,
                                               dst_ship.y * pixels, color=c.WHITE)
             self.__get_graphics().show_damage(src_damage, src_ship.x * pixels,

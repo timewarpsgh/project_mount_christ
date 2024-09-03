@@ -125,6 +125,35 @@ class ShootDamageNumber(SP):
             self.kill()
 
 
+class EngageSign(SP):
+    def __init__(self, x, y):
+        self.frames = [
+            sAssetMgr.images['in_battle']['engage_sign_1'],
+            sAssetMgr.images['in_battle']['engage_sign']
+        ]
+        self.frame_index = 0
+        self.frame_change_timer = 0
+        self.reset_frame_timer()
+        image = self.frames[self.frame_index]
+
+        super().__init__(image, x, y, z=1)
+
+    def reset_frame_timer(self):
+        self.frame_change_timer = 0.1
+
+    def update(self, time_diff):
+        self.frame_change_timer -= time_diff
+        if self.frame_change_timer <= 0:
+            self.reset_frame_timer()
+
+            if self.frame_index < len(self.frames) - 1:
+                self.frame_index += 1
+                self.change_img(self.frames[self.frame_index])
+            else:
+                self.kill()
+
+
+
 class CannonBall(SP):
     def __init__(self, x, y, d_x, d_y):
 
@@ -661,6 +690,9 @@ class Graphics:
     def show_cannon(self, x, y, d_x, d_y):
         cannon = CannonBall(x, y, d_x, d_y)
         self.sprites.add(cannon)
+
+    def show_engage_sign(self, x, y):
+        self.sprites.add(EngageSign(x, y))
 
     def hide_role_sprite(self):
         self.sp_role.change_img(sAssetMgr.images['player']['role_in_battle'])

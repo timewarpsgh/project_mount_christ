@@ -28,6 +28,9 @@ TO DO:
         choose_strategy at start
         4 strategy [shoot, engage, escape, hold]  OK
 
+        show engage anim OK
+
+
 
         don't stack ships ON
 

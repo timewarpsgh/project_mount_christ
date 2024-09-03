@@ -278,6 +278,87 @@ class Ship:
         else:
             return False
 
+    def __try_to_move_to_left(self):
+        if self.__can_move_to_left():
+            self.move_to_left()
+        elif self.__can_move_in_cur_dir():
+            self.move_in_cur_dir()
+        elif self.__can_move_to_right():
+            self.move_to_right()
+
+    def __try_to_move_in_cur_dir(self):
+        if self.__can_move_in_cur_dir():
+            self.move_in_cur_dir()
+        elif self.__can_move_to_left():
+            self.move_to_left()
+        elif self.__can_move_to_right():
+            self.move_to_right()
+
+    def __try_to_move_to_right(self):
+        if self.__can_move_to_right():
+            self.move_to_right()
+        elif self.__can_move_in_cur_dir():
+            self.move_in_cur_dir()
+        elif self.__can_move_to_left():
+            self.move_to_left()
+
+    def __can_move_to_right(self):
+        next_dir = self.dir + 1
+        if next_dir > 7:
+            next_dir = 0
+        return self.__can_move(next_dir)
+
+    def __can_move_to_left(self):
+        next_dir = self.dir - 1
+        if next_dir < 0:
+            next_dir = 7
+        return self.__can_move(next_dir)
+
+    def __can_move_in_cur_dir(self):
+        return self.__can_move(self.dir)
+
+    def __can_move(self, dir):
+        # get future x,y
+        future_x = self.x
+        future_y = self.y
+
+        if dir == pb.DirType.N:
+            future_y -= 1
+        elif dir == pb.DirType.E:
+            future_x += 1
+        elif dir == pb.DirType.S:
+            future_y += 1
+        elif dir == pb.DirType.W:
+            future_x -= 1
+
+        elif dir == pb.DirType.NE:
+            future_x += 1
+            future_y -= 1
+        elif dir == pb.DirType.SE:
+            future_x += 1
+            future_y += 1
+        elif dir == pb.DirType.SW:
+            future_x -= 1
+            future_y += 1
+        elif dir == pb.DirType.NW:
+            future_x -= 1
+            future_y -= 1
+
+        # collide with any of my ships?
+        for ship in self.role.ship_mgr.get_ships():
+            if ship.x == future_x and ship.y == future_y:
+                print(f' collide with my ship at {future_x, future_y}')
+                return False
+
+        # collide with any of enemy ships?
+        enemy_role = self.role.session.packet_handler.get_enemy_role()
+        for ship in enemy_role.ship_mgr.get_ships():
+            if ship.x == future_x and ship.y == future_y:
+                return False
+
+        # return ture
+        return True
+
     def move_closer(self, ship):
         # target point when self is origin
         target_point = Point(ship.x - self.x, self.y - ship.y)
@@ -286,14 +367,14 @@ class Ship:
 
         is_target_left = self.__is_target_point_left_of_vector(vector, target_point)
         if is_target_left:
-            self.move_to_left()
+            self.__try_to_move_to_left()
         else:
             are_same_dir = are_vectors_in_same_direction(vector[1], target_point)
             if are_same_dir:
-                self.move_in_cur_dir()
+                self.__try_to_move_in_cur_dir()
             else:
                 # right or 180 degrees
-                self.move_to_right()
+                self.__try_to_move_to_right()
 
     def move_further(self, ship):
         # target point when self is origin
@@ -303,18 +384,18 @@ class Ship:
 
         is_target_left = self.__is_target_point_left_of_vector(vector, target_point)
         if is_target_left:
-            self.move_to_right()
+            self.__try_to_move_to_right()
         else:
             is_target_point_on_vector = self.__is_target_point_on_vector(vector, target_point)
             if is_target_point_on_vector:
                 are_same_dir = are_vectors_in_same_direction(vector[1], target_point)
                 if not are_same_dir:
-                    self.move_in_cur_dir()
+                    self.__try_to_move_in_cur_dir()
                 else:
-                    self.move_to_left()
+                    self.__try_to_move_to_left()
             else:
                 # right or 180 degrees
-                self.move_to_left()
+                self.__try_to_move_to_left()
 
     async def __try_to_shoot(self, enemy_role, flag_ship)->bool:
         """returns has_won"""
@@ -697,6 +778,7 @@ class Role:
         self.session.send(packet)
 
     def get_enemy_role(self):
+        """sometimes not working??"""
         self.session.packet_handler.get_enemy_role()
 
     def get_flag_ship(self):

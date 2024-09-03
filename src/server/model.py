@@ -4,6 +4,7 @@ import random
 import login_pb2 as pb
 import math
 import numpy
+from enum import Enum, auto
 
 # import from dir
 import sys
@@ -14,6 +15,13 @@ from object_mgr import sObjectMgr
 from map_maker import sMapMaker
 from map_mgr import sMapMgr
 from helpers import Point, are_vectors_in_same_direction
+
+
+class Strategy(Enum):
+    SHOOT = auto()
+    ENGAGE = auto()
+    FLEE = auto()
+    HOLD = auto()
 
 
 @dataclass
@@ -62,6 +70,8 @@ class Ship:
     y: int=None
     dir: int=pb.DirType.N
     target_ship: any=None
+    strategy: Strategy=Strategy.SHOOT
+    steps_left: int=3
 
     def add_cargo(self, cargo_id, cargo_cnt):
         self.cargo_id = cargo_id
@@ -273,9 +283,63 @@ class Ship:
                 # right or 180 degrees
                 self.move_to_left()
 
-    def attack(self, ship):
-        # shoot or engage based on strategy
+    async def __try_to_shoot(self, enemy_role, flag_ship)->bool:
+        """returns has_won"""
+        has_won = False
+
+        target_ship = self.target_ship
+
+        # move and check is_in_range
+        has_attacked = False
+        left_steps = 3
+        for i in range(left_steps):
+            if self.is_target_in_range(target_ship):
+                if self.is_target_in_angle(target_ship):
+                    damage, is_target_sunk = self.shoot(target_ship)
+                    has_attacked = True
+                    break
+                else:
+                    self.move_further(target_ship)
+            else:
+                self.move_closer(target_ship)
+                await asyncio.sleep(0.3)
+
+        # if has_attacked and target is_sunk
+        if has_attacked and is_target_sunk:
+
+            if target_ship.id == flag_ship.id:
+                self.role.win(enemy_role)
+                has_won = True
+                return has_won
+
+            if target_ship.id not in enemy_role.ship_mgr.id_2_ship:
+                return has_won
+
+            enemy_role.ship_mgr.rm_ship(target_ship.id)
+
+        return has_won
+
+    def __try_to_engage(self):
         pass
+
+    def __try_to_flee(self):
+        pass
+
+    def __try_to_hold(self):
+        pass
+
+    async def move_based_on_strategy(self, enemy_role, flag_ship):
+        # shoot or engage based on strategy
+        if self.strategy == Strategy.SHOOT:
+            has_won = await self.__try_to_shoot(enemy_role, flag_ship)
+        elif self.strategy == Strategy.ENGAGE:
+            self.__try_to_engage(enemy_role, flag_ship)
+        elif self.strategy == Strategy.FLEE:
+            self.__try_to_flee(enemy_role, flag_ship)
+        elif self.strategy == Strategy.HOLD:
+            self.__try_to_hold(enemy_role, flag_ship)
+
+        return has_won
 
     def is_alive(self):
         return self.now_durability > 0
@@ -314,7 +378,7 @@ class Ship:
 
         return ship_proto
 
-    def choose_target_ship(self, enemy_role):
+    def set_target_ship(self, enemy_role):
         if not self.target_ship:
             enemy_ship = enemy_role.get_random_ship()
             self.target_ship = enemy_ship
@@ -594,6 +658,8 @@ class Role:
     def win(self, target_role):
 
         for id in target_role.get_non_flag_ships_ids():
+            print(f'## non flagship id {id}')
+
             # add to my role
             ship = target_role.ship_mgr.get_ship(id)
             prev_ship_name = ship.name
@@ -609,7 +675,7 @@ class Role:
             ))
 
             # remove from target role
-            target_role.ship_mgr.rm_ship(id)
+            del target_role.ship_mgr.id_2_ship[id]
             target_role.session.send(pb.ShipRemoved(id=id))
             target_role.session.send(pb.GotChat(
                 chat_type=pb.ChatType.SYSTEM,
@@ -837,39 +903,20 @@ class Role:
 
         # for each ship
         for ship in self.ship_mgr.get_ships():
-            # choose target_ship
-            target_ship = ship.choose_target_ship(enemy_role)
+            # set target_ship
+            ship.set_target_ship(enemy_role)
+
+            # for testing
+            ship.target_ship = flag_ship
 
             # set role
             ship.role = self
 
-            # move and check is_in_range
-            has_attacked = False
-            left_steps = 3
-            for i in range(left_steps):
-                if ship.is_target_in_range(target_ship):
-                    # damage, is_sunk = ship.shoot(enemy_ship)
-                    if ship.is_target_in_angle(target_ship):
-                        damage, is_target_sunk = ship.shoot(target_ship)
-                        has_attacked = True
-                        break
-                    else:
-                        ship.move_further(target_ship)
-                else:
-                    ship.move_closer(target_ship)
-                    await asyncio.sleep(0.1)
+            # move_based_on_strategy
+            has_won = await ship.move_based_on_strategy(enemy_role, flag_ship)
 
-            # if has_attacked and target is_sunk
-            if has_attacked and is_target_sunk:
-
-                if target_ship.id == flag_ship.id:
-                    self.win(enemy_role)
-                    return
-
-                if target_ship.id not in enemy_role.ship_mgr.id_2_ship:
-                    continue
-
-                enemy_role.ship_mgr.rm_ship(target_ship.id)
+            if has_won:
+                return
 
             # wait some time
             await asyncio.sleep(0.5)

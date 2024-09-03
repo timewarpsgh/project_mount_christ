@@ -385,10 +385,14 @@ class OptionsDialog:
     def __show_ship_info_menu(self):
         ship_mgr = self.client.game.graphics.model.role.ship_mgr
 
+        print('#' * 10)
+        print(ship_mgr.id_2_ship)
+
         option_2_callback = {
         }
 
         for id, ship in ship_mgr.id_2_ship.items():
+            print(f'ship name: {ship.name}')
             option_2_callback[f'{ship.name}'] = partial(self.__show_one_ship_states, ship_mgr.get_ship(id))
 
 

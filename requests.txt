@@ -25,6 +25,11 @@ TO DO:
         pixels per move in battle not right OK
         choose rand target once OK
 
+        choose_strategy at start
+        4 strategy [shoot, engage, escape, hold]
+        engage
+
+        don't stack ships ON
 
 
 

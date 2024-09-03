@@ -405,6 +405,9 @@ class PacketHandler:
 
 
     async def handle_ShipRemoved(self, ship_removed):
+        print('ship id removed!!')
+        print(ship_removed.id)
+
         self.__get_role().ship_mgr.rm_ship(ship_removed.id)
         enemy_role = self.__get_model().get_enemy_role()
         if enemy_role:
@@ -419,7 +422,12 @@ class PacketHandler:
     async def handle_GotNewShip(self, got_new_ship):
         print('got new ship')
         model_ship = model.Ship(got_new_ship.ship)
+        print(f'new ship name: {model_ship.name}')
+        print(model_ship)
+
         self.__get_role().ship_mgr.add_ship(model_ship)
+
+        print(self.__get_role().ship_mgr.id_2_ship)
 
     def __get_graphics(self):
         return self.client.game.graphics

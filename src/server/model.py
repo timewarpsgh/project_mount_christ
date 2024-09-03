@@ -70,7 +70,7 @@ class Ship:
     y: int=None
     dir: int=pb.DirType.N
     target_ship: any=None
-    strategy: Strategy=Strategy.SHOOT
+    strategy: Strategy=Strategy.ENGAGE
     steps_left: int=3
 
     def add_cargo(self, cargo_id, cargo_cnt):
@@ -184,7 +184,7 @@ class Ship:
         distance_squared = (self.x - ship.x) ** 2 + (self.y - ship.y) ** 2
 
         if is_for_engage:
-            max_in_range_distance = 1.5 # a little more than 1.4
+            max_in_range_distance = 30#1.5 # a little more than 1.4
         else:
             max_in_range_distance = 30
 
@@ -987,7 +987,7 @@ class Role:
                 return
 
             # wait some time
-            await asyncio.sleep(0.8)
+            await asyncio.sleep(1)
 
         # switch battle timer
         await self.switch_turn_with_enemy()

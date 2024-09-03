@@ -112,12 +112,15 @@ class SP(pygame.sprite.Sprite):
 
 
 class Animation(SP):
-    def __init__(self, frames, time_between_frames, x, y):
+    def __init__(self, frames, time_between_frames, x, y, loop_cnt=1):
         self.frames = frames
         self.time_between_frames = time_between_frames
         self.frame_index = 0
         self.frame_change_timer = time_between_frames
         self.__reset_frame_timer()
+
+        self.loop_cnt = loop_cnt
+        self.now_loop = 1
 
         image = self.frames[0]
         super().__init__(image, x, y, z=1)
@@ -134,7 +137,12 @@ class Animation(SP):
                 self.frame_index += 1
                 self.change_img(self.frames[self.frame_index])
             else:
-                self.kill()
+                self.now_loop += 1
+                if self.now_loop > self.loop_cnt:
+                    self.kill()
+                else:
+                    self.frame_index = 0
+                    self.change_img(self.frames[0])
 
 
 def lerp(a, b, t):
@@ -718,7 +726,7 @@ class Graphics:
             sAssetMgr.images['in_battle']['engage_sign']
         ]
         time_between_frames = 0.1
-        anim = Animation(frames, time_between_frames, x, y)
+        anim = Animation(frames, time_between_frames, x, y, loop_cnt=2)
         self.sprites.add(anim)
 
     def show_explosion(self, x, y):

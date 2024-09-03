@@ -515,7 +515,7 @@ class PacketHandler:
             self.__get_graphics().show_damage(src_damage, src_ship.x * pixels,
                                               src_ship.y * pixels, color=c.WHITE)
 
-        # engage
+        # shoot
         elif ship_attacked.attack_method_type == pb.AttackMethodType.SHOOT:
 
             # show cannon_ball
@@ -532,16 +532,18 @@ class PacketHandler:
             print(f'target ship x y: {dst_ship.x}  {dst_ship.y}')
 
             pixels = c.BATTLE_TILE_SIZE
+            half_ps = pixels // 2
 
-            d_x = dst_ship.x - src_ship.x
-            d_y = dst_ship.y - src_ship.y
 
-            self.__get_graphics().show_cannon(src_ship.x * pixels, src_ship.y * pixels,
-                                              d_x * pixels, d_y * pixels)
+            self.__get_graphics().show_cannon(src_ship.x * pixels + half_ps,
+                                              src_ship.y * pixels + half_ps,
+                                              dst_ship.x * pixels + half_ps,
+                                              dst_ship.y * pixels + half_ps)
             sAssetMgr.sounds['shoot'].play()
-            await asyncio.sleep(1)
+            await asyncio.sleep(0.6)
             self.__get_graphics().show_damage(dst_damage, dst_ship.x * pixels, dst_ship.y * pixels)
             sAssetMgr.sounds['explosion'].play()
+            self.__get_graphics().show_explosion(dst_ship.x * pixels, dst_ship.y * pixels)
 
     async def handle_ShipMoved(self, ship_moved):
         id = ship_moved.id

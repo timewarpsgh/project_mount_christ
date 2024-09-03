@@ -29,7 +29,7 @@ TO DO:
         4 strategy [shoot, engage, escape, hold]  OK
 
         show engage anim OK
-
+        show explosion anim and refactor cannon ball using SP OK
 
 
         don't stack ships ON

@@ -17,6 +17,40 @@ YELLOW = (255, 255, 0)
 RED = (255, 0, 0)
 
 
+def get_image(sheet, x, y, width, height, colorkey=(0,0,0), scale=1):
+    image = pygame.Surface([width, height])
+    rect = image.get_rect()
+
+    image.blit(sheet, (0, 0), (x, y, width, height))
+    image.set_colorkey(colorkey)
+    image = pygame.transform.scale(image,
+                               (int(rect.width * scale),
+                                int(rect.height * scale)))
+    return image
+
+
+class SpriteSheet():
+    def __init__(self, image, collumns, rows):
+        self.image = image
+        self.rect = self.image.get_rect()
+        self.collumns = collumns
+        self.rows = rows
+
+        self.unit_width = int(self.rect.width / self.collumns)
+        self.unit_height = int(self.rect.height / self.rows)
+
+        self.frame_count = self.rows * self.collumns
+        self.frames = [None] * self.frame_count
+        for frame_id in range(self.frame_count):
+            image_x = (frame_id % self.collumns) *  self.unit_width
+            image_y = (frame_id // self.rows) *  self.unit_height
+            self.frames[frame_id] = get_image(self.image, image_x, image_y,
+                                              self.unit_width, self.unit_height)
+
+    def get_frames(self):
+        return self.frames
+
+
 class Text():
     def __init__(self, text, color=c.BLACK):
         self.image = sAssetMgr.font.render(text, True, color)
@@ -77,6 +111,32 @@ class SP(pygame.sprite.Sprite):
         self.duration = given_time
 
 
+class Animation(SP):
+    def __init__(self, frames, time_between_frames, x, y):
+        self.frames = frames
+        self.time_between_frames = time_between_frames
+        self.frame_index = 0
+        self.frame_change_timer = time_between_frames
+        self.__reset_frame_timer()
+
+        image = self.frames[0]
+        super().__init__(image, x, y, z=1)
+
+    def __reset_frame_timer(self):
+        self.frame_change_timer = self.time_between_frames
+
+    def update(self, time_diff):
+        self.frame_change_timer -= time_diff
+        if self.frame_change_timer <= 0:
+            self.__reset_frame_timer()
+
+            if self.frame_index < len(self.frames) - 1:
+                self.frame_index += 1
+                self.change_img(self.frames[self.frame_index])
+            else:
+                self.kill()
+
+
 def lerp(a, b, t):
     """Linear interpolation between two points."""
     return a + (b - a) * t
@@ -125,54 +185,15 @@ class ShootDamageNumber(SP):
             self.kill()
 
 
-class EngageSign(SP):
-    def __init__(self, x, y):
-        self.frames = [
-            sAssetMgr.images['in_battle']['engage_sign_1'],
-            sAssetMgr.images['in_battle']['engage_sign']
-        ]
-        self.frame_index = 0
-        self.frame_change_timer = 0
-        self.reset_frame_timer()
-        image = self.frames[self.frame_index]
-
-        super().__init__(image, x, y, z=1)
-
-    def reset_frame_timer(self):
-        self.frame_change_timer = 0.1
-
-    def update(self, time_diff):
-        self.frame_change_timer -= time_diff
-        if self.frame_change_timer <= 0:
-            self.reset_frame_timer()
-
-            if self.frame_index < len(self.frames) - 1:
-                self.frame_index += 1
-                self.change_img(self.frames[self.frame_index])
-            else:
-                self.kill()
-
-
-
 class CannonBall(SP):
-    def __init__(self, x, y, d_x, d_y):
-
-        super().__init__(sAssetMgr.images['in_battle']['cannon'], x, y)
-
-        self.d_x = d_x
-        self.d_y = d_y
-
-        self.steps_to_change = 60
-        self.step_index = 0
-
-        self.unit_x_change = int(self.d_x / self.steps_to_change)
-        self.unit_y_change = int(self.d_y / self.steps_to_change)
+    def __init__(self, x1, y1, x2, y2):
+        super().__init__(sAssetMgr.images['in_battle']['cannon'], x1, y1)
+        self.move_to_smoothly(x2, y2, given_time=0.6)
 
     def update(self, time_diff):
-        self.rect.x += self.unit_x_change
-        self.rect.y += self.unit_y_change
-        self.step_index += 1
-        if self.step_index == self.steps_to_change:
+        super().update(time_diff)
+
+        if not self.start_time:
             self.kill()
 
 
@@ -687,12 +708,25 @@ class Graphics:
         self.sprites.add(shoot_damage_number)
 
 
-    def show_cannon(self, x, y, d_x, d_y):
-        cannon = CannonBall(x, y, d_x, d_y)
+    def show_cannon(self, x1, y1, x2, y2):
+        cannon = CannonBall(x1, y1, x2, y2)
         self.sprites.add(cannon)
 
     def show_engage_sign(self, x, y):
-        self.sprites.add(EngageSign(x, y))
+        frames = [
+            sAssetMgr.images['in_battle']['engage_sign_1'],
+            sAssetMgr.images['in_battle']['engage_sign']
+        ]
+        time_between_frames = 0.1
+        anim = Animation(frames, time_between_frames, x, y)
+        self.sprites.add(anim)
+
+    def show_explosion(self, x, y):
+        image = sAssetMgr.images['in_battle']['explosion']
+        frames = SpriteSheet(image, 4, 4).get_frames()
+        time_between_frames = 0.03
+        anim = Animation(frames, time_between_frames, x, y)
+        self.sprites.add(anim)
 
     def hide_role_sprite(self):
         self.sp_role.change_img(sAssetMgr.images['player']['role_in_battle'])

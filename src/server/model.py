@@ -70,7 +70,7 @@ class Ship:
     y: int=None
     dir: int=pb.DirType.N
     target_ship: any=None
-    strategy: Strategy=Strategy.ENGAGE
+    strategy: Strategy=Strategy.SHOOT
     steps_left: int=3
 
     def add_cargo(self, cargo_id, cargo_cnt):
@@ -87,7 +87,7 @@ class Ship:
     def shoot(self, ship):
         self.cannon -= 1
 
-        damage = 10
+        damage = 1
         ship.now_durability -= damage
 
         is_sunk = False
@@ -186,7 +186,7 @@ class Ship:
         if is_for_engage:
             max_in_range_distance = 1.5 # a little more than 1.4
         else:
-            max_in_range_distance = 3
+            max_in_range_distance = 30
 
         if distance_squared <= max_in_range_distance ** 2:
             return True

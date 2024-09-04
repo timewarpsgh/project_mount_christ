@@ -144,7 +144,7 @@ class Ship:
         if dir == pb.DirType.N:
             self.y -= 1
         elif dir == pb.DirType.S:
-            self.y -= 1
+            self.y += 1
 
         elif dir == pb.DirType.NE:
             self.x += 1
@@ -197,9 +197,12 @@ class Ship:
         angle_2 = angle + 360
 
         # get angel range based on self.dir
-        dir_angel = 90 - self.dir * 45
-        angle_range_low = [dir_angel - 45 - 90, dir_angel - 45] # 90 degrees
-        angle_range_high = [dir_angel + 45, dir_angel + 45 + 90] # 90 degrees
+
+        hex_dir = c.DIR_2_HEX_DIR[self.dir]
+        degrees = 60
+        dir_angel = 90 - hex_dir * degrees
+        angle_range_low = [dir_angel - degrees - degrees, dir_angel - degrees] # 90 degrees
+        angle_range_high = [dir_angel + degrees, dir_angel + degrees + degrees] # 90 degrees
 
 
         if self.__is_angel_in_range(angle_0, angle_range_low) or \
@@ -1092,7 +1095,7 @@ class Role:
                 return
 
             # wait some time
-            await asyncio.sleep(1)
+            await asyncio.sleep(2)
 
         # switch battle timer
         await self.switch_turn_with_enemy()

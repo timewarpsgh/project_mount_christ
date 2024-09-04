@@ -256,7 +256,14 @@ STRATEGY_2_TEXT = {
     3: 'hold',
 }
 
-
+DIR_2_HEX_DIR = {
+    0: 0,
+    1: 1,
+    3: 2,
+    4: 3,
+    5: 4,
+    7: 5,
+}
 
 if __name__ == '__main__':
     print(SAILABLE_TILES)

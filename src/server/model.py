@@ -17,13 +17,6 @@ from map_mgr import sMapMgr
 from helpers import Point, are_vectors_in_same_direction
 
 
-class Strategy(Enum):
-    SHOOT = auto()
-    ENGAGE = auto()
-    FLEE = auto()
-    HOLD = auto()
-
-
 @dataclass
 class Ship:
 
@@ -70,7 +63,7 @@ class Ship:
     y: int=None
     dir: int=pb.DirType.N
     target_ship: any=None
-    strategy: Strategy=Strategy.ENGAGE
+    strategy: pb.AttackMethodType=None
     steps_left: int=3
 
     def add_cargo(self, cargo_id, cargo_cnt):
@@ -184,9 +177,9 @@ class Ship:
         distance_squared = (self.x - ship.x) ** 2 + (self.y - ship.y) ** 2
 
         if is_for_engage:
-            max_in_range_distance = 1.5#1.5 # a little more than 1.4
+            max_in_range_distance = 30#1.5 # a little more than 1.4
         else:
-            max_in_range_distance = 3
+            max_in_range_distance = 30  # 3
 
         if distance_squared <= max_in_range_distance ** 2:
             return True
@@ -479,13 +472,13 @@ class Ship:
         # shoot or engage based on strategy
         has_won = False
 
-        if self.strategy == Strategy.SHOOT:
+        if self.strategy == pb.AttackMethodType.SHOOT:
             has_won = await self.__try_to_shoot(enemy_role, flag_ship)
-        elif self.strategy == Strategy.ENGAGE:
+        elif self.strategy == pb.AttackMethodType.ENGAGE:
             has_won = await self.__try_to_engage(enemy_role, flag_ship)
-        elif self.strategy == Strategy.FLEE:
+        elif self.strategy == pb.AttackMethodType.FLEE:
             await self.__try_to_flee()
-        elif self.strategy == Strategy.HOLD:
+        elif self.strategy == pb.AttackMethodType.HOLD:
             await self.__try_to_hold()
 
         return has_won
@@ -527,7 +520,7 @@ class Ship:
 
         return ship_proto
 
-    def set_target_ship(self, enemy_role):
+    def set_random_target_ship(self, enemy_role):
         if not self.target_ship:
             enemy_ship = enemy_role.get_random_ship()
             self.target_ship = enemy_ship
@@ -538,6 +531,11 @@ class Ship:
             else:
                 enemy_ship = self.target_ship
         return enemy_ship
+
+    def set_random_strategy(self):
+        if self.strategy is None:
+            strategy = random.choice([pb.AttackMethodType.SHOOT, pb.AttackMethodType.ENGAGE])
+            self.strategy = strategy
 
 @dataclass
 class Mate:
@@ -1054,7 +1052,10 @@ class Role:
         # for each ship
         for ship in self.ship_mgr.get_ships():
             # set target_ship
-            ship.set_target_ship(enemy_role)
+            ship.set_random_target_ship(enemy_role)
+
+            # set strategy
+            ship.set_random_strategy()
 
             # for testing
             ship.target_ship = flag_ship

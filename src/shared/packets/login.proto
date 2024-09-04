@@ -434,6 +434,8 @@ message AllShipsAttack {
 enum AttackMethodType {
     SHOOT = 0;
     ENGAGE = 1;
+    FLEE = 2;
+    HOLD = 3;
 }
 
 message ShipAttacked{

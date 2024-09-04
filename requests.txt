@@ -10,10 +10,10 @@ TO DO:
 
         battle menu  ON
             view enemy ships   OK
-            all ships target   OK
-            all ships strategy
-            one ship target
-            one ship strategy
+            set all ships target   OK
+            set all ships strategy OK
+            set one ship target
+            set one ship strategy
             view battle states(later)
 
 

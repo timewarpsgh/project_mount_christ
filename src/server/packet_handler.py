@@ -1170,3 +1170,7 @@ class PacketHandler:
 
         self.role.set_all_ships_target(ship_id)
 
+    async def handle_SetAllShipsStrategy(self, set_all_ships_strategy):
+        strategy = set_all_ships_strategy.attack_method_type
+
+        self.role.set_all_ships_strategy(strategy)

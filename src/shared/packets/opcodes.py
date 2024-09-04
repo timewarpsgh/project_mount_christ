@@ -86,7 +86,8 @@ class OpCodeType(Enum):
 
     SetAllShipsTarget = auto()
     AllShipsTargetSet = auto()
-
+    SetAllShipsStrategy = auto()
+    AllShipsStrategySet = auto()
 
 def gen_opcode_2_value():
     d = {}

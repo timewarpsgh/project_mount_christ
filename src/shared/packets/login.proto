@@ -460,3 +460,12 @@ message SetAllShipsTarget{
 message AllShipsTargetSet{
     required int32 ship_id = 1;
 }
+
+// SetAllShipsStrategy
+message SetAllShipsStrategy{
+    required AttackMethodType attack_method_type = 1;
+}
+
+message AllShipsStrategySet{
+    required AttackMethodType attack_method_type = 1;
+}

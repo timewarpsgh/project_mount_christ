@@ -540,6 +540,9 @@ class Ship:
     def set_target_ship(self, ship):
         self.target_ship = ship
 
+    def set_strategy(self, strategy):
+        self.strategy = strategy
+
 @dataclass
 class Mate:
 
@@ -1169,6 +1172,9 @@ class Role:
 
         self.session.send(pb.AllShipsTargetSet(ship_id=ship_id))
 
+    def set_all_ships_strategy(self, strategy):
+        for ship in self.ship_mgr.get_ships():
+            ship.set_strategy(strategy)
 
 class Model:
 

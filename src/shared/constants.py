@@ -249,6 +249,12 @@ DIR_2_VECTOR = {
     pb.DirType.SE: [Point(0, 0), Point(1, -1)]
 }
 
+STRATEGY_2_TEXT = {
+    0: 'shoot',
+    1: 'engage',
+    2: 'flee',
+    3: 'hold',
+}
 
 if __name__ == '__main__':
     print(SAILABLE_TILES)

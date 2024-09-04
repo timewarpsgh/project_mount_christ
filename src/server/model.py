@@ -1170,8 +1170,6 @@ class Role:
         for ship in self.ship_mgr.get_ships():
             ship.set_target_ship(target_ship)
 
-        self.session.send(pb.AllShipsTargetSet(ship_id=ship_id))
-
     def set_all_ships_strategy(self, strategy):
         for ship in self.ship_mgr.get_ships():
             ship.set_strategy(strategy)

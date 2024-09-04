@@ -49,6 +49,8 @@ class Ship:
     x: int = None
     y: int = None
     dir: int = pb.DirType.N
+    target_ship: any = None
+    strategy: pb.AttackMethodType = None
 
     def __init__(self, prot_ship):
         self.id = prot_ship.id
@@ -104,6 +106,9 @@ class Ship:
 
     def set_target_ship(self, ship):
         self.target_ship = ship
+
+    def set_strategy(self, strategy):
+        self.strategy = strategy
 
 @dataclass
 class Mate:
@@ -402,6 +407,19 @@ class Role:
 
         for ship in self.ship_mgr.get_ships():
             ship.set_target_ship(target_ship)
+
+    def set_all_ships_strategy(self, strategy):
+        for ship in self.ship_mgr.get_ships():
+            ship.set_strategy(strategy)
+
+    def set_ship_target(self, ship_id, target_ship_id):
+        ship = self.ship_mgr.get_ship(ship_id)
+        target_ship = self.get_enemy().ship_mgr.get_ship(target_ship_id)
+        ship.set_target_ship(target_ship)
+
+    def set_ship_strategy(self, ship_id, strategy):
+        ship = self.ship_mgr.get_ship(ship_id)
+        ship.set_strategy(strategy)
 
 @dataclass
 class Npc(Role):

@@ -82,7 +82,7 @@ class MyButton:
 
 class MyPanelWindow():
     """displays info"""
-    def __init__(self, rect, ui_manager, text, image='none'):
+    def __init__(self, rect, ui_manager, text, image=None):
 
         ui_window = pygame_gui.elements.UIWindow(
             rect=rect,
@@ -108,9 +108,14 @@ class MyPanelWindow():
 
         # text box
         if text:
+            if image:
+                y = image.get_rect().height
+            else:
+                y = 0
+
             pygame_gui.elements.UITextBox(
                 html_text=text,
-                relative_rect=pygame.Rect(0, image.get_rect().height, 320, 10), #pygame.Rect(0, image.get_rect().height, 320, 10)
+                relative_rect=pygame.Rect(0, y, 320, 10), #pygame.Rect(0, image.get_rect().height, 320, 10)
                 manager=ui_manager,
                 wrap_to_height=True,
                 container=panel)

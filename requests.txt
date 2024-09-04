@@ -14,7 +14,7 @@ TO DO:
             set all ships strategy OK
             set ship target   OK
             set ship strategy  OK
-            view battle states(later)
+            view battle states OK
 
 
 

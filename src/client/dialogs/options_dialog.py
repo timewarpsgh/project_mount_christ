@@ -388,6 +388,7 @@ class OptionsDialog:
 
     def __set_all_ships_target(self, ship_id):
         self.client.send(pb.SetAllShipsTarget(ship_id=ship_id))
+        self.__get_role().set_all_ships_target(ship_id)
 
     def _set_all_ships_target(self):
         enemy = self.__get_enemy()
@@ -407,6 +408,8 @@ class OptionsDialog:
                 target_ship_id=target_ship_id
             )
         )
+
+        self.__get_role().set_ship_target(ship_id, target_ship_id)
 
     def __set_ship_target(self, ship_id):
         enemy = self.__get_enemy()
@@ -438,6 +441,8 @@ class OptionsDialog:
             )
         )
 
+        self.__get_role().set_ship_strategy(ship_id, attack_method_type)
+
     def __set_ship_strategy(self, ship_id):
         option_2_callback = {
             'shoot': partial(self.___set_ship_strategy, ship_id, pb.AttackMethodType.SHOOT),
@@ -462,7 +467,7 @@ class OptionsDialog:
 
     def __set_all_ships_strategy(self, strategy):
         self.client.send(pb.SetAllShipsStrategy(attack_method_type=strategy))
-
+        self.__get_role().set_all_ships_strategy(strategy)
 
     def _set_all_ships_strategy(self):
 
@@ -474,6 +479,32 @@ class OptionsDialog:
         }
 
         self.__make_menu(option_2_callback)
+
+    def __show_battle_states(self):
+        my_ships = self.get_ship_mgr().get_ships()
+        enemy_ships = self.__get_enemy().ship_mgr.get_ships()
+
+        text = 'num  durability  crew target strategy <br>'
+
+
+        for ship in my_ships:
+            target_name = ship.target_ship.name if ship.target_ship else ''
+            strategy_name = c.STRATEGY_2_TEXT[ship.strategy] if ship.strategy is not None else ''
+
+            text += f'<br>{ship.name}  {ship.now_durability}  ' \
+                    f'{ship.now_crew}  {target_name}  {strategy_name} '
+
+        text += '<br>'
+
+        for ship in enemy_ships:
+            text += f'<br>{ship.name}  {ship.now_durability}  ' \
+                    f'{ship.now_crew}  '
+
+        MyPanelWindow(
+            rect=pygame.Rect((59, 12), (350, 400)),
+            ui_manager=self.mgr,
+            text=text,
+        )
 
     def __show_ship_info_menu(self, is_enemy=False):
         if is_enemy:
@@ -837,6 +868,7 @@ class OptionsDialog:
     def show_fight_menu(self):
 
         option_2_callback = {
+            'View Battle States': partial(self.__show_battle_states),
             'View Enemy Ships': partial(self.__show_ship_info_menu, is_enemy=True),
             'Set All Ships Target': partial(self._set_all_ships_target),
             'Set All Ships Strategy': partial(self._set_all_ships_strategy),

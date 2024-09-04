@@ -448,8 +448,8 @@ message ShipAttacked{
 
 message ShipMoved{
     required int32 id = 1;
-    required int32 x = 2;
-    required int32 y = 3;
+    required float x = 2;
+    required float y = 3;
     required DirType dir = 4;
 }
 

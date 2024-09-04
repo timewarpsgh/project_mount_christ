@@ -63,7 +63,7 @@ class Ship:
     y: int=None
     dir: int=pb.DirType.N
     target_ship: any=None
-    strategy: pb.AttackMethodType=None
+    strategy: pb.AttackMethodType=pb.AttackMethodType.SHOOT
     steps_left: int=3
 
     def add_cargo(self, cargo_id, cargo_cnt):
@@ -143,25 +143,21 @@ class Ship:
 
         if dir == pb.DirType.N:
             self.y -= 1
-        elif dir == pb.DirType.E:
-            self.x += 1
         elif dir == pb.DirType.S:
             self.y -= 1
-        elif dir == pb.DirType.W:
-            self.x -= 1
 
         elif dir == pb.DirType.NE:
             self.x += 1
-            self.y -= 1
+            self.y -= 0.5
         elif dir == pb.DirType.SE:
             self.x += 1
-            self.y += 1
+            self.y += 0.5
         elif dir == pb.DirType.SW:
             self.x -= 1
-            self.y += 1
+            self.y += 0.5
         elif dir == pb.DirType.NW:
             self.x -= 1
-            self.y -= 1
+            self.y -= 0.5
 
         pack = pb.ShipMoved(
             id=self.id,
@@ -177,9 +173,9 @@ class Ship:
         distance_squared = (self.x - ship.x) ** 2 + (self.y - ship.y) ** 2
 
         if is_for_engage:
-            max_in_range_distance = 30#1.5 # a little more than 1.4
+            max_in_range_distance = 1.5#1.5 # a little more than 1.4
         else:
-            max_in_range_distance = 30  # 3
+            max_in_range_distance = 3  # 3
 
         if distance_squared <= max_in_range_distance ** 2:
             return True
@@ -233,6 +229,8 @@ class Ship:
         new_dir = self.dir - 1
         if new_dir < 0:
             new_dir = 7
+        if new_dir in [2, 6]:
+            new_dir -= 1
 
         self.move(new_dir)
 
@@ -240,7 +238,8 @@ class Ship:
         new_dir = self.dir + 1
         if new_dir > 7:
             new_dir = 0
-
+        if new_dir in [2, 6]:
+            new_dir += 1
         self.move(new_dir)
 
     def __is_target_point_left_of_vector(self, vector, target_point):
@@ -299,12 +298,18 @@ class Ship:
         next_dir = self.dir + 1
         if next_dir > 7:
             next_dir = 0
+        if next_dir in [2, 6]:
+            next_dir += 1
+
         return self.__can_move(next_dir)
 
     def __can_move_to_left(self):
         next_dir = self.dir - 1
         if next_dir < 0:
             next_dir = 7
+        if next_dir in [2, 6]:
+            next_dir -= 1
+
         return self.__can_move(next_dir)
 
     def __can_move_in_cur_dir(self):
@@ -317,25 +322,21 @@ class Ship:
 
         if dir == pb.DirType.N:
             future_y -= 1
-        elif dir == pb.DirType.E:
-            future_x += 1
         elif dir == pb.DirType.S:
             future_y += 1
-        elif dir == pb.DirType.W:
-            future_x -= 1
 
         elif dir == pb.DirType.NE:
             future_x += 1
-            future_y -= 1
+            future_y -= 0.5
         elif dir == pb.DirType.SE:
             future_x += 1
-            future_y += 1
+            future_y += 0.5
         elif dir == pb.DirType.SW:
             future_x -= 1
-            future_y += 1
+            future_y += 0.5
         elif dir == pb.DirType.NW:
             future_x -= 1
-            future_y -= 1
+            future_y -= 0.5
 
         # collide with any of my ships?
         for ship in self.role.ship_mgr.get_ships():
@@ -601,7 +602,7 @@ class ShipMgr:
         return new_ship_name
 
     def init_ships_positions_in_battle(self, is_attacker=True):
-
+        # initial x need to satisfy hex movement
         for id, ship in enumerate(self.id_2_ship.values()):
             if is_attacker:
                 ship.x = 5

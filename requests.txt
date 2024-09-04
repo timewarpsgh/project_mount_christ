@@ -16,7 +16,7 @@ TO DO:
             set ship strategy  OK
             view battle states OK
 
-            use hex movement in battle ON
+            use hex movement in battle OK
             show my flagship on center screen
             show move options
             show shoot/engage options

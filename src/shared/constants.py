@@ -256,5 +256,7 @@ STRATEGY_2_TEXT = {
     3: 'hold',
 }
 
+
+
 if __name__ == '__main__':
     print(SAILABLE_TILES)

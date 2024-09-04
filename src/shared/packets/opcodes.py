@@ -84,6 +84,8 @@ class OpCodeType(Enum):
     ShipAttacked = auto()
     ShipMoved = auto()
 
+    SetAllShipsTarget = auto()
+    AllShipsTargetSet = auto()
 
 
 def gen_opcode_2_value():

@@ -1153,8 +1153,6 @@ class PacketHandler:
     def get_enemy_role(self):
         return self.session.server.get_role(self.role.battle_role_id)
 
-    def get_enemy_npc(self):
-        return self.session.server.get_npc(self.role.battle_npc_id)
 
     async def handle_AllShipsAttack(self, all_ships_attack):
         # if not self.role.battle_timer:
@@ -1166,3 +1164,9 @@ class PacketHandler:
             await self.role.all_ships_attack_role()
         elif self.role.battle_npc_id:
             await self.role.all_ships_attack_npc()
+
+    async def handle_SetAllShipsTarget(self, set_all_ships_target):
+        ship_id = set_all_ships_target.ship_id
+
+        self.role.set_all_ships_target(ship_id)
+

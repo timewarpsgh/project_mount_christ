@@ -9,6 +9,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\client')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 from login_pb2 import *
+import login_pb2 as pb
 from my_ui_elements import MyButton, only_show_top_window
 from create_account_dialog import CreateAccountDialog
 from packet_params_dialog import PacketParamsDialog
@@ -382,8 +383,32 @@ class OptionsDialog:
                 text += f'{k}: {v}<br>'
         return text
 
-    def __show_ship_info_menu(self):
-        ship_mgr = self.client.game.graphics.model.role.ship_mgr
+    def __get_enemy(self):
+        return self.client.game.graphics.model.get_enemy()
+
+    def __set_all_ships_target(self, ship_id):
+        self.client.send(pb.SetAllShipsTarget(ship_id=ship_id))
+
+    def __show_enemy_ships_names(self):
+        enemy = self.__get_enemy()
+
+        option_2_callback = {
+        }
+
+        for ship in enemy.ship_mgr.get_ships():
+            option_2_callback[f'{ship.name}'] = partial(self.__set_all_ships_target, ship.id)
+
+        MyMenuWindow(
+            title='',
+            option_2_callback=option_2_callback,
+            mgr=self.mgr
+        )
+
+    def __show_ship_info_menu(self, is_enemy=False):
+        if is_enemy:
+            ship_mgr = self.client.game.graphics.model.get_enemy().ship_mgr
+        else:
+            ship_mgr = self.client.game.graphics.model.role.ship_mgr
 
         print('#' * 10)
         print(ship_mgr.id_2_ship)
@@ -741,11 +766,11 @@ class OptionsDialog:
     def show_fight_menu(self):
 
         option_2_callback = {
-            'View Enemy Ships': '',
-            'All Ships Target': '',
-            'All Ships Strategy': '',
-            'One Ship Target': '',
-            'One Ship Strategy': '',
+            'View Enemy Ships': partial(self.__show_ship_info_menu, is_enemy=True),
+            'Set All Ships Target': partial(self.__show_enemy_ships_names),
+            'Set All Ships Strategy': '',
+            'Set One Ship Target': '',
+            'Set One Ship Strategy': '',
             'Escape Battle': partial(self.escape_battle),
             'All Ships Attack': partial(self.all_ships_attack),
         }

@@ -102,6 +102,8 @@ class Ship:
                 self.cargo_cnt = 0
                 self.cargo_id = 0
 
+    def set_target_ship(self, ship):
+        self.target_ship = ship
 
 @dataclass
 class Mate:
@@ -148,6 +150,8 @@ class ShipMgr:
     def get_ship(self, ship_id):
         return self.id_2_ship[ship_id]
 
+    def get_ships(self):
+        return self.id_2_ship.values()
 
 class MateMgr:
 
@@ -388,9 +392,19 @@ class Role:
                 self.move(self.dir)
                 self.move_timer = self.calc_move_timer()
 
+    def get_enemy(self):
+        return self.graphics.model.get_enemy()
+
+    def set_all_ships_target(self, ship_id):
+        enemy = self.get_enemy()
+
+        target_ship = enemy.ship_mgr.get_ship(ship_id)
+
+        for ship in self.ship_mgr.get_ships():
+            ship.set_target_ship(target_ship)
 
 @dataclass
-class Npc:
+class Npc(Role):
     id: int = None
 
     x: int = None
@@ -430,6 +444,13 @@ class Model:
             return None
 
         return self.get_role_by_id(self.role.battle_role_id)
+
+    def get_enemy(self):
+        enemy_role = self.get_enemy_role()
+        if enemy_role:
+            return enemy_role
+        else:
+            return self.get_enemy_npc()
 
     def get_ship_in_battle_by_id(self, id):
 

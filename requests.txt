@@ -8,13 +8,14 @@ TO DO:
 
         all ships attack choose random strategy OK
 
-        battle menu
-            all ships target
+        battle menu  ON
+            view enemy ships   OK
+            all ships target   OK
             all ships strategy
             one ship target
             one ship strategy
-            view battle states
-            view enemy ships
+            view battle states(later)
+
 
 
 

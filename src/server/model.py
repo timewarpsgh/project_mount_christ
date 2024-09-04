@@ -537,6 +537,9 @@ class Ship:
             strategy = random.choice([pb.AttackMethodType.SHOOT, pb.AttackMethodType.ENGAGE])
             self.strategy = strategy
 
+    def set_target_ship(self, ship):
+        self.target_ship = ship
+
 @dataclass
 class Mate:
 
@@ -679,6 +682,18 @@ class Role:
         else:
             return True
 
+    def is_in_battle_with_role(self):
+        if self.battle_role_id:
+            return True
+        else:
+            return False
+
+    def is_in_battle_with_npc(self):
+        if self.battle_npc_id:
+            return True
+        else:
+            return False
+
     def is_role(self):
         if self.session:
             return True
@@ -777,7 +792,13 @@ class Role:
 
     def get_enemy_role(self):
         """sometimes not working??"""
-        self.session.packet_handler.get_enemy_role()
+        return self.session.packet_handler.get_enemy_role()
+
+    def get_enemy(self):
+        if self.is_in_battle_with_role():
+            return self.session.packet_handler.get_enemy_role()
+        elif self.is_in_battle_with_npc():
+            return self.npc_instance
 
     def get_flag_ship(self):
         for id, ship in self.ship_mgr.id_2_ship.items():
@@ -1057,9 +1078,6 @@ class Role:
             # set strategy
             ship.set_random_strategy()
 
-            # for testing
-            ship.target_ship = flag_ship
-
             # set role
             ship.role = self
 
@@ -1140,6 +1158,17 @@ class Role:
         else:
             move_timer = c.PIXELS_COVERED_EACH_MOVE / self.speed
         return move_timer
+
+    def set_all_ships_target(self, ship_id):
+        enemy = self.get_enemy()
+
+        target_ship = enemy.ship_mgr.get_ship(ship_id)
+
+        for ship in self.ship_mgr.get_ships():
+            ship.set_target_ship(target_ship)
+
+        self.session.send(pb.AllShipsTargetSet(ship_id=ship_id))
+
 
 class Model:
 

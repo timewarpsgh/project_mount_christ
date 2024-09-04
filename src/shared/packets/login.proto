@@ -452,3 +452,11 @@ message ShipMoved{
     required int32 y = 3;
     required DirType dir = 4;
 }
+
+// set all ships target
+message SetAllShipsTarget{
+    required int32 ship_id = 1;
+}
+message AllShipsTargetSet{
+    required int32 ship_id = 1;
+}

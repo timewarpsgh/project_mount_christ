@@ -12,8 +12,8 @@ TO DO:
             view enemy ships   OK
             set all ships target   OK
             set all ships strategy OK
-            set one ship target
-            set one ship strategy
+            set ship target   OK
+            set ship strategy
             view battle states(later)
 
 

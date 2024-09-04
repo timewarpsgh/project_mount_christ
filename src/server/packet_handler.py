@@ -1174,3 +1174,9 @@ class PacketHandler:
         strategy = set_all_ships_strategy.attack_method_type
 
         self.role.set_all_ships_strategy(strategy)
+
+    async def handle_SetShipTarget(self, set_ship_target):
+        ship_id = set_ship_target.ship_id
+        target_ship_id = set_ship_target.target_ship_id
+
+        self.role.set_ship_target(ship_id, target_ship_id)

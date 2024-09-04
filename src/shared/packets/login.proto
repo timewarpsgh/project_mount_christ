@@ -469,3 +469,9 @@ message SetAllShipsStrategy{
 message AllShipsStrategySet{
     required AttackMethodType attack_method_type = 1;
 }
+
+// set ship target
+message SetShipTarget{
+    required int32 ship_id = 1;
+    required int32 target_ship_id = 2;
+}

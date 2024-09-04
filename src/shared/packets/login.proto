@@ -475,3 +475,8 @@ message SetShipTarget{
     required int32 ship_id = 1;
     required int32 target_ship_id = 2;
 }
+
+message SetShipStrategy{
+    required int32 ship_id = 1;
+    required AttackMethodType attack_method_type = 2;
+}

@@ -430,6 +430,36 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def ___set_ship_strategy(self, ship_id, attack_method_type):
+        self.client.send(
+            pb.SetShipStrategy(
+                ship_id=ship_id,
+                attack_method_type=attack_method_type
+            )
+        )
+
+    def __set_ship_strategy(self, ship_id):
+        option_2_callback = {
+            'shoot': partial(self.___set_ship_strategy, ship_id, pb.AttackMethodType.SHOOT),
+            'engage': partial(self.___set_ship_strategy, ship_id, pb.AttackMethodType.ENGAGE),
+            'flee': partial(self.___set_ship_strategy, ship_id, pb.AttackMethodType.FLEE),
+            'hold': partial(self.___set_ship_strategy, ship_id, pb.AttackMethodType.HOLD),
+        }
+
+        self.__make_menu(option_2_callback)
+
+
+    def _set_ship_strategy(self):
+        role = self.__get_role()
+
+        option_2_callback = {
+        }
+
+        for ship in role.ship_mgr.get_ships():
+            option_2_callback[f'{ship.name}'] = partial(self.__set_ship_strategy, ship.id)
+
+        self.__make_menu(option_2_callback)
+
     def __set_all_ships_strategy(self, strategy):
         self.client.send(pb.SetAllShipsStrategy(attack_method_type=strategy))
 
@@ -811,7 +841,7 @@ class OptionsDialog:
             'Set All Ships Target': partial(self._set_all_ships_target),
             'Set All Ships Strategy': partial(self._set_all_ships_strategy),
             'Set Ship Target': partial(self._set_ship_target),
-            'Set Ship Strategy': '',
+            'Set Ship Strategy': partial(self._set_ship_strategy),
             'Escape Battle': partial(self.escape_battle),
             'All Ships Attack': partial(self.all_ships_attack),
         }

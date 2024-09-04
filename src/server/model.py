@@ -1181,6 +1181,10 @@ class Role:
         target_ship = self.get_enemy().ship_mgr.get_ship(target_ship_id)
         ship.set_target_ship(target_ship)
 
+    def set_ship_strategy(self, ship_id, strategy):
+        ship = self.ship_mgr.get_ship(ship_id)
+        ship.set_strategy(strategy)
+
 
 class Model:
 

@@ -487,7 +487,7 @@ class PacketHandler:
         self.__get_role().is_battle_timer_mine = battle_timer_started.role_id == self.__get_role().id
 
     async def handle_ShipAttacked(self, ship_attacked):
-        # shoot
+        # engage
         if ship_attacked.attack_method_type == pb.AttackMethodType.ENGAGE:
             # show cannon_ball
             # show ship attacked damage
@@ -501,6 +501,11 @@ class PacketHandler:
             src_ship = self.__get_model().get_ship_in_battle_by_id(src_id)
             dst_ship = self.__get_model().get_ship_in_battle_by_id(dst_id)
 
+            # modify model
+            src_ship.now_crew -= src_damage
+            dst_ship.now_crew -= dst_damage
+
+            # show graphics
             pixels = c.BATTLE_TILE_SIZE
 
             d_x = dst_ship.x - src_ship.x
@@ -531,6 +536,10 @@ class PacketHandler:
 
             print(f'target ship x y: {dst_ship.x}  {dst_ship.y}')
 
+            # modify model
+            dst_ship.now_durability -= dst_damage
+
+            # show graphics
             pixels = c.BATTLE_TILE_SIZE
             half_ps = pixels // 2
 

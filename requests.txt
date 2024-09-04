@@ -1,41 +1,13 @@
 TO DO:
 
 
-    display my name on hud OK
-    display port pos when in port OK
 
-    menu clicked backgound OK
 
     fight role ON
-        ship
-            move_in_cur_dir  ON
-            turn_left
-            turn_right
-            is_target_in_range
-            is_target_in_angle
-            can_engage_target
-            can_shoot_target
-            shoot
-            engage
-
-
-        move a few steps before shooting  OK
-        change dir after move  OK
-        is_in_angle OK
-        pixels per move in battle not right OK
-        choose rand target once OK
-
-        choose_strategy at start
-        4 strategy [shoot, engage, escape, hold]  OK
-
-        show engage anim OK
-        show explosion anim and refactor cannon ball using SP OK
-
-
-        refactor background drawing to bg_sp.update OK
         show ships in battle sprites OK
         at sea show other ships sprites OK
         don't stack ships OK
+        client should modify dura and now_crew after getting ship_attacked pack OK
 
 
 
@@ -51,7 +23,10 @@ DONE:
     login a third role OK
 
     sail, show ship near port, not on port OK
+    display my name on hud OK
+    display port pos when in port OK
 
+    menu clicked backgound OK
 
 
 

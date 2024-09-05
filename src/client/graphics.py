@@ -180,76 +180,73 @@ class BackGround(SP):
             if self.model.role.battle_timer > 0:
                 self.model.role.battle_timer -= time_diff
 
-                # update and draw battle timer
-                if self.model.role.is_battle_timer_mine:
-                    text = 'your turn'
-                else:
-                    text = 'enemy turn'
+                self.__update_battle_scene()
 
-                timer_text = Text(f'{text} {int(self.model.role.battle_timer)}', c.YELLOW)
-                timer_text.rect.x = 300
-                timer_text.rect.y = 50
+    def __update_battle_scene(self):
+        # init new bg img
+        battle_ground_img = self.__init_new_battle_ground_img()
+        # paste battle timer
+        self.__paste_battle_timer(battle_ground_img)
+        # get my_flag_ship
+        my_flag_ship = self.model.role.get_flag_ship()
+        # paste my ships
+        my_flag_ship = self.__paste_ships(battle_ground_img, my_flag_ship)
+        # paste move marks
+        self.__paste_move_marks(battle_ground_img, my_flag_ship)
+        # draw shoot/engage marks
+        self.change_img(battle_ground_img)
 
-                battle_ground_img = sAssetMgr.images['in_battle']['battle']
-                # new img now
-                width, height = battle_ground_img.get_rect().size
+    def __init_new_battle_ground_img(self):
+        battle_ground_img = sAssetMgr.images['in_battle']['battle']
+        width, height = battle_ground_img.get_rect().size
+        battle_ground_img = pygame.transform.scale(battle_ground_img, (width, height))
+        return battle_ground_img
 
-                battle_ground_img = pygame.transform.scale(battle_ground_img, (width, height))  # 800, 400
+    def __paste_battle_timer(self, battle_ground_img):
+        if self.model.role.is_battle_timer_mine:
+            text = 'your turn'
+        else:
+            text = 'enemy turn'
 
-                battle_ground_img.blit(timer_text.image, timer_text.rect)
+        timer_text = Text(f'{text} {int(self.model.role.battle_timer)}', c.YELLOW)
+        timer_text.rect.x = 300
+        timer_text.rect.y = 50
 
-                # draw my ships
-                my_ships = self.model.role.ship_mgr.id_2_ship.values()
-                my_flag_ship = self.model.role.get_flag_ship()
+        battle_ground_img.blit(timer_text.image, timer_text.rect)
 
-                for id, ship in enumerate(my_ships):
-                    ship.role = self.model.role
-                    ship_in_battle_img = sAssetMgr.images['ship_in_battle'][str(ship.dir)]
+    def __paste_ships(self, battle_ground_img, my_flag_ship):
+        # my ships
+        my_ships = self.model.role.ship_mgr.id_2_ship.values()
+        for id, ship in enumerate(my_ships):
+            ship.role = self.model.role
+            ship_in_battle_img = sAssetMgr.images['ship_in_battle'][str(ship.dir)]
 
-                    x, y = ship.get_screen_xy(my_flag_ship)
-                    battle_ground_img.blit(ship_in_battle_img, (x, y))
+            x, y = ship.get_screen_xy(my_flag_ship)
+            battle_ground_img.blit(ship_in_battle_img, (x, y))
 
+        # enemy ships
+        enemy = self.model.get_enemy()
+        enemy_ships = enemy.ship_mgr.id_2_ship.values()
+        for id, ship in enumerate(enemy_ships):
+            ship_in_battle_img = sAssetMgr.images['ship_in_battle']['enemy'][str(ship.dir)]
+            x, y = ship.get_screen_xy(my_flag_ship)
+            battle_ground_img.blit(ship_in_battle_img, (x, y))
+        return my_flag_ship
 
-                # draw enemy ships
-                enemy_role = self.model.get_enemy_role()
-
-                if not enemy_role:
-                    enemy_npc = self.model.get_npc_by_id(self.model.role.battle_npc_id)
-                    if not enemy_npc:
-                        return
-
-                    enemy_ships = enemy_npc.ship_mgr.id_2_ship.values()
-                else:
-
-                    enemy_ships = enemy_role.ship_mgr.id_2_ship.values()
-
-                for id, ship in enumerate(enemy_ships):
-                    ship_in_battle_img = sAssetMgr.images['ship_in_battle']['enemy'][str(ship.dir)]
-                    x, y = ship.get_screen_xy(my_flag_ship)
-                    battle_ground_img.blit(ship_in_battle_img, (x, y))
-
-                # draw move marks
-                move_marks_offsets = c.DIR_2_MOVE_MARKS_OFFSETS[my_flag_ship.dir]
-
-                left_move_mark = MoveMark(move_marks_offsets[0][0],
-                                          move_marks_offsets[0][1],
-                                          pb.BattleDirType.LEFT)
-                right_move_mark = MoveMark(move_marks_offsets[1][0],
-                                           move_marks_offsets[1][1],
-                                           pb.BattleDirType.RIGHT)
-                cur_move_mark = MoveMark(move_marks_offsets[2][0],
-                                         move_marks_offsets[2][1],
-                                         pb.BattleDirType.CUR)
-
-                self.model.role.graphics.move_marks = [left_move_mark, right_move_mark, cur_move_mark]
-
-                for move_mark in self.model.role.graphics.move_marks:
-                    battle_ground_img.blit(move_mark.img, (move_mark.x, move_mark.y))
-
-                # draw shoot/engage marks
-
-                # self.sp_background.change_img(new_img)
-                self.change_img(battle_ground_img)
+    def __paste_move_marks(self, battle_ground_img, my_flag_ship):
+        move_marks_offsets = c.DIR_2_MOVE_MARKS_OFFSETS[my_flag_ship.dir]
+        left_move_mark = MoveMark(move_marks_offsets[0][0],
+                                  move_marks_offsets[0][1],
+                                  pb.BattleDirType.LEFT)
+        right_move_mark = MoveMark(move_marks_offsets[1][0],
+                                   move_marks_offsets[1][1],
+                                   pb.BattleDirType.RIGHT)
+        cur_move_mark = MoveMark(move_marks_offsets[2][0],
+                                 move_marks_offsets[2][1],
+                                 pb.BattleDirType.CUR)
+        self.model.role.graphics.move_marks = [left_move_mark, right_move_mark, cur_move_mark]
+        for move_mark in self.model.role.graphics.move_marks:
+            battle_ground_img.blit(move_mark.img, (move_mark.x, move_mark.y))
 
 
 class ShootDamageNumber(SP):

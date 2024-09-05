@@ -29,7 +29,7 @@ TO DO:
                 engage OK
 
                 move options don't collide with ships OK
-                after attack, other ships move
+                after attack, other ships move OK
                 after attack, clear marks
 
 

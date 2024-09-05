@@ -1082,13 +1082,23 @@ class Role:
     def send_to_self_and_enemy(self, pack):
         self.session.packet_handler.send_to_self_and_enemy(pack)
 
-    async def all_ships_attack_role(self):
+    async def all_ships_attack_role(self, include_flagship=True):
         # get enemy role and flag_ship
         enemy_role = self.session.packet_handler.get_enemy_role()
         flag_ship = enemy_role.get_flag_ship()
+        my_flag_ship = self.get_flag_ship()
+
 
         # for each ship
         for ship in self.ship_mgr.get_ships():
+            # wait some time
+            await asyncio.sleep(1)
+
+            # include flagship?
+            if not include_flagship:
+                if ship.id == my_flag_ship.id:
+                    continue
+
             # set target_ship
             ship.set_random_target_ship(enemy_role)
 
@@ -1104,8 +1114,7 @@ class Role:
             if has_won:
                 return
 
-            # wait some time
-            await asyncio.sleep(1)
+
 
         # switch battle timer
         await self.switch_turn_with_enemy()

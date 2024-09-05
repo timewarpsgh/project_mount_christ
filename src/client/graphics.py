@@ -181,6 +181,23 @@ class ShootMark():
             )
         )
 
+class EngageMark():
+
+    def __init__(self, x, y, target_ship_id):
+        self.x = x
+        self.y = y
+        self.img = sAssetMgr.images['in_battle']['engage_sign']
+        self.rect = self.img.get_rect().move(self.x, self.y)
+        self.target_ship_id = target_ship_id
+
+    def on_click(self, client):
+        client.send(
+            pb.FlagShipAttack(
+                attack_method_type=pb.AttackMethodType.ENGAGE,
+                target_ship_id=self.target_ship_id,
+            )
+        )
+
 
 class BackGround(SP):
     def __init__(self, model, image, x, y):
@@ -215,16 +232,25 @@ class BackGround(SP):
 
     def __paste_attack_marks(self, battle_ground_img, my_flag_ship):
         enemy = self.model.get_enemy()
+
         shoot_marks = []
+        engage_marks = []
+
         for ship in enemy.ship_mgr.get_ships():
-            if my_flag_ship.can_shoot(ship):
-                x, y = ship.get_screen_xy(my_flag_ship)
+            x, y = ship.get_screen_xy(my_flag_ship)
+
+            if my_flag_ship.can_engage(ship):
+                engage_mark = EngageMark(x, y, ship.id)
+                battle_ground_img.blit(engage_mark.img, (engage_mark.x, engage_mark.y))
+                engage_marks.append(engage_mark)
+
+            elif my_flag_ship.can_shoot(ship):
                 shoot_mark = ShootMark(x, y, ship.id)
                 battle_ground_img.blit(shoot_mark.img, (shoot_mark.x, shoot_mark.y))
                 shoot_marks.append(shoot_mark)
 
         self.model.role.graphics.shoot_marks = shoot_marks
-
+        self.model.role.graphics.engage_marks = engage_marks
     def __init_new_battle_ground_img(self):
         battle_ground_img = sAssetMgr.images['in_battle']['battle']
         width, height = battle_ground_img.get_rect().size
@@ -556,6 +582,7 @@ class Graphics:
         # move marks in battle
         self.move_marks = []
         self.shoot_marks = []
+        self.engage_marks = []
 
     def __load_images(self):
         imgs = {}
@@ -793,6 +820,10 @@ class Graphics:
                 if shoot_mark.rect.collidepoint(event.pos):
                     shoot_mark.on_click(self.client)
 
+            # check engage mark clicks
+            for engage_mark in self.model.role.graphics.engage_marks:
+                if engage_mark.rect.collidepoint(event.pos):
+                    engage_mark.on_click(self.client)
 
     def update(self, time_diff):
         self.sprites.update(time_diff)

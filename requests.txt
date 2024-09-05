@@ -26,7 +26,7 @@ TO DO:
 
             show attack options  ON
                 shoot  OK
-                engage
+                engage OK
 DONE:
 
     draw sprites in layer order 0-2 OK

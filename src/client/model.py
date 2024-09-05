@@ -186,6 +186,12 @@ class Ship:
         else:
             return False
 
+    def can_engage(self, ship):
+        if self.is_target_in_range(ship, is_for_engage=True):
+            return True
+        else:
+            return False
+
 @dataclass
 class Mate:
     id: int = None

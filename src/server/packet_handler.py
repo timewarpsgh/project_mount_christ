@@ -1211,3 +1211,6 @@ class PacketHandler:
         if attack_method_type == pb.AttackMethodType.SHOOT:
             if flag_ship.can_shoot(target_ship):
                 flag_ship.shoot(target_ship)
+        elif attack_method_type == pb.AttackMethodType.ENGAGE:
+            if flag_ship.can_engage(target_ship):
+                flag_ship.engage(target_ship)

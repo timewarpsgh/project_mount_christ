@@ -617,6 +617,9 @@ class ShipMgr:
     def init_ships_positions_in_battle(self, is_attacker=True):
         # initial x need to satisfy hex movement
         for id, ship in enumerate(self.id_2_ship.values()):
+
+            ship.role = self.role
+
             if is_attacker:
                 ship.x = 5
                 ship.y = 3 + id * 2
@@ -1113,8 +1116,6 @@ class Role:
 
             if has_won:
                 return
-
-
 
         # switch battle timer
         await self.switch_turn_with_enemy()

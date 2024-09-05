@@ -298,6 +298,7 @@ class Role:
     battle_role_id: int = None
     battle_timer: int = None
     is_battle_timer_mine: bool = None
+    has_attacked: bool = False
 
     def is_mine(self):
         if self.seen_grids is None:

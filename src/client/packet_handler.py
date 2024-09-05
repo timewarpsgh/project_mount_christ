@@ -485,6 +485,11 @@ class PacketHandler:
 
         self.__get_role().battle_timer = battle_timer_started.battle_timer
         self.__get_role().is_battle_timer_mine = battle_timer_started.role_id == self.__get_role().id
+        if self.__get_role().is_battle_timer_mine:
+            self.__get_role().has_attacked = False
+        else:
+            self.__get_role().has_attacked = True
+            self.__get_graphics().clear_marks()
 
     async def handle_ShipAttacked(self, ship_attacked):
 

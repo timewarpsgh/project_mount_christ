@@ -1191,7 +1191,6 @@ class PacketHandler:
         battle_dir_type = flag_ship_move.battle_dir_type
 
         flag_ship = self.role.get_flag_ship()
-        flag_ship.role = self.role
 
         if battle_dir_type == pb.BattleDirType.LEFT:
             flag_ship.move_to_left()

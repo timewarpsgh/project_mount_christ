@@ -223,8 +223,10 @@ class BackGround(SP):
         my_flag_ship = self.model.role.get_flag_ship()
 
         ships_positions = self.__paste_ships(battle_ground_img, my_flag_ship)
-        self.__paste_move_marks(battle_ground_img, my_flag_ship, ships_positions)
-        self.__paste_attack_marks(battle_ground_img, my_flag_ship)
+
+        if not self.model.role.has_attacked:
+            self.__paste_move_marks(battle_ground_img, my_flag_ship, ships_positions)
+            self.__paste_attack_marks(battle_ground_img, my_flag_ship)
 
         self.change_img(battle_ground_img)
 
@@ -596,6 +598,11 @@ class Graphics:
         self.shoot_marks = []
         self.engage_marks = []
 
+    def clear_marks(self):
+        self.move_marks = []
+        self.shoot_marks = []
+        self.engage_marks = []
+
     def __load_images(self):
         imgs = {}
 
@@ -831,11 +838,15 @@ class Graphics:
             for shoot_mark in self.model.role.graphics.shoot_marks:
                 if shoot_mark.rect.collidepoint(event.pos):
                     shoot_mark.on_click(self.client)
+                    self.model.role.has_attacked = True
+                    self.model.role.graphics.clear_marks()
 
             # check engage mark clicks
             for engage_mark in self.model.role.graphics.engage_marks:
                 if engage_mark.rect.collidepoint(event.pos):
                     engage_mark.on_click(self.client)
+                    self.model.role.has_attacked = True
+                    self.model.role.graphics.clear_marks()
 
     def update(self, time_diff):
         self.sprites.update(time_diff)

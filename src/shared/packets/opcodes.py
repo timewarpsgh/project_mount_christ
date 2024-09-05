@@ -92,6 +92,7 @@ class OpCodeType(Enum):
     SetShipStrategy = auto()
 
     FlagShipMove = auto()
+    FlagShipAttack = auto()
 
 def gen_opcode_2_value():
     d = {}

@@ -1199,3 +1199,15 @@ class PacketHandler:
             flag_ship.move_to_right()
         elif battle_dir_type == pb.BattleDirType.CUR:
             flag_ship.move_in_cur_dir()
+
+    async def handle_FlagShipAttack(self, pack):
+        attack_method_type = pack.attack_method_type
+        target_ship_id = pack.target_ship_id
+
+        flag_ship = self.role.get_flag_ship()
+        enemy = self.role.get_enemy()
+        target_ship = enemy.ship_mgr.get_ship(target_ship_id)
+
+        if attack_method_type == pb.AttackMethodType.SHOOT:
+            if flag_ship.can_shoot(target_ship):
+                flag_ship.shoot(target_ship)

@@ -1,4 +1,5 @@
 import sys
+import math
 from dataclasses import dataclass
 import login_pb2 as pb
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
@@ -127,6 +128,63 @@ class Ship:
         y = (self.y - my_flag_ship.y) * pixels + c.WINDOW_HEIGHT // 2
 
         return x, y
+
+    def is_target_in_range(self, ship, is_for_engage=False):
+        # get distance between self and ship
+        distance_squared = (self.x - ship.x) ** 2 + (self.y - ship.y) ** 2
+
+        if is_for_engage:
+            max_in_range_distance = c.MAX_ENGAGE_DISTANCE#1.5 # a little more than 1.4
+        else:
+            max_in_range_distance = c.MAX_SHOOT_DISTANCE  # 3
+
+        if distance_squared <= max_in_range_distance ** 2:
+            return True
+        else:
+            return False
+
+    def __is_angel_in_range(self, angle, angel_range):
+        if angle >= angel_range[0] and angle <= angel_range[1]:
+            return True
+        else:
+            return False
+
+    def is_target_in_angle(self, ship):
+        # get angle between the ships
+        angle = math.atan2(-(ship.y - self.y), ship.x - self.x)
+        angle = math.degrees(angle)
+        angle_0 = angle
+        angle_1 = angle - 360
+        angle_2 = angle + 360
+
+        # get angel range based on self.dir
+
+        hex_dir = c.DIR_2_HEX_DIR[self.dir]
+        degrees = 60
+        dir_angel = 90 - hex_dir * degrees
+        angle_range_low = [dir_angel - degrees - degrees, dir_angel - degrees] # 90 degrees
+        angle_range_high = [dir_angel + degrees, dir_angel + degrees + degrees] # 90 degrees
+
+
+        if self.__is_angel_in_range(angle_0, angle_range_low) or \
+                self.__is_angel_in_range(angle_0, angle_range_high):
+            return True
+
+        if self.__is_angel_in_range(angle_1, angle_range_low) or \
+                self.__is_angel_in_range(angle_1, angle_range_high):
+            return True
+
+        if self.__is_angel_in_range(angle_2, angle_range_low) or \
+                self.__is_angel_in_range(angle_2, angle_range_high):
+            return True
+
+        return False
+
+    def can_shoot(self, ship):
+        if self.is_target_in_range(ship) and self.is_target_in_angle(ship):
+            return True
+        else:
+            return False
 
 @dataclass
 class Mate:

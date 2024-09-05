@@ -25,7 +25,7 @@ TO DO:
 
 
             show attack options  ON
-                shoot
+                shoot  OK
                 engage
 DONE:
 

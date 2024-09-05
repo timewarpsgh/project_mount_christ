@@ -490,3 +490,8 @@ enum BattleDirType {
 message FlagShipMove{
     required BattleDirType battle_dir_type = 1;
 }
+
+message FlagShipAttack{
+    required AttackMethodType attack_method_type = 1;
+    required int32 target_ship_id = 2;
+}

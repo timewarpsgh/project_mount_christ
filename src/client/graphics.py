@@ -164,6 +164,24 @@ class MoveMark():
         client.send(pb.FlagShipMove(battle_dir_type=self.dir))
 
 
+class ShootMark():
+
+    def __init__(self, x, y, target_ship_id):
+        self.x = x
+        self.y = y
+        self.img = sAssetMgr.images['in_battle']['shoot_mark']
+        self.rect = self.img.get_rect().move(self.x, self.y)
+        self.target_ship_id = target_ship_id
+
+    def on_click(self, client):
+        client.send(
+            pb.FlagShipAttack(
+                attack_method_type=pb.AttackMethodType.SHOOT,
+                target_ship_id=self.target_ship_id,
+            )
+        )
+
+
 class BackGround(SP):
     def __init__(self, model, image, x, y):
         super().__init__(image, x, y, z=0)
@@ -183,18 +201,29 @@ class BackGround(SP):
                 self.__update_battle_scene()
 
     def __update_battle_scene(self):
-        # init new bg img
         battle_ground_img = self.__init_new_battle_ground_img()
-        # paste battle timer
         self.__paste_battle_timer(battle_ground_img)
-        # get my_flag_ship
         my_flag_ship = self.model.role.get_flag_ship()
-        # paste my ships
-        my_flag_ship = self.__paste_ships(battle_ground_img, my_flag_ship)
-        # paste move marks
+
+        self.__paste_ships(battle_ground_img, my_flag_ship)
+
         self.__paste_move_marks(battle_ground_img, my_flag_ship)
-        # draw shoot/engage marks
+
+        self.__paste_attack_marks(battle_ground_img, my_flag_ship)
+
         self.change_img(battle_ground_img)
+
+    def __paste_attack_marks(self, battle_ground_img, my_flag_ship):
+        enemy = self.model.get_enemy()
+        shoot_marks = []
+        for ship in enemy.ship_mgr.get_ships():
+            if my_flag_ship.can_shoot(ship):
+                x, y = ship.get_screen_xy(my_flag_ship)
+                shoot_mark = ShootMark(x, y, ship.id)
+                battle_ground_img.blit(shoot_mark.img, (shoot_mark.x, shoot_mark.y))
+                shoot_marks.append(shoot_mark)
+
+        self.model.role.graphics.shoot_marks = shoot_marks
 
     def __init_new_battle_ground_img(self):
         battle_ground_img = sAssetMgr.images['in_battle']['battle']
@@ -231,7 +260,6 @@ class BackGround(SP):
             ship_in_battle_img = sAssetMgr.images['ship_in_battle']['enemy'][str(ship.dir)]
             x, y = ship.get_screen_xy(my_flag_ship)
             battle_ground_img.blit(ship_in_battle_img, (x, y))
-        return my_flag_ship
 
     def __paste_move_marks(self, battle_ground_img, my_flag_ship):
         move_marks_offsets = c.DIR_2_MOVE_MARKS_OFFSETS[my_flag_ship.dir]
@@ -527,6 +555,7 @@ class Graphics:
 
         # move marks in battle
         self.move_marks = []
+        self.shoot_marks = []
 
     def __load_images(self):
         imgs = {}
@@ -754,11 +783,16 @@ class Graphics:
 
         # mouse clicks
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            # Check if the mouse click was on the sprite
+            # check move mark clicks
             for move_mark in self.model.role.graphics.move_marks:
                 if move_mark.rect.collidepoint(event.pos):
-                    print(f"move_mark clicked! {move_mark.dir}")
                     move_mark.on_click(self.client)
+
+            # check shoot mark clicks
+            for shoot_mark in self.model.role.graphics.shoot_marks:
+                if shoot_mark.rect.collidepoint(event.pos):
+                    shoot_mark.on_click(self.client)
+
 
     def update(self, time_diff):
         self.sprites.update(time_diff)

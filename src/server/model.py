@@ -66,6 +66,10 @@ class Ship:
     strategy: pb.AttackMethodType=pb.AttackMethodType.SHOOT
     steps_left: int=3
 
+
+    def reset_steps_left(self):
+        self.steps_left = 3
+
     def add_cargo(self, cargo_id, cargo_cnt):
         self.cargo_id = cargo_id
         self.cargo_cnt = cargo_cnt
@@ -139,6 +143,12 @@ class Ship:
         return is_self_dead, is_target_dead
 
     def move(self, dir):
+        if self.steps_left <= 0:
+            return
+
+        self.steps_left -= 1
+
+
         self.dir = dir
 
         if dir == pb.DirType.N:
@@ -164,6 +174,7 @@ class Ship:
             x=self.x,
             y=self.y,
             dir=self.dir,
+            steps_left=self.steps_left,
         )
         self.role.send_to_self_and_enemy(pack)
 
@@ -325,6 +336,9 @@ class Ship:
         return self.__can_move(self.dir)
 
     def __can_move(self, dir):
+        if self.steps_left <= 0:
+            return False
+
         # get future x,y
         future_x = self.x
         future_y = self.y
@@ -1102,14 +1116,9 @@ class Role:
                 if ship.id == my_flag_ship.id:
                     continue
 
-            # set target_ship
             ship.set_random_target_ship(enemy_role)
-
-            # set strategy
             ship.set_random_strategy()
-
-            # set role
-            ship.role = self
+            ship.reset_steps_left()
 
             # move_based_on_strategy
             has_won = await ship.move_based_on_strategy(enemy_role, flag_ship)

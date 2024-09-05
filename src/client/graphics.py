@@ -308,11 +308,13 @@ class BackGround(SP):
 
         move_marks = [left_move_mark, right_move_mark, cur_move_mark]
         valid_move_marks = []
-        for move_mark in move_marks:
-            if [move_mark.x, move_mark.y] in ships_positions:
-                continue
-            battle_ground_img.blit(move_mark.img, (move_mark.x, move_mark.y))
-            valid_move_marks.append(move_mark)
+        if my_flag_ship.steps_left >= 1:
+            for move_mark in move_marks:
+                if [move_mark.x, move_mark.y] in ships_positions:
+                    continue
+
+                battle_ground_img.blit(move_mark.img, (move_mark.x, move_mark.y))
+                valid_move_marks.append(move_mark)
 
         self.model.role.graphics.move_marks = valid_move_marks
 

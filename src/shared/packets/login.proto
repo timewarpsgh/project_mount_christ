@@ -451,6 +451,7 @@ message ShipMoved{
     required float x = 2;
     required float y = 3;
     required DirType dir = 4;
+    required int32 steps_left = 5;
 }
 
 // set all ships target

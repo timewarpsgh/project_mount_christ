@@ -564,11 +564,13 @@ class PacketHandler:
         x = ship_moved.x
         y = ship_moved.y
         dir = ship_moved.dir
+        steps_left = ship_moved.steps_left
 
         ship = self.__get_model().get_ship_in_battle_by_id(id)
         ship.x = x
         ship.y = y
         ship.dir = dir
+        ship.steps_left = steps_left
 
     async def handle_StartedMoving(self, started_moving):
         id = started_moving.id

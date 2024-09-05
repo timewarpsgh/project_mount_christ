@@ -53,6 +53,7 @@ class Ship:
     dir: int = pb.DirType.N
     target_ship: any = None
     strategy: pb.AttackMethodType = None
+    steps_left: int = None
 
     def __init__(self, prot_ship):
         self.id = prot_ship.id

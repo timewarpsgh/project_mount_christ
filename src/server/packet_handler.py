@@ -1096,6 +1096,7 @@ class PacketHandler:
                 x=ship.x,
                 y=ship.y,
                 dir=ship.dir,
+                steps_left=ship.steps_left,
             ))
 
         pack = EnteredBattleWithRole(
@@ -1111,6 +1112,7 @@ class PacketHandler:
                 x=ship.x,
                 y=ship.y,
                 dir=ship.dir,
+                steps_left=ship.steps_left,
             ))
 
         # init battle_timer (updated each session update)
@@ -1220,3 +1222,15 @@ class PacketHandler:
 
         elif attack_method_type == pb.AttackMethodType.HOLD:
             await self.role.all_ships_attack_role(include_flagship=False)
+
+        # reset flag_ship steps_left
+        flag_ship.reset_steps_left()
+
+        pack = pb.ShipMoved(
+            id=flag_ship.id,
+            x=flag_ship.x,
+            y=flag_ship.y,
+            dir=flag_ship.dir,
+            steps_left=flag_ship.steps_left,
+        )
+        self.session.send(pack)

@@ -33,7 +33,7 @@ TO DO:
                 after attack, clear marks  OK
 
                 Hold, when flagship clicked  OK
-                don't show move_marks when no steps left
+                don't show move_marks when no steps left  OK
 
 DONE:
 

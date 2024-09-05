@@ -265,5 +265,18 @@ DIR_2_HEX_DIR = {
     7: 5,
 }
 
+DIR_2_MOVE_MARKS_OFFSETS = {
+    # left, right, current
+    pb.DirType.N: [[-1, -0.5], [1, -0.5], [0, -1]],
+    pb.DirType.S: [[1, 0.5], [-1, 0.5], [0, 1]],
+
+    pb.DirType.NE: [[0, -1], [1, 0.5], [1, -0.5]],
+    pb.DirType.SW: [[0, 1], [-1, -0.5], [-1, 0.5]],
+
+    pb.DirType.SE: [[1, -0.5], [0, 1], [1, 0.5]],
+
+    pb.DirType.NW: [[-1, 0.5], [0, -1], [-1, -0.5]]
+}
+
 if __name__ == '__main__':
     print(SAILABLE_TILES)

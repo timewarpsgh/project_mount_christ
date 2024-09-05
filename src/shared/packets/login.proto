@@ -480,3 +480,13 @@ message SetShipStrategy{
     required int32 ship_id = 1;
     required AttackMethodType attack_method_type = 2;
 }
+
+enum BattleDirType {
+    LEFT = 0;
+    RIGHT = 1;
+    CUR = 2;
+}
+
+message FlagShipMove{
+    required BattleDirType battle_dir_type = 1;
+}

@@ -1186,3 +1186,16 @@ class PacketHandler:
         strategy = set_ship_strategy.attack_method_type
 
         self.role.set_ship_strategy(ship_id, strategy)
+
+    async def handle_FlagShipMove(self, flag_ship_move):
+        battle_dir_type = flag_ship_move.battle_dir_type
+
+        flag_ship = self.role.get_flag_ship()
+        flag_ship.role = self.role
+
+        if battle_dir_type == pb.BattleDirType.LEFT:
+            flag_ship.move_to_left()
+        elif battle_dir_type == pb.BattleDirType.RIGHT:
+            flag_ship.move_to_right()
+        elif battle_dir_type == pb.BattleDirType.CUR:
+            flag_ship.move_in_cur_dir()

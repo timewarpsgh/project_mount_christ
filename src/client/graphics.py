@@ -1,5 +1,6 @@
 import pygame
 import sys
+from enum import Enum, auto
 from login_pb2 import *
 import login_pb2 as pb
 
@@ -150,7 +151,17 @@ class Animation(SP):
                     self.change_img(self.frames[0])
 
 
+class MoveMark():
 
+    def __init__(self, x, y, dir):
+        self.x = c.WINDOW_WIDTH // 2 + x * c.BATTLE_TILE_SIZE
+        self.y = c.WINDOW_HEIGHT // 2 + y * c.BATTLE_TILE_SIZE
+        self.img = sAssetMgr.images['in_battle']['move_mark']
+        self.rect = self.img.get_rect().move(self.x, self.y)
+        self.dir = dir
+
+    def on_click(self, client):
+        client.send(pb.FlagShipMove(battle_dir_type=self.dir))
 
 
 class BackGround(SP):
@@ -217,8 +228,29 @@ class BackGround(SP):
                     x, y = ship.get_screen_xy(my_flag_ship)
                     battle_ground_img.blit(ship_in_battle_img, (x, y))
 
+                # draw move marks
+                move_marks_offsets = c.DIR_2_MOVE_MARKS_OFFSETS[my_flag_ship.dir]
+
+                left_move_mark = MoveMark(move_marks_offsets[0][0],
+                                          move_marks_offsets[0][1],
+                                          pb.BattleDirType.LEFT)
+                right_move_mark = MoveMark(move_marks_offsets[1][0],
+                                           move_marks_offsets[1][1],
+                                           pb.BattleDirType.RIGHT)
+                cur_move_mark = MoveMark(move_marks_offsets[2][0],
+                                         move_marks_offsets[2][1],
+                                         pb.BattleDirType.CUR)
+
+                self.model.role.graphics.move_marks = [left_move_mark, right_move_mark, cur_move_mark]
+
+                for move_mark in self.model.role.graphics.move_marks:
+                    battle_ground_img.blit(move_mark.img, (move_mark.x, move_mark.y))
+
+                # draw shoot/engage marks
+
                 # self.sp_background.change_img(new_img)
                 self.change_img(battle_ground_img)
+
 
 class ShootDamageNumber(SP):
     def __init__(self, number, x, y, color=c.YELLOW):
@@ -493,9 +525,11 @@ class Graphics:
         self.sprites.add(self.sp_hud_left)
         self.sprites.add(self.sp_hud_right)
 
-
         self.id_2_sp_role = {}
         self.id_2_sp_role_name = {}
+
+        # move marks in battle
+        self.move_marks = []
 
     def __load_images(self):
         imgs = {}
@@ -720,6 +754,14 @@ class Graphics:
             if event.key in [pygame.K_d, pygame.K_a, pygame.K_w, pygame.K_s]:
                 if self.model.role.is_in_port():
                     self.model.role.stop_moving()
+
+        # mouse clicks
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            # Check if the mouse click was on the sprite
+            for move_mark in self.model.role.graphics.move_marks:
+                if move_mark.rect.collidepoint(event.pos):
+                    print(f"move_mark clicked! {move_mark.dir}")
+                    move_mark.on_click(self.client)
 
     def update(self, time_diff):
         self.sprites.update(time_diff)

@@ -21,7 +21,9 @@ TO DO:
 
             show my flagship on center screen  OK
 
-            show move options
+            show move options  OK
+
+
             show shoot/engage options
 
 

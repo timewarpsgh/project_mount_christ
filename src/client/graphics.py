@@ -187,16 +187,17 @@ class BackGround(SP):
 
                 battle_ground_img.blit(timer_text.image, timer_text.rect)
 
-                # pixels
-                pixels = c.BATTLE_TILE_SIZE
-
                 # draw my ships
                 my_ships = self.model.role.ship_mgr.id_2_ship.values()
+                my_flag_ship = self.model.role.get_flag_ship()
+
                 for id, ship in enumerate(my_ships):
+                    ship.role = self.model.role
                     ship_in_battle_img = sAssetMgr.images['ship_in_battle'][str(ship.dir)]
 
-                    battle_ground_img.blit(ship_in_battle_img, (ship.x * pixels,
-                                                                ship.y * pixels))
+                    x, y = ship.get_screen_xy(my_flag_ship)
+                    battle_ground_img.blit(ship_in_battle_img, (x, y))
+
 
                 # draw enemy ships
                 enemy_role = self.model.get_enemy_role()
@@ -213,8 +214,8 @@ class BackGround(SP):
 
                 for id, ship in enumerate(enemy_ships):
                     ship_in_battle_img = sAssetMgr.images['ship_in_battle']['enemy'][str(ship.dir)]
-                    battle_ground_img.blit(ship_in_battle_img, (ship.x * pixels,
-                                                                ship.y * pixels))
+                    x, y = ship.get_screen_xy(my_flag_ship)
+                    battle_ground_img.blit(ship_in_battle_img, (x, y))
 
                 # self.sp_background.change_img(new_img)
                 self.change_img(battle_ground_img)

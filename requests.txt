@@ -19,7 +19,8 @@ TO DO:
             use hex movement in battle OK
 
 
-            show my flagship on center screen
+            show my flagship on center screen  OK
+
             show move options
             show shoot/engage options
 

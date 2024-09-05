@@ -487,6 +487,8 @@ class PacketHandler:
         self.__get_role().is_battle_timer_mine = battle_timer_started.role_id == self.__get_role().id
 
     async def handle_ShipAttacked(self, ship_attacked):
+
+
         # engage
         if ship_attacked.attack_method_type == pb.AttackMethodType.ENGAGE:
             # show cannon_ball
@@ -500,6 +502,7 @@ class PacketHandler:
 
             src_ship = self.__get_model().get_ship_in_battle_by_id(src_id)
             dst_ship = self.__get_model().get_ship_in_battle_by_id(dst_id)
+            my_flag_ship = self.__get_role().get_flag_ship()
 
             # modify model
             src_ship.now_crew -= src_damage
@@ -508,17 +511,15 @@ class PacketHandler:
             # show graphics
             pixels = c.BATTLE_TILE_SIZE
 
-            d_x = dst_ship.x - src_ship.x
-            d_y = dst_ship.y - src_ship.y
+            src_x, src_y = src_ship.get_screen_xy(my_flag_ship)
+            dst_x, dst_y = dst_ship.get_screen_xy(my_flag_ship)
 
             sAssetMgr.sounds['engage'].play()
-            self.__get_graphics().show_engage_sign(dst_ship.x * pixels, dst_ship.y * pixels)
-            self.__get_graphics().show_engage_sign(src_ship.x * pixels, src_ship.y * pixels)
+            self.__get_graphics().show_engage_sign(dst_x, dst_y)
+            self.__get_graphics().show_engage_sign(src_x, src_y)
 
-            self.__get_graphics().show_damage(dst_damage, dst_ship.x * pixels,
-                                              dst_ship.y * pixels, color=c.WHITE)
-            self.__get_graphics().show_damage(src_damage, src_ship.x * pixels,
-                                              src_ship.y * pixels, color=c.WHITE)
+            self.__get_graphics().show_damage(dst_damage, dst_x, dst_y, color=c.WHITE)
+            self.__get_graphics().show_damage(src_damage, src_x, src_y, color=c.WHITE)
 
         # shoot
         elif ship_attacked.attack_method_type == pb.AttackMethodType.SHOOT:
@@ -529,12 +530,10 @@ class PacketHandler:
             dst_id = ship_attacked.dst_id
             dst_damage = ship_attacked.dst_damage
 
-            print(f'ship shot {src_id} {dst_id} {dst_damage}')
 
             src_ship = self.__get_model().get_ship_in_battle_by_id(src_id)
             dst_ship = self.__get_model().get_ship_in_battle_by_id(dst_id)
-
-            print(f'target ship x y: {dst_ship.x}  {dst_ship.y}')
+            my_flag_ship = self.__get_role().get_flag_ship()
 
             # modify model
             dst_ship.now_durability -= dst_damage
@@ -543,16 +542,17 @@ class PacketHandler:
             pixels = c.BATTLE_TILE_SIZE
             half_ps = pixels // 2
 
-
-            self.__get_graphics().show_cannon(src_ship.x * pixels + half_ps,
-                                              src_ship.y * pixels + half_ps,
-                                              dst_ship.x * pixels + half_ps,
-                                              dst_ship.y * pixels + half_ps)
+            src_x, src_y = src_ship.get_screen_xy(my_flag_ship)
+            dst_x, dst_y = dst_ship.get_screen_xy(my_flag_ship)
+            self.__get_graphics().show_cannon(src_x + half_ps,
+                                              src_y + half_ps,
+                                              dst_x + half_ps,
+                                              dst_y + half_ps)
             sAssetMgr.sounds['shoot'].play()
             await asyncio.sleep(0.6)
-            self.__get_graphics().show_damage(dst_damage, dst_ship.x * pixels, dst_ship.y * pixels)
+            self.__get_graphics().show_damage(dst_damage, dst_x, dst_y)
             sAssetMgr.sounds['explosion'].play()
-            self.__get_graphics().show_explosion(dst_ship.x * pixels, dst_ship.y * pixels)
+            self.__get_graphics().show_explosion(dst_x, dst_y)
 
     async def handle_ShipMoved(self, ship_moved):
         id = ship_moved.id

@@ -11,6 +11,7 @@ from map_maker import sMapMaker
 class Ship:
     id: int = None
     role_id: int = None
+    role: any = None
 
     name: str = None
     ship_template_id: int = None
@@ -109,6 +110,23 @@ class Ship:
 
     def set_strategy(self, strategy):
         self.strategy = strategy
+
+    def is_flag_ship(self):
+        if not self.captain:
+            return False
+        mate = self.role.mate_mgr.get_mate(self.captain)
+        if mate.name == self.role.name:
+            return True
+        else:
+            return False
+
+    def get_screen_xy(self, my_flag_ship):
+        pixels = c.BATTLE_TILE_SIZE
+
+        x = (self.x - my_flag_ship.x) * pixels + c.WINDOW_WIDTH // 2
+        y = (self.y - my_flag_ship.y) * pixels + c.WINDOW_HEIGHT // 2
+
+        return x, y
 
 @dataclass
 class Mate:
@@ -420,6 +438,16 @@ class Role:
     def set_ship_strategy(self, ship_id, strategy):
         ship = self.ship_mgr.get_ship(ship_id)
         ship.set_strategy(strategy)
+
+    def get_flag_ship(self):
+        for id, ship in self.ship_mgr.id_2_ship.items():
+            mate_id = ship.captain
+            if not mate_id:
+                continue
+
+            mate = self.mate_mgr.get_mate(mate_id)
+            if mate.name == self.name:
+                return ship
 
 @dataclass
 class Npc(Role):

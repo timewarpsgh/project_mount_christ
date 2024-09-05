@@ -404,6 +404,8 @@ class Ship:
         has_attacked = False
         left_steps = 3
         for i in range(left_steps):
+            await asyncio.sleep(0.3)
+
             if self.is_target_in_range(target_ship):
                 if self.is_target_in_angle(target_ship):
                     damage, is_target_sunk = self.shoot(target_ship)
@@ -413,7 +415,7 @@ class Ship:
                     self.move_further(target_ship)
             else:
                 self.move_closer(target_ship)
-                await asyncio.sleep(0.3)
+
 
         # if has_attacked and target is_sunk
         if has_attacked and is_target_sunk:
@@ -440,13 +442,15 @@ class Ship:
         has_attacked = False
         left_steps = 3
         for i in range(left_steps):
+            await asyncio.sleep(0.3)
+
             if self.is_target_in_range(target_ship, is_for_engage=True):
                 is_self_dead, is_target_dead = self.engage(target_ship)
                 has_attacked = True
                 break
             else:
                 self.move_closer(target_ship)
-                await asyncio.sleep(0.3)
+
 
         # if has_attacked and target is_sunk
         if has_attacked:
@@ -611,7 +615,7 @@ class ShipMgr:
                 ship.x = 5
                 ship.y = 3 + id * 2
             else:
-                ship.x = 15
+                ship.x = 11
                 ship.y = 3 + id * 2
 
     def gen_ships_prots(self):
@@ -1095,7 +1099,7 @@ class Role:
                 return
 
             # wait some time
-            await asyncio.sleep(2)
+            await asyncio.sleep(1)
 
         # switch battle timer
         await self.switch_turn_with_enemy()

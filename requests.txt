@@ -27,6 +27,12 @@ TO DO:
             show attack options  ON
                 shoot  OK
                 engage OK
+
+                move options don't collide with ships OK
+                after attack, other ships move
+                after attack, clear marks
+
+
 DONE:
 
     draw sprites in layer order 0-2 OK

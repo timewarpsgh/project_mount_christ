@@ -222,10 +222,8 @@ class BackGround(SP):
         self.__paste_battle_timer(battle_ground_img)
         my_flag_ship = self.model.role.get_flag_ship()
 
-        self.__paste_ships(battle_ground_img, my_flag_ship)
-
-        self.__paste_move_marks(battle_ground_img, my_flag_ship)
-
+        ships_positions = self.__paste_ships(battle_ground_img, my_flag_ship)
+        self.__paste_move_marks(battle_ground_img, my_flag_ship, ships_positions)
         self.__paste_attack_marks(battle_ground_img, my_flag_ship)
 
         self.change_img(battle_ground_img)
@@ -251,6 +249,7 @@ class BackGround(SP):
 
         self.model.role.graphics.shoot_marks = shoot_marks
         self.model.role.graphics.engage_marks = engage_marks
+
     def __init_new_battle_ground_img(self):
         battle_ground_img = sAssetMgr.images['in_battle']['battle']
         width, height = battle_ground_img.get_rect().size
@@ -270,6 +269,8 @@ class BackGround(SP):
         battle_ground_img.blit(timer_text.image, timer_text.rect)
 
     def __paste_ships(self, battle_ground_img, my_flag_ship):
+        ships_positions = []
+
         # my ships
         my_ships = self.model.role.ship_mgr.id_2_ship.values()
         for id, ship in enumerate(my_ships):
@@ -278,6 +279,7 @@ class BackGround(SP):
 
             x, y = ship.get_screen_xy(my_flag_ship)
             battle_ground_img.blit(ship_in_battle_img, (x, y))
+            ships_positions.append([x, y])
 
         # enemy ships
         enemy = self.model.get_enemy()
@@ -286,8 +288,11 @@ class BackGround(SP):
             ship_in_battle_img = sAssetMgr.images['ship_in_battle']['enemy'][str(ship.dir)]
             x, y = ship.get_screen_xy(my_flag_ship)
             battle_ground_img.blit(ship_in_battle_img, (x, y))
+            ships_positions.append([x, y])
 
-    def __paste_move_marks(self, battle_ground_img, my_flag_ship):
+        return ships_positions
+
+    def __paste_move_marks(self, battle_ground_img, my_flag_ship, ships_positions):
         move_marks_offsets = c.DIR_2_MOVE_MARKS_OFFSETS[my_flag_ship.dir]
         left_move_mark = MoveMark(move_marks_offsets[0][0],
                                   move_marks_offsets[0][1],
@@ -298,9 +303,16 @@ class BackGround(SP):
         cur_move_mark = MoveMark(move_marks_offsets[2][0],
                                  move_marks_offsets[2][1],
                                  pb.BattleDirType.CUR)
-        self.model.role.graphics.move_marks = [left_move_mark, right_move_mark, cur_move_mark]
-        for move_mark in self.model.role.graphics.move_marks:
+
+        move_marks = [left_move_mark, right_move_mark, cur_move_mark]
+        valid_move_marks = []
+        for move_mark in move_marks:
+            if [move_mark.x, move_mark.y] in ships_positions:
+                continue
             battle_ground_img.blit(move_mark.img, (move_mark.x, move_mark.y))
+            valid_move_marks.append(move_mark)
+
+        self.model.role.graphics.move_marks = valid_move_marks
 
 
 class ShootDamageNumber(SP):

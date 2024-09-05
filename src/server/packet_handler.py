@@ -1205,7 +1205,8 @@ class PacketHandler:
 
         flag_ship = self.role.get_flag_ship()
         enemy = self.role.get_enemy()
-        target_ship = enemy.ship_mgr.get_ship(target_ship_id)
+        if target_ship_id:
+            target_ship = enemy.ship_mgr.get_ship(target_ship_id)
 
         if attack_method_type == pb.AttackMethodType.SHOOT:
             if flag_ship.can_shoot(target_ship):
@@ -1216,3 +1217,6 @@ class PacketHandler:
             if flag_ship.can_engage(target_ship):
                 flag_ship.engage(target_ship)
                 await self.role.all_ships_attack_role(include_flagship=False)
+
+        elif attack_method_type == pb.AttackMethodType.HOLD:
+            await self.role.all_ships_attack_role(include_flagship=False)

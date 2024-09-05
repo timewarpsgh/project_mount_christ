@@ -848,6 +848,13 @@ class Graphics:
                     self.model.role.has_attacked = True
                     self.model.role.graphics.clear_marks()
 
+            # hold if role sprite clicked
+            if self.model.role.graphics.sp_role.rect.collidepoint(event.pos):
+
+                self.client.send(pb.FlagShipAttack(attack_method_type=pb.AttackMethodType.HOLD))
+                self.model.role.has_attacked = True
+                self.model.role.graphics.clear_marks()
+
     def update(self, time_diff):
         self.sprites.update(time_diff)
 

@@ -32,8 +32,8 @@ TO DO:
                 after attack, other ships move OK
                 after attack, clear marks  OK
 
-                after steps used up, show X mark(others move) ON
-
+                Hold, when flagship clicked  OK
+                don't show move_marks when no steps left
 
 DONE:
 

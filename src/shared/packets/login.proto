@@ -493,5 +493,5 @@ message FlagShipMove{
 
 message FlagShipAttack{
     required AttackMethodType attack_method_type = 1;
-    required int32 target_ship_id = 2;
+    optional int32 target_ship_id = 2;
 }

@@ -407,11 +407,8 @@ class PacketHandler:
     async def handle_ShipRemoved(self, ship_removed):
         print('ship id removed!!')
         print(ship_removed.id)
-
         self.__get_role().ship_mgr.rm_ship(ship_removed.id)
-        enemy_role = self.__get_model().get_enemy_role()
-        if enemy_role:
-            enemy_role.ship_mgr.rm_ship(ship_removed.id)
+        self.__get_role().get_enemy().ship_mgr.rm_ship(ship_removed.id)
 
     async def handle_ShipsToBuy(self, ships_to_buy):
         print('ships to buy')

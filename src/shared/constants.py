@@ -1,7 +1,5 @@
 import sys
 
-
-
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
@@ -21,14 +19,17 @@ FRAME_RATE = 240
 PORT_SPEED = 80
 NPC_SPEED = 20
 
-# BATTLE CONFIGS
-MAX_ENGAGE_DISTANCE = 1.5#1.5  30
-MAX_SHOOT_DISTANCE = 5#3    30
+############## BATTLE CONFIGS ##############
 STEPS_LEFT = 30
-SHOOT_DAMAGE = 1 #50
+
+MAX_SHOOT_DISTANCE = 30#3    30
+SHOOT_DAMAGE = 50 #50
+
+MAX_ENGAGE_DISTANCE = 1.5#1.5  30
 ENGAGE_TARGET_DAMAGE = 2 #200
 ENGAGE_SELF_DAMAGE = 1
 
+#########################################################
 
 NPC_ROLE_START_ID = 2,000,000,000
 

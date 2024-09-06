@@ -420,7 +420,7 @@ class Ship:
                 # right or 180 degrees
                 self.__try_to_move_to_left()
 
-    async def try_to_shoot(self, enemy_role, flag_ship)->bool:
+    async def try_to_shoot(self, enemy, flag_ship)->bool:
         """returns has_won"""
         has_won = False
 
@@ -447,18 +447,18 @@ class Ship:
         if has_attacked and is_target_sunk:
 
             if target_ship.id == flag_ship.id:
-                self.role.win(enemy_role)
+                self.role.win(enemy)
                 has_won = True
                 return has_won
 
-            if target_ship.id not in enemy_role.ship_mgr.id_2_ship:
+            if target_ship.id not in enemy.ship_mgr.id_2_ship:
                 return has_won
 
-            enemy_role.ship_mgr.rm_ship(target_ship.id)
+            enemy.ship_mgr.rm_ship(target_ship.id)
 
         return has_won
 
-    async def try_to_engage(self, enemy_role, flag_ship):
+    async def try_to_engage(self, enemy, flag_ship):
         """returns has_won"""
         has_won = False
 
@@ -482,7 +482,7 @@ class Ship:
         if has_attacked:
             if is_target_dead:
                 if target_ship.id == flag_ship.id:
-                    self.role.win(enemy_role)
+                    self.role.win(enemy)
                     has_won = True
                     return has_won
             elif is_self_dead:
@@ -863,45 +863,55 @@ class Role:
         distance = 3
         return abs(self.x - target_role.x) <= distance and abs(self.y - target_role.y) <= distance
 
-    def win(self, target_role):
+    def win(self, enemy):
 
-        for id in target_role.get_non_flag_ships_ids():
-            print(f'## non flagship id {id}')
+        if self.is_role():
+            if self.is_in_battle_with_role():
+                for id in enemy.get_non_flag_ships_ids():
+                    print(f'## non flagship id {id}')
 
-            # add to my role
-            ship = target_role.ship_mgr.get_ship(id)
-            prev_ship_name = ship.name
-            ship.name = self.ship_mgr.get_new_ship_name()
-            ship.role_id = self.id
-            self.ship_mgr.add_ship(ship)
+                    # add to my role
+                    ship = enemy.ship_mgr.get_ship(id)
+                    prev_ship_name = ship.name
+                    ship.name = self.ship_mgr.get_new_ship_name()
+                    ship.role_id = self.id
+                    self.ship_mgr.add_ship(ship)
 
-            ship_proto = ship.gen_ship_proto()
-            self.session.send(pb.GotNewShip(ship=ship_proto))
-            self.session.send(pb.GotChat(
-                chat_type=pb.ChatType.SYSTEM,
-                text=f'acquired ship {prev_ship_name} as {ship.name}',
-            ))
+                    ship_proto = ship.gen_ship_proto()
+                    self.session.send(pb.GotNewShip(ship=ship_proto))
+                    self.session.send(pb.GotChat(
+                        chat_type=pb.ChatType.SYSTEM,
+                        text=f'acquired ship {prev_ship_name} as {ship.name}',
+                    ))
 
-            # remove from target role
-            del target_role.ship_mgr.id_2_ship[id]
-            target_role.session.send(pb.ShipRemoved(id=id))
-            target_role.session.send(pb.GotChat(
-                chat_type=pb.ChatType.SYSTEM,
-                text=f'lost ship {prev_ship_name}',
-            ))
+                    # remove from target role
+                    del enemy.ship_mgr.id_2_ship[id]
+                    enemy.session.send(pb.ShipRemoved(id=id))
+                    enemy.session.send(pb.GotChat(
+                        chat_type=pb.ChatType.SYSTEM,
+                        text=f'lost ship {prev_ship_name}',
+                    ))
 
-        # tell client
-        self.session.send(pb.EscapedRoleBattle())
-        target_role.session.send(pb.EscapedRoleBattle())
+                # tell client
+                self.session.send(pb.EscapedRoleBattle())
+                enemy.session.send(pb.EscapedRoleBattle())
 
-        target_role.battle_role_id = None
-        self.battle_role_id = None
+                enemy.battle_role_id = None
+                self.battle_role_id = None
 
-        # notify nearby roles
-        sMapMgr.add_object(self)
-        sMapMgr.add_object(target_role)
-        self.session.packet_handler.send_role_appeared_to_nearby_roles()
-        target_role.session.packet_handler.send_role_appeared_to_nearby_roles()
+                # notify nearby roles
+                sMapMgr.add_object(self)
+                sMapMgr.add_object(enemy)
+                self.session.packet_handler.send_role_appeared_to_nearby_roles()
+                enemy.session.packet_handler.send_role_appeared_to_nearby_roles()
+
+            elif self.is_in_battle_with_npc():
+                self.win_npc()
+
+        elif self.is_npc():
+            if self.is_in_battle_with_role():
+                role = self.battle_role
+                role.lose_to_npc()
 
     async def switch_turn_with_enemy(self):
         if self.is_role():
@@ -961,7 +971,7 @@ class Role:
                 await self.switch_turn_with_enemy()
 
     def win_npc(self):
-        for id, ship in self.npc_instance.ship_mgr.id_2_ship.items():
+        for ship in self.npc_instance.ship_mgr.get_ships():
             new_ship_id = self.session.server.id_mgr.gen_new_ship_id()
             ship.id = new_ship_id
             ship.name = self.ship_mgr.get_new_ship_name()
@@ -993,7 +1003,7 @@ class Role:
 
         # notify nearby roles
         sMapMgr.add_object(self)
-        self.send_role_appeared_to_nearby_roles()
+        self.session.packet_handler.send_role_appeared_to_nearby_roles()
 
 
     def send_to_self_and_enemy(self, pack):

@@ -11,7 +11,8 @@ TO DO:
 
         test npc move OK
 
-        refactor win_role, so it works for both role and npc ON
+        refactor win_role, so it works for both role and npc  OK
+
 
 
 

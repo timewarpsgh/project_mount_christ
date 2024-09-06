@@ -281,6 +281,10 @@ class BackGround(SP):
 
             x, y = ship.get_screen_xy(my_flag_ship)
             battle_ground_img.blit(ship_in_battle_img, (x, y))
+
+            ship_name_text = Text(f'{id}', c.WHITE)
+            battle_ground_img.blit(ship_name_text.image, (x , y))
+
             ships_positions.append([x, y])
 
         # enemy ships
@@ -290,6 +294,10 @@ class BackGround(SP):
             ship_in_battle_img = sAssetMgr.images['ship_in_battle']['enemy'][str(ship.dir)]
             x, y = ship.get_screen_xy(my_flag_ship)
             battle_ground_img.blit(ship_in_battle_img, (x, y))
+
+            ship_name_text = Text(f'{id}', c.YELLOW)
+            battle_ground_img.blit(ship_name_text.image, (x, y))
+
             ships_positions.append([x, y])
 
         return ships_positions

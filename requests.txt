@@ -1,6 +1,24 @@
 TO DO:
 
     fight role ON
+
+        battle menu  ON
+            show attack options  OK
+
+            show ship numbers  OK
+
+
+            shoot enemy flagship to win
+            engage enemy flagship to win
+            shoot enemy ship  to sink it
+            engage enemy ship to disable it
+
+
+
+
+DONE:
+
+    fight role ON
         show ships in battle sprites OK
         at sea show other ships sprites OK
         don't stack ships OK
@@ -20,36 +38,6 @@ TO DO:
 
 
             show my flagship on center screen  OK
-
-            show move options  OK
-
-
-            show attack options  ON
-                shoot  OK
-                engage OK
-
-                move options don't collide with ships OK
-                after attack, other ships move OK
-                after attack, clear marks  OK
-
-                Hold, when flagship clicked  OK
-                don't show move_marks when no steps left  OK
-
-DONE:
-
-    draw sprites in layer order 0-2 OK
-
-    on role move, cell change at sea maybe OK
-        on cell change, need to tell nearby roles OK
-        someone appeared, and startedmoving OK
-
-    login a third role OK
-
-    sail, show ship near port, not on port OK
-    display my name on hud OK
-    display port pos when in port OK
-
-    menu clicked backgound OK
 
 
 

@@ -54,6 +54,7 @@ class Ship:
     target_ship: any = None
     strategy: pb.AttackMethodType = None
     steps_left: int = None
+    num: int = None
 
     def __init__(self, prot_ship):
         self.id = prot_ship.id
@@ -240,6 +241,7 @@ class ShipMgr:
 
     def get_ships(self):
         return self.id_2_ship.values()
+
 
 class MateMgr:
 

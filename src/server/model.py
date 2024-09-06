@@ -142,6 +142,12 @@ class Ship:
 
         return is_self_dead, is_target_dead
 
+    def is_alive(self):
+        if self.now_crew > 0:
+            return True
+        else:
+            return False
+
     def move(self, dir):
         if self.steps_left <= 0:
             return
@@ -511,9 +517,6 @@ class Ship:
 
         return has_won
 
-    def is_alive(self):
-        return self.now_durability > 0
-
     def gen_ship_proto(self):
         ship_proto = pb.Ship(
             id=self.id,
@@ -550,15 +553,12 @@ class Ship:
 
     def set_random_target_ship(self, enemy_role):
         if not self.target_ship:
-            enemy_ship = enemy_role.get_random_ship()
-            self.target_ship = enemy_ship
+            self.target_ship = enemy_role.get_random_ship()
         else:
             if self.target_ship.id not in enemy_role.ship_mgr.id_2_ship:
-                enemy_ship = enemy_role.get_random_ship()
-                self.target_ship = enemy_ship
-            else:
-                enemy_ship = self.target_ship
-        return enemy_ship
+                self.target_ship = enemy_role.get_random_ship()
+            elif not self.target_ship.is_alive():
+                self.target_ship = enemy_role.get_random_ship()
 
     def set_random_strategy(self):
         if self.strategy is None:
@@ -846,8 +846,8 @@ class Role:
 
 
     def get_random_ship(self):
-        ship_ids = self.ship_mgr.id_2_ship.keys()
-        return self.ship_mgr.id_2_ship[random.choice(list(ship_ids))]
+        alive_ships = [ship for ship in self.ship_mgr.get_ships() if ship.is_alive()]
+        return random.choice(alive_ships)
 
     def get_non_flag_ships_ids(self):
         flag_ship = self.get_flag_ship()
@@ -1108,8 +1108,11 @@ class Role:
 
         # for each ship
         for ship in self.ship_mgr.get_ships():
+            if not ship.is_alive():
+                continue
+
             # wait some time
-            await asyncio.sleep(1)
+            await asyncio.sleep(0.6)
 
             # include flagship?
             if not include_flagship:

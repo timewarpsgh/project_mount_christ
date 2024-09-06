@@ -237,6 +237,8 @@ class BackGround(SP):
         engage_marks = []
 
         for ship in enemy.ship_mgr.get_ships():
+            if not ship.is_alive():
+                continue
             x, y = ship.get_screen_xy(my_flag_ship)
 
             if my_flag_ship.can_engage(ship):
@@ -282,8 +284,9 @@ class BackGround(SP):
             x, y = ship.get_screen_xy(my_flag_ship)
             battle_ground_img.blit(ship_in_battle_img, (x, y))
 
-            ship_name_text = Text(f'{id}', c.WHITE)
-            battle_ground_img.blit(ship_name_text.image, (x , y))
+            if ship.is_alive():
+                ship_name_text = Text(f'{id}', c.WHITE)
+                battle_ground_img.blit(ship_name_text.image, (x , y))
 
             ships_positions.append([x, y])
 
@@ -295,8 +298,9 @@ class BackGround(SP):
             x, y = ship.get_screen_xy(my_flag_ship)
             battle_ground_img.blit(ship_in_battle_img, (x, y))
 
-            ship_name_text = Text(f'{id}', c.YELLOW)
-            battle_ground_img.blit(ship_name_text.image, (x, y))
+            if ship.is_alive():
+                ship_name_text = Text(f'{id}', c.YELLOW)
+                battle_ground_img.blit(ship_name_text.image, (x, y))
 
             ships_positions.append([x, y])
 

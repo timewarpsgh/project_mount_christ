@@ -114,6 +114,12 @@ class Ship:
     def set_strategy(self, strategy):
         self.strategy = strategy
 
+    def is_alive(self):
+        if self.now_crew > 0:
+            return True
+        else:
+            return False
+
     def is_flag_ship(self):
         if not self.captain:
             return False

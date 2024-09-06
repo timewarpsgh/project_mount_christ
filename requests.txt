@@ -5,6 +5,8 @@ TO DO:
     fight npc ON
         treat npc as role with id > 2B
 
+        npc attack role OK
+        role attack npc ON
 
 
 

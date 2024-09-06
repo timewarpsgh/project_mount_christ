@@ -502,14 +502,14 @@ class Ship:
             pass
             await asyncio.sleep(0.3)
 
-    async def move_based_on_strategy(self, enemy_role, flag_ship):
+    async def move_based_on_strategy(self, enemy, enemy_flag_ship):
         # shoot or engage based on strategy
         has_won = False
 
         if self.strategy == pb.AttackMethodType.SHOOT:
-            has_won = await self.try_to_shoot(enemy_role, flag_ship)
+            has_won = await self.try_to_shoot(enemy, enemy_flag_ship)
         elif self.strategy == pb.AttackMethodType.ENGAGE:
-            has_won = await self.try_to_engage(enemy_role, flag_ship)
+            has_won = await self.try_to_engage(enemy, enemy_flag_ship)
         elif self.strategy == pb.AttackMethodType.FLEE:
             await self.__try_to_flee()
         elif self.strategy == pb.AttackMethodType.HOLD:
@@ -551,14 +551,14 @@ class Ship:
 
         return ship_proto
 
-    def set_random_target_ship(self, enemy_role):
+    def set_random_target_ship(self, enemy):
         if not self.target_ship:
-            self.target_ship = enemy_role.get_random_ship()
+            self.target_ship = enemy.get_random_ship()
         else:
-            if self.target_ship.id not in enemy_role.ship_mgr.id_2_ship:
-                self.target_ship = enemy_role.get_random_ship()
+            if self.target_ship.id not in enemy.ship_mgr.id_2_ship:
+                self.target_ship = enemy.get_random_ship()
             elif not self.target_ship.is_alive():
-                self.target_ship = enemy_role.get_random_ship()
+                self.target_ship = enemy.get_random_ship()
 
     def set_random_strategy(self):
         if self.strategy is None:
@@ -704,6 +704,7 @@ class Role:
     battle_role_id: int=None
     battle_timer: int=None
     npc_instance: any=None
+    battle_role: any=None
 
     def __get_grid_xy(self, x, y):
         grid_x = int(y / c.SIZE_OF_ONE_GRID)
@@ -829,13 +830,17 @@ class Role:
         return self.session.packet_handler.get_enemy_role()
 
     def get_enemy(self):
-        if self.is_in_battle_with_role():
-            return self.session.packet_handler.get_enemy_role()
-        elif self.is_in_battle_with_npc():
-            return self.npc_instance
+        if self.is_role():
+            if self.is_in_battle_with_role():
+                return self.session.packet_handler.get_enemy_role()
+            elif self.is_in_battle_with_npc():
+                return self.npc_instance
+        elif self.is_npc():
+            if self.is_in_battle_with_role():
+                return self.battle_role
 
     def get_flag_ship(self):
-        for id, ship in self.ship_mgr.id_2_ship.items():
+        for ship in self.ship_mgr.get_ships():
             mate_id = ship.captain
             if not mate_id:
                 continue
@@ -899,34 +904,46 @@ class Role:
         target_role.session.packet_handler.send_role_appeared_to_nearby_roles()
 
     async def switch_turn_with_enemy(self):
-        # set mine to none
-        self.battle_timer = None
+        if self.is_role():
 
-        # enemy is role
-        if self.is_in_battle_with_role():
-            enemy_role = self.session.packet_handler.get_enemy_role()
-            enemy_role.battle_timer = c.BATTLE_TIMER_IN_SECONDS
+            # set mine to none
+            self.battle_timer = None
 
-            pack = pb.BattleTimerStarted(
-                battle_timer=enemy_role.battle_timer,
-                role_id=enemy_role.id,
-            )
-            self.session.send(pack)
-            enemy_role.session.send(pack)
+            # enemy is role
+            if self.is_in_battle_with_role():
+                enemy_role = self.session.packet_handler.get_enemy_role()
+                enemy_role.battle_timer = c.BATTLE_TIMER_IN_SECONDS
 
-        # if enemy is npc
-        elif self.is_in_battle_with_npc():
-            enemy_npc = self.npc_instance
-            enemy_npc.battle_timer = c.BATTLE_TIMER_IN_SECONDS
+                pack = pb.BattleTimerStarted(
+                    battle_timer=enemy_role.battle_timer,
+                    role_id=enemy_role.id,
+                )
+                self.session.send(pack)
+                enemy_role.session.send(pack)
 
-            pack = pb.BattleTimerStarted(
-                battle_timer=enemy_npc.battle_timer,
-                role_id=0,
-            )
-            self.session.send(pack)
+            # if enemy is npc
+            elif self.is_in_battle_with_npc():
+                enemy_npc = self.get_enemy()
+                enemy_npc.battle_timer = c.BATTLE_TIMER_IN_SECONDS
 
-            # enemy npc attack
-            await self.npc_all_ships_attack_me()
+                pack = pb.BattleTimerStarted(
+                    battle_timer=enemy_npc.battle_timer,
+                    role_id=0,
+                )
+                self.session.send(pack)
+
+                # enemy npc attack
+                await enemy_npc.all_ships_attack_role()
+
+        elif self.is_npc():
+            if self.is_in_battle_with_role():
+                role = self.battle_role
+                role.battle_timer = c.BATTLE_TIMER_IN_SECONDS
+                pack = pb.BattleTimerStarted(
+                    battle_timer=role.battle_timer,
+                    role_id=role.id,
+                )
+                role.session.send(pack)
 
     async def update(self, time_diff):
         # movment
@@ -1043,14 +1060,21 @@ class Role:
         await self.switch_turn_with_enemy()
 
     def send_to_self_and_enemy(self, pack):
-        self.session.packet_handler.send_to_self_and_enemy(pack)
+        if self.is_role():
+            if self.is_in_battle_with_role():
+                self.session.packet_handler.send_to_self_and_enemy(pack)
+            elif self.is_in_battle_with_npc():
+                self.session.send(pack)
+
+        elif self.is_npc():
+            if self.is_in_battle_with_role():
+                self.battle_role.session.send(pack)
 
     async def all_ships_attack_role(self, include_flagship=True):
         # get enemy role and flag_ship
-        enemy_role = self.session.packet_handler.get_enemy_role()
-        flag_ship = enemy_role.get_flag_ship()
+        enemy = self.get_enemy()
+        enemy_flag_ship = enemy.get_flag_ship()
         my_flag_ship = self.get_flag_ship()
-
 
         # for each ship
         for ship in self.ship_mgr.get_ships():
@@ -1065,12 +1089,12 @@ class Role:
                 if ship.id == my_flag_ship.id:
                     continue
 
-            ship.set_random_target_ship(enemy_role)
+            ship.set_random_target_ship(enemy)
             ship.set_random_strategy()
             ship.reset_steps_left()
 
             # move_based_on_strategy
-            has_won = await ship.move_based_on_strategy(enemy_role, flag_ship)
+            has_won = await ship.move_based_on_strategy(enemy, enemy_flag_ship)
 
             if has_won:
                 return

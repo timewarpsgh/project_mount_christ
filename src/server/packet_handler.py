@@ -1092,6 +1092,8 @@ class PacketHandler:
         # gen npc_instance (each role has its own instance)
         npc_instance = copy.deepcopy(npc)
         self.role.npc_instance = npc_instance
+        npc_instance.battle_role_id = self.role.id
+        npc_instance.battle_role = self.role
 
         self.role.ship_mgr.init_ships_positions_in_battle(is_attacker=True)
         npc_instance.ship_mgr.init_ships_positions_in_battle(is_attacker=False)

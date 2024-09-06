@@ -1,22 +1,11 @@
 TO DO:
 
-    fight role ON
+    fight role OK
 
-        battle menu  ON
-            show attack options  OK
+    fight npc ON
+        treat npc as role with id > 2B
 
-            show ship numbers  OK
 
-            shoot enemy flagship to win   OK
-            engage enemy flagship to win  OK
-            shoot enemy ship  to sink it  OK
-
-            engage enemy ship to disable it
-                dead ship don't show num on it  OK
-
-                AI ignore dead ships OK
-                I ignore dead ships  OK
-                dead ship don't move OK
 
 
 

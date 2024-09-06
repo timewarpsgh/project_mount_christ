@@ -1,7 +1,7 @@
 import asyncio
 
 from dataclasses import dataclass
-from model import Role, Mate, ShipMgr, Ship
+from model import Role, Mate, ShipMgr, Ship, MateMgr
 import random
 import json
 
@@ -54,9 +54,9 @@ class Npc(Role):
     is_outward: bool = True
     now_wp_id: int = 0
 
-    def get_flag_ship(self):
-        flag_ship = list(self.ship_mgr.id_2_ship.values())[0]
-        return flag_ship
+    # def get_flag_ship(self):
+    #     flag_ship = list(self.ship_mgr.id_2_ship.values())[0]
+    #     return flag_ship
 
     def move_along_path(self):
         """choose a random end port, reach it, and move back, and loop"""
@@ -227,6 +227,12 @@ class NpcMgr:
         return ship_mgr
 
 
+    def __get_mate_mgr(self, npc_id):
+        mate = self.__get_mate(npc_id)
+        mate_mgr = MateMgr(None)
+        mate_mgr.add_mate(mate)
+        return mate_mgr
+
     def __init_id_2_npc(self):
         for npc_model in WORLD_SESSION.query(NpcModel).all():
             npc = Npc(
@@ -236,10 +242,14 @@ class NpcMgr:
                 y=npc_model.y,
                 dir=npc_model.dir,
                 map_id=npc_model.map_id,
-                ship_mgr=self.__get_ship_mgr(npc_model.id)
+                ship_mgr=self.__get_ship_mgr(npc_model.id),
+                mate_mgr=self.__get_mate_mgr(npc_model.id),
 
             )
             npc.name = npc.mate.name
+
+            npc.ship_mgr.role = npc
+            npc.mate_mgr.role = npc
 
             self.id_2_npc[npc_model.id] = npc
 

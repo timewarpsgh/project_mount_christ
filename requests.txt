@@ -9,7 +9,7 @@ TO DO:
         role attack npc OK
         Refactor all_ships_attack_role now works for role/npc OK
 
-
+        refactor win_role, so it works for both role and npc ON
 
 
 

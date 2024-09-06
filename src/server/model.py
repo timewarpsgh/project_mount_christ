@@ -374,8 +374,8 @@ class Ship:
                 return False
 
         # collide with any of enemy ships?
-        enemy_role = self.role.session.packet_handler.get_enemy_role()
-        for ship in enemy_role.ship_mgr.get_ships():
+        enemy = self.role.get_enemy()
+        for ship in enemy.ship_mgr.get_ships():
             if ship.x == future_x and ship.y == future_y:
                 return False
 

@@ -6,7 +6,8 @@ TO DO:
         treat npc as role with id > 2B
 
         npc attack role OK
-        role attack npc ON
+        role attack npc OK
+        Refactor all_ships_attack_role now works for role/npc OK
 
 
 

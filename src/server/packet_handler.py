@@ -1163,10 +1163,8 @@ class PacketHandler:
         #
         # self.role.battle_timer = None
 
-        if self.role.battle_role_id:
-            await self.role.all_ships_attack_role()
-        elif self.role.battle_npc_id:
-            await self.role.all_ships_attack_npc()
+        await self.role.all_ships_attack_role()
+
 
     async def handle_SetAllShipsTarget(self, set_all_ships_target):
         ship_id = set_all_ships_target.ship_id

@@ -995,69 +995,6 @@ class Role:
         sMapMgr.add_object(self)
         self.send_role_appeared_to_nearby_roles()
 
-    async def all_ships_attack_npc(self):
-        # get enemy role
-        enemy_npc = self.npc_instance
-        # flag_ship = enemy_npc.get_flag_ship()
-        flag_ship = enemy_npc.get_flag_ship()
-
-        for ship in self.ship_mgr.id_2_ship.values():
-
-            # enemy_ship = enemy_npc.get_random_ship()
-
-            enemy_ship = flag_ship
-
-            # move and check is_in_range
-
-            # for i in range(3):
-            #     ship.move(pb.DirType.E)
-            #     pack = pb.ShipMoved(
-            #         id=ship.id,
-            #         x=ship.x,
-            #         y=ship.y,
-            #     )
-            #     self.send_to_self_and_enemy(pack)
-            #     await asyncio.sleep(0.3)
-            #
-            # if not ship.is_target_in_range(enemy_ship):
-            #     continue
-
-            damage, is_sunk = ship.shoot(enemy_ship)
-
-            pack = pb.ShipAttacked(
-                src_id=ship.id,
-                dst_id=enemy_ship.id,
-                attack_method_type=pb.AttackMethodType.SHOOT,
-                dst_damage=damage,
-            )
-            self.session.send(pack)
-
-            pack = pb.GotChat(
-                text=f"{ship.name} shot {enemy_ship.name} and dealt {damage} damage",
-                chat_type=pb.ChatType.SYSTEM
-            )
-            self.session.send(pack)
-
-            if is_sunk:
-
-                if enemy_ship.id == flag_ship.id:
-                    self.win_npc()
-                    return
-
-                if enemy_ship.id not in enemy_npc.ship_mgr.id_2_ship:
-                    continue
-
-                enemy_npc.ship_mgr.rm_ship(enemy_ship.id)
-
-                pack = pb.ShipRemoved(
-                    id=enemy_ship.id
-                )
-                self.session.send(pack)
-
-            await asyncio.sleep(1)
-
-        # switch battle timer
-        await self.switch_turn_with_enemy()
 
     def send_to_self_and_enemy(self, pack):
         if self.is_role():
@@ -1102,57 +1039,6 @@ class Role:
         # switch battle timer
         await self.switch_turn_with_enemy()
 
-    async def npc_all_ships_attack_me(self):
-        # get enemy role
-        enemy_npc = self.npc_instance
-        enemy_role = self
-        flag_ship = enemy_role.get_flag_ship()
-
-        for ship in enemy_npc.ship_mgr.id_2_ship.values():
-
-            enemy_ship = enemy_role.get_random_ship()
-
-            damage, is_sunk = ship.shoot(enemy_ship)
-
-            pack = pb.ShipAttacked(
-                src_id=ship.id,
-                dst_id=enemy_ship.id,
-                attack_method_type=pb.AttackMethodType.SHOOT,
-                dst_damage=damage,
-            )
-            self.session.send(pack)
-
-            pack = pb.GotChat(
-                text=f"{ship.name} shot {enemy_ship.name} and dealt {damage} damage",
-                chat_type=pb.ChatType.SYSTEM
-            )
-            self.session.send(pack)
-
-            if is_sunk:
-
-                if enemy_ship.id == flag_ship.id:
-                    self.lose_to_npc()
-                    return
-
-                if enemy_ship.id not in enemy_role.ship_mgr.id_2_ship:
-                    continue
-
-                enemy_role.ship_mgr.rm_ship(enemy_ship.id)
-
-                pack = pb.ShipRemoved(
-                    id=enemy_ship.id
-                )
-                self.session.send(pack)
-
-            await asyncio.sleep(1)
-
-        # give back timer
-        self.battle_timer = c.BATTLE_TIMER_IN_SECONDS
-        pack = pb.BattleTimerStarted(
-            battle_timer=self.battle_timer,
-            role_id=self.id,
-        )
-        self.session.send(pack)
 
     def is_in_port(self):
         if self.map_id != 0 and self.map_id is not None:

@@ -64,11 +64,11 @@ class Ship:
     dir: int=pb.DirType.N
     target_ship: any=None
     strategy: pb.AttackMethodType=pb.AttackMethodType.SHOOT
-    steps_left: int=3
+    steps_left: int=c.STEPS_LEFT
 
 
     def reset_steps_left(self):
-        self.steps_left = 3
+        self.steps_left = c.STEPS_LEFT
 
     def add_cargo(self, cargo_id, cargo_cnt):
         self.cargo_id = cargo_id
@@ -84,7 +84,7 @@ class Ship:
     def shoot(self, ship):
         self.cannon -= 1
 
-        damage = 1
+        damage = c.SHOOT_DAMAGE
         ship.now_durability -= damage
 
         is_sunk = False
@@ -109,8 +109,8 @@ class Ship:
         return damage, is_sunk
 
     def engage(self, ship):
-        self_dmg = 1
-        target_dmg = 2
+        self_dmg = c.ENGAGE_SELF_DAMAGE
+        target_dmg = c.ENGAGE_TARGET_DAMAGE
         self.now_crew -= self_dmg
         ship.now_crew -= target_dmg
 
@@ -414,7 +414,7 @@ class Ship:
                 # right or 180 degrees
                 self.__try_to_move_to_left()
 
-    async def __try_to_shoot(self, enemy_role, flag_ship)->bool:
+    async def try_to_shoot(self, enemy_role, flag_ship)->bool:
         """returns has_won"""
         has_won = False
 
@@ -452,7 +452,7 @@ class Ship:
 
         return has_won
 
-    async def __try_to_engage(self, enemy_role, flag_ship):
+    async def try_to_engage(self, enemy_role, flag_ship):
         """returns has_won"""
         has_won = False
 
@@ -501,9 +501,9 @@ class Ship:
         has_won = False
 
         if self.strategy == pb.AttackMethodType.SHOOT:
-            has_won = await self.__try_to_shoot(enemy_role, flag_ship)
+            has_won = await self.try_to_shoot(enemy_role, flag_ship)
         elif self.strategy == pb.AttackMethodType.ENGAGE:
-            has_won = await self.__try_to_engage(enemy_role, flag_ship)
+            has_won = await self.try_to_engage(enemy_role, flag_ship)
         elif self.strategy == pb.AttackMethodType.FLEE:
             await self.__try_to_flee()
         elif self.strategy == pb.AttackMethodType.HOLD:

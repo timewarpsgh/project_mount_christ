@@ -1207,18 +1207,24 @@ class PacketHandler:
 
         flag_ship = self.role.get_flag_ship()
         enemy = self.role.get_enemy()
+        enemy_flag_ship = enemy.get_flag_ship()
+
         if target_ship_id:
             target_ship = enemy.ship_mgr.get_ship(target_ship_id)
 
         if attack_method_type == pb.AttackMethodType.SHOOT:
             if flag_ship.can_shoot(target_ship):
-                flag_ship.shoot(target_ship)
-                await self.role.all_ships_attack_role(include_flagship=False)
+                flag_ship.target_ship = target_ship
+                has_won = await flag_ship.try_to_shoot(enemy, enemy_flag_ship)
+                if not has_won:
+                    await self.role.all_ships_attack_role(include_flagship=False)
 
         elif attack_method_type == pb.AttackMethodType.ENGAGE:
             if flag_ship.can_engage(target_ship):
-                flag_ship.engage(target_ship)
-                await self.role.all_ships_attack_role(include_flagship=False)
+                flag_ship.target_ship = target_ship
+                has_won = await flag_ship.try_to_engage(enemy, enemy_flag_ship)
+                if not has_won:
+                    await self.role.all_ships_attack_role(include_flagship=False)
 
         elif attack_method_type == pb.AttackMethodType.HOLD:
             await self.role.all_ships_attack_role(include_flagship=False)

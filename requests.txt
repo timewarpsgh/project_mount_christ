@@ -8,8 +8,8 @@ TO DO:
             show ship numbers  OK
 
 
-            shoot enemy flagship to win
-            engage enemy flagship to win
+            shoot enemy flagship to win   OK
+            engage enemy flagship to win  OK
             shoot enemy ship  to sink it
             engage enemy ship to disable it
 

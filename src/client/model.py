@@ -248,6 +248,9 @@ class ShipMgr:
     def get_ships(self):
         return self.id_2_ship.values()
 
+    def has_ship(self, id):
+        return id in self.id_2_ship
+
 
 class MateMgr:
 

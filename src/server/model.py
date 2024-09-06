@@ -649,6 +649,9 @@ class ShipMgr:
 
         return ships_prots
 
+    def has_ship(self, id):
+        return id in self.id_2_ship
+
 class MateMgr:
 
     def __init__(self, role):

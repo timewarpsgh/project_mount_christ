@@ -13,7 +13,7 @@ TO DO:
 
         refactor win_role, so it works for both role and npc  OK
 
-
+        engage npc (win and lose) OK
 
 
 DONE:

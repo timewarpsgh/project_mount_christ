@@ -121,8 +121,8 @@ message Ship {
   optional int32 first_mate = 25;
   optional int32 chief_navigator = 26;
 
-  optional int32 x = 27;
-  optional int32 y = 28;
+  optional float x = 27;
+  optional float y = 28;
 
 }
 

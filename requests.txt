@@ -16,6 +16,7 @@ TO DO:
         engage npc (win and lose) OK
 
         sell ships OK
+
         choose role/npc to fight ON
 
 

@@ -79,6 +79,9 @@ class SP(pygame.sprite.Sprite):
         self.target_position = None
         self.duration = None
 
+    def on_click(self, event):
+        pass
+
     def update(self, time_diff):
 
         if not self.start_time:
@@ -431,6 +434,11 @@ class RoleSP(SP):
         self.frame_counter_max = c.FRAME_RATE // 2
 
 
+    def on_click(self, event):
+        print("Sprite was clicked!")
+        # show menu in dialogs
+        self.model.role.graphics.client.game.gui.options_dialog.show_role_menu(self.role)
+
     def change_to_next_frame(self):
         if self.now_frame == 0:
             self.now_frame = 1
@@ -769,6 +777,12 @@ class Graphics:
         self.id_2_sp_role_name[id].move_to_smoothly(x, y, given_time)
 
     def process_event(self, event):
+        # when mouse clicked, check if any sprite clicked
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            for sprite in self.sprites:  # Assuming all_sprites is a Group of your sprites
+                if sprite.rect.collidepoint(event.pos):
+                    sprite.on_click(event)
+
         # when enter pressed, turn on chat cursor
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
@@ -843,6 +857,9 @@ class Graphics:
 
         # mouse clicks
         elif event.type == pygame.MOUSEBUTTONDOWN:
+            if not self.model.role.is_in_battle():
+                return
+
             # check move mark clicks
             for move_mark in self.model.role.graphics.move_marks:
                 if move_mark.rect.collidepoint(event.pos):

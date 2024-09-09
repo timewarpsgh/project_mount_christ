@@ -30,6 +30,8 @@ class Gui:
         # when menu item chosen
         if event.type == pygame_gui.UI_SELECTION_LIST_NEW_SELECTION:
             # call corresponding func
+            if not event.ui_element.option_2_callback[event.text]:
+                return
             event.ui_element.option_2_callback[event.text]()
 
         # esc pressed

@@ -31,7 +31,7 @@ ENGAGE_SELF_DAMAGE = 1
 
 #########################################################
 
-NPC_ROLE_START_ID = 2,000,000,000
+NPC_ROLE_START_ID = 2_000_000_000
 
 # settings
 DAEMON_MODE = False

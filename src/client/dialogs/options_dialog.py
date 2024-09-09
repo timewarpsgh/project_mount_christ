@@ -884,8 +884,30 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
+    def get_graphics(self):
+        return self.client.game.graphics
 
+    def fight_target(self, role):
+        graphics = self.get_graphics()
 
+        graphics.model.role.is_moving = False
+        graphics.sp_background.start_time = None
+
+        if role.is_npc():
+            self.client.send(FightNpc(npc_id=role.id))
+        else:
+            self.client.send(FightRole(role_id=role.id))
+
+    def show_role_menu(self, role):
+        option_2_callback = {
+            f'{role.name}': '',
+            'View Fleet': '',
+            'View Captain': '',
+            'Gossip': '',
+            'Fight': partial(self.fight_target, role),
+        }
+
+        self.__make_menu(option_2_callback)
 
     def show_cmds_menu(self):
         option_2_callback = {

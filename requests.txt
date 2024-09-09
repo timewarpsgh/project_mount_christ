@@ -1,9 +1,20 @@
 TO DO:
 
-    fight role OK
-
     fight npc ON
-        treat npc as role with id > 2B
+
+        sell ships OK
+        when sp clicked, show role_menu(fight) OK
+
+        view my fleet ON
+
+        view enemy fleet ON
+
+
+
+
+DONE:
+    fight role OK
+    fight npc ON
 
         npc attack role OK
         role attack npc OK
@@ -14,36 +25,6 @@ TO DO:
         refactor win_role, so it works for both role and npc  OK
 
         engage npc (win and lose) OK
-
-        sell ships OK
-
-        choose role/npc to fight ON
-
-
-
-DONE:
-
-    fight role ON
-        show ships in battle sprites OK
-        at sea show other ships sprites OK
-        don't stack ships OK
-        client should modify dura and now_crew after getting ship_attacked pack OK
-
-        all ships attack choose random strategy OK
-
-        battle menu  ON
-            view enemy ships   OK
-            set all ships target   OK
-            set all ships strategy OK
-            set ship target   OK
-            set ship strategy  OK
-            view battle states OK
-
-            use hex movement in battle OK
-
-
-            show my flagship on center screen  OK
-
 
 
 cmds

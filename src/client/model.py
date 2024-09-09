@@ -312,6 +312,15 @@ class Role:
     is_battle_timer_mine: bool = None
     has_attacked: bool = False
 
+    def is_npc(self):
+        if self.id > c.NPC_ROLE_START_ID:
+            return True
+        else:
+            return False
+
+    def is_role(self):
+        return not self.is_npc()
+
     def is_mine(self):
         if self.seen_grids is None:
             return False

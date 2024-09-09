@@ -1,13 +1,19 @@
 TO DO:
 
-    fight npc ON
 
-        sell ships OK
-        when sp clicked, show role_menu(fight) OK
-        view my fleet OK
-        view enemy fleet  OK
 
-    clear menu when other menus are up OK
+    hire mate
+    fire mate
+
+    assign job
+        captain
+
+        accountant
+        first mate
+        chief navigator
+
+
+
 
 
 DONE:
@@ -23,7 +29,12 @@ DONE:
         refactor win_role, so it works for both role and npc  OK
 
         engage npc (win and lose) OK
+        sell ships OK
+        when sp clicked, show role_menu(fight) OK
+        view my fleet OK
+        view enemy fleet  OK
 
+    clear menu when other menus are up OK
 
 cmds
     # compile .proto file

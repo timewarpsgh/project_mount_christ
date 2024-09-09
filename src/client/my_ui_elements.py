@@ -66,7 +66,7 @@ class MyMenuWindow:
 
         worlds_menu.option_2_callback = option_2_callback
 
-        only_show_top_window(mgr)
+        # only_show_top_window(mgr)
 
 class MyButton:
 

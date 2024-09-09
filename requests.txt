@@ -7,7 +7,7 @@ TO DO:
         view my fleet OK
         view enemy fleet  OK
 
-
+    clear menu when other menus are up OK
 
 
 DONE:

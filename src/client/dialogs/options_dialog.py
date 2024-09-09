@@ -42,9 +42,26 @@ class OptionsDialog:
                 text=button_text,
                 manager=self.mgr,
                 container=self.ui_window,
-                on_click=partial(getattr(self, f'show_{button_text.lower()}_menu')),
+                on_click=partial(self.__open_menu, button_text),
             )
 
+
+    def __open_menu(self, button_text):
+        # on click options windows gets to the top !!!!
+
+        # clear other menu windows
+        stacked_windows = self.mgr.get_window_stack().get_stack()
+        length = len(stacked_windows)
+        reversed_stacked_windows = stacked_windows[::-1]
+        if length >= 3:
+            for i, window in enumerate(reversed_stacked_windows):
+                if i in {0, length - 1}:
+                    pass
+                else:
+                    window.kill()
+        else:
+            # open new window
+            getattr(self, f'show_{button_text.lower()}_menu')()
 
     def __make_menu(self, dict):
         MyMenuWindow(
@@ -84,7 +101,7 @@ class OptionsDialog:
 
     def pop_some_menus(self, cnt):
         for i in range(cnt):
-            stacked_windows = self.ui_window.window_stack.get_stack()
+            stacked_windows = self.mgr.get_window_stack().get_stack()
             if len(stacked_windows) >= 3:
                 top_window = stacked_windows.pop()
                 top_window.kill()

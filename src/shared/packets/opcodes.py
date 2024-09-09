@@ -94,6 +94,9 @@ class OpCodeType(Enum):
     FlagShipMove = auto()
     FlagShipAttack = auto()
 
+    ViewFleet = auto()
+    FleetInfo = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

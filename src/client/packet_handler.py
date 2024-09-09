@@ -618,3 +618,6 @@ class PacketHandler:
     async def handle_AllShipsTargetSet(self, all_ships_target_set):
         target_ship_id = all_ships_target_set.ship_id
         self.__get_role().set_all_ships_target(target_ship_id)
+
+    async def handle_FleetInfo(self, fleet_info):
+        self.__get_options_dialog().show_fleet_info(fleet_info.ships_template_ids)

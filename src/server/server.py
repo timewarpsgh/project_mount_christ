@@ -95,7 +95,7 @@ class Server:
         return sNpcMgr.get_npc(id)
 
     def get_role(self, id):
-        return self.id_2_role[id]
+        return self.id_2_role.get(id)
 
     def add_role(self, id, role):
         self.id_2_role[id] = role

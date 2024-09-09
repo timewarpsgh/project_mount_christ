@@ -496,3 +496,12 @@ message FlagShipAttack{
     required AttackMethodType attack_method_type = 1;
     optional int32 target_ship_id = 2;
 }
+
+// view fleet
+message ViewFleet{
+    required int32 role_id = 1;
+}
+
+message FleetInfo{
+    repeated int32 ships_template_ids = 1;
+}

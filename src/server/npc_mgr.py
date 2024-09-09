@@ -142,6 +142,7 @@ class NpcMgr:
     def get_npc(self, id):
         return self.id_2_npc.get(id)
 
+
     async def run_loop_to_update(self):
         while True:
             prev_time = asyncio.get_event_loop().time()

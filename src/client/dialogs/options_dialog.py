@@ -506,8 +506,7 @@ class OptionsDialog:
             text=text,
         )
 
-    def __show_fleet_info(self):
-
+    def show_fleet_info(self, ships_template_ids):
         # make window
         rect = pygame.Rect((-20, -20), (c.WINDOW_WIDTH + 40, c.WINDOW_HEIGHT + 40))
         ui_manager = self.mgr
@@ -522,11 +521,9 @@ class OptionsDialog:
         pygame_gui.elements.UIImage(rect, bg_image, ui_manager, container=ui_window)
 
         # get ships_images
-        ships = self.get_ship_mgr().get_ships()
         ships_images = []
-        for ship in ships:
-            print(ship.ship_template_id)
-            ship_template = sObjectMgr.get_ship_template(ship.ship_template_id)
+        for ship_template_id in ships_template_ids:
+            ship_template = sObjectMgr.get_ship_template(ship_template_id)
             ship_img_name = ship_template.img_id.lower()
             ships_images.append(sAssetMgr.images['ships'][ship_img_name])
 
@@ -543,7 +540,6 @@ class OptionsDialog:
             image = pygame.transform.scale(image, (120, 90))
             image_width = image.get_rect().width
             image_height = image.get_rect().height
-
 
             # if odd, 1st ship placed at the front
             if is_cnt_odd and index == 0:
@@ -569,6 +565,10 @@ class OptionsDialog:
             rect = pygame.Rect((x, y), (image_width, image_height))
             pygame_gui.elements.UIImage(rect, image, ui_manager, container=ui_window)
 
+    def __show_fleet_info(self):
+        ships = self.get_ship_mgr().get_ships()
+        ships_template_ids = [ship.ship_template_id for ship in ships]
+        self.show_fleet_info(ships_template_ids)
 
     def __show_ship_info_menu(self, is_enemy=False):
         if is_enemy:
@@ -854,6 +854,9 @@ class OptionsDialog:
     def get_graphics(self):
         return self.client.game.graphics
 
+    def __view_fleet(self, role_id):
+        self.client.send(ViewFleet(role_id=role_id))
+
     def fight_target(self, role):
         graphics = self.get_graphics()
 
@@ -966,7 +969,7 @@ class OptionsDialog:
     def show_role_menu(self, role):
         option_2_callback = {
             f'{role.name}': '',
-            'View Fleet': '',
+            'View Fleet': partial(self.__view_fleet, role.id),
             'View Captain': '',
             'Gossip': '',
             'Fight': partial(self.fight_target, role),

@@ -1239,3 +1239,16 @@ class PacketHandler:
             steps_left=flag_ship.steps_left,
         )
         self.session.send(pack)
+
+    async def handle_ViewFleet(self, view_fleet):
+        role_id = view_fleet.role_id
+        role = self.session.server.get_role(role_id)
+        if not role:
+            role = sNpcMgr.get_npc(role_id)
+
+        ships = role.ship_mgr.get_ships()
+        ships_template_ids = [ship.ship_template_id for ship in ships]
+
+        pack = pb.FleetInfo()
+        pack.ships_template_ids.extend(ships_template_ids)
+        self.session.send(pack)

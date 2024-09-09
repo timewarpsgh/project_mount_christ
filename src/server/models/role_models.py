@@ -69,6 +69,14 @@ class Mate(BASE):
 	talent_in_accounting = Column(Integer)
 	talent_in_battle = Column(Integer)
 
+	lv_in_nav = Column(Integer)
+	lv_in_acc = Column(Integer)
+	lv_in_bat = Column(Integer)
+
+	xp_in_nav = Column(Integer)
+	xp_in_acc = Column(Integer)
+	xp_in_bat = Column(Integer)
+
 
 class Ship(BASE):
 	# table

@@ -11,6 +11,19 @@ class PortMap:
         self.id = id
         self.id_2_object = {}
 
+        self.mate = None
+        self.maid = None
+
+        self.economy_index = 100
+        self.industry_index = 100
+
+        self.allied_nation = None
+        self.price_index = 1.00
+        self.governor = None
+
+
+
+
     def add_object(self, object, x=None, y=None):
         self.id_2_object[object.id] = object
 

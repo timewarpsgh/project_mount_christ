@@ -70,7 +70,6 @@ class MateTemplate(BASE):
 	name = Column(String(20))
 	img_id = Column(String(20))
 	nation = Column(String)
-	lv = Column(Integer)
 
 	navigation = Column(Integer)
 	accounting = Column(Integer)
@@ -79,6 +78,10 @@ class MateTemplate(BASE):
 	talent_in_navigation = Column(Integer)
 	talent_in_accounting = Column(Integer)
 	talent_in_battle = Column(Integer)
+
+	lv_in_nav = Column(Integer)
+	lv_in_acc = Column(Integer)
+	lv_in_bat = Column(Integer)
 
 
 class CargoTemplate(BASE):

@@ -6,10 +6,12 @@ TO DO:
         when sp clicked, show role_menu(fight) OK
 
 
-        view my fleet ON
+        view my fleet OK
 
-        view enemy fleet
-
+        view enemy fleet  ON
+            role_menu, view_fleet clicked
+            send get_role_fleet(role_id) to server
+            server send role_fleet_info(ship_template_ids) to client
 
 
 

@@ -506,6 +506,70 @@ class OptionsDialog:
             text=text,
         )
 
+    def __show_fleet_info(self):
+
+        # make window
+        rect = pygame.Rect((-20, -20), (c.WINDOW_WIDTH + 40, c.WINDOW_HEIGHT + 40))
+        ui_manager = self.mgr
+        ui_window = pygame_gui.elements.UIWindow(rect, ui_manager)
+
+        # add bg image to window
+        bg_image = sAssetMgr.images['ships']['fleet_info']
+        bg_image = pygame.transform.scale(bg_image, (c.WINDOW_WIDTH + 40, c.WINDOW_HEIGHT + 40))
+        bg_rect = bg_image.get_rect()
+
+        rect = pygame.Rect((0, 0), (bg_rect.width, bg_rect.height))
+        pygame_gui.elements.UIImage(rect, bg_image, ui_manager, container=ui_window)
+
+        # get ships_images
+        ships = self.get_ship_mgr().get_ships()
+        ships_images = []
+        for ship in ships:
+            print(ship.ship_template_id)
+            ship_template = sObjectMgr.get_ship_template(ship.ship_template_id)
+            ship_img_name = ship_template.img_id.lower()
+            ships_images.append(sAssetMgr.images['ships'][ship_img_name])
+
+        # add ships images to window
+        # display all ships in two rows
+        # if ships cnt is odd, display the first ship to the left and in the middle of the two rows
+        ships_cnt = len(ships_images)
+        is_cnt_odd = ships_cnt % 2 == 1
+
+        row = -1
+        col = -1
+
+        for index, image in enumerate(ships_images):
+            image = pygame.transform.scale(image, (120, 90))
+            image_width = image.get_rect().width
+            image_height = image.get_rect().height
+
+
+            # if odd, 1st ship placed at the front
+            if is_cnt_odd and index == 0:
+                my_col = 0
+                my_row = 0
+                x = my_col * image_width + image_width * ((10 - ships_cnt) // 4) + \
+                    image_width // 2
+                y = my_row * image_height + c.WINDOW_HEIGHT // 2 - image_height // 2
+            else:
+                if row == 1:
+                    row = 0
+                    col += 1
+                else:
+                    row += 1
+
+                if col == -1:
+                    col = 0
+
+                x = col * image_width + image_width * ((10 - ships_cnt) // 4) + \
+                    image_width + + image_width // 2
+                y = row * image_height + c.WINDOW_HEIGHT // 2 - image_height
+
+            rect = pygame.Rect((x, y), (image_width, image_height))
+            pygame_gui.elements.UIImage(rect, image, ui_manager, container=ui_window)
+
+
     def __show_ship_info_menu(self, is_enemy=False):
         if is_enemy:
             ship_mgr = self.client.game.graphics.model.get_enemy().ship_mgr
@@ -960,7 +1024,7 @@ class OptionsDialog:
 
     def show_ships_menu(self):
         option_2_callback = {
-            'Fleet Info': '',
+            'Fleet Info': partial(self.__show_fleet_info),
             'Ship Info': partial(self.__show_ship_info_menu),
             'Swap Ships': '',
         }

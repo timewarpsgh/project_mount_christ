@@ -4,7 +4,7 @@ import json
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
 
-from world_models import Port, CargoTemplate, ShipTemplate, Village, \
+from world_models import Port, CargoTemplate, ShipTemplate, MateTemplate, Village, \
     SESSION as WORLD_SESSION
 
 class ObjectMgr:
@@ -23,6 +23,10 @@ class ObjectMgr:
 
         self.id_2_ship_template = {}
         self.__load_id_2_ship_template()
+
+        self.id_2_mate_template = {}
+        self.__load_id_2_mate_template()
+
 
         self.economy_id_2_ship_ids = {}
         self.__init_economy_id_2_ship_ids()
@@ -61,6 +65,10 @@ class ObjectMgr:
     def __load_id_2_ship_template(self):
         for ship_template in WORLD_SESSION.query(ShipTemplate).all():
             self.id_2_ship_template[ship_template.id] = ship_template
+
+    def __load_id_2_mate_template(self):
+        for mate_template in WORLD_SESSION.query(MateTemplate).all():
+            self.id_2_mate_template[mate_template.id] = mate_template
 
     def __load_id_2_village(self):
         for village in WORLD_SESSION.query(Village).all():
@@ -111,6 +119,9 @@ class ObjectMgr:
 
     def get_ship_template(self, id):
         return self.id_2_ship_template[id]
+
+    def get_mate_template(self, id):
+        return self.id_2_mate_template[id]
 
     def get_ship_ids(self, economy_id):
         return self.economy_id_2_ship_ids[economy_id]

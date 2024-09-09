@@ -1,18 +1,7 @@
 TO DO:
 
 
-    mate
-        lv_in_nav
-        lv_in_acc
-        lv_in_bat
-
-        xp_in_nav (all with job gets after discovery)
-        xp_in_acc (only u and accountant gets after selling)
-        xp_in_bat (all with job gets after battle wins)
-
-        when xp reaches lv max, lv up, 1,2 or 3 points added to that field(navigation),
-        depending on talent(better random chance)
-
+    even ports have a mate now OK
 
     hire mate  ON
         bar/meet
@@ -20,8 +9,6 @@ TO DO:
         on pack recved: mate_in_port, show mate panel, show menu(treat/gossip/hire)
         on hire clicked: send hire_mate(mate_id)
         on recv: mate_hire_result(is_ok, mate), mate_say
-
-
 
     fire mate
         bar/ fire mate
@@ -54,7 +41,20 @@ DONE:
         view my fleet OK
         view enemy fleet  OK
 
+
     clear menu when other menus are up OK
+
+        mate
+        lv_in_nav
+        lv_in_acc
+        lv_in_bat
+
+        xp_in_nav (all with job gets after discovery)
+        xp_in_acc (only u and accountant gets after selling)
+        xp_in_bat (all with job gets after battle wins)
+
+        when xp reaches lv max, lv up, 1,2 or 3 points added to that field(navigation),
+        depending on talent(better random chance)
 
 cmds
     # compile .proto file

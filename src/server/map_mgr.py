@@ -5,13 +5,15 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 import constants as c
 import login_pb2 as pb
+from object_mgr import sObjectMgr
+
 
 class PortMap:
     def __init__(self, id):
         self.id = id
         self.id_2_object = {}
 
-        self.mate = None
+        self.mate = self.__init_mate()
         self.maid = None
 
         self.economy_index = 100
@@ -21,8 +23,17 @@ class PortMap:
         self.price_index = 1.00
         self.governor = None
 
+    def __init_mate(self):
+        # 50 mate templates
+        if self.id > 100:
+            return None
 
-
+        if self.id % 2 == 0:
+            mate_template_id = self.id // 2
+            mate_template = sObjectMgr.get_mate_template(mate_template_id)
+            return mate_template
+        else:
+            return None
 
     def add_object(self, object, x=None, y=None):
         self.id_2_object[object.id] = object
@@ -43,6 +54,7 @@ class PortMap:
                 if obj.id != object.id:
                     objects.append(obj)
             return objects
+
     def move_object(self, object, old_x, old_y, new_x, new_y):
         """ has no cell, so no need to move """
         pass

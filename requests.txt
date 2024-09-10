@@ -8,12 +8,10 @@ TO DO:
 
     before hire OK
 
-    hire mate  ON
-        bar/meet
-        on_click: send get_mate_in_port
-        on pack recved: mate_in_port, show mate panel, show menu(treat/gossip/hire)
-        on hire clicked: send hire_mate(mate_id)
-        on recv: mate_hire_result(is_ok, mate), mate_say
+    hire mate  OK
+
+    show mate's attributes right ON
+
 
     fire mate
         bar/ fire mate
@@ -67,8 +65,9 @@ cmds
     protoc --python_out=. .\login.proto
 
     # git push
-    git config --global https.proxy 'socks5://127.0.0.1:1080'
-    git config --global --unset https.proxy
+    git config --global https.proxy 127.0.0.1:1080
+    git push
+
 
 libs needed:
     front end

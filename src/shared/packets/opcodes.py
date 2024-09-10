@@ -100,6 +100,9 @@ class OpCodeType(Enum):
     GetMateInPort = auto()
     MateInPort = auto()
 
+    HireMate = auto()
+    HireMateRes = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

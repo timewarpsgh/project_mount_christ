@@ -15,7 +15,7 @@ from object_mgr import sObjectMgr
 from map_maker import sMapMaker
 from map_mgr import sMapMgr
 from helpers import Point, are_vectors_in_same_direction
-
+from id_mgr import sIdMgr
 
 @dataclass
 class Ship:
@@ -605,6 +605,7 @@ class Mate:
 
     id: int=None
     role_id: int=None
+    mate_mgr: any=None
 
     name: str=None
     img_id: int=None
@@ -695,6 +696,31 @@ class Mate:
 
         return mate_pb
 
+    def init_from_template(self, mate_template, role_id):
+        self.id = sIdMgr.gen_new_mate_id()
+        self.role_id = role_id
+
+        self.name = mate_template.name
+        self.img_id = mate_template.img_id
+        self.nation = mate_template.nation
+
+        self.navigation = mate_template.navigation
+        self.accounting = mate_template.accounting
+        self.battle = mate_template.battle
+
+        self.talent_in_navigation = mate_template.talent_in_navigation
+        self.talent_in_accounting = mate_template.talent_in_accounting
+        self.talent_in_battle = mate_template.talent_in_battle
+
+        self.lv_in_nav = mate_template.lv_in_nav
+        self.lv_in_acc = mate_template.lv_in_acc
+        self.lv_in_bat = mate_template.lv_in_bat
+
+        self.xp_in_nav = 0
+        self.xp_in_acc = 0
+        self.xp_in_bat = 0
+
+
 class ShipMgr:
 
     def __init__(self, role):
@@ -761,6 +787,7 @@ class MateMgr:
 
     def add_mate(self, mate):
         self.id_2_mate[mate.id] = mate
+        mate.mate_mgr = self
 
     def rm_mate(self, mate_id):
         del self.id_2_mate[mate_id]
@@ -771,6 +798,12 @@ class MateMgr:
     def get_mates(self):
         return self.id_2_mate.values()
 
+    def is_mate_in_fleet(self, mate_template):
+        mates = self.get_mates()
+        for mate in mates:
+            if mate.name == mate_template.name:
+                return True
+        return False
 
 class DiscoveryMgr:
 
@@ -814,6 +847,9 @@ class Role:
         grid_x = int(y / c.SIZE_OF_ONE_GRID)
         grid_y = int(x / c.SIZE_OF_ONE_GRID)
         return grid_x, grid_y
+
+    def get_map(self):
+        return sMapMgr.get_map(self.map_id)
 
     def is_npc(self):
         if self.session:

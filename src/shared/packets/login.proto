@@ -134,12 +134,12 @@ message Mate {
   required string img_id = 4;
   required string nation = 5;
 
-  required int32 lv = 6;
-  required int32 points = 7;
-  required string assigned_duty = 8;
-  required int32 ship_id = 9;
+  optional int32 lv = 6;
+  optional int32 points = 7;
+  optional string assigned_duty = 8;
+  optional int32 ship_id = 9;
 
-  required int32 leadership = 10;
+  optional int32 leadership = 10;
 
   required int32 navigation = 11;
   required int32 accounting = 12;
@@ -520,4 +520,14 @@ message GetMateInPort{
 
 message MateInPort{
     required int32 mate_template_id = 1;
+}
+
+// HireMate
+message HireMate{
+    required int32 mate_template_id = 1;
+}
+
+message HireMateRes{
+    required bool is_ok = 1;
+    optional Mate mate = 2;
 }

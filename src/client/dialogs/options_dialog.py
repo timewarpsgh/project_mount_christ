@@ -243,17 +243,20 @@ class OptionsDialog:
             image=mate_image,
         )
 
+    def __hire_mate(self, mate_template):
+        self.client.send(HireMate(mate_template_id=mate_template.id))
+
     def __show_mate_menu(self, mate_template):
         option_2_callback = {
             'inspect': partial(self.__show_mate_template_panel, mate_template),
             'treat': '',
             'gossip': '',
-            'hire': '',
+            'hire': partial(self.__hire_mate, mate_template),
         }
 
         self.__make_menu(option_2_callback)
 
-    def __show_mate_speech(self, mate, speech):
+    def show_mate_speech(self, mate, speech):
         # get image_x and y
         split_items = mate.img_id.split('_')
         x = int(split_items[0])
@@ -280,9 +283,9 @@ class OptionsDialog:
             if mate.name == role_name:
                 continue
             speech = "Captain, how's life in port? "
-            option_2_callback[f'{mate.name}'] = partial(self.__show_mate_speech, mate, speech)
+            option_2_callback[f'{mate.name}'] = partial(self.show_mate_speech, mate, speech)
         
-        if mate_template:
+        if mate_template and not self.get_mate_mgr().is_mate_in_fleet(mate_template):
             option_2_callback[f'{mate_template.name}'] = partial(self.__show_mate_menu, mate_template)
 
         self.__make_menu(option_2_callback)

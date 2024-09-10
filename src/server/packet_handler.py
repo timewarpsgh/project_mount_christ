@@ -1113,3 +1113,32 @@ class PacketHandler:
             mate_template_id=mate_template_id,
         )
         self.session.send(pack)
+
+    async def handle_HireMate(self, hire_mate):
+        port_map = self.role.get_map()
+        mate_template = port_map.mate_template
+
+        if not mate_template:
+            return
+
+        if mate_template.id != hire_mate.mate_template_id:
+            return
+
+        if self.role.mate_mgr.is_mate_in_fleet(mate_template):
+            print('mate already in fleet')
+            return
+
+        can_hire = True
+        if can_hire:
+            mate = model.Mate()
+            mate.init_from_template(mate_template, self.role.id)
+            self.role.mate_mgr.add_mate(mate)
+
+            pack = pb.HireMateRes(
+                is_ok=True,
+                mate=mate.gen_mate_pb(),
+            )
+            self.session.send(pack)
+        else:
+            pack = pb.HireMateRes(is_ok=False)
+            self.session.send(pack)

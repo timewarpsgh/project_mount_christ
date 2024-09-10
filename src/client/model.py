@@ -312,6 +312,13 @@ class MateMgr:
     def get_mates(self):
         return self.id_2_mate.values()
 
+    def is_mate_in_fleet(self, mate_template):
+        mates = self.get_mates()
+        for mate in mates:
+            if mate.name == mate_template.name:
+                return True
+        return False
+
 
 class DiscoveryMgr:
 

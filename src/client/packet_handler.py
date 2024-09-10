@@ -611,3 +611,16 @@ class PacketHandler:
         else:
             print('no mate in this port')
             self.__get_options_dialog().show_mates_in_port_menu()
+
+    async def handle_HireMateRes(self, hire_mate_res):
+        if hire_mate_res.is_ok:
+            mate = model.Mate(hire_mate_res.mate)
+            self.__get_role().mate_mgr.add_mate(mate)
+
+            speech = f"I'm glad to join you guys!"
+            self.__get_options_dialog().pop_some_menus(2)
+            self.__get_options_dialog().show_mate_speech(mate, speech)
+
+
+        else:
+            print('failed to hire mate')

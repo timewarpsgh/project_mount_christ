@@ -309,6 +309,15 @@ class PacketHandler:
                 talent_in_navigation=mate.talent_in_navigation,
                 talent_in_accounting=mate.talent_in_accounting,
                 talent_in_battle=mate.talent_in_battle,
+
+                lv_in_nav=mate.lv_in_nav,
+                lv_in_acc=mate.lv_in_acc,
+                lv_in_bat=mate.lv_in_bat,
+
+                xp_in_nav=mate.xp_in_nav,
+                xp_in_acc=mate.xp_in_acc,
+                xp_in_bat=mate.xp_in_bat,
+                
             )
 
             role.mate_mgr.add_mate(mate_obj)
@@ -338,6 +347,14 @@ class PacketHandler:
                 talent_in_navigation=mate.talent_in_navigation,
                 talent_in_accounting=mate.talent_in_accounting,
                 talent_in_battle=mate.talent_in_battle,
+
+                lv_in_nav=mate.lv_in_nav,
+                lv_in_acc=mate.lv_in_acc,
+                lv_in_bat=mate.lv_in_bat,
+
+                xp_in_nav=mate.xp_in_nav,
+                xp_in_acc=mate.xp_in_acc,
+                xp_in_bat=mate.xp_in_bat,
             )
             proto_mates.append(proto_mate)
 

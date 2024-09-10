@@ -148,6 +148,14 @@ message Mate {
   required int32 talent_in_navigation = 14;
   required int32 talent_in_accounting = 15;
   required int32 talent_in_battle = 16;
+
+  required int32 lv_in_nav = 17;
+  required int32 lv_in_acc = 18;
+  required int32 lv_in_bat = 19;
+
+  required int32 xp_in_nav = 20;
+  required int32 xp_in_acc = 21;
+  required int32 xp_in_bat = 22;
 }
 
 
@@ -504,4 +512,26 @@ message ViewFleet{
 
 message FleetInfo{
     repeated int32 ships_template_ids = 1;
+}
+
+// GetMateInPort
+message GetMateInPort{
+}
+
+message MateInPort{
+    required int32 id = 1;
+    required string name = 2;
+    required string img_id = 3;
+    required string nation = 4;
+    required int32 lv = 5;
+    required int32 points = 6;
+    required string assigned_duty = 7;
+    required int32 ship_id = 8;
+    required int32 leadership = 9;
+    required int32 navigation = 10;
+    required int32 accounting = 11;
+    required int32 battle = 12;
+    required int32 talent_in_navigation = 13;
+    required int32 talent_in_accounting = 14;
+    required int32 talent_in_battle = 15;
 }

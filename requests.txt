@@ -2,6 +2,8 @@ TO DO:
 
 
     even ports have a mate now OK
+    added 6 fields to mate in db, server ram, pb, client ram OK
+
 
     hire mate  ON
         bar/meet
@@ -12,6 +14,7 @@ TO DO:
 
     fire mate
         bar/ fire mate
+
     assign job
         captain
 

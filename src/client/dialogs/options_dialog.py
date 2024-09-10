@@ -167,8 +167,7 @@ class OptionsDialog:
         option_2_callback = {
             'Recruit Crew': '',
             'Dismiss Crew': '',
-            'Treat': '',
-            'Meet': '',
+            'Meet': partial(self.__get_mate_in_port),
             'Fire Mate': '',
             'Waitress': '',
             'Exit': partial(self.__exit_building),
@@ -215,6 +214,9 @@ class OptionsDialog:
             option_2_callback=option_2_callback,
             mgr=self.mgr
         )
+
+    def __get_mate_in_port(self):
+        self.client.send(GetMateInPort())
 
     def __exit_building(self):
         self.pop_some_menus(1)

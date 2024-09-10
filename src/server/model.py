@@ -596,6 +596,14 @@ class Mate:
     talent_in_accounting: int=None
     talent_in_battle: int=None
 
+    lv_in_nav: int=None
+    lv_in_acc: int=None
+    lv_in_bat: int=None
+
+    xp_in_nav: int=None
+    xp_in_acc: int=None
+    xp_in_bat: int=None
+
 
 class ShipMgr:
 

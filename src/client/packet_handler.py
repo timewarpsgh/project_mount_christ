@@ -147,6 +147,14 @@ class PacketHandler:
             talent_in_navigation=prot_mate.talent_in_navigation,
             talent_in_accounting=prot_mate.talent_in_accounting,
             talent_in_battle=prot_mate.talent_in_battle,
+
+            lv_in_nav=prot_mate.lv_in_nav,
+            lv_in_acc=prot_mate.lv_in_acc,
+            lv_in_bat=prot_mate.lv_in_bat,
+
+            xp_in_nav=prot_mate.xp_in_nav,
+            xp_in_acc=prot_mate.xp_in_acc,
+            xp_in_bat=prot_mate.xp_in_bat,
         )
 
         model_role.mate_mgr.add_mate(model_mate)

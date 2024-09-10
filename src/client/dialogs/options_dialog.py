@@ -215,6 +215,78 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
+    def __show_mate_template_panel(self, mate_template):
+        dict = {
+            'name': mate_template.name,
+            'nation': mate_template.nation,
+            '1': '',
+            'navigation/accounting/battle': f'{mate_template.navigation}/{mate_template.accounting}/{mate_template.battle}',
+            '2': '',
+            'talent in navigation/accounting/battle': f'{mate_template.talent_in_navigation}/{mate_template.talent_in_accounting}/{mate_template.talent_in_battle}',
+            'lv in nav/acc/bat': f'{mate_template.lv_in_nav}/{mate_template.lv_in_acc}/{mate_template.lv_in_bat}',
+        }
+
+        # make text from dict
+        text = self.__dict_2_txt(dict)
+
+        # get figure image
+        split_items = mate_template.img_id.split('_')
+        x = int(split_items[0])
+        y = int(split_items[1])
+
+        mate_image = self.__figure_x_y_2_image(x, y)
+
+        MyPanelWindow(
+            rect=pygame.Rect((59, 12), (350, 400)),
+            ui_manager=self.mgr,
+            text=text,
+            image=mate_image,
+        )
+
+    def __show_mate_menu(self, mate_template):
+        option_2_callback = {
+            'inspect': partial(self.__show_mate_template_panel, mate_template),
+            'treat': '',
+            'gossip': '',
+            'hire': '',
+        }
+
+        self.__make_menu(option_2_callback)
+
+    def __show_mate_speech(self, mate, speech):
+        # get image_x and y
+        split_items = mate.img_id.split('_')
+        x = int(split_items[0])
+        y = int(split_items[1])
+
+        # get figure image
+        mate_image = self.__figure_x_y_2_image(x, y)
+
+        # make window
+        MyPanelWindow(
+            rect=pygame.Rect((59, 12), (350, 400)),
+            ui_manager=self.mgr,
+            text=speech,
+            image=mate_image,
+        )
+
+    def show_mates_in_port_menu(self, mate_template=None):
+        mates = self.get_mate_mgr().get_mates()
+        role_name = self.__get_role().name
+        option_2_callback = {
+        }
+
+        for mate in mates:
+            if mate.name == role_name:
+                continue
+            speech = "Captain, how's life in port? "
+            option_2_callback[f'{mate.name}'] = partial(self.__show_mate_speech, mate, speech)
+        
+        if mate_template:
+            option_2_callback[f'{mate_template.name}'] = partial(self.__show_mate_menu, mate_template)
+
+        self.__make_menu(option_2_callback)
+
     def __get_mate_in_port(self):
         self.client.send(GetMateInPort())
 

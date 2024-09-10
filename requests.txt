@@ -6,6 +6,8 @@ TO DO:
     refacor mate init code into mate class OK
     refactor mate in client OK
 
+    before hire OK
+
     hire mate  ON
         bar/meet
         on_click: send get_mate_in_port

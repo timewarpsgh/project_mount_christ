@@ -1103,3 +1103,13 @@ class PacketHandler:
         pack = pb.FleetInfo()
         pack.ships_template_ids.extend(ships_template_ids)
         self.session.send(pack)
+
+    async def handle_GetMateInPort(self, get_mate_in_port):
+        port_map = sMapMgr.get_map(self.role.map_id)
+        mate_template = port_map.mate_template
+        mate_template_id = mate_template.id if mate_template else 0
+
+        pack = pb.MateInPort(
+            mate_template_id=mate_template_id,
+        )
+        self.session.send(pack)

@@ -97,6 +97,9 @@ class OpCodeType(Enum):
     ViewFleet = auto()
     FleetInfo = auto()
 
+    GetMateInPort = auto()
+    MateInPort = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

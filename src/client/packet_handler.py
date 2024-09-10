@@ -599,3 +599,15 @@ class PacketHandler:
 
     async def handle_FleetInfo(self, fleet_info):
         self.__get_options_dialog().show_fleet_info(fleet_info.ships_template_ids)
+
+    async def handle_MateInPort(self, mate_in_port):
+        mate_template_id = mate_in_port.mate_template_id
+        if mate_template_id:
+            mate_template = sObjectMgr.get_mate_template(mate_template_id)
+            print('found mate in port')
+            print(mate_template.name)
+            self.__get_options_dialog().show_mates_in_port_menu(mate_template)
+
+        else:
+            print('no mate in this port')
+            self.__get_options_dialog().show_mates_in_port_menu()

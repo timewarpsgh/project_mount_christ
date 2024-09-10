@@ -13,7 +13,7 @@ class PortMap:
         self.id = id
         self.id_2_object = {}
 
-        self.mate = self.__init_mate()
+        self.mate_template = self.__init_mate_template()
         self.maid = None
 
         self.economy_index = 100
@@ -23,7 +23,7 @@ class PortMap:
         self.price_index = 1.00
         self.governor = None
 
-    def __init_mate(self):
+    def __init_mate_template(self):
         # 50 mate templates
         if self.id > 100:
             return None
@@ -262,6 +262,7 @@ class MapMgr:
             id_2_map[i] = PortMap(i)
 
         return id_2_map
+
     def get_map(self, id):
         return self.id_2_map[id]
 

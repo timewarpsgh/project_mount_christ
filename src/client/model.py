@@ -309,6 +309,9 @@ class MateMgr:
     def get_mate(self, mate_id):
         return self.id_2_mate.get(mate_id)
 
+    def get_mates(self):
+        return self.id_2_mate.values()
+
 
 class DiscoveryMgr:
 

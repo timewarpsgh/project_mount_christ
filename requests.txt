@@ -3,7 +3,7 @@ TO DO:
 
     even ports have a mate now OK
     added 6 fields to mate in db, server ram, pb, client ram OK
-
+    refacor mate init code into mate class OK
 
     hire mate  ON
         bar/meet

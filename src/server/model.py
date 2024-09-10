@@ -551,6 +551,35 @@ class Ship:
 
         return ship_proto
 
+    def load_from_db(self, ship):
+        self.id = ship.id
+        self.role_id = ship.role_id
+        self.name = ship.name
+        self.ship_template_id = ship.ship_template_id
+        self.material_type = ship.material_type
+        self.now_durability = ship.now_durability
+        self.max_durability = ship.max_durability
+        self.tacking = ship.tacking
+        self.power = ship.power
+        self.capacity = ship.capacity
+        self.now_crew = ship.now_crew
+        self.min_crew = ship.min_crew
+        self.max_crew = ship.max_crew
+        self.now_guns = ship.now_guns
+        self.type_of_guns = ship.type_of_guns
+        self.max_guns = ship.max_guns
+        self.water = ship.water
+        self.food = ship.food
+        self.material = ship.material
+        self.cannon = ship.cannon
+        self.cargo_cnt = ship.cargo_cnt
+        self.cargo_id = ship.cargo_id
+        self.captain = ship.captain
+        self.accountant = ship.accountant
+        self.first_mate = ship.first_mate
+        self.chief_navigator = ship.chief_navigator
+
+
     def set_random_target_ship(self, enemy):
         if not self.target_ship:
             self.target_ship = enemy.get_random_ship()
@@ -604,6 +633,67 @@ class Mate:
     xp_in_acc: int=None
     xp_in_bat: int=None
 
+    def load_from_db(self, mate):
+        self.id = mate.id
+        self.role_id = mate.role_id
+        self.name = mate.name
+        self.img_id = mate.img_id
+        self.nation = mate.nation
+        self.lv = mate.lv
+        self.points = mate.points
+        self.assigned_duty = mate.assigned_duty
+        self.ship_id = mate.ship_id
+
+        self.leadership = mate.leadership
+
+        self.navigation = mate.navigation
+        self.accounting = mate.accounting
+        self.battle = mate.battle
+
+        self.talent_in_navigation = mate.talent_in_navigation
+        self.talent_in_accounting = mate.talent_in_accounting
+        self.talent_in_battle = mate.talent_in_battle
+
+        self.lv_in_nav = mate.lv_in_nav
+        self.lv_in_acc = mate.lv_in_acc
+        self.lv_in_bat = mate.lv_in_bat
+
+        self.xp_in_nav = mate.xp_in_nav
+        self.xp_in_acc = mate.xp_in_acc
+        self.xp_in_bat = mate.xp_in_bat
+
+    def gen_mate_pb(self):
+        mate_pb = pb.Mate(
+            id=self.id,
+            role_id=self.role_id,
+            name=self.name,
+            img_id=self.img_id,
+            nation=self.nation,
+            lv=self.lv,
+            points=self.points,
+            assigned_duty=self.assigned_duty,
+            ship_id=self.ship_id,
+
+            leadership=self.leadership,
+
+            navigation=self.navigation,
+            accounting=self.accounting,
+            battle=self.battle,
+
+            talent_in_navigation=self.talent_in_navigation,
+            talent_in_accounting=self.talent_in_accounting,
+            talent_in_battle=self.talent_in_battle,
+
+            lv_in_nav=self.lv_in_nav,
+            lv_in_acc=self.lv_in_acc,
+            lv_in_bat=self.lv_in_bat,
+
+            xp_in_nav=self.xp_in_nav,
+            xp_in_acc=self.xp_in_acc,
+            xp_in_bat=self.xp_in_bat,
+        )
+
+        return mate_pb
 
 class ShipMgr:
 
@@ -677,6 +767,9 @@ class MateMgr:
 
     def get_mate(self, mate_id):
         return self.id_2_mate.get(mate_id)
+
+    def get_mates(self):
+        return self.id_2_mate.values()
 
 
 class DiscoveryMgr:

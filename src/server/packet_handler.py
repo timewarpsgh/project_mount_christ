@@ -186,45 +186,8 @@ class PacketHandler:
     def __fill_ships_in_ram(self, role, ships):
 
         for ship in ships:
-            ship_obj = model.Ship(
-                id=ship.id,
-                role_id=ship.role_id,
-
-                name=ship.name,
-                ship_template_id=ship.ship_template_id,
-
-                material_type=ship.material_type,
-
-                now_durability=ship.now_durability,
-                max_durability=ship.max_durability,
-
-                tacking=ship.tacking,
-                power=ship.power,
-
-                capacity=ship.capacity,
-
-                now_crew=ship.now_crew,
-                min_crew=ship.min_crew,
-                max_crew=ship.max_crew,
-
-                now_guns=ship.now_guns,
-                type_of_guns=ship.type_of_guns,
-                max_guns=ship.max_guns,
-
-                water=ship.water,
-                food=ship.food,
-                material=ship.material,
-                cannon=ship.cannon,
-
-                cargo_cnt=ship.cargo_cnt,
-                cargo_id=ship.cargo_id,
-
-                captain=ship.captain,
-                accountant=ship.accountant,
-                first_mate=ship.first_mate,
-                chief_navigator=ship.chief_navigator,
-            )
-
+            ship_obj = model.Ship()
+            ship_obj.load_from_db(ship)
             role.ship_mgr.add_ship(ship_obj)
 
     def __query_ships_in_db(self, role_id):
@@ -236,46 +199,7 @@ class PacketHandler:
     def __gen_proto_ships(self, ships):
         proto_ships = []
         for ship in ships:
-            proto_ship = Ship(
-                id=ship.id,
-                role_id=ship.role_id,
-
-                name=ship.name,
-                ship_template_id=ship.ship_template_id,
-
-                material_type=ship.material_type,
-
-                now_durability=ship.now_durability,
-                max_durability=ship.max_durability,
-
-                tacking=ship.tacking,
-                power=ship.power,
-
-                capacity=ship.capacity,
-
-                now_crew=ship.now_crew,
-                min_crew=ship.min_crew,
-                max_crew=ship.max_crew,
-
-                now_guns=ship.now_guns,
-                type_of_guns=ship.type_of_guns,
-                max_guns=ship.max_guns,
-
-                water=ship.water,
-                food=ship.food,
-                material=ship.material,
-                cannon=ship.cannon,
-
-                cargo_cnt=ship.cargo_cnt,
-                cargo_id=ship.cargo_id,
-
-                captain=ship.captain,
-                accountant=ship.accountant,
-                first_mate=ship.first_mate,
-                chief_navigator=ship.chief_navigator,
-
-            )
-
+            proto_ship = ship.gen_ship_proto()
             proto_ships.append(proto_ship)
 
         return proto_ships
@@ -288,37 +212,8 @@ class PacketHandler:
 
     def __fill_mates_in_ram(self, role, mates):
         for mate in mates:
-            mate_obj = model.Mate(
-                id=mate.id,
-                role_id=mate.role_id,
-
-                name=mate.name,
-                img_id=mate.img_id,
-                nation=mate.nation,
-
-                lv=mate.lv,
-                points=mate.points,
-                assigned_duty=mate.assigned_duty,
-                ship_id=mate.ship_id,
-
-                leadership=mate.leadership,
-                navigation=mate.navigation,
-                accounting=mate.accounting,
-                battle=mate.battle,
-
-                talent_in_navigation=mate.talent_in_navigation,
-                talent_in_accounting=mate.talent_in_accounting,
-                talent_in_battle=mate.talent_in_battle,
-
-                lv_in_nav=mate.lv_in_nav,
-                lv_in_acc=mate.lv_in_acc,
-                lv_in_bat=mate.lv_in_bat,
-
-                xp_in_nav=mate.xp_in_nav,
-                xp_in_acc=mate.xp_in_acc,
-                xp_in_bat=mate.xp_in_bat,
-                
-            )
+            mate_obj = model.Mate()
+            mate_obj.load_from_db(mate)
 
             role.mate_mgr.add_mate(mate_obj)
 
@@ -326,36 +221,7 @@ class PacketHandler:
     def __gen_proto_mates(self, mates):
         proto_mates = []
         for mate in mates:
-            proto_mate = Mate(
-                id=mate.id,
-                role_id=mate.role_id,
-
-                name=mate.name,
-                img_id=mate.img_id,
-                nation=mate.nation,
-
-                lv=mate.lv,
-                points=mate.points,
-                assigned_duty=mate.assigned_duty,
-                ship_id=mate.ship_id,
-
-                leadership=mate.leadership,
-                navigation=mate.navigation,
-                accounting=mate.accounting,
-                battle=mate.battle,
-
-                talent_in_navigation=mate.talent_in_navigation,
-                talent_in_accounting=mate.talent_in_accounting,
-                talent_in_battle=mate.talent_in_battle,
-
-                lv_in_nav=mate.lv_in_nav,
-                lv_in_acc=mate.lv_in_acc,
-                lv_in_bat=mate.lv_in_bat,
-
-                xp_in_nav=mate.xp_in_nav,
-                xp_in_acc=mate.xp_in_acc,
-                xp_in_bat=mate.xp_in_bat,
-            )
+            proto_mate = mate.gen_mate_pb()
             proto_mates.append(proto_mate)
 
         return proto_mates
@@ -420,7 +286,7 @@ class PacketHandler:
             # fill ships
             ships = self.__query_ships_in_db(enter_world.role_id)
             self.__fill_ships_in_ram(self.role, ships)
-            proto_ships = self.__gen_proto_ships(ships)
+            proto_ships = self.__gen_proto_ships(self.role.ship_mgr.get_ships())
 
             # init mate_mgr
             self.role.mate_mgr = model.MateMgr(self.role)
@@ -428,7 +294,7 @@ class PacketHandler:
             # fill mates
             mates = self.__query_mates_in_db(enter_world.role_id)
             self.__fill_mates_in_ram(self.role, mates)
-            proto_mates = self.__gen_proto_mates(mates)
+            proto_mates = self.__gen_proto_mates(self.role.mate_mgr.get_mates())
 
             # prepare packet to send to client
             role_entered = RoleEntered()
@@ -937,38 +803,6 @@ class PacketHandler:
         ships_to_buy = self.__get_ships_to_buy(ship_ids)
         pack.ships_to_buy.extend(ships_to_buy)
         self.session.send(pack)
-
-    def _gen_ship_proto(self, new_model_ship):
-        new_ship_proto = Ship(
-            id=new_model_ship.id,
-            role_id=new_model_ship.role_id,
-            name=new_model_ship.name,
-            ship_template_id=new_model_ship.ship_template_id,
-            material_type=new_model_ship.material_type,
-            now_durability=new_model_ship.now_durability,
-            max_durability=new_model_ship.max_durability,
-            tacking=new_model_ship.tacking,
-            power=new_model_ship.power,
-            capacity=new_model_ship.capacity,
-            now_crew=new_model_ship.now_crew,
-            min_crew=new_model_ship.min_crew,
-            max_crew=new_model_ship.max_crew,
-            now_guns=new_model_ship.now_guns,
-            type_of_guns=new_model_ship.type_of_guns,
-            max_guns=new_model_ship.max_guns,
-            water=new_model_ship.water,
-            food=new_model_ship.food,
-            material=new_model_ship.material,
-            cannon=new_model_ship.cannon,
-            cargo_cnt=new_model_ship.cargo_cnt,
-            cargo_id=new_model_ship.cargo_id,
-            captain=new_model_ship.captain,
-            accountant=new_model_ship.accountant,
-            first_mate=new_model_ship.first_mate,
-            chief_navigator=new_model_ship.chief_navigator
-        )
-
-        return new_ship_proto
 
     async def handle_BuyShip(self, buy_ship):
         ship_template_id = buy_ship.template_id

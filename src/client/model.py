@@ -319,6 +319,60 @@ class MateMgr:
                 return True
         return False
 
+    def assign_duty(self, mate_id, ship_id, duty_type):
+        # get mate and ship
+        mate = self.get_mate(mate_id)
+        ship = self.role.ship_mgr.get_ship(ship_id)
+
+        # clear prev ship
+        if mate.ship_id and mate.duty_type is not None:
+            prev_ship = self.role.ship_mgr.get_ship(mate.ship_id)
+            prev_duty = mate.duty_type
+            if prev_duty == pb.DutyType.CAPTAIN:
+                prev_ship.captain = None
+            elif prev_duty == pb.DutyType.CHIEF_NAVIGATOR:
+                prev_ship.chief_navigator = None
+            elif prev_duty == pb.DutyType.ACCOUNTANT:
+                prev_ship.accountant = None
+            elif prev_duty == pb.DutyType.FIRST_MATE:
+                prev_ship.first_mate = None
+
+        # clear prev mate's duty
+        if duty_type == pb.DutyType.CAPTAIN:
+            if ship.captain:
+                prev_mate = self.get_mate(ship.captain)
+                prev_mate.duty_type = None
+                prev_mate.ship_id = None
+        elif duty_type == pb.DutyType.CHIEF_NAVIGATOR:
+            if ship.chief_navigator:
+                prev_mate = self.get_mate(ship.chief_navigator)
+                prev_mate.duty_type = None
+                prev_mate.ship_id = None
+        elif duty_type == pb.DutyType.ACCOUNTANT:
+            if ship.accountant:
+                prev_mate = self.get_mate(ship.accountant)
+                prev_mate.duty_type = None
+                prev_mate.ship_id = None
+        elif duty_type == pb.DutyType.FIRST_MATE:
+            if ship.first_mate:
+                prev_mate = self.get_mate(ship.first_mate)
+                prev_mate.duty_type = None
+                prev_mate.ship_id = None
+
+        # set mate
+        mate.duty_type = duty_type
+        mate.ship_id = ship_id
+
+        # set ship
+        if duty_type == pb.DutyType.CAPTAIN:
+            ship.captain = mate_id
+        elif duty_type == pb.DutyType.CHIEF_NAVIGATOR:
+            ship.chief_navigator = mate_id
+        elif duty_type == pb.DutyType.ACCOUNTANT:
+            ship.accountant = mate_id
+        elif duty_type == pb.DutyType.FIRST_MATE:
+            ship.first_mate = mate_id
+
 
 class DiscoveryMgr:
 

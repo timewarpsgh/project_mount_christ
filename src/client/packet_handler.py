@@ -635,3 +635,12 @@ class PacketHandler:
         self.__get_options_dialog().show_mate_speech(mate,
              'Farewell, captain, I will you and your crew all the best!')
         self.get_mate_mgr().rm_mate(mate_id)
+
+    async def handle_DutyAssigned(self, duty_assigned):
+        mate_id = duty_assigned.mate_id
+        ship_id = duty_assigned.ship_id
+        duty_type = duty_assigned.duty_type
+
+        self.get_mate_mgr().assign_duty(mate_id, ship_id, duty_type)
+
+        self.__get_options_dialog().pop_some_menus(3)

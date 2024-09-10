@@ -15,21 +15,8 @@ TO DO:
 
     fire mate OK
 
-    assign duty   ON
-        assign duty
+    assign duty OK
 
-            mate class: assigned_duty(string) -> duty_type(int) OK
-
-            on click -> show mates to assign duty menu
-                        mate name on click-> show duties menu(captain, chief navigator/accountant/first mate), show mate panel
-
-                        send pack assign_duty(mate_id, duty_type, ship_id)
-                        recv pack duty_assigned(mate_id, duty_type, ship_id)
-        captain
-
-        accountant
-        first mate
-        chief navigator
 
 
 

@@ -458,9 +458,38 @@ class OptionsDialog:
     def __show_one_ship_states(self, ship):
         ship_template = sObjectMgr.get_ship_template(ship.ship_template_id)
 
+        self.get_mate_mgr().get_mate(ship.captain)
         print(f'show states for {ship.id}')
+        if ship.captain:
+            mate = self.get_mate_mgr().get_mate(ship.captain)
+            captain_name = mate.name
+        else:
+            captain_name = 'NA'
+
+        # get chief_navigator
+        if ship.chief_navigator:
+            mate = self.get_mate_mgr().get_mate(ship.chief_navigator)
+            chief_navigator_name = mate.name
+        else:
+            chief_navigator_name = 'NA'
+
+        # get accountant
+        if ship.accountant:
+            mate = self.get_mate_mgr().get_mate(ship.accountant)
+            accountant_name = mate.name
+        else:
+            accountant_name = 'NA'
+
+        # get first mate
+        if ship.first_mate:
+            mate = self.get_mate_mgr().get_mate(ship.first_mate)
+            first_mate_name = mate.name
+        else:
+            first_mate_name = 'NA'
+
         dict = {
-            'name/type/captain': f'{ship.name}/{ship_template.name}/{ship.captain}',
+            'name/type/captain': f'{ship.name}/{ship_template.name}/{captain_name}',
+            'nav/acc/first mate': f'{chief_navigator_name}/{accountant_name}/{first_mate_name}',
             '1': '',
             'tacking/power/speed': f'{ship.tacking}/{ship.power}',
             'durability': f'{ship.now_durability}/{ship.max_durability}',
@@ -838,10 +867,24 @@ class OptionsDialog:
         return figure_surface
 
     def __show_one_mate_states(self, mate):
+        if mate.ship_id:
+
+            ship = self.get_ship_mgr().get_ship(mate.ship_id)
+            ship_name = ship.name
+        else:
+            ship_name = 'NA'
+
+        if mate.duty_type is not None:
+            duty_name = c.INT_2_DUTY_NAME[mate.duty_type]
+        else:
+            duty_name = 'NA'
+
+        print(f'mate.duty_type: {mate.duty_type}')
+        print(f'mate.ship_id: {mate.ship_id}')
 
         dict = {
             'name/nation': f"{mate.name}/{mate.nation}",
-            'duty': c.INT_2_DUTY_NAME[mate.duty_type],
+            'duty/ship': f'{duty_name}/{ship_name}',
             '1': '',
             'lv in nav/acc/bat': f"{mate.lv_in_nav}/{mate.lv_in_acc}/{mate.lv_in_bat}",
             '2': '',
@@ -887,6 +930,8 @@ class OptionsDialog:
             self.client.send(Discover(village_id=village_id_in_range))
 
     def __assign_duty(self, mate_id, ship_id, duty_type):
+        print(f'mate_id: {mate_id}, ship_id: {ship_id}, duty_type: {duty_type}')
+
         self.client.send(AssignDuty(mate_id=mate_id, ship_id=ship_id, duty_type=duty_type))
 
     def __show_ships_to_assign_duty_menu(self, mate):
@@ -903,8 +948,8 @@ class OptionsDialog:
         option_2_callback = {
             'Captain': partial(self.__show_ships_to_assign_duty_menu, mate),
             'Chief Navigator': partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.CHIEF_NAVIGATOR),
-            'Accountant': partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.CHIEF_NAVIGATOR),
-            'First Mate': partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.CHIEF_NAVIGATOR),
+            'Accountant': partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.ACCOUNTANT),
+            'First Mate': partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.FIRST_MATE),
         }
         self.__make_menu(option_2_callback)
 

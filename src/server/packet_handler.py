@@ -1156,6 +1156,17 @@ class PacketHandler:
         ship_id = assign_duty.ship_id
         duty_type = assign_duty.duty_type
 
+        # can't replace captain of flagship
+        flag_ship = self.role.get_flag_ship()
+        if ship_id == flag_ship.id and duty_type == pb.DutyType.CAPTAIN:
+            # send chat msg
+            pack = pb.GotChat(
+                chat_type=pb.ChatType.SYSTEM,
+                text='can\'t replace captain of flagship',
+            )
+            self.session.send(pack)
+            return
+
 
         self.role.mate_mgr.assign_duty(mate_id, ship_id, duty_type)
 

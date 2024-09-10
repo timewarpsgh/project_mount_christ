@@ -232,6 +232,37 @@ class Mate:
     xp_in_acc: int = None
     xp_in_bat: int = None
 
+    def __init__(self, prot_mate):
+        self.id = prot_mate.id
+        self.role_id = prot_mate.role_id
+
+        self.name = prot_mate.name
+        self.img_id = prot_mate.img_id
+        self.nation = prot_mate.nation
+
+        self.lv = prot_mate.lv
+        self.points = prot_mate.points
+        self.assigned_duty = prot_mate.assigned_duty
+        self.ship_id = prot_mate.ship_id
+
+        self.leadership = prot_mate.leadership
+
+        self.navigation = prot_mate.navigation
+        self.accounting = prot_mate.accounting
+        self.battle = prot_mate.battle
+
+        self.talent_in_navigation = prot_mate.talent_in_navigation
+        self.talent_in_accounting = prot_mate.talent_in_accounting
+        self.talent_in_battle = prot_mate.talent_in_battle
+
+        self.lv_in_nav = prot_mate.lv_in_nav
+        self.lv_in_acc = prot_mate.lv_in_acc
+        self.lv_in_bat = prot_mate.lv_in_bat
+
+        self.xp_in_nav = prot_mate.xp_in_nav
+        self.xp_in_acc = prot_mate.xp_in_acc
+        self.xp_in_bat = prot_mate.xp_in_bat
+
 
 class ShipMgr:
 

@@ -125,37 +125,7 @@ class PacketHandler:
     def __add_mate_to_mate_mgr(self, prot_mate):
         model_role = self.client.game.graphics.model.role
 
-        model_mate = model.Mate(
-            id=prot_mate.id,
-            role_id=prot_mate.role_id,
-
-            name=prot_mate.name,
-            img_id=prot_mate.img_id,
-            nation=prot_mate.nation,
-
-            lv=prot_mate.lv,
-            points=prot_mate.points,
-            assigned_duty=prot_mate.assigned_duty,
-            ship_id=prot_mate.ship_id,
-
-            leadership=prot_mate.leadership,
-
-            navigation=prot_mate.navigation,
-            accounting=prot_mate.accounting,
-            battle=prot_mate.battle,
-
-            talent_in_navigation=prot_mate.talent_in_navigation,
-            talent_in_accounting=prot_mate.talent_in_accounting,
-            talent_in_battle=prot_mate.talent_in_battle,
-
-            lv_in_nav=prot_mate.lv_in_nav,
-            lv_in_acc=prot_mate.lv_in_acc,
-            lv_in_bat=prot_mate.lv_in_bat,
-
-            xp_in_nav=prot_mate.xp_in_nav,
-            xp_in_acc=prot_mate.xp_in_acc,
-            xp_in_bat=prot_mate.xp_in_bat,
-        )
+        model_mate = model.Mate(prot_mate)
 
         model_role.mate_mgr.add_mate(model_mate)
 

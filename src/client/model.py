@@ -211,7 +211,7 @@ class Mate:
 
     lv: int = None
     points: int = None
-    assigned_duty: str = None
+    duty_type: int = None
     ship_id: int = None
 
     leadership: int = None
@@ -242,7 +242,7 @@ class Mate:
 
         self.lv = prot_mate.lv
         self.points = prot_mate.points
-        self.assigned_duty = prot_mate.assigned_duty
+        self.duty_type = prot_mate.duty_type
         self.ship_id = prot_mate.ship_id
 
         self.leadership = prot_mate.leadership

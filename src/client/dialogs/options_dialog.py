@@ -841,7 +841,7 @@ class OptionsDialog:
 
         dict = {
             'name/nation': f"{mate.name}/{mate.nation}",
-            'duty': mate.assigned_duty,
+            'duty': c.INT_2_DUTY_NAME[mate.duty_type],
             '1': '',
             'lv in nav/acc/bat': f"{mate.lv_in_nav}/{mate.lv_in_acc}/{mate.lv_in_bat}",
             '2': '',
@@ -886,6 +886,35 @@ class OptionsDialog:
         if village_id_in_range:
             self.client.send(Discover(village_id=village_id_in_range))
 
+    def __assign_duty(self, mate_id, ship_id, duty_type):
+        self.client.send(AssignDuty(mate_id=mate_id, ship_id=ship_id, duty_type=duty_type))
+
+    def __show_ships_to_assign_duty_menu(self, mate):
+        ships = self.get_ship_mgr().get_ships()
+        option_2_callback = {}
+        for ship in ships:
+            option_2_callback[f'{ship.name}'] = partial(self.__assign_duty, mate.id, ship.id, pb.DutyType.CAPTAIN)
+
+        self.__make_menu(option_2_callback)
+
+    def __show_duty_types_menu(self, mate):
+        flag_ship = self.__get_role().get_flag_ship()
+        ship_id = flag_ship.id
+        option_2_callback = {
+            'Captain': partial(self.__show_ships_to_assign_duty_menu, mate),
+            'Chief Navigator': partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.CHIEF_NAVIGATOR),
+            'Accountant': partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.CHIEF_NAVIGATOR),
+            'First Mate': partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.CHIEF_NAVIGATOR),
+        }
+        self.__make_menu(option_2_callback)
+
+    def __show_mates_to_assign_duty_menu(self):
+        mates = self.get_mate_mgr().get_mates()
+        option_2_callback = {}
+        for mate in mates:
+            option_2_callback[f'{mate.name}'] = partial(self.__show_duty_types_menu, mate)
+
+        self.__make_menu(option_2_callback)
 
     def __show_mate_info_menu(self):
         mate_mgr = self.client.game.graphics.model.role.mate_mgr
@@ -1129,6 +1158,7 @@ class OptionsDialog:
         option_2_callback = {
             'Admiral Info': '',
             'Mate Info': partial(self.__show_mate_info_menu),
+            'Assign Duty': partial(self.__show_mates_to_assign_duty_menu),
         }
 
         MyMenuWindow(

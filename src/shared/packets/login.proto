@@ -136,7 +136,7 @@ message Mate {
 
   optional int32 lv = 6;
   optional int32 points = 7;
-  optional string assigned_duty = 8;
+  optional int32 duty_type = 8;
   optional int32 ship_id = 9;
 
   optional int32 leadership = 10;
@@ -539,4 +539,24 @@ message FireMate{
 
 message MateFired{
     required int32 mate_id = 1;
+}
+
+//assign duty
+enum DutyType {
+    CAPTAIN = 0;
+    CHIEF_NAVIGATOR = 1;
+    ACCOUNTANT = 2;
+    FIRST_MATE = 3;
+}
+
+message AssignDuty{
+    required int32 mate_id = 1;
+    required int32 ship_id = 2;
+    required DutyType duty_type = 3;
+}
+
+message DutyAssigned{
+    required int32 mate_id = 1;
+    required int32 ship_id = 2;
+    required DutyType duty_type = 3;
 }

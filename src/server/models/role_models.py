@@ -56,7 +56,7 @@ class Mate(BASE):
 
 	lv = Column(Integer)
 	points = Column(Integer)
-	assigned_duty = Column(String)
+	duty_type = Column(Integer)
 	ship_id = Column(Integer)
 
 	leadership = Column(Integer)

@@ -283,5 +283,13 @@ DIR_2_MOVE_MARKS_OFFSETS = {
     pb.DirType.NW: [[-1, 0.5], [0, -1], [-1, -0.5]]
 }
 
+INT_2_DUTY_NAME = {
+    0: 'captain',
+    1: 'chief navigator',
+    2: 'accountant',
+    3: 'first mate',
+}
+
+
 if __name__ == '__main__':
     print(SAILABLE_TILES)

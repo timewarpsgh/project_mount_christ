@@ -1150,3 +1150,14 @@ class PacketHandler:
 
         pack = pb.MateFired(mate_id=mate_id)
         self.session.send(pack)
+
+    async def handle_AssignDuty(self, assign_duty):
+        mate_id = assign_duty.mate_id
+        ship_id = assign_duty.ship_id
+        duty_type = assign_duty.duty_type
+
+
+        self.role.mate_mgr.assign_duty(mate_id, ship_id, duty_type)
+
+        pack = pb.DutyAssigned(mate_id=mate_id, ship_id=ship_id, duty_type=duty_type)
+        self.session.send(pack)

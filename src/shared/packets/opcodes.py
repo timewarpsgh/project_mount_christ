@@ -106,6 +106,8 @@ class OpCodeType(Enum):
     FireMate = auto()
     MateFired = auto()
 
+    AssignDuty = auto()
+    DutyAssigned = auto()
 
 def gen_opcode_2_value():
     d = {}

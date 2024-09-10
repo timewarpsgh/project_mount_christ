@@ -170,7 +170,7 @@ class NpcMgr:
         mate = Mate(
             id=mate_model.id,
             accounting=mate_model.accounting,
-            assigned_duty=mate_model.assigned_duty,
+            duty_type=mate_model.duty_type,
             battle=mate_model.battle,
             img_id=mate_model.img_id,
             leadership=mate_model.leadership,

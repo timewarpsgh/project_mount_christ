@@ -613,7 +613,7 @@ class Mate:
 
     lv: int=None
     points: int=None
-    assigned_duty: str=None
+    duty_type: int=None
     ship_id: int=None
 
     leadership: int=None
@@ -642,7 +642,7 @@ class Mate:
         self.nation = mate.nation
         self.lv = mate.lv
         self.points = mate.points
-        self.assigned_duty = mate.assigned_duty
+        self.duty_type = mate.duty_type
         self.ship_id = mate.ship_id
 
         self.leadership = mate.leadership
@@ -672,7 +672,7 @@ class Mate:
             nation=self.nation,
             lv=self.lv,
             points=self.points,
-            assigned_duty=self.assigned_duty,
+            duty_type=self.duty_type,
             ship_id=self.ship_id,
 
             leadership=self.leadership,
@@ -776,6 +776,7 @@ class ShipMgr:
     def has_ship(self, id):
         return id in self.id_2_ship
 
+
 class MateMgr:
 
     def __init__(self, role):
@@ -804,6 +805,9 @@ class MateMgr:
             if mate.name == mate_template.name:
                 return True
         return False
+
+    def assign_duty(self, mate_id, ship_id, duty_type):
+        pass
 
 class DiscoveryMgr:
 

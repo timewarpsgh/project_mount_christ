@@ -204,6 +204,7 @@ class Ship:
 class Mate:
     id: int = None
     role_id: int = None
+    mate_mgr: any = None
 
     name: str = None
     img_id: int = None
@@ -302,6 +303,7 @@ class MateMgr:
 
     def add_mate(self, mate):
         self.id_2_mate[mate.id] = mate
+        mate.mate_mgr = self
 
     def rm_mate(self, mate_id):
         del self.id_2_mate[mate_id]

@@ -17,7 +17,7 @@ TO DO:
 
     assign duty OK
 
-
+    newly hired mate has no duty or ship_id OK
 
 
 

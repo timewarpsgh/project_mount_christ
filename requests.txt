@@ -13,8 +13,7 @@ TO DO:
     show mate's attributes right OK
 
 
-    fire mate
-        bar/ fire mate
+    fire mate OK
 
     assign job
         captain

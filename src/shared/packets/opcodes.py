@@ -103,6 +103,10 @@ class OpCodeType(Enum):
     HireMate = auto()
     HireMateRes = auto()
 
+    FireMate = auto()
+    MateFired = auto()
+
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

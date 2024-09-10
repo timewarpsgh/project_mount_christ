@@ -168,7 +168,7 @@ class OptionsDialog:
             'Recruit Crew': '',
             'Dismiss Crew': '',
             'Meet': partial(self.__get_mate_in_port),
-            'Fire Mate': '',
+            'Fire Mate': partial(self.__show_mates_to_fire_menu),
             'Waitress': '',
             'Exit': partial(self.__exit_building),
         }
@@ -292,6 +292,24 @@ class OptionsDialog:
 
     def __get_mate_in_port(self):
         self.client.send(GetMateInPort())
+
+    def __fire_mate(self, mate):
+        self.client.send(FireMate(mate_id=mate.id))
+
+    def __show_ensure_fire_mate_menu(self, mate):
+        option_2_callback = {
+            'Yes': partial(self.__fire_mate, mate),
+        }
+
+        self.__make_menu(option_2_callback)
+        self.show_mate_speech(mate, 'Are you sure you want to fire me?')
+
+    def __show_mates_to_fire_menu(self):
+        mates = self.get_mate_mgr().get_mates()
+        option_2_callback = {}
+        for mate in mates:
+            option_2_callback[f'{mate.name}'] = partial(self.__show_ensure_fire_mate_menu, mate)
+        self.__make_menu(option_2_callback)
 
     def __exit_building(self):
         self.pop_some_menus(1)

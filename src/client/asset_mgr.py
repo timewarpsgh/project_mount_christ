@@ -25,11 +25,13 @@ def load_sounds_in_dir(sounds_container, directory, accept=('.ogg')):
 
 
 class AssetMgr:
+
     def __init__(self):
         self.images = {}
         self.sounds = {}
         pygame.init()
         self.font = pygame.font.Font(r"D:\data\code\python\project_mount_christ\data\fonts\siyuanheiti.ttf", c.FONT_SIZE)
+
     def load_images(self):
         self.images['ships'] = {}
 

@@ -1142,3 +1142,11 @@ class PacketHandler:
         else:
             pack = pb.HireMateRes(is_ok=False)
             self.session.send(pack)
+
+    async def handle_FireMate(self, fire_mate):
+        mate_id = fire_mate.mate_id
+
+        self.role.mate_mgr.rm_mate(mate_id)
+
+        pack = pb.MateFired(mate_id=mate_id)
+        self.session.send(pack)

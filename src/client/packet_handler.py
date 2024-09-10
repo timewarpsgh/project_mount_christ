@@ -624,3 +624,14 @@ class PacketHandler:
 
         else:
             print('failed to hire mate')
+
+    def get_mate_mgr(self):
+        return self.__get_role().mate_mgr
+
+    async def handle_MateFired(self, mate_fired):
+        mate_id = mate_fired.mate_id
+        mate = self.get_mate_mgr().get_mate(mate_id)
+        self.__get_options_dialog().pop_some_menus(3)
+        self.__get_options_dialog().show_mate_speech(mate,
+             'Farewell, captain, I will you and your crew all the best!')
+        self.get_mate_mgr().rm_mate(mate_id)

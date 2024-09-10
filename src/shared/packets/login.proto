@@ -531,3 +531,12 @@ message HireMateRes{
     required bool is_ok = 1;
     optional Mate mate = 2;
 }
+
+// fire mate
+message FireMate{
+    required int32 mate_id = 1;
+}
+
+message MateFired{
+    required int32 mate_id = 1;
+}

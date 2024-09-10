@@ -10,7 +10,7 @@ TO DO:
 
     hire mate  OK
 
-    show mate's attributes right ON
+    show mate's attributes right OK
 
 
     fire mate

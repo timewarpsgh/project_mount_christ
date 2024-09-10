@@ -825,11 +825,12 @@ class OptionsDialog:
             'name/nation': f"{mate.name}/{mate.nation}",
             'duty': mate.assigned_duty,
             '1': '',
-            'lv/points': f"{mate.lv}/{mate.points}",
+            'lv in nav/acc/bat': f"{mate.lv_in_nav}/{mate.lv_in_acc}/{mate.lv_in_bat}",
             '2': '',
-            'navigation/accounting/battle': f"{mate.navigation}/{mate.accounting}/{mate.battle}",
-
+            'xp in nav/acc/bat': f"{mate.xp_in_nav}/{mate.xp_in_acc}/{mate.xp_in_bat}",
             '3': '',
+            'navigation/accounting/battle': f"{mate.navigation}/{mate.accounting}/{mate.battle}",
+            '4': '',
             'talent in navigation/accounting/battle':
                 f"{mate.talent_in_navigation}/{mate.talent_in_accounting}/{mate.talent_in_battle}",
         }

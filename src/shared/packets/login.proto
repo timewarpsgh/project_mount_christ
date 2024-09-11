@@ -201,6 +201,7 @@ message AvailableCargo {
     required int32 id = 1;
     required string name = 2;
     required int32 price = 3;
+    required int32 cut_price = 4;
 }
 
 message GetAvailableCargosRes {

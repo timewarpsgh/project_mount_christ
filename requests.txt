@@ -8,7 +8,7 @@ TO DO:
     mate's 3 attributes should be useful (crude enough for now)
         accounting,
             buy and sell cargo refactored into role OK
-            buy cargo    ON
+            buy cargo, with discount 100=20% 200=40%    OK
             sell cargo   ON
         navigation, together with ship's tucking/power,   at sea sail faster/ in battle, more steps
         battle, attack and defence for shooting and engaging

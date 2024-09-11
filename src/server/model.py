@@ -1494,6 +1494,40 @@ class Role:
     def get_port(self):
         return sObjectMgr.get_port(self.map_id)
 
+    def get_available_cargos(self):
+        port = self.get_port()
+        cargo_ids = sObjectMgr.get_cargo_ids(port.economy_id)
+        available_cargos = []
+
+        for cargo_id in cargo_ids:
+            cargo_template = sObjectMgr.get_cargo_template(cargo_id)
+            available_cargo = pb.AvailableCargo()
+            available_cargo.id = cargo_template.id
+            available_cargo.name = cargo_template.name
+
+            price = json.loads(cargo_template.buy_price)[str(port.economy_id)]
+            available_cargo.price = price
+            available_cargo.cut_price = int(price * (1 - self.get_discount()))
+            available_cargos.append(available_cargo)
+
+        pack = pb.GetAvailableCargosRes()
+        pack.available_cargos.extend(available_cargos)
+        self.session.send(pack)
+
+    def get_discount(self):
+        flag_ship = self.get_flag_ship()
+        accountant = flag_ship.get_accountant()
+        captain = flag_ship.get_captain()
+
+        acc_skill_to_use = None
+        if not accountant:
+            acc_skill_to_use = captain.accounting
+        else:
+            acc_skill_to_use = max(captain.accounting, accountant.accounting)
+
+        discount = 0.2 * acc_skill_to_use * 0.01
+        return discount
+
     def buy_cargo(self, cargo_id, cnt, ship_id):
         # get cost
         cost = 0
@@ -1507,7 +1541,8 @@ class Role:
             return
 
         buy_price = economy_id_str_2_buy_price[str(port.economy_id)]
-        cost = cnt * buy_price
+        modified_buy_price = int(buy_price * (1 - self.get_discount()))
+        cost = cnt * modified_buy_price
 
         # not enough money
         if not self.money >= cost:

@@ -343,31 +343,8 @@ class PacketHandler:
         # sail
         await self.handle_Sail('')
 
-
-    def __get_available_cargos(self):
-        port = sObjectMgr.get_port(self.role.map_id)
-        cargo_ids = sObjectMgr.get_cargo_ids(port.economy_id)
-        available_cargos = []
-
-        for cargo_id in cargo_ids:
-            cargo_template = sObjectMgr.get_cargo_template(cargo_id)
-            available_cargo = AvailableCargo()
-            available_cargo.id = cargo_template.id
-            available_cargo.name = cargo_template.name
-
-            available_cargo.price = json.loads(cargo_template.buy_price)[str(port.economy_id)]
-
-            available_cargos.append(available_cargo)
-
-        return available_cargos
-
     async def handle_GetAvailableCargos(self, get_available_cargos):
-
-        available_cargos = self.__get_available_cargos()
-
-        get_available_cargos_res = GetAvailableCargosRes()
-        get_available_cargos_res.available_cargos.extend(available_cargos)
-        self.session.send(get_available_cargos_res)
+        self.role.get_available_cargos()
 
     async def handle_Move(self, move):
         self.role.move(move.dir_type)

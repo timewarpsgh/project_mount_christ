@@ -855,8 +855,11 @@ class OptionsDialog:
         sAssetMgr.sounds['map'].play()
 
     def show_available_cargos_menu(self, get_available_cargos_res):
-        option_2_callback = {f'{cargo.name} {cargo.price}': partial(self.__show_ships_to_load_cargo_menu, cargo.id)
-                             for cargo in get_available_cargos_res.available_cargos}
+        option_2_callback = {
+            f'{cargo.name} {cargo.price} -> {cargo.cut_price}':
+                partial(self.__show_ships_to_load_cargo_menu, cargo.id)
+               for cargo in get_available_cargos_res.available_cargos
+        }
 
         self.__make_menu(option_2_callback)
 

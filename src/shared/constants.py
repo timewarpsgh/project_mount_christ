@@ -284,10 +284,10 @@ DIR_2_MOVE_MARKS_OFFSETS = {
 }
 
 INT_2_DUTY_NAME = {
-    0: 'captain',
-    1: 'chief navigator',
-    2: 'accountant',
-    3: 'first mate',
+    1: 'captain',
+    2: 'chief navigator',
+    3: 'accountant',
+    4: 'first mate',
 }
 
 

@@ -874,7 +874,7 @@ class OptionsDialog:
         else:
             ship_name = 'NA'
 
-        if mate.duty_type is not None:
+        if mate.duty_type:
             duty_name = c.INT_2_DUTY_NAME[mate.duty_type]
         else:
             duty_name = 'NA'

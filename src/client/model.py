@@ -327,7 +327,7 @@ class MateMgr:
         ship = self.role.ship_mgr.get_ship(ship_id)
 
         # clear prev ship
-        if mate.ship_id and mate.duty_type is not None:
+        if mate.ship_id and mate.duty_type:
             prev_ship = self.role.ship_mgr.get_ship(mate.ship_id)
             prev_duty = mate.duty_type
             if prev_duty == pb.DutyType.CAPTAIN:

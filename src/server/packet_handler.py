@@ -1134,6 +1134,9 @@ class PacketHandler:
             mate.init_from_template(mate_template, self.role.id)
             self.role.mate_mgr.add_mate(mate)
 
+            print('x' * 10)
+            print(f'{mate.ship_id} {mate.duty_type}')
+
             pack = pb.HireMateRes(
                 is_ok=True,
                 mate=mate.gen_mate_pb(),

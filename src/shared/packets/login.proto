@@ -543,10 +543,10 @@ message MateFired{
 
 //assign duty
 enum DutyType {
-    CAPTAIN = 0;
-    CHIEF_NAVIGATOR = 1;
-    ACCOUNTANT = 2;
-    FIRST_MATE = 3;
+    CAPTAIN = 1;
+    CHIEF_NAVIGATOR = 2;
+    ACCOUNTANT = 3;
+    FIRST_MATE = 4;
 }
 
 message AssignDuty{

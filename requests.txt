@@ -19,6 +19,7 @@ TO DO:
 
     newly hired mate has no duty or ship_id OK
 
+    mate's duty_type starts from 1 OK
 
 
 
@@ -60,6 +61,7 @@ cmds
     protoc --python_out=. .\login.proto
 
     # git push
+    git config --global --unset https.proxy
     git config --global https.proxy 127.0.0.1:1080
     git push
 

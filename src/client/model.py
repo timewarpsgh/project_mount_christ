@@ -13,6 +13,7 @@ class Ship:
     id: int = None
     role_id: int = None
     role: any = None
+    ship_mgr: any = None
 
     name: str = None
     ship_template_id: int = None
@@ -96,6 +97,34 @@ class Ship:
 
         self.x = prot_ship.x
         self.y = prot_ship.y
+
+    def get_mate(self, mate_id):
+        mate = self.ship_mgr.role.mate_mgr.get_mate(mate_id)
+        return mate
+
+    def get_captain(self):
+        if not self.captain:
+            return None
+        mate = self.get_mate(self.captain)
+        return mate
+
+    def get_chief_navigator(self):
+        if not self.chief_navigator:
+            return None
+        mate = self.get_mate(self.chief_navigator)
+        return mate
+
+    def get_accountant(self):
+        if not self.accountant:
+            return None
+        mate = self.get_mate(self.accountant)
+        return mate
+
+    def get_first_mate(self):
+        if not self.first_mate:
+            return None
+        mate = self.get_mate(self.first_mate)
+        return mate
 
     def add_cargo(self, cargo_id, cargo_cnt):
         self.cargo_id = cargo_id
@@ -264,6 +293,10 @@ class Mate:
         self.xp_in_acc = prot_mate.xp_in_acc
         self.xp_in_bat = prot_mate.xp_in_bat
 
+    def clear_duty(self):
+        self.duty_type = None
+        self.ship_id = None
+
     def xp_earned(self, duty_type, amount):
         if duty_type == pb.DutyType.CHIEF_NAVIGATOR:
             self.xp_in_nav += amount
@@ -301,10 +334,17 @@ class ShipMgr:
 
     def add_ship(self, ship):
         self.id_2_ship[ship.id] = ship
+        ship.ship_mgr = self
 
     def rm_ship(self, ship_id):
         if ship_id not in self.id_2_ship:
             return
+
+        ship = self.get_ship(ship_id)
+        captain = ship.get_captain()
+        if captain:
+            captain.clear_duty()
+
         del self.id_2_ship[ship_id]
 
     def get_ship(self, ship_id):

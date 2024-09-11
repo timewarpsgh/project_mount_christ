@@ -69,6 +69,12 @@ class Ship:
     steps_left: int=c.STEPS_LEFT
 
 
+    def clear_mates_onboard(self):
+        self.captain = None
+        self.accountant = None
+        self.chief_navigator = None
+        self.first_mate = None
+
     def get_mate(self, mate_id):
         mate = self.ship_mgr.role.mate_mgr.get_mate(mate_id)
         return mate
@@ -665,6 +671,10 @@ class Mate:
     xp_in_acc: int=None
     xp_in_bat: int=None
 
+    def clear_duty(self):
+        self.duty_type = None
+        self.ship_id = None
+
     def earn_xp(self, amount, duty_type):
         pack = pb.XpEarned(
             mate_id=self.id,
@@ -1199,6 +1209,12 @@ class Role:
                     prev_ship_name = ship.name
                     ship.name = self.ship_mgr.get_new_ship_name()
                     ship.role_id = self.id
+
+                    captain = ship.get_captain()
+                    captain.clear_duty()
+                    ship.clear_mates_onboard()
+
+
                     self.ship_mgr.add_ship(ship)
 
                     ship_proto = ship.gen_ship_proto()
@@ -1300,6 +1316,7 @@ class Role:
             ship.id = new_ship_id
             ship.name = self.ship_mgr.get_new_ship_name()
             ship.role_id = self.id
+            ship.clear_mates_onboard()
             self.ship_mgr.add_ship(ship)
 
         pack = pb.YouWonNpcBattle()
@@ -1314,6 +1331,19 @@ class Role:
         # notify nearby roles
         sMapMgr.add_object(self)
         self.session.packet_handler.send_role_appeared_to_nearby_roles()
+
+        # earn xp
+        xp_amount = 300
+        flag_ship = self.get_flag_ship()
+        first_mate = flag_ship.get_first_mate()
+        if first_mate:
+            first_mate.earn_xp(xp_amount, pb.DutyType.FIRST_MATE)
+
+        ships = self.ship_mgr.get_ships()
+        for ship in ships:
+            captain = ship.get_captain()
+            if captain:
+                captain.earn_xp(xp_amount, pb.DutyType.FIRST_MATE)
 
     def lose_to_npc(self):
         for id in self.get_non_flag_ships_ids():

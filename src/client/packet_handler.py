@@ -645,6 +645,9 @@ class PacketHandler:
 
         self.__get_options_dialog().pop_some_menus(3)
 
+    def __get_chat_dialog(self):
+        return self.client.game.gui.chat_dialog
+
     async def handle_XpEarned(self, xp_earned):
         mate_id = xp_earned.mate_id
         duty_type = xp_earned.duty_type
@@ -652,7 +655,8 @@ class PacketHandler:
 
         mate = self.get_mate_mgr().get_mate(mate_id)
         mate.xp_earned(duty_type, amount)
-        print(f"{mate.name} earned {amount} xp in {c.INT_2_DUTY_NAME[duty_type]}")
+        text = f"{mate.name} earned {amount} xp in {c.INT_2_DUTY_NAME[duty_type]}"
+        self.__get_chat_dialog().add_chat(pb.ChatType.SYSTEM, text)
 
     async def handle_LvUped(self, lv_uped):
         mate_id = lv_uped.mate_id
@@ -663,4 +667,10 @@ class PacketHandler:
 
         mate = self.get_mate_mgr().get_mate(mate_id)
         mate.lv_uped(duty_type, lv, xp, value)
-        print(f"{mate.name} lv uped to {lv} in {c.INT_2_DUTY_NAME[duty_type]}")
+
+        # play sound lv_up
+        sAssetMgr.sounds['lv_up'].play()
+
+        # show chat
+        text = f"{mate.name} lv uped to {lv} in {c.INT_2_DUTY_NAME[duty_type]}"
+        self.__get_chat_dialog().add_chat(pb.ChatType.SYSTEM, text)

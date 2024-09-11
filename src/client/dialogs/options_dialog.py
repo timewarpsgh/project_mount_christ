@@ -516,7 +516,7 @@ class OptionsDialog:
         ship_image = sAssetMgr.images['ships'][ship_template.name.lower()]
 
         MyPanelWindow(
-            rect=pygame.Rect((59, 12), (350, 400)),
+            rect=pygame.Rect((59, 12), (350, 430)),
             ui_manager=self.mgr,
             text=text,
             image=ship_image,

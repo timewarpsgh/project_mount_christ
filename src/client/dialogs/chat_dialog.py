@@ -45,7 +45,7 @@ class ChatDialog(MyUIConsoleWindow):
         super().process_event(event)
 
 
-    def add_chat(self, chat_type, origin_name, text):
+    def add_chat(self, chat_type, text, origin_name=None):
         if chat_type == ChatType.SAY:
             chat_type_str = 'says'
 

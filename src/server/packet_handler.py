@@ -398,23 +398,7 @@ class PacketHandler:
 
     async def handle_GetCargoCntAndSellPrice(self, get_cargo_cnt_and_sell_price):
         ship_id = get_cargo_cnt_and_sell_price.ship_id
-        ship = self.role.ship_mgr.get_ship(ship_id)
-
-        if not ship.cargo_id:
-            return
-
-        # get sell price
-        cargo_template = sObjectMgr.get_cargo_template(ship.cargo_id)
-        port = sObjectMgr.get_port(self.role.map_id)
-        sell_price = json.loads(cargo_template.sell_price)[str(port.economy_id)]
-
-        packet = CargoToSellInShip()
-        packet.cargo_id = ship.cargo_id
-        packet.cargo_name = cargo_template.name
-        packet.cnt = ship.cargo_cnt
-        packet.sell_price = sell_price
-        packet.ship_id = ship_id
-        self.session.send(packet)
+        self.role.get_cargo_cnt_and_sell_price(ship_id)
 
     async def handle_SellCargoInShip(self, sell_cargo_in_ship):
         ship_id = sell_cargo_in_ship.ship_id

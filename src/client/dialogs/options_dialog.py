@@ -123,10 +123,11 @@ class OptionsDialog:
         cargo_name = cargo_to_sell_in_ship.cargo_name
         cnt = cargo_to_sell_in_ship.cnt
         sell_price = cargo_to_sell_in_ship.sell_price
+        modified_sell_price = cargo_to_sell_in_ship.modified_sell_price
         ship_id = cargo_to_sell_in_ship.ship_id
 
         option_2_callback = {
-            f'{cargo_name} [{cnt}] {sell_price}': partial(self.__ask_cargo_cnt_to_sell, cargo_id, ship_id),
+            f'{cargo_name} [{cnt}] {sell_price}->{modified_sell_price}': partial(self.__ask_cargo_cnt_to_sell, cargo_id, ship_id),
         }
 
         self.__make_menu(option_2_callback)

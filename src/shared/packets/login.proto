@@ -292,7 +292,8 @@ message CargoToSellInShip {
     required string cargo_name = 2;
     required int32 cnt = 3;
     required int32 sell_price = 4;
-    required int32 ship_id = 5;
+    required int32 modified_sell_price = 5;
+    required int32 ship_id = 6;
 }
 
 message SellCargoInShip {

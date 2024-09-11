@@ -1494,6 +1494,9 @@ class Role:
     def get_port(self):
         return sObjectMgr.get_port(self.map_id)
 
+    def __get_modified_buy_price(self, price):
+        return int(price * (1 - self.get_discount()))
+
     def get_available_cargos(self):
         port = self.get_port()
         cargo_ids = sObjectMgr.get_cargo_ids(port.economy_id)
@@ -1507,11 +1510,34 @@ class Role:
 
             price = json.loads(cargo_template.buy_price)[str(port.economy_id)]
             available_cargo.price = price
-            available_cargo.cut_price = int(price * (1 - self.get_discount()))
+            available_cargo.cut_price = self.__get_modified_buy_price(price)
             available_cargos.append(available_cargo)
 
         pack = pb.GetAvailableCargosRes()
         pack.available_cargos.extend(available_cargos)
+        self.session.send(pack)
+
+    def __get_modified_sell_price(self, sell_price):
+        return int(sell_price * (1 + self.get_discount()))
+
+    def get_cargo_cnt_and_sell_price(self, ship_id):
+        ship = self.ship_mgr.get_ship(ship_id)
+
+        if not ship.cargo_id:
+            return
+
+        # get sell price
+        cargo_template = sObjectMgr.get_cargo_template(ship.cargo_id)
+        port = self.get_port()
+        sell_price = json.loads(cargo_template.sell_price)[str(port.economy_id)]
+
+        pack = pb.CargoToSellInShip()
+        pack.cargo_id = ship.cargo_id
+        pack.cargo_name = cargo_template.name
+        pack.cnt = ship.cargo_cnt
+        pack.sell_price = sell_price
+        pack.modified_sell_price = self.__get_modified_sell_price(sell_price)
+        pack.ship_id = ship_id
         self.session.send(pack)
 
     def get_discount(self):
@@ -1541,7 +1567,7 @@ class Role:
             return
 
         buy_price = economy_id_str_2_buy_price[str(port.economy_id)]
-        modified_buy_price = int(buy_price * (1 - self.get_discount()))
+        modified_buy_price = self.__get_modified_buy_price(buy_price)
         cost = cnt * modified_buy_price
 
         # not enough money
@@ -1580,9 +1606,10 @@ class Role:
         cargo_template = sObjectMgr.get_cargo_template(cargo_id)
         port = self.get_port()
         sell_price = json.loads(cargo_template.sell_price)[str(port.economy_id)]
+        modified_sell_price = self.__get_modified_sell_price(sell_price)
 
         # change ram
-        profit = cnt * sell_price
+        profit = cnt * modified_sell_price
         self.money += profit
         ship.remove_cargo(cargo_id, cnt)
 

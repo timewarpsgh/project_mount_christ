@@ -1,20 +1,18 @@
 TO DO:
 
-    mates can earn xp and lv up ON
+    mates can earn xp and lv up OK
         xp in acc:  got when cargo sold, only flagship captain and accountant gets   OK
         xp in nav: got when discovery made, all captains and chief navigator gets   OK
         xp in bat:  got when npc battle won, all captains and first mate gets  OK
 
+    mate's 3 attributes should be useful (crude enough for now)
+        accounting,
+            buy and sell cargo refactored into role OK
+            buy cargo    ON
+            sell cargo   ON
+        navigation, together with ship's tucking/power,   at sea sail faster/ in battle, more steps
+        battle, attack and defence for shooting and engaging
 
-
-        mate.earn_xp(amount, duty_type)
-        mate.lv_up(duty_type)
-
-
-        when xp reaches lv max, lv up, 1,2 or 3 points added to that field(navigation),
-
-
-        SHOW CARGO NAME
 
 DONE:
 

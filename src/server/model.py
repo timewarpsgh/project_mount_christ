@@ -5,7 +5,7 @@ import login_pb2 as pb
 import math
 import numpy
 from enum import Enum, auto
-
+import json
 
 # import from dir
 import sys
@@ -1490,6 +1490,81 @@ class Role:
     def set_ship_strategy(self, ship_id, strategy):
         ship = self.ship_mgr.get_ship(ship_id)
         ship.set_strategy(strategy)
+
+    def get_port(self):
+        return sObjectMgr.get_port(self.map_id)
+
+    def buy_cargo(self, cargo_id, cnt, ship_id):
+        # get cost
+        cost = 0
+        cargo_template = sObjectMgr.get_cargo_template(cargo_id)
+        economy_id_str_2_buy_price = json.loads(cargo_template.buy_price)
+
+        port = self.get_port()
+
+        if str(port.economy_id) not in economy_id_str_2_buy_price:
+            print("port dosen't have this cargo")
+            return
+
+        buy_price = economy_id_str_2_buy_price[str(port.economy_id)]
+        cost = cnt * buy_price
+
+        # not enough money
+        if not self.money >= cost:
+            print("not enough money")
+            return
+
+        # update ram
+        self.money -= cost
+        self.ship_mgr.get_ship(ship_id).add_cargo(cargo_id, cnt)
+
+        # tell client
+        pack = pb.MoneyChanged(money=self.money)
+        self.session.send(pack)
+
+        pack = pb.ShipCargoChanged(
+            ship_id=ship_id,
+            cargo_id=cargo_id,
+            cnt=cnt,
+        )
+        self.session.send(pack)
+
+    def __get_xp_amount_from_prfoit(self, profit):
+        xp = profit // 100
+        return xp
+
+    def sell_cargo(self, ship_id, cargo_id, cnt):
+        ship = self.ship_mgr.get_ship(ship_id)
+
+        if not ship.cargo_id:
+            return
+        if not ship.cargo_cnt >= cnt:
+            return
+
+        # get sell price
+        cargo_template = sObjectMgr.get_cargo_template(cargo_id)
+        port = self.get_port()
+        sell_price = json.loads(cargo_template.sell_price)[str(port.economy_id)]
+
+        # change ram
+        profit = cnt * sell_price
+        self.money += profit
+        ship.remove_cargo(cargo_id, cnt)
+
+        # earn xp in acc
+        flag_ship = self.get_flag_ship()
+        xp_amount = self.__get_xp_amount_from_prfoit(profit)
+        flag_ship.get_captain().earn_xp(xp_amount, pb.DutyType.ACCOUNTANT)
+        accountant = flag_ship.get_accountant()
+        if accountant:
+            accountant.earn_xp(xp_amount, pb.DutyType.ACCOUNTANT)
+
+        # tell client
+        self.session.send(pb.MoneyChanged(money=self.money))
+        self.session.send(pb.ShipCargoChanged(ship_id=ship_id,
+                                              cargo_id=ship.cargo_id,
+                                              cnt=ship.cargo_cnt))
+        self.session.send(pb.PopSomeMenus(cnt=2))
 
 
 class Model:

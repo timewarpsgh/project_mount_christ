@@ -417,42 +417,7 @@ class PacketHandler:
         cnt = buy_cargo.cnt
         ship_id = buy_cargo.ship_id
 
-        print(f'cnt: {cnt}')
-
-        # get cost
-        cost = 0
-        cargo_template = sObjectMgr.get_cargo_template(cargo_id)
-        economy_id_str_2_buy_price = json.loads(cargo_template.buy_price)
-
-        port = sObjectMgr.get_port(self.role.map_id)
-
-        # port dosen't have this cargo
-        if str(port.economy_id) not in economy_id_str_2_buy_price:
-            print("port dosen't have this cargo")
-            return
-
-        buy_price = economy_id_str_2_buy_price[str(port.economy_id)]
-        cost = cnt * buy_price
-
-        # not enough money
-        if not self.role.money  >= cost:
-            print("not enough money")
-            return
-
-        # update ram
-        self.role.money -= cost
-        self.role.ship_mgr.get_ship(ship_id).add_cargo(cargo_id, cnt)
-
-        # tell client
-        money_changed = MoneyChanged()
-        money_changed.money = self.role.money
-        self.session.send(money_changed)
-
-        ship_cargo_changed = ShipCargoChanged()
-        ship_cargo_changed.ship_id = ship_id
-        ship_cargo_changed.cargo_id = cargo_id
-        ship_cargo_changed.cnt = cnt
-        self.session.send(ship_cargo_changed)
+        self.role.buy_cargo(cargo_id, cnt, ship_id)
 
     async def handle_GetCargoCntAndSellPrice(self, get_cargo_cnt_and_sell_price):
         ship_id = get_cargo_cnt_and_sell_price.ship_id
@@ -474,45 +439,12 @@ class PacketHandler:
         packet.ship_id = ship_id
         self.session.send(packet)
 
-
-    def __get_xp_amount_from_prfoit(self, profit):
-        xp = profit // 100
-        return xp
-
     async def handle_SellCargoInShip(self, sell_cargo_in_ship):
         ship_id = sell_cargo_in_ship.ship_id
         cargo_id = sell_cargo_in_ship.cargo_id
         cnt = sell_cargo_in_ship.cnt
 
-        ship = self.role.ship_mgr.get_ship(ship_id)
-
-        if not ship.cargo_id:
-            return
-        if not ship.cargo_cnt >= cnt:
-            return
-
-        # get sell price
-        cargo_template = sObjectMgr.get_cargo_template(cargo_id)
-        port = sObjectMgr.get_port(self.role.map_id)
-        sell_price = json.loads(cargo_template.sell_price)[str(port.economy_id)]
-
-        # change ram
-        profit = cnt * sell_price
-        self.role.money += profit
-        ship.remove_cargo(cargo_id, cnt)
-
-        # earn xp in acc
-        flag_ship = self.role.get_flag_ship()
-        xp_amount = self.__get_xp_amount_from_prfoit(profit)
-        flag_ship.get_captain().earn_xp(xp_amount, pb.DutyType.ACCOUNTANT)
-        accountant = flag_ship.get_accountant()
-        if accountant:
-            accountant.earn_xp(xp_amount, pb.DutyType.ACCOUNTANT)
-
-        # tell client
-        self.session.send(MoneyChanged(money=self.role.money))
-        self.session.send(ShipCargoChanged(ship_id=ship_id, cargo_id=ship.cargo_id, cnt=ship.cargo_cnt))
-        self.session.send(PopSomeMenus(cnt=2))
+        self.role.sell_cargo(ship_id, cargo_id, cnt)
 
     def send_to_nearby_roles(self, packet, include_self=False):
         # notify presence of nearby_roles

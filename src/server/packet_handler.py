@@ -651,6 +651,7 @@ class PacketHandler:
 
         if abs(village.x - self.role.x) <= distance and abs(village.y - self.role.y) <= distance:
             if village_id not in self.role.discovery_mgr.get_ids_set():
+                # make discovery
                 self.role.discovery_mgr.add(village_id)
 
                 pack = GotChat(
@@ -661,6 +662,19 @@ class PacketHandler:
                 self.session.send(pack)
 
                 self.session.send(Discovered(village_id=village_id))
+
+                # earn xp [chief_navigator and all captains]
+                xp_amount = 300
+                flag_ship = self.role.get_flag_ship()
+                chief_navigator = flag_ship.get_chief_navigator()
+                if chief_navigator:
+                    chief_navigator.earn_xp(xp_amount, pb.DutyType.CHIEF_NAVIGATOR)
+
+                ships = self.role.ship_mgr.get_ships()
+                for ship in ships:
+                    captain = ship.get_captain()
+                    if captain:
+                        captain.earn_xp(xp_amount, pb.DutyType.CHIEF_NAVIGATOR)
 
 
     def send_role_disappeared_to_nearby_roles(self):

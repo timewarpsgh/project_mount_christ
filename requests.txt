@@ -2,7 +2,7 @@ TO DO:
 
     mates can earn xp and lv up ON
         xp in acc:  got when cargo sold, only flagship captain and accountant gets   OK
-        xp in navi: got when discovery made, all captains and chief navigator gets   ON
+        xp in navi: got when discovery made, all captains and chief navigator gets   OK
         xp in bat:  got when battle won, all captains and first mate gets
 
 

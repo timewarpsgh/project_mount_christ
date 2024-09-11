@@ -549,14 +549,29 @@ enum DutyType {
     FIRST_MATE = 4;
 }
 
-message AssignDuty{
+message AssignDuty {
     required int32 mate_id = 1;
     required int32 ship_id = 2;
     required DutyType duty_type = 3;
 }
 
-message DutyAssigned{
+message DutyAssigned {
     required int32 mate_id = 1;
     required int32 ship_id = 2;
     required DutyType duty_type = 3;
+}
+
+// XpEarned
+message XpEarned {
+    required int32 mate_id = 1;
+    required int32 duty_type = 2;
+    required int32 amount = 3;
+}
+
+message LvUped {
+    required int32 mate_id = 1;
+    required int32 duty_type = 2;
+    required int32 lv = 3;
+    required int32 xp = 4;
+    required int32 value = 5;
 }

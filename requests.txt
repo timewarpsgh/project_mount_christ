@@ -1,46 +1,21 @@
 TO DO:
 
-
-    even ports have a mate now OK
-    added 6 fields to mate in db, server ram, pb, client ram OK
-    refacor mate init code into mate class OK
-    refactor mate in client OK
-
-    before hire OK
-
-    hire mate  OK
-
-    show mate's attributes right OK
+    mates can earn xp and lv up ON
+        xp in acc:  got when cargo sold, only flagship captain and accountant gets   OK
+        xp in navi: got when discovery made, all captains and chief navigator gets
+        xp in bat:  got when battle won, all captains and first mate gets
 
 
-    fire mate OK
-
-    assign duty OK
-
-    newly hired mate has no duty or ship_id OK
-
-    mate's duty_type starts from 1 OK
+        mate.earn_xp(amount, duty_type)
+        mate.lv_up(duty_type)
 
 
+        when xp reaches lv max, lv up, 1,2 or 3 points added to that field(navigation),
+
+
+        SHOW CARGO NAME
 
 DONE:
-    fight role OK
-    fight npc ON
-
-        npc attack role OK
-        role attack npc OK
-        Refactor all_ships_attack_role now works for role/npc OK
-
-        test npc move OK
-
-        refactor win_role, so it works for both role and npc  OK
-
-        engage npc (win and lose) OK
-        sell ships OK
-        when sp clicked, show role_menu(fight) OK
-        view my fleet OK
-        view enemy fleet  OK
-
 
     clear menu when other menus are up OK
 
@@ -55,6 +30,11 @@ DONE:
 
         when xp reaches lv max, lv up, 1,2 or 3 points added to that field(navigation),
         depending on talent(better random chance)
+
+    hire mate  OK
+    fire mate OK
+    assign duty OK
+
 
 cmds
     # compile .proto file

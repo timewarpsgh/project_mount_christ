@@ -264,6 +264,31 @@ class Mate:
         self.xp_in_acc = prot_mate.xp_in_acc
         self.xp_in_bat = prot_mate.xp_in_bat
 
+    def xp_earned(self, duty_type, amount):
+        if duty_type == pb.DutyType.CHIEF_NAVIGATOR:
+            self.xp_in_nav += amount
+
+        elif duty_type == pb.DutyType.ACCOUNTANT:
+            self.xp_in_acc += amount
+
+        elif duty_type == pb.DutyType.FIRST_MATE:
+            self.xp_in_bat += amount
+
+    def lv_uped(self, duty_type, lv, xp, value):
+        if duty_type == pb.DutyType.CHIEF_NAVIGATOR:
+            self.lv_in_nav = lv
+            self.xp_in_nav = xp
+            self.navigation = value
+
+        elif duty_type == pb.DutyType.ACCOUNTANT:
+            self.lv_in_acc = lv
+            self.xp_in_acc = xp
+            self.accounting = value
+
+        elif duty_type == pb.DutyType.FIRST_MATE:
+            self.lv_in_bat = lv
+            self.xp_in_bat = xp
+            self.battle = value
 
 class ShipMgr:
 

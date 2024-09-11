@@ -109,6 +109,9 @@ class OpCodeType(Enum):
     AssignDuty = auto()
     DutyAssigned = auto()
 
+    XpEarned = auto()
+    LvUped = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

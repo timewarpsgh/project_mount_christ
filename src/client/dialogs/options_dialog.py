@@ -487,6 +487,13 @@ class OptionsDialog:
         else:
             first_mate_name = 'NA'
 
+        # get cargo name
+        if ship.cargo_id:
+            cargo_template = sObjectMgr.get_cargo_template(ship.cargo_id)
+            cargo_name = cargo_template.name
+        else:
+            cargo_name = 'NA'
+
         dict = {
             'name/type/captain': f'{ship.name}/{ship_template.name}/{captain_name}',
             'nav/acc/first mate': f'{chief_navigator_name}/{accountant_name}/{first_mate_name}',
@@ -498,7 +505,7 @@ class OptionsDialog:
             'guns/max_guns': f'{ship.now_guns}/{ship.max_guns}',
             'min_crew/crew/max_crew': f'{ship.min_crew}/{ship.now_crew}/{ship.max_crew}',
             'useful_capacity': f'{ship.capacity}',
-            'cargo_id/cnt': f'{ship.cargo_id}/{ship.cargo_cnt}'
+            'cargo/cnt': f'{cargo_name}/{ship.cargo_cnt}'
 
         }
 

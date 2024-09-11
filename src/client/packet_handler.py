@@ -644,3 +644,23 @@ class PacketHandler:
         self.get_mate_mgr().assign_duty(mate_id, ship_id, duty_type)
 
         self.__get_options_dialog().pop_some_menus(3)
+
+    async def handle_XpEarned(self, xp_earned):
+        mate_id = xp_earned.mate_id
+        duty_type = xp_earned.duty_type
+        amount = xp_earned.amount
+
+        mate = self.get_mate_mgr().get_mate(mate_id)
+        mate.xp_earned(duty_type, amount)
+        print(f"{mate.name} earned {amount} xp in {c.INT_2_DUTY_NAME[duty_type]}")
+
+    async def handle_LvUped(self, lv_uped):
+        mate_id = lv_uped.mate_id
+        duty_type = lv_uped.duty_type
+        lv = lv_uped.lv
+        xp = lv_uped.xp
+        value = lv_uped.value
+
+        mate = self.get_mate_mgr().get_mate(mate_id)
+        mate.lv_uped(duty_type, lv, xp, value)
+        print(f"{mate.name} lv uped to {lv} in {c.INT_2_DUTY_NAME[duty_type]}")

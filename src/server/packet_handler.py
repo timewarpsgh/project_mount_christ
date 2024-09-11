@@ -475,6 +475,10 @@ class PacketHandler:
         self.session.send(packet)
 
 
+    def __get_xp_amount_from_prfoit(self, profit):
+        xp = profit // 100
+        return xp
+
     async def handle_SellCargoInShip(self, sell_cargo_in_ship):
         ship_id = sell_cargo_in_ship.ship_id
         cargo_id = sell_cargo_in_ship.cargo_id
@@ -493,8 +497,17 @@ class PacketHandler:
         sell_price = json.loads(cargo_template.sell_price)[str(port.economy_id)]
 
         # change ram
-        self.role.money += cnt * sell_price
+        profit = cnt * sell_price
+        self.role.money += profit
         ship.remove_cargo(cargo_id, cnt)
+
+        # earn xp in acc
+        flag_ship = self.role.get_flag_ship()
+        xp_amount = self.__get_xp_amount_from_prfoit(profit)
+        flag_ship.get_captain().earn_xp(xp_amount, pb.DutyType.ACCOUNTANT)
+        accountant = flag_ship.get_accountant()
+        if accountant:
+            accountant.earn_xp(xp_amount, pb.DutyType.ACCOUNTANT)
 
         # tell client
         self.session.send(MoneyChanged(money=self.role.money))

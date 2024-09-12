@@ -10,7 +10,26 @@ TO DO:
             buy and sell cargo refactored into role OK
             buy cargo, with discount 100=20% 200=40%    OK
             sell cargo with discount 100=20% 200=40%  OK
-        navigation, together with ship's tucking/power,   at sea sail faster/ in battle, more steps
+
+        navigation, together with ship's tacking/power decides [speed] ON
+            at sea sail faster
+                navigation = 100  200
+                tacking = 60      100
+                power = 60        100
+
+                season_mgr
+                    each hour, change season, and weather
+
+                    season
+
+                    wind_dir
+                    wind_speed
+
+                    current_dir
+                    current_speed
+
+            in battle, more steps
+
         battle, attack and defence for shooting and engaging
 
 

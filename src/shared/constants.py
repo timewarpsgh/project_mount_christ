@@ -353,5 +353,12 @@ LV_2_MAX_XP = {
     60: 0  # Max level, no more XP needed
 }
 
+INT_2_SEASON = {
+    1: 'spring',
+    2: 'summer',
+    3: 'fall',
+    4: 'winter',
+}
+
 if __name__ == '__main__':
     print(SAILABLE_TILES)

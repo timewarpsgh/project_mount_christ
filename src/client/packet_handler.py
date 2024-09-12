@@ -557,11 +557,10 @@ class PacketHandler:
         speed = started_moving.speed
 
         if id == self.__get_role().id:
-            # role = self.__get_role()
-            # role.is_moving = True
-            # role.speed = speed
-            # role.move_timer = c.PIXELS_COVERED_EACH_MOVE / role.speed
-            # role.dir = dir
+            role = self.__get_role()
+            role.is_moving = True
+            role.speed = speed
+            role.dir = dir
 
             print('handling pack StartedMoving')
         else:
@@ -674,3 +673,19 @@ class PacketHandler:
         # show chat
         text = f"{mate.name} lv uped to {lv} in {c.INT_2_DUTY_NAME[duty_type]}"
         self.__get_chat_dialog().add_chat(pb.ChatType.SYSTEM, text)
+
+    async def handle_SeasonChanged(self, season_changed):
+        season = season_changed.season
+        wind_dir = season_changed.wind_dir
+        wind_speed = season_changed.wind_speed
+        current_dir = season_changed.current_dir
+        current_speed = season_changed.current_speed
+
+
+        self.client.game.graphics.model.season_mgr.change_season(
+            season,
+            wind_dir,
+            wind_speed,
+            current_dir,
+            current_speed
+        )

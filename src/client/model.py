@@ -717,12 +717,27 @@ class Npc(Role):
     ship_mgr: ShipMgr = None
 
 
+class SeasonMgr:
+    season: pb.SeasonType = None
+    wind_dir: int = None
+    wind_speed: int = None
+    current_dir: int = None
+    current_speed: int = None
+
+    def change_season(self, season, wind_dir, wind_speed, current_dir, current_speed):
+        self.season = season
+        self.wind_dir = wind_dir
+        self.wind_speed = wind_speed
+        self.current_dir = current_dir
+        self.current_speed = current_speed
+
 class Model:
 
     def __init__(self):
         self.role = None
         self.id_2_role = {} # other roles
         self.id_2_npc = {}
+        self.season_mgr = SeasonMgr()
 
     def add_role(self, role):
         self.id_2_role[role.id] = role

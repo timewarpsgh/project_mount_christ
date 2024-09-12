@@ -112,6 +112,8 @@ class OpCodeType(Enum):
     XpEarned = auto()
     LvUped = auto()
 
+    SeasonChanged = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

@@ -575,8 +575,23 @@ class HudRight(SP):
 
         elif self.model.role.is_at_sea():
             new_image.blit(Text(f'At Sea').image, (x, 5))
-            new_image.blit(Text(f'Speed \n  10 Knots').image, (x, 120))
-            new_image.blit(Text(f'Days spent \n  8').image, (x, 160))
+            new_image.blit(Text(f'Speed \n  10 Knots').image, (x, 80))
+            new_image.blit(Text(f'Days spent \n  8').image, (x, 120))
+
+            season_mgr = self.model.season_mgr
+            season = season_mgr.season
+            wind_dir = season_mgr.wind_dir
+            wind_speed = season_mgr.wind_speed
+            current_dir = season_mgr.current_dir
+            current_speed = season_mgr.current_speed
+
+            new_image.blit(Text(f'Season \n  {c.INT_2_SEASON[season]}').image, (x, 160))
+            new_image.blit(Text(f'Wind \n  {wind_dir} {wind_speed}').image, (x, 200))
+            new_image.blit(Text(f'Current \n  {current_dir} {current_speed}').image, (x, 240))
+
+
+
+
         else:
             pass
 

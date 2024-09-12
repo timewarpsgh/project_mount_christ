@@ -29,6 +29,7 @@ from npc_mgr import sNpcMgr
 from id_mgr import sIdMgr
 from map_mgr import sMapMgr
 from map_maker import sMapMaker
+from season_mgr import sSeasonMgr
 
 import model
 import copy
@@ -330,6 +331,7 @@ class PacketHandler:
     async def handle_EnterWorld(self, enter_world):
         enter_world_res = await run_in_threads(self.__enter_world, enter_world)
         self.session.send(enter_world_res)
+        self.session.send(sSeasonMgr.gen_season_changed_pb())
 
         # enter port for tesing!!!!!!
         self.role.enter_port(self.role.map_id)

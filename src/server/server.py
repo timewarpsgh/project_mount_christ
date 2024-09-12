@@ -21,6 +21,7 @@ from npc_mgr import sNpcMgr
 from id_mgr import sIdMgr
 from map_maker import sMapMaker
 from map_mgr import sMapMgr
+from season_mgr import sSeasonMgr
 
 
 class Session(Connection):

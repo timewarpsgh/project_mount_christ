@@ -1439,7 +1439,7 @@ class Role:
             self.speed = c.PORT_SPEED
         elif self.is_at_sea():
             if self.is_role():
-                self.speed = c.PORT_SPEED
+                self.speed = 40#c.PORT_SPEED
             elif self.is_npc():
                 self.speed = c.NPC_SPEED
 
@@ -1457,6 +1457,7 @@ class Role:
             for object in nearby_objects:
                 if object.is_role():
                     object.session.send(pack)
+
     def is_dir_diagnal(self):
         if self.dir in [pb.DirType.NW, pb.DirType.NE, pb.DirType.SW, pb.DirType.SE]:
             return True

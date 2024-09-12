@@ -1,10 +1,5 @@
 TO DO:
 
-    mates can earn xp and lv up OK
-        xp in acc:  got when cargo sold, only flagship captain and accountant gets   OK
-        xp in nav: got when discovery made, all captains and chief navigator gets   OK
-        xp in bat:  got when npc battle won, all captains and first mate gets  OK
-
     mate's 3 attributes should be useful (crude enough for now)
         accounting,
             buy and sell cargo refactored into role OK
@@ -14,6 +9,9 @@ TO DO:
         show win/cur dir as imgs OK
 
         navigation, together with ship's tacking/power decides [speed] ON
+
+            movement at sea, fast at key press OK
+
             at sea sail faster
                 navigation = 100  200
                 tacking = 60      100
@@ -27,23 +25,11 @@ TO DO:
 DONE:
 
     clear menu when other menus are up OK
-
-        mate
-        lv_in_nav
-        lv_in_acc
-        lv_in_bat
-
-        xp_in_nav (all with job gets after discovery)
-        xp_in_acc (only u and accountant gets after selling)
-        xp_in_bat (all with job gets after battle wins)
-
-        when xp reaches lv max, lv up, 1,2 or 3 points added to that field(navigation),
-        depending on talent(better random chance)
-
     hire mate  OK
     fire mate OK
     assign duty OK
 
+    mates can earn xp and lv up OK
 
 cmds
     # compile .proto file

@@ -1069,6 +1069,11 @@ class Role:
         else:
             return False
 
+    def calc_speed(self):
+        speeds = [10, 20, 40, 80]
+        rand_speed = random.choice(speeds)
+        return rand_speed
+
     def stop_moving(self):
         self.is_moving = False
 
@@ -1439,7 +1444,7 @@ class Role:
             self.speed = c.PORT_SPEED
         elif self.is_at_sea():
             if self.is_role():
-                self.speed = 40#c.PORT_SPEED
+                self.speed = self.calc_speed() #c.PORT_SPEED
             elif self.is_npc():
                 self.speed = c.NPC_SPEED
 

@@ -522,14 +522,15 @@ class Role:
             return False
 
     def start_moving(self, dir):
-        self.is_moving = True
-        self.dir = dir
-        self.move_timer = 0
-
         if self.is_in_port():
+            self.is_moving = True
+            self.dir = dir
+            self.move_timer = 0
             self.speed = c.PORT_SPEED
         elif self.is_at_sea():
-            self.speed = c.PORT_SPEED
+            self.dir = dir
+            self.move_timer = 0
+            self.is_moving = True
 
 
         self.graphics.client.send(

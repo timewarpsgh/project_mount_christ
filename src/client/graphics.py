@@ -575,8 +575,11 @@ class HudRight(SP):
 
         elif self.model.role.is_at_sea():
             new_image.blit(Text(f'At Sea').image, (x, 5))
-            new_image.blit(Text(f'Speed \n  10 Knots').image, (x, 80))
-            new_image.blit(Text(f'Days spent \n  8').image, (x, 120))
+
+            start_y = 75
+            d_y = 45
+            new_image.blit(Text(f'Speed \n  10 Knots').image, (x, start_y))
+            new_image.blit(Text(f'Days spent \n  8').image, (x, start_y + d_y * 1))
 
             season_mgr = self.model.season_mgr
             season = season_mgr.season
@@ -585,9 +588,28 @@ class HudRight(SP):
             current_dir = season_mgr.current_dir
             current_speed = season_mgr.current_speed
 
-            new_image.blit(Text(f'Season \n  {c.INT_2_SEASON[season]}').image, (x, 160))
-            new_image.blit(Text(f'Wind \n  {wind_dir} {wind_speed}').image, (x, 200))
-            new_image.blit(Text(f'Current \n  {current_dir} {current_speed}').image, (x, 240))
+            new_image.blit(Text(f'Season \n  {c.INT_2_SEASON[season]}').image, (x, start_y + d_y * 2))
+
+            # wind
+            wind_angle = wind_dir * 43
+            rotated_image = pygame.transform.rotate(
+                sAssetMgr.images['huds']['direction'],
+                wind_angle
+            )
+            new_image.blit(rotated_image, (x + 20, 230))
+
+            new_image.blit(Text(f'Wind \n  {wind_speed}').image, (x, start_y + d_y * 3))
+            
+            # current
+            current_angle = current_dir * 45
+            rotated_image = pygame.transform.rotate(
+                sAssetMgr.images['huds']['direction'],
+                current_angle
+            )
+            new_image.blit(rotated_image, (x + 20, 275))
+            
+            
+            new_image.blit(Text(f'Current \n  {current_speed}').image, (x, start_y + d_y * 4))
 
 
 

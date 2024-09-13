@@ -177,6 +177,7 @@ class Ship:
 
         is_sunk = False
         if ship.now_durability <= 0:
+            ship.now_durability = 0
             is_sunk = True
 
         # send packs
@@ -226,10 +227,12 @@ class Ship:
 
         is_target_dead = False
         if ship.now_crew <= 0:
+            ship.now_crew = 0
             is_target_dead = True
 
         is_self_dead = False
         if self.now_crew <= 0:
+            self.now_crew = 0
             is_self_dead = True
 
         # send packs
@@ -595,7 +598,9 @@ class Ship:
                     has_won = True
                     return has_won
             elif is_self_dead:
-                pass
+                enemy.win(self.role)
+                has_won = True
+                return has_won
 
         return has_won
 

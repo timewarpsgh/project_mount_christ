@@ -490,6 +490,12 @@ class PacketHandler:
             src_ship.now_crew -= src_damage
             dst_ship.now_crew -= dst_damage
 
+            if src_ship.now_crew <= 0:
+                src_ship.now_crew = 0
+
+            if dst_ship.now_crew <= 0:
+                dst_ship.now_crew = 0
+
             # show graphics
             pixels = c.BATTLE_TILE_SIZE
 
@@ -519,6 +525,8 @@ class PacketHandler:
 
             # modify model
             dst_ship.now_durability -= dst_damage
+            if dst_ship.now_durability <= 0:
+                dst_ship.now_durability = 0
 
             # show graphics
             pixels = c.BATTLE_TILE_SIZE

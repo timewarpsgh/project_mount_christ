@@ -33,7 +33,9 @@ TO DO:
 
             shoot  __calc_shoot_dmg   OK
 
-            after my flagship love all crew, I lose ON
+            after my flagship love all crew, I lose OK
+
+            crew or dura can not go down to below 0 OK
 
 
 DONE:

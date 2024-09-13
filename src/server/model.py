@@ -68,7 +68,7 @@ class Ship:
     dir: int=pb.DirType.N
     target_ship: any=None
     strategy: pb.AttackMethodType=pb.AttackMethodType.SHOOT
-    steps_left: int=c.STEPS_LEFT
+    steps_left: int=0
 
 
     def clear_mates_onboard(self):
@@ -1025,6 +1025,8 @@ class ShipMgr:
             else:
                 ship.x = 11
                 ship.y = 3 + id * 2
+
+            ship.reset_steps_left()
 
     def gen_ships_prots(self):
         ships_prots = []

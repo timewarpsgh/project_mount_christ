@@ -21,6 +21,10 @@ TO DO:
 
             npc, each ship's captain is that one mate OK
 
+            my flag ship moving too many steps OK
+
+            battle bug, npc moves right after my last ship move ON
+
 
         battle, attack and defence for shooting and engaging
 

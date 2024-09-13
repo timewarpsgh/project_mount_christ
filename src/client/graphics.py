@@ -437,6 +437,9 @@ class RoleSP(SP):
     def on_click(self, event):
         print("Sprite was clicked!")
         # show menu in dialogs
+        if self.model.role.is_in_battle():
+            return
+
         self.model.role.graphics.client.game.gui.options_dialog.show_role_menu(self.role)
 
     def change_to_next_frame(self):

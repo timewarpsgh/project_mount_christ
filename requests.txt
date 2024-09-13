@@ -23,7 +23,8 @@ TO DO:
 
             my flag ship moving too many steps OK
 
-            battle bug, npc moves right after my last ship move ON
+            don't show info in battle OK
+
 
 
         battle, attack and defence for shooting and engaging

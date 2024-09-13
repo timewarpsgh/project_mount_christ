@@ -28,6 +28,8 @@ TO DO:
 
 
         battle, attack and defence for shooting and engaging
+            engage __calc_engage_dmg(self, ship)   OK
+            shoot
 
 
 DONE:

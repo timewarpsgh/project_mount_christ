@@ -167,9 +167,30 @@ class Ship:
 
         return damage, is_sunk
 
+    def __calc_engage_dmg(self, ship):
+        # dmg_to_target
+        captain = self.get_captain()
+        battle_skill = captain.battle
+
+        first_mate = self.get_first_mate()
+        if first_mate:
+            battle_skill = max(battle_skill, first_mate.battle)
+
+        crew_ratio = self.now_crew / ship.now_crew
+        dmg = int(self.now_crew * crew_ratio * battle_skill * 0.01 // 4)
+
+        max_dmg = 50
+        min_dmg = 5
+        if dmg < min_dmg:
+            dmg = min_dmg
+        if dmg > max_dmg:
+            dmg = max_dmg
+
+        return dmg
+
     def engage(self, ship):
-        self_dmg = c.ENGAGE_SELF_DAMAGE
-        target_dmg = c.ENGAGE_TARGET_DAMAGE
+        self_dmg = ship.__calc_engage_dmg(self)#c.ENGAGE_SELF_DAMAGE
+        target_dmg = self.__calc_engage_dmg(ship)#c.ENGAGE_TARGET_DAMAGE
         self.now_crew -= self_dmg
         ship.now_crew -= target_dmg
 

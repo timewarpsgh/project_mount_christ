@@ -29,6 +29,8 @@ MAX_ENGAGE_DISTANCE = 30#1.5  30
 ENGAGE_TARGET_DAMAGE = 50 #200
 ENGAGE_SELF_DAMAGE = 1
 
+ENGAGE_DAMAGE = 0.5
+
 #########################################################
 
 NPC_ROLE_START_ID = 2_000_000_000

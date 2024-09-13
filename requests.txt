@@ -19,6 +19,8 @@ TO DO:
 
             in battle, more steps  OK
 
+            npc, each ship's captain is that one mate OK
+
 
         battle, attack and defence for shooting and engaging
 

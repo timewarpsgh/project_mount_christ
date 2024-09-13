@@ -83,7 +83,13 @@ class Ship:
 
     def get_captain(self):
         if not self.captain:
-            return None
+            if self.ship_mgr.role.is_role():
+                return None
+            elif self.ship_mgr.role.is_npc():
+                return None
+                # mates = self.ship_mgr.role.mate_mgr.get_mates()
+                # for mate in mates:
+                #     return mate
         mate = self.get_mate(self.captain)
         return mate
 

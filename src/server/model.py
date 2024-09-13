@@ -1555,6 +1555,7 @@ class Role:
         elif self.is_at_sea():
             if self.is_role():
                 self.speed = self.get_fleet_speed(dir) #c.PORT_SPEED
+                self.move_timer = self.calc_move_timer()
             elif self.is_npc():
                 self.speed = c.NPC_SPEED
 

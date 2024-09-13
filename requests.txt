@@ -14,6 +14,9 @@ TO DO:
 
             navigation, season and ship decides fleet speed   OK
 
+            client moves too fast on move button press OK
+
+
             in battle, more steps
 
         battle, attack and defence for shooting and engaging

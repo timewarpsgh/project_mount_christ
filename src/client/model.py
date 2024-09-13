@@ -529,7 +529,8 @@ class Role:
             self.speed = c.PORT_SPEED
         elif self.is_at_sea():
             self.dir = dir
-            self.move_timer = 0
+            if not self.move_timer:
+                self.move_timer = self.calc_move_timer()
             self.is_moving = True
 
 

@@ -105,8 +105,23 @@ class Ship:
         mate = self.get_mate(self.first_mate)
         return mate
 
+    def __calc_steps(self):
+        base_speed = self.__get_base_speed()
+        steps = int(base_speed // 20) + 1
+
+        min_steps = 1
+        max_steps = 8
+
+        if steps < min_steps:
+            steps = min_steps
+        if steps > max_steps:
+            steps = max_steps
+
+        print(f'steps: {steps}')
+        return steps
+
     def reset_steps_left(self):
-        self.steps_left = c.STEPS_LEFT
+        self.steps_left = self.__calc_steps()  # c.STEPS_LEFT
 
     def add_cargo(self, cargo_id, cargo_cnt):
         self.cargo_id = cargo_id
@@ -706,6 +721,10 @@ class Ship:
         return current_effect
 
     def __get_base_speed(self):
+        """
+        depends on ship and mate
+        """
+
         # ship conditions
         tacking = self.tacking
         power = self.power
@@ -719,7 +738,7 @@ class Ship:
         if chief_navigator:
             navigation = max(captain.navigation, chief_navigator.navigation)
 
-        # calc speed
+        # calc base_speed(about 100 max)
         base_speed = (tacking + power + navigation) * 0.25
 
         return base_speed
@@ -730,8 +749,6 @@ class Ship:
         wind_effect = self.__get_wind_effect(dir)
         curren_effect = self.__get_current_effect(dir)
 
-
-        print(f'base_speed: {base_speed}, wind_effect: {wind_effect}, curren_effect: {curren_effect}')
         speed = int(base_speed + wind_effect + curren_effect)
 
         if speed < 0:

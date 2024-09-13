@@ -17,7 +17,8 @@ TO DO:
             client moves too fast on move button press OK
 
 
-            in battle, more steps
+            in battle, more steps  OK
+
 
         battle, attack and defence for shooting and engaging
 

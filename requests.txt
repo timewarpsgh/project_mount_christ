@@ -1,10 +1,13 @@
 TO DO:
 
     each mate is different OK
+    only flagship show 3 mates OK
+
+    each mate gets random init attributes ON
 
     each ship should be different ON
 
-    only flagship show 3 mates OK
+
 
 
 DONE:

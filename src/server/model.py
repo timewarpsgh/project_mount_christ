@@ -160,7 +160,9 @@ class Ship:
         self.role.send_to_self_and_enemy(pack)
 
         pack = pb.GotChat(
-            text=f"{self.name} at {self.x} {self.y} shot {ship.name} at {ship.x} {ship.y} and dealt {damage} damage",
+            text=f"{self.name} at {self.x} {self.y} "
+                 f"shot {ship.name} at {ship.x} {ship.y} "
+                 f"and dealt {damage} damage",
             chat_type=pb.ChatType.SYSTEM
         )
         self.role.send_to_self_and_enemy(pack)
@@ -168,7 +170,7 @@ class Ship:
         return damage, is_sunk
 
     def __calc_engage_dmg(self, ship):
-        # dmg_to_target
+        # get battle_skill
         captain = self.get_captain()
         battle_skill = captain.battle
 
@@ -176,7 +178,10 @@ class Ship:
         if first_mate:
             battle_skill = max(battle_skill, first_mate.battle)
 
+        # get crew_ratio
         crew_ratio = self.now_crew / ship.now_crew
+
+        # calc dmg
         dmg = int(self.now_crew * crew_ratio * battle_skill * 0.01 // 4)
 
         max_dmg = 50

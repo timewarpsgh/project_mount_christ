@@ -495,9 +495,15 @@ class OptionsDialog:
         else:
             cargo_name = 'NA'
 
+        # only show 3 aids for flagshi
+        if captain_name == self.__get_role().name:
+            aids = f'{chief_navigator_name}/{accountant_name}/{first_mate_name}'
+        else:
+            aids = ''
+
         dict = {
             'name/type/captain': f'{ship.name}/{ship_template.name}/{captain_name}',
-            'nav/acc/first mate': f'{chief_navigator_name}/{accountant_name}/{first_mate_name}',
+            'nav/acc/first mate': f'{aids}',
             '1': '',
             'tacking/power/speed': f'{ship.tacking}/{ship.power}',
             'durability': f'{ship.now_durability}/{ship.max_durability}',

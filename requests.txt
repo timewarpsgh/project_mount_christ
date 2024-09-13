@@ -1,41 +1,10 @@
 TO DO:
 
-    mate's 3 attributes should be useful (crude enough for now)
-        accounting,
-            buy and sell cargo refactored into role OK
-            buy cargo, with discount 100=20% 200=40%    OK
-            sell cargo with discount 100=20% 200=40%  OK
+    each mate is different OK
 
-        show win/cur dir as imgs OK
+    each ship should be different ON
 
-        navigation, season, together with ship's tacking/power decides [speed] ON
-
-            movement at sea, fast at key press OK
-
-            navigation, season and ship decides fleet speed   OK
-
-            client moves too fast on move button press OK
-
-
-            in battle, more steps  OK
-
-            npc, each ship's captain is that one mate OK
-
-            my flag ship moving too many steps OK
-
-            don't show info in battle OK
-
-
-
-        battle, attack and defence for shooting and engaging
-            engage __calc_engage_dmg(self, ship)   OK
-
-
-            shoot  __calc_shoot_dmg   OK
-
-            after my flagship love all crew, I lose OK
-
-            crew or dura can not go down to below 0 OK
+    only flagship show 3 mates OK
 
 
 DONE:
@@ -46,6 +15,12 @@ DONE:
     assign duty OK
 
     mates can earn xp and lv up OK
+
+    mate's 3 attributes should be useful (crude enough for now)
+        accounting,
+        navigation, season, together with ship's tacking/power decides
+        battle, attack for shooting and engaging
+
 
 cmds
     # compile .proto file

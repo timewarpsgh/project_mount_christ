@@ -17,6 +17,8 @@ from map_maker import sMapMaker
 from map_mgr import sMapMgr
 from helpers import Point, are_vectors_in_same_direction
 from id_mgr import sIdMgr
+from season_mgr import sSeasonMgr
+
 
 @dataclass
 class Ship:
@@ -636,6 +638,109 @@ class Ship:
     def set_strategy(self, strategy):
         self.strategy = strategy
 
+    def __get_wind_effect(self, dir):
+        ship_dir = dir
+        wind_dir = sSeasonMgr.wind_dir
+        wind_speed = sSeasonMgr.wind_speed
+
+
+        # Convert directions to angles
+        ship_angle = ship_dir * 45
+        wind_angle = wind_dir * 45
+
+        # Calculate the angle difference
+        angle_diff = abs(ship_angle - wind_angle)
+        if angle_diff > 180:
+            angle_diff = 360 - angle_diff
+
+        # Determine wind effect based on angle difference
+        if angle_diff == 0:
+            # Tailwind
+            wind_effect = wind_speed * 0.5
+        elif angle_diff == 180:
+            # Headwind
+            wind_effect = wind_speed * -0.25
+        elif angle_diff == 90:
+            # Crosswind
+            wind_effect = wind_speed * 1.0
+        elif angle_diff == 45:
+            # Crosswind closer to tailwind
+            wind_effect = wind_speed * 0.75
+        elif angle_diff == 135:
+            # Crosswind closer to headwind
+            wind_effect = wind_speed * 0.25
+
+        return wind_effect
+
+    def __get_current_effect(self, dir):
+        ship_dir = dir
+        current_dir = sSeasonMgr.current_dir
+        current_speed = sSeasonMgr.current_speed
+
+        # Convert directions to angles
+        ship_angle = ship_dir * 45
+        current_angle = current_dir * 45
+
+        # Calculate the angle difference
+        angle_diff = abs(ship_angle - current_angle)
+        if angle_diff > 180:
+            angle_diff = 360 - angle_diff
+
+        # Determine wind effect based on angle difference
+        if angle_diff == 0:
+            # Tail
+            current_effect = current_speed * 1.0
+        elif angle_diff == 180:
+            # Head
+            current_effect = current_speed * -1.0
+        elif angle_diff == 90:
+            # Cross
+            current_effect = current_speed * 0
+        elif angle_diff == 45:
+            # Cross closer to tail
+            current_effect = current_speed * 0.5
+        elif angle_diff == 135:
+            # Cross closer to head
+            current_effect = current_speed * -0.5
+
+        return current_effect
+
+    def __get_base_speed(self):
+        # ship conditions
+        tacking = self.tacking
+        power = self.power
+
+        # navigation skill
+        navigation = 0
+        captain = self.get_captain()
+        if captain:
+            navigation = captain.navigation
+        chief_navigator = self.get_chief_navigator()
+        if chief_navigator:
+            navigation = max(captain.navigation, chief_navigator.navigation)
+
+        # calc speed
+        base_speed = (tacking + power + navigation) * 0.25
+
+        return base_speed
+
+    def get_speed(self, dir):
+
+        base_speed = self.__get_base_speed()
+        wind_effect = self.__get_wind_effect(dir)
+        curren_effect = self.__get_current_effect(dir)
+
+
+        print(f'base_speed: {base_speed}, wind_effect: {wind_effect}, curren_effect: {curren_effect}')
+        speed = int(base_speed + wind_effect + curren_effect)
+
+        if speed < 0:
+            speed = 1
+        if speed > 80:
+            speed = 80
+
+        return speed
+
 
 @dataclass
 class Mate:
@@ -1069,10 +1174,15 @@ class Role:
         else:
             return False
 
-    def calc_speed(self):
-        speeds = [10, 20, 40, 80]
-        rand_speed = random.choice(speeds)
-        return rand_speed
+    def get_fleet_speed(self, dir):
+        """
+        fleet_speed = min(speed of all ships)
+        maybe use cache to avoid calculating every time
+        """
+        ships = self.ship_mgr.get_ships()
+        speeds = [ship.get_speed(dir) for ship in ships]
+        fleet_speed = min(speeds)
+        return fleet_speed
 
     def stop_moving(self):
         self.is_moving = False
@@ -1444,7 +1554,7 @@ class Role:
             self.speed = c.PORT_SPEED
         elif self.is_at_sea():
             if self.is_role():
-                self.speed = self.calc_speed() #c.PORT_SPEED
+                self.speed = self.get_fleet_speed(dir) #c.PORT_SPEED
             elif self.is_npc():
                 self.speed = c.NPC_SPEED
 

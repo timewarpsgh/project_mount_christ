@@ -8,14 +8,11 @@ TO DO:
 
         show win/cur dir as imgs OK
 
-        navigation, together with ship's tacking/power decides [speed] ON
+        navigation, season, together with ship's tacking/power decides [speed] ON
 
             movement at sea, fast at key press OK
 
-            at sea sail faster
-                navigation = 100  200
-                tacking = 60      100
-                power = 60        100
+            navigation, season and ship decides fleet speed   OK
 
             in battle, more steps
 

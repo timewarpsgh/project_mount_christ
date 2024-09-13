@@ -25,7 +25,6 @@ class SeasonMgr:
         self.current_speed = None
 
         self.__randomize_wind_and_current()
-        print()
 
     def __randomize_wind_and_current(self):
         self.wind_dir = random.choice(pb.DirType.values())

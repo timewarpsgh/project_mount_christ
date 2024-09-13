@@ -593,10 +593,10 @@ class HudRight(SP):
             new_image.blit(Text(f'Season \n  {c.INT_2_SEASON[season]}').image, (x, start_y + d_y * 2))
 
             # wind
-            wind_angle = wind_dir * 43
+            wind_angle = wind_dir * 45
             rotated_image = pygame.transform.rotate(
                 sAssetMgr.images['huds']['direction'],
-                wind_angle
+                (360 - wind_angle)
             )
             new_image.blit(rotated_image, (x + 20, 230))
 
@@ -606,14 +606,12 @@ class HudRight(SP):
             current_angle = current_dir * 45
             rotated_image = pygame.transform.rotate(
                 sAssetMgr.images['huds']['direction'],
-                current_angle
+                (360 - current_angle)
             )
             new_image.blit(rotated_image, (x + 20, 275))
             
             
             new_image.blit(Text(f'Current \n  {current_speed}').image, (x, start_y + d_y * 4))
-
-
 
 
         else:

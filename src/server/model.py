@@ -140,10 +140,39 @@ class Ship:
                 self.cargo_cnt = 0
                 self.cargo_id = 0
 
+    def __get_battle_skill(self):
+        captain = self.get_captain()
+        battle_skill = captain.battle
+
+        first_mate = self.get_first_mate()
+        if first_mate:
+            battle_skill = max(battle_skill, first_mate.battle)
+
+        return battle_skill
+
+    def __calc_shoot_dmg(self, ship):
+        # get battle_skill
+        battle_skill = self.__get_battle_skill()
+
+        # get gun_dmg from gun_type
+        gun_dmg = 1
+
+        # calc dmg
+        dmg = int(self.now_guns * gun_dmg * battle_skill * 0.01 * 0.1)
+
+        max_dmg = 20
+        min_dmg = 0
+        if dmg < min_dmg:
+            dmg = min_dmg
+        if dmg > max_dmg:
+            dmg = max_dmg
+
+        return dmg
+
     def shoot(self, ship):
         self.cannon -= 1
 
-        damage = c.SHOOT_DAMAGE
+        damage = self.__calc_shoot_dmg(ship)#  c.SHOOT_DAMAGE
         ship.now_durability -= damage
 
         is_sunk = False
@@ -171,12 +200,7 @@ class Ship:
 
     def __calc_engage_dmg(self, ship):
         # get battle_skill
-        captain = self.get_captain()
-        battle_skill = captain.battle
-
-        first_mate = self.get_first_mate()
-        if first_mate:
-            battle_skill = max(battle_skill, first_mate.battle)
+        battle_skill = self.__get_battle_skill()
 
         # get crew_ratio
         crew_ratio = self.now_crew / ship.now_crew

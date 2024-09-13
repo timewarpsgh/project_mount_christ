@@ -31,7 +31,9 @@ TO DO:
             engage __calc_engage_dmg(self, ship)   OK
 
 
-            shoot  ON
+            shoot  __calc_shoot_dmg   OK
+
+            after my flagship love all crew, I lose ON
 
 
 DONE:

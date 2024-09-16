@@ -758,3 +758,13 @@ class PacketHandler:
         ship.now_crew -= cnt
 
         self.__get_options_dialog().pop_some_menus(2)
+
+    async def handle_SupplyChanged(self, pack):
+        ship_id = pack.ship_id
+        supply_name = pack.supply_name
+        cnt = pack.cnt
+
+        ship = self.__get_role().ship_mgr.get_ship(ship_id)
+        setattr(ship, supply_name, cnt)
+
+        self.__get_options_dialog().pop_some_menus(2)

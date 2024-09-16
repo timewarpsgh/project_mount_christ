@@ -663,3 +663,16 @@ message CrewDismissed {
     required int32 ship_id = 1;
     required int32 cnt = 2;
 }
+
+// LoadSupply
+message LoadSupply {
+    required int32 ship_id = 1;
+    required string supply_name = 2;
+    required int32 cnt = 3;
+}
+
+message SupplyChanged {
+    required int32 ship_id = 1;
+    required string supply_name = 2;
+    required int32 cnt = 3;
+}

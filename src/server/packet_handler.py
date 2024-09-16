@@ -1132,3 +1132,10 @@ class PacketHandler:
         cnt = dismiss_crew.cnt
 
         self.role.dismiss_crew(ship_id, cnt)
+
+    async def handle_LoadSupply(self, load_supply):
+        ship_id = load_supply.ship_id
+        supply_name = load_supply.supply_name
+        cnt = load_supply.cnt
+
+        self.role.load_supply(ship_id, supply_name, cnt)

@@ -25,10 +25,12 @@ TO DO:
         remodel name, capacity, weapon  OK
         assign mate to the ship OK
 
-        assign crew to the ship ON
+        assign crew to the ship OK
             recruit crew OK
             dismiss crew OK
 
+        add supply to ship OK
+        remove supply to ship ON
 
 
 DONE:

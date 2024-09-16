@@ -132,6 +132,10 @@ class OpCodeType(Enum):
     DismissCrew = auto()
     CrewDismissed = auto()
 
+    LoadSupply = auto()
+    SupplyChanged = auto()
+
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

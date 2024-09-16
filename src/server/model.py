@@ -71,6 +71,26 @@ class Ship:
     steps_left: int=0
 
 
+    def __get_supply_cnt(self):
+        supply_cnt = self.food + self.water + self.material + self.cannon
+        return supply_cnt
+
+    def can_load(self, cnt):
+        if self.cargo_cnt + self.__get_supply_cnt() + cnt <= self.get_max_cargo():
+            return True
+        else:
+            return False
+
+    def add_supply(self, supply_name, cnt):
+        if supply_name == 'food':
+            self.food += cnt
+        elif supply_name == 'water':
+            self.water += cnt
+        elif supply_name == 'material':
+            self.material += cnt
+        elif supply_name == 'cannon':
+            self.cannon += cnt
+
     def reduce_crew(self, cnt):
         self.now_crew -= cnt
         if self.now_crew < 0:
@@ -1976,6 +1996,28 @@ class Role:
         ship.reduce_crew(cnt)
 
         self.session.send(pb.CrewDismissed(ship_id=ship_id, cnt=cnt))
+
+    def load_supply(self, ship_id, supply_name, cnt):
+        ship = self.ship_mgr.get_ship(ship_id)
+
+        # get cost
+        cost = cnt * c.SUPPLY_2_COST[supply_name]
+        if not self.money >= cost:
+            return
+
+        if not ship.can_load(cnt):
+            return
+
+        self.money -= cost
+        ship.add_supply(supply_name, cnt)
+
+        now_supply = getattr(ship, f'{supply_name}')
+
+        self.session.send(pb.MoneyChanged(money=self.money))
+        self.session.send(
+            pb.SupplyChanged(ship_id=ship_id, supply_name=supply_name, cnt=now_supply)
+        )
+
 
 
 class Model:

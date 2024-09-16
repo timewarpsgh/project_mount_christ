@@ -434,12 +434,38 @@ class OptionsDialog:
     def __send_sail_request(self):
         self.client.send(Sail())
 
+    def __load_supply(self, ship_id, supply_name):
+        pack = pb.LoadSupply()
+        pack.ship_id = ship_id
+        pack.supply_name = supply_name
+
+        PacketParamsDialog(self.mgr, self.client, ['cnt'], pack)
+
+    def __show_ships_to_load_supply(self, supply_name):
+        ships = self.get_ship_mgr().get_ships()
+        option_2_callback = {}
+
+        for ship in ships:
+            option_2_callback[f'{ship.name}'] = partial(self.__load_supply, ship.id, supply_name)
+
+        self.__make_menu(option_2_callback)
+
+    def __show_load_supply_menu(self):
+        option_2_callback = {
+            'Food': partial(self.__show_ships_to_load_supply, 'food'),
+            'Water': partial(self.__show_ships_to_load_supply, 'water'),
+            'Material': partial(self.__show_ships_to_load_supply, 'material'),
+            'Cannon': partial(self.__show_ships_to_load_supply, 'cannon'),
+        }
+
+        self.__make_menu(option_2_callback)
+
     def show_harbor_menu(self):
         self.__change_building_bg('harbor')
 
         option_2_callback = {
             'Sail': partial(self.__send_sail_request),
-            'Load Supply': '',
+            'Load Supply': partial(self.__show_load_supply_menu),
             'Unload Supply': '',
             'Exit': partial(self.__exit_building),
         }

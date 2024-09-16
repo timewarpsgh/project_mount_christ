@@ -36,7 +36,12 @@ ENGAGE_DAMAGE = 0.5
 NPC_ROLE_START_ID = 2_000_000_000
 
 CREW_RECRUIT_COST = 50
-
+SUPPLY_2_COST = {
+    'food': 5,
+    'water': 0,
+    'material': 5,
+    'cannon': 50,
+}
 # settings
 DAEMON_MODE = False
 

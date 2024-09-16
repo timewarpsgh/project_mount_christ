@@ -175,6 +175,16 @@ class Ship:
         return dmg
 
     def shoot(self, ship):
+        damage = 0
+        is_sunk = False
+
+        if self.cannon <= 0:
+            return damage, is_sunk
+        if not self.type_of_guns:
+            return damage, is_sunk
+        if not self.now_guns:
+            return damage, is_sunk
+
         self.cannon -= 1
 
         damage = self.__calc_shoot_dmg(ship)#  c.SHOOT_DAMAGE

@@ -3,12 +3,21 @@ TO DO:
     each mate is different OK
     only flagship show 3 mates OK
 
-    each mate gets random init attributes ON
-        each mate, init rand talents, init lvs, lv up to these lvs based on talents
+    each mate gets random init attributes OK
 
 
     each ship should be different ON
+        dry dock
+            repair  OK
+            remodel
+                Capacity
+                Weapon
+                Name
 
+    after buying a new ship,
+        remodel name, capacity, weapon
+        assign mate to the ship OK
+        assign crew to the ship OK
 
 
 

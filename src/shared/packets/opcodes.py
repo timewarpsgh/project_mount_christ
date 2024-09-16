@@ -114,6 +114,9 @@ class OpCodeType(Enum):
 
     SeasonChanged = auto()
 
+    RepairShip = auto()
+    ShipRepaired = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

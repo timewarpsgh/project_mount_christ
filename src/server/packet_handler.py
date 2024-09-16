@@ -1097,3 +1097,7 @@ class PacketHandler:
 
         pack = pb.DutyAssigned(mate_id=mate_id, ship_id=ship_id, duty_type=duty_type)
         self.session.send(pack)
+
+    async def handle_RepairShip(self, repair_ship):
+        ship_id = repair_ship.id
+        self.role.repair_ship(ship_id)

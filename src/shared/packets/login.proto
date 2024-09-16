@@ -593,3 +593,13 @@ message SeasonChanged {
     required DirType current_dir = 4;
     required int32 current_speed = 5;
 }
+
+// repair ship
+message RepairShip {
+    required int32 id = 1;
+}
+
+message ShipRepaired {
+    required int32 ship_id = 1;
+    required int32 max_durability = 2;
+}

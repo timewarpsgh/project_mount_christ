@@ -697,3 +697,11 @@ class PacketHandler:
             current_dir,
             current_speed
         )
+
+    async def handle_ShipRepaired(self, ship_repaired):
+        ship_id = ship_repaired.ship_id
+        max_durability = ship_repaired.max_durability
+
+        ship = self.__get_role().ship_mgr.get_ship(ship_id)
+        ship.max_durability = max_durability
+        ship.now_durability = max_durability

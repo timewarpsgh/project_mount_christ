@@ -198,13 +198,25 @@ class OptionsDialog:
     def __get_ships_to_buy(self):
         self.client.send(GetShipsToBuy())
 
+    def __repair_ship(self, id):
+        self.client.send(RepairShip(id=id))
+
+    def __show_ships_to_repair_menu(self):
+        ships = self.get_ship_mgr().get_ships()
+        option_2_callback = {}
+
+        for ship in ships:
+            option_2_callback[f'{ship.name}'] = partial(self.__repair_ship, ship.id)
+
+        self.__make_menu(option_2_callback)
+
     def show_dry_dock_menu(self):
         self.__change_building_bg('dry_dock')
 
         option_2_callback = {
             'New Ship': '',
             'Used Ship': partial(self.__get_ships_to_buy),
-            'Repair': '',
+            'Repair': partial(self.__show_ships_to_repair_menu),
             'Sell': partial(self.__show_ships_to_sell),
             'Remodel': '',
             'Exit': partial(self.__exit_building),

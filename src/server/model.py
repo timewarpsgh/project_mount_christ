@@ -819,6 +819,22 @@ class Ship:
 
         return speed
 
+    def get_repair_cost(self):
+        ship_template = sObjectMgr.get_ship_template(self.ship_template_id)
+        cost = ship_template.buy_price * \
+               (self.max_durability - self.now_durability) / \
+               self.max_durability
+        cost = int(cost)
+        return cost
+
+    def repair(self):
+        """max dura reduces based on damage"""
+
+        loss = (self.max_durability - self.now_durability) * 0.1
+        loss = int(loss)
+        self.max_durability -= loss
+        self.now_durability = self.max_durability
+
 
 @dataclass
 class Mate:
@@ -1824,6 +1840,24 @@ class Role:
                                               cargo_id=ship.cargo_id,
                                               cnt=ship.cargo_cnt))
         self.session.send(pb.PopSomeMenus(cnt=2))
+
+    def repair_ship(self, ship_id):
+        ship = self.ship_mgr.get_ship(ship_id)
+        cost = ship.get_repair_cost()
+
+        if not self.money >= cost:
+            return
+
+        self.money -= cost
+        ship.repair()
+
+        self.session.send(pb.MoneyChanged(money=self.money))
+        self.session.send(
+            pb.ShipRepaired(
+                ship_id=ship_id,
+                max_durability=ship.max_durability,
+            )
+        )
 
 
 class Model:

@@ -134,7 +134,7 @@ class OpCodeType(Enum):
 
     LoadSupply = auto()
     SupplyChanged = auto()
-
+    UnloadSupply = auto()
 
 def gen_opcode_2_value():
     d = {}

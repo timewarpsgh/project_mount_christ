@@ -676,3 +676,10 @@ message SupplyChanged {
     required string supply_name = 2;
     required int32 cnt = 3;
 }
+
+// UnloadSupply
+message UnloadSupply {
+    required int32 ship_id = 1;
+    required string supply_name = 2;
+    required int32 cnt = 3;
+}

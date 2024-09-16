@@ -30,7 +30,7 @@ TO DO:
             dismiss crew OK
 
         add supply to ship OK
-        remove supply to ship ON
+        remove supply from ship OK
 
 
 DONE:

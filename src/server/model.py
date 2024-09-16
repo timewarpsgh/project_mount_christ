@@ -81,6 +81,16 @@ class Ship:
         else:
             return False
 
+    def remove_supply(self, supply_name, cnt):
+        if supply_name == 'food':
+            self.food -= cnt
+        elif supply_name == 'water':
+            self.water -= cnt
+        elif supply_name == 'material':
+            self.material -= cnt
+        elif supply_name == 'cannon':
+            self.cannon -= cnt
+
     def add_supply(self, supply_name, cnt):
         if supply_name == 'food':
             self.food += cnt
@@ -2018,6 +2028,19 @@ class Role:
             pb.SupplyChanged(ship_id=ship_id, supply_name=supply_name, cnt=now_supply)
         )
 
+    def unload_supply(self, ship_id, supply_name, cnt):
+        ship = self.ship_mgr.get_ship(ship_id)
+
+        if cnt > getattr(ship, f'{supply_name}'):
+            cnt = getattr(ship, f'{supply_name}')
+
+        ship.remove_supply(supply_name, cnt)
+
+        now_supply = getattr(ship, f'{supply_name}')
+
+        self.session.send(
+            pb.SupplyChanged(ship_id=ship_id, supply_name=supply_name, cnt=now_supply)
+        )
 
 
 class Model:

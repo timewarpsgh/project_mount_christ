@@ -159,7 +159,8 @@ class Ship:
         battle_skill = self.__get_battle_skill()
 
         # get gun_dmg from gun_type
-        gun_dmg = 1
+        cannon = sObjectMgr.get_cannon(self.type_of_guns)
+        gun_dmg = cannon.damage
 
         # calc dmg
         dmg = int(self.now_guns * gun_dmg * battle_skill * 0.01 * 0.1)

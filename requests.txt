@@ -18,7 +18,7 @@ TO DO:
                     remodel weapon OK
 
 
-                cannon type should affect shoot dmg
+                cannon type should affect shoot dmg  OK
 
 
     after buying a new ship,

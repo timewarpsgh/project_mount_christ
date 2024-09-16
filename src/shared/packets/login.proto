@@ -652,3 +652,14 @@ message CrewRecruited {
     required int32 ship_id = 1;
     required int32 cnt = 2;
 }
+
+// DismissCrew
+message DismissCrew {
+    required int32 ship_id = 1;
+    required int32 cnt = 2;
+}
+
+message CrewDismissed {
+    required int32 ship_id = 1;
+    required int32 cnt = 2;
+}

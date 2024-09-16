@@ -27,7 +27,7 @@ TO DO:
 
         assign crew to the ship ON
             recruit crew OK
-            dismiss crew ON
+            dismiss crew OK
 
 
 

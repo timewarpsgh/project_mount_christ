@@ -71,6 +71,11 @@ class Ship:
     steps_left: int=0
 
 
+    def reduce_crew(self, cnt):
+        self.now_crew -= cnt
+        if self.now_crew < 0:
+            self.now_crew = 0
+
     def add_crew(self, cnt):
         self.now_crew += cnt
         if self.now_crew > self.max_crew:
@@ -1961,6 +1966,16 @@ class Role:
 
         self.session.send(pb.MoneyChanged(money=self.money))
         self.session.send(pb.CrewRecruited(ship_id=ship_id, cnt=cnt))
+
+    def dismiss_crew(self, ship_id, cnt):
+        ship = self.ship_mgr.get_ship(ship_id)
+
+        if not ship.now_crew >= cnt:
+            return
+
+        ship.reduce_crew(cnt)
+
+        self.session.send(pb.CrewDismissed(ship_id=ship_id, cnt=cnt))
 
 
 class Model:

@@ -749,3 +749,12 @@ class PacketHandler:
         ship.now_crew += cnt
 
         self.__get_options_dialog().pop_some_menus(2)
+
+    async def handle_CrewDismissed(self, pack):
+        ship_id = pack.ship_id
+        cnt = pack.cnt
+
+        ship = self.__get_role().ship_mgr.get_ship(ship_id)
+        ship.now_crew -= cnt
+
+        self.__get_options_dialog().pop_some_menus(2)

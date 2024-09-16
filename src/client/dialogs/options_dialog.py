@@ -167,7 +167,7 @@ class OptionsDialog:
 
         option_2_callback = {
             'Recruit Crew': partial(self.__show_ships_to_recruit_crew_menu),
-            'Dismiss Crew': '',
+            'Dismiss Crew': partial(self.__show_ships_to_dismiss_crew_menu),
             'Meet': partial(self.__get_mate_in_port),
             'Fire Mate': partial(self.__show_mates_to_fire_menu),
             'Waitress': '',
@@ -392,6 +392,21 @@ class OptionsDialog:
         pack.ship_id = ship_id
 
         PacketParamsDialog(self.mgr, self.client, ['cnt'], pack)
+
+    def __dismiss_crew(self, ship_id):
+        pack = pb.DismissCrew()
+        pack.ship_id = ship_id
+
+        PacketParamsDialog(self.mgr, self.client, ['cnt'], pack)
+
+    def __show_ships_to_dismiss_crew_menu(self):
+        ships = self.get_ship_mgr().get_ships()
+        option_2_callback = {}
+
+        for ship in ships:
+            option_2_callback[f'{ship.name}'] = partial(self.__dismiss_crew, ship.id)
+
+        self.__make_menu(option_2_callback)
 
     def __show_ships_to_recruit_crew_menu(self):
         ships = self.get_ship_mgr().get_ships()

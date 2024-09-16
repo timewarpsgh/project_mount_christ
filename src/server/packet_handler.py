@@ -1126,3 +1126,9 @@ class PacketHandler:
         cnt = recruit_crew.cnt
 
         self.role.recruit_crew(ship_id, cnt)
+
+    async def handle_DismissCrew(self, dismiss_crew):
+        ship_id = dismiss_crew.ship_id
+        cnt = dismiss_crew.cnt
+
+        self.role.dismiss_crew(ship_id, cnt)

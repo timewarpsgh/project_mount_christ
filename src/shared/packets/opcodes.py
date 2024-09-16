@@ -129,6 +129,9 @@ class OpCodeType(Enum):
     RecruitCrew = auto()
     CrewRecruited = auto()
 
+    DismissCrew = auto()
+    CrewDismissed = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

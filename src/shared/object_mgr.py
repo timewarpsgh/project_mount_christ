@@ -4,7 +4,7 @@ import json
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
 
-from world_models import Port, CargoTemplate, ShipTemplate, MateTemplate, Village, \
+from world_models import Port, CargoTemplate, ShipTemplate, MateTemplate, Cannon, Village, \
     SESSION as WORLD_SESSION
 
 class ObjectMgr:
@@ -30,6 +30,14 @@ class ObjectMgr:
 
         self.economy_id_2_ship_ids = {}
         self.__init_economy_id_2_ship_ids()
+
+        self.id_2_cannon = self.__load_id_2_cannon()
+
+    def __load_id_2_cannon(self):
+        id_2_cannon = {}
+        for cannon in WORLD_SESSION.query(Cannon).all():
+            id_2_cannon[cannon.id] = cannon
+        return id_2_cannon
 
     def __init_economy_id_2_ship_ids(self):
         self.economy_id_2_ship_ids = {

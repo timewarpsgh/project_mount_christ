@@ -571,7 +571,7 @@ class OptionsDialog:
             'durability': f'{ship.now_durability}/{ship.max_durability}',
             '2': '',
             'capacity': f'{ship.capacity}',
-            'guns/max_guns': f'{ship.now_guns}/{ship.max_guns}',
+            'guns/max_guns/gun_type': f'{ship.now_guns}/{ship.max_guns}/{ship.type_of_guns}',
             'min_crew/crew/max_crew': f'{ship.min_crew}/{ship.now_crew}/{ship.max_crew}',
             'max_cargo': f'{ship.get_max_cargo()}',
             'cargo/cnt': f'{cargo_name}/{ship.cargo_cnt}'

@@ -600,7 +600,8 @@ class OptionsDialog:
             'guns/max_guns/gun_type': f'{ship.now_guns}/{ship.max_guns}/{gun_name}',
             'min_crew/crew/max_crew': f'{ship.min_crew}/{ship.now_crew}/{ship.max_crew}',
             'max_cargo': f'{ship.get_max_cargo()}',
-            'cargo/cnt': f'{cargo_name}/{ship.cargo_cnt}'
+            'cargo/cnt': f'{cargo_name}/{ship.cargo_cnt}',
+            'food/water/lumber/shot': f'{ship.food}/{ship.water}/{ship.material}/{ship.cannon}',
 
         }
 

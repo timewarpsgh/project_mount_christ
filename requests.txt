@@ -21,6 +21,8 @@ TO DO:
                 cannon type should affect shoot dmg  OK
                 cann't shoot if no weapon or shot  OK
 
+                show ships supplies OK
+
     after buying a new ship,
         remodel name, capacity, weapon
         assign mate to the ship OK

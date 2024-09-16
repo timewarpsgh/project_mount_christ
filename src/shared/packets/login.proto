@@ -603,3 +603,14 @@ message ShipRepaired {
     required int32 ship_id = 1;
     required int32 max_durability = 2;
 }
+
+// rename ship
+message RenameShip {
+    required int32 id = 1;
+    required string name = 2;
+}
+
+message ShipRenamed {
+    required int32 id = 1;
+    required string name = 2;
+}

@@ -9,10 +9,11 @@ TO DO:
     each ship should be different ON
         dry dock
             repair  OK
-            remodel
+            remodel  ON
+                Name  OK
                 Capacity
                 Weapon
-                Name
+
 
     after buying a new ship,
         remodel name, capacity, weapon

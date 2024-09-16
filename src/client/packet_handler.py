@@ -705,3 +705,11 @@ class PacketHandler:
         ship = self.__get_role().ship_mgr.get_ship(ship_id)
         ship.max_durability = max_durability
         ship.now_durability = max_durability
+
+    async def handle_ShipRenamed(self, ship_renamed):
+        id = ship_renamed.id
+        name = ship_renamed.name
+
+        ship = self.__get_role().ship_mgr.get_ship(id)
+        ship.name = name
+        self.__get_options_dialog().pop_some_menus(2)

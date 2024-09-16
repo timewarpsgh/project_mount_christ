@@ -1859,6 +1859,18 @@ class Role:
             )
         )
 
+    def rename_ship(self, id, name):
+        ship = self.ship_mgr.get_ship(id)
+
+        ships = self.ship_mgr.get_ships()
+        for ship in ships:
+            if ship.name == name:
+                return
+
+        ship.name = name
+
+        self.session.send(pb.ShipRenamed(id=id, name=name))
+
 
 class Model:
 

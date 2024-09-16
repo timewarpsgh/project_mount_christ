@@ -1101,3 +1101,9 @@ class PacketHandler:
     async def handle_RepairShip(self, repair_ship):
         ship_id = repair_ship.id
         self.role.repair_ship(ship_id)
+
+    async def handle_RenameShip(self, rename_ship):
+        id = rename_ship.id
+        name = rename_ship.name
+
+        self.role.rename_ship(id, name)

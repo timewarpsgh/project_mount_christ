@@ -196,10 +196,26 @@ class OptionsDialog:
         self.__make_menu(option_2_callback)
 
     def __get_ships_to_buy(self):
-        self.client.send(GetShipsToBuy())
+        self.client.send(pb.GetShipsToBuy())
 
     def __repair_ship(self, id):
-        self.client.send(RepairShip(id=id))
+        self.client.send(pb.RepairShip(id=id))
+
+    def __rename_ship(self, id):
+        # ask user to enter cnt
+        parcket = RenameShip()
+        parcket.id = id
+
+        PacketParamsDialog(self.mgr, self.client, ['name'], parcket)
+
+    def __show_ships_to_rename_menu(self):
+        ships = self.get_ship_mgr().get_ships()
+        option_2_callback = {}
+
+        for ship in ships:
+            option_2_callback[f'{ship.name}'] = partial(self.__rename_ship, ship.id)
+
+        self.__make_menu(option_2_callback)
 
     def __show_ships_to_repair_menu(self):
         ships = self.get_ship_mgr().get_ships()
@@ -207,6 +223,24 @@ class OptionsDialog:
 
         for ship in ships:
             option_2_callback[f'{ship.name}'] = partial(self.__repair_ship, ship.id)
+
+        self.__make_menu(option_2_callback)
+
+    def __show_remodel_menu(self):
+        option_2_callback = {
+            'Name': partial(self.__show_ships_to_rename_menu),
+            'Capacity': '',
+            'Weapon': '',
+        }
+
+        self.__make_menu(option_2_callback)
+
+    def __show_ships_to_remodel_menu(self):
+        ships = self.get_ship_mgr().get_ships()
+        option_2_callback = {}
+
+        for ship in ships:
+            option_2_callback[f'{ship.name}'] = partial(self.__remodel_ship, ship.id)
 
         self.__make_menu(option_2_callback)
 
@@ -218,7 +252,7 @@ class OptionsDialog:
             'Used Ship': partial(self.__get_ships_to_buy),
             'Repair': partial(self.__show_ships_to_repair_menu),
             'Sell': partial(self.__show_ships_to_sell),
-            'Remodel': '',
+            'Remodel': partial(self.__show_remodel_menu),
             'Exit': partial(self.__exit_building),
         }
 

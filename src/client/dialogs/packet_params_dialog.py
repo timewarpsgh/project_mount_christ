@@ -55,7 +55,12 @@ class PacketParamsDialog:
     def __send_packet(self):
         for param in self.params_names:
             entry_box = getattr(self, param)
-            entered_value = int(entry_box.get_text())
+            text = entry_box.get_text()
+            if text.isdigit():
+                entered_value = int(text)
+            else:
+                entered_value = text
+            print(f'{param}: {entered_value}')
             setattr(self.packet, param, entered_value)
 
 

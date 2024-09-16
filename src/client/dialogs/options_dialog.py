@@ -166,7 +166,7 @@ class OptionsDialog:
         self.__change_building_bg('bar')
 
         option_2_callback = {
-            'Recruit Crew': '',
+            'Recruit Crew': partial(self.__show_ships_to_recruit_crew_menu),
             'Dismiss Crew': '',
             'Meet': partial(self.__get_mate_in_port),
             'Fire Mate': partial(self.__show_mates_to_fire_menu),
@@ -386,6 +386,21 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
         self.show_mate_speech(mate, 'Are you sure you want to fire me?')
+
+    def __recruit_crew(self, ship_id):
+        pack = pb.RecruitCrew()
+        pack.ship_id = ship_id
+
+        PacketParamsDialog(self.mgr, self.client, ['cnt'], pack)
+
+    def __show_ships_to_recruit_crew_menu(self):
+        ships = self.get_ship_mgr().get_ships()
+        option_2_callback = {}
+
+        for ship in ships:
+            option_2_callback[f'{ship.name}'] = partial(self.__recruit_crew, ship.id)
+
+        self.__make_menu(option_2_callback)
 
     def __show_mates_to_fire_menu(self):
         mates = self.get_mate_mgr().get_mates()

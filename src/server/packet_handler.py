@@ -1120,3 +1120,9 @@ class PacketHandler:
         cannon_id = change_ship_weapon.cannon_id
 
         self.role.change_ship_weapon(ship_id, cannon_id)
+
+    async def handle_RecruitCrew(self, recruit_crew):
+        ship_id = recruit_crew.ship_id
+        cnt = recruit_crew.cnt
+
+        self.role.recruit_crew(ship_id, cnt)

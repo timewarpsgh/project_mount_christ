@@ -17,16 +17,17 @@ TO DO:
                     load cannon into sObjectMgr OK
                     remodel weapon OK
 
-
                 cannon type should affect shoot dmg  OK
                 cann't shoot if no weapon or shot  OK
-
                 show ships supplies OK
 
     after buying a new ship,
-        remodel name, capacity, weapon
+        remodel name, capacity, weapon  OK
         assign mate to the ship OK
-        assign crew to the ship OK
+
+        assign crew to the ship ON
+            recruit crew OK
+            dismiss crew ON
 
 
 

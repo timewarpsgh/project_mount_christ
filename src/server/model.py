@@ -71,6 +71,11 @@ class Ship:
     steps_left: int=0
 
 
+    def add_crew(self, cnt):
+        self.now_crew += cnt
+        if self.now_crew > self.max_crew:
+            self.now_crew = self.max_crew
+
     def change_weapon(self, cannon_id):
         self.type_of_guns = cannon_id
         self.now_guns = self.max_guns
@@ -1940,6 +1945,22 @@ class Role:
 
         self.session.send(pb.MoneyChanged(money=self.money))
         self.session.send(pb.ShipWeaponChanged(ship_id=ship_id, cannon_id=cannon_id))
+
+    def recruit_crew(self, ship_id, cnt):
+        ship = self.ship_mgr.get_ship(ship_id)
+        cost = cnt * c.CREW_RECRUIT_COST
+
+        if not self.money >= cost:
+            return
+
+        if not ship.max_crew >= ship.now_crew + cnt:
+            return
+
+        self.money -= cost
+        ship.add_crew(cnt)
+
+        self.session.send(pb.MoneyChanged(money=self.money))
+        self.session.send(pb.CrewRecruited(ship_id=ship_id, cnt=cnt))
 
 
 class Model:

@@ -126,6 +126,9 @@ class OpCodeType(Enum):
     ChangeShipWeapon = auto()
     ShipWeaponChanged = auto()
 
+    RecruitCrew = auto()
+    CrewRecruited = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

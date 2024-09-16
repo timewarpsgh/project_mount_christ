@@ -137,6 +137,9 @@ class ObjectMgr:
     def get_cannon(self, id):
         return self.id_2_cannon[id]
 
+    def get_cannons(self):
+        return self.id_2_cannon.values()
+
 
 # singleton
 sObjectMgr = ObjectMgr()

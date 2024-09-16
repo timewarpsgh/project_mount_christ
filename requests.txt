@@ -15,6 +15,7 @@ TO DO:
                 Weapon  ON
                     add cannon table OK
                     load cannon into sObjectMgr OK
+                    remodel weapon OK
 
 
                 cannon type should affect shoot dmg

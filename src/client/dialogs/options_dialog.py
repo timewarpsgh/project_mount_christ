@@ -233,6 +233,26 @@ class OptionsDialog:
 
         PacketParamsDialog(self.mgr, self.client, ['max_crew', 'max_guns'], parcket)
 
+    def __change_ship_weapon(self, ship_id, cannon_id):
+        self.client.send(pb.ChangeShipWeapon(ship_id=ship_id, cannon_id=cannon_id))
+
+    def __show_weapons_menu(self, ship_id):
+        option_2_callback = {}
+
+        for cannon in sObjectMgr.get_cannons():
+            option_2_callback[f'{cannon.name} {cannon.price}'] = partial(self.__change_ship_weapon, ship_id, cannon.id)
+
+        self.__make_menu(option_2_callback)
+
+    def __show_ships_to_change_weapon_menu(self):
+        ships = self.get_ship_mgr().get_ships()
+        option_2_callback = {}
+
+        for ship in ships:
+            option_2_callback[f'{ship.name}'] = partial(self.__show_weapons_menu, ship.id)
+
+        self.__make_menu(option_2_callback)
+
     def __show_ships_to_change_capacity_menu(self):
         ships = self.get_ship_mgr().get_ships()
         option_2_callback = {}
@@ -246,7 +266,7 @@ class OptionsDialog:
         option_2_callback = {
             'Name': partial(self.__show_ships_to_rename_menu),
             'Capacity': partial(self.__show_ships_to_change_capacity_menu),
-            'Weapon': '',
+            'Weapon': partial(self.__show_ships_to_change_weapon_menu),
         }
 
         self.__make_menu(option_2_callback)

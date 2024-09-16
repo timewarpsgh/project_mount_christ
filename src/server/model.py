@@ -71,6 +71,10 @@ class Ship:
     steps_left: int=0
 
 
+    def change_weapon(self, cannon_id):
+        self.type_of_guns = cannon_id
+        self.now_guns = self.max_guns
+
     def clear_mates_onboard(self):
         self.captain = None
         self.accountant = None
@@ -1910,6 +1914,21 @@ class Role:
     def change_ship_capacity(self, id, max_crew, max_guns):
         ship = self.ship_mgr.get_ship(id)
         ship.change_capacity(max_crew, max_guns)
+
+    def change_ship_weapon(self, ship_id, cannon_id):
+        ship = self.ship_mgr.get_ship(ship_id)
+
+        # get cost
+        cannon = sObjectMgr.get_cannon(cannon_id)
+        cost = cannon.price * ship.max_guns
+        if not self.money >= cost:
+            return
+
+        self.money -= cost
+        ship.change_weapon(cannon_id)
+
+        self.session.send(pb.MoneyChanged(money=self.money))
+        self.session.send(pb.ShipWeaponChanged(ship_id=ship_id, cannon_id=cannon_id))
 
 
 class Model:

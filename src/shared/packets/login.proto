@@ -630,3 +630,14 @@ message ShipCapacityChanged {
     required int32 now_crew = 5;
     required int32 now_guns = 6;
 }
+
+// ChangeShipWeapon
+message ChangeShipWeapon {
+    required int32 ship_id = 1;
+    required int32 cannon_id = 2;
+}
+
+message ShipWeaponChanged {
+    required int32 ship_id = 1;
+    required int32 cannon_id = 2;
+}

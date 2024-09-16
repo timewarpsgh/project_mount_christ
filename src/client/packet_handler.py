@@ -730,3 +730,13 @@ class PacketHandler:
         ship.now_guns = now_guns
 
         self.__get_options_dialog().pop_some_menus(2)
+
+    async def handle_ShipWeaponChanged(self, pack):
+        ship_id = pack.ship_id
+        cannon_id = pack.cannon_id
+
+        ship = self.__get_role().ship_mgr.get_ship(ship_id)
+        ship.type_of_guns = cannon_id
+        ship.now_guns = ship.max_guns
+
+        self.__get_options_dialog().pop_some_menus(2)

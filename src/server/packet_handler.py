@@ -1114,3 +1114,9 @@ class PacketHandler:
         max_guns = change_ship_capacity.max_guns
 
         self.role.change_ship_capacity(id, max_crew, max_guns)
+
+    async def handle_ChangeShipWeapon(self, change_ship_weapon):
+        ship_id = change_ship_weapon.ship_id
+        cannon_id = change_ship_weapon.cannon_id
+
+        self.role.change_ship_weapon(ship_id, cannon_id)

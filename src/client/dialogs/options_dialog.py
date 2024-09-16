@@ -563,6 +563,12 @@ class OptionsDialog:
         else:
             aids = ''
 
+        # type_of_guns
+        if ship.type_of_guns:
+            gun_name = sObjectMgr.get_cannon(ship.type_of_guns).name
+        else:
+            gun_name = 'NA'
+
         dict = {
             'name/type/captain': f'{ship.name}/{ship_template.name}/{captain_name}',
             'nav/acc/first mate': f'{aids}',
@@ -571,7 +577,7 @@ class OptionsDialog:
             'durability': f'{ship.now_durability}/{ship.max_durability}',
             '2': '',
             'capacity': f'{ship.capacity}',
-            'guns/max_guns/gun_type': f'{ship.now_guns}/{ship.max_guns}/{ship.type_of_guns}',
+            'guns/max_guns/gun_type': f'{ship.now_guns}/{ship.max_guns}/{gun_name}',
             'min_crew/crew/max_crew': f'{ship.min_crew}/{ship.now_crew}/{ship.max_crew}',
             'max_cargo': f'{ship.get_max_cargo()}',
             'cargo/cnt': f'{cargo_name}/{ship.cargo_cnt}'

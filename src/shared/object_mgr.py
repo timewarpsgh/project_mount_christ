@@ -134,6 +134,10 @@ class ObjectMgr:
     def get_ship_ids(self, economy_id):
         return self.economy_id_2_ship_ids[economy_id]
 
+    def get_cannon(self, id):
+        return self.id_2_cannon[id]
+
+
 # singleton
 sObjectMgr = ObjectMgr()
 print(f'########## inited sObjectMgr')

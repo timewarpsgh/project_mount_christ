@@ -1818,9 +1818,15 @@ class Role:
             print("not enough money")
             return
 
+        # not enough space
+        ship = self.ship_mgr.get_ship(ship_id)
+        if not ship.get_max_cargo() >= cnt:
+            print("not enough space")
+            return
+
         # update ram
         self.money -= cost
-        self.ship_mgr.get_ship(ship_id).add_cargo(cargo_id, cnt)
+        ship.add_cargo(cargo_id, cnt)
 
         # tell client
         pack = pb.MoneyChanged(money=self.money)

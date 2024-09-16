@@ -12,7 +12,7 @@ TO DO:
             remodel  ON
                 Name  OK
                 Capacity OK
-                buy cargo checks max_cargo ON
+                buy cargo checks max_cargo OK
 
                 Weapon
 

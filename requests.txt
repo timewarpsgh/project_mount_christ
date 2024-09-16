@@ -11,7 +11,9 @@ TO DO:
             repair  OK
             remodel  ON
                 Name  OK
-                Capacity
+                Capacity OK
+                buy cargo checks max_cargo ON
+
                 Weapon
 
 

@@ -229,6 +229,11 @@ class Ship:
         else:
             return False
 
+    def get_max_cargo(self):
+        max_cargo = self.capacity - self.max_crew - self.max_guns
+        return max_cargo
+
+
 @dataclass
 class Mate:
     id: int = None

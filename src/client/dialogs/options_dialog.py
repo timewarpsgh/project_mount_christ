@@ -226,10 +226,26 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def __change_ship_capacity(self, id):
+        # ask user to enter cnt
+        parcket = pb.ChangeShipCapacity()
+        parcket.id = id
+
+        PacketParamsDialog(self.mgr, self.client, ['max_crew', 'max_guns'], parcket)
+
+    def __show_ships_to_change_capacity_menu(self):
+        ships = self.get_ship_mgr().get_ships()
+        option_2_callback = {}
+
+        for ship in ships:
+            option_2_callback[f'{ship.name}'] = partial(self.__change_ship_capacity, ship.id)
+
+        self.__make_menu(option_2_callback)
+
     def __show_remodel_menu(self):
         option_2_callback = {
             'Name': partial(self.__show_ships_to_rename_menu),
-            'Capacity': '',
+            'Capacity': partial(self.__show_ships_to_change_capacity_menu),
             'Weapon': '',
         }
 
@@ -557,7 +573,7 @@ class OptionsDialog:
             'capacity': f'{ship.capacity}',
             'guns/max_guns': f'{ship.now_guns}/{ship.max_guns}',
             'min_crew/crew/max_crew': f'{ship.min_crew}/{ship.now_crew}/{ship.max_crew}',
-            'useful_capacity': f'{ship.capacity}',
+            'max_cargo': f'{ship.get_max_cargo()}',
             'cargo/cnt': f'{cargo_name}/{ship.cargo_cnt}'
 
         }

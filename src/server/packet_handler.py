@@ -1107,3 +1107,10 @@ class PacketHandler:
         name = rename_ship.name
 
         self.role.rename_ship(id, name)
+
+    async def handle_ChangeShipCapacity(self, change_ship_capacity):
+        id = change_ship_capacity.id
+        max_crew = change_ship_capacity.max_crew
+        max_guns = change_ship_capacity.max_guns
+
+        self.role.change_ship_capacity(id, max_crew, max_guns)

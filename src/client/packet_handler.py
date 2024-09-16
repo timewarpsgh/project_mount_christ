@@ -713,3 +713,20 @@ class PacketHandler:
         ship = self.__get_role().ship_mgr.get_ship(id)
         ship.name = name
         self.__get_options_dialog().pop_some_menus(2)
+
+    async def handle_ShipCapacityChanged(self, pack):
+        id = pack.id
+        max_crew = pack.max_crew
+        max_guns = pack.max_guns
+        useful_capacity = pack.useful_capacity
+        now_crew = pack.now_crew
+        now_guns = pack.now_guns
+
+        ship = self.__get_role().ship_mgr.get_ship(id)
+        ship.max_crew = max_crew
+        ship.max_guns = max_guns
+        ship.useful_capacity = useful_capacity
+        ship.now_crew = now_crew
+        ship.now_guns = now_guns
+
+        self.__get_options_dialog().pop_some_menus(2)

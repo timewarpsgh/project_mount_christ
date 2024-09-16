@@ -835,6 +835,36 @@ class Ship:
         self.max_durability -= loss
         self.now_durability = self.max_durability
 
+    def get_max_cargo(self):
+        max_cargo = self.capacity - self.max_crew - self.max_guns
+        return max_cargo
+
+    def change_capacity(self, max_crew, max_guns):
+        template_id = self.ship_template_id
+        ship_template = sObjectMgr.get_ship_template(template_id)
+
+        if max_crew <= ship_template.max_crew and max_crew >= ship_template.min_crew:
+            self.max_crew = max_crew
+            if self.now_crew > self.max_crew:
+                self.now_crew = self.max_crew
+
+        if max_guns <= ship_template.max_guns and max_guns >= 0:
+            self.max_guns = max_guns
+            if self.now_guns > self.max_guns:
+                self.now_guns = self.max_guns
+
+        self.useful_capacity = self.capacity - self.max_guns - self.max_crew
+
+        self.ship_mgr.role.session.send(
+            pb.ShipCapacityChanged(
+                id = self.id,
+                max_crew = self.max_crew,
+                max_guns = self.max_guns,
+                useful_capacity = self.useful_capacity,
+                now_crew = self.now_crew,
+                now_guns = self.now_guns,
+            )
+        )
 
 @dataclass
 class Mate:
@@ -1870,6 +1900,10 @@ class Role:
         ship.name = name
 
         self.session.send(pb.ShipRenamed(id=id, name=name))
+
+    def change_ship_capacity(self, id, max_crew, max_guns):
+        ship = self.ship_mgr.get_ship(id)
+        ship.change_capacity(max_crew, max_guns)
 
 
 class Model:

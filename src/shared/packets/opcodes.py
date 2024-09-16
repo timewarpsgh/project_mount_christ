@@ -120,6 +120,9 @@ class OpCodeType(Enum):
     RenameShip = auto()
     ShipRenamed = auto()
 
+    ChangeShipCapacity = auto()
+    ShipCapacityChanged = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

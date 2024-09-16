@@ -12,9 +12,10 @@ TO DO:
             remodel  ON
                 Name  OK
                 Capacity OK
-                buy cargo checks max_cargo OK
+                Weapon  ON
+                    add cannon table OK
 
-                Weapon
+                cannon type should affect shoot dmg
 
 
     after buying a new ship,

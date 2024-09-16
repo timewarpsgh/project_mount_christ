@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, BLOB, create_engine
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, BLOB, create_engine, Float
 from sqlalchemy.orm import sessionmaker
 import sqlalchemy
 
@@ -133,6 +133,17 @@ class ItemTemplate(BASE):
 	item_type = Column(String)
 
 	buy_price = Column(Integer)
+
+
+class Cannon(BASE):
+
+	__tablename__ = 'cannon'
+
+	id = Column(Integer, primary_key=True)
+
+	name = Column(String)
+	price = Column(Integer)
+	damage = Column(Float)
 
 
 class Village(BASE):

@@ -71,12 +71,12 @@ class Ship:
     steps_left: int=0
 
 
-    def __get_supply_cnt(self):
+    def get_supply_cnt(self):
         supply_cnt = self.food + self.water + self.material + self.cannon
         return supply_cnt
 
     def can_load(self, cnt):
-        if self.cargo_cnt + self.__get_supply_cnt() + cnt <= self.get_max_cargo():
+        if self.cargo_cnt + self.get_supply_cnt() + cnt <= self.get_max_cargo():
             return True
         else:
             return False
@@ -1875,7 +1875,7 @@ class Role:
 
         # not enough space
         ship = self.ship_mgr.get_ship(ship_id)
-        if not ship.get_max_cargo() >= cnt:
+        if not ship.get_max_cargo() >= cnt + ship.get_supply_cnt():
             print("not enough space")
             return
 

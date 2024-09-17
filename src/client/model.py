@@ -483,6 +483,7 @@ class Role:
     map_id: int = None
     money: int = None
     seen_grids: any = None  # numpy matrix
+    days_at_sea: int = 0
 
     ship_mgr: ShipMgr = None
     mate_mgr: MateMgr = None

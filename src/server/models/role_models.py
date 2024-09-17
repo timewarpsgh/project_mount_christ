@@ -37,6 +37,8 @@ class Role(BASE):
 	dir = Column(Integer)
 	money = Column(Integer)
 	seen_grids = Column(String)
+	days_at_sea = Column(Integer)
+
 
 	discovery_ids_json_str = Column(String)
 

@@ -601,7 +601,7 @@ class HudRight(SP):
 
             speed = self.model.role.speed
             new_image.blit(Text(f'Speed \n  {speed} Knots').image, (x, start_y))
-            new_image.blit(Text(f'Days spent \n  8').image, (x, start_y + d_y * 1))
+            new_image.blit(Text(f'Days spent \n  {self.model.role.days_at_sea}').image, (x, start_y + d_y * 1))
 
             season_mgr = self.model.season_mgr
             season = season_mgr.season

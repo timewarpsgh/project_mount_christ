@@ -361,6 +361,13 @@ class ShipMgr:
     def has_ship(self, id):
         return id in self.id_2_ship
 
+    def get_total_supply(self, supply_type):
+        total_supply = 0
+        supply_name = c.INT_2_SUPPLY_NAME[supply_type]
+        for ship in self.get_ships():
+            total_supply += getattr(ship, supply_name)
+        return total_supply
+
 
 class MateMgr:
 

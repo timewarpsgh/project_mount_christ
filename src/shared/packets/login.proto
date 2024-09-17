@@ -683,3 +683,10 @@ message UnloadSupply {
     required string supply_name = 2;
     required int32 cnt = 3;
 }
+
+enum SupplyType {
+    FOOD = 1;
+    WATER = 2;
+    MATERIAL = 3;
+    CANNON = 4;
+}

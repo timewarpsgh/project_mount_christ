@@ -42,6 +42,14 @@ SUPPLY_2_COST = {
     'material': 5,
     'cannon': 50,
 }
+
+INT_2_SUPPLY_NAME = {
+    1: 'food',
+    2: 'water',
+    3: 'material',
+    4: 'cannon',
+}
+
 # settings
 DAEMON_MODE = False
 

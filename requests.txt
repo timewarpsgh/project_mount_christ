@@ -35,6 +35,8 @@ TO DO:
         buy cargo, supply also takes cargo space OK
 
 
+    show on left hud, total supply OK
+
     sail, each day passes with food consumed ON
 
     ration affects health and morale ON

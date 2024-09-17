@@ -540,15 +540,32 @@ class HudLeft(SP):
         new_image.blit(Text('Century 16').image, (x, 18))
         new_image.blit(Text('Spring').image, (x, 142))
 
-        new_image.blit(Text('Lv \n  1').image, (x, 240))
+        if self.model.role.is_in_port():
 
-        ingots = Text(f'Gold Ingots \n  {self.model.role.money // 10000}').image
-        coins = Text(  f'Gold Coins \n  {self.model.role.money % 10000}').image
-        new_image.blit(ingots, (x, 280))
-        new_image.blit(coins, (x, 320))
+            new_image.blit(Text('Lv \n  1').image, (x, 240))
+
+            ingots = Text(f'Gold Ingots \n  {self.model.role.money // 10000}').image
+            coins = Text(  f'Gold Coins \n  {self.model.role.money % 10000}').image
+            new_image.blit(ingots, (x, 280))
+            new_image.blit(coins, (x, 320))
+
+        elif self.model.role.is_at_sea():
+            # show supplies
+            new_image.blit(Text('Lv \n  1').image, (x, 240))
+
+            ship_mgr = self.model.role.ship_mgr
+
+            food_water = Text(f"Food/Water \n  "
+                              f"{ship_mgr.get_total_supply(pb.SupplyType.FOOD)}/"
+                              f"{ship_mgr.get_total_supply(pb.SupplyType.WATER)}").image
+            material_cannon = Text(f"Material/Cannon \n  "
+                              f"{ship_mgr.get_total_supply(pb.SupplyType.MATERIAL)}/"
+                              f"{ship_mgr.get_total_supply(pb.SupplyType.CANNON)}").image
+            new_image.blit(food_water, (x, 280))
+            new_image.blit(material_cannon, (x, 320))
 
         name = Text( f'{self.model.role.name}').image
-        new_image.blit(name, (x, 360))
+        new_image.blit(name, (x, 400))
 
         self.change_img(new_image)
 

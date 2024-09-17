@@ -701,3 +701,6 @@ message SupplyConsumed {
     required string supply_name = 2;
     required int32 now_cnt = 3;
 }
+
+message YouStarvedToDeath {
+}

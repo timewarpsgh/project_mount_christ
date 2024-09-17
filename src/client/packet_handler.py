@@ -780,3 +780,6 @@ class PacketHandler:
 
         ship = self.__get_role().ship_mgr.get_ship(ship_id)
         setattr(ship, supply_name, now_cnt)
+
+    async def handle_YouStarvedToDeath(self, pack):
+        self.__get_chat_dialog().add_chat(pb.ChatType.SYSTEM, 'You starved to death!')

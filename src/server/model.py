@@ -1317,6 +1317,8 @@ class Role:
     money: int=None
     seen_grids: any=None  # numpy matrix
     days_at_sea: int=0
+    starved_days: int=0
+    is_dead: bool=False
     at_sea_timer: int=c.SUPPLY_CONSUMPTION_INVERVAL
 
     ship_mgr: ShipMgr=None
@@ -1366,6 +1368,9 @@ class Role:
         fleet_speed = min(speed of all ships)
         maybe use cache to avoid calculating every time
         """
+        if self.is_dead:
+            return c.DEAD_SPEED
+
         ships = self.ship_mgr.get_ships()
         speeds = [ship.get_speed(dir) for ship in ships]
         fleet_speed = min(speeds)
@@ -1443,6 +1448,7 @@ class Role:
             self.session.send(pb.OpenedGrid(grid_x=grid_x, grid_y=grid_y))
 
     def enter_port(self, port_id):
+        self.is_dead = False
 
 
         # change map_id
@@ -1654,16 +1660,32 @@ class Role:
                 ))
 
         # not enough food
+        is_enough = True
         if total_comsumption > 0:
-            pass
+            is_enough = False
+
+        return is_enough
 
 
     def __pass_one_day_at_sea(self):
         self.days_at_sea += 1
         self.session.send(pb.OneDayPassedAtSea(days_at_sea=self.days_at_sea))
 
-        self.__consume_supply('food')
-        self.__consume_supply('water')
+        if self.is_dead:
+            return
+
+        is_food_enough = self.__consume_supply('food')
+        is_water_enough = self.__consume_supply('water')
+
+        if not is_food_enough or not is_water_enough:
+            self.starved_days += 1
+            if self.starved_days >= 2:
+                self.is_dead = True
+                self.fleet_speed = c.DEAD_SPEED
+                self.start_moving(self.x, self.y, self.dir)
+                self.session.send(pb.YouStarvedToDeath())
+
+
 
     def win_npc(self):
         for ship in self.npc_instance.ship_mgr.get_ships():

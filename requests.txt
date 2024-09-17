@@ -44,6 +44,9 @@ TO DO:
         refactor sail OK
 
         consumes supply OK
+        when food runs out: speed drops to dead_speed  OK
+
+        crew drops to 0 ON
 
 
     ration affects health and morale ON

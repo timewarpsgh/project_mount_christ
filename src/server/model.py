@@ -1313,6 +1313,7 @@ class Role:
     money: int=None
     seen_grids: any=None  # numpy matrix
     days_at_sea: int=0
+    at_sea_timer: int=c.SUPPLY_CONSUMPTION_INVERVAL
 
     ship_mgr: ShipMgr=None
     mate_mgr: MateMgr=None
@@ -1606,6 +1607,22 @@ class Role:
 
             if self.battle_timer <= 0:
                 await self.switch_turn_with_enemy()
+
+        # days at sea
+        if self.is_at_sea() and not self.is_in_battle():
+            if self.is_npc():
+                pass
+            else:
+                self.at_sea_timer -= time_diff
+                if self.at_sea_timer <= 0:
+                    self.at_sea_timer = c.SUPPLY_CONSUMPTION_INVERVAL
+                    self.pass_one_day_at_sea()
+
+
+    def pass_one_day_at_sea(self):
+        self.days_at_sea += 1
+
+        self.session.send(pb.OneDayPassedAtSea(days_at_sea=self.days_at_sea))
 
     def win_npc(self):
         for ship in self.npc_instance.ship_mgr.get_ships():

@@ -39,6 +39,8 @@ TO DO:
 
     sail, each day passes with food consumed ON
         days_at_sea variable OK
+        +1 each day OK
+        reset to 0 when sailed from port ON
 
 
     ration affects health and morale ON

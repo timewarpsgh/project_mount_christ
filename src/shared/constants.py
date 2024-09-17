@@ -50,6 +50,8 @@ INT_2_SUPPLY_NAME = {
     4: 'cannon',
 }
 
+SUPPLY_CONSUMPTION_INVERVAL = 5
+
 # settings
 DAEMON_MODE = False
 

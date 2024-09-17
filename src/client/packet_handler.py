@@ -768,3 +768,7 @@ class PacketHandler:
         setattr(ship, supply_name, cnt)
 
         self.__get_options_dialog().pop_some_menus(2)
+
+    async def handle_OneDayPassedAtSea(self, pack):
+        days_at_sea = pack.days_at_sea
+        self.__get_role().days_at_sea = days_at_sea

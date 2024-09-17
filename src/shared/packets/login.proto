@@ -690,3 +690,8 @@ enum SupplyType {
     MATERIAL = 3;
     CANNON = 4;
 }
+
+// OneDayPassedAtSea
+message OneDayPassedAtSea {
+    required int32 days_at_sea = 1;
+}

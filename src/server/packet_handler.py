@@ -605,64 +605,8 @@ class PacketHandler:
                 )
             )
 
-    def __get_sailable_x_y_around_port(self, port_tile_x, port_tile_y):
-        matrix = sMapMaker.world_map_piddle
-        deltas = c.TILES_AROUND_PORTS
-        for delta in deltas:
-            test_tile_x = port_tile_x + delta[1]
-            test_tile_y = port_tile_y + delta[0]
-            if int(matrix[test_tile_y, test_tile_x]) in c.SAILABLE_TILES:
-                sailable = True
-                three_nearby_tiles = c.THREE_NEARBY_TILES_OF_UP_LEFT_TILE
-                for tile in three_nearby_tiles:
-                    if not int(matrix[test_tile_y + tile[1], test_tile_x + tile[0]]) in c.SAILABLE_TILES:
-                        sailable = False
-                        break
-
-                if sailable:
-                    return test_tile_x, test_tile_y
-
-        return None, None
-
     async def handle_Sail(self, sail):
-        # tell port nearby roles
-        self.send_role_disappeared_to_nearby_roles()
-
-        # update map_mgr
-        port = sObjectMgr.get_port(self.role.map_id)
-
-        sailable_x, sailable_y = self.__get_sailable_x_y_around_port(port.x, port.y)
-
-        if not sailable_x:
-            return
-
-        sMapMgr.change_object_map(self.role,
-                                  self.role.map_id, self.role.x, self.role.y,
-                                  0, sailable_x, sailable_y)
-
-        # update model
-        self.role.map_id = 0
-        self.role.x = sailable_x
-        self.role.y = sailable_y
-
-        # tell client
-        self.session.send(
-            pb.MapChanged(
-                role_id=self.role.id,
-                map_id=0,
-                x=sailable_x,
-                y=sailable_y,
-            )
-        )
-
-        self.role.days_at_sea = 0
-        self.session.send(
-            pb.OneDayPassedAtSea(days_at_sea=self.role.days_at_sea)
-        )
-
-        # tell nearby_roles_at_sea
-        self.send_role_appeared_to_nearby_roles()
-
+        self.role.sail()
 
     async def handle_EnterPort(self, enter_port):
         port_id = enter_port.id

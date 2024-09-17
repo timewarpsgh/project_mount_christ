@@ -2060,6 +2060,64 @@ class Role:
             pb.SupplyChanged(ship_id=ship_id, supply_name=supply_name, cnt=now_supply)
         )
 
+    def __get_sailable_x_y_around_port(self, port_tile_x, port_tile_y):
+        matrix = sMapMaker.world_map_piddle
+        deltas = c.TILES_AROUND_PORTS
+        for delta in deltas:
+            test_tile_x = port_tile_x + delta[1]
+            test_tile_y = port_tile_y + delta[0]
+            if int(matrix[test_tile_y, test_tile_x]) in c.SAILABLE_TILES:
+                sailable = True
+                three_nearby_tiles = c.THREE_NEARBY_TILES_OF_UP_LEFT_TILE
+                for tile in three_nearby_tiles:
+                    if not int(matrix[test_tile_y + tile[1], test_tile_x + tile[0]]) in c.SAILABLE_TILES:
+                        sailable = False
+                        break
+
+                if sailable:
+                    return test_tile_x, test_tile_y
+
+        return None, None
+
+    def sail(self):
+        # tell port nearby roles
+        self.session.packet_handler.send_role_disappeared_to_nearby_roles()
+
+        # update map_mgr
+        port = sObjectMgr.get_port(self.map_id)
+
+        sailable_x, sailable_y = self.__get_sailable_x_y_around_port(port.x, port.y)
+
+        if not sailable_x:
+            return
+
+        sMapMgr.change_object_map(self,
+                                  self.map_id, self.x, self.y,
+                                  0, sailable_x, sailable_y)
+
+        # update model
+        self.map_id = 0
+        self.x = sailable_x
+        self.y = sailable_y
+
+        # tell client
+        self.session.send(
+            pb.MapChanged(
+                role_id=self.id,
+                map_id=0,
+                x=sailable_x,
+                y=sailable_y,
+            )
+        )
+
+        self.days_at_sea = 0
+        self.session.send(
+            pb.OneDayPassedAtSea(days_at_sea=self.days_at_sea)
+        )
+
+        # tell nearby_roles_at_sea
+        self.session.packet_handler.send_role_appeared_to_nearby_roles()
+
 
 class Model:
 

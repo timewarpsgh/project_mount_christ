@@ -137,6 +137,8 @@ class OpCodeType(Enum):
     UnloadSupply = auto()
 
     OneDayPassedAtSea = auto()
+    SupplyConsumed = auto()
+
 
 def gen_opcode_2_value():
     d = {}

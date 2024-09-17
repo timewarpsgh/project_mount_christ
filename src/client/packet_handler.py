@@ -772,3 +772,11 @@ class PacketHandler:
     async def handle_OneDayPassedAtSea(self, pack):
         days_at_sea = pack.days_at_sea
         self.__get_role().days_at_sea = days_at_sea
+
+    async def handle_SupplyConsumed(self, pack):
+        ship_id = pack.ship_id
+        supply_name = pack.supply_name
+        now_cnt = pack.now_cnt
+
+        ship = self.__get_role().ship_mgr.get_ship(ship_id)
+        setattr(ship, supply_name, now_cnt)

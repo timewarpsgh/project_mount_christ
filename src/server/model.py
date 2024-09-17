@@ -1165,6 +1165,10 @@ class ShipMgr:
     def get_ships(self):
         return self.id_2_ship.values()
 
+    def get_total_crew(self):
+        ships = self.get_ships()
+        return sum([ship.now_crew for ship in ships])
+
     def get_new_ship_name(self):
         new_ship_name = str(len(self.id_2_ship) + 1)
         return new_ship_name
@@ -1616,13 +1620,50 @@ class Role:
                 self.at_sea_timer -= time_diff
                 if self.at_sea_timer <= 0:
                     self.at_sea_timer = c.SUPPLY_CONSUMPTION_INVERVAL
-                    self.pass_one_day_at_sea()
+                    self.__pass_one_day_at_sea()
+
+    def __consume_supply(self, supply_name):
+        # get total_comsumption
+        total_crew = self.ship_mgr.get_total_crew()
+        total_comsumption = int(total_crew * c.SUPPLY_CONSUMPTION_PER_PERSON)
+
+        # reduce food from all ships until total_comsumption is met
+        ships = self.ship_mgr.get_ships()
+        for ship in ships:
+            # this ship has enough
+            if getattr(ship, supply_name) >= total_comsumption:
+                setattr(ship, supply_name, getattr(ship, supply_name) - total_comsumption)
+                total_comsumption = 0
+
+                self.session.send(pb.SupplyConsumed(
+                    ship_id=ship.id,
+                    supply_name=supply_name,
+                    now_cnt=getattr(ship, supply_name),
+                ))
+
+                break
+            # this ship not enough
+            else:
+                total_comsumption -= getattr(ship, supply_name)
+                setattr(ship, supply_name, 0)
+
+                self.session.send(pb.SupplyConsumed(
+                    ship_id=ship.id,
+                    supply_name=supply_name,
+                    now_cnt=0,
+                ))
+
+        # not enough food
+        if total_comsumption > 0:
+            pass
 
 
-    def pass_one_day_at_sea(self):
+    def __pass_one_day_at_sea(self):
         self.days_at_sea += 1
-
         self.session.send(pb.OneDayPassedAtSea(days_at_sea=self.days_at_sea))
+
+        self.__consume_supply('food')
+        self.__consume_supply('water')
 
     def win_npc(self):
         for ship in self.npc_instance.ship_mgr.get_ships():
@@ -2111,6 +2152,7 @@ class Role:
         )
 
         self.days_at_sea = 0
+        self.at_sea_timer = c.SUPPLY_CONSUMPTION_INVERVAL
         self.session.send(
             pb.OneDayPassedAtSea(days_at_sea=self.days_at_sea)
         )

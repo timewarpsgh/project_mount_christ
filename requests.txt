@@ -43,6 +43,8 @@ TO DO:
         reset to 0 when sailed from port OK
         refactor sail OK
 
+        consumes supply OK
+
 
     ration affects health and morale ON
 

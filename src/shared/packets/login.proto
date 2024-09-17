@@ -695,3 +695,9 @@ enum SupplyType {
 message OneDayPassedAtSea {
     required int32 days_at_sea = 1;
 }
+
+message SupplyConsumed {
+    required int32 ship_id = 1;
+    required string supply_name = 2;
+    required int32 now_cnt = 3;
+}

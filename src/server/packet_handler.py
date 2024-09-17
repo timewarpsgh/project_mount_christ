@@ -647,12 +647,17 @@ class PacketHandler:
 
         # tell client
         self.session.send(
-            MapChanged(
+            pb.MapChanged(
                 role_id=self.role.id,
                 map_id=0,
                 x=sailable_x,
                 y=sailable_y,
             )
+        )
+
+        self.role.days_at_sea = 0
+        self.session.send(
+            pb.OneDayPassedAtSea(days_at_sea=self.role.days_at_sea)
         )
 
         # tell nearby_roles_at_sea

@@ -425,7 +425,7 @@ class OptionsDialog:
         self.__make_menu(option_2_callback)
 
     def exit_building(self):
-        self.pop_some_menus(1)
+        self.pop_some_menus(5)
         self.__get_graphics().unhide_role_sprite()
 
         role = self.__get_role()
@@ -1296,6 +1296,8 @@ class OptionsDialog:
                 getattr(self, f'show_{building_name}_menu')()
 
                 self.__get_role().is_in_building = True
+
+                self.__building_speak('Hello! How may I help you?')
 
                 return
 

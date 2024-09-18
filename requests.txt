@@ -10,7 +10,24 @@ TO DO:
 
     npc sail from near port OK
 
+    building greetings on enter ON
+
     each building
+        harbor OK
+        market ON
+            can buy specialty
+            each port has a price_index, which affects buy and sell price
+            invest (later)
+
+        bar
+            waitress
+        dry dock
+            invest (later)
+
+
+
+
+
 
 
 

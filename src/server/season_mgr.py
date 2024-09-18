@@ -1,5 +1,5 @@
 import random
-
+import asyncio
 
 # import from dir
 import sys
@@ -33,12 +33,24 @@ class SeasonMgr:
         self.current_dir = random.choice(pb.DirType.values())
         self.current_speed = random.choice(CURRENT_SPEED_LIST)
 
+    async def run_loop_to_update(self, server):
+        while True:
+            await asyncio.sleep(c.SEASON_CHANGE_INTERVAL)
+            self.update()
+            pack = self.gen_season_changed_pb()
+            roles = server.get_roles()
+            for role in roles:
+                role.session.send(pack)
+
     def update(self):
         self.season += 1
         if self.season > pb.SeasonType.WINTER:
             self.season = pb.SeasonType.SPRING
 
         self.__randomize_wind_and_current()
+
+
+
 
 
     def gen_season_changed_pb(self):

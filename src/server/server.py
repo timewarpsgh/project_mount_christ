@@ -66,7 +66,7 @@ class Session(Connection):
             else:
                 pass
 
-            await asyncio.sleep(0.1)
+            await asyncio.sleep(0.01)
 
 
 
@@ -91,6 +91,9 @@ class Server:
 
     def __init_map_maker(self):
         sMapMaker.set_world_piddle()
+
+    def get_roles(self):
+        return self.id_2_role.values()
 
     def get_npc(self, id):
         return sNpcMgr.get_npc(id)
@@ -143,6 +146,7 @@ class Server:
         print(f'Serving on {addrs}')
 
         async with server:
+            await sSeasonMgr.run_loop_to_update(self)
             await sNpcMgr.run_loop_to_update()
             await server.serve_forever()
 

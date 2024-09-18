@@ -1652,6 +1652,8 @@ class Role:
                 role.session.send(pack)
 
     async def update(self, time_diff):
+        """timers"""
+
         # movment
         if self.is_moving:
             self.move_timer -= time_diff

@@ -75,7 +75,7 @@ class Npc(Role):
             self.is_outward = True
             self.end_port_id = random.choice(list(HASH_PATHS[self.start_port_id].keys()))
 
-            # self.end_port_id = 33 # antwerp
+            self.end_port_id = 33 # antwerp
 
             path = Path(self.start_port_id, self.end_port_id)
         else:
@@ -160,11 +160,9 @@ class NpcMgr:
 
     async def update(self, time_diff):
         # return
-        print('npc_mgr updating')
         for npc in self.id_2_npc.values():
             # if npc.id == 2000000001:
             npc.move_along_path()
-            print(f'NPC {npc.id} trying to move')
             await npc.update(time_diff)
 
 

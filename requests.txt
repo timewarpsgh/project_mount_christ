@@ -8,6 +8,8 @@ TO DO:
 
     update npc and season at the same time OK
 
+    npc sail from near port OK
+
     see npc sail without prints
 
     each building

@@ -52,6 +52,7 @@ TO DO:
     ration affects health and morale ON
         sails with health and morale at 100 OK
         show ration, health and morale menu OK
+        show ration, health and morale on left hud OK
 
         each day:
 

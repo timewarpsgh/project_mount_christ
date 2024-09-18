@@ -551,7 +551,9 @@ class HudLeft(SP):
 
         elif self.model.role.is_at_sea():
             # show supplies
-            new_image.blit(Text('Lv \n  1').image, (x, 240))
+            role = self.model.role
+            new_image.blit(Text(f"R/M/H \n  "
+                                f"{role.ration}/{role.morale}/{role.health}").image, (x, 240))
 
             ship_mgr = self.model.role.ship_mgr
 
@@ -601,7 +603,7 @@ class HudRight(SP):
 
             speed = self.model.role.speed
             new_image.blit(Text(f'Speed \n  {speed} Knots').image, (x, start_y))
-            new_image.blit(Text(f'Days spent \n  {self.model.role.days_at_sea}').image, (x, start_y + d_y * 1))
+            new_image.blit(Text(f'Days \n  {self.model.role.days_at_sea}').image, (x, start_y + d_y * 1))
 
             season_mgr = self.model.season_mgr
             season = season_mgr.season

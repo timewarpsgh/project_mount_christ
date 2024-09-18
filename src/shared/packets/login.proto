@@ -711,3 +711,15 @@ message ShipFieldChanged {
     optional int32 int_value = 3;
     optional string str_value = 4;
 }
+
+message SetRoleField {
+    required string key = 1;
+    optional int32 int_value = 2;
+    optional string str_value = 3;
+}
+
+message RoleFieldSet {
+    required string key = 1;
+    optional int32 int_value = 2;
+    optional string str_value = 3;
+}

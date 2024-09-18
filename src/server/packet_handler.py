@@ -1095,3 +1095,10 @@ class PacketHandler:
         cnt = unload_supply.cnt
 
         self.role.unload_supply(ship_id, supply_name, cnt)
+
+    async def handle_SetRoleField(self, set_role_field):
+        key = set_role_field.key
+        int_value = set_role_field.int_value
+        str_value = set_role_field.str_value
+
+        self.role.set_field(key, int_value, str_value)

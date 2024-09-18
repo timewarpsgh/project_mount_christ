@@ -142,6 +142,9 @@ class OpCodeType(Enum):
     YouStarvedToDeath = auto()
     ShipFieldChanged = auto()
 
+    SetRoleField = auto()
+    RoleFieldSet = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

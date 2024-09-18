@@ -1130,6 +1130,13 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def __set_ration(self):
+        # ask user to enter cnt
+        pack = pb.SetRoleField()
+        pack.key = 'ration'
+
+        PacketParamsDialog(self.mgr, self.client, ['int_value'], pack)
+
     def __show_duty_types_menu(self, mate):
         flag_ship = self.__get_role().get_flag_ship()
         ship_id = flag_ship.id
@@ -1152,7 +1159,7 @@ class OptionsDialog:
     def __show_crew_state_menu(self):
         role = self.__get_role()
         option_2_callback = {
-            f'Ration {role.ration}': '',
+            f'Ration {role.ration}': partial(self.__set_ration),
             f'Morale {role.morale}': '',
             f'Health {role.health}': '',
         }

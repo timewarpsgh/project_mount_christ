@@ -54,6 +54,12 @@ TO DO:
         show ration, health and morale menu OK
         show ration, health and morale on left hud OK
 
+        set ration OK
+
+        ration should be useful (sonsumes less supply) ON
+
+
+
         each day:
 
             if ration >= 80:

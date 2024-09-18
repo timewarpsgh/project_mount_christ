@@ -1351,6 +1351,20 @@ class Role:
     morale: int=100
     health: int=100
 
+    def set_field(self, key, int_value, str_value):
+        if str_value:
+            setattr(self, key, str_value)
+            self.session.send(pb.RoleFieldSet(
+                key=key,
+                str_value=str_value,
+            ))
+        else:
+            setattr(self, key, int_value)
+            self.session.send(pb.RoleFieldSet(
+                key=key,
+                int_value=int_value,
+            ))
+
     def __get_grid_xy(self, x, y):
         grid_x = int(y / c.SIZE_OF_ONE_GRID)
         grid_y = int(x / c.SIZE_OF_ONE_GRID)

@@ -795,3 +795,17 @@ class PacketHandler:
             setattr(ship, key, str_value)
         else:
             setattr(ship, key, int_value)
+
+    async def handle_RoleFieldSet(self, pack):
+        key = pack.key
+        int_value = pack.int_value
+        str_value = pack.str_value
+
+        role = self.__get_role()
+        if str_value:
+            setattr(role, key, str_value)
+        else:
+            setattr(role, key, int_value)
+
+        if key == 'ration':
+            self.__get_options_dialog().pop_some_menus(2)

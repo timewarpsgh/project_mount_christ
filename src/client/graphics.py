@@ -103,9 +103,7 @@ class SP(pygame.sprite.Sprite):
         pixcels_to_move = 1
         if abs(position[0] - self.rect.x) >= pixcels_to_move or \
                 abs(position[1] - self.rect.y) >= pixcels_to_move:
-            self.rect.x = position[0]
-            self.rect.y = position[1]
-            self.image.get_rect().move(self.rect.x, self.rect.y)
+            self.move_to(position[0], position[1])
 
     def change_img(self, img):
         self.image = img

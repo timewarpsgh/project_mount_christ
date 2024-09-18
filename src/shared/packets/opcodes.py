@@ -140,7 +140,7 @@ class OpCodeType(Enum):
     SupplyConsumed = auto()
 
     YouStarvedToDeath = auto()
-
+    ShipFieldChanged = auto()
 
 def gen_opcode_2_value():
     d = {}

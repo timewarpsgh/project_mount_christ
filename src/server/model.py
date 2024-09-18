@@ -1199,6 +1199,17 @@ class ShipMgr:
     def has_ship(self, id):
         return id in self.id_2_ship
 
+    def clear_crew(self):
+        for ship in self.get_ships():
+            ship.now_crew = 0
+
+            self.role.session.send(
+                pb.ShipFieldChanged(
+                    ship_id=ship.id,
+                    key='now_crew',
+                    int_value=0,
+                )
+            )
 
 class MateMgr:
 
@@ -1449,7 +1460,7 @@ class Role:
 
     def enter_port(self, port_id):
         self.is_dead = False
-
+        self.starved_days = 0
 
         # change map_id
         self.map_id = port_id
@@ -1680,10 +1691,13 @@ class Role:
         if not is_food_enough or not is_water_enough:
             self.starved_days += 1
             if self.starved_days >= 2:
+                # die
                 self.is_dead = True
                 self.fleet_speed = c.DEAD_SPEED
                 self.start_moving(self.x, self.y, self.dir)
                 self.session.send(pb.YouStarvedToDeath())
+
+                self.ship_mgr.clear_crew()
 
 
 

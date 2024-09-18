@@ -46,7 +46,7 @@ TO DO:
         consumes supply OK
         when food runs out: speed drops to dead_speed  OK
 
-        crew drops to 0 ON
+        crew drops to 0 OK
 
 
     ration affects health and morale ON

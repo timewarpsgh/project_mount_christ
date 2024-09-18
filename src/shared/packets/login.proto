@@ -704,3 +704,10 @@ message SupplyConsumed {
 
 message YouStarvedToDeath {
 }
+
+message ShipFieldChanged {
+    required int32 ship_id = 1;
+    required string key = 2;
+    optional int32 int_value = 3;
+    optional string str_value = 4;
+}

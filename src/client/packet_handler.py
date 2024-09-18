@@ -783,3 +783,15 @@ class PacketHandler:
 
     async def handle_YouStarvedToDeath(self, pack):
         self.__get_chat_dialog().add_chat(pb.ChatType.SYSTEM, 'You starved to death!')
+
+    async def handle_ShipFieldChanged(self, pack):
+        ship_id = pack.ship_id
+        key = pack.key
+        int_value = pack.int_value
+        str_value = pack.str_value
+
+        ship = self.__get_role().ship_mgr.get_ship(ship_id)
+        if str_value:
+            setattr(ship, key, str_value)
+        else:
+            setattr(ship, key, int_value)

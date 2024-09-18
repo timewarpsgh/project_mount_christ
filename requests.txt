@@ -50,8 +50,21 @@ TO DO:
 
 
     ration affects health and morale ON
+        sails with health and morale at 100 OK
+        show ration, health and morale menu OK
 
+        each day:
 
+            if ration >= 80:
+                morale += (ration - 80)
+            elif ration >= 60:
+                morale -= (80 - ration)
+            else:
+                morale -= (100 - ration)
+                health -= (70 - ration)
+
+            if health <= 0:
+                dead
 DONE:
 
     clear menu when other menus are up OK

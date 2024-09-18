@@ -867,7 +867,12 @@ class Ship:
 
         speed = int(base_speed + wind_effect + curren_effect)
 
-        if speed < 0:
+        if self.now_crew >= self.min_crew:
+            speed = speed
+        else:
+            speed = int(speed * self.now_crew / self.min_crew)
+
+        if speed <= 0:
             speed = 1
         if speed > 80:
             speed = 80
@@ -1341,6 +1346,10 @@ class Role:
     battle_timer: int=None
     npc_instance: any=None
     battle_role: any=None
+
+    ration: int=100
+    morale: int=100
+    health: int=100
 
     def __get_grid_xy(self, x, y):
         grid_x = int(y / c.SIZE_OF_ONE_GRID)

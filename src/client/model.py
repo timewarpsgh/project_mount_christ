@@ -479,7 +479,7 @@ class Role:
     dir: int = None
     is_moving: bool = None
     speed: float = c.PORT_SPEED
-    move_timer: float = None
+    move_timer: float = 0
     map_id: int = None
     money: int = None
     seen_grids: any = None  # numpy matrix
@@ -494,6 +494,10 @@ class Role:
     battle_timer: int = None
     is_battle_timer_mine: bool = None
     has_attacked: bool = False
+
+    ration: int=100
+    morale: int=100
+    health: int=100
 
     def is_npc(self):
         if self.id > c.NPC_ROLE_START_ID:

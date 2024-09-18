@@ -1149,6 +1149,15 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def __show_crew_state_menu(self):
+        role = self.__get_role()
+        option_2_callback = {
+            f'Ration {role.ration}': '',
+            f'Morale {role.morale}': '',
+            f'Health {role.health}': '',
+        }
+        self.__make_menu(option_2_callback)
+
     def __show_mate_info_menu(self):
         mate_mgr = self.client.game.graphics.model.role.mate_mgr
 
@@ -1392,6 +1401,7 @@ class OptionsDialog:
             'Admiral Info': '',
             'Mate Info': partial(self.__show_mate_info_menu),
             'Assign Duty': partial(self.__show_mates_to_assign_duty_menu),
+            'Crew': partial(self.__show_crew_state_menu),
         }
 
         MyMenuWindow(

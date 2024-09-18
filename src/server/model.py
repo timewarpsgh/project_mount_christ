@@ -1903,6 +1903,7 @@ class Role:
                 self.move_timer = self.calc_move_timer()
             elif self.is_npc():
                 self.speed = c.NPC_SPEED
+                # self.move_timer = self.calc_move_timer()
 
         pack = pb.StartedMoving(
             id=self.id,

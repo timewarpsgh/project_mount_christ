@@ -10,8 +10,6 @@ TO DO:
 
     npc sail from near port OK
 
-    see npc sail without prints
-
     each building
 
 

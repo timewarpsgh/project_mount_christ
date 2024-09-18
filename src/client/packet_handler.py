@@ -580,7 +580,7 @@ class PacketHandler:
             role.dir = dir
             role.is_moving = True
             role.speed = speed
-            role.move_timer = 0
+            # role.move_timer = 0
 
 
     async def handle_StoppedMoving(self, stopped_moving):

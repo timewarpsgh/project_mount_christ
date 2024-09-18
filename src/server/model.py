@@ -205,6 +205,16 @@ class Ship:
         # calc dmg
         dmg = int(self.now_guns * gun_dmg * battle_skill * 0.01 * 0.1)
 
+        # morale effect
+        morale = self.ship_mgr.role.morale
+        dmg = int(dmg * morale * 0.01)
+
+        # now_crew effect
+        if self.now_crew >= self.now_guns:
+            pass
+        else:
+            dmg = int(dmg * self.now_crew / self.now_guns)
+
         max_dmg = 20
         min_dmg = 0
         if dmg < min_dmg:
@@ -264,8 +274,12 @@ class Ship:
         # calc dmg
         dmg = int(self.now_crew * crew_ratio * battle_skill * 0.01 // 4)
 
+        # morale effect
+        morale = self.ship_mgr.role.morale
+        dmg = int(dmg * morale * 0.01)
+
         max_dmg = 50
-        min_dmg = 5
+        min_dmg = 0
         if dmg < min_dmg:
             dmg = min_dmg
         if dmg > max_dmg:
@@ -1662,10 +1676,37 @@ class Role:
                     self.at_sea_timer = c.SUPPLY_CONSUMPTION_INVERVAL
                     self.__pass_one_day_at_sea()
 
+    def __change_morale_and_health(self):
+        if self.ration >= 80:
+            self.morale += self.ration - 80
+            self.health += self.ration - 60
+        elif self.ration >= 60:
+            self.morale -= 80 - self.ration
+            self.health += self.ration - 60
+        else:
+            self.morale -= 100 - self.ration
+            self.health -= 80 - self.ration
+
+        if self.morale > 100:
+            self.morale = 100
+        if self.morale < 0:
+            self.morale = 0
+
+        if self.health > 100:
+            self.health = 100
+        if self.health < 0:
+            self.health = 0
+
+        if self.health == 0:
+            self.__starve()
+
+        self.session.send(pb.RoleFieldSet(key='morale', int_value=self.morale))
+        self.session.send(pb.RoleFieldSet(key='health', int_value=self.health))
+
     def __consume_supply(self, supply_name):
         # get total_comsumption
         total_crew = self.ship_mgr.get_total_crew()
-        total_comsumption = int(total_crew * c.SUPPLY_CONSUMPTION_PER_PERSON)
+        total_comsumption = int(total_crew * c.SUPPLY_CONSUMPTION_PER_PERSON * self.ration / 100)
 
         # reduce food from all ships until total_comsumption is met
         ships = self.ship_mgr.get_ships()
@@ -1700,7 +1741,6 @@ class Role:
 
         return is_enough
 
-
     def __pass_one_day_at_sea(self):
         self.days_at_sea += 1
         self.session.send(pb.OneDayPassedAtSea(days_at_sea=self.days_at_sea))
@@ -1714,15 +1754,9 @@ class Role:
         if not is_food_enough or not is_water_enough:
             self.starved_days += 1
             if self.starved_days >= 2:
-                # die
-                self.is_dead = True
-                self.fleet_speed = c.DEAD_SPEED
-                self.start_moving(self.x, self.y, self.dir)
-                self.session.send(pb.YouStarvedToDeath())
-
-                self.ship_mgr.clear_crew()
-
-
+                self.__starve()
+        else:
+            self.__change_morale_and_health()
 
     def win_npc(self):
         for ship in self.npc_instance.ship_mgr.get_ships():
@@ -1835,6 +1869,14 @@ class Role:
             return True
         else:
             return False
+
+    def __starve(self):
+        self.is_dead = True
+        self.fleet_speed = c.DEAD_SPEED
+        self.start_moving(self.x, self.y, self.dir)
+        self.session.send(pb.YouStarvedToDeath())
+
+        self.ship_mgr.clear_crew()
 
     def start_moving(self, x, y, dir):
         old_x = self.x

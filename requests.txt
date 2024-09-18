@@ -56,22 +56,12 @@ TO DO:
 
         set ration OK
 
-        ration should be useful (sonsumes less supply) ON
+        ration should be useful (sonsumes less supply, changes moral and health) OK
+        morale affects battle  OK
 
 
 
-        each day:
 
-            if ration >= 80:
-                morale += (ration - 80)
-            elif ration >= 60:
-                morale -= (80 - ration)
-            else:
-                morale -= (100 - ration)
-                health -= (70 - ration)
-
-            if health <= 0:
-                dead
 DONE:
 
     clear menu when other menus are up OK

@@ -732,6 +732,9 @@ class PacketHandler:
 
         target_role = self.session.server.get_role(role_id)
 
+        if self.role.is_dead or target_role.is_dead:
+            return
+
         if not self.role.is_close_to_role(target_role):
             return
 
@@ -799,6 +802,9 @@ class PacketHandler:
         npc_id = fight_npc.npc_id
 
         npc = sNpcMgr.get_npc(npc_id)
+
+        if self.role.is_dead:
+            return
 
         if not self.role.is_close_to_role(npc):
             return

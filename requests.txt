@@ -58,6 +58,7 @@ TO DO:
 
         ration should be useful (sonsumes less supply, changes moral and health) OK
         morale affects battle  OK
+        cannot fight if dead OK
 
 
 

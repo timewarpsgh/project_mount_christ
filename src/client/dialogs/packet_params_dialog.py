@@ -21,7 +21,7 @@ class PacketParamsDialog:
 
         # add ui window
         self.ui_window = pygame_gui.elements.UIWindow(
-            rect=pygame.Rect((0, 0), (300, 300)),
+            rect=pygame.Rect((0, 100), (300, 300)),
             manager=self.mgr,
         )
 

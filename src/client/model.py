@@ -368,6 +368,25 @@ class ShipMgr:
             total_supply += getattr(ship, supply_name)
         return total_supply
 
+    def get_total_crew(self):
+        total_crew = 0
+        for ship in self.get_ships():
+            total_crew += ship.now_crew
+        return total_crew
+
+    def calc_days_at_sea(self):
+        total_water = self.get_total_supply(pb.SupplyType.WATER)
+        total_food = self.get_total_supply(pb.SupplyType.FOOD)
+
+        total_crew = self.get_total_crew()
+
+        days_based_on_water = total_water // (total_crew * c.SUPPLY_CONSUMPTION_PER_PERSON)
+        days_based_on_food = total_food // (total_crew * c.SUPPLY_CONSUMPTION_PER_PERSON)
+
+        days = min(days_based_on_water, days_based_on_food)
+        days = int(days)
+        return days
+
 
 class MateMgr:
 
@@ -723,6 +742,7 @@ class Role:
             mate = self.mate_mgr.get_mate(mate_id)
             if mate.name == self.name:
                 return ship
+
 
 @dataclass
 class Npc(Role):

@@ -434,6 +434,23 @@ class OptionsDialog:
     def __send_sail_request(self):
         self.client.send(Sail())
 
+    def __building_speak(self, text):
+        # make window
+        MyPanelWindow(
+            rect=pygame.Rect((248, 0), (264, 124)),
+            ui_manager=self.mgr,
+            text=text,
+        )
+
+    def __show_confirm_sail_dialog(self):
+        pack = pb.Sail()
+        PacketParamsDialog(self.mgr, self.client, [], pack)
+
+        days = self.__get_role().ship_mgr.calc_days_at_sea()
+
+        self.__building_speak(f'You can sail for about {days} days. '
+                              f'Are you sure you want to sail?')
+
     def __unload_supply(self, ship_id, supply_name):
         pack = pb.UnloadSupply()
         pack.ship_id = ship_id
@@ -490,17 +507,13 @@ class OptionsDialog:
         self.__change_building_bg('harbor')
 
         option_2_callback = {
-            'Sail': partial(self.__send_sail_request),
+            'Sail': partial(self.__show_confirm_sail_dialog),
             'Load Supply': partial(self.__show_load_supply_menu),
             'Unload Supply': partial(self.__show_unload_supply_menu),
             'Exit': partial(self.__exit_building),
         }
 
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
+        self.__make_menu(option_2_callback)
 
     def show_inn_menu(self):
         self.__change_building_bg('inn')
@@ -1317,11 +1330,7 @@ class OptionsDialog:
             'Fortune House': partial(self.show_fortune_house_menu),
         }
 
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
+        self.__make_menu(option_2_callback)
 
     def show_options_menu(self):
         option_2_callback = {

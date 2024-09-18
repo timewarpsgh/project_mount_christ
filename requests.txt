@@ -2,7 +2,10 @@ TO DO:
 
     more wind and current effect OK
 
+    show days you can sail in harbor OK
+    season changes every SUPPLY_CONSUMPTION_INVERVAL * 30
 
+    each building
 
 
 

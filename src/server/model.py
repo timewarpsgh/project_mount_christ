@@ -815,6 +815,7 @@ class Ship:
             # Crosswind closer to headwind
             wind_effect = wind_speed * 0.25
 
+        wind_effect = wind_effect * 4
         return wind_effect
 
     def __get_current_effect(self, dir):
@@ -848,6 +849,7 @@ class Ship:
             # Cross closer to head
             current_effect = current_speed * -0.5
 
+        current_effect = current_effect * 4
         return current_effect
 
     def __get_base_speed(self):

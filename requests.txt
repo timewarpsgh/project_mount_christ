@@ -1,82 +1,19 @@
 TO DO:
 
-    each mate is different OK
-    only flagship show 3 mates OK
+    more wind and current effect OK
 
-    each mate gets random init attributes OK
-
-
-    each ship should be different ON
-        dry dock
-            repair  OK
-            remodel  ON
-                Name  OK
-                Capacity OK
-                Weapon  ON
-                    add cannon table OK
-                    load cannon into sObjectMgr OK
-                    remodel weapon OK
-
-                cannon type should affect shoot dmg  OK
-                cann't shoot if no weapon or shot  OK
-                show ships supplies OK
-
-    after buying a new ship,
-        remodel name, capacity, weapon  OK
-        assign mate to the ship OK
-
-        assign crew to the ship OK
-            recruit crew OK
-            dismiss crew OK
-
-        add supply to ship OK
-        remove supply from ship OK
-
-        buy cargo, supply also takes cargo space OK
-
-
-    show on left hud, total supply OK
-
-    sail, each day passes with food consumed ON
-        days_at_sea variable OK
-        +1 each day OK
-        reset to 0 when sailed from port OK
-        refactor sail OK
-
-        consumes supply OK
-        when food runs out: speed drops to dead_speed  OK
-
-        crew drops to 0 OK
-
-
-    ration affects health and morale ON
-        sails with health and morale at 100 OK
-        show ration, health and morale menu OK
-        show ration, health and morale on left hud OK
-
-        set ration OK
-
-        ration should be useful (sonsumes less supply, changes moral and health) OK
-        morale affects battle  OK
-        cannot fight if dead OK
 
 
 
 
 DONE:
 
-    clear menu when other menus are up OK
-    hire mate  OK
-    fire mate OK
-    assign duty OK
-
-    mates can earn xp and lv up OK
-
-    mate's 3 attributes should be useful (crude enough for now)
-        accounting,
-        navigation, season, together with ship's tacking/power decides
-        battle, attack for shooting and engaging
-
+    each mate gets random init attributes OK
+    each ship should be different ON
+    after buying a new ship,
+    show on left hud, total supply OK
+    sail, each day passes with food consumed OK
+    ration affects health and morale OK
 
 cmds
     # compile .proto file

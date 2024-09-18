@@ -582,6 +582,8 @@ class HudRight(SP):
 
         new_image = self.img_src.copy()
         x = 10
+
+        # in port
         if self.model.role.is_in_port():
 
             port = sObjectMgr.get_port(self.model.role.map_id)
@@ -593,6 +595,7 @@ class HudRight(SP):
             new_image.blit(Text(f'Economy \n  {port.economy}').image, (x, 120))
             new_image.blit(Text(f'Industry \n  {port.industry}').image, (x, 160))
 
+        # at sea
         elif self.model.role.is_at_sea():
             new_image.blit(Text(f'At Sea').image, (x, 5))
 
@@ -600,7 +603,7 @@ class HudRight(SP):
             d_y = 45
 
             speed = self.model.role.speed
-            new_image.blit(Text(f'Speed \n  {speed} Knots').image, (x, start_y))
+            new_image.blit(Text(f'Speed \n  {speed/4} Knots').image, (x, start_y))
             new_image.blit(Text(f'Days \n  {self.model.role.days_at_sea}').image, (x, start_y + d_y * 1))
 
             season_mgr = self.model.season_mgr

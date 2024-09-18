@@ -5,6 +5,8 @@ TO DO:
 
     season changes every 3 months OK
 
+    press f to enter/exit building OK
+
     each building
 
 

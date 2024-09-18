@@ -518,6 +518,8 @@ class Role:
     morale: int=100
     health: int=100
 
+    is_in_building: bool = False
+
     def is_npc(self):
         if self.id > c.NPC_ROLE_START_ID:
             return True

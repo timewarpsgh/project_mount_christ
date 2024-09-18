@@ -153,7 +153,7 @@ class OptionsDialog:
             'Invest': '',
             'Defeat Administrator': '',
             'Manage': '',
-            'Exit': partial(self.__exit_building),
+            'Exit': partial(self.exit_building),
         }
 
         MyMenuWindow(
@@ -171,7 +171,7 @@ class OptionsDialog:
             'Meet': partial(self.__get_mate_in_port),
             'Fire Mate': partial(self.__show_mates_to_fire_menu),
             'Waitress': '',
-            'Exit': partial(self.__exit_building),
+            'Exit': partial(self.exit_building),
         }
 
         MyMenuWindow(
@@ -289,7 +289,7 @@ class OptionsDialog:
             'Repair': partial(self.__show_ships_to_repair_menu),
             'Sell': partial(self.__show_ships_to_sell),
             'Remodel': partial(self.__show_remodel_menu),
-            'Exit': partial(self.__exit_building),
+            'Exit': partial(self.exit_building),
         }
 
         MyMenuWindow(
@@ -424,12 +424,14 @@ class OptionsDialog:
             option_2_callback[f'{mate.name}'] = partial(self.__show_ensure_fire_mate_menu, mate)
         self.__make_menu(option_2_callback)
 
-    def __exit_building(self):
+    def exit_building(self):
         self.pop_some_menus(1)
         self.__get_graphics().unhide_role_sprite()
 
         role = self.__get_role()
         self.__get_graphics().change_background_sp_to_port(role.map_id, role.x, role.y)
+
+        role.is_in_building = False
 
     def __send_sail_request(self):
         self.client.send(Sail())
@@ -510,7 +512,7 @@ class OptionsDialog:
             'Sail': partial(self.__show_confirm_sail_dialog),
             'Load Supply': partial(self.__show_load_supply_menu),
             'Unload Supply': partial(self.__show_unload_supply_menu),
-            'Exit': partial(self.__exit_building),
+            'Exit': partial(self.exit_building),
         }
 
         self.__make_menu(option_2_callback)
@@ -523,7 +525,7 @@ class OptionsDialog:
             'Gossip': '',
             'Port Info': '',
             'Walk Around': '',
-            'Exit': partial(self.__exit_building),
+            'Exit': partial(self.exit_building),
         }
 
         MyMenuWindow(
@@ -540,7 +542,7 @@ class OptionsDialog:
             'Defect': '',
             'Gold Aid': '',
             'Ship Aid': '',
-            'Exit': partial(self.__exit_building),
+            'Exit': partial(self.exit_building),
         }
 
         MyMenuWindow(
@@ -555,7 +557,7 @@ class OptionsDialog:
         option_2_callback = {
             'Job Assignment': '',
             'Country Info': '',
-            'Exit': partial(self.__exit_building),
+            'Exit': partial(self.exit_building),
         }
 
         MyMenuWindow(
@@ -573,7 +575,7 @@ class OptionsDialog:
             'Withdraw': '',
             'Borrow': '',
             'Repay': '',
-            'Exit': partial(self.__exit_building),
+            'Exit': partial(self.exit_building),
         }
 
         MyMenuWindow(
@@ -588,7 +590,7 @@ class OptionsDialog:
         option_2_callback = {
             'Buy': '',
             'Sell': '',
-            'Exit': partial(self.__exit_building),
+            'Exit': partial(self.exit_building),
         }
 
         MyMenuWindow(
@@ -603,7 +605,7 @@ class OptionsDialog:
         option_2_callback = {
             'Pray': '',
             'Donate': '',
-            'Exit': partial(self.__exit_building),
+            'Exit': partial(self.exit_building),
         }
 
         MyMenuWindow(
@@ -620,7 +622,7 @@ class OptionsDialog:
             'Career': '',
             'Love': '',
             'Mates': '',
-            'Exit': partial(self.__exit_building),
+            'Exit': partial(self.exit_building),
         }
 
         MyMenuWindow(
@@ -1272,7 +1274,7 @@ class OptionsDialog:
         else:
             self.client.send(FightRole(role_id=role.id))
 
-    def __enter_building(self):
+    def enter_building(self):
         x = self.__get_role().x
         y = self.__get_role().y
 
@@ -1293,7 +1295,7 @@ class OptionsDialog:
 
                 getattr(self, f'show_{building_name}_menu')()
 
-
+                self.__get_role().is_in_building = True
 
                 return
 
@@ -1379,7 +1381,7 @@ class OptionsDialog:
 
     def show_cmds_menu(self):
         option_2_callback = {
-            'Enter Building (F)': partial(self.__enter_building),
+            'Enter Building (F)': partial(self.enter_building),
             'Enter Port (M)': partial(self.enter_port),
             'Go Ashore (G)': partial(self.__try_to_discover),
             'Fight Npc (B)': partial(self.__fight_npc),

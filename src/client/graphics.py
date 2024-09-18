@@ -836,6 +836,9 @@ class Graphics:
         self.id_2_sp_role[id].move_to_smoothly(x, y, given_time)
         self.id_2_sp_role_name[id].move_to_smoothly(x, y, given_time)
 
+    def get_options_dialog(self):
+        return self.client.game.gui.options_dialog
+
     def process_event(self, event):
         # when mouse clicked, check if any sprite clicked
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -901,13 +904,19 @@ class Graphics:
                 if self.model.role.is_in_port():
                     self.client.send(Sail())
                 elif self.model.role.is_at_sea():
-                    self.client.game.gui.options_dialog.enter_port()
+                    self.get_options_dialog().enter_port()
                 elif self.model.role.is_in_battle():
-                    self.client.game.gui.options_dialog.escape_battle()
+                    self.get_options_dialog().escape_battle()
 
             if event.key == pygame.K_l:
                 if self.model.role.is_in_battle():
-                    self.client.game.gui.options_dialog.all_ships_attack()
+                    self.get_options_dialog().all_ships_attack()
+
+            if event.key == pygame.K_f:
+                if self.model.role.is_in_building:
+                    self.get_options_dialog().exit_building()
+                else:
+                    self.get_options_dialog().enter_building()
 
         # key up
         elif event.type == pygame.KEYUP:

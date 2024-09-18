@@ -2,10 +2,13 @@ TO DO:
 
     more wind and current effect OK
     show days you can sail in harbor OK
-
     season changes every 3 months OK
-
     press f to enter/exit building OK
+
+
+    update npc and season at the same time OK
+
+    see npc sail without prints
 
     each building
 

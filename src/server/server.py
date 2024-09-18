@@ -146,8 +146,9 @@ class Server:
         print(f'Serving on {addrs}')
 
         async with server:
-            await sSeasonMgr.run_loop_to_update(self)
-            await sNpcMgr.run_loop_to_update()
+
+            await sNpcMgr.run_loop_to_update(self)
+            # await sSeasonMgr.run_loop_to_update(self)
             await server.serve_forever()
 
 

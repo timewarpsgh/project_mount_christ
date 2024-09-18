@@ -19,6 +19,7 @@ from role_models import SESSION as ROLE_SESSION, \
     Ship as ShipModel
 
 from map_mgr import sMapMgr
+from season_mgr import sSeasonMgr
 from hash_paths import HASH_PATHS
 import login_pb2 as pb
 import constants as c
@@ -143,7 +144,7 @@ class NpcMgr:
         return self.id_2_npc.get(id)
 
 
-    async def run_loop_to_update(self):
+    async def run_loop_to_update(self, server):
         while True:
             prev_time = asyncio.get_event_loop().time()
 
@@ -155,12 +156,15 @@ class NpcMgr:
 
             await self.update(time_diff)
 
+            sSeasonMgr.update(time_diff, server)
 
     async def update(self, time_diff):
-        return
+        # return
+        print('npc_mgr updating')
         for npc in self.id_2_npc.values():
             # if npc.id == 2000000001:
             npc.move_along_path()
+            print(f'NPC {npc.id} trying to move')
             await npc.update(time_diff)
 
 

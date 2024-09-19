@@ -145,6 +145,9 @@ class OpCodeType(Enum):
     SetRoleField = auto()
     RoleFieldSet = auto()
 
+    GetPortInfo = auto()
+    PortInfo = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

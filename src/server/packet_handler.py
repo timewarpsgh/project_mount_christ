@@ -1108,3 +1108,15 @@ class PacketHandler:
         str_value = set_role_field.str_value
 
         self.role.set_field(key, int_value, str_value)
+
+    async def handle_GetPortInfo(self, get_port_info):
+        port_id = self.role.map_id
+
+        port_map = sMapMgr.get_map(port_id)
+        pack = pb.PortInfo(
+            price_index=port_map.price_index,
+            economy_index=port_map.economy_index,
+            industry_index=port_map.industry_index,
+            allied_nation=port_map.allied_nation,
+        )
+        self.session.send(pack)

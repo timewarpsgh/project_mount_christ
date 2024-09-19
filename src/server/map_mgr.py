@@ -39,7 +39,7 @@ class PortMap:
         if self.id in c.PORT_ID_2_NATION:
             return c.PORT_ID_2_NATION[self.id]
         else:
-            return random.choice(list(c.Nation))
+            return random.choice(list(c.Nation)).value
 
     def __get_random_economy_index(self):
         port_template = sObjectMgr.get_port(self.id)

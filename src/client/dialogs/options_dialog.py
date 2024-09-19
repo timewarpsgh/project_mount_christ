@@ -424,6 +424,23 @@ class OptionsDialog:
             option_2_callback[f'{mate.name}'] = partial(self.__show_ensure_fire_mate_menu, mate)
         self.__make_menu(option_2_callback)
 
+    def __show_port_info(self):
+        self.client.send(pb.GetPortInfo())
+
+    def show_port_info(self, price_index, economy_index, industry_index, allied_nation):
+
+        nation_name = c.Nation(allied_nation).name
+
+        option_2_callback = {
+            f'price index {price_index}': '',
+            f'economy index {economy_index}': '',
+            f'industry index {industry_index}': '',
+        }
+
+        self.__make_menu(option_2_callback)
+
+        self.__building_speak(f'We are allied to {nation_name} at the moment.')
+
     def exit_building(self):
         self.pop_some_menus(5)
         self.__get_graphics().unhide_role_sprite()
@@ -521,18 +538,11 @@ class OptionsDialog:
         self.__change_building_bg('inn')
 
         option_2_callback = {
-            'Check In': '',
-            'Gossip': '',
-            'Port Info': '',
-            'Walk Around': '',
+            'Port Info': partial(self.__show_port_info),
             'Exit': partial(self.exit_building),
         }
 
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
+        self.__make_menu(option_2_callback)
 
     def show_palace_menu(self):
         self.__change_building_bg('palace')

@@ -14,14 +14,16 @@ TO DO:
 
     each port has index and nation OK
         price_index
-        economy index
-        industry index
+        economy_index
+        industry_index
 
-        allied nation
-
+        allied_nation
 
         nation_2_investment
 
+    view port_info at inn OK
+
+    invest in market
 
     each building
         harbor OK

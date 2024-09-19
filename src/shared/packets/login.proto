@@ -723,3 +723,13 @@ message RoleFieldSet {
     optional int32 int_value = 2;
     optional string str_value = 3;
 }
+
+message GetPortInfo {
+}
+
+message PortInfo{
+    required int32 price_index = 1;
+    required int32 economy_index = 2;
+    required int32 industry_index = 3;
+    required int32 allied_nation = 4;
+}

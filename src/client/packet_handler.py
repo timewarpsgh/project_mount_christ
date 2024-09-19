@@ -810,3 +810,13 @@ class PacketHandler:
 
         if key == 'ration':
             self.__get_options_dialog().pop_some_menus(2)
+
+    async def handle_PortInfo(self, pack):
+        price_index = pack.price_index
+        economy_index = pack.economy_index
+        industry_index = pack.industry_index
+        allied_nation = pack.allied_nation
+
+        self.__get_options_dialog().show_port_info(
+            price_index, economy_index, industry_index, allied_nation
+        )

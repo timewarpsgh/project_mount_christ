@@ -401,15 +401,15 @@ class Capital(Enum):
 
 
 PORT_ID_2_NATION = {
-    Capital.LONDON: Nation.ENGLAND,
-    Capital.AMSTERDAM: Nation.NETHERLANDS,
-    Capital.SEVILLE: Nation.SPAIN,
-    Capital.LISBON: Nation.PORTUGAL,
-    Capital.GENOA: Nation.ITALY,
-    Capital.ISTANBUL: Nation.OTTOMAN,
+    Capital.LONDON.value: Nation.ENGLAND.value,
+    Capital.AMSTERDAM.value: Nation.NETHERLANDS.value,
+    Capital.SEVILLE.value: Nation.SPAIN.value,
+    Capital.LISBON.value: Nation.PORTUGAL.value,
+    Capital.GENOA.value: Nation.ITALY.value,
+    Capital.ISTANBUL.value: Nation.OTTOMAN.value,
 }
 
 
 if __name__ == '__main__':
-    S = random.choice(list(Nation))
-    print(S)
+    print(Nation(4).name)
+    print(PORT_ID_2_NATION)

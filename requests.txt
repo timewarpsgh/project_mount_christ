@@ -12,20 +12,50 @@ TO DO:
 
     building greetings on enter ON
 
+    each port has index and nation OK
+        price_index
+        economy index
+        industry index
+
+        allied nation
+
+
+        nation_2_investment
+
+
     each building
         harbor OK
+        dry dock almost OK
+
         market ON
             can buy specialty
-            each port has a price_index, which affects buy and sell price
-            invest (later)
+            price_index affects buy and sell price
+
+            invest
+                each year(30mins),
+                nation with highest total investment wins the port
+                economy, industry index and price_index randomizes
+
+            view investstate
+                nation_2_value
+                first 3 personal investments
+
+        inn
+            port info
+                view this port's allied nation,
+                each nation's allied ports [with their price index]
+
+        palace
+            buy tax free permit
+                50,000 gold coins
+                lasts for one year(30 mins, disappears when year changes),
+                buy and sell with 10% discount at allied ports
+
+            buy letter of marque
+
 
         bar
             waitress
-        dry dock
-            invest (later)
-
-
-
 
 
 

@@ -1,9 +1,11 @@
+import random
+
 import sys
 
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
-
+from enum import Enum, auto
 import login_pb2 as pb
 from helpers import Point
 
@@ -381,5 +383,33 @@ INT_2_SEASON = {
     4: 'winter',
 }
 
+class Nation(Enum):
+    ENGLAND = auto()
+    NETHERLANDS = auto()
+    SPAIN = auto()
+    PORTUGAL = auto()
+    ITALY = auto()
+    OTTOMAN = auto()
+
+class Capital(Enum):
+    LONDON = 30
+    AMSTERDAM = 34
+    SEVILLE = 2
+    LISBON = 1
+    GENOA = 9
+    ISTANBUL = 3
+
+
+PORT_ID_2_NATION = {
+    Capital.LONDON: Nation.ENGLAND,
+    Capital.AMSTERDAM: Nation.NETHERLANDS,
+    Capital.SEVILLE: Nation.SPAIN,
+    Capital.LISBON: Nation.PORTUGAL,
+    Capital.GENOA: Nation.ITALY,
+    Capital.ISTANBUL: Nation.OTTOMAN,
+}
+
+
 if __name__ == '__main__':
-    print(SAILABLE_TILES)
+    S = random.choice(list(Nation))
+    print(S)

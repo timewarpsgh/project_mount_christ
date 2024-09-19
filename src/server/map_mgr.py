@@ -1,3 +1,5 @@
+import random
+
 # import from dir
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
@@ -16,12 +18,46 @@ class PortMap:
         self.mate_template = self.__init_mate_template()
         self.maid = None
 
-        self.economy_index = 100
-        self.industry_index = 100
+        self.price_index = random.randint(80, 120)
+        self.economy_index = self.__get_random_economy_index()
+        self.industry_index = self.__get_random_industry_index()
 
-        self.allied_nation = None
-        self.price_index = 1.00
+        self.allied_nation = self.__get_random_allied_nation()
+        self.nation_2_investment = self.__init_nation_2_investment()
+
+
         self.governor = None
+
+    def __init_nation_2_investment(self):
+        nation_2_investment = {}
+        for nation in c.Nation:
+            nation_2_investment[nation] = 0
+
+        return nation_2_investment
+
+    def __get_random_allied_nation(self):
+        if self.id in c.PORT_ID_2_NATION:
+            return c.PORT_ID_2_NATION[self.id]
+        else:
+            return random.choice(list(c.Nation))
+
+    def __get_random_economy_index(self):
+        port_template = sObjectMgr.get_port(self.id)
+        if port_template.economy:
+            index = port_template.economy + random.randint(-200, 200)
+        else:
+            index = 0
+
+        return index
+
+    def __get_random_industry_index(self):
+        port_template = sObjectMgr.get_port(self.id)
+        if port_template.industry:
+            index = port_template.industry + random.randint(-200, 200)
+        else:
+            index = 0
+
+        return index
 
     def __init_mate_template(self):
         # 50 mate templates

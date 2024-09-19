@@ -1120,3 +1120,18 @@ class PacketHandler:
             allied_nation=port_map.allied_nation,
         )
         self.session.send(pack)
+
+    async def handle_GetNationInfo(self, get_nation_info):
+        nation_id = get_nation_info.nation_id
+
+        allied_ports_ids = []
+
+        port_maps = sMapMgr.get_port_maps()
+        for port in port_maps:
+            if port.allied_nation == nation_id:
+                allied_ports_ids.append(port.id)
+
+        pack = pb.NationAlliedPorts()
+        pack.port_ids.extend(allied_ports_ids)
+
+        self.session.send(pack)

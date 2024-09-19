@@ -299,6 +299,13 @@ class MapMgr:
 
         return id_2_map
 
+    def get_port_maps(self):
+        port_maps = []
+        for id in range(1, 101):
+            port_maps.append(self.id_2_map[id])
+
+        return port_maps
+
     def get_map(self, id):
         return self.id_2_map[id]
 

@@ -733,3 +733,11 @@ message PortInfo{
     required int32 industry_index = 3;
     required int32 allied_nation = 4;
 }
+
+message GetNationInfo {
+    required int32 nation_id = 1;
+}
+
+message NationAlliedPorts {
+    repeated int32 port_ids = 1;
+}

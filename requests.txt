@@ -22,6 +22,7 @@ TO DO:
         nation_2_investment
 
     view port_info at inn OK
+    view nation_info at inn OK
 
     invest in market
 

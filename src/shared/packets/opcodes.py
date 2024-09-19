@@ -148,6 +148,9 @@ class OpCodeType(Enum):
     GetPortInfo = auto()
     PortInfo = auto()
 
+    GetNationInfo = auto()
+    NationAlliedPorts = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

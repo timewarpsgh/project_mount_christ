@@ -820,3 +820,8 @@ class PacketHandler:
         self.__get_options_dialog().show_port_info(
             price_index, economy_index, industry_index, allied_nation
         )
+
+    async def handle_NationAlliedPorts(self, pack):
+        port_ids = pack.port_ids
+
+        self.__get_options_dialog().show_nation_allied_ports(port_ids)

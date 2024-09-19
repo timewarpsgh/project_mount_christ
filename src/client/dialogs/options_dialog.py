@@ -424,17 +424,39 @@ class OptionsDialog:
             option_2_callback[f'{mate.name}'] = partial(self.__show_ensure_fire_mate_menu, mate)
         self.__make_menu(option_2_callback)
 
-    def __show_port_info(self):
+    def __get_port_info(self):
         self.client.send(pb.GetPortInfo())
+
+    def __get_nation_info(self, nation_id):
+        self.client.send(pb.GetNationInfo(nation_id=nation_id))
+
+    def __show_nations_menu_to_get_info(self):
+        option_2_callback = {}
+
+        for nation in c.Nation:
+            option_2_callback[f'{nation.name}'] = partial(self.__get_nation_info, nation.value)
+
+        self.__make_menu(option_2_callback)
+
+    def show_nation_allied_ports(self, port_ids):
+        port_names = [sObjectMgr.get_port(port_id).name for port_id in port_ids]
+
+        option_2_callback = {
+        }
+
+        for port_name in port_names:
+            option_2_callback[port_name] = ''
+
+        self.__make_menu(option_2_callback)
 
     def show_port_info(self, price_index, economy_index, industry_index, allied_nation):
 
         nation_name = c.Nation(allied_nation).name
 
         option_2_callback = {
-            f'price index {price_index}': '',
-            f'economy index {economy_index}': '',
-            f'industry index {industry_index}': '',
+            f'Price Index {price_index}': '',
+            f'Economy Index {economy_index}': '',
+            f'Industry Index {industry_index}': '',
         }
 
         self.__make_menu(option_2_callback)
@@ -538,7 +560,8 @@ class OptionsDialog:
         self.__change_building_bg('inn')
 
         option_2_callback = {
-            'Port Info': partial(self.__show_port_info),
+            'Port Info': partial(self.__get_port_info),
+            'Nation Info': partial(self.__show_nations_menu_to_get_info),
             'Exit': partial(self.exit_building),
         }
 

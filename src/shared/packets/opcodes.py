@@ -151,6 +151,10 @@ class OpCodeType(Enum):
     GetNationInfo = auto()
     NationAlliedPorts = auto()
 
+    GetNationsInvestments = auto()
+    NationsInvestments = auto()
+
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

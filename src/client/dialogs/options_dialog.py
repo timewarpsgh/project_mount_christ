@@ -86,6 +86,17 @@ class OptionsDialog:
 
         self.client.send(packet)
 
+    def __get_nations_investments(self):
+        self.client.send(GetNationsInvestments())
+
+    def __show_investment_state_menu(self):
+        option_2_callback = {
+            'By Nation': partial(self.__get_nations_investments),
+            'By Person': '',
+        }
+
+        self.__make_menu(option_2_callback)
+
     def __show_ships_with_cargo_to_sell(self):
         ship_mgr = self.get_ship_mgr()
 
@@ -148,19 +159,13 @@ class OptionsDialog:
         option_2_callback = {
             'Buy': partial(self.__send_get_available_cargos),
             'Sell': partial(self.__show_ships_with_cargo_to_sell),
-            'Price Index': '',
-            'Investment State': '',
+            'Investment State': partial(self.__show_investment_state_menu),
             'Invest': '',
-            'Defeat Administrator': '',
             'Manage': '',
             'Exit': partial(self.exit_building),
         }
 
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
+        self.__make_menu(option_2_callback)
 
     def show_bar_menu(self):
         self.__change_building_bg('bar')
@@ -174,12 +179,7 @@ class OptionsDialog:
             'Exit': partial(self.exit_building),
         }
 
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
-
+        self.__make_menu(option_2_callback)
 
     def __sell_ship(self, id):
         self.client.send(SellShip(id=id))
@@ -435,6 +435,14 @@ class OptionsDialog:
 
         for nation in c.Nation:
             option_2_callback[f'{nation.name}'] = partial(self.__get_nation_info, nation.value)
+
+        self.__make_menu(option_2_callback)
+
+    def show_nations_investments(self, nations_investments):
+        option_2_callback = {}
+
+        for id, nation in enumerate(c.Nation):
+            option_2_callback[f'{nation.name} {nations_investments[id]}'] = ''
 
         self.__make_menu(option_2_callback)
 

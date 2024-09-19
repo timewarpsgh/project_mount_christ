@@ -411,5 +411,6 @@ PORT_ID_2_NATION = {
 
 
 if __name__ == '__main__':
-    print(Nation(4).name)
-    print(PORT_ID_2_NATION)
+    for id, nation in enumerate(Nation):
+        print(type(nation.name))
+        print(id)

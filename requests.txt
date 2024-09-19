@@ -34,19 +34,19 @@ TO DO:
             nation info OK
 
         market ON
-            can buy specialty
+
             port's price_index affects buy and sell price OK
 
-
-
             view investstate  ON
-                nation_2_value
+                nation_2_value  OK
                 first 3 personal investments
 
-            invest
+            invest  ON
                 each year(30mins),
                 nation with highest total investment wins the port
                 economy, industry index and price_index randomizes
+
+            can buy specialty
 
         palace
             buy tax free permit

@@ -1137,3 +1137,13 @@ class PacketHandler:
         pack.price_indexes.extend(price_indexes)
         pack.nation_id = nation_id
         self.session.send(pack)
+
+    async def handle_GetNationsInvestments(self, get_nations_investments):
+
+        port_map = sMapMgr.get_map(self.role.map_id)
+
+        investments = list(port_map.nation_2_investment.values())
+
+        pack = pb.NationsInvestments()
+        pack.investments.extend(investments)
+        self.session.send(pack)

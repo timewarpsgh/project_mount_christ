@@ -31,7 +31,7 @@ class PortMap:
     def __init_nation_2_investment(self):
         nation_2_investment = {}
         for nation in c.Nation:
-            nation_2_investment[nation] = 0
+            nation_2_investment[nation.value] = 0
 
         return nation_2_investment
 

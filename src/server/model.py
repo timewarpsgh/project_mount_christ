@@ -1957,8 +1957,14 @@ class Role:
     def get_port(self):
         return sObjectMgr.get_port(self.map_id)
 
+    def __get_ratio_from_price_index(self):
+        port_map = sMapMgr.get_map(self.map_id)
+        price_index = port_map.price_index
+        return price_index / 100
+
     def __get_modified_buy_price(self, price):
-        return int(price * (1 - self.get_discount()))
+        ratio = self.__get_ratio_from_price_index()
+        return int(price * (1 - self.get_discount()) * ratio)
 
     def get_available_cargos(self):
         port = self.get_port()
@@ -1981,7 +1987,8 @@ class Role:
         self.session.send(pack)
 
     def __get_modified_sell_price(self, sell_price):
-        return int(sell_price * (1 + self.get_discount()))
+        ratio = self.__get_ratio_from_price_index()
+        return int(sell_price * (1 + self.get_discount()) * ratio)
 
     def get_cargo_cnt_and_sell_price(self, ship_id):
         ship = self.ship_mgr.get_ship(ship_id)

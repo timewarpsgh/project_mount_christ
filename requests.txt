@@ -21,10 +21,7 @@ TO DO:
 
         nation_2_investment
 
-    view port_info at inn OK
-    view nation_info at inn OK
-        building speak number of allied ports OK
-        show price index as well  OK
+
 
     invest in market
 
@@ -32,23 +29,24 @@ TO DO:
         harbor OK
         dry dock almost OK
 
+        inn
+            port info OK
+            nation info OK
+
         market ON
             can buy specialty
-            price_index affects buy and sell price
+            port's price_index affects buy and sell price OK
+
+
+
+            view investstate  ON
+                nation_2_value
+                first 3 personal investments
 
             invest
                 each year(30mins),
                 nation with highest total investment wins the port
                 economy, industry index and price_index randomizes
-
-            view investstate
-                nation_2_value
-                first 3 personal investments
-
-        inn
-            port info
-                view this port's allied nation,
-                each nation's allied ports [with their price index]
 
         palace
             buy tax free permit

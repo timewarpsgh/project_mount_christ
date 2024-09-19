@@ -438,16 +438,19 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
-    def show_nation_allied_ports(self, port_ids):
+    def show_nation_allied_ports(self, port_ids, price_indexes, nation_id):
         port_names = [sObjectMgr.get_port(port_id).name for port_id in port_ids]
 
         option_2_callback = {
         }
 
-        for port_name in port_names:
-            option_2_callback[port_name] = ''
+        for id, port_name in enumerate(port_names):
+            option_2_callback[f'{port_name} {price_indexes[id]}'] = ''
 
         self.__make_menu(option_2_callback)
+
+        # building speak number of allied ports
+        self.__building_speak(f'{c.Nation(nation_id).name} has {len(port_names)} allied ports at the moment.')
 
     def show_port_info(self, price_index, economy_index, industry_index, allied_nation):
 

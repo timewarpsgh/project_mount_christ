@@ -23,6 +23,8 @@ TO DO:
 
     view port_info at inn OK
     view nation_info at inn OK
+        building speak number of allied ports OK
+        show price index as well  OK
 
     invest in market
 

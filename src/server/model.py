@@ -951,7 +951,7 @@ class Mate:
 
     name: str=None
     img_id: int=None
-    nation: str=None
+    nation: int=None
 
     lv: int=None
     points: int=None
@@ -1366,6 +1366,14 @@ class Role:
     ration: int=100
     morale: int=100
     health: int=100
+
+    def invest(self, ingots_cnt):
+        if self.money < ingots_cnt * 10000:
+            return
+
+        port_map = sMapMgr.get_map(self.map_id)
+        port_map.invest(self, ingots_cnt)
+
 
     def set_field(self, key, int_value, str_value):
         if str_value:

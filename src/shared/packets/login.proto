@@ -132,7 +132,7 @@ message Mate {
 
   required string name = 3;
   required string img_id = 4;
-  required string nation = 5;
+  required int32 nation = 5;
 
   optional int32 lv = 6;
   optional int32 points = 7;
@@ -749,4 +749,8 @@ message GetNationsInvestments {
 
 message NationsInvestments {
     repeated int32 investments = 1;
+}
+
+message Invest {
+    required int32 ingots_cnt = 1;
 }

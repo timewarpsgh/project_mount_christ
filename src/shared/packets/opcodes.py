@@ -154,6 +154,8 @@ class OpCodeType(Enum):
     GetNationsInvestments = auto()
     NationsInvestments = auto()
 
+    Invest = auto()
+
 
 def gen_opcode_2_value():
     d = {}

@@ -89,6 +89,10 @@ class OptionsDialog:
     def __get_nations_investments(self):
         self.client.send(GetNationsInvestments())
 
+    def __show_invest_dialog(self):
+        pack = pb.Invest()
+        PacketParamsDialog(self.mgr, self.client, ['ingots_cnt'], pack)
+
     def __show_investment_state_menu(self):
         option_2_callback = {
             'By Nation': partial(self.__get_nations_investments),
@@ -160,7 +164,7 @@ class OptionsDialog:
             'Buy': partial(self.__send_get_available_cargos),
             'Sell': partial(self.__show_ships_with_cargo_to_sell),
             'Investment State': partial(self.__show_investment_state_menu),
-            'Invest': '',
+            'Invest': partial(self.__show_invest_dialog),
             'Manage': '',
             'Exit': partial(self.exit_building),
         }

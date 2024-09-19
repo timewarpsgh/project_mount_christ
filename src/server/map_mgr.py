@@ -96,6 +96,9 @@ class PortMap:
         pass
 
 
+    def invest(self, role, ingots_cnt):
+        pass
+
 class Cell:
     def __init__(self, x, y):
         self.x = x

@@ -54,7 +54,7 @@ class Mate(BASE):
 
 	name = Column(String)
 	img_id = Column(String)
-	nation = Column(String)
+	nation = Column(Integer)
 
 	lv = Column(Integer)
 	points = Column(Integer)

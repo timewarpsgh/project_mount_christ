@@ -242,7 +242,7 @@ class Mate:
 
     name: str = None
     img_id: int = None
-    nation: str = None
+    nation: int = None
 
     lv: int = None
     points: int = None

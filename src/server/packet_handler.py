@@ -1147,3 +1147,9 @@ class PacketHandler:
         pack = pb.NationsInvestments()
         pack.investments.extend(investments)
         self.session.send(pack)
+
+    async def handle_Invest(self, invest):
+        ingots_cnt = invest.ingots_cnt
+
+        self.role.invest(ingots_cnt)
+

@@ -86,6 +86,9 @@ class OptionsDialog:
 
         self.client.send(packet)
 
+    def __show_persons_investments(self):
+        self.client.send(GetPersonsInvestments())
+
     def __get_nations_investments(self):
         self.client.send(GetNationsInvestments())
 
@@ -96,7 +99,7 @@ class OptionsDialog:
     def __show_investment_state_menu(self):
         option_2_callback = {
             'By Nation': partial(self.__get_nations_investments),
-            'By Person': '',
+            'By Person': partial(self.__show_persons_investments),
         }
 
         self.__make_menu(option_2_callback)
@@ -439,6 +442,14 @@ class OptionsDialog:
 
         for nation in c.Nation:
             option_2_callback[f'{nation.name}'] = partial(self.__get_nation_info, nation.value)
+
+        self.__make_menu(option_2_callback)
+
+    def show_persons_investments(self, persons_investments):
+        option_2_callback = {}
+
+        for person in persons_investments:
+            option_2_callback[f'{person.name} {person.investment}'] = ''
 
         self.__make_menu(option_2_callback)
 

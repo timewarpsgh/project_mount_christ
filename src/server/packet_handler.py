@@ -1153,3 +1153,26 @@ class PacketHandler:
 
         self.role.invest(ingots_cnt)
 
+    def get_role_by_id(self, role_id):
+        return self.session.server.get_role(role_id)
+
+    async def handle_GetPersonsInvestments(self, get_persons_investments):
+
+        port_map = self.role.get_map()
+        my_dict = port_map.role_id_2_investment
+
+        best_3_roles_ids = list(my_dict.keys())[:3]
+
+        persons_investments = []
+        for id in best_3_roles_ids:
+            role_id = id
+            investment = my_dict[id]
+            pack = pb.PersonInvestment(
+                name=self.get_role_by_id(role_id).name,
+                investment=investment,
+            )
+            persons_investments.append(pack)
+
+        pack = pb.PersonsInvestments()
+        pack.persons_investments.extend(persons_investments)
+        self.session.send(pack)

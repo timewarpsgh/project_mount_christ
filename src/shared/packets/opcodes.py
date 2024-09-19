@@ -155,6 +155,8 @@ class OpCodeType(Enum):
     NationsInvestments = auto()
 
     Invest = auto()
+    GetPersonsInvestments = auto()
+    PersonsInvestments = auto()
 
 
 def gen_opcode_2_value():

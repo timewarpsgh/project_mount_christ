@@ -25,6 +25,7 @@ class PortMap:
         self.allied_nation = self.__get_random_allied_nation()
         self.nation_2_investment = self.__init_nation_2_investment()
 
+        self.role_id_2_investment = {}
 
         self.governor = None
 
@@ -96,10 +97,23 @@ class PortMap:
         pass
 
 
-    def receive_invest(self, role, ingots_cnt):
+    def receive_investment(self, role, ingots_cnt):
+        # add to nation
         flag_ship = role.get_flag_ship()
         captain = flag_ship.get_captain()
         self.nation_2_investment[captain.nation] += ingots_cnt
+
+        # add to self
+        if role.id not in self.role_id_2_investment:
+            self.role_id_2_investment[role.id] = ingots_cnt
+        else:
+            self.role_id_2_investment[role.id] += ingots_cnt
+
+        # sort from high to low
+        my_dict = self.role_id_2_investment
+        sorted_dict = dict(sorted(my_dict.items(), key=lambda item: item[1], reverse=True))
+        self.role_id_2_investment = sorted_dict
+
 
 class Cell:
     def __init__(self, x, y):

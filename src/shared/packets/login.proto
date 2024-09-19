@@ -754,3 +754,15 @@ message NationsInvestments {
 message Invest {
     required int32 ingots_cnt = 1;
 }
+
+message GetPersonsInvestments {
+}
+
+message PersonInvestment {
+    required string name = 1;
+    required int32 investment = 2;
+}
+
+message PersonsInvestments {
+    repeated PersonInvestment persons_investments = 1;
+}

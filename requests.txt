@@ -39,7 +39,7 @@ TO DO:
 
             view investstate  ON
                 nation_2_value  OK
-                first 3 personal investments
+                first 3 personal investments OK
 
             invest OK
                 each year(30mins),

@@ -830,3 +830,7 @@ class PacketHandler:
     async def handle_NationsInvestments(self, pack):
         investments = pack.investments
         self.__get_options_dialog().show_nations_investments(investments)
+
+    async def handle_PersonsInvestments(self, pack):
+        persons_investments = pack.persons_investments
+        self.__get_options_dialog().show_persons_investments(persons_investments)

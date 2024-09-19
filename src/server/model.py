@@ -1372,7 +1372,7 @@ class Role:
             return
 
         port_map = sMapMgr.get_map(self.map_id)
-        port_map.receive_invest(self, ingots_cnt)
+        port_map.receive_investment(self, ingots_cnt)
         self.money -= ingots_cnt * 10000
 
         self.session.send(pb.MoneyChanged(

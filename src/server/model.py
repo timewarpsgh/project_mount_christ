@@ -1372,8 +1372,12 @@ class Role:
             return
 
         port_map = sMapMgr.get_map(self.map_id)
-        port_map.invest(self, ingots_cnt)
+        port_map.receive_invest(self, ingots_cnt)
+        self.money -= ingots_cnt * 10000
 
+        self.session.send(pb.MoneyChanged(
+            money=self.money
+        ))
 
     def set_field(self, key, int_value, str_value):
         if str_value:

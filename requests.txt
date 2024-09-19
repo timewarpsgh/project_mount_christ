@@ -41,7 +41,7 @@ TO DO:
                 nation_2_value  OK
                 first 3 personal investments
 
-            invest  ON
+            invest OK
                 each year(30mins),
                 nation with highest total investment wins the port
                 economy, industry index and price_index randomizes

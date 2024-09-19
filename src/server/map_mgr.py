@@ -96,8 +96,10 @@ class PortMap:
         pass
 
 
-    def invest(self, role, ingots_cnt):
-        pass
+    def receive_invest(self, role, ingots_cnt):
+        flag_ship = role.get_flag_ship()
+        captain = flag_ship.get_captain()
+        self.nation_2_investment[captain.nation] += ingots_cnt
 
 class Cell:
     def __init__(self, x, y):

@@ -25,9 +25,9 @@ class PortMap:
         self.allied_nation = self.__get_random_allied_nation()
         self.nation_2_investment = self.__init_nation_2_investment()
 
-        self.role_id_2_investment = {}
+        self.role_name_2_investment = {}
 
-        self.governor_id = None
+        self.governor_name = None
 
     def __init_price_index(self):
         return random.randint(80, 120)
@@ -107,15 +107,15 @@ class PortMap:
         self.nation_2_investment[captain.nation] += ingots_cnt
 
         # add to self
-        if role.id not in self.role_id_2_investment:
-            self.role_id_2_investment[role.id] = ingots_cnt
+        if role.name not in self.role_name_2_investment:
+            self.role_name_2_investment[role.name] = ingots_cnt
         else:
-            self.role_id_2_investment[role.id] += ingots_cnt
+            self.role_name_2_investment[role.name] += ingots_cnt
 
         # sort from high to low
-        my_dict = self.role_id_2_investment
+        my_dict = self.role_name_2_investment
         sorted_dict = dict(sorted(my_dict.items(), key=lambda item: item[1], reverse=True))
-        self.role_id_2_investment = sorted_dict
+        self.role_name_2_investment = sorted_dict
 
     def __get_new_allied_nation(self):
         # get the nation with the most investment from self.nation_2_investment
@@ -126,14 +126,14 @@ class PortMap:
         else:
             return nation
 
-    def __get_new_governor_id(self):
-        roles_ids = list(self.role_id_2_investment.keys())
-        if roles_ids:
-            new_governor_id = roles_ids[0]
+    def __get_new_governor_name(self):
+        roles_names = list(self.role_name_2_investment.keys())
+        if roles_names:
+            new_governor_name = roles_names[0]
         else:
-            new_governor_id = None
+            new_governor_name = None
 
-        return new_governor_id
+        return new_governor_name
 
     def update(self):
         """called every year"""
@@ -144,9 +144,9 @@ class PortMap:
         self.allied_nation = self.__get_new_allied_nation()
         self.nation_2_investment = self.__init_nation_2_investment()
 
-        self.governor_id = self.__get_new_governor_id()
+        self.governor_name = self.__get_new_governor_name()
 
-        self.role_id_2_investment = {}
+        self.role_name_2_investment = {}
 
 
 

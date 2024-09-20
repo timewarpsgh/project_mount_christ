@@ -25,7 +25,7 @@ TO DO:
 
             view investstate  OK
                 nation_2_value  OK
-                first 3 personal investments (using role_id, role maynot be online ) ON
+                port.role_2_investment (use role_name instead of role_id ) OK
 
             invest OK
                 each year(30mins),  OK

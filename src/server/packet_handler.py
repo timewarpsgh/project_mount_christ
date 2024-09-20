@@ -1159,16 +1159,15 @@ class PacketHandler:
     async def handle_GetPersonsInvestments(self, get_persons_investments):
 
         port_map = self.role.get_map()
-        my_dict = port_map.role_id_2_investment
+        my_dict = port_map.role_name_2_investment
 
-        best_3_roles_ids = list(my_dict.keys())[:3]
+        best_3_roles_names = list(my_dict.keys())[:3]
 
         persons_investments = []
-        for id in best_3_roles_ids:
-            role_id = id
-            investment = my_dict[id]
+        for role_name in best_3_roles_names:
+            investment = my_dict[role_name]
             pack = pb.PersonInvestment(
-                name=self.get_role_by_id(role_id).name,
+                name=role_name,
                 investment=investment,
             )
             persons_investments.append(pack)

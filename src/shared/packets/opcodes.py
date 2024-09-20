@@ -158,6 +158,9 @@ class OpCodeType(Enum):
     GetPersonsInvestments = auto()
     PersonsInvestments = auto()
 
+    GetAvailableItems = auto()
+    AvailableItems = auto()
+
 
 def gen_opcode_2_value():
     d = {}

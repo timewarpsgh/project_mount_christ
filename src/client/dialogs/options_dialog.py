@@ -445,6 +445,27 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def __buy_item(self, item_id):
+        self.client.send(BuyItem(item_id=item_id))
+
+    def __show_item_to_buy(self, item):
+        option_2_callback = {
+            'OK': partial(self.__buy_item, item.id),
+        }
+
+        self.__make_menu(option_2_callback)
+
+        self.__show_one_item(item)
+
+    def show_available_items(self, items_ids):
+        option_2_callback = {}
+
+        for item_id in items_ids:
+            item = sObjectMgr.get_item(item_id)
+            option_2_callback[f'{item.name}'] = partial(self.__show_item_to_buy, item)
+
+        self.__make_menu(option_2_callback)
+
     def show_persons_investments(self, persons_investments):
         option_2_callback = {}
 
@@ -488,6 +509,9 @@ class OptionsDialog:
         self.__make_menu(option_2_callback)
 
         self.__building_speak(f'We are allied to {nation_name} at the moment.')
+
+    def __get_available_items(self):
+        self.client.send(GetAvailableItems())
 
     def exit_building(self):
         self.pop_some_menus(5)
@@ -647,16 +671,12 @@ class OptionsDialog:
         self.__change_building_bg('item_shop')
 
         option_2_callback = {
-            'Buy': '',
+            'Buy': partial(self.__get_available_items),
             'Sell': '',
             'Exit': partial(self.exit_building),
         }
 
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
+        self.__make_menu(option_2_callback)
 
     def show_church_menu(self):
         self.__change_building_bg('church')

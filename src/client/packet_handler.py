@@ -835,3 +835,7 @@ class PacketHandler:
     async def handle_PersonsInvestments(self, pack):
         persons_investments = pack.persons_investments
         self.__get_options_dialog().show_persons_investments(persons_investments)
+
+    async def handle_AvailableItems(self, pack):
+        items_ids = pack.items_ids
+        self.__get_options_dialog().show_available_items(items_ids)

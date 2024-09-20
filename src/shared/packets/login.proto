@@ -767,3 +767,14 @@ message PersonInvestment {
 message PersonsInvestments {
     repeated PersonInvestment persons_investments = 1;
 }
+
+message GetAvailableItems {
+}
+
+message AvailableItems {
+    repeated int32 items_ids = 1;
+}
+
+message BuyItem {
+    required int32 item_id = 1;
+}

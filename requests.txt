@@ -9,9 +9,7 @@ TO DO:
 
 
         item shop
-            remove gold in items menu OK
-            can view items OK
-            buy
+            buy item  ON
             sell
 
         palace

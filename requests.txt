@@ -7,23 +7,9 @@ TO DO:
 
 
     update npc and season at the same time OK
-
     npc sail from near port OK
-
-    building greetings on enter ON
-
     each port has index and nation OK
-        price_index
-        economy_index
-        industry_index
 
-        allied_nation
-
-        nation_2_investment
-
-
-
-    invest in market
 
     each building
         harbor OK
@@ -37,14 +23,18 @@ TO DO:
 
             port's price_index affects buy and sell price OK
 
-            view investstate  ON
+            view investstate  OK
                 nation_2_value  OK
-                first 3 personal investments OK
+                first 3 personal investments (using role_id, role maynot be online ) ON
 
             invest OK
-                each year(30mins),
+                each year(30mins),  OK
                 nation with highest total investment wins the port
                 economy, industry index and price_index randomizes
+
+            first 3 personal investments (using role_id, role maynot be online ) ON
+
+            buy/sell goods OK
 
             can buy specialty
 

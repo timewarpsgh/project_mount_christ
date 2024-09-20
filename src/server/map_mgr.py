@@ -18,7 +18,7 @@ class PortMap:
         self.mate_template = self.__init_mate_template()
         self.maid = None
 
-        self.price_index = random.randint(80, 120)
+        self.price_index = self.__init_price_index()
         self.economy_index = self.__get_random_economy_index()
         self.industry_index = self.__get_random_industry_index()
 
@@ -27,7 +27,10 @@ class PortMap:
 
         self.role_id_2_investment = {}
 
-        self.governor = None
+        self.governor_id = None
+
+    def __init_price_index(self):
+        return random.randint(80, 120)
 
     def __init_nation_2_investment(self):
         nation_2_investment = {}
@@ -113,6 +116,40 @@ class PortMap:
         my_dict = self.role_id_2_investment
         sorted_dict = dict(sorted(my_dict.items(), key=lambda item: item[1], reverse=True))
         self.role_id_2_investment = sorted_dict
+
+    def __get_new_allied_nation(self):
+        # get the nation with the most investment from self.nation_2_investment
+        nation = max(self.nation_2_investment, key=self.nation_2_investment.get)
+
+        if self.nation_2_investment[nation] == 0:
+            return self.allied_nation
+        else:
+            return nation
+
+    def __get_new_governor_id(self):
+        roles_ids = list(self.role_id_2_investment.keys())
+        if roles_ids:
+            new_governor_id = roles_ids[0]
+        else:
+            new_governor_id = None
+
+        return new_governor_id
+
+    def update(self):
+        """called every year"""
+        self.price_index = self.__init_price_index()
+        self.economy_index = self.__get_random_economy_index()
+        self.industry_index = self.__get_random_industry_index()
+
+        self.allied_nation = self.__get_new_allied_nation()
+        self.nation_2_investment = self.__init_nation_2_investment()
+
+        self.governor_id = self.__get_new_governor_id()
+
+        self.role_id_2_investment = {}
+
+
+
 
 
 class Cell:
@@ -308,6 +345,8 @@ class MapMgr:
     def __init__(self):
         self.id_2_map = self.__init_maps()
 
+        self.port_timer = c.ONE_YEAR_INTERVAL
+
     def __init_maps(self):
         id_2_map = {}
         id_2_map[0] = SeaMap()
@@ -353,6 +392,16 @@ class MapMgr:
 
     def get_nearby_objects(self, object, include_self=False):
         return self.get_map(object.map_id).get_nearby_objects(object, include_self)
+
+    def __update_port_maps(self):
+        for port_map in self.get_port_maps():
+            port_map.update()
+
+    def update(self, time_diff):
+        self.port_timer -= time_diff
+        if self.port_timer <= 0:
+            self.__update_port_maps()
+            self.port_timer = c.ONE_YEAR_INTERVAL
 
 
 sMapMgr = MapMgr()

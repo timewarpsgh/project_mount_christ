@@ -14,7 +14,7 @@ TO DO:
 
 
             can buy specialty in london OK
-            load all specialty to db ON
+            load all specialty to db OK
 
         item shop
             buy

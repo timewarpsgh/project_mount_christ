@@ -1,42 +1,24 @@
 TO DO:
 
-    more wind and current effect OK
-    show days you can sail in harbor OK
-    season changes every 3 months OK
-    press f to enter/exit building OK
-
-
-    update npc and season at the same time OK
-    npc sail from near port OK
-    each port has index and nation OK
-
-
     each building
         harbor OK
-        dry dock almost OK
+        dry dock OK
+        inn OK
 
-        inn
-            port info OK
-            nation info OK
 
         market ON
-
             port's price_index affects buy and sell price OK
-
             view investstate  OK
-                nation_2_value  OK
-                port.role_2_investment (use role_name instead of role_id ) OK
-
             invest OK
-                each year(30mins),  OK
-                nation with highest total investment wins the port
-                economy, industry index and price_index randomizes
-
-            first 3 personal investments (using role_id, role maynot be online ) ON
-
             buy/sell goods OK
 
-            can buy specialty
+
+            can buy specialty in london OK
+            load all specialty to db ON
+
+        item shop
+            buy
+            sell
 
         palace
             buy tax free permit
@@ -56,12 +38,14 @@ TO DO:
 
 DONE:
 
-    each mate gets random init attributes OK
-    each ship should be different ON
-    after buying a new ship,
-    show on left hud, total supply OK
-    sail, each day passes with food consumed OK
-    ration affects health and morale OK
+    more wind and current effect OK
+    show days you can sail in harbor OK
+    season changes every 3 months OK
+    press f to enter/exit building OK
+
+    update npc and season at the same time OK
+    npc sail from near port OK
+    each port has index and nation OK
 
 cmds
     # compile .proto file

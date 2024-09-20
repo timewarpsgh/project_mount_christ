@@ -1979,6 +1979,7 @@ class Role:
         return int(price * (1 - self.get_discount()) * ratio)
 
     def get_available_cargos(self):
+        # get cargo by region_id
         port = self.get_port()
         cargo_ids = sObjectMgr.get_cargo_ids(port.economy_id)
         available_cargos = []
@@ -1992,6 +1993,16 @@ class Role:
             price = json.loads(cargo_template.buy_price)[str(port.economy_id)]
             available_cargo.price = price
             available_cargo.cut_price = self.__get_modified_buy_price(price)
+            available_cargos.append(available_cargo)
+
+        # add specialty of this port
+        if port.specialty_id:
+            cargo_template = sObjectMgr.get_cargo_template(port.specialty_id)
+            available_cargo = pb.AvailableCargo()
+            available_cargo.id = cargo_template.id
+            available_cargo.name = F'{cargo_template.name}*'
+            available_cargo.price = port.specialty_price
+            available_cargo.cut_price = self.__get_modified_buy_price(port.specialty_price)
             available_cargos.append(available_cargo)
 
         pack = pb.GetAvailableCargosRes()
@@ -2044,11 +2055,14 @@ class Role:
 
         port = self.get_port()
 
-        if str(port.economy_id) not in economy_id_str_2_buy_price:
+        if str(port.economy_id) in economy_id_str_2_buy_price:
+            buy_price = economy_id_str_2_buy_price[str(port.economy_id)]
+        elif cargo_id == port.specialty_id:
+            buy_price = port.specialty_price
+        else:
             print("port dosen't have this cargo")
             return
 
-        buy_price = economy_id_str_2_buy_price[str(port.economy_id)]
         modified_buy_price = self.__get_modified_buy_price(buy_price)
         cost = cnt * modified_buy_price
 

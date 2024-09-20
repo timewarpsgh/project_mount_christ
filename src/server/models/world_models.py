@@ -48,6 +48,9 @@ class Port(BASE):
 	tile_set = Column(Integer)
 	governer_role_id = Column(Integer)
 
+	specialty_id = Column(Integer)
+	specialty_price = Column(Integer)
+
 
 class Maid(BASE):
 	# table

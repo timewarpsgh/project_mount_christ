@@ -39,8 +39,8 @@ class Role(BASE):
 	seen_grids = Column(String)
 	days_at_sea = Column(Integer)
 
-
 	discovery_ids_json_str = Column(String)
+	items = Column(String)
 
 
 class Mate(BASE):

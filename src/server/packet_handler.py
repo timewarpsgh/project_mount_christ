@@ -264,6 +264,7 @@ class PacketHandler:
                 dir=role.dir,
                 map_id=role.map_id,
                 money=role.money,
+                items=json.loads(role.items),
             )
 
             # init seen grids
@@ -306,6 +307,7 @@ class PacketHandler:
             role_entered.y = role.y
             role_entered.dir = role.dir
             role_entered.money = role.money
+            role_entered.items = role.items
             if role.discovery_ids_json_str:
                 role_entered.discovery_ids_json_str = role.discovery_ids_json_str
             ints = self.__get_64_int32s_from_seen_grids(self.role.seen_grids)

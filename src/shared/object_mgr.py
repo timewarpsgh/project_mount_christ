@@ -4,34 +4,28 @@ import json
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
 
-from world_models import Port, CargoTemplate, ShipTemplate, MateTemplate, Cannon, Village, \
+from world_models import Port, CargoTemplate, ShipTemplate, MateTemplate, ItemTemplate, \
+    Cannon, Village, \
     SESSION as WORLD_SESSION
 
 class ObjectMgr:
 
     def __init__(self):
-        self.id_2_port = {}
-        self.__load_id_2_port()
-        self.id_2_cargo_template = {}
-        self.__load_id_2_cargo_template()
-
-        self.economy_id_2_cargo_ids = {}
-        self.__calculate_economy_id_2_cargo_ids()
-
-        self.id_2_village = {}
-        self.__load_id_2_village()
-
-        self.id_2_ship_template = {}
-        self.__load_id_2_ship_template()
-
-        self.id_2_mate_template = {}
-        self.__load_id_2_mate_template()
-
-
-        self.economy_id_2_ship_ids = {}
-        self.__init_economy_id_2_ship_ids()
-
+        self.id_2_port = self.__load_id_2_port()
+        self.id_2_cargo_template = self.__load_id_2_cargo_template()
+        self.economy_id_2_cargo_ids = self.__calculate_economy_id_2_cargo_ids()
+        self.id_2_village = self.__load_id_2_village()
+        self.id_2_ship_template = self.__load_id_2_ship_template()
+        self.id_2_mate_template = self.__load_id_2_mate_template()
+        self.economy_id_2_ship_ids = self.__init_economy_id_2_ship_ids()
         self.id_2_cannon = self.__load_id_2_cannon()
+        self.id_2_item = self.__load_id_2_item()
+
+    def __load_id_2_item(self):
+        id_2_item = {}
+        for item in WORLD_SESSION.query(ItemTemplate).all():
+            id_2_item[item.id] = item
+        return id_2_item
 
     def __load_id_2_cannon(self):
         id_2_cannon = {}
@@ -40,7 +34,7 @@ class ObjectMgr:
         return id_2_cannon
 
     def __init_economy_id_2_ship_ids(self):
-        self.economy_id_2_ship_ids = {
+        economy_id_2_ship_ids = {
             #### 'Iberia', ####
             0: [1, 19, 6, 8, 20, 9, 10, 11],
 
@@ -69,37 +63,59 @@ class ObjectMgr:
             7: [8, 13, 9, 10, 11]
         }
 
+        return economy_id_2_ship_ids
+
 
     def __load_id_2_ship_template(self):
+        id_2_ship_template = {}
+
         for ship_template in WORLD_SESSION.query(ShipTemplate).all():
-            self.id_2_ship_template[ship_template.id] = ship_template
+            id_2_ship_template[ship_template.id] = ship_template
+
+        return id_2_ship_template
 
     def __load_id_2_mate_template(self):
+        id_2_mate_template = {}
+
         for mate_template in WORLD_SESSION.query(MateTemplate).all():
-            self.id_2_mate_template[mate_template.id] = mate_template
+            id_2_mate_template[mate_template.id] = mate_template
+
+        return id_2_mate_template
 
     def __load_id_2_village(self):
+        id_2_village = {}
+
         for village in WORLD_SESSION.query(Village).all():
-            self.id_2_village[village.id] = village
+            id_2_village[village.id] = village
+
+        return id_2_village
 
     def __calculate_economy_id_2_cargo_ids(self):
+        economy_id_2_cargo_ids = {}
+
         for id, cargo_template in self.id_2_cargo_template.items():
             economy_id_2_buy_price = json.loads(cargo_template.buy_price)
 
             for economy_id, buy_price in economy_id_2_buy_price.items():
-                if int(economy_id) not in self.economy_id_2_cargo_ids:
-                    self.economy_id_2_cargo_ids[int(economy_id)] = []
-                self.economy_id_2_cargo_ids[int(economy_id)].append(id)
+                if int(economy_id) not in economy_id_2_cargo_ids:
+                    economy_id_2_cargo_ids[int(economy_id)] = []
+                economy_id_2_cargo_ids[int(economy_id)].append(id)
 
-        print('########## inited economy_id_2_cargo_ids')
+        return economy_id_2_cargo_ids
 
     def __load_id_2_port(self):
+        id_2_port = {}
         for port in WORLD_SESSION.query(Port).all():
-            self.id_2_port[port.id] = port
+            id_2_port[port.id] = port
+        return id_2_port
 
     def __load_id_2_cargo_template(self):
+        id_2_cargo_template = {}
+
         for cargo_template in WORLD_SESSION.query(CargoTemplate).all():
-            self.id_2_cargo_template[cargo_template.id] = cargo_template
+            id_2_cargo_template[cargo_template.id] = cargo_template
+
+        return id_2_cargo_template
 
     def get_port(self, id):
         return self.id_2_port[id]
@@ -139,6 +155,9 @@ class ObjectMgr:
 
     def get_cannons(self):
         return self.id_2_cannon.values()
+
+    def get_item(self, id):
+        return self.id_2_item[id]
 
 
 # singleton

@@ -1006,6 +1006,32 @@ class OptionsDialog:
 
         return discovery_surface
 
+    def __show_one_item(self, item):
+        split_items = item.img_id.split('_')
+        img_x = int(split_items[0])
+        img_y = int(split_items[1])
+
+        # dict
+        dict = {
+            'name': item.name,
+            'description': item.description,
+        }
+
+        # make text from dict
+        text = ''
+        for k, v in dict.items():
+            text += f'{v}<br>'
+
+        # get figure image
+        item_img = self.__item_x_y_2_image(img_x, img_y)
+
+        MyPanelWindow(
+            rect=pygame.Rect((59, 50), (350, 400)),
+            ui_manager=self.mgr,
+            text=text,
+            image=item_img,
+        )
+
     def __show_one_discovery(self, village):
 
         split_items = village.img_id.split('_')
@@ -1034,6 +1060,14 @@ class OptionsDialog:
             image=item_img,
         )
 
+    def __show_items_menu(self):
+        option_2_callback = {}
+
+        for id in self.__get_role().items:
+            item = sObjectMgr.get_item(id)
+            option_2_callback[f'{item.name}'] = partial(self.__show_one_item, item)
+
+        self.__make_menu(option_2_callback)
 
     def __show_discoveries_menu(self):
 
@@ -1459,21 +1493,14 @@ class OptionsDialog:
 
     def show_items_menu(self):
         option_2_callback = {
-            'Equipments': '',
-            'Items': '',
+            'Items': partial(self.__show_items_menu),
             'Discoveries': partial(self.__show_discoveries_menu),
             'Diary': '',
             'World Map': partial(self.__show_world_map),
             'Port Map': ''
         }
 
-        option_2_callback[f'Gold Coins {self.client.game.graphics.model.role.money}'] = ''
-
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
+        self.__make_menu(option_2_callback)
 
     def show_mates_menu(self):
         option_2_callback = {

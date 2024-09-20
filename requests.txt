@@ -1,22 +1,16 @@
 TO DO:
 
-    each building
+    each building (crude)
         harbor OK
         dry dock OK
         inn OK
+        market OK
 
 
-        market ON
-            port's price_index affects buy and sell price OK
-            view investstate  OK
-            invest OK
-            buy/sell goods OK
-
-
-            can buy specialty in london OK
-            load all specialty to db OK
 
         item shop
+            remove gold in items menu OK
+            can view items OK
             buy
             sell
 

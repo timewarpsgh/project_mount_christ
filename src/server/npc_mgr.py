@@ -156,6 +156,7 @@ class NpcMgr:
 
             await self.update(time_diff)
 
+            # update others
             sSeasonMgr.update(time_diff, server)
             sMapMgr.update(time_diff)
 

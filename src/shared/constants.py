@@ -415,6 +415,10 @@ PORT_ID_2_NATION = {
     Capital.ISTANBUL.value: Nation.OTTOMAN.value,
 }
 
+class Item(Enum):
+    TAX_FREE_PERMIT = 10
+    LETTER_OF_MARQUE = 11
+
 
 if __name__ == '__main__':
     for id, nation in enumerate(Nation):

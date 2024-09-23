@@ -1408,11 +1408,11 @@ class Role:
 
     def buy_tax_free_permit(self):
         if self.is_in_my_capital():
-            self.buy_item(item_id=10, force_buy=True)
+            self.buy_item(item_id=c.Item.TAX_FREE_PERMIT.value, force_buy=True)
 
     def buy_letter_of_marque(self):
         if self.is_in_my_capital():
-            self.buy_item(item_id=11, force_buy=True)
+            self.buy_item(item_id=c.Item.LETTER_OF_MARQUE.value, force_buy=True)
 
     def buy_item(self, item_id, force_buy=False):
         if force_buy:
@@ -2055,7 +2055,7 @@ class Role:
 
     def has_tax_free_permit(self):
         for item_id in self.items:
-            if item_id == 10:
+            if item_id == c.Item.TAX_FREE_PERMIT.value:
                 return True
         return False
 

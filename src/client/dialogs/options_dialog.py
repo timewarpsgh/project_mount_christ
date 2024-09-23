@@ -1649,15 +1649,20 @@ class OptionsDialog:
 
 
     def show_role_menu(self, role):
-        option_2_callback = {
-            f'{role.name}': '',
-            'View Fleet': partial(self.__view_fleet, role.id),
-            'View Captain': '',
-            'Gossip': '',
-            'Fight': partial(self.fight_target, role),
-        }
+        my_role = self.__get_role()
+        if my_role.can_inspect(role):
+            option_2_callback = {
+                f'{role.name}': '',
+                'View Fleet': partial(self.__view_fleet, role.id),
+                'View Captain': '',
+                'Gossip': '',
+                'Fight': partial(self.fight_target, role),
+            }
 
-        self.__make_menu(option_2_callback)
+            self.__make_menu(option_2_callback)
+        else:
+            mate = my_role.get_flag_ship().get_captain()
+            self.show_mate_speech(mate, "It's too far away!")
 
     def show_cmds_menu(self):
         option_2_callback = {

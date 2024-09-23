@@ -1369,6 +1369,9 @@ class Role:
     morale: int=100
     health: int=100
 
+    def has_item(self, item_id):
+        return item_id in self.items
+
     def sell_item(self, item_id):
         if item_id not in self.items:
             return

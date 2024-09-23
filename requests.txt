@@ -13,9 +13,9 @@ TO DO:
     items uses
         treasure: sell   OK
         Tax Free Permit: buy and sell in allied ports with 10% discount  OK
-
         instrument: show world map coordinates more precisely OK
-        telescope: view target fleet with more distance NEXT 2
+        telescope: view target fleet with more distance OK
+
 
         weapon/armor: equip
         consumable: use

@@ -521,6 +521,20 @@ class Role:
 
     is_in_building: bool = False
 
+    def has_item(self, item_id):
+        return item_id in self.items
+
+    def can_inspect(self, role):
+        if self.has_item(c.Item.TELESCOPE.value):
+            distance = 10
+        else:
+            distance = 5
+
+        if abs(self.x - role.x) <= distance and abs(self.y - role.y) <= distance:
+            return True
+        else:
+            return False
+
     def is_npc(self):
         if self.id > c.NPC_ROLE_START_ID:
             return True

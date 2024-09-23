@@ -638,12 +638,16 @@ class OptionsDialog:
         self.client.send(GetItemSellPrice(item_id=item_id))
 
     def __show_items_to_sell_menu(self):
+        role = self.__get_role()
         items_ids = self.__get_role().items
         items = [sObjectMgr.get_item(item_id) for item_id in items_ids]
         option_2_callback = {}
 
         for item in items:
             count = items_ids.count(item.id)
+
+            if item.id == role.weapon or item.id == role.armor:
+                continue
 
             if count >= 2:
                 option_2_callback[f'{item.name} x {count}'] = partial(self.__get_item_sell_price, item.id)

@@ -1196,6 +1196,15 @@ class PacketHandler:
     async def handle_GetItemSellPrice(self, get_item_sell_price):
         item_id = get_item_sell_price.item_id
 
+        if item_id == self.role.weapon or item_id == self.role.armor:
+            # send chat
+            pack = pb.GotChat(
+                chat_type=pb.ChatType.SYSTEM,
+                text='can\'t sell equipped items',
+            )
+            self.session.send(pack)
+            return
+
         price = sObjectMgr.get_item_sell_price(item_id)
 
         pack = pb.ItemSellPrice(item_id=item_id, price=price)

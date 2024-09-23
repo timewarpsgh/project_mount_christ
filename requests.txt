@@ -17,15 +17,17 @@ TO DO:
         telescope: view target fleet with more distance OK
 
 
+        show equip and use options OK
+
         weapon/armor: equip
         consumable: use
             balm
             lime juice
             rat poison
 
+
+
         cat: no mouse auro can happen
-
-
         Letter of Marque: attack enemy fleet without reputation loss
 
 

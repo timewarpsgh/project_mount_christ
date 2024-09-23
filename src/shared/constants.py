@@ -425,8 +425,13 @@ class Item(Enum):
 
     TELESCOPE = 8
 
+    CAT = 9
+
+class ItemType(Enum):
+    WEAPON = 'weapon'
+    ARMOR = 'armor'
+    CONSUMABLE = 'consumable'
+
 
 if __name__ == '__main__':
-    for id, nation in enumerate(Nation):
-        print(type(nation.name))
-        print(id)
+    print(ItemType.WEAPON.name)

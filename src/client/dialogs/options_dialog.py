@@ -1167,6 +1167,19 @@ class OptionsDialog:
         return discovery_surface
 
     def __show_one_item(self, item):
+        # use or equip
+        if item.item_type == c.ItemType.CONSUMABLE.value:
+            option_2_callback = {
+                'Use': '',
+            }
+            self.__make_menu(option_2_callback)
+        elif item.item_type in [c.ItemType.WEAPON.value, c.ItemType.ARMOR.value]:
+            option_2_callback = {
+                'Equip': '',
+            }
+            self.__make_menu(option_2_callback)
+
+
         split_items = item.img_id.split('_')
         img_x = int(split_items[0])
         img_y = int(split_items[1])
@@ -1191,6 +1204,8 @@ class OptionsDialog:
             text=text,
             image=item_img,
         )
+
+
 
     def __show_one_discovery(self, village):
 

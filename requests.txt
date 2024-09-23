@@ -11,7 +11,7 @@ TO DO:
         item shop
             buy item  OK
             buy item: show price OK
-            sell
+            sell item OK
 
         palace
             buy tax free permit

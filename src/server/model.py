@@ -1368,6 +1368,26 @@ class Role:
     morale: int=100
     health: int=100
 
+    def sell_item(self, item_id):
+        if item_id not in self.items:
+            return
+
+        sell_price = sObjectMgr.get_item_sell_price(item_id)
+        self.money += sell_price
+        self.items.remove(item_id)
+
+        self.session.send(
+            pb.MoneyChanged(
+                money=self.money
+            )
+        )
+
+        self.session.send(
+            pb.ItemRemoved(
+                item_id=item_id
+            )
+        )
+
     def get_availalbe_items_ids_in_port(self):
         port = self.get_port()
 

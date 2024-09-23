@@ -846,3 +846,17 @@ class PacketHandler:
 
         role = self.__get_role()
         role.items.append(item_id)
+
+    async def handle_ItemSellPrice(self, pack):
+        item_id = pack.item_id
+        price = pack.price
+
+        self.__get_options_dialog().show_item_sell_price(item_id, price)
+
+    async def handle_ItemRemoved(self, pack):
+        item_id = pack.item_id
+
+        role = self.__get_role()
+        role.items.remove(item_id)
+
+        self.__get_options_dialog().pop_some_menus(4)

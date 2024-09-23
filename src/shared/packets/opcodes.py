@@ -164,6 +164,11 @@ class OpCodeType(Enum):
     BuyItem = auto()
     ItemAdded = auto()
 
+    GetItemSellPrice = auto()
+    ItemSellPrice = auto()
+
+    SellItem = auto()
+    ItemRemoved = auto()
 
 def gen_opcode_2_value():
     d = {}

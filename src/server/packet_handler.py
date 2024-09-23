@@ -1192,3 +1192,16 @@ class PacketHandler:
         item_id = buy_item.item_id
 
         self.role.buy_item(item_id)
+
+    async def handle_GetItemSellPrice(self, get_item_sell_price):
+        item_id = get_item_sell_price.item_id
+
+        price = sObjectMgr.get_item_sell_price(item_id)
+
+        pack = pb.ItemSellPrice(item_id=item_id, price=price)
+        self.session.send(pack)
+
+    async def handle_SellItem(self, sell_item):
+        item_id = sell_item.item_id
+
+        self.role.sell_item(item_id)

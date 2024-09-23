@@ -783,3 +783,20 @@ message BuyItem {
 message ItemAdded {
     required int32 item_id = 1;
 }
+
+message GetItemSellPrice {
+    required int32 item_id = 1;
+}
+
+message ItemSellPrice {
+    required int32 item_id = 1;
+    required int32 price = 2;
+}
+
+message SellItem {
+    required int32 item_id = 1;
+}
+
+message ItemRemoved {
+    required int32 item_id = 1;
+}

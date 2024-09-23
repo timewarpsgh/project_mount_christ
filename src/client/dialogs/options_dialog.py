@@ -457,6 +457,21 @@ class OptionsDialog:
 
         self.__show_one_item(item)
 
+    def __sell_item(self, item_id):
+        self.client.send(SellItem(item_id=item_id))
+
+    def show_item_sell_price(self, item_id, price):
+        item = sObjectMgr.get_item(item_id)
+
+        option_2_callback = {
+            'OK': partial(self.__sell_item, item_id),
+        }
+
+        self.__make_menu(option_2_callback)
+
+        self.__show_one_item(item)
+        self.__building_speak(f'I want to buy this for {price}.')
+
     def show_available_items(self, items_ids, prices):
         option_2_callback = {}
 
@@ -510,6 +525,19 @@ class OptionsDialog:
         self.__make_menu(option_2_callback)
 
         self.__building_speak(f'We are allied to {nation_name} at the moment.')
+
+    def __get_item_sell_price(self, item_id):
+        self.client.send(GetItemSellPrice(item_id=item_id))
+
+    def __show_items_to_sell_menu(self):
+        items_ids = self.__get_role().items
+        items = [sObjectMgr.get_item(item_id) for item_id in items_ids]
+        option_2_callback = {}
+
+        for item in items:
+            option_2_callback[f'{item.name}'] = partial(self.__get_item_sell_price, item.id)
+
+        self.__make_menu(option_2_callback)
 
     def __get_available_items(self):
         self.client.send(GetAvailableItems())
@@ -673,7 +701,7 @@ class OptionsDialog:
 
         option_2_callback = {
             'Buy': partial(self.__get_available_items),
-            'Sell': '',
+            'Sell': partial(self.__show_items_to_sell_menu),
             'Exit': partial(self.exit_building),
         }
 
@@ -688,11 +716,7 @@ class OptionsDialog:
             'Exit': partial(self.exit_building),
         }
 
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
+        self.__make_menu(option_2_callback)
 
     def show_fortune_house_menu(self):
         self.__change_building_bg('fortune_house')

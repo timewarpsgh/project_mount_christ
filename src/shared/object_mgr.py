@@ -159,6 +159,8 @@ class ObjectMgr:
     def get_item(self, id):
         return self.id_2_item[id]
 
+    def get_item_sell_price(self, id):
+        return int(self.id_2_item[id].buy_price // 2)
 
 # singleton
 sObjectMgr = ObjectMgr()

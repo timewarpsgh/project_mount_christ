@@ -173,6 +173,11 @@ class OpCodeType(Enum):
     BuyTaxFreePermit = auto()
     BuyLetterOfMarque = auto()
 
+    InvestigateFleet = auto()
+    FleetsInvestigated = auto()
+
+
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

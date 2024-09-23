@@ -400,6 +400,11 @@ class Capital(Enum):
     GENOA = 9
     ISTANBUL = 3
 
+class Fleet(Enum):
+    MERCHANT = auto()
+    CONVOY = auto()
+    BATTLE = auto()
+
 
 PORT_ID_2_NATION = {
     Capital.LONDON.value: Nation.ENGLAND.value,

@@ -862,3 +862,7 @@ class PacketHandler:
         role.items.remove(item_id)
 
         self.__get_options_dialog().pop_some_menus(4)
+
+    async def handle_FleetsInvestigated(self, pack):
+        fleets_investigated = pack.fleets_investigated
+        self.__get_options_dialog().show_fleets_investigated(fleets_investigated)

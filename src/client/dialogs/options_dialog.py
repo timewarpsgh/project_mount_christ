@@ -182,7 +182,7 @@ class OptionsDialog:
             'Dismiss Crew': partial(self.__show_ships_to_dismiss_crew_menu),
             'Meet': partial(self.__get_mate_in_port),
             'Fire Mate': partial(self.__show_mates_to_fire_menu),
-            'Waitress': '',
+            'Waitress': partial(self.__show_waitress_menu),
             'Exit': partial(self.exit_building),
         }
 
@@ -424,6 +424,48 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def __investigate_fleet(self, nation_id, fleet_id):
+        self.client.send(pb.InvestigateFleet(nation_id=nation_id, fleet_id=fleet_id))
+
+    def __show_fleet_types_to_investigate(self, nation_id, maid):
+        option_2_callback = {}
+        for fleet in c.Fleet:
+            option_2_callback[f'{fleet.name}'] = partial(self.__investigate_fleet, nation_id, fleet.value)
+
+        self.__make_menu(option_2_callback)
+
+        self.show_mate_speech(maid, 'Which fleet?')
+
+    def __show_nations_to_investigate(self, maid):
+        option_2_callback = {}
+        for nation in c.Nation:
+            option_2_callback[f'{nation.name}'] = partial(self.__show_fleet_types_to_investigate, nation.value, maid)
+
+        self.__make_menu(option_2_callback)
+
+        self.show_mate_speech(maid, 'Which nation?')
+
+    def __show_waitress_menu(self):
+        role = self.__get_role()
+        port = sObjectMgr.get_port(role.map_id)
+        if port.maid_id:
+            maid = sObjectMgr.get_maid(port.maid_id)
+
+            option_2_callback = {
+                'Ask Info': '',
+                'Investigate': partial(self.__show_nations_to_investigate, maid),
+                'Tell Story': '',
+            }
+
+            self.__make_menu(option_2_callback)
+
+            self.show_mate_speech(maid, f"I'm {maid.name}. How are you?")
+
+        else:
+            self.__building_speak('There is no waitress in this port.')
+
+
+
     def __show_mates_to_fire_menu(self):
         mates = self.get_mate_mgr().get_mates()
         option_2_callback = {}
@@ -459,6 +501,45 @@ class OptionsDialog:
 
     def __sell_item(self, item_id):
         self.client.send(SellItem(item_id=item_id))
+
+    def __calc_longitude_and_latitude(self, x, y):
+        # transform to longitude
+        longitude = None
+        if x >= 900 and x <= 1980:
+            longitude = int((x - 900) / 6)
+            longitude = str(longitude) + 'e'
+        elif x > 1980:
+            longitude = int((900 + 2160 - x) / 6)
+            longitude = str(longitude) + 'w'
+        else:
+            longitude = int((900 - x) / 6)
+            longitude = str(longitude) + 'w'
+
+        # transform to latitude
+        latitude = None
+        if y <= 640:
+            latitude = int((640 - y) / 7.2)
+            latitude = str(latitude) + 'N'
+        else:
+            latitude = int((y - 640) / 7.2)
+            latitude = str(latitude) + 'S'
+
+        return longitude, latitude
+
+    def show_fleets_investigated(self, fleets_investigated):
+        for fleet in fleets_investigated:
+            # get maid
+            port = sObjectMgr.get_port(self.__get_role().map_id)
+            maid = sObjectMgr.get_maid(port.maid_id)
+
+            longitude, latitude = self.__calc_longitude_and_latitude(fleet.now_x, fleet.now_y)
+            port_name = sObjectMgr.get_port(fleet.dest_port_id).name
+            cargo_name = sObjectMgr.get_cargo_template(fleet.cargo_id).name
+
+            self.show_mate_speech(maid,
+              f'I heard {fleet.captain_name} was at around '
+              f'{longitude} {latitude}, heading to {port_name} '
+              f'with {cargo_name}')
 
     def show_item_sell_price(self, item_id, price):
         item = sObjectMgr.get_item(item_id)

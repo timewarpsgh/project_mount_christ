@@ -952,6 +952,7 @@ class Mate:
     name: str=None
     img_id: int=None
     nation: int=None
+    fleet: int=None
 
     lv: int=None
     points: int=None
@@ -1184,7 +1185,7 @@ class ShipMgr:
         return self.id_2_ship[ship_id]
 
     def get_ships(self):
-        return self.id_2_ship.values()
+        return list(self.id_2_ship.values())
 
     def get_total_crew(self):
         ships = self.get_ships()

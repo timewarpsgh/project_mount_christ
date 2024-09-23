@@ -806,3 +806,21 @@ message BuyTaxFreePermit {
 
 message BuyLetterOfMarque {
 }
+
+// InvestigateFleet
+message InvestigateFleet {
+    required int32 nation_id = 1;
+    required int32 fleet_id = 2;
+}
+
+message FleetInvestigated {
+    required string captain_name = 1;
+    required int32 now_x = 2;
+    required int32 now_y = 3;
+    required int32 dest_port_id = 4;
+    required int32 cargo_id = 5;
+}
+
+message FleetsInvestigated {
+    repeated FleetInvestigated fleets_investigated = 1;
+}

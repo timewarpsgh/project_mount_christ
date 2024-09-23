@@ -6,29 +6,23 @@ TO DO:
         inn OK
         market OK
         item shop OK
-
-
-        palace
-
-            meet ruler
-                buy tax free permit   OK
-                buy letter of marque  OK
-            defect
-
-            show items x count right OK
-
-            buy tax free permit
-                50,000 gold coins
-                lasts for one year(30 mins, disappears when year changes),
-                buy and sell with 10% discount at allied ports
-
-            buy letter of marque
-
-
+        palace OK
         bar
-            waitress
+            waitress   OK
 
+    items uses
+        treasure: sell
+        weapon/armor: equip
+        consumable: use
+            balm
+            lime juice
+            rat poison
+        instrument: show world map coordinates more precisely
+        telescope: view target fleet with more distance
+        cat: no mouse auro can happen
 
+        Tax Free Permit: buy and sell in allied ports with 10% discount
+        Letter of Marque: attack enemy fleet without reputation loss
 
 
 

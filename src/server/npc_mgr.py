@@ -51,7 +51,7 @@ class Npc(Role):
     battle_timer: int = None
 
     start_port_id: int = 30
-    end_port_id: int = None
+    end_port_id: int = 33
     is_outward: bool = True
     now_wp_id: int = 0
 
@@ -143,6 +143,13 @@ class NpcMgr:
     def get_npc(self, id):
         return self.id_2_npc.get(id)
 
+    def get_npc_by_nation_and_fleet(self, nation_id, fleet_id):
+        npcs = []
+        for npc in self.id_2_npc.values():
+            if npc.mate.nation == nation_id and npc.mate.fleet == fleet_id:
+                npcs.append(npc)
+
+        return npcs
 
     async def run_loop_to_update(self, server):
         while True:
@@ -181,6 +188,7 @@ class NpcMgr:
             lv=mate_model.lv,
             name=mate_model.name,
             nation=mate_model.nation,
+            fleet=mate_model.fleet,
             navigation=mate_model.navigation,
             points=mate_model.points,
             role_id=mate_model.role_id,

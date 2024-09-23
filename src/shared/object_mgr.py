@@ -5,7 +5,7 @@ import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
 
 from world_models import Port, CargoTemplate, ShipTemplate, MateTemplate, ItemTemplate, \
-    Cannon, Village, \
+    Cannon, Village, Maid, \
     SESSION as WORLD_SESSION
 
 class ObjectMgr:
@@ -20,6 +20,13 @@ class ObjectMgr:
         self.economy_id_2_ship_ids = self.__init_economy_id_2_ship_ids()
         self.id_2_cannon = self.__load_id_2_cannon()
         self.id_2_item = self.__load_id_2_item()
+        self.id_2_maid = self.__load_id_2_maid()
+
+    def __load_id_2_maid(self):
+        id_2_maid = {}
+        for maid in WORLD_SESSION.query(Maid).all():
+            id_2_maid[maid.id] = maid
+        return id_2_maid
 
     def __load_id_2_item(self):
         id_2_item = {}
@@ -161,6 +168,9 @@ class ObjectMgr:
 
     def get_item_sell_price(self, id):
         return int(self.id_2_item[id].buy_price // 2)
+
+    def get_maid(self, id):
+        return self.id_2_maid[id]
 
 # singleton
 sObjectMgr = ObjectMgr()

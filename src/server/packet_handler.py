@@ -1205,3 +1205,6 @@ class PacketHandler:
         item_id = sell_item.item_id
 
         self.role.sell_item(item_id)
+
+    async def handle_BuyTaxFreePermit(self, buy_tax_free_permit):
+        self.role.buy_tax_free_permit()

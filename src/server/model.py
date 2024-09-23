@@ -1395,10 +1395,27 @@ class Role:
         ids = [int(id) for id in ids]
         return ids
 
-    def buy_item(self, item_id):
-        ids = self.get_availalbe_items_ids_in_port()
-        if item_id not in ids:
-            return
+    def get_nation(self):
+        return self.get_flag_ship().get_captain().nation
+
+    def is_in_my_capital(self):
+        if self.map_id in c.PORT_ID_2_NATION :
+            if self.get_nation() == c.PORT_ID_2_NATION[self.map_id]:
+                return True
+
+        return False
+
+    def buy_tax_free_permit(self):
+        if self.is_in_my_capital():
+            self.buy_item(item_id=10, force_buy=True)
+
+    def buy_item(self, item_id, force_buy=False):
+        if force_buy:
+            pass
+        else:
+            ids = self.get_availalbe_items_ids_in_port()
+            if item_id not in ids:
+                return
 
         item = sObjectMgr.get_item(item_id)
         if self.money < item.buy_price:

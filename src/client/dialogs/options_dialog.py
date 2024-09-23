@@ -526,6 +526,19 @@ class OptionsDialog:
 
         self.__building_speak(f'We are allied to {nation_name} at the moment.')
 
+    def __buy_tax_free_permit(self):
+        self.client.send(BuyTaxFreePermit())
+
+    def __show_tax_free_permit_price(self):
+
+        option_2_callback = {
+            "OK": partial(self.__buy_tax_free_permit),
+        }
+
+        self.__make_menu(option_2_callback)
+
+        self.__building_speak('Tax Free Permit costs 50000 coins. Is that OK?')
+
     def __get_item_sell_price(self, item_id):
         self.client.send(GetItemSellPrice(item_id=item_id))
 
@@ -544,7 +557,7 @@ class OptionsDialog:
 
     def __show_ruler_menu(self):
         option_2_callback = {
-            'Buy Tax Free Permit': '',
+            'Buy Tax Free Permit': partial(self.__show_tax_free_permit_price),
             'Buy Letter of Marque': '',
         }
 

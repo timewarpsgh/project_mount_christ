@@ -9,11 +9,10 @@ TO DO:
 
 
         palace
-            palace menu OK
 
             meet ruler
-                buy tax free permit
-                buy letter of marque
+                buy tax free permit   OK
+                buy letter of marque  ON
             defect
 
             buy tax free permit

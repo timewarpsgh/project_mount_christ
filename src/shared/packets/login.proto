@@ -800,3 +800,9 @@ message SellItem {
 message ItemRemoved {
     required int32 item_id = 1;
 }
+
+message BuyTaxFreePermit {
+}
+
+message BuyLetterOfMarque {
+}

@@ -877,3 +877,14 @@ class PacketHandler:
 
         # play sound
         sAssetMgr.sounds['equip'].play()
+
+    async def handle_ItemUnequipped(self, pack):
+        item_id = pack.item_id
+
+        role = self.__get_role()
+        role.unequip_item(item_id)
+
+        self.__get_options_dialog().pop_some_menus(3)
+
+        # play sound
+        sAssetMgr.sounds['equip'].play()

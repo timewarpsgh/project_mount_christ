@@ -21,8 +21,8 @@ TO DO:
 
         weapon/armor:   ON
             equip  OK
-            unequip
-            sell
+            unequip OK
+            sell (can not sell equipped items) ON
 
 
         consumable: use

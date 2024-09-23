@@ -526,6 +526,12 @@ class Role:
     weapon: int = None
     armor: int = None
 
+    def unequip_item(self, item_id):
+        if item_id == self.weapon:
+            self.weapon = None
+        elif item_id == self.armor:
+            self.armor = None
+
     def equip_item(self, item_id):
         if not self.has_item(item_id):
             return

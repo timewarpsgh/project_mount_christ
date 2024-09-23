@@ -833,3 +833,11 @@ message EquipItem {
 message ItemEquipped {
     required int32 item_id = 1;
 }
+
+message UnequipItem {
+    required int32 item_id = 1;
+}
+
+message ItemUnequipped {
+    required int32 item_id = 1;
+}

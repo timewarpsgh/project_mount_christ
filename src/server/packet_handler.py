@@ -1235,3 +1235,8 @@ class PacketHandler:
         item_id = equip_item.item_id
 
         self.role.equip_item(item_id)
+
+    async def handle_UnequipItem(self, unequip_item):
+        item_id = unequip_item.item_id
+
+        self.role.unequip_item(item_id)

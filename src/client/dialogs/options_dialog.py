@@ -1169,7 +1169,10 @@ class OptionsDialog:
     def __equip_item(self, item_id):
         self.client.send(EquipItem(item_id=item_id))
 
-    def __show_one_item(self, item):
+    def __unequip_item(self, item_id):
+        self.client.send(UnequipItem(item_id=item_id))
+
+    def __show_one_item(self, item, is_equiped=False):
         # use or equip
         if item.item_type == c.ItemType.CONSUMABLE.value:
             option_2_callback = {
@@ -1177,10 +1180,16 @@ class OptionsDialog:
             }
             self.__make_menu(option_2_callback)
         elif item.item_type in [c.ItemType.WEAPON.value, c.ItemType.ARMOR.value]:
-            option_2_callback = {
-                'Equip': partial(self.__equip_item, item.id),
-            }
-            self.__make_menu(option_2_callback)
+            if is_equiped:
+                option_2_callback = {
+                    'Unequip': partial(self.__unequip_item, item.id),
+                }
+                self.__make_menu(option_2_callback)
+            else:
+                option_2_callback = {
+                    'Equip': partial(self.__equip_item, item.id),
+                }
+                self.__make_menu(option_2_callback)
 
 
         split_items = item.img_id.split('_')
@@ -1248,12 +1257,12 @@ class OptionsDialog:
 
             count = items_ids.count(id)
 
-            equiped_sign = 'ON' if id == role.weapon or id == role.armor else ' '
+            is_equiped = 'ON' if id == role.weapon or id == role.armor else ''
 
             if count >= 2:
-                option_2_callback[f'{item.name} x {count} {equiped_sign}'] = partial(self.__show_one_item, item.id)
+                option_2_callback[f'{item.name} x {count} {is_equiped}'] = partial(self.__show_one_item, item.id, is_equiped)
             else:
-                option_2_callback[f'{item.name} {equiped_sign}'] = partial(self.__show_one_item, item)
+                option_2_callback[f'{item.name} {is_equiped}'] = partial(self.__show_one_item, item, is_equiped)
 
         self.__make_menu(option_2_callback)
 

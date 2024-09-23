@@ -204,6 +204,9 @@ class PacketHandler:
             # init seen grids
             model_role.seen_grids = self.__get_matrix_from_64_int32s(role)
 
+            # init auras
+            model_role.auras = set()
+
             # clear gui
             self.client.game.gui.mgr.clear_and_reset()
             # init options dialog
@@ -896,3 +899,9 @@ class PacketHandler:
         role.items.remove(item_id)
 
         self.__get_options_dialog().pop_some_menus(3)
+
+    async def handle_AuraAdded(self, pack):
+        aura_id = pack.aura_id
+
+        role = self.__get_role()
+        role.auras.add(aura_id)

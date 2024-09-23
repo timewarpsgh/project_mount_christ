@@ -504,6 +504,7 @@ class Role:
     map_id: int = None
     money: int = None
     items: list[int] = None
+    auras: set[int] = None
     seen_grids: any = None  # numpy matrix
     days_at_sea: int = 0
 

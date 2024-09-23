@@ -1348,7 +1348,8 @@ class Role:
     move_timer: int=None
     map_id: int=None
     money: int=None
-    items: list=None
+    items: list[int]=None
+    auras: set[int]=None
     seen_grids: any=None  # numpy matrix
     days_at_sea: int=0
     starved_days: int=0
@@ -1873,12 +1874,39 @@ class Role:
 
         return is_enough
 
+    def has_aura(self, aura_id):
+        return aura_id in self.auras
+
+    def __add_aura_by_chance(self):
+        # add rats
+        if random.random() < 1:
+            aura_id = c.Aura.RATS.value
+            if not self.has_aura(aura_id):
+                self.auras.add(aura_id)
+                self.session.send(pb.AuraAdded(aura_id=aura_id))
+
+        # add scurvy
+        if random.random() < 1:
+            aura_id = c.Aura.SCURVY.value
+            if not self.has_aura(aura_id):
+                self.auras.add(aura_id)
+                self.session.send(pb.AuraAdded(aura_id=aura_id))
+
+        # add storm
+        if random.random() < 1:
+            aura_id = c.Aura.STORM.value
+            if not self.has_aura(aura_id):
+                self.auras.add(aura_id)
+                self.session.send(pb.AuraAdded(aura_id=aura_id))
+
     def __pass_one_day_at_sea(self):
         self.days_at_sea += 1
         self.session.send(pb.OneDayPassedAtSea(days_at_sea=self.days_at_sea))
 
         if self.is_dead:
             return
+
+        self.__add_aura_by_chance()
 
         is_food_enough = self.__consume_supply('food')
         is_water_enough = self.__consume_supply('water')

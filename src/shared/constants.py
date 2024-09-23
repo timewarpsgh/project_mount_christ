@@ -432,6 +432,10 @@ class ItemType(Enum):
     ARMOR = 'armor'
     CONSUMABLE = 'consumable'
 
+class Aura(Enum):
+    RATS = 1
+    SCURVY = 2
+    STORM = 3
 
 if __name__ == '__main__':
     print(ItemType.WEAPON.name)

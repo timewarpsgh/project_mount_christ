@@ -185,6 +185,8 @@ class OpCodeType(Enum):
     UseItem = auto()
     ItemUsed = auto()
 
+    AuraAdded = auto()
+
 
 def gen_opcode_2_value():
     d = {}

@@ -850,3 +850,8 @@ message UseItem {
 message ItemUsed {
     required int32 item_id = 1;
 }
+
+// AuraAdded
+message AuraAdded {
+    required int32 aura_id = 1;
+}

@@ -181,6 +181,15 @@ class Npc(BASE):
 	map_id = Column(Integer)
 
 
+class Aura(BASE):
+
+	__tablename__ = 'aura'
+
+	id = Column(Integer, primary_key=True)
+
+	name = Column(String)
+	description = Column(String)
+
 
 def create_tables():
 	# ceate all above tables if not there yet

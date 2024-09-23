@@ -599,6 +599,11 @@ class HudRight(SP):
         elif self.model.role.is_at_sea():
             new_image.blit(Text(f'At Sea').image, (x, 5))
 
+            # auras
+            for id, aura in enumerate(self.model.role.auras):
+                my_x = x + id * 10
+                new_image.blit(Text(f'{aura}').image, (my_x, 20))
+
             start_y = 75
             d_y = 45
 

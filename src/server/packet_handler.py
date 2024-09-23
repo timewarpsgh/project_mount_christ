@@ -267,8 +267,12 @@ class PacketHandler:
                 items=json.loads(role.items),
             )
 
+
             # init seen grids
             self.role.seen_grids = self.__get_matrix_from_seen_grids(role)
+
+            # init auras
+            self.role.auras = set()
 
             # add self.role to server
             self.session.server.add_role(role.id, self.role)

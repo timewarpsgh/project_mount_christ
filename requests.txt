@@ -24,11 +24,25 @@ TO DO:
             unequip OK
             sell (can not sell equipped items) OK
 
-
         consumable: use   OK
             balm
             lime juice
             rat poison
+
+        auras happen by chance OK
+
+        show auras in right hud ON
+
+        use items to cure auras
+            balm: scruvy
+            lime juice: rats
+            rat poison: rats
+
+        auras can damage ON
+            rats: food comsumption increased each day
+            scurvy: health decreased each day
+            storm: durability decreased each day
+
 
 
 

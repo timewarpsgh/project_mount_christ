@@ -5,7 +5,7 @@ import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
 
 from world_models import Port, CargoTemplate, ShipTemplate, MateTemplate, ItemTemplate, \
-    Cannon, Village, Maid, \
+    Cannon, Village, Maid, Aura,  \
     SESSION as WORLD_SESSION
 
 class ObjectMgr:
@@ -21,6 +21,14 @@ class ObjectMgr:
         self.id_2_cannon = self.__load_id_2_cannon()
         self.id_2_item = self.__load_id_2_item()
         self.id_2_maid = self.__load_id_2_maid()
+        self.id_2_aura = self.__load_id_2_aura()
+
+    def __load_id_2_aura(self):
+        id_2_aura = {}
+        for aura in WORLD_SESSION.query(Aura).all():
+            id_2_aura[aura.id] = aura
+        return id_2_aura
+
 
     def __load_id_2_maid(self):
         id_2_maid = {}
@@ -171,6 +179,10 @@ class ObjectMgr:
 
     def get_maid(self, id):
         return self.id_2_maid[id]
+
+    def get_aura(self, id):
+        return self.id_2_aura[id]
+
 
 # singleton
 sObjectMgr = ObjectMgr()

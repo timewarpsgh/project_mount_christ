@@ -1515,7 +1515,7 @@ class Role:
     def stop_moving(self):
         self.is_moving = False
 
-        print(f'{self.id} stopped moving at {self.x} {self.y}')
+        # print(f'{self.id} stopped moving at {self.x} {self.y}')
 
         # send stopped moving to nearby clients
 

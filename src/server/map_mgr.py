@@ -78,7 +78,6 @@ class PortMap:
     def add_object(self, object, x=None, y=None):
         self.id_2_object[object.id] = object
 
-        print('port map objs')
         print(self.id_2_object.keys())
 
     def rm_object(self, object, x=None, y=None):
@@ -201,7 +200,7 @@ class SeaMap:
 
         cell = self.__get_cell(object_x, object_y)
 
-        print(f'added role {object.id} to cell {cell.x}, {cell.y}')
+        # print(f'added role {object.id} to cell {cell.x}, {cell.y}')
 
         cell.add_object(object)
 
@@ -227,9 +226,9 @@ class SeaMap:
         else:
             old_cell.rm_object(object)
             new_cell.add_object(object)
-            print(f'{object.id} moved '
-                  f'from cell {old_cell.x}, {old_cell.y} '
-                  f'to cell {new_cell.x}, {new_cell.y} ')
+            # print(f'{object.id} moved '
+            #       f'from cell {old_cell.x}, {old_cell.y} '
+            #       f'to cell {new_cell.x}, {new_cell.y} ')
 
             old_nearby_cells = self.__get_nearby_cells(old_cell)
             new_nearby_cells = self.__get_nearby_cells(new_cell)

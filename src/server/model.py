@@ -2048,9 +2048,26 @@ class Role:
         price_index = port_map.price_index
         return price_index / 100
 
+    def is_in_allied_port(self):
+        port_map = self.get_map()
+        if port_map.allied_nation == self.get_nation():
+            return True
+
+    def has_tax_free_permit(self):
+        for item_id in self.items:
+            if item_id == 10:
+                return True
+        return False
+
     def __get_modified_buy_price(self, price):
         ratio = self.__get_ratio_from_price_index()
-        return int(price * (1 - self.get_discount()) * ratio)
+
+        if self.is_in_allied_port() and self.has_tax_free_permit():
+            tax_ratio = 0.9
+        else:
+            tax_ratio = 1
+
+        return int(price * (1 - self.get_discount()) * ratio * tax_ratio)
 
     def get_available_cargos(self):
         # get cargo by region_id
@@ -2085,7 +2102,13 @@ class Role:
 
     def __get_modified_sell_price(self, sell_price):
         ratio = self.__get_ratio_from_price_index()
-        return int(sell_price * (1 + self.get_discount()) * ratio)
+
+        if self.is_in_allied_port() and self.has_tax_free_permit():
+            tax_ratio = 1.1
+        else:
+            tax_ratio = 1
+
+        return int(sell_price * (1 + self.get_discount()) * ratio * tax_ratio)
 
     def get_cargo_cnt_and_sell_price(self, ship_id):
         ship = self.ship_mgr.get_ship(ship_id)

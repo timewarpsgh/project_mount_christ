@@ -561,7 +561,12 @@ class OptionsDialog:
         option_2_callback = {}
 
         for item in items:
-            option_2_callback[f'{item.name}'] = partial(self.__get_item_sell_price, item.id)
+            count = items_ids.count(item.id)
+
+            if count >= 2:
+                option_2_callback[f'{item.name} x {count}'] = partial(self.__get_item_sell_price, item.id)
+            else:
+                option_2_callback[f'{item.name}'] = partial(self.__get_item_sell_price, item.id)
 
         self.__make_menu(option_2_callback)
 
@@ -1135,10 +1140,17 @@ class OptionsDialog:
 
     def __show_items_menu(self):
         option_2_callback = {}
+        items_ids = self.__get_role().items
 
-        for id in self.__get_role().items:
+        for id in items_ids:
             item = sObjectMgr.get_item(id)
-            option_2_callback[f'{item.name}'] = partial(self.__show_one_item, item)
+
+            count = items_ids.count(id)
+
+            if count >= 2:
+                option_2_callback[f'{item.name} x {count}'] = partial(self.__show_one_item, item.id)
+            else:
+                option_2_callback[f'{item.name}'] = partial(self.__show_one_item, item)
 
         self.__make_menu(option_2_callback)
 

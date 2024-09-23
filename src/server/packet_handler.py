@@ -1223,7 +1223,7 @@ class PacketHandler:
             fleet_investigated.captain_name = npc.mate.name
             fleet_investigated.now_x = npc.x
             fleet_investigated.now_y = npc.y
-            fleet_investigated.dest_port_id = npc.end_port_id
+            fleet_investigated.dest_port_id = npc.end_port_id if npc.is_outward else npc.start_port_id
             fleet_investigated.cargo_id = npc.ship_mgr.get_ships()[0].cargo_id
             fleets_investigated.append(fleet_investigated)
 

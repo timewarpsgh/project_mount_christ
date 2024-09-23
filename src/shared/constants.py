@@ -419,6 +419,12 @@ class Item(Enum):
     TAX_FREE_PERMIT = 10
     LETTER_OF_MARQUE = 11
 
+    QUADRANT = 4
+    SEXTANT = 5
+    THEODOLITE = 6
+
+    TELESCOPE = 8
+
 
 if __name__ == '__main__':
     for id, nation in enumerate(Nation):

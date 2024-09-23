@@ -1,3 +1,4 @@
+import random
 import pygame_gui
 import pygame
 from functools import partial
@@ -1245,6 +1246,21 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def __rand_x_y_based_on_instrument(self, my_x, my_y):
+        role = self.__get_role()
+        if c.Item.THEODOLITE.value in role.items:
+            distance = 0
+        elif c.Item.SEXTANT.value in role.items:
+            distance = 5
+        elif c.Item.QUADRANT.value in role.items:
+            distance = 10
+        else:
+            distance = 15
+
+        my_x += random.randint(-distance, distance)
+        my_y += random.randint(-distance, distance)
+
+        return my_x, my_y
 
     def __show_world_map(self):
         # image
@@ -1289,6 +1305,9 @@ class OptionsDialog:
         my_x = int(800 * (my_x / 2160))
         my_y = int(400 * (my_y / 1080))
         print(my_x, my_y)
+
+        # rand x,y based on instrument
+        my_x, my_y = self.__rand_x_y_based_on_instrument(my_x, my_y)
 
         world_map_image.blit(my_position_img, (my_x, my_y))
 

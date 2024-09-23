@@ -1180,9 +1180,12 @@ class PacketHandler:
 
     async def handle_GetAvailableItems(self, get_available_items):
         ids = self.role.get_availalbe_items_ids_in_port()
+        prices = [sObjectMgr.get_item(id).buy_price for id in ids]
+
 
         pack = pb.AvailableItems()
         pack.items_ids.extend(ids)
+        pack.prices.extend(prices)
         self.session.send(pack)
 
     async def handle_BuyItem(self, buy_item):

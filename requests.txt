@@ -10,7 +10,7 @@ TO DO:
 
         item shop
             buy item  OK
-            buy item show price ON
+            buy item: show price OK
             sell
 
         palace

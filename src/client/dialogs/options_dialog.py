@@ -457,12 +457,13 @@ class OptionsDialog:
 
         self.__show_one_item(item)
 
-    def show_available_items(self, items_ids):
+    def show_available_items(self, items_ids, prices):
         option_2_callback = {}
 
-        for item_id in items_ids:
+        for id, item_id in enumerate(items_ids):
             item = sObjectMgr.get_item(item_id)
-            option_2_callback[f'{item.name}'] = partial(self.__show_item_to_buy, item)
+            prcie = prices[id]
+            option_2_callback[f'{item.name} {prcie}'] = partial(self.__show_item_to_buy, item)
 
         self.__make_menu(option_2_callback)
 

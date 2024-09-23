@@ -773,6 +773,7 @@ message GetAvailableItems {
 
 message AvailableItems {
     repeated int32 items_ids = 1;
+    repeated int32 prices = 2;
 }
 
 message BuyItem {

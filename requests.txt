@@ -25,7 +25,7 @@ TO DO:
             sell (can not sell equipped items) OK
 
 
-        consumable: use
+        consumable: use   OK
             balm
             lime juice
             rat poison

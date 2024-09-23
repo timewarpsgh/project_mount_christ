@@ -182,6 +182,9 @@ class OpCodeType(Enum):
     UnequipItem = auto()
     ItemUnequipped = auto()
 
+    UseItem = auto()
+    ItemUsed = auto()
+
 
 def gen_opcode_2_value():
     d = {}

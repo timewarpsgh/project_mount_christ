@@ -498,7 +498,7 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
-        self.__show_one_item(item)
+        self.__show_one_item(item, is_for_item_shop=True)
 
     def __sell_item(self, item_id):
         self.client.send(SellItem(item_id=item_id))
@@ -551,7 +551,7 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
-        self.__show_one_item(item)
+        self.__show_one_item(item, is_for_item_shop=True)
         self.__building_speak(f'I want to buy this for {price}.')
 
     def show_available_items(self, items_ids, prices):
@@ -1170,30 +1170,34 @@ class OptionsDialog:
 
         return discovery_surface
 
+    def __use_item(self, item_id):
+        self.client.send(UseItem(item_id=item_id))
+
     def __equip_item(self, item_id):
         self.client.send(EquipItem(item_id=item_id))
 
     def __unequip_item(self, item_id):
         self.client.send(UnequipItem(item_id=item_id))
 
-    def __show_one_item(self, item, is_equiped=False):
+    def __show_one_item(self, item, is_equiped=False, is_for_item_shop=False):
         # use or equip
-        if item.item_type == c.ItemType.CONSUMABLE.value:
-            option_2_callback = {
-                'Use': '',
-            }
-            self.__make_menu(option_2_callback)
-        elif item.item_type in [c.ItemType.WEAPON.value, c.ItemType.ARMOR.value]:
-            if is_equiped:
+        if not is_for_item_shop:
+            if item.item_type == c.ItemType.CONSUMABLE.value:
                 option_2_callback = {
-                    'Unequip': partial(self.__unequip_item, item.id),
+                    'Use': partial(self.__use_item, item.id),
                 }
                 self.__make_menu(option_2_callback)
-            else:
-                option_2_callback = {
-                    'Equip': partial(self.__equip_item, item.id),
-                }
-                self.__make_menu(option_2_callback)
+            elif item.item_type in [c.ItemType.WEAPON.value, c.ItemType.ARMOR.value]:
+                if is_equiped:
+                    option_2_callback = {
+                        'Unequip': partial(self.__unequip_item, item.id),
+                    }
+                    self.__make_menu(option_2_callback)
+                else:
+                    option_2_callback = {
+                        'Equip': partial(self.__equip_item, item.id),
+                    }
+                    self.__make_menu(option_2_callback)
 
 
         split_items = item.img_id.split('_')
@@ -1264,7 +1268,7 @@ class OptionsDialog:
             is_equiped = 'ON' if id == role.weapon or id == role.armor else ''
 
             if count >= 2:
-                option_2_callback[f'{item.name} x {count} {is_equiped}'] = partial(self.__show_one_item, item.id, is_equiped)
+                option_2_callback[f'{item.name} x {count} {is_equiped}'] = partial(self.__show_one_item, item, is_equiped)
             else:
                 option_2_callback[f'{item.name} {is_equiped}'] = partial(self.__show_one_item, item, is_equiped)
 

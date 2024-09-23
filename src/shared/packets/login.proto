@@ -841,3 +841,12 @@ message UnequipItem {
 message ItemUnequipped {
     required int32 item_id = 1;
 }
+
+// UseItem
+message UseItem {
+    required int32 item_id = 1;
+}
+
+message ItemUsed {
+    required int32 item_id = 1;
+}

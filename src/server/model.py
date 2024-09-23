@@ -1412,6 +1412,14 @@ class Role:
 
         return False
 
+    def use_item(self, item_id):
+        self.items.remove(item_id)
+        self.session.send(
+            pb.ItemUsed(
+                item_id=item_id
+            )
+        )
+
     def unequip_item(self, item_id):
         if item_id == self.weapon:
             self.weapon = None

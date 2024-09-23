@@ -888,3 +888,11 @@ class PacketHandler:
 
         # play sound
         sAssetMgr.sounds['equip'].play()
+
+    async def handle_ItemUsed(self, pack):
+        item_id = pack.item_id
+
+        role = self.__get_role()
+        role.items.remove(item_id)
+
+        self.__get_options_dialog().pop_some_menus(3)

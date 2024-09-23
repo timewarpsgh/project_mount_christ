@@ -5,15 +5,17 @@ TO DO:
         dry dock OK
         inn OK
         market OK
+        item shop OK
 
-
-
-        item shop
-            buy item  OK
-            buy item: show price OK
-            sell item OK
 
         palace
+            palace menu OK
+
+            meet ruler
+                buy tax free permit
+                buy letter of marque
+            defect
+
             buy tax free permit
                 50,000 gold coins
                 lasts for one year(30 mins, disappears when year changes),

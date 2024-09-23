@@ -542,6 +542,14 @@ class OptionsDialog:
     def __get_available_items(self):
         self.client.send(GetAvailableItems())
 
+    def __show_ruler_menu(self):
+        option_2_callback = {
+            'Buy Tax Free Permit': '',
+            'Buy Letter of Marque': '',
+        }
+
+        self.__make_menu(option_2_callback)
+
     def exit_building(self):
         self.pop_some_menus(5)
         self.__get_graphics().unhide_role_sprite()
@@ -650,18 +658,12 @@ class OptionsDialog:
         self.__change_building_bg('palace')
 
         option_2_callback = {
-            'Meet Ruler': '',
+            'Meet Ruler': partial(self.__show_ruler_menu),
             'Defect': '',
-            'Gold Aid': '',
-            'Ship Aid': '',
             'Exit': partial(self.exit_building),
         }
 
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
+        self.__make_menu(option_2_callback)
 
     def show_job_house_menu(self):
         self.__change_building_bg('job_house')

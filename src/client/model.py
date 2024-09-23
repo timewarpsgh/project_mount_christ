@@ -7,6 +7,8 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 import constants as c
 from map_maker import sMapMaker
+from object_mgr import sObjectMgr
+
 
 @dataclass
 class Ship:
@@ -520,6 +522,19 @@ class Role:
     health: int=100
 
     is_in_building: bool = False
+
+    weapon: int = None
+    armor: int = None
+
+    def equip_item(self, item_id):
+        if not self.has_item(item_id):
+            return
+
+        item = sObjectMgr.get_item(item_id)
+        if item.item_type == c.ItemType.WEAPON.value:
+            self.weapon = item_id
+        elif item.item_type == c.ItemType.ARMOR.value:
+            self.armor = item_id
 
     def has_item(self, item_id):
         return item_id in self.items

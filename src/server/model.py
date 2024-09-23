@@ -1369,6 +1369,9 @@ class Role:
     morale: int=100
     health: int=100
 
+    weapon: int=None
+    armor: int=None
+
     def has_item(self, item_id):
         return item_id in self.items
 
@@ -1408,6 +1411,22 @@ class Role:
                 return True
 
         return False
+
+    def equip_item(self, item_id):
+        if not self.has_item(item_id):
+            return
+
+        item = sObjectMgr.get_item(item_id)
+        if item.item_type == c.ItemType.WEAPON.value:
+            self.weapon = item_id
+        elif item.item_type == c.ItemType.ARMOR.value:
+            self.armor = item_id
+
+        self.session.send(
+            pb.ItemEquipped(
+                item_id=item_id
+            )
+        )
 
     def buy_tax_free_permit(self):
         if self.is_in_my_capital():

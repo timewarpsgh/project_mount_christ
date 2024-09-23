@@ -19,7 +19,12 @@ TO DO:
 
         show equip and use options OK
 
-        weapon/armor: equip
+        weapon/armor:   ON
+            equip  OK
+            unequip
+            sell
+
+
         consumable: use
             balm
             lime juice

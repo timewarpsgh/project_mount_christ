@@ -866,3 +866,14 @@ class PacketHandler:
     async def handle_FleetsInvestigated(self, pack):
         fleets_investigated = pack.fleets_investigated
         self.__get_options_dialog().show_fleets_investigated(fleets_investigated)
+
+    async def handle_ItemEquipped(self, pack):
+        item_id = pack.item_id
+
+        role = self.__get_role()
+        role.equip_item(item_id)
+
+        self.__get_options_dialog().pop_some_menus(3)
+
+        # play sound
+        sAssetMgr.sounds['equip'].play()

@@ -1166,6 +1166,9 @@ class OptionsDialog:
 
         return discovery_surface
 
+    def __equip_item(self, item_id):
+        self.client.send(EquipItem(item_id=item_id))
+
     def __show_one_item(self, item):
         # use or equip
         if item.item_type == c.ItemType.CONSUMABLE.value:
@@ -1175,7 +1178,7 @@ class OptionsDialog:
             self.__make_menu(option_2_callback)
         elif item.item_type in [c.ItemType.WEAPON.value, c.ItemType.ARMOR.value]:
             option_2_callback = {
-                'Equip': '',
+                'Equip': partial(self.__equip_item, item.id),
             }
             self.__make_menu(option_2_callback)
 
@@ -1238,16 +1241,19 @@ class OptionsDialog:
     def __show_items_menu(self):
         option_2_callback = {}
         items_ids = self.__get_role().items
+        role = self.__get_role()
 
         for id in items_ids:
             item = sObjectMgr.get_item(id)
 
             count = items_ids.count(id)
 
+            equiped_sign = 'ON' if id == role.weapon or id == role.armor else ' '
+
             if count >= 2:
-                option_2_callback[f'{item.name} x {count}'] = partial(self.__show_one_item, item.id)
+                option_2_callback[f'{item.name} x {count} {equiped_sign}'] = partial(self.__show_one_item, item.id)
             else:
-                option_2_callback[f'{item.name}'] = partial(self.__show_one_item, item)
+                option_2_callback[f'{item.name} {equiped_sign}'] = partial(self.__show_one_item, item)
 
         self.__make_menu(option_2_callback)
 

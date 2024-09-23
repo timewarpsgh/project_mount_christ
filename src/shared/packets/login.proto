@@ -824,3 +824,12 @@ message FleetInvestigated {
 message FleetsInvestigated {
     repeated FleetInvestigated fleets_investigated = 1;
 }
+
+// EquipItem
+message EquipItem {
+    required int32 item_id = 1;
+}
+
+message ItemEquipped {
+    required int32 item_id = 1;
+}

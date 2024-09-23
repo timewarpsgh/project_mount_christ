@@ -1230,3 +1230,8 @@ class PacketHandler:
         pack = pb.FleetsInvestigated()
         pack.fleets_investigated.extend(fleets_investigated)
         self.session.send(pack)
+
+    async def handle_EquipItem(self, equip_item):
+        item_id = equip_item.item_id
+
+        self.role.equip_item(item_id)

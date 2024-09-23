@@ -176,6 +176,8 @@ class OpCodeType(Enum):
     InvestigateFleet = auto()
     FleetsInvestigated = auto()
 
+    EquipItem = auto()
+    ItemEquipped = auto()
 
 
 def gen_opcode_2_value():

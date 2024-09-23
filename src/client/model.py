@@ -501,7 +501,7 @@ class Role:
     move_timer: float = 0
     map_id: int = None
     money: int = None
-    items: list = None
+    items: list[int] = None
     seen_grids: any = None  # numpy matrix
     days_at_sea: int = 0
 

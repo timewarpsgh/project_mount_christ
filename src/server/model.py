@@ -1368,6 +1368,37 @@ class Role:
     morale: int=100
     health: int=100
 
+    def get_availalbe_items_ids_in_port(self):
+        port = self.get_port()
+
+        ids = port.items_ids.split(' ')
+        ids = [int(id) for id in ids]
+        return ids
+
+    def buy_item(self, item_id):
+        ids = self.get_availalbe_items_ids_in_port()
+        if item_id not in ids:
+            return
+
+        item = sObjectMgr.get_item(item_id)
+        if self.money < item.buy_price:
+            return
+
+        self.money -= item.buy_price
+        self.items.append(item_id)
+
+        self.session.send(
+            pb.MoneyChanged(
+                money=self.money
+            )
+        )
+
+        self.session.send(
+            pb.ItemAdded(
+                item_id=item_id
+            )
+        )
+
     def invest(self, ingots_cnt):
         if self.money < ingots_cnt * 10000:
             return

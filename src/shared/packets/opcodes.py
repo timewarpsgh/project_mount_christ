@@ -161,6 +161,9 @@ class OpCodeType(Enum):
     GetAvailableItems = auto()
     AvailableItems = auto()
 
+    BuyItem = auto()
+    ItemAdded = auto()
+
 
 def gen_opcode_2_value():
     d = {}

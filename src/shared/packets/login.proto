@@ -778,3 +778,7 @@ message AvailableItems {
 message BuyItem {
     required int32 item_id = 1;
 }
+
+message ItemAdded {
+    required int32 item_id = 1;
+}

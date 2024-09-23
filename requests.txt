@@ -9,7 +9,8 @@ TO DO:
 
 
         item shop
-            buy item  ON
+            buy item  OK
+            buy item show price ON
             sell
 
         palace

@@ -839,3 +839,9 @@ class PacketHandler:
     async def handle_AvailableItems(self, pack):
         items_ids = pack.items_ids
         self.__get_options_dialog().show_available_items(items_ids)
+
+    async def handle_ItemAdded(self, pack):
+        item_id = pack.item_id
+
+        role = self.__get_role()
+        role.items.append(item_id)

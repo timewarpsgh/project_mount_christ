@@ -1179,11 +1179,13 @@ class PacketHandler:
         self.session.send(pack)
 
     async def handle_GetAvailableItems(self, get_available_items):
-        port = self.role.get_port()
-
-        ids = port.items_ids.split(' ')
-        ids = [int(id) for id in ids]
+        ids = self.role.get_availalbe_items_ids_in_port()
 
         pack = pb.AvailableItems()
         pack.items_ids.extend(ids)
         self.session.send(pack)
+
+    async def handle_BuyItem(self, buy_item):
+        item_id = buy_item.item_id
+
+        self.role.buy_item(item_id)

@@ -12,7 +12,7 @@ TO DO:
 
             meet ruler
                 buy tax free permit   OK
-                buy letter of marque  ON
+                buy letter of marque  OK
             defect
 
             buy tax free permit

@@ -847,6 +847,8 @@ class PacketHandler:
         role = self.__get_role()
         role.items.append(item_id)
 
+        self.__get_options_dialog().pop_some_menus(3)
+
     async def handle_ItemSellPrice(self, pack):
         item_id = pack.item_id
         price = pack.price

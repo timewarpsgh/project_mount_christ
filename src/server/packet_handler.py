@@ -1208,3 +1208,6 @@ class PacketHandler:
 
     async def handle_BuyTaxFreePermit(self, buy_tax_free_permit):
         self.role.buy_tax_free_permit()
+
+    async def handle_BuyLetterOfMarque(self, buy_letter_of_marque):
+        self.role.buy_letter_of_marque()

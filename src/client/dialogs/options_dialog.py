@@ -526,8 +526,21 @@ class OptionsDialog:
 
         self.__building_speak(f'We are allied to {nation_name} at the moment.')
 
+    def __buy_letter_of_marque(self):
+        self.client.send(BuyLetterOfMarque())
+
     def __buy_tax_free_permit(self):
         self.client.send(BuyTaxFreePermit())
+
+    def __show_letter_of_marque_price(self):
+
+        option_2_callback = {
+            "OK": partial(self.__buy_letter_of_marque),
+        }
+
+        self.__make_menu(option_2_callback)
+
+        self.__building_speak('Letter of Marque costs 50000 coins. Is that OK?')
 
     def __show_tax_free_permit_price(self):
 
@@ -558,7 +571,7 @@ class OptionsDialog:
     def __show_ruler_menu(self):
         option_2_callback = {
             'Buy Tax Free Permit': partial(self.__show_tax_free_permit_price),
-            'Buy Letter of Marque': '',
+            'Buy Letter of Marque': partial(self.__show_letter_of_marque_price),
         }
 
         self.__make_menu(option_2_callback)

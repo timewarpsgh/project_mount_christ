@@ -1409,6 +1409,10 @@ class Role:
         if self.is_in_my_capital():
             self.buy_item(item_id=10, force_buy=True)
 
+    def buy_letter_of_marque(self):
+        if self.is_in_my_capital():
+            self.buy_item(item_id=11, force_buy=True)
+
     def buy_item(self, item_id, force_buy=False):
         if force_buy:
             pass

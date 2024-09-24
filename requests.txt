@@ -25,9 +25,9 @@ TO DO:
 
             when fights a fleet, notority increases by 20 to that nation OK
             if have letter, increase by 10 only OK
+            stroms decrease notorities by 10 OK
 
-            stroms decrease notority by 20
-            when 100 reached, that nation's ports blocks entrence
+            when 100 reached, that nation's ports blocks entrence  ON
 
 
 

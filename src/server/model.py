@@ -1951,6 +1951,18 @@ class Role:
             )
             self.session.send(pack)
 
+    def __reduce_notorities(self):
+        for id, notority in enumerate(self.notorities):
+            if notority > 0:
+                self.notorities[id] -= 10
+                if self.notorities[id] < 0:
+                    self.notorities[id] = 0
+
+                self.session.send(pb.NotorityChanged(
+                    nation_id=id + 1,
+                    now_value=self.notorities[id],
+                ))
+
     def __destroy_permits_by_chance(self):
         if random.random() < 1.1:
             if self.has_item(c.Item.TAX_FREE_PERMIT.value):
@@ -1960,7 +1972,7 @@ class Role:
 
     def __add_aura_by_chance(self):
         # add rats
-        if random.random() < 1.05:
+        if random.random() < 0.05:
             if self.has_item(c.Item.CAT.value):
                 pass
             else:
@@ -1980,12 +1992,13 @@ class Role:
                     self.session.send(pb.AuraAdded(aura_id=aura_id))
 
         # add storm
-        if random.random() < 0.05:
+        if random.random() < 1.05:
             aura_id = c.Aura.STORM.value
             if not self.has_aura(aura_id):
                 self.auras.add(aura_id)
                 self.session.send(pb.AuraAdded(aura_id=aura_id))
 
+                self.__reduce_notorities()
                 self.__destroy_permits_by_chance()
 
     def __pass_one_day_at_sea(self):

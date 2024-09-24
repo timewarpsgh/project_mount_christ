@@ -1911,10 +1911,13 @@ class Role:
     def __add_aura_by_chance(self):
         # add rats
         if random.random() < 0.05:
-            aura_id = c.Aura.RATS.value
-            if not self.has_aura(aura_id):
-                self.auras.add(aura_id)
-                self.session.send(pb.AuraAdded(aura_id=aura_id))
+            if self.has_item(c.Item.CAT.value):
+                pass
+            else:
+                aura_id = c.Aura.RATS.value
+                if not self.has_aura(aura_id):
+                    self.auras.add(aura_id)
+                    self.session.send(pb.AuraAdded(aura_id=aura_id))
 
         # add scurvy
         if self.days_at_sea >= 30:

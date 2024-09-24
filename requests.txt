@@ -11,11 +11,8 @@ TO DO:
 
     items uses
         treasure: sell   OK
-        weapons and armors should be useful ON
+        weapons and armors should be useful OK
 
-            engage  OK
-
-            shoot   OK
 
 
 

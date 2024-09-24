@@ -877,6 +877,7 @@ class PacketHandler:
         role.equip_item(item_id)
 
         self.__get_options_dialog().pop_some_menus(3)
+        self.__get_options_dialog().show_items()
 
         # play sound
         sAssetMgr.sounds['equip'].play()
@@ -888,6 +889,7 @@ class PacketHandler:
         role.unequip_item(item_id)
 
         self.__get_options_dialog().pop_some_menus(3)
+        self.__get_options_dialog().show_items()
 
         # play sound
         sAssetMgr.sounds['equip'].play()
@@ -899,6 +901,7 @@ class PacketHandler:
         role.items.remove(item_id)
 
         self.__get_options_dialog().pop_some_menus(3)
+        self.__get_options_dialog().show_items()
 
     async def handle_AuraAdded(self, pack):
         aura_id = pack.aura_id

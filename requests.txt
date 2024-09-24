@@ -12,39 +12,12 @@ TO DO:
 
     items uses
         treasure: sell   OK
-        Tax Free Permit: buy and sell in allied ports with 10% discount  OK
-        instrument: show world map coordinates more precisely OK
-        telescope: view target fleet with more distance OK
+        weapons and armors should be useful ON
+            on equip/unequip OK
+            weapon
+            armor
 
 
-        show equip and use options OK
-
-        weapon/armor:   ON
-            equip  OK
-            unequip OK
-            sell (can not sell equipped items) OK
-
-        consumable: use   OK
-            balm
-            lime juice
-            rat poison
-
-        auras happen by chance OK
-
-        show auras in right hud OK
-
-        use items to cure auras OK
-
-        auras can damage OK
-
-        aura chances OK
-
-        cat: no mouse auro can happen   OK
-
-
-
-
-        Letter of Marque: attack enemy fleet without reputation loss
 
 
 

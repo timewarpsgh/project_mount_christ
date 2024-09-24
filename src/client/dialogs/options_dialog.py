@@ -1255,7 +1255,7 @@ class OptionsDialog:
             image=item_img,
         )
 
-    def __show_items_menu(self):
+    def show_items(self):
         option_2_callback = {}
         items_ids = self.__get_role().items
         role = self.__get_role()
@@ -1721,7 +1721,7 @@ class OptionsDialog:
 
     def show_items_menu(self):
         option_2_callback = {
-            'Items': partial(self.__show_items_menu),
+            'Items': partial(self.show_items),
             'Discoveries': partial(self.__show_discoveries_menu),
             'Diary': '',
             'World Map': partial(self.__show_world_map),

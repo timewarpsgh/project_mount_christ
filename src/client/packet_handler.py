@@ -924,3 +924,10 @@ class PacketHandler:
     async def handle_AuraCleared(self, pack):
         role = self.__get_role()
         role.auras.clear()
+
+    async def handle_NotorityChanged(self, pack):
+        nation_id = pack.nation_id
+        now_value = pack.now_value
+
+        role = self.__get_role()
+        role.notorities[nation_id - 1] = now_value

@@ -23,7 +23,7 @@ TO DO:
 
             refactor fight_npc and fight_role to role class OK
 
-            when fights a fleet, notority increases by 20 to that nation ON
+            when fights a fleet, notority increases by 20 to that nation OK
             if have letter, increase by 10 only
 
             stroms decrease notority by 20

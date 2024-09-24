@@ -2577,6 +2577,17 @@ class Role:
         # tell nearby_roles_at_sea
         self.session.packet_handler.send_role_appeared_to_nearby_roles()
 
+    def __add_notority(self, nation_id, amount):
+        self.notorities[nation_id - 1] += amount
+        if self.notorities[nation_id - 1] > 100:
+            self.notorities[nation_id - 1] = 100
+
+        pack = pb.NotorityChanged(
+            nation_id=nation_id,
+            now_value=self.notorities[nation_id - 1],
+        )
+        self.session.send(pack)
+
     def fight_npc(self, npc_id):
         npc = self.session.server.npc_mgr.get_npc(npc_id)
 
@@ -2585,6 +2596,10 @@ class Role:
 
         if not self.is_close_to_role(npc):
             return
+
+        # add notority to npc nation
+        npc_nation = npc.get_nation()
+        self.__add_notority(npc_nation, 20)
 
         self.is_moving = False
 
@@ -2631,6 +2646,9 @@ class Role:
         )
         self.session.send(pack)
 
+    def get_nation(self):
+        return self.get_flag_ship().get_captain().nation
+
     def fight_role(self, role_id):
         target_role = self.session.server.get_role(role_id)
 
@@ -2639,6 +2657,10 @@ class Role:
 
         if not self.is_close_to_role(target_role):
             return
+
+        # add notority to npc nation
+        target_nation = target_role.get_nation()
+        self.__add_notority(target_nation, 20)
 
         # stop moving
         self.is_moving = False

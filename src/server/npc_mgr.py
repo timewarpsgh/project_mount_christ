@@ -59,6 +59,9 @@ class Npc(Role):
     #     flag_ship = list(self.ship_mgr.id_2_ship.values())[0]
     #     return flag_ship
 
+    def get_nation(self):
+        return self.mate.nation
+
     def move_along_path(self):
         """choose a random end port, reach it, and move back, and loop"""
         # get path and direction

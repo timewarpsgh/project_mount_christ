@@ -868,3 +868,7 @@ message NotorityChanged {
     required int32 nation_id = 1;
     required int32 now_value = 2;
 }
+
+message CannotEnterPort {
+    required string reason = 1;
+}

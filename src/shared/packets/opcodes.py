@@ -190,6 +190,7 @@ class OpCodeType(Enum):
 
     AuraCleared = auto()
     NotorityChanged = auto()
+    CannotEnterPort = auto()
 
 
 def gen_opcode_2_value():

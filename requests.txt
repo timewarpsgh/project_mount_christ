@@ -27,7 +27,7 @@ TO DO:
             if have letter, increase by 10 only OK
             stroms decrease notorities by 10 OK
 
-            when 100 reached, that nation's ports blocks entrence  ON
+            when 100 reached, that nation's ports blocks entrence  OK
 
 
 

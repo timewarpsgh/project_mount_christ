@@ -931,3 +931,9 @@ class PacketHandler:
 
         role = self.__get_role()
         role.notorities[nation_id - 1] = now_value
+
+    async def handle_CannotEnterPort(self, pack):
+        reason = pack.reason
+
+        mate = self.get_mate_mgr().get_random_mate()
+        self.__get_options_dialog().show_mate_speech(mate, f'{reason}')

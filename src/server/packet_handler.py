@@ -624,6 +624,11 @@ class PacketHandler:
 
         port = sObjectMgr.get_port(port_id)
         if abs(port.x - self.role.x) <= distance and abs(port.y - self.role.y) <= distance:
+
+            # notority check
+            if not self.role.can_enter_port(port_id):
+                return
+
             self.send_role_disappeared_to_nearby_roles()
 
             old_x = self.role.x

@@ -1672,6 +1672,25 @@ class Role:
         pack = pb.AuraCleared()
         self.session.send(pack)
 
+    def can_enter_port(self, port_id):
+        port_map = sMapMgr.get_map(port_id)
+        if not port_map.allied_nation:
+            return True
+
+        notority_for_port_nation = self.notorities[port_map.allied_nation - 1]
+        if notority_for_port_nation >= 100:
+            # send pack
+            port = sObjectMgr.get_port(port_id)
+            pack = pb.CannotEnterPort(
+                reason=f'{port.name} has rejected our request to enter.'
+            )
+            self.session.send(pack)
+
+            return False
+
+        return True
+
+
     def enter_port(self, port_id):
         self.is_dead = False
         self.starved_days = 0
@@ -1992,7 +2011,7 @@ class Role:
                     self.session.send(pb.AuraAdded(aura_id=aura_id))
 
         # add storm
-        if random.random() < 1.05:
+        if random.random() < 0.05:
             aura_id = c.Aura.STORM.value
             if not self.has_aura(aura_id):
                 self.auras.add(aura_id)

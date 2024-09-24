@@ -2578,6 +2578,10 @@ class Role:
         self.session.packet_handler.send_role_appeared_to_nearby_roles()
 
     def __add_notority(self, nation_id, amount):
+        if self.has_item(c.Item.LETTER_OF_MARQUE.value):
+            amount *= 0.5
+            amount = int(amount)
+
         self.notorities[nation_id - 1] += amount
         if self.notorities[nation_id - 1] > 100:
             self.notorities[nation_id - 1] = 100

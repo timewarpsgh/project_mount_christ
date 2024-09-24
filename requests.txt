@@ -40,6 +40,7 @@ TO DO:
             scurvy: health decreased each day
             storm: durability decreased each day
 
+        aura chances OK
 
 
 

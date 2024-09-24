@@ -1,3 +1,4 @@
+import random
 import sys
 import math
 from dataclasses import dataclass
@@ -410,7 +411,11 @@ class MateMgr:
         return self.id_2_mate.get(mate_id)
 
     def get_mates(self):
-        return self.id_2_mate.values()
+        return list(self.id_2_mate.values())
+
+    def get_random_mate(self):
+        mates = self.get_mates()
+        return random.choice(mates[1:])
 
     def is_mate_in_fleet(self, mate_template):
         mates = self.get_mates()

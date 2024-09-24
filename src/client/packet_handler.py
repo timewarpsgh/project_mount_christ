@@ -906,6 +906,10 @@ class PacketHandler:
         role = self.__get_role()
         role.auras.add(aura_id)
 
+        mate = self.get_mate_mgr().get_random_mate()
+        aura = sObjectMgr.get_aura(aura_id)
+        self.__get_options_dialog().show_mate_speech(mate, f'Captain, we got {aura.name}.')
+
     async def handle_AuraRemoved(self, pack):
         aura_id = pack.aura_id
 

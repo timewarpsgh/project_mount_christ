@@ -25,7 +25,8 @@ class Game:
         pygame.init()
         pygame.display.set_caption('Quick Start')
 
-        self.window_surface = pygame.display.set_mode((c.WINDOW_WIDTH, c.WINDOW_HEIGHT))
+        self.window_surface = pygame.display.set_mode((c.WINDOW_WIDTH, c.WINDOW_HEIGHT),
+                                                      pygame.DOUBLEBUF | pygame.HWSURFACE)
 
         # self.background = pygame.Surface((800, 600))
         # self.background.fill(pygame.Color('#550000'))

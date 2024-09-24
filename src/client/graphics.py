@@ -87,7 +87,7 @@ class SP(pygame.sprite.Sprite):
         if not self.start_time:
             return
 
-            # Calculate elapsed time and interpolate the position
+        # Calculate elapsed time and interpolate the position
         current_time = pygame.time.get_ticks() / 1000.0
         elapsed_time = current_time - self.start_time
 
@@ -99,7 +99,7 @@ class SP(pygame.sprite.Sprite):
             position = self.target_position
             self.start_time = None
 
-        # only move if 4 pixels have changed
+        # only move if 1 pixels have changed
         pixcels_to_move = 1
         if abs(position[0] - self.rect.x) >= pixcels_to_move or \
                 abs(position[1] - self.rect.y) >= pixcels_to_move:

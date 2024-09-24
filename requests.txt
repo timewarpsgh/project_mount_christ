@@ -18,7 +18,9 @@ TO DO:
         permits have a chance to disappear after rats or storm OK
         letter of marque usage OK
 
+    smooth bg scrolling ?
 
+    port governor can disallow investment, or block nations from entering
 
 
 DONE:

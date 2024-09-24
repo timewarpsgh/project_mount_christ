@@ -1929,9 +1929,28 @@ class Role:
     def has_aura(self, aura_id):
         return aura_id in self.auras
 
+    def remove_item(self, item_id):
+        if item_id in self.items:
+            self.items.remove(item_id)
+            self.session.send(pb.ItemRemoved(item_id=item_id))
+
+            # send chat
+            pack = pb.GotChat(
+                chat_type=pb.ChatType.SYSTEM,
+                text=f'lost item {sObjectMgr.get_item(item_id).name}',
+            )
+            self.session.send(pack)
+
+    def __destroy_permits_by_chance(self):
+        if random.random() < 1.1:
+            if self.has_item(c.Item.TAX_FREE_PERMIT.value):
+                self.remove_item(c.Item.TAX_FREE_PERMIT.value)
+            if self.has_item(c.Item.LETTER_OF_MARQUE.value):
+                self.remove_item(c.Item.LETTER_OF_MARQUE.value)
+
     def __add_aura_by_chance(self):
         # add rats
-        if random.random() < 0.05:
+        if random.random() < 1.05:
             if self.has_item(c.Item.CAT.value):
                 pass
             else:
@@ -1939,6 +1958,8 @@ class Role:
                 if not self.has_aura(aura_id):
                     self.auras.add(aura_id)
                     self.session.send(pb.AuraAdded(aura_id=aura_id))
+
+                    self.__destroy_permits_by_chance()
 
         # add scurvy
         if self.days_at_sea >= 30:
@@ -1954,6 +1975,8 @@ class Role:
             if not self.has_aura(aura_id):
                 self.auras.add(aura_id)
                 self.session.send(pb.AuraAdded(aura_id=aura_id))
+
+                self.__destroy_permits_by_chance()
 
     def __pass_one_day_at_sea(self):
         self.days_at_sea += 1

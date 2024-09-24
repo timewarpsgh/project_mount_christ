@@ -41,6 +41,7 @@ class Role(BASE):
 
 	discovery_ids_json_str = Column(String)
 	items = Column(String)
+	notorities = Column(String)
 
 
 class Mate(BASE):

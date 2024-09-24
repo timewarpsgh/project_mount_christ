@@ -175,6 +175,8 @@ class PacketHandler:
                 dir=role.dir,
                 money=role.money,
                 items=json.loads(role.items),
+                notorities=json.loads(role.notorities),
+
                 graphics = self.client.game.graphics,
             )
             model_role = self.__get_role()

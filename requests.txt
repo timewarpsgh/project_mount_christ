@@ -15,11 +15,12 @@ TO DO:
         show weapon and armor effect to client OK
 
         enter port clears auras OK
-
-
         permits have a chance to disappear after rats or storm OK
 
+
         letter of marque usage ON
+            have notorities for each role OK
+
             when fights a fleet, notority increases by 20 to that nation
             when 100 reached, that nation's ports blocks entrence
             stroms decrease notority by 20

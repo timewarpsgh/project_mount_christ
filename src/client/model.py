@@ -531,6 +531,7 @@ class Role:
 
     weapon: int = None
     armor: int = None
+    notorities: list[int] = None
 
     def unequip_item(self, item_id):
         if item_id == self.weapon:

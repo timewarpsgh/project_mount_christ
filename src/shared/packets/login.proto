@@ -173,6 +173,7 @@ message RoleEntered {
     optional string discovery_ids_json_str = 10;
     repeated int32 seen_grids_64_int32s = 11;
     required string items = 12;
+    required string notorities = 13;
 }
 
 message EnterWorldRes {

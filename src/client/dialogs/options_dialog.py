@@ -1501,6 +1501,20 @@ class OptionsDialog:
         }
         self.__make_menu(option_2_callback)
 
+    def __show_admiral_info(self):
+        role = self.__get_role()
+        notorities = role.notorities
+
+        option_2_callback = {
+            'Notorities': '',
+        }
+
+        for id, notority in enumerate(notorities):
+            option_2_callback[f'{c.Nation(id+1).name} {notority}'] = ''
+
+        self.__make_menu(option_2_callback)
+
+
     def __show_mate_info_menu(self):
         mate_mgr = self.client.game.graphics.model.role.mate_mgr
 
@@ -1737,7 +1751,7 @@ class OptionsDialog:
 
     def show_mates_menu(self):
         option_2_callback = {
-            'Admiral Info': '',
+            'Admiral Info': partial(self.__show_admiral_info),
             'Mate Info': partial(self.__show_mate_info_menu),
             'Assign Duty': partial(self.__show_mates_to_assign_duty_menu),
             'Crew': partial(self.__show_crew_state_menu),

@@ -1393,6 +1393,7 @@ class Role:
 
     weapon: int=None
     armor: int=None
+    notorities: list[int]=None
 
     def has_item(self, item_id):
         return item_id in self.items

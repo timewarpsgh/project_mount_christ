@@ -35,7 +35,7 @@ TO DO:
 
         use items to cure auras OK
 
-        auras can damage ON
+        auras can damage OK
             rats: food comsumption increased each day
             scurvy: health decreased each day
             storm: durability decreased each day
@@ -44,6 +44,8 @@ TO DO:
 
 
         cat: no mouse auro can happen
+
+
         Letter of Marque: attack enemy fleet without reputation loss
 
 

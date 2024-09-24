@@ -1827,16 +1827,21 @@ class Role:
                     self.__pass_one_day_at_sea()
 
     def __change_morale_and_health(self):
-        if self.ration >= 80:
-            self.morale += self.ration - 80
-            self.health += self.ration - 60
-        elif self.ration >= 60:
-            self.morale -= 80 - self.ration
-            self.health += self.ration - 60
+        if self.has_aura(c.Aura.SCURVY.value):
+            self.morale -= 20
+            self.health -= 20
         else:
-            self.morale -= 100 - self.ration
-            self.health -= 80 - self.ration
+            if self.ration >= 80:
+                self.morale += self.ration - 80
+                self.health += self.ration - 60
+            elif self.ration >= 60:
+                self.morale -= 80 - self.ration
+                self.health += self.ration - 60
+            else:
+                self.morale -= 100 - self.ration
+                self.health -= 80 - self.ration
 
+        # limit checks
         if self.morale > 100:
             self.morale = 100
         if self.morale < 0:
@@ -1847,7 +1852,8 @@ class Role:
         if self.health < 0:
             self.health = 0
 
-        if self.health == 0:
+        # starve
+        if self.health <= 0:
             self.__starve()
 
         self.session.send(pb.RoleFieldSet(key='morale', int_value=self.morale))
@@ -1857,6 +1863,9 @@ class Role:
         # get total_comsumption
         total_crew = self.ship_mgr.get_total_crew()
         total_comsumption = int(total_crew * c.SUPPLY_CONSUMPTION_PER_PERSON * self.ration / 100)
+
+        if self.has_aura(c.Aura.RATS.value):
+            total_comsumption *= 2
 
         # reduce food from all ships until total_comsumption is met
         ships = self.ship_mgr.get_ships()
@@ -1896,7 +1905,6 @@ class Role:
             self.auras.remove(aura_id)
             self.session.send(pb.AuraRemoved(aura_id=aura_id))
 
-
     def has_aura(self, aura_id):
         return aura_id in self.auras
 
@@ -1929,8 +1937,6 @@ class Role:
         if self.is_dead:
             return
 
-        self.__add_aura_by_chance()
-
         is_food_enough = self.__consume_supply('food')
         is_water_enough = self.__consume_supply('water')
 
@@ -1940,6 +1946,10 @@ class Role:
                 self.__starve()
         else:
             self.__change_morale_and_health()
+
+        self.__take_damage_from_strom()
+
+        self.__add_aura_by_chance()
 
     def win_npc(self):
         for ship in self.npc_instance.ship_mgr.get_ships():
@@ -2052,6 +2062,26 @@ class Role:
             return True
         else:
             return False
+
+    def __take_damage_from_strom(self):
+        if self.has_aura(c.Aura.STORM.value):
+            for ship in self.ship_mgr.get_ships():
+                ship.now_durability -= int(ship.max_durability * 0.4)
+
+                if ship.now_durability < 0:
+                    ship.now_durability = 0
+
+                self.session.send(
+                    pb.ShipFieldChanged(
+                        ship_id=ship.id,
+                        key='now_durability',
+                        int_value=ship.now_durability,
+                    )
+                )
+
+            flag_ship = self.get_flag_ship()
+            if flag_ship.now_durability <= 0:
+                self.__starve()
 
     def __starve(self):
         self.is_dead = True

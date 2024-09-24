@@ -16,18 +16,7 @@ TO DO:
 
         enter port clears auras OK
         permits have a chance to disappear after rats or storm OK
-
-
-        letter of marque usage ON
-            have notorities for each role OK
-
-            refactor fight_npc and fight_role to role class OK
-
-            when fights a fleet, notority increases by 20 to that nation OK
-            if have letter, increase by 10 only OK
-            stroms decrease notorities by 10 OK
-
-            when 100 reached, that nation's ports blocks entrence  OK
+        letter of marque usage OK
 
 
 

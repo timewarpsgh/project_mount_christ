@@ -6,6 +6,7 @@ import math
 import numpy
 from enum import Enum, auto
 import json
+import copy
 
 # import from dir
 import sys
@@ -2575,6 +2576,128 @@ class Role:
 
         # tell nearby_roles_at_sea
         self.session.packet_handler.send_role_appeared_to_nearby_roles()
+
+    def fight_npc(self, npc_id):
+        npc = self.session.server.npc_mgr.get_npc(npc_id)
+
+        if self.is_dead:
+            return
+
+        if not self.is_close_to_role(npc):
+            return
+
+        self.is_moving = False
+
+        # notify nearby roles
+        sMapMgr.rm_object(self)
+        self.session.packet_handler.send_role_disappeared_to_nearby_roles()
+
+        self.battle_npc_id = npc_id
+
+        # gen npc_instance (each role has its own instance)
+        npc_instance = copy.deepcopy(npc)
+        self.npc_instance = npc_instance
+        npc_instance.battle_role_id = self.id
+        npc_instance.battle_role = self
+
+        self.ship_mgr.init_ships_positions_in_battle(is_attacker=True)
+        npc_instance.ship_mgr.init_ships_positions_in_battle(is_attacker=False)
+
+        pack = pb.EnteredBattleWithNpc(
+            npc_id=npc_id,
+            ships=npc_instance.ship_mgr.gen_ships_prots(),
+        )
+
+        self.session.send(pack)
+
+        #### copied
+        # init battle_role_id and enemy ships
+        # init my ships pos
+        for id, ship in self.ship_mgr.id_2_ship.items():
+            self.session.send(pb.ShipMoved(
+                id=id,
+                x=ship.x,
+                y=ship.y,
+                dir=ship.dir,
+                steps_left=ship.steps_left,
+            ))
+
+        # init battle_timer (updated each session update)
+        self.battle_timer = c.BATTLE_TIMER_IN_SECONDS
+
+        pack = pb.BattleTimerStarted(
+            battle_timer=self.battle_timer,
+            role_id=self.id,
+        )
+        self.session.send(pack)
+
+    def fight_role(self, role_id):
+        target_role = self.session.server.get_role(role_id)
+
+        if self.is_dead or target_role.is_dead:
+            return
+
+        if not self.is_close_to_role(target_role):
+            return
+
+        # stop moving
+        self.is_moving = False
+        target_role.is_moving = False
+
+        self.session.packet_handler.send_role_disappeared_to_nearby_roles()
+        target_role.session.packet_handler.send_role_disappeared_to_nearby_roles()
+
+        sMapMgr.rm_object(self)
+        sMapMgr.rm_object(target_role)
+
+        # init battle_role_id and enemy ships
+        self.battle_role_id = target_role.id
+        target_role.battle_role_id = self.id
+
+        self.ship_mgr.init_ships_positions_in_battle(is_attacker=True)
+        target_role.ship_mgr.init_ships_positions_in_battle(is_attacker=False)
+
+        pack = pb.EnteredBattleWithRole(
+            role_id=target_role.id,
+            ships=target_role.ship_mgr.gen_ships_prots(),
+        )
+        self.session.send(pack)
+
+        # init my ships pos
+        for id, ship in self.ship_mgr.id_2_ship.items():
+            self.session.send(pb.ShipMoved(
+                id=id,
+                x=ship.x,
+                y=ship.y,
+                dir=ship.dir,
+                steps_left=ship.steps_left,
+            ))
+
+        pack = pb.EnteredBattleWithRole(
+            role_id=self.id,
+            ships=self.ship_mgr.gen_ships_prots(),
+        )
+        target_role.session.send(pack)
+
+        # init enemy ships pos
+        for id, ship in target_role.ship_mgr.id_2_ship.items():
+            target_role.session.send(pb.ShipMoved(
+                id=id,
+                x=ship.x,
+                y=ship.y,
+                dir=ship.dir,
+                steps_left=ship.steps_left,
+            ))
+
+        # init battle_timer (updated each session update)
+        self.battle_timer = c.BATTLE_TIMER_IN_SECONDS
+
+        pack = pb.BattleTimerStarted(
+            battle_timer=self.battle_timer,
+            role_id=self.id,
+        )
+        self.session.send(pack)
+        target_role.session.send(pack)
 
 
 class Model:

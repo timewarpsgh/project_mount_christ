@@ -87,7 +87,7 @@ class Server:
 
         self.id_mgr = sIdMgr
         self.__init_map_maker()
-
+        self.npc_mgr = sNpcMgr
 
     def __init_map_maker(self):
         sMapMaker.set_world_piddle()

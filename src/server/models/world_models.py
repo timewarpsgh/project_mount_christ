@@ -136,6 +136,7 @@ class ItemTemplate(BASE):
 	item_type = Column(String)
 
 	buy_price = Column(Integer)
+	effect = Column(Integer)
 
 
 class Cannon(BASE):

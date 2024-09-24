@@ -7,15 +7,18 @@ TO DO:
         market OK
         item shop OK
         palace OK
-        bar
-            waitress   OK
+        bar OK
 
     items uses
         treasure: sell   OK
         weapons and armors should be useful ON
-            on equip/unequip OK
-            weapon
-            armor
+
+            engage  OK
+
+            shoot
+
+                target dmg increased by weapon
+                self dmg reduced by armor
 
 
 

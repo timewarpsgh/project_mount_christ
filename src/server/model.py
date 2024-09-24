@@ -269,7 +269,17 @@ class Ship:
         battle_skill = self.__get_battle_skill()
 
         # get crew_ratio
-        crew_ratio = self.now_crew / ship.now_crew
+        if self.ship_mgr.role.weapon:
+            weapon_ratio = 1 + sObjectMgr.get_item(self.ship_mgr.role.weapon).effect / 100
+        else:
+            weapon_ratio = 1
+
+        if self.ship_mgr.role.armor:
+            armor_ratio = 1 + sObjectMgr.get_item(self.ship_mgr.role.armor).effect / 100
+        else:
+            armor_ratio = 1
+
+        crew_ratio = self.now_crew * weapon_ratio / ship.now_crew * armor_ratio
 
         # calc dmg
         dmg = int(self.now_crew * crew_ratio * battle_skill * 0.01 // 4)

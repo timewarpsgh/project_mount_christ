@@ -905,3 +905,9 @@ class PacketHandler:
 
         role = self.__get_role()
         role.auras.add(aura_id)
+
+    async def handle_AuraRemoved(self, pack):
+        aura_id = pack.aura_id
+
+        role = self.__get_role()
+        role.auras.remove(aura_id)

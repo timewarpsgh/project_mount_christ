@@ -855,3 +855,7 @@ message ItemUsed {
 message AuraAdded {
     required int32 aura_id = 1;
 }
+
+message AuraRemoved {
+    required int32 aura_id = 1;
+}

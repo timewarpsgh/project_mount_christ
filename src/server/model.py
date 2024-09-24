@@ -1413,7 +1413,24 @@ class Role:
 
         return False
 
+    def __cure_aura(self, item_id):
+        if not self.auras:
+            return
+
+        if item_id == c.Item.BALM.value:
+            self.remove_aura(c.Aura.STORM.value)
+        elif item_id == c.Item.LIME_JUICE.value:
+            self.remove_aura(c.Aura.SCURVY.value)
+        elif item_id == c.Item.RAT_POISON.value:
+            self.remove_aura(c.Aura.RATS.value)
+
     def use_item(self, item_id):
+        if not self.has_item(item_id):
+            return
+
+        # cure aura
+        self.__cure_aura(item_id)
+
         self.items.remove(item_id)
         self.session.send(
             pb.ItemUsed(
@@ -1873,6 +1890,12 @@ class Role:
             is_enough = False
 
         return is_enough
+
+    def remove_aura(self, aura_id):
+        if aura_id in self.auras:
+            self.auras.remove(aura_id)
+            self.session.send(pb.AuraRemoved(aura_id=aura_id))
+
 
     def has_aura(self, aura_id):
         return aura_id in self.auras

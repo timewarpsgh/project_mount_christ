@@ -33,10 +33,7 @@ TO DO:
 
         show auras in right hud OK
 
-        use items to cure auras
-            balm: scruvy
-            lime juice: rats
-            rat poison: rats
+        use items to cure auras OK
 
         auras can damage ON
             rats: food comsumption increased each day

@@ -188,6 +188,8 @@ class OpCodeType(Enum):
     AuraAdded = auto()
     AuraRemoved = auto()
 
+    AuraCleared = auto()
+
 
 def gen_opcode_2_value():
     d = {}

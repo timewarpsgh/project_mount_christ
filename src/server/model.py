@@ -1664,9 +1664,17 @@ class Role:
             self.seen_grids[grid_x][grid_y] = 1
             self.session.send(pb.OpenedGrid(grid_x=grid_x, grid_y=grid_y))
 
+    def __clear_auras(self):
+        self.auras.clear()
+
+        pack = pb.AuraCleared()
+        self.session.send(pack)
+
     def enter_port(self, port_id):
         self.is_dead = False
         self.starved_days = 0
+
+        self.__clear_auras()
 
         # change map_id
         self.map_id = port_id

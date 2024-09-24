@@ -859,3 +859,6 @@ message AuraAdded {
 message AuraRemoved {
     required int32 aura_id = 1;
 }
+
+message AuraCleared {
+}

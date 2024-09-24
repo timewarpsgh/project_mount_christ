@@ -1,5 +1,6 @@
-a = [1, 2, 1]
+a = set()
 
-a.remove(1)
+a.add(1)
 
+a.clear()
 print(a)

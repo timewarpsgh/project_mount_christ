@@ -12,6 +12,7 @@ TO DO:
     items uses
         treasure: sell   OK
         weapons and armors should be useful OK
+        show weapon and armor effect to client OK
 
 
 

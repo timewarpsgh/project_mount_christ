@@ -15,10 +15,8 @@ TO DO:
 
             engage  OK
 
-            shoot
+            shoot   OK
 
-                target dmg increased by weapon
-                self dmg reduced by armor
 
 
 

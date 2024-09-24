@@ -202,8 +202,19 @@ class Ship:
         cannon = sObjectMgr.get_cannon(self.type_of_guns)
         gun_dmg = cannon.damage
 
+        # gear ratio
+        if self.ship_mgr.role.weapon:
+            weapon_ratio = 1 + sObjectMgr.get_item(self.ship_mgr.role.weapon).effect / 100
+        else:
+            weapon_ratio = 1
+
+        if ship.ship_mgr.role.armor:
+            armor_ratio = 1 + sObjectMgr.get_item(ship.ship_mgr.role.armor).effect / 100
+        else:
+            armor_ratio = 1
+
         # calc dmg
-        dmg = int(self.now_guns * gun_dmg * battle_skill * 0.01 * 0.1)
+        dmg = int(self.now_guns * gun_dmg * battle_skill * 0.01 * 0.1 * weapon_ratio / armor_ratio)
 
         # morale effect
         morale = self.ship_mgr.role.morale

@@ -601,8 +601,10 @@ class HudRight(SP):
 
             # auras
             for id, aura in enumerate(self.model.role.auras):
-                my_x = x + id * 10
-                new_image.blit(Text(f'{aura}').image, (my_x, 20))
+                aura = sObjectMgr.get_aura(aura)
+
+                my_x = x + id * 30
+                new_image.blit(Text(f'{aura.name[:3]}').image, (my_x, 20))
 
             start_y = 75
             d_y = 45

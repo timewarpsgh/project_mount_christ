@@ -31,7 +31,7 @@ TO DO:
 
         auras happen by chance OK
 
-        show auras in right hud ON
+        show auras in right hud OK
 
         use items to cure auras
             balm: scruvy

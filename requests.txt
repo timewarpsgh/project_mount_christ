@@ -15,8 +15,8 @@ TO DO:
             maid intimacy (later)
 
         church
-            pray    OK
-            donate
+            pray   OK
+            donate OK
 
         bank
             money loses 50% on death at sea

@@ -1146,3 +1146,7 @@ class PacketHandler:
 
     async def handle_Pray(self, pray):
         self.role.pray()
+
+    async def handle_Donate(self, donate):
+        ingots_cnt = donate.ingots_cnt
+        self.role.donate(ingots_cnt)

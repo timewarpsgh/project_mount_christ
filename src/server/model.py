@@ -1456,6 +1456,25 @@ class Role:
             )
         )
 
+    def mod_money(self, amount):
+        self.money += amount
+
+        self.session.send(
+            pb.MoneyChanged(
+                money=self.money
+            )
+        )
+
+    def donate(self, ingots_cnt):
+        if ingots_cnt < 1:
+            return
+
+        if self.money < ingots_cnt * 10000:
+            return
+
+        self.add_aura(c.Aura.DONATION.value)
+        self.mod_money(-ingots_cnt * 10000)
+
     def pray(self):
         self.add_aura(c.Aura.PRAYER.value)
 
@@ -1679,7 +1698,7 @@ class Role:
             self.session.send(pb.OpenedGrid(grid_x=grid_x, grid_y=grid_y))
 
     def __clear_auras(self):
-        for aura_id in self.auras:
+        for aura_id in list(self.auras):
             if aura_id in [c.Aura.PRAYER.value, c.Aura.DONATION.value]:
                 continue
             self.remove_aura(aura_id)

@@ -193,6 +193,8 @@ class OpCodeType(Enum):
     CannotEnterPort = auto()
 
     Pray = auto()
+    Donate = auto()
+
 
 def gen_opcode_2_value():
     d = {}

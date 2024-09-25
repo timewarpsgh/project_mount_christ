@@ -667,9 +667,15 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def __show_donate_dialog(self):
+        self.__building_speak('How many ingots do you want to donate? '
+                              'Any amount is appreciated.')
+
+        pack = pb.Donate()
+        PacketParamsDialog(self.mgr, self.client, ['ingots_cnt'], pack)
+
     def __pray(self):
         self.client.send(Pray())
-
         self.__building_speak('May God bless you in all your endeavors.')
 
     def exit_building(self):
@@ -836,7 +842,7 @@ class OptionsDialog:
 
         option_2_callback = {
             'Pray': partial(self.__pray),
-            'Donate': '',
+            'Donate': partial(self.__show_donate_dialog),
             'Exit': partial(self.exit_building),
         }
 

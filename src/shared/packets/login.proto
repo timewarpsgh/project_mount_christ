@@ -899,3 +899,12 @@ message Deposit {
 message Deposited {
     required int32 balance = 1;
 }
+
+// Withdraw
+message Withdraw {
+    required int32 amount = 1;
+}
+
+message Withdrawn {
+    required int32 balance = 1;
+}

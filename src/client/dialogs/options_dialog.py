@@ -684,6 +684,12 @@ class OptionsDialog:
     def __check_balance(self):
         self.client.send(pb.CheckBalance())
 
+    def __show_withdraw_dialog(self):
+        self.__building_speak('How much would you like to withdraw?')
+
+        pack = pb.Withdraw()
+        PacketParamsDialog(self.mgr, self.client, ['amount'], pack)
+
     def __show_deposit_dialog(self):
         self.__building_speak('How much would you like to deposit?')
 
@@ -826,7 +832,7 @@ class OptionsDialog:
         option_2_callback = {
             'Check Balance': partial(self.__check_balance),
             'Deposit': partial(self.__show_deposit_dialog),
-            'Withdraw': '',
+            'Withdraw': partial(self.__show_withdraw_dialog),
             'Exit': partial(self.exit_building),
         }
 

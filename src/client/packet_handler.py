@@ -953,3 +953,8 @@ class PacketHandler:
         balance = pack.balance
         self.__get_options_dialog().pop_some_menus(2)
         self.__get_options_dialog().building_speak(f'Thank you! Now your balance is {balance}.')
+
+    async def handle_Withdrawn(self, pack):
+        balance = pack.balance
+        self.__get_options_dialog().pop_some_menus(2)
+        self.__get_options_dialog().building_speak(f'Here you are! Now your balance is {balance}.')

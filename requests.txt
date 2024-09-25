@@ -19,7 +19,7 @@ TO DO:
         bank
             check balance  OK
             deposit OK
-            withdraw
+            withdraw  OK
 
             money loses 50% on death at sea
 

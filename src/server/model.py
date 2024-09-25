@@ -1471,24 +1471,43 @@ class Role:
             return True
         return False
 
+    def withdraw(self, amount):
+        if self.bank_money < amount:
+            return
+
+        self.money += amount
+        self.bank_money -= amount
+
+        self.session.send(
+            pb.MoneyChanged(
+                money=self.money
+            )
+        )
+
+        self.session.send(
+            pb.Withdrawn(
+                balance=self.bank_money
+            )
+        )
+
     def deposit(self, amount):
-        if self.has_enough_money(amount):
-            self.money -= amount
-            self.bank_money += amount
+        if not self.has_enough_money(amount):
+            return
 
-            self.session.send(
-                pb.MoneyChanged(
-                    money=self.money
-                )
-            )
+        self.money -= amount
+        self.bank_money += amount
 
-            self.session.send(
-                pb.Deposited(
-                    balance=self.bank_money
-                )
+        self.session.send(
+            pb.MoneyChanged(
+                money=self.money
             )
-        else:
-            pass
+        )
+
+        self.session.send(
+            pb.Deposited(
+                balance=self.bank_money
+            )
+        )
 
     def check_balance(self):
         balance = self.bank_money

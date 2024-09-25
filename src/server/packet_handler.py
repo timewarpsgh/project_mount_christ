@@ -1158,3 +1158,7 @@ class PacketHandler:
     async def handle_Deposit(self, deposit):
         amount = deposit.amount
         self.role.deposit(amount)
+
+    async def handle_Withdraw(self, withdraw):
+        amount = withdraw.amount
+        self.role.withdraw(amount)

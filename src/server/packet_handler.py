@@ -1154,3 +1154,7 @@ class PacketHandler:
 
     async def handle_CheckBalance(self, check_balance):
         self.role.check_balance()
+
+    async def handle_Deposit(self, deposit):
+        amount = deposit.amount
+        self.role.deposit(amount)

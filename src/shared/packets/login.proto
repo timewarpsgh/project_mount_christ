@@ -890,3 +890,12 @@ message CheckBalance {
 message YourBalance {
     required int32 balance = 1;
 }
+
+// Deposit
+message Deposit {
+    required int32 amount = 1;
+}
+
+message Deposited {
+    required int32 balance = 1;
+}

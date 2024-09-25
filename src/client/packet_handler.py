@@ -948,3 +948,8 @@ class PacketHandler:
     async def handle_YourBalance(self, pack):
         balance = pack.balance
         self.__get_options_dialog().building_speak(f'Your balance is {balance}.')
+
+    async def handle_Deposited(self, pack):
+        balance = pack.balance
+        self.__get_options_dialog().pop_some_menus(2)
+        self.__get_options_dialog().building_speak(f'Thank you! Now your balance is {balance}.')

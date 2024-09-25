@@ -199,6 +199,9 @@ class OpCodeType(Enum):
     CheckBalance = auto()
     YourBalance = auto()
 
+    Deposit = auto()
+    Deposited = auto()
+
 
 def gen_opcode_2_value():
     d = {}

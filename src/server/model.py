@@ -1467,18 +1467,31 @@ class Role:
         )
 
     def has_enough_money(self, amount):
-        if self.money < amount:
-            return False
-        return True
+        if self.money >= amount:
+            return True
+        return False
+
+    def deposit(self, amount):
+        if self.has_enough_money(amount):
+            self.money -= amount
+            self.bank_money += amount
+
+            self.session.send(
+                pb.MoneyChanged(
+                    money=self.money
+                )
+            )
+
+            self.session.send(
+                pb.Deposited(
+                    balance=self.bank_money
+                )
+            )
+        else:
+            pass
 
     def check_balance(self):
-        print('xxxxxxxxxxxxxxxxxx')
-        print(self.bank_money)
-
-        if self.bank_money is None:
-            balance = 0
-        else:
-            balance = self.bank_money
+        balance = self.bank_money
 
         self.session.send(
             pb.YourBalance(

@@ -2278,6 +2278,8 @@ class Role:
 
         self.ship_mgr.clear_crew()
 
+        self.mod_money(-int(self.money * 0.5))
+
     def start_moving(self, x, y, dir):
         old_x = self.x
         old_y = self.y

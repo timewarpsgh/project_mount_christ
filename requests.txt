@@ -21,7 +21,8 @@ TO DO:
             deposit OK
             withdraw  OK
 
-            money loses 50% on death at sea
+            money loses 50% on death at sea  OK
+            money loses 50% to winner in battle ON
 
         job house (quests)
             explore

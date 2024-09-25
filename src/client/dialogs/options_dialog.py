@@ -667,6 +667,11 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def __pray(self):
+        self.client.send(Pray())
+
+        self.__building_speak('May God bless you in all your endeavors.')
+
     def exit_building(self):
         self.pop_some_menus(5)
         self.__get_graphics().unhide_role_sprite()
@@ -830,7 +835,7 @@ class OptionsDialog:
         self.__change_building_bg('church')
 
         option_2_callback = {
-            'Pray': '',
+            'Pray': partial(self.__pray),
             'Donate': '',
             'Exit': partial(self.exit_building),
         }

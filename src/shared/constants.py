@@ -441,5 +441,8 @@ class Aura(Enum):
     SCURVY = 2
     STORM = 3
 
+    PRAYER = 4
+    DONATION = 5
+
 if __name__ == '__main__':
     print(ItemType.WEAPON.name)

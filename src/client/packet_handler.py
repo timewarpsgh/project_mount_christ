@@ -911,6 +911,9 @@ class PacketHandler:
         role = self.__get_role()
         role.auras.add(aura_id)
 
+        if aura_id in [c.Aura.PRAYER.value, c.Aura.DONATION.value]:
+            return
+
         mate = self.get_mate_mgr().get_random_mate()
         aura = sObjectMgr.get_aura(aura_id)
         self.__get_options_dialog().show_mate_speech(mate, f'Captain, we got {aura.name}.')

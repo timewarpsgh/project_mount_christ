@@ -1447,6 +1447,18 @@ class Role:
         elif item_id == c.Item.RAT_POISON.value:
             self.remove_aura(c.Aura.RATS.value)
 
+    def add_aura(self, aura_id):
+        self.auras.add(aura_id)
+
+        self.session.send(
+            pb.AuraAdded(
+                aura_id=aura_id
+            )
+        )
+
+    def pray(self):
+        self.add_aura(c.Aura.PRAYER.value)
+
     def use_item(self, item_id):
         if not self.has_item(item_id):
             return
@@ -1667,10 +1679,10 @@ class Role:
             self.session.send(pb.OpenedGrid(grid_x=grid_x, grid_y=grid_y))
 
     def __clear_auras(self):
-        self.auras.clear()
-
-        pack = pb.AuraCleared()
-        self.session.send(pack)
+        for aura_id in self.auras:
+            if aura_id in [c.Aura.PRAYER.value, c.Aura.DONATION.value]:
+                continue
+            self.remove_aura(aura_id)
 
     def can_enter_port(self, port_id):
         port_map = sMapMgr.get_map(port_id)
@@ -1990,6 +2002,16 @@ class Role:
                 self.remove_item(c.Item.LETTER_OF_MARQUE.value)
 
     def __add_aura_by_chance(self):
+        # prayer prevention
+        if self.has_aura(c.Aura.PRAYER.value):
+            if random.random() < 0.05:
+                return
+
+        # donation prevention
+        if self.has_aura(c.Aura.DONATION.value):
+            if random.random() < 0.05:
+                return
+
         # add rats
         if random.random() < 0.05:
             if self.has_item(c.Item.CAT.value):

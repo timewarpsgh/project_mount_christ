@@ -192,6 +192,7 @@ class OpCodeType(Enum):
     NotorityChanged = auto()
     CannotEnterPort = auto()
 
+    Pray = auto()
 
 def gen_opcode_2_value():
     d = {}

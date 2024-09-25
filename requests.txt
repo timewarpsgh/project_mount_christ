@@ -9,8 +9,13 @@ TO DO:
         palace OK
         bar OK
 
+        fortune house OK
+            your notorities   OK
+            mates loyalty (later)
+            maid intimacy (later)
+
         church
-            pray   adds aura, so less chance of bad events
+            pray    OK
             donate
 
         bank
@@ -18,11 +23,6 @@ TO DO:
             check balance
             deposit
             withdraw
-
-        fortune house
-            your notorities   OK
-            mates loyalty (later)
-            maid intimacy (later)
 
         job house (quests)
             explore

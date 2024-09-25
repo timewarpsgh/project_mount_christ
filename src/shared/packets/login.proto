@@ -872,3 +872,6 @@ message NotorityChanged {
 message CannotEnterPort {
     required string reason = 1;
 }
+
+message Pray {
+}

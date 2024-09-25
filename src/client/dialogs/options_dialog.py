@@ -841,18 +841,13 @@ class OptionsDialog:
         self.__change_building_bg('fortune_house')
 
         option_2_callback = {
-            'Life': '',
-            'Career': '',
-            'Love': '',
+            'Life': partial(self.__show_admiral_info),
             'Mates': '',
+            'Love': '',
             'Exit': partial(self.exit_building),
         }
 
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
+        self.__make_menu(option_2_callback)
 
     def __exit_game(self):
 
@@ -1751,7 +1746,6 @@ class OptionsDialog:
 
     def show_mates_menu(self):
         option_2_callback = {
-            'Admiral Info': partial(self.__show_admiral_info),
             'Mate Info': partial(self.__show_mate_info_menu),
             'Assign Duty': partial(self.__show_mates_to_assign_duty_menu),
             'Crew': partial(self.__show_crew_state_menu),

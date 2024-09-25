@@ -9,30 +9,32 @@ TO DO:
         palace OK
         bar OK
 
-    items uses
-        treasure: sell   OK
-        weapons and armors should be useful OK
-        show weapon and armor effect to client OK
+        church
+            pray   adds aura, so less chance of bad events
+            donate
 
-        enter port clears auras OK
-        permits have a chance to disappear after rats or storm OK
-        letter of marque usage OK
+        bank
+            money loses 50% on death at sea
+            check balance
+            deposit
+            withdraw
 
-    smooth bg scrolling ?
+        fortune house
+            your notorities   OK
+            mates loyalty (later)
+            maid intimacy (later)
 
-    port governor can disallow investment, or block nations from entering
-
+        job house (quests)
+            explore
+            trade
+            battle
 
 DONE:
-
-    more wind and current effect OK
-    show days you can sail in harbor OK
-    season changes every 3 months OK
-    press f to enter/exit building OK
 
     update npc and season at the same time OK
     npc sail from near port OK
     each port has index and nation OK
+    items uses OK
 
 cmds
     # compile .proto file

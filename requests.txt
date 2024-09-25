@@ -1,25 +1,8 @@
 TO DO:
 
-    each building (crude)
-        harbor OK
-        dry dock OK
-        inn OK
-        market OK
-        item shop OK
-        palace OK
-        bar OK
+    each building (crude)  OK
 
-        fortune house OK
-            your notorities   OK
-            mates loyalty (later)
-            maid intimacy (later)
-
-        church  OK
-        bank  OK
-
-
-        job house OK
-            nation info   OK
+    bug fix: enter building shows black OK
 
 DONE:
 
@@ -27,6 +10,8 @@ DONE:
     npc sail from near port OK
     each port has index and nation OK
     items uses OK
+    each building (crude)  OK
+
 
 cmds
     # compile .proto file

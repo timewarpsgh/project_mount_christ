@@ -1645,6 +1645,7 @@ class OptionsDialog:
                 # enter building
                 print(f'enter building: {building_name}')
                 # self.__show_market_menu()
+                self.get_graphics().sp_background.stop_moving()
 
                 self.__get_graphics().hide_role_sprite()
 
@@ -1684,11 +1685,11 @@ class OptionsDialog:
             'Inn': partial(self.show_inn_menu),
             'Palace': partial(self.show_palace_menu),
             'Job House': partial(self.show_job_house_menu),
-            'Misc': 'test',
             'Bank': partial(self.show_bank_menu),
             'Item Shop': partial(self.show_item_shop_menu),
             'Church': partial(self.show_church_menu),
             'Fortune House': partial(self.show_fortune_house_menu),
+            'Misc': '',
         }
 
         self.__make_menu(option_2_callback)
@@ -1789,7 +1790,6 @@ class OptionsDialog:
         option_2_callback = {
             'Fleet Info': partial(self.__show_fleet_info),
             'Ship Info': partial(self.__show_ship_info_menu),
-            'Swap Ships': '',
         }
 
         MyMenuWindow(

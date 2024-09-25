@@ -82,6 +82,9 @@ class SP(pygame.sprite.Sprite):
     def on_click(self, event):
         pass
 
+    def stop_moving(self):
+        self.start_time = None
+
     def update(self, time_diff):
 
         if not self.start_time:

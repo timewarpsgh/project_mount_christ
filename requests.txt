@@ -15,19 +15,11 @@ TO DO:
             maid intimacy (later)
 
         church  OK
+        bank  OK
 
-        bank
-            check balance  OK
-            deposit OK
-            withdraw  OK
 
-            money loses 50% on death at sea  OK
-            money loses 50% to winner in battle OK
-
-        job house (quests)
-            explore
-            trade
-            battle
+        job house OK
+            nation info   OK
 
 DONE:
 

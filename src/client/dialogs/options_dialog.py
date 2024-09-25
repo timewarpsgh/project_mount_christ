@@ -481,7 +481,11 @@ class OptionsDialog:
         self.client.send(pb.GetPortInfo())
 
     def __get_nation_info(self, nation_id):
-        self.client.send(pb.GetNationInfo(nation_id=nation_id))
+        self.building_speak('I charge 1000 coins for this information. Is that OK?')
+
+        pack = pb.GetNationInfo()
+        pack.nation_id = nation_id
+        PacketParamsDialog(self.mgr, self.client, [], pack)
 
     def __show_nations_menu_to_get_info(self):
         option_2_callback = {}
@@ -490,6 +494,8 @@ class OptionsDialog:
             option_2_callback[f'{nation.name}'] = partial(self.__get_nation_info, nation.value)
 
         self.__make_menu(option_2_callback)
+
+        self.building_speak('Which nation?')
 
     def __buy_item(self, item_id):
         self.client.send(BuyItem(item_id=item_id))
@@ -794,7 +800,6 @@ class OptionsDialog:
 
         option_2_callback = {
             'Port Info': partial(self.__get_port_info),
-            'Nation Info': partial(self.__show_nations_menu_to_get_info),
             'Exit': partial(self.exit_building),
         }
 
@@ -815,8 +820,7 @@ class OptionsDialog:
         self.__change_building_bg('job_house')
 
         option_2_callback = {
-            'Job Assignment': '',
-            'Country Info': '',
+            'Nation Info': partial(self.__show_nations_menu_to_get_info),
             'Exit': partial(self.exit_building),
         }
 

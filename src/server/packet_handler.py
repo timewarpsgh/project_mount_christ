@@ -1019,6 +1019,12 @@ class PacketHandler:
     async def handle_GetNationInfo(self, get_nation_info):
         nation_id = get_nation_info.nation_id
 
+
+        if self.role.money <= 1000:
+            return
+
+        self.role.mod_money(-1000)
+
         allied_ports_ids = []
         price_indexes = []
         port_maps = sMapMgr.get_port_maps()

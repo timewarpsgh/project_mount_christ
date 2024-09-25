@@ -831,6 +831,8 @@ class PacketHandler:
         port_ids = pack.port_ids
         price_indexes = pack.price_indexes
         nation_id = pack.nation_id
+
+        self.__get_options_dialog().pop_some_menus(2)
         self.__get_options_dialog().show_nation_allied_ports(port_ids, price_indexes, nation_id)
 
     async def handle_NationsInvestments(self, pack):

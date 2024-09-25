@@ -196,6 +196,9 @@ class OpCodeType(Enum):
     Donate = auto()
     DonationMade = auto()
 
+    CheckBalance = auto()
+    YourBalance = auto()
+
 
 def gen_opcode_2_value():
     d = {}

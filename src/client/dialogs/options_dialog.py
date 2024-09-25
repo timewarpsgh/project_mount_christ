@@ -681,6 +681,9 @@ class OptionsDialog:
         self.client.send(Pray())
         self.__building_speak('May God bless you in all your endeavors.')
 
+    def __check_balance(self):
+        self.client.send(pb.CheckBalance())
+
     def exit_building(self):
         self.pop_some_menus(5)
         self.__get_graphics().unhide_role_sprite()
@@ -815,19 +818,13 @@ class OptionsDialog:
         self.__change_building_bg('bank')
 
         option_2_callback = {
-            'Check Balance': '',
+            'Check Balance': partial(self.__check_balance),
             'Deposit': '',
             'Withdraw': '',
-            'Borrow': '',
-            'Repay': '',
             'Exit': partial(self.exit_building),
         }
 
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
+        self.__make_menu(option_2_callback)
 
     def show_item_shop_menu(self):
         self.__change_building_bg('item_shop')

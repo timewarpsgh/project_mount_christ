@@ -882,3 +882,11 @@ message Donate {
 
 message DonationMade {
 }
+
+// CheckBalance
+message CheckBalance {
+}
+
+message YourBalance {
+    required int32 balance = 1;
+}

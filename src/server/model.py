@@ -1370,6 +1370,7 @@ class Role:
     move_timer: int=None
     map_id: int=None
     money: int=None
+    bank_money: int=None
     items: list[int]=None
     auras: set[int]=None
     seen_grids: any=None  # numpy matrix
@@ -1469,6 +1470,21 @@ class Role:
         if self.money < amount:
             return False
         return True
+
+    def check_balance(self):
+        print('xxxxxxxxxxxxxxxxxx')
+        print(self.bank_money)
+
+        if self.bank_money is None:
+            balance = 0
+        else:
+            balance = self.bank_money
+
+        self.session.send(
+            pb.YourBalance(
+                balance=balance
+            )
+        )
 
     def donate(self, ingots_cnt):
         if ingots_cnt < 1:

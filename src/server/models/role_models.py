@@ -36,6 +36,7 @@ class Role(BASE):
 	y = Column(Integer)
 	dir = Column(Integer)
 	money = Column(Integer)
+	bank_money = Column(Integer)
 	seen_grids = Column(String)
 	days_at_sea = Column(Integer)
 

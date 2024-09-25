@@ -14,15 +14,14 @@ TO DO:
             mates loyalty (later)
             maid intimacy (later)
 
-        church
-            pray   OK
-            donate OK
+        church  OK
 
         bank
-            money loses 50% on death at sea
-            check balance
-            deposit
+            check balance  OK
+            deposit ON
             withdraw
+
+            money loses 50% on death at sea
 
         job house (quests)
             explore

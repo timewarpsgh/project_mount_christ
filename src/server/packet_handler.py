@@ -264,6 +264,7 @@ class PacketHandler:
                 dir=role.dir,
                 map_id=role.map_id,
                 money=role.money,
+                bank_money=role.bank_money,
                 items=json.loads(role.items),
                 notorities=json.loads(role.notorities),
             )
@@ -1150,3 +1151,6 @@ class PacketHandler:
     async def handle_Donate(self, donate):
         ingots_cnt = donate.ingots_cnt
         self.role.donate(ingots_cnt)
+
+    async def handle_CheckBalance(self, check_balance):
+        self.role.check_balance()

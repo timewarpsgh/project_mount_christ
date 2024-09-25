@@ -4,6 +4,8 @@ TO DO:
     bug fix: enter building shows black OK
     remove exit option for each building OK
 
+    move chat dialog up a little OK
+
 DONE:
 
     update npc and season at the same time OK

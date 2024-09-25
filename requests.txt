@@ -22,7 +22,7 @@ TO DO:
             withdraw  OK
 
             money loses 50% on death at sea  OK
-            money loses 50% to winner in battle ON
+            money loses 50% to winner in battle OK
 
         job house (quests)
             explore

@@ -1842,6 +1842,7 @@ class Role:
 
         if self.is_role():
             if self.is_in_battle_with_role():
+                # get ships
                 for id in enemy.get_non_flag_ships_ids():
                     print(f'## non flagship id {id}')
 
@@ -1872,6 +1873,11 @@ class Role:
                         chat_type=pb.ChatType.SYSTEM,
                         text=f'lost ship {prev_ship_name}',
                     ))
+
+                # get half of target's money
+                amount = enemy.money // 2
+                enemy.mod_money(-amount)
+                self.mod_money(amount)
 
                 # tell client
                 self.session.send(pb.EscapedRoleBattle())
@@ -2178,6 +2184,8 @@ class Role:
             self.ship_mgr.rm_ship(id)
             self.session.send(pb.ShipRemoved(id=id))
 
+        self.__lose_money_due_to_death()
+
         self.session.send(pb.EscapedNpcBattle())
 
         self.npc_instance = None
@@ -2270,6 +2278,9 @@ class Role:
             if flag_ship.now_durability <= 0:
                 self.__starve()
 
+    def __lose_money_due_to_death(self):
+        self.mod_money(-int(self.money * 0.5))
+
     def __starve(self):
         self.is_dead = True
         self.fleet_speed = c.DEAD_SPEED
@@ -2278,7 +2289,7 @@ class Role:
 
         self.ship_mgr.clear_crew()
 
-        self.mod_money(-int(self.money * 0.5))
+        self.__lose_money_due_to_death()
 
     def start_moving(self, x, y, dir):
         old_x = self.x

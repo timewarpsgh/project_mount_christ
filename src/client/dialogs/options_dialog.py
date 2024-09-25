@@ -170,7 +170,7 @@ class OptionsDialog:
             'Investment State': partial(self.__show_investment_state_menu),
             'Invest': partial(self.__show_invest_dialog),
             'Manage': '',
-            'Exit': partial(self.exit_building),
+            '': partial(self.exit_building),
         }
 
         self.__make_menu(option_2_callback)
@@ -184,7 +184,7 @@ class OptionsDialog:
             'Meet': partial(self.__get_mate_in_port),
             'Fire Mate': partial(self.__show_mates_to_fire_menu),
             'Waitress': partial(self.__show_waitress_menu),
-            'Exit': partial(self.exit_building),
+            '': partial(self.exit_building),
         }
 
         self.__make_menu(option_2_callback)
@@ -297,7 +297,7 @@ class OptionsDialog:
             'Repair': partial(self.__show_ships_to_repair_menu),
             'Sell': partial(self.__show_ships_to_sell),
             'Remodel': partial(self.__show_remodel_menu),
-            'Exit': partial(self.exit_building),
+            '': partial(self.exit_building),
         }
 
         MyMenuWindow(
@@ -790,7 +790,7 @@ class OptionsDialog:
             'Sail': partial(self.__show_confirm_sail_dialog),
             'Load Supply': partial(self.__show_load_supply_menu),
             'Unload Supply': partial(self.__show_unload_supply_menu),
-            'Exit': partial(self.exit_building),
+            '': partial(self.exit_building),
         }
 
         self.__make_menu(option_2_callback)
@@ -800,7 +800,7 @@ class OptionsDialog:
 
         option_2_callback = {
             'Port Info': partial(self.__get_port_info),
-            'Exit': partial(self.exit_building),
+            '': partial(self.exit_building),
         }
 
         self.__make_menu(option_2_callback)
@@ -811,7 +811,7 @@ class OptionsDialog:
         option_2_callback = {
             'Meet Ruler': partial(self.__show_ruler_menu),
             'Defect': '',
-            'Exit': partial(self.exit_building),
+            '': partial(self.exit_building),
         }
 
         self.__make_menu(option_2_callback)
@@ -821,7 +821,7 @@ class OptionsDialog:
 
         option_2_callback = {
             'Nation Info': partial(self.__show_nations_menu_to_get_info),
-            'Exit': partial(self.exit_building),
+            '': partial(self.exit_building),
         }
 
         MyMenuWindow(
@@ -837,7 +837,7 @@ class OptionsDialog:
             'Check Balance': partial(self.__check_balance),
             'Deposit': partial(self.__show_deposit_dialog),
             'Withdraw': partial(self.__show_withdraw_dialog),
-            'Exit': partial(self.exit_building),
+            '': partial(self.exit_building),
         }
 
         self.__make_menu(option_2_callback)
@@ -848,7 +848,7 @@ class OptionsDialog:
         option_2_callback = {
             'Buy': partial(self.__get_available_items),
             'Sell': partial(self.__show_items_to_sell_menu),
-            'Exit': partial(self.exit_building),
+            '': partial(self.exit_building),
         }
 
         self.__make_menu(option_2_callback)
@@ -859,7 +859,7 @@ class OptionsDialog:
         option_2_callback = {
             'Pray': partial(self.__pray),
             'Donate': partial(self.__show_donate_dialog),
-            'Exit': partial(self.exit_building),
+            '': partial(self.exit_building),
         }
 
         self.__make_menu(option_2_callback)
@@ -871,7 +871,7 @@ class OptionsDialog:
             'Life': partial(self.__show_admiral_info),
             'Mates': '',
             'Love': '',
-            'Exit': partial(self.exit_building),
+            '': partial(self.exit_building),
         }
 
         self.__make_menu(option_2_callback)

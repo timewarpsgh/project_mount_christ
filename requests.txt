@@ -1,8 +1,8 @@
 TO DO:
 
     each building (crude)  OK
-
     bug fix: enter building shows black OK
+    remove exit option for each building OK
 
 DONE:
 

@@ -1465,15 +1465,23 @@ class Role:
             )
         )
 
+    def has_enough_money(self, amount):
+        if self.money < amount:
+            return False
+        return True
+
     def donate(self, ingots_cnt):
         if ingots_cnt < 1:
             return
 
-        if self.money < ingots_cnt * 10000:
+        if not self.has_enough_money(ingots_cnt * 10000):
             return
 
         self.add_aura(c.Aura.DONATION.value)
         self.mod_money(-ingots_cnt * 10000)
+
+        self.session.send(pb.DonationMade())
+
 
     def pray(self):
         self.add_aura(c.Aura.PRAYER.value)

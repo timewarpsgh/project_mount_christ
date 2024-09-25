@@ -194,6 +194,7 @@ class OpCodeType(Enum):
 
     Pray = auto()
     Donate = auto()
+    DonationMade = auto()
 
 
 def gen_opcode_2_value():

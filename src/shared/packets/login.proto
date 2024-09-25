@@ -879,3 +879,6 @@ message Pray {
 message Donate {
     required int32 ingots_cnt = 1;
 }
+
+message DonationMade {
+}

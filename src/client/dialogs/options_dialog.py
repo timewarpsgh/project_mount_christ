@@ -347,6 +347,9 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def building_speak(self, text):
+        self.__building_speak(text)
+
     def show_mate_speech(self, mate, speech):
         # get image_x and y
         split_items = mate.img_id.split('_')

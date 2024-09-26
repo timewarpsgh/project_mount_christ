@@ -20,9 +20,17 @@ class PacketParamsDialog:
         self.packet = packet
 
         # add ui window
-        self.ui_window = pygame_gui.elements.UIWindow(
-            rect=pygame.Rect((0, 100), (300, 300)),
+
+        ui_window = pygame_gui.elements.UIWindow(
+            rect=pygame.Rect((100, 200), (300, 200)),
             manager=self.mgr,
+        )
+
+        # add panel
+        panel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect((0, 0), (300, 200)),
+            manager=self.mgr,
+            container=ui_window,
         )
 
         # for each param
@@ -30,10 +38,10 @@ class PacketParamsDialog:
         for i, param_name in enumerate(params_names):
             # add entry box
             entry_box = pygame_gui.elements.UITextEntryBox(
-                relative_rect=pygame.Rect((0, 50 * (i + 1)), (100, 50)),
+                relative_rect=pygame.Rect((0, 40 * i), (100, 40)),
                 placeholder_text=param_name,
                 manager=self.mgr,
-                container=self.ui_window,
+                container=panel,
             )
             entry_box.focus()
             entry_box.unfocus()
@@ -45,10 +53,10 @@ class PacketParamsDialog:
 
         # add buttion to manager
         self.ok_button = MyButton(
-            relative_rect=pygame.Rect((0, 50 * (index + 1)), (100, 50)),
+            relative_rect=pygame.Rect((0, 40 * index), (100, 40)),
             text='OK',
             manager=self.mgr,
-            container=self.ui_window,
+            container=panel,
             on_click=partial(self.__send_packet),
         )
 

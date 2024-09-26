@@ -6,6 +6,10 @@ TO DO:
 
     move chat dialog up a little OK
 
+
+
+
+
 DONE:
 
     update npc and season at the same time OK
@@ -13,6 +17,8 @@ DONE:
     each port has index and nation OK
     items uses OK
     each building (crude)  OK
+
+    bug fix: sail sometimes shows black OK
 
 
 cmds

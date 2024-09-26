@@ -329,6 +329,7 @@ class PacketHandler:
 
             # update graphics
             if role.is_at_sea():
+                self.__get_graphics().sp_background.stop_moving()
                 self.client.game.graphics.change_background_sp_to_sea(role.x, role.y)
                 self.__get_options_dialog().pop_some_menus(5)
             elif role.is_in_port():

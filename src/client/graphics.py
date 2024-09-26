@@ -723,27 +723,21 @@ class Graphics:
     def move_sea_bg(self, x, y):
         print('xx', x, y)
 
-
         # if out of range
         if abs(x - sMapMaker.x_tile) >= 12 or abs(y - sMapMaker.y_tile) >= 12:
             print("out of box! time to draw new map")
 
-            # edge case
-            tile_size = c.PIXELS_COVERED_EACH_MOVE
-            x_in_pixels = x * tile_size
-            y_in_pixels = y * tile_size
-
-            if y_in_pixels > c.WORLD_MAP_MAX_Y_TO_DRAW_NEW_PARTIAL_WORLD_MAP or \
-                    y_in_pixels < c.WORLD_MAP_MIN_Y_TO_DRAW_NEW_PARTIAL_WORLD_MAP:
-                return
-
-            if x >= c.WORLD_MAP_COLUMNS - c.WORLD_MAP_EDGE_LENGTH or \
-                    x <= c.WORLD_MAP_EDGE_LENGTH:
-                return
+            # in edge cases, do not draw new map
+            if y > (1080 - 40) or y < 40 or x > (2160 - 40) or x < 40:
+                self.x_tile = x
+                self.y_tile = y
+                self.drawing_partial_map = False
 
             # make new sea image
-            new_partial_sea_map = sMapMaker.make_partial_world_map(x, y)
-            self.sp_background.change_img(new_partial_sea_map)
+            else:
+
+                new_partial_sea_map = sMapMaker.make_partial_world_map(x, y, save_img=True)
+                self.sp_background.change_img(new_partial_sea_map)
 
             # move img
             role = self.model.role

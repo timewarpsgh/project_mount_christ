@@ -591,7 +591,7 @@ class HudRight(SP):
 
             port = sObjectMgr.get_port(self.model.role.map_id)
 
-            region = c.REGIONS[port.region_id] if port.region_id in c.REGIONS else ''
+            region = c.REGIONS[port.region_id] if port.region_id is not None else ''
 
             new_image.blit(Text(f'{port.name}').image, (x, 5))
             new_image.blit(Text(f'{region}').image, (x, 20))

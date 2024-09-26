@@ -28,8 +28,6 @@ class Game:
         self.window_surface = pygame.display.set_mode((c.WINDOW_WIDTH, c.WINDOW_HEIGHT),
                                                       pygame.DOUBLEBUF | pygame.HWSURFACE)
 
-        # self.background = pygame.Surface((800, 600))
-        # self.background.fill(pygame.Color('#550000'))
 
         self.is_running = True
 
@@ -57,7 +55,6 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     print('pygame quit event detected')
-
                     self.client.send(Disconnect())
 
                 self.graphics.process_event(event)

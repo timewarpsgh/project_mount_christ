@@ -1,5 +1,19 @@
 TO DO:
 
+    scenes
+        in port
+            outside building
+                add 1st bg to avoid seeing black in port  OK
+                edge check
+
+            in building
+        at sea
+        in battle
+
+
+
+DONE:
+
     each building (crude)  OK
     bug fix: enter building shows black OK
     remove exit option for each building OK
@@ -7,19 +21,6 @@ TO DO:
     move chat dialog up a little OK
 
     OK dialog bg is black OK
-
-
-
-DONE:
-
-    update npc and season at the same time OK
-    npc sail from near port OK
-    each port has index and nation OK
-    items uses OK
-    each building (crude)  OK
-
-    bug fix: sail sometimes shows black OK
-
 
 cmds
     # compile .proto file

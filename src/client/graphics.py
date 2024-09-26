@@ -972,6 +972,9 @@ class Graphics:
         if not self.client.packet_handler.is_in_game:
             return
 
+        # draw 1st background
+        window_surface.blit(sAssetMgr.images['buildings']['building_bg'], (110, 0))
+
         # draw sprites in layer order
         layers = [0, 1, 2]
         for layer in layers:

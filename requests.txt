@@ -4,7 +4,7 @@ TO DO:
         in port
             outside building
                 add 1st bg to avoid seeing black in port  OK
-                edge check
+                port edge check  OK
 
             in building
         at sea

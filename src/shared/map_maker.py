@@ -219,6 +219,8 @@ class MapMaker():
 
         # basic 4 directions
         if dir == pb.DirType.N:
+            if now_y <= 0:
+                return False
 
             # not in asia
             if map_id < 94:
@@ -230,14 +232,23 @@ class MapMaker():
                     return True
 
         elif dir == pb.DirType.S:
+            if now_y >= c.PORT_MAP_EDGE:
+                return False
+
             if piddle[x + 2, y] in c.WALKABLE_TILES and piddle[x + 2, y + 1] in c.WALKABLE_TILES:
                 return True
 
         elif dir == pb.DirType.W:
+            if now_x <= 0:
+                return False
+
             if piddle[x + 1, y - 1] in c.WALKABLE_TILES:
                 return True
 
         elif dir == pb.DirType.E:
+            if now_x >= c.PORT_MAP_EDGE:
+                return False
+
             if piddle[x + 1, y + 2] in c.WALKABLE_TILES:
                 return True
 

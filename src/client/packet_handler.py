@@ -260,7 +260,13 @@ class PacketHandler:
         if role_moved.id == self.client.game.graphics.model.role.id:
 
             # update role
+
             role_model = self.__get_role()
+
+            role_model.last_x = role_model.x
+            role_model.last_y = role_model.y
+
+
             role_model.x = role_moved.x
             role_model.y = role_moved.y
             role_model.dir = role_moved.dir_type

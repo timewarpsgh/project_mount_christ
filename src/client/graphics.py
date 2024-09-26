@@ -761,6 +761,7 @@ class Graphics:
         return x, y
 
     def role_xy_at_sea_2_xy_on_screen(self, x, y):
+
         x = -(x - sMapMaker.x_tile - 5) * c.PIXELS_COVERED_EACH_MOVE - \
             (c.PIXELS_COVERED_EACH_MOVE * c.PARTIAL_WORLD_MAP_TILES_IN_ONE_DIRECTION // 2)
 

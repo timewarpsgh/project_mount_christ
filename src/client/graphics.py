@@ -736,7 +736,7 @@ class Graphics:
             # make new sea image
             else:
 
-                new_partial_sea_map = sMapMaker.make_partial_world_map(x, y, save_img=True)
+                new_partial_sea_map = sMapMaker.make_partial_world_map(x, y)
                 self.sp_background.change_img(new_partial_sea_map)
 
             # move img

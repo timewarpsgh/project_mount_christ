@@ -175,23 +175,6 @@ class MapMaker():
         sea_img = Image.new('RGB', (COLUMNS * c.PIXELS_COVERED_EACH_MOVE, ROWS * c.PIXELS_COVERED_EACH_MOVE), 'red')
         HALF_TILES = c.PARTIAL_WORLD_MAP_TILES_IN_ONE_DIRECTION
         sea_piddle = self.world_map_piddle[y_tile-HALF_TILES:y_tile+HALF_TILES+1, x_tile-HALF_TILES:x_tile+HALF_TILES+1]
-        print('### piddle shape')
-        print(sea_piddle.shape)
-
-        rows = sea_piddle.shape[0]
-        cols = sea_piddle.shape[1]
-        if rows < c.PARTIAL_WORLD_MAP_TILES:
-            print('rows < 73 !!')
-            # Create a row of zeros
-            rows_diff = c.PARTIAL_WORLD_MAP_TILES - rows
-            zeros_row = np.ones((rows_diff, c.PARTIAL_WORLD_MAP_TILES))
-
-            # Add the row of zeros to the matrix
-            sea_piddle = np.vstack((sea_piddle, zeros_row))
-
-            print('### piddle shape after adding rows')
-            print(sea_piddle.shape)
-            print(sea_piddle)
 
         # small piddle to image
         tiles = []

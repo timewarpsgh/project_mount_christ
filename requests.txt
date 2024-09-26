@@ -7,8 +7,9 @@ TO DO:
                 port edge check  OK
                 sea edge check OK
 
-                enter supply ports ON
-                    1930 902
+                enter supply ports OK
+
+
             in building
 
 

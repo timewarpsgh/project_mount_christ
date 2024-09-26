@@ -590,7 +590,8 @@ class HudRight(SP):
         if self.model.role.is_in_port():
 
             port = sObjectMgr.get_port(self.model.role.map_id)
-            region = c.REGIONS[port.region_id]
+
+            region = c.REGIONS[port.region_id] if port.region_id in c.REGIONS else ''
 
             new_image.blit(Text(f'{port.name}').image, (x, 5))
             new_image.blit(Text(f'{region}').image, (x, 20))

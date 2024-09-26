@@ -721,6 +721,9 @@ class Graphics:
         self.sp_background.move_to_smoothly(x, y, given_time=0.2)
 
     def move_sea_bg(self, x, y):
+        print('xx', x, y)
+
+
         # if out of range
         if abs(x - sMapMaker.x_tile) >= 12 or abs(y - sMapMaker.y_tile) >= 12:
             print("out of box! time to draw new map")
@@ -734,8 +737,8 @@ class Graphics:
                     y_in_pixels < c.WORLD_MAP_MIN_Y_TO_DRAW_NEW_PARTIAL_WORLD_MAP:
                 return
 
-            if x_in_pixels > c.WORLD_MAP_MAX_X_TO_DRAW_NEW_PARTIAL_WORLD_MAP or \
-                    x_in_pixels < c.WORLD_MAP_MIN_X_TO_DRAW_NEW_PARTIAL_WORLD_MAP:
+            if x >= c.WORLD_MAP_COLUMNS - c.WORLD_MAP_EDGE_LENGTH or \
+                    x <= c.WORLD_MAP_EDGE_LENGTH:
                 return
 
             # make new sea image

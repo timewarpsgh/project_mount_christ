@@ -455,33 +455,12 @@ class PacketHandler:
         x = int(params[0])
         y = int(params[1])
 
-        pack = GotChat(
+        self.role.change_xy(x, y)
+
+        pack = pb.GotChat(
             origin_name=self.role.name,
-            chat_type=ChatType.SYSTEM,
+            chat_type=pb.ChatType.SYSTEM,
             text=f'xy changed to {x} {y}',
-        )
-        self.session.send(pack)
-
-        self.send_role_disappeared_to_nearby_roles()
-
-        old_x = self.role.x
-        old_y = self.role.y
-        old_map_id = self.role.map_id
-
-        self.role.x = x
-        self.role.y = y
-
-        sMapMgr.change_object_map(self.role,
-                                  old_map_id, old_x, old_y,
-                                  self.role.map_id, self.role.x, self.role.y)
-
-        self.send_role_appeared_to_nearby_roles()
-
-        pack = RoleMoved(
-            id=self.role.id,
-            x=self.role.x,
-            y=self.role.y,
-            dir_type=DirType.E,
         )
         self.session.send(pack)
 

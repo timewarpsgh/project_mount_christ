@@ -1457,6 +1457,30 @@ class Role:
             )
         )
 
+    def change_xy(self, x, y):
+        self.session.packet_handler.send_role_disappeared_to_nearby_roles()
+
+        old_x = self.x
+        old_y = self.y
+        old_map_id = self.map_id
+
+        self.x = x
+        self.y = y
+
+        sMapMgr.change_object_map(self,
+                                  old_map_id, old_x, old_y,
+                                  self.map_id, self.x, self.y)
+
+        self.session.packet_handler.send_role_appeared_to_nearby_roles()
+
+        pack = pb.RoleMoved(
+            id=self.id,
+            x=self.x,
+            y=self.y,
+            dir_type=self.dir,
+        )
+        self.session.send(pack)
+
     def mod_money(self, amount):
         self.money += amount
 
@@ -1704,6 +1728,16 @@ class Role:
             if not sMapMaker.can_move_in_port(self.map_id, self.x, self.y, dir):
                 return
         elif self.is_at_sea():
+            # edge cases
+            if self.x <= c.WORLD_MAP_EDGE_LENGTH and \
+                    self.dir in [pb.DirType.W, pb.DirType.NW, pb.DirType.SW]:
+                self.change_xy(c.WORLD_MAP_COLUMNS - c.WORLD_MAP_EDGE_LENGTH, self.y)
+
+            if self.x >= c.WORLD_MAP_COLUMNS - c.WORLD_MAP_EDGE_LENGTH and \
+                self.dir in [pb.DirType.E, pb.DirType.NE, pb.DirType.SE]:
+                self.change_xy(c.WORLD_MAP_EDGE_LENGTH, self.y)
+
+            # normal cases
             if not sMapMaker.can_move_at_sea(self.x, self.y, dir):
                 alt_dir = sMapMaker.get_alt_dir_at_sea(self.x, self.y, dir)
                 if not alt_dir:

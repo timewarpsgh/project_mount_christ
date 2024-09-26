@@ -1332,7 +1332,7 @@ class OptionsDialog:
         world_map_image = sAssetMgr.images['world_map']['world_map_from_uw2']
 
         # shrink image
-        world_map_image = pygame.transform.scale(world_map_image, (800, 400))  # 800, 400
+        world_map_image = pygame.transform.scale(world_map_image, (c.WINDOW_WIDTH, c.WINDOW_HEIGHT - 80))  # 800, 400
 
         grid_size = 13
         strict_grid_size = 12.5
@@ -1351,12 +1351,12 @@ class OptionsDialog:
         # iterate through matrix
         rows, cols = matrix.shape
 
-        for x in range(rows):
-            for y in range(cols):
-                if matrix[x][y] == 0:
-                    # paste figure image onto img
-                    start_x_y = (start_y + int(y * strict_grid_size), start_x + int(x * strict_grid_size))
-                    world_map_image.blit(map_mosaic, start_x_y)
+        # for x in range(rows):
+        #     for y in range(cols):
+        #         if matrix[x][y] == 0:
+        #             # paste figure image onto img
+        #             start_x_y = (start_y + int(y * strict_grid_size), start_x + int(x * strict_grid_size))
+        #             world_map_image.blit(map_mosaic, start_x_y)
 
         # get my_x y based on location
         if self.__get_role().is_in_port():
@@ -1367,7 +1367,7 @@ class OptionsDialog:
             my_x = self.__get_role().x
             my_y = self.__get_role().y
 
-        my_x = int(800 * (my_x / 2160))
+        my_x = int(720 * (my_x / 2160))
         my_y = int(400 * (my_y / 1080))
         print(my_x, my_y)
 
@@ -1381,7 +1381,7 @@ class OptionsDialog:
         text = ''
 
         MyPanelWindow(
-            rect=pygame.Rect((10, 10), (image_rect.width, (image_rect.height + 60))),
+            rect=pygame.Rect((-20, -20), (image_rect.width + 40, image_rect.height + 30)),
             ui_manager=self.mgr,
             text=text,
             image=world_map_image,

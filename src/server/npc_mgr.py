@@ -100,7 +100,9 @@ class Npc(Role):
 
     def __start_moving_to_next_point(self, next_point):
         dir = self.__get_dir_to_next_point(next_point)
-        self.start_moving(self.x, self.y, dir)
+        self.stopped_moving(next_point[0], next_point[1], dir)
+
+        # self.start_moving(self.x, self.y, dir)
 
     def __get_dir_to_next_point(self, next_point):
         next_x = next_point[0]
@@ -171,11 +173,11 @@ class NpcMgr:
             sMapMgr.update(time_diff)
 
     async def update(self, time_diff):
-        return
+        # return
         for npc in self.id_2_npc.values():
             # if npc.id == 2000000001:
             npc.move_along_path()
-            await npc.update(time_diff)
+            # await npc.update(time_diff)
 
 
     def __get_mate(self, npc_id):

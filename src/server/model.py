@@ -2325,6 +2325,31 @@ class Role:
 
         self.__lose_money_due_to_death()
 
+    def stopped_moving(self, x, y, dir):
+        self.is_moving = False
+
+        old_x = self.x
+        old_y = self.y
+
+        self.x = x
+        self.y = y
+        self.dir = dir
+
+        sMapMgr.move_object(self, old_x, old_y, self.x, self.y)
+
+        pack = pb.StoppedMoving(
+            id=self.id,
+            src_x=self.x,
+            src_y=self.y,
+            dir=self.dir,
+        )
+
+        nearby_objects = sMapMgr.get_nearby_objects(self, include_self=True)
+        for object in nearby_objects:
+            if object.is_role():
+                object.session.send(pack)
+        print(f'server: {self.id} stopped moving at ({self.x}, {self.y})')
+
     def start_moving(self, x, y, dir):
         old_x = self.x
         old_y = self.y

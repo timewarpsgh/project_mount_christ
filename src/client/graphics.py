@@ -12,6 +12,7 @@ import constants as c
 from asset_mgr import sAssetMgr
 from map_maker import sMapMaker
 from object_mgr import sObjectMgr
+from model import Role
 
 FONT_SIZE = 16
 YELLOW = (255, 255, 0)
@@ -1111,3 +1112,23 @@ class Graphics:
         market_guy.animation = Animation(market_guy.frames, 0.5, x, y, 1000)
         self.sprites.add(market_guy.animation)
         self.port_npcs.append(market_guy)
+
+    def add_dynamic_port_npcs(self, port_id):
+        building_x, building_y = sObjectMgr.get_building_xy_in_port(
+            building_id=c.Building.MARKET.value,
+            port_id=self.model.role.map_id
+        )
+
+        role = Role(
+            id=2000000001,
+            name='',
+            map_id=port_id,
+            x=building_x,
+            y=building_y,
+            dir=pb.DirType.N,
+            graphics=self,
+        )
+
+        self.add_sp_role(role)
+        self.model.add_role(role)
+

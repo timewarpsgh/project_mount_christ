@@ -20,7 +20,7 @@ TO DO:
                 draw time_diff on left hud OK
 
 
-                dynamic npcs
+                dynamic npcs (treated as a role with npc_id in port)  ON
                     man
                     woman
 

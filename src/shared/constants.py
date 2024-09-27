@@ -17,7 +17,7 @@ SIZE_OF_ONE_GRID = 33.75 # WORLD_MAP_ROWS/SEEN_GRIDS_ROWS (1080/32)
 
 BATTLE_TIMER_IN_SECONDS = 8
 MOVE_TIMER_IN_PORT = 0.1
-FRAME_RATE = 320
+FRAME_RATE = 360
 PORT_SPEED = 80
 NPC_SPEED = 20
 DEAD_SPEED = 80 #5
@@ -201,6 +201,7 @@ TRANS_GRAY = (50, 50, 50, 35)
 TRANS_BLANK = (0, 0, 0, 0)
 
 
+
 ID_2_BUILDING_TYPE = {
     1: 'market',
     2: 'bar',
@@ -215,6 +216,13 @@ ID_2_BUILDING_TYPE = {
     11: 'church',
     12: 'fortune_house',
 }
+
+class Building(Enum):
+    MARKET = 1
+    BAR = 2
+    HARBOR = 4
+    INN = 5
+
 
 DIRECT_2_SEA_MOVE_COLLISION_TILES = {
     pb.DirType.N: [[-1, 0], [-1, 1]],

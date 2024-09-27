@@ -13,6 +13,14 @@ TO DO:
 
                 see npc move right using stopped moving OK
 
+                static npcs OK
+                    bar
+                    market
+                    inn
+
+                dynamic npcs
+                    man
+                    woman
 
             in building
 

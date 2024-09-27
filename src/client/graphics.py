@@ -35,6 +35,23 @@ def lerp(a, b, t):
     return a + (b - a) * t
 
 
+def x_y_to_image(x, y, is_ship=True):
+    if is_ship:
+        tile_set_img = sAssetMgr.images['player']['ship-tileset']
+    else:
+        tile_set_img = sAssetMgr.images['player']['person_tileset']
+
+    tile_size = c.SHIP_SIZE_IN_PIXEL
+    # make a [transparent] pygame surface
+    ship_surface = pygame.Surface((tile_size, tile_size), pygame.SRCALPHA)
+    x_coord = -tile_size * (x - 1)
+    y_coord = -tile_size * (y - 1)
+    rect = pygame.Rect(x_coord, y_coord, tile_size, tile_size)
+    ship_surface.blit(tile_set_img, rect)
+
+    return ship_surface
+
+
 class SpriteSheet():
     def __init__(self, image, collumns, rows):
         self.image = image
@@ -61,6 +78,24 @@ class Text():
     def __init__(self, text, color=c.BLACK):
         self.image = sAssetMgr.font.render(text, True, color)
         self.rect = self.image.get_rect()
+
+
+class PortNpc():
+
+    def __init__(self, frames=None, x=None, y=None, animation=None):
+        self.frames = frames
+        # close to building entrance
+        self.x = x
+        self.y = y
+        self.animation = animation
+
+    def get_xy_relative_to_role(self, role):
+        x = (self.x - role.x) * c.PIXELS_COVERED_EACH_MOVE \
+            + c.WINDOW_WIDTH // 2
+        y = (self.y - role.y) * c.PIXELS_COVERED_EACH_MOVE \
+            + c.WINDOW_HEIGHT // 2
+
+        return x, y
 
 
 class SP(pygame.sprite.Sprite):
@@ -122,6 +157,7 @@ class SP(pygame.sprite.Sprite):
 
 
 class Animation(SP):
+
     def __init__(self, frames, time_between_frames, x, y, loop_cnt=1):
         self.frames = frames
         self.time_between_frames = time_between_frames
@@ -139,6 +175,8 @@ class Animation(SP):
         self.frame_change_timer = self.time_between_frames
 
     def update(self, time_diff):
+        super().update(time_diff)
+
         self.frame_change_timer -= time_diff
         if self.frame_change_timer <= 0:
             self.__reset_frame_timer()
@@ -392,33 +430,33 @@ class RoleSP(SP):
         self.role = role
         self.frames = {
             'at_sea' : {
-                pb.DirType.N : [self.__x_y_to_image(1, 2), self.__x_y_to_image(2, 2)],
-                pb.DirType.E : [self.__x_y_to_image(3, 2), self.__x_y_to_image(4, 2)],
-                pb.DirType.S : [self.__x_y_to_image(5, 2), self.__x_y_to_image(6, 2)],
-                pb.DirType.W : [self.__x_y_to_image(7, 2), self.__x_y_to_image(8, 2)],
+                pb.DirType.N : [x_y_to_image(1, 2), x_y_to_image(2, 2)],
+                pb.DirType.E : [x_y_to_image(3, 2), x_y_to_image(4, 2)],
+                pb.DirType.S : [x_y_to_image(5, 2), x_y_to_image(6, 2)],
+                pb.DirType.W : [x_y_to_image(7, 2), x_y_to_image(8, 2)],
 
-                pb.DirType.NW: [self.__x_y_to_image(7, 2), self.__x_y_to_image(8, 2)],
-                pb.DirType.NE: [self.__x_y_to_image(3, 2), self.__x_y_to_image(4, 2)],
-                pb.DirType.SW: [self.__x_y_to_image(7, 2), self.__x_y_to_image(8, 2)],
-                pb.DirType.SE: [self.__x_y_to_image(3, 2), self.__x_y_to_image(4, 2)],
+                pb.DirType.NW: [x_y_to_image(7, 2), x_y_to_image(8, 2)],
+                pb.DirType.NE: [x_y_to_image(3, 2), x_y_to_image(4, 2)],
+                pb.DirType.SW: [x_y_to_image(7, 2), x_y_to_image(8, 2)],
+                pb.DirType.SE: [x_y_to_image(3, 2), x_y_to_image(4, 2)],
 
             },
             'in_port': {
-                pb.DirType.N : [self.__x_y_to_image(1, 1, False), self.__x_y_to_image(2, 1, False)],
-                pb.DirType.E : [self.__x_y_to_image(3, 1, False), self.__x_y_to_image(4, 1, False)],
-                pb.DirType.S : [self.__x_y_to_image(5, 1, False), self.__x_y_to_image(6, 1, False)],
-                pb.DirType.W : [self.__x_y_to_image(7, 1, False), self.__x_y_to_image(8, 1, False)],
+                pb.DirType.N : [x_y_to_image(1, 1, False), x_y_to_image(2, 1, False)],
+                pb.DirType.E : [x_y_to_image(3, 1, False), x_y_to_image(4, 1, False)],
+                pb.DirType.S : [x_y_to_image(5, 1, False), x_y_to_image(6, 1, False)],
+                pb.DirType.W : [x_y_to_image(7, 1, False), x_y_to_image(8, 1, False)],
             },
             'others_at_sea': {
-                pb.DirType.N: [self.__x_y_to_image(1, 4), self.__x_y_to_image(2, 4)],
-                pb.DirType.E: [self.__x_y_to_image(3, 4), self.__x_y_to_image(4, 4)],
-                pb.DirType.S: [self.__x_y_to_image(5, 4), self.__x_y_to_image(6, 4)],
-                pb.DirType.W: [self.__x_y_to_image(7, 4), self.__x_y_to_image(8, 4)],
+                pb.DirType.N: [x_y_to_image(1, 4), x_y_to_image(2, 4)],
+                pb.DirType.E: [x_y_to_image(3, 4), x_y_to_image(4, 4)],
+                pb.DirType.S: [x_y_to_image(5, 4), x_y_to_image(6, 4)],
+                pb.DirType.W: [x_y_to_image(7, 4), x_y_to_image(8, 4)],
 
-                pb.DirType.NW: [self.__x_y_to_image(7, 4), self.__x_y_to_image(8, 4)],
-                pb.DirType.NE: [self.__x_y_to_image(3, 4), self.__x_y_to_image(4, 4)],
-                pb.DirType.SW: [self.__x_y_to_image(7, 4), self.__x_y_to_image(8, 4)],
-                pb.DirType.SE: [self.__x_y_to_image(3, 4), self.__x_y_to_image(4, 4)],
+                pb.DirType.NW: [x_y_to_image(7, 4), x_y_to_image(8, 4)],
+                pb.DirType.NE: [x_y_to_image(3, 4), x_y_to_image(4, 4)],
+                pb.DirType.SW: [x_y_to_image(7, 4), x_y_to_image(8, 4)],
+                pb.DirType.SE: [x_y_to_image(3, 4), x_y_to_image(4, 4)],
 
             },
         }
@@ -507,21 +545,7 @@ class RoleSP(SP):
             self.is_using_port_img = False
             self.is_using_sea_img = False
 
-    def __x_y_to_image(self, x, y, is_ship=True):
-        if is_ship:
-            tile_set_img = sAssetMgr.images['player']['ship-tileset']
-        else:
-            tile_set_img = sAssetMgr.images['player']['person_tileset']
 
-        tile_size = c.SHIP_SIZE_IN_PIXEL
-        # make a [transparent] pygame surface
-        ship_surface = pygame.Surface((tile_size, tile_size), pygame.SRCALPHA)
-        x_coord = -tile_size * (x - 1)
-        y_coord = -tile_size * (y - 1)
-        rect = pygame.Rect(x_coord, y_coord, tile_size, tile_size)
-        ship_surface.blit(tile_set_img, rect)
-
-        return ship_surface
 
 class HudLeft(SP):
 
@@ -691,6 +715,9 @@ class Graphics:
         self.shoot_marks = []
         self.engage_marks = []
 
+        # port npcs
+        self.port_npcs = []
+
     def clear_marks(self):
         self.move_marks = []
         self.shoot_marks = []
@@ -790,7 +817,6 @@ class Graphics:
     def change_background_sp_to_port(self, port_id, x, y):
 
         port_piddle, port_map = sMapMaker.make_port_piddle_and_map(port_id)
-
         self.sp_background.change_img(port_map)
 
         # so port img looks right after enter port
@@ -1011,3 +1037,77 @@ class Graphics:
 
     def unhide_role_sprite(self):
         self.sp_role.change_img(self.sp_role.frames['in_port'][pb.DirType.N][0])
+
+    def remove_port_npcs(self):
+        for npc in self.port_npcs:
+            npc.animation.kill()
+        self.port_npcs = []
+
+    def get_port_npcs(self):
+        return self.port_npcs
+
+    def add_port_npcs(self, port_id):
+        # dog
+        dog = PortNpc()
+
+        dog.frames = [
+            x_y_to_image(29, 1, is_ship=False),
+            x_y_to_image(30, 1, is_ship=False)
+        ]
+
+        building_x, building_y = sObjectMgr.get_building_xy_in_port(
+            building_id=c.Building.BAR.value,
+            port_id=self.model.role.map_id
+        )
+
+        dog.x = building_x + 1
+        dog.y = building_y + 1
+
+        x, y = dog.get_xy_relative_to_role(self.model.role)
+
+
+        dog.animation = Animation(dog.frames, 0.5, x, y, 1000)
+        self.sprites.add(dog.animation)
+        self.port_npcs.append(dog)
+
+        # oldman
+        old_man = PortNpc()
+        old_man.frames = [
+            x_y_to_image(27, 1, is_ship=False),
+            x_y_to_image(28, 1, is_ship=False)
+        ]
+
+        building_x, building_y = sObjectMgr.get_building_xy_in_port(
+            building_id=c.Building.INN.value,
+            port_id=self.model.role.map_id
+        )
+        old_man.x = building_x + 1
+        old_man.y = building_y + 1
+
+        x, y = old_man.get_xy_relative_to_role(self.model.role)
+
+
+        old_man.animation = Animation(old_man.frames, 0.5, x, y, 1000)
+        self.sprites.add(old_man.animation)
+        self.port_npcs.append(old_man)
+
+        # market_guy
+        market_guy = PortNpc()
+        market_guy.frames = [
+            x_y_to_image(25, 1, is_ship=False),
+            x_y_to_image(26, 1, is_ship=False)
+        ]
+
+        building_x, building_y = sObjectMgr.get_building_xy_in_port(
+            building_id=c.Building.MARKET.value,
+            port_id=self.model.role.map_id
+        )
+
+        market_guy.x = building_x + 1
+        market_guy.y = building_y + 1
+
+        x, y = market_guy.get_xy_relative_to_role(self.model.role)
+
+        market_guy.animation = Animation(market_guy.frames, 0.5, x, y, 1000)
+        self.sprites.add(market_guy.animation)
+        self.port_npcs.append(market_guy)

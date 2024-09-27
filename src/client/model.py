@@ -643,12 +643,18 @@ class Role:
         self.dir = dir
 
         if self.is_in_port():
+            # move bg
             self.graphics.move_port_bg(self.x, self.y)
 
             # move other roles
             for role in self.graphics.model.get_other_roles():
                 x, y = self.get_x_y_between_roles(role, self)
                 self.graphics.move_sp_role(role.id, x, y, role.calc_move_timer())
+
+            # move port npcs
+            for port_npc in self.graphics.get_port_npcs():
+                x, y = port_npc.get_xy_relative_to_role(self)
+                port_npc.animation.move_to_smoothly(x, y, self.calc_move_timer())
 
         elif self.is_at_sea():
             self.graphics.move_sea_bg(self.x, self.y)
@@ -726,6 +732,9 @@ class Role:
                     x, y = self.get_x_y_between_roles(role, self)
                     self.graphics.move_sp_role(role.id, x, y, self.calc_move_timer())
 
+                for port_npc in self.graphics.get_port_npcs():
+                    x, y = port_npc.get_xy_relative_to_role(self)
+                    port_npc.animation.move_to_smoothly(x, y, self.calc_move_timer())
 
         # at sea
         elif self.is_at_sea():
@@ -887,5 +896,8 @@ class Model:
 
         self.role.update(time_delta)
 
-        for id, role in self.id_2_role.items():
+        for role in self.get_other_roles():
             role.update(time_delta)
+
+        for port_npc in self.role.graphics.get_port_npcs():
+            port_npc.animation.update(time_delta)

@@ -8,6 +8,8 @@ TO DO:
                 sea edge check OK
                 enter supply ports OK
 
+                see other roles move to right position OK
+
 
             in building
 

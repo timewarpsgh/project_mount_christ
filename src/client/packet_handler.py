@@ -609,10 +609,25 @@ class PacketHandler:
             role.stopped_moving(src_x, src_y, dir)
         else:
             role = self.__get_model().get_role_by_id(id)
+
             role.x = src_x
             role.y = src_y
             role.dir = dir
             role.is_moving = False
+
+            # change sp dir
+            sp_role = self.__get_graphics().get_sp_role(id)
+            if self.__get_role().is_at_sea():
+                sp_role.change_img(sp_role.frames['others_at_sea'][role.dir][0])
+            else:
+                sp_role.change_img(sp_role.frames['in_port'][role.dir][0])
+
+            # move sp to final position
+            x, y = role.get_x_y_between_roles(role, self.__get_role())
+            self.__get_graphics().move_sp_role(id, x, y, role.calc_move_timer())
+
+
+
 
     async def handle_AllShipsTargetSet(self, all_ships_target_set):
         target_ship_id = all_ships_target_set.ship_id

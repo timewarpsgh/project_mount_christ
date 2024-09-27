@@ -591,7 +591,7 @@ class HudLeft(SP):
             new_image.blit(food_water, (x, 280))
             new_image.blit(material_cannon, (x, 320))
 
-        name = Text( f'{self.model.role.name}').image
+        name = Text( f'{self.model.role.name}  {time_diff}').image
         new_image.blit(name, (x, 400))
 
         self.change_img(new_image)

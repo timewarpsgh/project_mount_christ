@@ -17,7 +17,7 @@ TO DO:
 
                 remove npcs when in building OK
 
-
+                draw time_diff on left hud OK
 
 
                 dynamic npcs

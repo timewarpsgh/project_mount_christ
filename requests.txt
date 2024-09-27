@@ -9,7 +9,7 @@ TO DO:
                 enter supply ports OK
 
                 see other roles move to right position OK
-
+                when i move, see other roles ,stay right OK
 
             in building
 

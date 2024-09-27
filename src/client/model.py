@@ -644,8 +644,19 @@ class Role:
 
         if self.is_in_port():
             self.graphics.move_port_bg(self.x, self.y)
+
+            # move other roles
+            for role in self.graphics.model.get_other_roles():
+                x, y = self.get_x_y_between_roles(role, self)
+                self.graphics.move_sp_role(role.id, x, y, role.calc_move_timer())
+
         elif self.is_at_sea():
             self.graphics.move_sea_bg(self.x, self.y)
+
+            # move other roles
+            for role in self.graphics.model.get_other_roles():
+                x, y = self.get_x_y_between_roles(role, self)
+                self.graphics.move_sp_role(role.id, x, y, role.calc_move_timer())
 
     def move(self, dir):
         # can move?
@@ -704,13 +715,16 @@ class Role:
 
             # my role
             else:
+                # change my frame
                 self.graphics.sp_role.change_to_next_frame()
+
+                # move bg
                 self.graphics.move_port_bg(self.x, self.y)
 
                 # move other roles
-                for id, role in self.graphics.model.id_2_role.items():
+                for role in self.graphics.model.get_other_roles():
                     x, y = self.get_x_y_between_roles(role, self)
-                    self.graphics.move_sp_role(id, x, y, self.calc_move_timer())
+                    self.graphics.move_sp_role(role.id, x, y, self.calc_move_timer())
 
 
         # at sea
@@ -822,6 +836,9 @@ class Model:
         self.id_2_role = {} # other roles
         self.id_2_npc = {}
         self.season_mgr = SeasonMgr()
+
+    def get_other_roles(self):
+        return self.id_2_role.values()
 
     def add_role(self, role):
         self.id_2_role[role.id] = role

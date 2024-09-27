@@ -14,9 +14,11 @@ TO DO:
                 see npc move right using stopped moving OK
 
                 static npcs OK
-                    bar
-                    market
-                    inn
+
+                remove npcs when in building OK
+
+
+
 
                 dynamic npcs
                     man

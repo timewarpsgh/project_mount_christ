@@ -705,6 +705,7 @@ class OptionsDialog:
     def exit_building(self):
         self.pop_some_menus(5)
         self.__get_graphics().unhide_role_sprite()
+        self.__get_graphics().add_port_npcs(self.__get_role().map_id)
 
         role = self.__get_role()
         self.__get_graphics().change_background_sp_to_port(role.map_id, role.x, role.y)
@@ -1648,6 +1649,7 @@ class OptionsDialog:
                 self.get_graphics().sp_background.stop_moving()
 
                 self.__get_graphics().hide_role_sprite()
+                self.__get_graphics().remove_port_npcs()
 
                 self.pop_some_menus(cnt=1)
 

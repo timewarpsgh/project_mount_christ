@@ -1039,7 +1039,6 @@ class Graphics:
             for dpn in self.dynamic_port_npcs:
                 # randchoice
                 rand_dir = random.choice([pb.DirType.N, pb.DirType.E, pb.DirType.S, pb.DirType.W])
-                print(f'dpn {dpn.name} moving to {rand_dir}')
                 dpn.is_moving = True
                 dpn.dir = rand_dir
                 dpn.move_timer = 0

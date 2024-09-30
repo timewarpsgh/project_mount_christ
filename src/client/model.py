@@ -578,6 +578,18 @@ class Role:
         else:
             return True
 
+    def is_man_in_port(self):
+        if self.id in c.PORT_MEN_IDS:
+            return True
+        else:
+            return False
+
+    def is_woman_in_port(self):
+        if self.id in c.PORT_WOMEN_IDS:
+            return True
+        else:
+            return False
+
     def is_in_port(self):
         if self.map_id != 0 and self.map_id is not None:
             return True

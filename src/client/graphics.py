@@ -450,6 +450,18 @@ class RoleSP(SP):
                 pb.DirType.S : [x_y_to_image(5, 1, False), x_y_to_image(6, 1, False)],
                 pb.DirType.W : [x_y_to_image(7, 1, False), x_y_to_image(8, 1, False)],
             },
+            'man_in_port': {
+                pb.DirType.N: [x_y_to_image(17, 1, False), x_y_to_image(18, 1, False)],
+                pb.DirType.E: [x_y_to_image(19, 1, False), x_y_to_image(20, 1, False)],
+                pb.DirType.S: [x_y_to_image(21, 1, False), x_y_to_image(22, 1, False)],
+                pb.DirType.W: [x_y_to_image(23, 1, False), x_y_to_image(24, 1, False)],
+            },
+            'woman_in_port': {
+                pb.DirType.N: [x_y_to_image(9, 1, False), x_y_to_image(10, 1, False)],
+                pb.DirType.E: [x_y_to_image(11, 1, False), x_y_to_image(12, 1, False)],
+                pb.DirType.S: [x_y_to_image(13, 1, False), x_y_to_image(14, 1, False)],
+                pb.DirType.W: [x_y_to_image(15, 1, False), x_y_to_image(16, 1, False)],
+            },
             'others_at_sea': {
                 pb.DirType.N: [x_y_to_image(1, 4), x_y_to_image(2, 4)],
                 pb.DirType.E: [x_y_to_image(3, 4), x_y_to_image(4, 4)],
@@ -491,7 +503,12 @@ class RoleSP(SP):
             self.now_frame = 0
 
         if self.role.is_in_port():
-            img = self.frames['in_port'][self.role.dir][self.now_frame]
+            if self.role.is_man_in_port():
+                img = self.frames['man_in_port'][self.role.dir][self.now_frame]
+            elif self.role.is_woman_in_port():
+                img = self.frames['woman_in_port'][self.role.dir][self.now_frame]
+            else:
+                img = self.frames['in_port'][self.role.dir][self.now_frame]
         elif self.role.is_at_sea():
             if self.is_mine:
                 img = self.frames['at_sea'][self.role.dir][self.now_frame]
@@ -525,9 +542,17 @@ class RoleSP(SP):
             else:
                 self.frame_counter += 1
 
+
     def __update_img_based_on_location(self):
         if self.role.is_in_port() and not self.is_using_port_img:
-            self.change_img(self.frames['in_port'][self.role.dir][0])
+
+            if self.role.is_man_in_port():
+                self.change_img(self.frames['man_in_port'][self.role.dir][0])
+            elif self.role.is_woman_in_port():
+                self.change_img(self.frames['woman_in_port'][self.role.dir][0])
+            else:
+                self.change_img(self.frames['in_port'][self.role.dir][0])
+
             self.is_using_port_img = True
             self.is_using_sea_img = False
             self.is_using_battle_img = False
@@ -1134,13 +1159,19 @@ class Graphics:
         self.port_npcs.append(market_guy)
 
     def add_dynamic_port_npcs(self, port_id):
+        self.__add_dynamic_port_npc(c.Building.MARKET.value, 2000000101, self.model.role.map_id)
+        self.__add_dynamic_port_npc(c.Building.INN.value, 2000000102, self.model.role.map_id)
+        self.__add_dynamic_port_npc(c.Building.BAR.value, 2000000103, self.model.role.map_id)
+        self.__add_dynamic_port_npc(c.Building.BAR.value, 2000000104, self.model.role.map_id)
+
+    def __add_dynamic_port_npc(self, building_id, role_id, port_id):
         building_x, building_y = sObjectMgr.get_building_xy_in_port(
-            building_id=c.Building.MARKET.value,
-            port_id=self.model.role.map_id
+            building_id=building_id,
+            port_id=port_id
         )
 
         role = Role(
-            id=2000000101,
+            id=role_id,
             name='',
             map_id=port_id,
             x=building_x,
@@ -1157,4 +1188,5 @@ class Graphics:
         for role in self.dynamic_port_npcs:
             self.rm_sp_role(role.id)
             self.model.remove_role(role.id)
+
         self.dynamic_port_npcs = []

@@ -849,6 +849,10 @@ class Model:
     def get_other_roles(self):
         return self.id_2_role.values()
 
+    def remove_role(self, role_id):
+        if role_id in self.id_2_role:
+            del self.id_2_role[role_id]
+
     def add_role(self, role):
         self.id_2_role[role.id] = role
 

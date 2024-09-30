@@ -156,12 +156,9 @@ class OptionsDialog:
         return self.client.game.graphics
 
     def __change_building_bg(self, building_name):
-        self.__get_graphics().change_background_sp_to_building(building_name)
+        self.__get_graphics().add_sp_building_bg(building_name)
 
     def show_market_menu(self):
-        # hide role sp
-        self.__get_graphics().hide_role_sprite()
-
         self.__change_building_bg('market')
 
         option_2_callback = {
@@ -704,8 +701,8 @@ class OptionsDialog:
 
     def exit_building(self):
         self.pop_some_menus(5)
-        self.__get_graphics().unhide_role_sprite()
         self.__get_graphics().add_port_npcs(self.__get_role().map_id)
+        self.get_graphics().remove_sp_building_bg()
 
         role = self.__get_role()
         self.__get_graphics().change_background_sp_to_port(role.map_id, role.x, role.y)
@@ -1648,7 +1645,6 @@ class OptionsDialog:
                 # self.__show_market_menu()
                 self.get_graphics().sp_background.stop_moving()
 
-                self.__get_graphics().hide_role_sprite()
                 self.__get_graphics().remove_port_npcs()
 
                 self.pop_some_menus(cnt=1)

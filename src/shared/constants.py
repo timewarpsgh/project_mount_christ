@@ -37,7 +37,7 @@ ENGAGE_DAMAGE = 0.5
 #########################################################
 
 NPC_ROLE_START_ID = 2_000_000_000
-
+DYNAMIC_PORT_NPC_UPDATE_TIMER = 0.6
 CREW_RECRUIT_COST = 50
 SUPPLY_2_COST = {
     'food': 5,

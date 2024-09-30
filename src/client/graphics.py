@@ -1,3 +1,5 @@
+import random
+
 import pygame
 import sys
 from enum import Enum, auto
@@ -551,7 +553,7 @@ class RoleSP(SP):
 class HudLeft(SP):
 
     def __init__(self, model, image, x, y):
-        super().__init__(image, x, y, z=2)
+        super().__init__(image, x, y, z=3)
 
         self.model = model
 
@@ -601,7 +603,7 @@ class HudLeft(SP):
 class HudRight(SP):
 
     def __init__(self, model, image, x, y):
-        super().__init__(image, x, y, z=2)
+        super().__init__(image, x, y, z=3)
         self.model = model
 
     def update(self, time_diff):
@@ -699,6 +701,8 @@ class Graphics:
         self.sp_background = BackGround(model, self.imgs['background'], 0, 0)
         self.sp_role = RoleSP(model, self.model.role, None, c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
         # self.sp_role_name = SP(self.font.render('name', True, YELLOW), c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
+
+        self.sp_building_bg = None
         self.sp_hud_left = HudLeft(model, sAssetMgr.images['huds']['hud_left'], 0, 0)
         self.sp_hud_right = HudRight(model, sAssetMgr.images['huds']['hud_right'], c.WINDOW_WIDTH - c.HUD_WIDTH, 0)
 
@@ -718,6 +722,9 @@ class Graphics:
 
         # port npcs
         self.port_npcs = []
+        self.dynamic_port_npcs = []
+        self.dynamic_port_npc_update_timer = 0
+
 
     def clear_marks(self):
         self.move_marks = []
@@ -825,7 +832,7 @@ class Graphics:
         x, y = self.role_xy_in_port_2_xy_on_screen(x, y)
         self.sp_background.move_to(x, y)
 
-    def change_background_sp_to_building(self, building_name):
+    def add_sp_building_bg(self, building_name):
         # bg and figure
         building_bg_img = sAssetMgr.images['buildings']['building_bg']
         building_bg_img = pygame.transform.scale(building_bg_img, building_bg_img.get_rect().size)  # 800, 400
@@ -834,8 +841,12 @@ class Graphics:
         figure_image_width = sAssetMgr.images['buildings'][building_name].get_rect().width
         building_bg_img.blit(sAssetMgr.images['buildings']['building_chat'], (figure_image_width + 10, 5))
 
-        self.sp_background.change_img(building_bg_img)
-        self.sp_background.move_to(c.HUD_WIDTH, 0)
+        # draw on layer 2
+        self.sp_building_bg = SP(building_bg_img, c.HUD_WIDTH, 0, z=2)
+        self.sprites.add(self.sp_building_bg)
+
+    def remove_sp_building_bg(self):
+        self.sp_building_bg.kill()
 
     def change_background_sp_to_battle_ground(self):
         self.sp_background.change_img(self.imgs['battle_ground'])
@@ -994,6 +1005,21 @@ class Graphics:
     def update(self, time_diff):
         self.sprites.update(time_diff)
 
+        self.__update_dynamic_port_npcs(time_diff)
+
+    def __update_dynamic_port_npcs(self, time_diff):
+        self.dynamic_port_npc_update_timer -= time_diff
+        if self.dynamic_port_npc_update_timer <= 0:
+            self.dynamic_port_npc_update_timer = c.DYNAMIC_PORT_NPC_UPDATE_TIMER
+            for dpn in self.dynamic_port_npcs:
+                # randchoice
+                rand_dir = random.choice([pb.DirType.N, pb.DirType.E, pb.DirType.S, pb.DirType.W])
+                print(f'dpn {dpn.name} moving to {rand_dir}')
+                dpn.is_moving = True
+                dpn.dir = rand_dir
+                dpn.move_timer = 0
+                dpn.speed = c.PORT_SPEED
+
     def draw(self, window_surface):
         if not self.client.packet_handler.is_in_game:
             return
@@ -1002,7 +1028,7 @@ class Graphics:
         window_surface.blit(sAssetMgr.images['buildings']['building_bg'], (110, 0))
 
         # draw sprites in layer order
-        layers = [0, 1, 2]
+        layers = [0, 1, 2, 3]
         for layer in layers:
             for sprite in self.sprites.sprites():
                 if sprite.z == layer:
@@ -1032,12 +1058,6 @@ class Graphics:
         time_between_frames = 0.03
         anim = Animation(frames, time_between_frames, x, y)
         self.sprites.add(anim)
-
-    def hide_role_sprite(self):
-        self.sp_role.change_img(sAssetMgr.images['player']['role_in_battle'])
-
-    def unhide_role_sprite(self):
-        self.sp_role.change_img(self.sp_role.frames['in_port'][pb.DirType.N][0])
 
     def remove_port_npcs(self):
         for npc in self.port_npcs:
@@ -1120,7 +1140,7 @@ class Graphics:
         )
 
         role = Role(
-            id=2000000001,
+            id=2000000101,
             name='',
             map_id=port_id,
             x=building_x,
@@ -1131,4 +1151,10 @@ class Graphics:
 
         self.add_sp_role(role)
         self.model.add_role(role)
+        self.dynamic_port_npcs.append(role)
 
+    def remove_dynamic_port_npcs(self):
+        for role in self.dynamic_port_npcs:
+            self.rm_sp_role(role.id)
+            self.model.remove_role(role.id)
+        self.dynamic_port_npcs = []

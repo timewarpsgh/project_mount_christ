@@ -339,6 +339,7 @@ class PacketHandler:
                 self.client.game.graphics.change_background_sp_to_sea(role.x, role.y)
                 self.__get_options_dialog().pop_some_menus(5)
                 self.__get_graphics().remove_port_npcs()
+                self.__get_graphics().remove_dynamic_port_npcs()
 
             elif role.is_in_port():
                 port = sObjectMgr.get_port(role.map_id)

@@ -12,6 +12,7 @@ TO DO:
 
                 ITEM_SHOP (sort items by name) OK
 
+                FORTUNE_HOUSE OK
 
                 MARKET
                 BAR
@@ -24,7 +25,7 @@ TO DO:
 
 
 
-                FORTUNE_HOUSE
+
 
 
         at sea

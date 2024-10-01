@@ -872,8 +872,6 @@ class OptionsDialog:
 
         option_2_callback = {
             'Life': partial(self.__show_admiral_info),
-            'Mates': '',
-            'Love': '',
             '': partial(self.exit_building),
         }
 

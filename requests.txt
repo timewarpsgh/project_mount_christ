@@ -22,8 +22,8 @@ TO DO:
 
                 dynamic port npcs  OK
 
-                    man
-                    woman
+                show self above other roles OK
+
 
             in building
 

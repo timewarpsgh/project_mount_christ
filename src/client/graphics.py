@@ -428,7 +428,7 @@ class CannonBall(SP):
 
 class RoleSP(SP):
 
-    def __init__(self, model, role, image, x, y, is_mine=True):
+    def __init__(self, model, role, image, x, y, is_mine=True, z=1):
         self.is_mine = is_mine
         self.role = role
         self.frames = {
@@ -476,7 +476,7 @@ class RoleSP(SP):
             },
         }
 
-        super().__init__(self.frames['in_port'][pb.DirType.N][0], x, y, z=1)
+        super().__init__(self.frames['in_port'][pb.DirType.N][0], x, y, z)
         self.model = model
 
         self.is_using_port_img = False
@@ -724,7 +724,7 @@ class Graphics:
         self.sprites = pygame.sprite.Group()
 
         self.sp_background = BackGround(model, self.imgs['background'], 0, 0)
-        self.sp_role = RoleSP(model, self.model.role, None, c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
+        self.sp_role = RoleSP(model, self.model.role, None, c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2, z=1.5)
         # self.sp_role_name = SP(self.font.render('name', True, YELLOW), c.WINDOW_WIDTH//2, c.WINDOW_HEIGHT//2)
 
         self.sp_building_bg = None
@@ -1052,7 +1052,7 @@ class Graphics:
         window_surface.blit(sAssetMgr.images['buildings']['building_bg'], (110, 0))
 
         # draw sprites in layer order
-        layers = [0, 1, 2, 3]
+        layers = [0, 1, 1.5, 2, 3]
         for layer in layers:
             for sprite in self.sprites.sprites():
                 if sprite.z == layer:

@@ -2110,7 +2110,7 @@ class Role:
                 ))
 
     def __destroy_permits_by_chance(self):
-        if random.random() < 1.1:
+        if random.random() < 0.1:
             if self.has_item(c.Item.TAX_FREE_PERMIT.value):
                 self.remove_item(c.Item.TAX_FREE_PERMIT.value)
             if self.has_item(c.Item.LETTER_OF_MARQUE.value):

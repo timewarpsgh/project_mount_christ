@@ -882,6 +882,12 @@ class PacketHandler:
 
         self.__get_options_dialog().pop_some_menus(3)
 
+        if item_id in [c.Item.TAX_FREE_PERMIT.value, c.Item.LETTER_OF_MARQUE.value]:
+            self.__get_options_dialog().building_speak(
+                'Please take good care of these documents. '
+                'I hear mice like them and they break easily if they get wet.'
+            )
+
     async def handle_ItemSellPrice(self, pack):
         item_id = pack.item_id
         price = pack.price

@@ -1404,6 +1404,15 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+        #
+        have_tax_free_permit = c.Item.TAX_FREE_PERMIT.value in self.__get_role().items
+
+        if have_tax_free_permit:
+            self.__building_speak('Oh, you have a Tax Free Permit! OK. '
+                                  'These are the best prices you can have.')
+        else:
+            self.__building_speak('Plus tax, these are the best prices you can have.')
+
     def __figure_x_y_2_image(self, x=8, y=8):
         figure_width = 65
         figure_height = 81

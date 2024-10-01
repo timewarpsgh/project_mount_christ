@@ -15,6 +15,7 @@ import random
 from object_mgr import sObjectMgr
 
 class MapMaker():
+
     def __init__(self):
         self.world_map_tiles = None
         self.world_map_piddle = None
@@ -22,6 +23,11 @@ class MapMaker():
         self.y_tile = None
 
         self.port_piddle = None
+        self.time_of_day = None
+
+    def get_time_of_day(self):
+        return self.time_of_day
+
     def make_port_piddle_and_map(self, port_index, time_of_day='random', save_img=False):
         port_index -= 1
         """make a port's tile matrix and image"""
@@ -36,11 +42,13 @@ class MapMaker():
         self.port_piddle = port_piddle
 
         # make map
-        port_map_pil_img = self.make_port_map(port_piddle, port_index, time_of_day)
+        port_map_pil_img, time_type = self.make_port_map(port_piddle, port_index, time_of_day)
 
         if save_img:
             print('port img saved!!!')
             port_map_pil_img.save(f"test_port_img.png")
+
+        self.time_of_day = time_type
 
         mode = port_map_pil_img.mode
         size = port_map_pil_img.size
@@ -78,13 +86,13 @@ class MapMaker():
         port_chip_file_num = str(port_tile_set).zfill(3)
 
         # read img
-        file_name = ''
+        time_type = ''
         if time_of_day == 'random':
-            file_name = random.choice(c.TIME_OF_DAY_OPTIONS)
+            time_type = random.choice(list(c.TimeType))
         else:
-            file_name = time_of_day
+            time_type = time_of_day
 
-        img = Image.open(f"../../data/imgs/ports/PORTCHIP.{port_chip_file_num}  {file_name}.png")
+        img = Image.open(f"../../data/imgs/ports/PORTCHIP.{port_chip_file_num}  {time_type.value}.png")
         CHIP_TILES_COUNT = 16
 
         # cut to tiles
@@ -115,7 +123,7 @@ class MapMaker():
                 port_img.paste(img, position)
 
         # ret
-        return port_img
+        return port_img, time_type
 
     def set_world_map_tiles(self):
         # init dict

@@ -455,5 +455,11 @@ class Aura(Enum):
     PRAYER = 4
     DONATION = 5
 
+class TimeType(Enum):
+    DAWN = 'dawn'
+    DAY = 'day'
+    DUSK = 'dusk'
+    NIGHT = 'night'
+
 if __name__ == '__main__':
-    print(ItemType.WEAPON.name)
+    print(random.choice(list(TimeType)))

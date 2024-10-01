@@ -24,6 +24,10 @@ TO DO:
 
                 show self above other roles OK
 
+                hide npcs at night OK
+
+                time of day at sea
+
 
             in building
 

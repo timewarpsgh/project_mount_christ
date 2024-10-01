@@ -857,6 +857,18 @@ class Graphics:
         x, y = self.role_xy_in_port_2_xy_on_screen(x, y)
         self.sp_background.move_to(x, y)
 
+        # remove port npcs
+        if sMapMaker.get_time_of_day() == c.TimeType.NIGHT:
+            self.remove_port_npcs()
+            self.remove_dynamic_port_npcs()
+        else:
+            port_id = self.model.role.map_id
+
+            if not self.port_npcs:
+                self.add_port_npcs(port_id)
+            if not self.dynamic_port_npcs:
+                self.add_dynamic_port_npcs(port_id)
+
     def add_sp_building_bg(self, building_name):
         # bg and figure
         building_bg_img = sAssetMgr.images['buildings']['building_bg']

@@ -220,11 +220,20 @@ ID_2_BUILDING_TYPE = {
     12: 'fortune_house',
 }
 
+
 class Building(Enum):
     MARKET = 1
     BAR = 2
+    DRY_DOCK = 3
     HARBOR = 4
     INN = 5
+    PALACE = 6
+    JOB_HOUSE = 6
+    MSC = 7
+    BANK = 8
+    ITEM_SHOP = 9
+    CHURCH = 10
+    FORTUNE_HOUSE = 11
 
 
 DIRECT_2_SEA_MOVE_COLLISION_TILES = {

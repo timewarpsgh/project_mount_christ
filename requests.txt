@@ -26,6 +26,9 @@ TO DO:
 
                 hide npcs at night OK
 
+                buildings accessable at different times OK
+
+
                 time of day at sea
 
 

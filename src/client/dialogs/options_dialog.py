@@ -16,6 +16,7 @@ from create_account_dialog import CreateAccountDialog
 from packet_params_dialog import PacketParamsDialog
 from my_ui_elements import MyMenuWindow, MyPanelWindow
 from asset_mgr import sAssetMgr
+from map_maker import sMapMaker
 
 from object_mgr import sObjectMgr
 import constants as c
@@ -1640,6 +1641,22 @@ class OptionsDialog:
             b_x, b_y = sObjectMgr.get_building_xy_in_port(building_id, port_id)
 
             if x == b_x and y == b_y:
+                if sMapMaker.get_time_of_day() == c.TimeType.NIGHT:
+                    if building_name not in [c.Building.HARBOR.name.lower(),
+                                             c.Building.BAR.name.lower(),
+                                             c.Building.INN.name.lower(),
+                                             c.Building.FORTUNE_HOUSE.name.lower(),]:
+                        mate = self.__get_role().mate_mgr.get_random_mate()
+                        self.show_mate_speech(mate, "It's closed!")
+                        return
+
+                if sMapMaker.get_time_of_day() != c.TimeType.NIGHT:
+                    if building_name == c.Building.FORTUNE_HOUSE.name.lower():
+                        mate = self.__get_role().mate_mgr.get_random_mate()
+                        self.show_mate_speech(mate, "It's closed!")
+                        return
+
+
                 # enter building
                 print(f'enter building: {building_name}')
                 # self.__show_market_menu()

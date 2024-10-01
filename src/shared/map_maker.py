@@ -31,7 +31,10 @@ class MapMaker():
         self.partial_world_maps = {}
 
     def get_time_of_day(self):
-        return self.time_of_day
+        if self.time_of_day:
+            return self.time_of_day
+        else:
+            return 'random'
 
     def make_port_piddle_and_map(self, port_index, time_of_day='random', save_img=False):
         port_index -= 1
@@ -188,8 +191,9 @@ class MapMaker():
         HALF_TILES = c.PARTIAL_WORLD_MAP_TILES_IN_ONE_DIRECTION
         sea_piddle = self.world_map_piddle[y_tile-HALF_TILES:y_tile+HALF_TILES+1, x_tile-HALF_TILES:x_tile+HALF_TILES+1]
 
-        # small piddle to image
+        # for each time_type
         for time_type in list(c.TimeType):
+            # small piddle to image
             sea_img = Image.new(
                 'RGB',
                 (COLUMNS * c.PIXELS_COVERED_EACH_MOVE, ROWS * c.PIXELS_COVERED_EACH_MOVE),

@@ -853,7 +853,7 @@ class Graphics:
 
     def change_background_sp_to_port(self, port_id, x, y):
 
-        port_piddle, port_map = sMapMaker.make_port_piddle_and_map(port_id)
+        port_piddle, port_map = sMapMaker.make_port_piddle_and_map(port_id, sMapMaker.get_time_of_day())
         self.sp_background.change_img(port_map)
 
         # so port img looks right after enter port
@@ -909,10 +909,13 @@ class Graphics:
         self.id_2_sp_role_name[role.id] = sp_role_name
 
     def rm_sp_role(self, id):
-        self.id_2_sp_role[id].kill()
-        del self.id_2_sp_role[id]
-        self.id_2_sp_role_name[id].kill()
-        del self.id_2_sp_role_name[id]
+        if id in self.id_2_sp_role:
+            self.id_2_sp_role[id].kill()
+            del self.id_2_sp_role[id]
+
+        if id in self.id_2_sp_role_name:
+            self.id_2_sp_role_name[id].kill()
+            del self.id_2_sp_role_name[id]
 
     def get_sp_role(self, id):
         return self.id_2_sp_role[id]

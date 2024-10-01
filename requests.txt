@@ -10,6 +10,7 @@ TO DO:
                 JOB_HOUSE OK
                 BANK    OK
 
+                ITEM_SHOP (sort items by name) OK
 
 
                 MARKET
@@ -21,7 +22,7 @@ TO DO:
 
                 MSC
 
-                ITEM_SHOP
+
 
                 FORTUNE_HOUSE
 

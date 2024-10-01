@@ -2348,7 +2348,8 @@ class Role:
         for object in nearby_objects:
             if object.is_role():
                 object.session.send(pack)
-        print(f'server: {self.id} stopped moving at ({self.x}, {self.y})')
+
+        # print(f'server: {self.id} stopped moving at ({self.x}, {self.y})')
 
     def start_moving(self, x, y, dir):
         old_x = self.x

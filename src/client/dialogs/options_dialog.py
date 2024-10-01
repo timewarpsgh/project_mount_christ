@@ -662,6 +662,9 @@ class OptionsDialog:
             else:
                 option_2_callback[f'{item.name}'] = partial(self.__get_item_sell_price, item.id)
 
+        # sort by name
+        option_2_callback = dict(sorted(option_2_callback.items(), key=lambda x: x[0]))
+
         self.__make_menu(option_2_callback)
 
     def __get_available_items(self):
@@ -1298,6 +1301,9 @@ class OptionsDialog:
                 option_2_callback[f'{item.name} x {count} {is_equiped}'] = partial(self.__show_one_item, item, is_equiped)
             else:
                 option_2_callback[f'{item.name} {is_equiped}'] = partial(self.__show_one_item, item, is_equiped)
+
+        # sort by name
+        option_2_callback = dict(sorted(option_2_callback.items(), key=lambda x: x[0]))
 
         self.__make_menu(option_2_callback)
 

@@ -56,7 +56,7 @@ INT_2_SUPPLY_NAME = {
     4: 'cannon',
 }
 
-SUPPLY_CONSUMPTION_INVERVAL = 5
+SUPPLY_CONSUMPTION_INVERVAL = 5  # one day at sea
 SUPPLY_CONSUMPTION_PER_PERSON = 0.1
 SEASON_CHANGE_INTERVAL = SUPPLY_CONSUMPTION_INVERVAL * 30 * 3
 ONE_YEAR_INTERVAL = SEASON_CHANGE_INTERVAL * 4
@@ -471,4 +471,4 @@ class TimeType(Enum):
     NIGHT = 'night'
 
 if __name__ == '__main__':
-    print(random.choice(list(TimeType)))
+    print(list(TimeType))

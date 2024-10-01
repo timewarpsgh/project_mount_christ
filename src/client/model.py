@@ -917,3 +917,6 @@ class Model:
 
         for port_npc in self.role.graphics.get_port_npcs():
             port_npc.animation.update(time_delta)
+
+        if self.role.is_at_sea():
+            sMapMaker.update(time_delta, self.role)

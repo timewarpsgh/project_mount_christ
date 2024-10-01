@@ -29,7 +29,8 @@ TO DO:
                 buildings accessable at different times OK
 
 
-                time of day at sea
+                time of day at sea changes sequentially OK
+
 
 
             in building

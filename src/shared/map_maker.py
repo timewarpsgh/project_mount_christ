@@ -25,6 +25,11 @@ class MapMaker():
         self.port_piddle = None
         self.time_of_day = None
 
+        self.time_change_timer = 0
+        self.time_of_day_index = 0
+
+        self.partial_world_maps = {}
+
     def get_time_of_day(self):
         return self.time_of_day
 
@@ -180,40 +185,49 @@ class MapMaker():
 
         # sea image with size 73 * 73
         COLUMNS = ROWS = c.PARTIAL_WORLD_MAP_TILES
-        sea_img = Image.new('RGB', (COLUMNS * c.PIXELS_COVERED_EACH_MOVE, ROWS * c.PIXELS_COVERED_EACH_MOVE), 'red')
         HALF_TILES = c.PARTIAL_WORLD_MAP_TILES_IN_ONE_DIRECTION
         sea_piddle = self.world_map_piddle[y_tile-HALF_TILES:y_tile+HALF_TILES+1, x_tile-HALF_TILES:x_tile+HALF_TILES+1]
 
         # small piddle to image
-        tiles = []
-        if time_of_day == 'random':
-            random_time = random.choice(c.TIME_OF_DAY_OPTIONS)
-            tiles = self.world_map_tiles[random_time]
-        else:
-            tiles = self.world_map_tiles[time_of_day]
+        for time_type in list(c.TimeType):
+            sea_img = Image.new(
+                'RGB',
+                (COLUMNS * c.PIXELS_COVERED_EACH_MOVE, ROWS * c.PIXELS_COVERED_EACH_MOVE),
+                'red'
+            )
 
-        for r in range(ROWS):
-            for i in range(COLUMNS):
-                left = i * c.PIXELS_COVERED_EACH_MOVE
-                upper = r * c.PIXELS_COVERED_EACH_MOVE
-                position = (left, upper)
-                img = tiles[int(sea_piddle[r, i])]
-                sea_img.paste(img, position)
+            tiles = self.world_map_tiles[time_type.value]
 
-        # save img
-        if save_img:
-            sea_img.save("sea_img.png")
+            for r in range(ROWS):
+                for i in range(COLUMNS):
+                    left = i * c.PIXELS_COVERED_EACH_MOVE
+                    upper = r * c.PIXELS_COVERED_EACH_MOVE
+                    position = (left, upper)
+                    img = tiles[int(sea_piddle[r, i])]
+                    sea_img.paste(img, position)
 
-        # PIL image to pygame image
-        mode = sea_img.mode
-        size = sea_img.size
-        data = sea_img.tobytes()
-        sea_img = pygame.image.frombytes(data, size, mode)
+            # save img
+            if save_img:
+                sea_img.save("sea_img.png")
+
+            # PIL image to pygame image
+            mode = sea_img.mode
+            size = sea_img.size
+            data = sea_img.tobytes()
+            sea_img = pygame.image.frombytes(data, size, mode)
+
+            # set partial_world_maps
+            self.partial_world_maps[time_type.value] = sea_img
 
         # set to not drawing
         self.drawing_partial_map = False
 
         # ret
+        if time_of_day == 'random':
+            sea_img = random.choice(list(self.partial_world_maps.values()))
+        else:
+            sea_img = self.partial_world_maps[time_of_day]
+
         return sea_img
 
 
@@ -286,6 +300,21 @@ class MapMaker():
             if self.can_move_at_sea(now_x, now_y, alt_direction):
                 return alt_direction
         return None
+
+    def update(self, time_diff, role):
+        self.time_change_timer -= time_diff
+        if self.time_change_timer <= 0:
+            self.time_change_timer = c.SUPPLY_CONSUMPTION_INVERVAL / 4
+            self.time_of_day = list(c.TimeType)[self.time_of_day_index]
+
+            self.time_of_day_index += 1
+            if self.time_of_day_index >= 4:
+                self.time_of_day_index = 0
+
+            print(f'{self.time_of_day=}')
+            partial_world_map_img = self.partial_world_maps[self.time_of_day.value]
+            role.graphics.sp_background.change_img(partial_world_map_img)
+
 
 sMapMaker = MapMaker()
 

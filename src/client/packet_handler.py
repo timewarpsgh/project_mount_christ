@@ -333,7 +333,7 @@ class PacketHandler:
             role.x = map_changed.x
             role.y = map_changed.y
 
-            # update graphics
+            # to sea
             if role.is_at_sea():
                 self.__get_graphics().sp_background.stop_moving()
                 self.client.game.graphics.change_background_sp_to_sea(role.x, role.y)
@@ -341,6 +341,7 @@ class PacketHandler:
                 self.__get_graphics().remove_port_npcs()
                 self.__get_graphics().remove_dynamic_port_npcs()
 
+            # to port
             elif role.is_in_port():
                 port = sObjectMgr.get_port(role.map_id)
                 print(f'entered port {port.name}')

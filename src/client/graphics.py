@@ -797,7 +797,9 @@ class Graphics:
             # make new sea image
             else:
 
-                new_partial_sea_map = sMapMaker.make_partial_world_map(x, y)
+                new_partial_sea_map = sMapMaker.make_partial_world_map(
+                    x, y, sMapMaker.get_time_of_day().value
+                )
                 self.sp_background.change_img(new_partial_sea_map)
 
             # move img
@@ -840,7 +842,9 @@ class Graphics:
                 sMapMaker.set_world_piddle()
                 sMapMaker.set_world_map_tiles()
 
-            partial_sea_map = sMapMaker.make_partial_world_map(x, y)
+            partial_sea_map = sMapMaker.make_partial_world_map(
+                x, y,
+                sMapMaker.get_time_of_day().value.lower())
             self.sp_background.change_img(partial_sea_map)
 
             x, y = self.role_xy_at_sea_2_xy_on_screen(x, y)

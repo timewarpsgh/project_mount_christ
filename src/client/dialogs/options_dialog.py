@@ -678,6 +678,8 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+        self.building_speak("I'm sorry, but the King is busy at the moment. What do you want?")
+
     def __show_donate_dialog(self):
         self.__building_speak('How many ingots do you want to donate? '
                               'Any amount is appreciated.')
@@ -813,7 +815,6 @@ class OptionsDialog:
 
         option_2_callback = {
             'Meet Ruler': partial(self.__show_ruler_menu),
-            'Defect': '',
             '': partial(self.exit_building),
         }
 

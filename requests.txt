@@ -14,12 +14,14 @@ TO DO:
 
                 FORTUNE_HOUSE OK
 
+                PALACE  OK
+
                 MARKET
                 BAR
                 DRY_DOCK
 
 
-                PALACE
+
 
                 MSC
 

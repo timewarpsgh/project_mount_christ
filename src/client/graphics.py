@@ -887,7 +887,9 @@ class Graphics:
         self.sprites.add(self.sp_building_bg)
 
     def remove_sp_building_bg(self):
-        self.sp_building_bg.kill()
+        if self.sp_building_bg:
+            self.sp_building_bg.kill()
+            self.sp_building_bg = None
 
     def change_background_sp_to_battle_ground(self):
         self.sp_background.change_img(self.imgs['battle_ground'])

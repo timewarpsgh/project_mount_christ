@@ -340,6 +340,7 @@ class PacketHandler:
                 self.__get_options_dialog().pop_some_menus(5)
                 self.__get_graphics().remove_port_npcs()
                 self.__get_graphics().remove_dynamic_port_npcs()
+                self.__get_graphics().remove_sp_building_bg()
 
             # to port
             elif role.is_in_port():

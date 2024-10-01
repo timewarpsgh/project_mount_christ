@@ -156,11 +156,12 @@ class OptionsDialog:
     def __get_graphics(self):
         return self.client.game.graphics
 
-    def __change_building_bg(self, building_name):
+    def __add_building_bg(self, building_name):
+        self.__get_role().is_in_building = True
         self.__get_graphics().add_sp_building_bg(building_name)
 
     def show_market_menu(self):
-        self.__change_building_bg('market')
+        self.__add_building_bg('market')
 
         option_2_callback = {
             'Buy': partial(self.__send_get_available_cargos),
@@ -174,7 +175,7 @@ class OptionsDialog:
         self.__make_menu(option_2_callback)
 
     def show_bar_menu(self):
-        self.__change_building_bg('bar')
+        self.__add_building_bg('bar')
 
         option_2_callback = {
             'Recruit Crew': partial(self.__show_ships_to_recruit_crew_menu),
@@ -287,7 +288,7 @@ class OptionsDialog:
         self.__make_menu(option_2_callback)
 
     def show_dry_dock_menu(self):
-        self.__change_building_bg('dry_dock')
+        self.__add_building_bg('dry_dock')
 
         option_2_callback = {
             'New Ship': '',
@@ -774,16 +775,16 @@ class OptionsDialog:
 
     def __show_load_supply_menu(self):
         option_2_callback = {
-            'Food': partial(self.__show_ships_to_load_supply, 'food'),
-            'Water': partial(self.__show_ships_to_load_supply, 'water'),
-            'Material': partial(self.__show_ships_to_load_supply, 'material'),
-            'Cannon': partial(self.__show_ships_to_load_supply, 'cannon'),
+            f"Food {c.SUPPLY_2_COST['food']}": partial(self.__show_ships_to_load_supply, 'food'),
+            f"Water {c.SUPPLY_2_COST['water']}": partial(self.__show_ships_to_load_supply, 'water'),
+            f"Material {c.SUPPLY_2_COST['material']}": partial(self.__show_ships_to_load_supply, 'material'),
+            f"Cannon {c.SUPPLY_2_COST['cannon']}": partial(self.__show_ships_to_load_supply, 'cannon'),
         }
 
         self.__make_menu(option_2_callback)
 
     def show_harbor_menu(self):
-        self.__change_building_bg('harbor')
+        self.__add_building_bg('harbor')
 
         option_2_callback = {
             'Sail': partial(self.__show_confirm_sail_dialog),
@@ -795,7 +796,7 @@ class OptionsDialog:
         self.__make_menu(option_2_callback)
 
     def show_inn_menu(self):
-        self.__change_building_bg('inn')
+        self.__add_building_bg('inn')
 
         option_2_callback = {
             'Port Info': partial(self.__get_port_info),
@@ -805,7 +806,7 @@ class OptionsDialog:
         self.__make_menu(option_2_callback)
 
     def show_palace_menu(self):
-        self.__change_building_bg('palace')
+        self.__add_building_bg('palace')
 
         option_2_callback = {
             'Meet Ruler': partial(self.__show_ruler_menu),
@@ -816,7 +817,7 @@ class OptionsDialog:
         self.__make_menu(option_2_callback)
 
     def show_job_house_menu(self):
-        self.__change_building_bg('job_house')
+        self.__add_building_bg('job_house')
 
         option_2_callback = {
             'Nation Info': partial(self.__show_nations_menu_to_get_info),
@@ -830,7 +831,7 @@ class OptionsDialog:
         )
 
     def show_bank_menu(self):
-        self.__change_building_bg('bank')
+        self.__add_building_bg('bank')
 
         option_2_callback = {
             'Check Balance': partial(self.__check_balance),
@@ -842,7 +843,7 @@ class OptionsDialog:
         self.__make_menu(option_2_callback)
 
     def show_item_shop_menu(self):
-        self.__change_building_bg('item_shop')
+        self.__add_building_bg('item_shop')
 
         option_2_callback = {
             'Buy': partial(self.__get_available_items),
@@ -853,7 +854,7 @@ class OptionsDialog:
         self.__make_menu(option_2_callback)
 
     def show_church_menu(self):
-        self.__change_building_bg('church')
+        self.__add_building_bg('church')
 
         option_2_callback = {
             'Pray': partial(self.__pray),
@@ -864,7 +865,7 @@ class OptionsDialog:
         self.__make_menu(option_2_callback)
 
     def show_fortune_house_menu(self):
-        self.__change_building_bg('fortune_house')
+        self.__add_building_bg('fortune_house')
 
         option_2_callback = {
             'Life': partial(self.__show_admiral_info),

@@ -2,39 +2,28 @@ TO DO:
 
     scenes
         in port
-            outside building
-                add 1st bg to avoid seeing black in port  OK
-                port edge check  OK
-                sea edge check OK
-                enter supply ports OK
-
-                see other roles move to right position OK
-                when i move, see other roles ,stay right OK
-
-                see npc move right using stopped moving OK
-
-                static npcs OK
-
-                remove npcs when in building OK
-
-                draw time_diff on left hud OK
+            outside building OK
+            in building ON
+                HARBOR  OK
+                CHURCH  OK
+                INN     OK
+                JOB_HOUSE OK
+                BANK    OK
 
 
-                dynamic port npcs  OK
 
-                show self above other roles OK
-
-                hide npcs at night OK
-
-                buildings accessable at different times OK
+                MARKET
+                BAR
+                DRY_DOCK
 
 
-                time of day at sea changes sequentially OK
+                PALACE
 
-                enter inn to change time_of_day OK
+                MSC
 
+                ITEM_SHOP
 
-            in building
+                FORTUNE_HOUSE
 
 
         at sea

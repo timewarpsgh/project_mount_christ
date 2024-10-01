@@ -1659,6 +1659,11 @@ class OptionsDialog:
 
                 # enter building
                 print(f'enter building: {building_name}')
+
+                # change time if inn entered
+                if building_name == c.Building.INN.name.lower():
+                    sMapMaker.time_of_day = random.choice(list(c.TimeType))
+
                 # self.__show_market_menu()
                 self.get_graphics().sp_background.stop_moving()
 

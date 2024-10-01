@@ -31,6 +31,7 @@ TO DO:
 
                 time of day at sea changes sequentially OK
 
+                enter inn to change time_of_day OK
 
 
             in building

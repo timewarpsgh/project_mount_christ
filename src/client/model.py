@@ -835,6 +835,7 @@ class Role:
             if mate.name == self.name:
                 return ship
 
+        return None
 
 @dataclass
 class Npc(Role):

@@ -194,6 +194,19 @@ class OptionsDialog:
     def __sell_ship(self, id):
         self.client.send(SellShip(id=id))
 
+    def __confirm_to_sell_ship(self, ship):
+
+
+        option_2_callback = {
+            'Yes': partial(self.__sell_ship, ship.id),
+        }
+        self.__make_menu(option_2_callback)
+
+        self.__show_one_ship_states(ship)
+
+        self.building_speak(f'Are you sure you want to sell {ship.name}?')
+
+
     def __show_ships_to_sell(self):
         option_2_callback = {
         }
@@ -201,7 +214,7 @@ class OptionsDialog:
         for id, ship in self.get_ship_mgr().id_2_ship.items():
             ship_template = sObjectMgr.get_ship_template(ship.ship_template_id)
             sell_price = int(ship_template.buy_price / 2)
-            option_2_callback[f'{ship.name} {sell_price}'] = partial(self.__sell_ship, id)
+            option_2_callback[f'{ship.name} {sell_price}'] = partial(self.__confirm_to_sell_ship, ship)
 
         self.__make_menu(option_2_callback)
 
@@ -294,8 +307,7 @@ class OptionsDialog:
         self.__add_building_bg('dry_dock')
 
         option_2_callback = {
-            'New Ship': '',
-            'Used Ship': partial(self.__get_ships_to_buy),
+            'Buy Ship': partial(self.__get_ships_to_buy),
             'Repair': partial(self.__show_ships_to_repair_menu),
             'Sell': partial(self.__show_ships_to_sell),
             'Remodel': partial(self.__show_remodel_menu),
@@ -731,6 +743,11 @@ class OptionsDialog:
         )
 
     def __show_confirm_sail_dialog(self):
+        flag_ship = self.__get_role().get_flag_ship()
+        if not flag_ship:
+            self.__building_speak(f"You don't have a flag ship. ")
+            return
+
         pack = pb.Sail()
         PacketParamsDialog(self.mgr, self.client, [], pack)
 
@@ -790,6 +807,8 @@ class OptionsDialog:
         }
 
         self.__make_menu(option_2_callback)
+
+        self.building_speak('What do you want to load to your ship? Water is free.')
 
     def show_harbor_menu(self):
         self.__add_building_bg('harbor')

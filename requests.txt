@@ -18,8 +18,13 @@ TO DO:
 
                 MARKET OK
 
+                DRY_DOCK ON
+
+                    can't sail without flagship OK
+                    can't assign admiral to non captain ON
+
                 BAR
-                DRY_DOCK
+
 
 
 

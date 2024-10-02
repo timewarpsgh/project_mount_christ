@@ -618,17 +618,7 @@ class PacketHandler:
 
     async def handle_SellShip(self, sell_ship):
         id = sell_ship.id
-
-        ship = self.role.ship_mgr.get_ship(id)
-        ship_template = sObjectMgr.get_ship_template(ship.ship_template_id)
-        sell_price = int(ship_template.buy_price / 2)
-
-        self.role.money += sell_price
-        self.role.ship_mgr.rm_ship(id)
-
-        self.session.send(MoneyChanged(money=self.role.money))
-        self.session.send(ShipRemoved(id=id))
-        self.session.send(PopSomeMenus(cnt=1))
+        self.role.sell_ship(id)
 
     def __get_ships_to_buy(self, ship_ids):
         ships_to_buy = []

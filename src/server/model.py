@@ -1397,6 +1397,30 @@ class Role:
     armor: int=None
     notorities: list[int]=None
 
+    def sell_ship(self, id):
+
+        if id == self.get_flag_ship().id:
+            # send chat
+            pack = pb.GotChat(
+                chat_type=pb.ChatType.SYSTEM,
+                text='You cannot sell your flag ship!'
+            )
+            self.session.send(pack)
+
+            self.session.send(pb.PopSomeMenus(cnt=4))
+            return
+
+        ship = self.ship_mgr.get_ship(id)
+        ship_template = sObjectMgr.get_ship_template(ship.ship_template_id)
+        sell_price = int(ship_template.buy_price / 2)
+
+        self.money += sell_price
+        self.ship_mgr.rm_ship(id)
+
+        self.session.send(pb.MoneyChanged(money=self.money))
+        self.session.send(pb.ShipRemoved(id=id))
+        self.session.send(pb.PopSomeMenus(cnt=4))
+
     def has_item(self, item_id):
         return item_id in self.items
 
@@ -1859,7 +1883,7 @@ class Role:
             mate = self.mate_mgr.get_mate(mate_id)
             if mate.name == self.name:
                 return ship
-
+        return None
 
     def get_random_ship(self):
         alive_ships = [ship for ship in self.ship_mgr.get_ships() if ship.is_alive()]
@@ -2742,6 +2766,10 @@ class Role:
         return None, None
 
     def sail(self):
+        flag_ship = self.get_flag_ship()
+        if not flag_ship:
+            return
+
         # tell port nearby roles
         self.session.packet_handler.send_role_disappeared_to_nearby_roles()
 

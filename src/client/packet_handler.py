@@ -739,6 +739,10 @@ class PacketHandler:
         ship.max_durability = max_durability
         ship.now_durability = max_durability
 
+        self.__get_options_dialog().building_speak(
+            f"{ship.name} has been fixed. It's max_durability is now {max_durability}. "
+            f"We have tried our best.")
+
     async def handle_ShipRenamed(self, ship_renamed):
         id = ship_renamed.id
         name = ship_renamed.name

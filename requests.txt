@@ -27,7 +27,7 @@ TO DO:
 
                     available ships depend on industry index OK
 
-
+                    available cargos
 
                 BAR
 

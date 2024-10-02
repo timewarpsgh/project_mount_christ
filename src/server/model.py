@@ -1399,7 +1399,7 @@ class Role:
 
     def buy_ship(self, ship_template_id):
 
-        if not self.__can_buy_ship(ship_template_id):
+        if not self.__is_ship_available_in_my_port(ship_template_id):
             return
 
         ship_template = sObjectMgr.get_ship_template(ship_template_id)
@@ -1451,7 +1451,7 @@ class Role:
         self.session.send(pb.MoneyChanged(money=self.money))
         self.session.send(pb.GotNewShip(ship=new_model_ship.gen_ship_proto()))
 
-    def __can_buy_ship(self, ship_template_id):
+    def __is_ship_available_in_my_port(self, ship_template_id):
         port_map = self.get_map()
         ship_template = sObjectMgr.get_ship_template(ship_template_id)
 
@@ -1466,7 +1466,7 @@ class Role:
         for id in ship_ids:
             ship_template = sObjectMgr.get_ship_template(id)
 
-            if self.__can_buy_ship(id):
+            if self.__is_ship_available_in_my_port(id):
                 ship_to_buy = pb.ShipToBuy(template_id=id, price=ship_template.buy_price)
                 ships_to_buy.append(ship_to_buy)
 

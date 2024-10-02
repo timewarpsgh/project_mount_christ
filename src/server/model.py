@@ -1397,6 +1397,18 @@ class Role:
     armor: int=None
     notorities: list[int]=None
 
+    def __is_cargo_available_in_my_port(self, cargo_id):
+        port_map = self.get_map()
+        port = self.get_port()
+        cargo_template = sObjectMgr.get_cargo_template(cargo_id)
+
+        economy_diff = port_map.economy_index - port.economy
+        # cargo_template.required_economy_value needs to be within [-200, 200]
+        if economy_diff >= cargo_template.required_economy_value:
+            return True
+        else:
+            return False
+
     def buy_ship(self, ship_template_id):
 
         if not self.__is_ship_available_in_my_port(ship_template_id):
@@ -2570,6 +2582,9 @@ class Role:
         available_cargos = []
 
         for cargo_id in cargo_ids:
+            if not self.__is_cargo_available_in_my_port(cargo_id):
+                continue
+
             cargo_template = sObjectMgr.get_cargo_template(cargo_id)
             available_cargo = pb.AvailableCargo()
             available_cargo.id = cargo_template.id
@@ -2639,6 +2654,9 @@ class Role:
         return discount
 
     def buy_cargo(self, cargo_id, cnt, ship_id):
+        if not self.__is_cargo_available_in_my_port(cargo_id):
+            return
+
         # get cost
         cost = 0
         cargo_template = sObjectMgr.get_cargo_template(cargo_id)

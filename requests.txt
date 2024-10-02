@@ -23,6 +23,10 @@ TO DO:
                     can't sail without flagship OK
                     can't assign admiral to non captain OK
 
+                    show ship_template OK
+
+
+
                 BAR
 
 

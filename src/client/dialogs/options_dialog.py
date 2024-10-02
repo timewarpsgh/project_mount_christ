@@ -1635,8 +1635,44 @@ class OptionsDialog:
         self.client.send(AllShipsAttack())
 
     def __buy_ship(self, template_id):
-
         self.client.send(BuyShip(template_id=template_id))
+
+    def __show_ship_template(self, template_id):
+        ship_template = sObjectMgr.get_ship_template(template_id)
+
+        dict = {
+            'type': f'{ship_template.name}',
+            'tacking': f'{ship_template.tacking}',
+            'power': f'{ship_template.power}',
+            'durability': f'{ship_template.durability}',
+            'capacity': f'{ship_template.capacity}',
+            'max_guns': f'{ship_template.max_guns}',
+            'min_crew/max_crew': f'{ship_template.min_crew}/{ship_template.max_crew}',
+            'max_cargo': f'{ship_template.capacity - ship_template.max_crew - ship_template.max_guns}',
+        }
+
+        # make text from dict
+        text = self.__dict_2_txt(dict)
+
+        # get ship image
+        ship_image = sAssetMgr.images['ships'][ship_template.name.lower()]
+
+        MyPanelWindow(
+            rect=pygame.Rect((59, 12), (350, 430)),
+            ui_manager=self.mgr,
+            text=text,
+            image=ship_image,
+        )
+
+    def __show_ship_to_buy(self, template_id, price):
+        option_2_callback = {
+            'OK': partial(self.__buy_ship, template_id),
+        }
+        self.__make_menu(option_2_callback)
+
+        self.__show_ship_template(template_id)
+
+        self.__building_speak(f"I charge {price} for this ship. No negotiation please.")
 
     def show_ships_to_buy_menu(self, ships_to_buy):
         option_2_callback = {
@@ -1649,7 +1685,7 @@ class OptionsDialog:
             name = ship_template.name
             price = ship_to_buy.price
 
-            option_2_callback[f'{name} {price}'] = partial(self.__buy_ship, template_id)
+            option_2_callback[f'{name}'] = partial(self.__show_ship_to_buy, template_id, price)
 
         self.__make_menu(option_2_callback)
 

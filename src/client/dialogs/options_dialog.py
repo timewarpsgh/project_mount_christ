@@ -1536,10 +1536,13 @@ class OptionsDialog:
         ship_id = flag_ship.id
         option_2_callback = {
             'Captain': partial(self.__show_ships_to_assign_duty_menu, mate),
-            'Chief Navigator': partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.CHIEF_NAVIGATOR),
-            'Accountant': partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.ACCOUNTANT),
-            'First Mate': partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.FIRST_MATE),
         }
+
+        if mate.name != self.__get_role().name:
+            option_2_callback['Navigator'] = partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.CHIEF_NAVIGATOR)
+            option_2_callback['Accountant'] = partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.ACCOUNTANT)
+            option_2_callback['First Mate'] = partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.FIRST_MATE)
+
         self.__make_menu(option_2_callback)
 
     def __show_mates_to_assign_duty_menu(self):

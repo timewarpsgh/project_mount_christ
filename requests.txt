@@ -21,7 +21,7 @@ TO DO:
                 DRY_DOCK ON
 
                     can't sail without flagship OK
-                    can't assign admiral to non captain ON
+                    can't assign admiral to non captain OK
 
                 BAR
 

@@ -1397,6 +1397,91 @@ class Role:
     armor: int=None
     notorities: list[int]=None
 
+    def buy_ship(self, ship_template_id):
+
+        if not self.__can_buy_ship(ship_template_id):
+            return
+
+        ship_template = sObjectMgr.get_ship_template(ship_template_id)
+        price = ship_template.buy_price
+
+        if not self.money >= price:
+            return
+
+        new_ship_name = self.ship_mgr.get_new_ship_name()
+
+        new_model_ship = Ship(
+            id=sIdMgr.gen_new_ship_id(),
+            role_id=self.id,
+
+            name=new_ship_name,
+            ship_template_id=ship_template_id,
+
+            material_type=0,
+
+            now_durability=ship_template.durability,
+            max_durability=ship_template.durability,
+
+            tacking=ship_template.tacking,
+            power=ship_template.power,
+
+            capacity=ship_template.capacity,
+
+            now_crew=0,
+            min_crew=ship_template.min_crew,
+            max_crew=ship_template.max_crew,
+
+            now_guns=0,
+            type_of_guns=0,
+            max_guns=ship_template.max_guns,
+
+            water=0,
+            food=0,
+            material=0,
+            cannon=0,
+
+            cargo_cnt=0,
+            cargo_id=0,
+        )
+
+        self.money -= price
+        self.ship_mgr.add_ship(new_model_ship)
+
+        # tell client
+        self.session.send(pb.MoneyChanged(money=self.money))
+        self.session.send(pb.GotNewShip(ship=new_model_ship.gen_ship_proto()))
+
+    def __can_buy_ship(self, ship_template_id):
+        port_map = self.get_map()
+        ship_template = sObjectMgr.get_ship_template(ship_template_id)
+
+        if port_map.industry_index >= ship_template.required_industry_value:
+            return True
+        else:
+            return False
+
+    def __get_ships_to_buy(self, ship_ids):
+        ships_to_buy = []
+
+        for id in ship_ids:
+            ship_template = sObjectMgr.get_ship_template(id)
+
+            if self.__can_buy_ship(id):
+                ship_to_buy = pb.ShipToBuy(template_id=id, price=ship_template.buy_price)
+                ships_to_buy.append(ship_to_buy)
+
+        return ships_to_buy
+
+    def get_ships_to_buy(self):
+        port = self.get_port()
+
+        ship_ids = sObjectMgr.get_ship_ids(port.economy_id)
+
+        pack = pb.ShipsToBuy()
+        ships_to_buy = self.__get_ships_to_buy(ship_ids)
+        pack.ships_to_buy.extend(ships_to_buy)
+        self.session.send(pack)
+
     def sell_ship(self, id):
 
         if id == self.get_flag_ship().id:

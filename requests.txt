@@ -25,6 +25,8 @@ TO DO:
 
                     show ship_template OK
 
+                    available ships depend on industry index OK
+
 
 
                 BAR

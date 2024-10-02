@@ -620,77 +620,12 @@ class PacketHandler:
         id = sell_ship.id
         self.role.sell_ship(id)
 
-    def __get_ships_to_buy(self, ship_ids):
-        ships_to_buy = []
-
-        for id in ship_ids:
-            ship_template = sObjectMgr.get_ship_template(id)
-            ship_to_buy = ShipToBuy(template_id=id, price=ship_template.buy_price)
-            ships_to_buy.append(ship_to_buy)
-
-        return ships_to_buy
-
     async def handle_GetShipsToBuy(self, get_ships_to_buy):
-        port = sObjectMgr.get_port(self.role.map_id)
-
-        ship_ids = sObjectMgr.get_ship_ids(port.economy_id)
-
-        pack = ShipsToBuy()
-        ships_to_buy = self.__get_ships_to_buy(ship_ids)
-        pack.ships_to_buy.extend(ships_to_buy)
-        self.session.send(pack)
+        self.role.get_ships_to_buy()
 
     async def handle_BuyShip(self, buy_ship):
         ship_template_id = buy_ship.template_id
-        ship_template = sObjectMgr.get_ship_template(ship_template_id)
-        price = ship_template.buy_price
-
-        if not self.role.money >= price:
-            return
-
-        new_ship_name = self.role.ship_mgr.get_new_ship_name()
-
-        new_model_ship = model.Ship(
-            id=sIdMgr.gen_new_ship_id(),
-            role_id=self.role.id,
-
-            name=new_ship_name,
-            ship_template_id=ship_template_id,
-
-            material_type=0,
-
-            now_durability=ship_template.durability,
-            max_durability=ship_template.durability,
-
-            tacking=ship_template.tacking,
-            power=ship_template.power,
-
-            capacity=ship_template.capacity,
-
-            now_crew=0,
-            min_crew=ship_template.min_crew,
-            max_crew=ship_template.max_crew,
-
-            now_guns=0,
-            type_of_guns=0,
-            max_guns=ship_template.max_guns,
-
-            water=0,
-            food=0,
-            material=0,
-            cannon=0,
-
-            cargo_cnt=0,
-            cargo_id=0,
-        )
-
-        self.role.money -= price
-        self.role.ship_mgr.add_ship(new_model_ship)
-
-        # tell client
-        self.session.send(MoneyChanged(money=self.role.money))
-
-        self.session.send(GotNewShip(ship=new_model_ship.gen_ship_proto()))
+        self.role.buy_ship(ship_template_id)
 
     async def handle_FightRole(self, fight_role):
         role_id = fight_role.role_id

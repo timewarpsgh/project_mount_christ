@@ -205,6 +205,8 @@ class OpCodeType(Enum):
     Withdraw = auto()
     Withdrawn = auto()
 
+    Invested = auto()
+
 
 def gen_opcode_2_value():
     d = {}

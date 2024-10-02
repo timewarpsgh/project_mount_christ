@@ -1647,6 +1647,8 @@ class Role:
             money=self.money
         ))
 
+        self.session.send(pb.Invested())
+
     def set_field(self, key, int_value, str_value):
         if str_value:
             setattr(self, key, str_value)
@@ -2437,10 +2439,10 @@ class Role:
             return True
 
     def has_tax_free_permit(self):
-        for item_id in self.items:
-            if item_id == c.Item.TAX_FREE_PERMIT.value:
-                return True
-        return False
+        if c.Item.TAX_FREE_PERMIT.value in self.items:
+            return True
+        else:
+            return False
 
     def __get_modified_buy_price(self, price):
         ratio = self.__get_ratio_from_price_index()

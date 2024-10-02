@@ -16,8 +16,7 @@ TO DO:
 
                 PALACE  OK
 
-                MARKET ON
-                    building speaks
+                MARKET OK
 
                 BAR
                 DRY_DOCK

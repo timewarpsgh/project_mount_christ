@@ -101,6 +101,12 @@ class Ship:
         self.x = prot_ship.x
         self.y = prot_ship.y
 
+    def has_cargo(self):
+        if self.cargo_id:
+            return True
+        else:
+            return False
+
     def get_mate(self, mate_id):
         mate = self.ship_mgr.role.mate_mgr.get_mate(mate_id)
         return mate
@@ -532,6 +538,12 @@ class Role:
     weapon: int = None
     armor: int = None
     notorities: list[int] = None
+
+    def has_tax_free_permit(self):
+        if c.Item.TAX_FREE_PERMIT.value in self.items:
+            return True
+        else:
+            return False
 
     def unequip_item(self, item_id):
         if item_id == self.weapon:

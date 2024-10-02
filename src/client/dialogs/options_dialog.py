@@ -98,6 +98,8 @@ class OptionsDialog:
         pack = pb.Invest()
         PacketParamsDialog(self.mgr, self.client, ['ingots_cnt'], pack)
 
+        self.building_speak("You want to invest?")
+
     def __show_investment_state_menu(self):
         option_2_callback = {
             'By Nation': partial(self.__get_nations_investments),
@@ -113,11 +115,13 @@ class OptionsDialog:
         }
 
         for ship_id, ship in ship_mgr.id_2_ship.items():
-            option_2_callback[ship.name] = partial(self.__send_packet_to_get_cargo_cnt_and_sell_price, ship_id)
-
+            if ship.has_cargo():
+                option_2_callback[ship.name] = partial(self.__send_packet_to_get_cargo_cnt_and_sell_price, ship_id)
 
         self.__make_menu(option_2_callback)
 
+        if len(option_2_callback) == 0:
+            self.__building_speak('You seem to have no cargo to sell.')
 
     def pop_some_menus(self, cnt):
         for i in range(cnt):
@@ -168,7 +172,6 @@ class OptionsDialog:
             'Sell': partial(self.__show_ships_with_cargo_to_sell),
             'Investment State': partial(self.__show_investment_state_menu),
             'Invest': partial(self.__show_invest_dialog),
-            'Manage': '',
             '': partial(self.exit_building),
         }
 
@@ -1407,7 +1410,7 @@ class OptionsDialog:
         #
         have_tax_free_permit = c.Item.TAX_FREE_PERMIT.value in self.__get_role().items
 
-        if have_tax_free_permit:
+        if self.__get_role().has_tax_free_permit():
             self.__building_speak('Oh, you have a Tax Free Permit! OK. '
                                   'These are the best prices you can have.')
         else:

@@ -908,3 +908,6 @@ message Withdraw {
 message Withdrawn {
     required int32 balance = 1;
 }
+
+message Invested {
+}

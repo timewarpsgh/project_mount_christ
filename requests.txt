@@ -29,6 +29,8 @@ TO DO:
 
                     available cargos  OK
 
+                    edit cargo template required economy index OK
+
 
                 BAR
 

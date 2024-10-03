@@ -2300,14 +2300,17 @@ class Role:
         )
         self.session.send(pack)
 
-    def __pass_one_day_at_sea(self):
-        self.days_at_sea += 1
-        self.session.send(pb.OneDayPassedAtSea(days_at_sea=self.days_at_sea))
-
+    def __modify_pay_days(self):
         self.pay_days += 1
         if self.pay_days >= c.DAYS_TO_PAY_WAGE:
             self.pay_days = 0
             self.__pay_crew_and_mates()
+
+    def __pass_one_day_at_sea(self):
+        self.days_at_sea += 1
+        self.session.send(pb.OneDayPassedAtSea(days_at_sea=self.days_at_sea))
+
+        self.__modify_pay_days()
 
         if self.is_dead:
             return

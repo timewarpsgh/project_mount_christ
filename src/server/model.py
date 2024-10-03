@@ -1375,6 +1375,7 @@ class Role:
     auras: set[int]=None
     seen_grids: any=None  # numpy matrix
     days_at_sea: int=0
+    pay_days: int=0
     starved_days: int=0
     is_dead: bool=False
     at_sea_timer: int=c.SUPPLY_CONSUMPTION_INVERVAL
@@ -2280,9 +2281,33 @@ class Role:
                 self.__reduce_notorities()
                 self.__destroy_permits_by_chance()
 
+    def __pay_crew_and_mates(self):
+        # pay crew
+        total_crew = self.ship_mgr.get_total_crew()
+        crew_payment = total_crew * c.CREW_WAGE
+
+        # pay mates
+        total_mates = len(self.mate_mgr.get_mates())
+        mates_payment = total_mates * c.MATE_WAGE
+
+        total_payment = crew_payment + mates_payment
+        self.mod_money(-total_payment)
+
+        # send chat
+        pack = pb.GotChat(
+            chat_type=pb.ChatType.SYSTEM,
+            text=f'paid {crew_payment} to crew and {mates_payment} to mates',
+        )
+        self.session.send(pack)
+
     def __pass_one_day_at_sea(self):
         self.days_at_sea += 1
         self.session.send(pb.OneDayPassedAtSea(days_at_sea=self.days_at_sea))
+
+        self.pay_days += 1
+        if self.pay_days >= c.DAYS_TO_PAY_WAGE:
+            self.pay_days = 0
+            self.__pay_crew_and_mates()
 
         if self.is_dead:
             return

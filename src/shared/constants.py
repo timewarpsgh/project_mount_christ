@@ -50,6 +50,10 @@ SUPPLY_2_COST = {
     'cannon': 50,
 }
 
+CREW_WAGE = 50
+MATE_WAGE = 10000
+DAYS_TO_PAY_WAGE = 30
+
 INT_2_SUPPLY_NAME = {
     1: 'food',
     2: 'water',

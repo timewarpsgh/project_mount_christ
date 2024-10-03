@@ -39,6 +39,7 @@ class Role(BASE):
 	bank_money = Column(Integer)
 	seen_grids = Column(String)
 	days_at_sea = Column(Integer)
+	pay_days = Column(Integer)
 
 	discovery_ids_json_str = Column(String)
 	items = Column(String)

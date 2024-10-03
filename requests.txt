@@ -9,27 +9,23 @@ TO DO:
                 INN     OK
                 JOB_HOUSE OK
                 BANK    OK
-
                 ITEM_SHOP (sort items by name) OK
-
                 FORTUNE_HOUSE OK
-
                 PALACE  OK
-
                 MARKET OK
-
                 DRY_DOCK OK
 
+                BAR ON
+                    wage payed to crew and mates each 30 days  OK
+
+                    recruit crew
+                    meet
+                    waitress
 
 
 
-                BAR
 
 
-
-
-
-                MSC
 
 
 

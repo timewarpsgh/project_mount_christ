@@ -264,6 +264,7 @@ class PacketHandler:
                 dir=role.dir,
                 map_id=role.map_id,
                 money=role.money,
+                pay_days=role.pay_days,
                 bank_money=role.bank_money,
                 items=json.loads(role.items),
                 notorities=json.loads(role.notorities),

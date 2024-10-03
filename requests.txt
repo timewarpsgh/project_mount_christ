@@ -18,18 +18,9 @@ TO DO:
 
                 MARKET OK
 
-                DRY_DOCK ON
+                DRY_DOCK OK
 
-                    can't sail without flagship OK
-                    can't assign admiral to non captain OK
 
-                    show ship_template OK
-
-                    available ships depend on industry index OK
-
-                    available cargos  OK
-
-                    edit cargo template required economy index OK
 
 
                 BAR

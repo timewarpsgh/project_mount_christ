@@ -23,7 +23,7 @@ TO DO:
 
                         treat crew -> has_treated_crew = True, recruited_crew_cnt = 200   OK
                         recruit crew
-                        sleep -> has_treated_crew = False, recruited_crew_cnt=0, days += 1
+                        sleep -> has_treated_crew = False, recruited_crew_cnt=0, days += 1  OK
                     meet
                     waitress
 

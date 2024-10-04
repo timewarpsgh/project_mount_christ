@@ -1402,7 +1402,13 @@ class Role:
     recruited_crew_cnt: int=0
 
     def sleep(self):
-        pass
+        self.has_treated_crew = False
+        self.recruited_crew_cnt = 0
+        self.__modify_pay_days()
+
+        # send chat
+        pack = pb.Slept()
+        self.session.send(pack)
 
     def treat_crew(self):
         total_crew = self.ship_mgr.get_total_crew()

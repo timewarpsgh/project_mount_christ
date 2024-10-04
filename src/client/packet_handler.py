@@ -1008,3 +1008,6 @@ class PacketHandler:
         self.__get_options_dialog().building_speak(
             f'Your crew were grateful for your hospitality. '
             f'In addition, {recruited_crew_cnt} local sailors seem willing to join your crew.')
+
+    async def handle_Slept(self, pack):
+        self.__get_options_dialog().building_speak('Did you have a good sleep last night?')

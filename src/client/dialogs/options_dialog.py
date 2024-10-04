@@ -357,9 +357,14 @@ class OptionsDialog:
     def __hire_mate(self, mate_template):
         self.client.send(HireMate(mate_template_id=mate_template.id))
 
+    def __get_port(self):
+        return sObjectMgr.get_port(self.__get_role().map_id)
+
     def __treat(self, mate_template):
+        port = self.__get_port()
+
         self.building_speak(
-            f"We have the best brandy in the world. "
+            f"We have the best {port.wine} in the world. "
             f"Price is one gold ingot each. "
             f"Want one? ")
 

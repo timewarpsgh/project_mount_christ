@@ -27,12 +27,14 @@ TO DO:
                         hire     OK
 
                         show mate nation right OK
-
                         hire with condition OK
 
 
+                    each port has its own wine OK
 
-                    waitress
+                    waitress  ON
+                        tell story
+                        investigate
 
 
 

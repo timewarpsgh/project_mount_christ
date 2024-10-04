@@ -50,6 +50,7 @@ class Port(BASE):
 
 	specialty_id = Column(Integer)
 	specialty_price = Column(Integer)
+	wine = Column(String)
 
 
 class Maid(BASE):

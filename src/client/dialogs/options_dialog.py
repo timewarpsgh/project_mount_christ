@@ -495,6 +495,10 @@ class OptionsDialog:
         mates = self.get_mate_mgr().get_mates()
         option_2_callback = {}
         for mate in mates:
+
+            if mate.name == self.__get_role().name:
+                continue
+
             option_2_callback[f'{mate.name}'] = partial(self.__show_ensure_fire_mate_menu, mate)
         self.__make_menu(option_2_callback)
 

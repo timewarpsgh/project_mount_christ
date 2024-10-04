@@ -17,10 +17,13 @@ TO DO:
 
                 BAR ON
                     wage payed to crew and mates each 30 days  OK
-
                     recruit crew  OK
 
+                    fire mate, not include me OK
+
                     meet
+
+
                     waitress
 
 

@@ -1400,6 +1400,7 @@ class Role:
 
     has_treated_crew: bool=False
     recruited_crew_cnt: int=0
+    has_treated: bool=False
 
     def sleep(self):
         self.has_treated_crew = False
@@ -1409,6 +1410,23 @@ class Role:
         # send chat
         pack = pb.Slept()
         self.session.send(pack)
+
+    def treat(self):
+        if self.has_enough_money(c.TREAT_COST):
+            self.mod_money(-c.TREAT_COST)
+            self.has_treated = True
+
+            mate_templte = self.get_map().mate_template
+            mate_templte_id = mate_templte.id
+
+            pack = pb.MateSpeak(
+                mate_template_id=mate_templte_id,
+                text='Ahh... Thank you!'
+            )
+            self.session.send(pack)
+
+            pack = pb.Treated()
+            self.session.send(pack)
 
     def treat_crew(self):
         total_crew = self.ship_mgr.get_total_crew()

@@ -322,6 +322,11 @@ class OptionsDialog:
         )
 
     def __show_mate_template_panel(self, mate_template):
+        if not self.__get_role().has_treated:
+            self.building_speak("I suggest that you treat this guy first.")
+
+            return
+
         dict = {
             'name': mate_template.name,
             'nation': mate_template.nation,
@@ -352,11 +357,40 @@ class OptionsDialog:
     def __hire_mate(self, mate_template):
         self.client.send(HireMate(mate_template_id=mate_template.id))
 
+    def __treat(self, mate_template):
+        self.building_speak(
+            f"We have the best brandy in the world. "
+            f"Price is one gold ingot each. "
+            f"Want one? ")
+
+        pack = pb.Treat()
+
+        PacketParamsDialog(self.mgr, self.client, [], pack)
+
+    def __gossip(self, mate_template):
+        max_stat_value = max(mate_template.navigation,
+                             mate_template.accounting,
+                             mate_template.battle
+                             )
+
+        if max_stat_value == mate_template.navigation:
+            text = f"I'm good at navigation."
+        elif max_stat_value == mate_template.accounting:
+            text = f"I'm good at accounting."
+        else:
+            text = f"I'm good at battle."
+
+        self.show_mate_speech(
+            mate_template,
+            f"How are you? I'm {mate_template.name} from {mate_template.nation}. "
+            f"{text}"
+        )
+
     def __show_mate_menu(self, mate_template):
         option_2_callback = {
+            'gossip': partial(self.__gossip, mate_template),
+            'treat': partial(self.__treat, mate_template),
             'inspect': partial(self.__show_mate_template_panel, mate_template),
-            'treat': '',
-            'gossip': '',
             'hire': partial(self.__hire_mate, mate_template),
         }
 

@@ -215,6 +215,10 @@ class OpCodeType(Enum):
 
     BuildingSpeak = auto()
 
+    Treat = auto()
+    Treated = auto()
+    MateSpeak = auto()
+
 
 def gen_opcode_2_value():
     d = {}

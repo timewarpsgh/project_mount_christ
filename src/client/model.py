@@ -538,6 +538,7 @@ class Role:
     weapon: int = None
     armor: int = None
     notorities: list[int] = None
+    has_treated: bool = False
 
     def has_tax_free_permit(self):
         if c.Item.TAX_FREE_PERMIT.value in self.items:

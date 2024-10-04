@@ -342,6 +342,8 @@ class PacketHandler:
                 self.__get_graphics().remove_dynamic_port_npcs()
                 self.__get_graphics().remove_sp_building_bg()
 
+                self.__get_role().has_treated = False
+
             # to port
             elif role.is_in_port():
                 port = sObjectMgr.get_port(role.map_id)
@@ -647,7 +649,6 @@ class PacketHandler:
             print('found mate in port')
             print(mate_template.name)
             self.__get_options_dialog().show_mates_in_port_menu(mate_template)
-
         else:
             print('no mate in this port')
             self.__get_options_dialog().show_mates_in_port_menu()
@@ -660,8 +661,6 @@ class PacketHandler:
             speech = f"I'm glad to join you guys!"
             self.__get_options_dialog().pop_some_menus(2)
             self.__get_options_dialog().show_mate_speech(mate, speech)
-
-
         else:
             print('failed to hire mate')
 
@@ -1015,3 +1014,14 @@ class PacketHandler:
     async def handle_BuildingSpeak(self, pack):
         text = pack.text
         self.__get_options_dialog().building_speak(text)
+
+    async def handle_MateSpeak(self, pack):
+        mate_template_id = pack.mate_template_id
+        text = pack.text
+
+        self.__get_options_dialog().pop_some_menus(2)
+        mate = sObjectMgr.get_mate_template(mate_template_id)
+        self.__get_options_dialog().show_mate_speech(mate, text)
+
+    async def handle_Treated(self, pack):
+        self.__get_role().has_treated = True

@@ -928,3 +928,14 @@ message Slept {
 message BuildingSpeak {
     required string text = 1;
 }
+
+message Treat {
+}
+
+message Treated {
+}
+
+message MateSpeak {
+    required int32 mate_template_id = 1;
+    required string text = 2;
+}

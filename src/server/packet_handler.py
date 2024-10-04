@@ -1063,3 +1063,6 @@ class PacketHandler:
 
     async def handle_Sleep(self, sleep):
         self.role.sleep()
+
+    async def handle_Treat(self, treat):
+        self.role.treat()

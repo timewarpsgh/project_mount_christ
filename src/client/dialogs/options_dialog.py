@@ -181,6 +181,7 @@ class OptionsDialog:
         self.__add_building_bg('bar')
 
         option_2_callback = {
+            'Treat Crew': partial(self.__confirm_treat_crew),
             'Recruit Crew': partial(self.__show_ships_to_recruit_crew_menu),
             'Dismiss Crew': partial(self.__show_ships_to_dismiss_crew_menu),
             'Meet': partial(self.__get_mate_in_port),
@@ -433,6 +434,12 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def __confirm_treat_crew(self):
+        pack = pb.TreatCrew()
+        PacketParamsDialog(self.mgr, self.client, [], pack)
+
+        self.building_speak(f'You want to treat the entire crew? Our beer is {c.BEER_COST} each.')
+
     def __show_ships_to_recruit_crew_menu(self):
         ships = self.get_ship_mgr().get_ships()
         option_2_callback = {}
@@ -493,6 +500,9 @@ class OptionsDialog:
 
     def __get_port_info(self):
         self.client.send(pb.GetPortInfo())
+
+    def __sleep(self):
+        self.client.send(pb.Sleep())
 
     def __get_nation_info(self, nation_id):
         self.building_speak('I charge 1000 coins for this information. Is that OK?')
@@ -826,6 +836,7 @@ class OptionsDialog:
         self.__add_building_bg('inn')
 
         option_2_callback = {
+            'Sleep': partial(self.__sleep),
             'Port Info': partial(self.__get_port_info),
             '': partial(self.exit_building),
         }

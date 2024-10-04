@@ -1057,3 +1057,9 @@ class PacketHandler:
     async def handle_Withdraw(self, withdraw):
         amount = withdraw.amount
         self.role.withdraw(amount)
+
+    async def handle_TreatCrew(self, treat_crew):
+        self.role.treat_crew()
+
+    async def handle_Sleep(self, sleep):
+        self.role.sleep()

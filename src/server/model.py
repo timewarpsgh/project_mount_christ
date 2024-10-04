@@ -1401,6 +1401,33 @@ class Role:
     has_treated_crew: bool=False
     recruited_crew_cnt: int=0
 
+    def sleep(self):
+        pass
+
+    def treat_crew(self):
+        total_crew = self.ship_mgr.get_total_crew()
+
+        total_cost = total_crew * c.BEER_COST
+
+        if self.money < total_cost:
+            return
+
+        if self.has_treated_crew:
+            return
+
+        self.mod_money(-total_cost)
+        self.has_treated_crew = True
+        port_map = self.get_map()
+        self.recruited_crew_cnt = (port_map.economy_index + port_map.industry_index) // 10
+
+        self.session.send(
+            pb.CrewTreated(
+                recruited_crew_cnt=self.recruited_crew_cnt
+            )
+        )
+
+
+
     def __is_cargo_available_in_my_port(self, cargo_id):
         port_map = self.get_map()
         port = self.get_port()

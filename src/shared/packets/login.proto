@@ -911,3 +911,16 @@ message Withdrawn {
 
 message Invested {
 }
+
+message TreatCrew{
+}
+
+message CrewTreated {
+    required int32 recruited_crew_cnt = 1;
+}
+
+message Sleep {
+}
+
+message Slept {
+}

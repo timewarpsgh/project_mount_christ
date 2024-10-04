@@ -1000,3 +1000,11 @@ class PacketHandler:
     async def handle_Invested(self, pack):
         self.__get_options_dialog().pop_some_menus(2)
         self.__get_options_dialog().building_speak(f"Thank you so much! We'll definitely put that to good use!")
+
+    async def handle_CrewTreated(self, pack):
+        recruited_crew_cnt = pack.recruited_crew_cnt
+
+        self.__get_options_dialog().pop_some_menus(2)
+        self.__get_options_dialog().building_speak(
+            f'Your crew were grateful for your hospitality. '
+            f'In addition, {recruited_crew_cnt} local sailors seem willing to join your crew.')

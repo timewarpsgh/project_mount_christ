@@ -207,6 +207,12 @@ class OpCodeType(Enum):
 
     Invested = auto()
 
+    TreatCrew = auto()
+    CrewTreated = auto()
+
+    Sleep = auto()
+    Slept = auto()
+
 
 def gen_opcode_2_value():
     d = {}

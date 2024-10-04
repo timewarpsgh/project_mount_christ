@@ -45,6 +45,9 @@ class Role(BASE):
 	items = Column(String)
 	notorities = Column(String)
 
+	has_treated_crew = Column(Boolean)
+	recruited_crew_cnt = Column(Integer)
+
 
 class Mate(BASE):
 	# table

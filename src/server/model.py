@@ -1398,6 +1398,9 @@ class Role:
     armor: int=None
     notorities: list[int]=None
 
+    has_treated_crew: bool=False
+    recruited_crew_cnt: int=0
+
     def __is_cargo_available_in_my_port(self, cargo_id):
         port_map = self.get_map()
         port = self.get_port()

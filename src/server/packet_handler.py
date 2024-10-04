@@ -268,6 +268,9 @@ class PacketHandler:
                 bank_money=role.bank_money,
                 items=json.loads(role.items),
                 notorities=json.loads(role.notorities),
+
+                has_treated_crew=role.has_treated_crew,
+                recruited_crew_cnt=role.recruited_crew_cnt,
             )
 
 

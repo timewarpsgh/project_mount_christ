@@ -24,7 +24,7 @@ TO DO:
                         gossip   OK
                         treat    OK
                         inspect  OK
-                        hire     ON
+                        hire     OK
 
 
                     waitress

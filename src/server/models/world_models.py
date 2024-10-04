@@ -72,7 +72,7 @@ class MateTemplate(BASE):
 
 	name = Column(String(20))
 	img_id = Column(String(20))
-	nation = Column(String)
+	nation = Column(Integer)
 
 	navigation = Column(Integer)
 	accounting = Column(Integer)

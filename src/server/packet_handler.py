@@ -782,6 +782,14 @@ class PacketHandler:
         if not mate_template:
             return
 
+        if not self.role.has_treated:
+            pack = pb.MateSpeak(
+                mate_template_id=mate_template.id,
+                text=f"Sorry, I'm not interested in working with you.",
+            )
+            self.session.send(pack)
+            return
+
         if mate_template.id != hire_mate.mate_template_id:
             return
 

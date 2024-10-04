@@ -2954,6 +2954,8 @@ class Role:
         return None, None
 
     def sail(self):
+        self.has_treated = False
+
         flag_ship = self.get_flag_ship()
         if not flag_ship:
             return

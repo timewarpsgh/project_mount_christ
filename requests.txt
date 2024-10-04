@@ -26,6 +26,9 @@ TO DO:
                         inspect  OK
                         hire     OK
 
+                        show mate nation right OK
+
+
 
                     waitress
 

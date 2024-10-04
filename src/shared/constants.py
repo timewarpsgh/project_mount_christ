@@ -477,4 +477,4 @@ class TimeType(Enum):
     NIGHT = 'night'
 
 if __name__ == '__main__':
-    print(list(TimeType))
+    print(Nation.ENGLAND.name)

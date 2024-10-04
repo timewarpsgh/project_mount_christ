@@ -382,7 +382,7 @@ class OptionsDialog:
 
         self.show_mate_speech(
             mate_template,
-            f"How are you? I'm {mate_template.name} from {mate_template.nation}. "
+            f"How are you? I'm {mate_template.name} from {c.Nation(mate_template.nation).name}. "
             f"{text}"
         )
 
@@ -1514,7 +1514,7 @@ class OptionsDialog:
         print(f'mate.ship_id: {mate.ship_id}')
 
         dict = {
-            'name/nation': f"{mate.name}/{mate.nation}",
+            'name/nation': f"{mate.name}/{c.Nation(mate.nation).name}",
             'duty/ship': f'{duty_name}/{ship_name}',
             '1': '',
             'lv in nav/acc/bat': f"{mate.lv_in_nav}/{mate.lv_in_acc}/{mate.lv_in_bat}",

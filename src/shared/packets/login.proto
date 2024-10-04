@@ -939,3 +939,9 @@ message MateSpeak {
     required int32 mate_template_id = 1;
     required string text = 2;
 }
+
+message SeeWaitress {
+}
+
+message WaitressSeen {
+}

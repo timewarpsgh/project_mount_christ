@@ -32,9 +32,7 @@ TO DO:
 
                     each port has its own wine OK
 
-                    waitress  ON
-                        tell story
-                        investigate
+                    waitress  OK
 
 
 

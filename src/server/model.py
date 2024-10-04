@@ -1464,6 +1464,15 @@ class Role:
         pack = pb.Slept()
         self.session.send(pack)
 
+    def see_waitress(self):
+        if not self.has_enough_money(c.WAITRESS_COST):
+            return
+
+        self.mod_money(-c.WAITRESS_COST)
+
+        pack = pb.WaitressSeen()
+        self.session.send(pack)
+
     def treat(self):
         if self.has_enough_money(c.TREAT_COST):
             self.mod_money(-c.TREAT_COST)

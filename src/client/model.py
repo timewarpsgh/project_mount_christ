@@ -539,6 +539,10 @@ class Role:
     armor: int = None
     notorities: list[int] = None
     has_treated: bool = False
+    has_told_story: bool = False
+
+    def get_port(self):
+        return sObjectMgr.get_port(self.map_id)
 
     def has_tax_free_permit(self):
         if c.Item.TAX_FREE_PERMIT.value in self.items:

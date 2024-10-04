@@ -219,6 +219,9 @@ class OpCodeType(Enum):
     Treated = auto()
     MateSpeak = auto()
 
+    SeeWaitress = auto()
+    WaitressSeen = auto()
+
 
 def gen_opcode_2_value():
     d = {}

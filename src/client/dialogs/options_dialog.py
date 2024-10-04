@@ -186,7 +186,7 @@ class OptionsDialog:
             'Dismiss Crew': partial(self.__show_ships_to_dismiss_crew_menu),
             'Meet': partial(self.__get_mate_in_port),
             'Fire Mate': partial(self.__show_mates_to_fire_menu),
-            'Waitress': partial(self.__show_waitress_menu),
+            'Waitress': partial(self.__request_to_see_waitress),
             '': partial(self.exit_building),
         }
 
@@ -500,25 +500,50 @@ class OptionsDialog:
 
         self.show_mate_speech(maid, 'Which fleet?')
 
-    def __show_nations_to_investigate(self, maid):
+    def __tell_story(self, maid):
+        self.pop_some_menus(7)
+        self.show_mate_speech(maid, 'Wow! Interesting! Wish I could see it with my own eyes.')
+        self.__get_role().has_told_story = True
+
+    def __show_one_story_to_tell(self, village, maid):
+        option_2_callback = {
+            'OK': partial(self.__tell_story, maid),
+        }
+        self.__make_menu(option_2_callback)
+
+        self.__show_one_discovery(village)
+
+    def __show_stories_to_tell(self, maid):
         option_2_callback = {}
-        for nation in c.Nation:
-            option_2_callback[f'{nation.name}'] = partial(self.__show_fleet_types_to_investigate, nation.value, maid)
+
+        for id in self.__get_role().discovery_mgr.ids_set:
+            village = sObjectMgr.get_village(id)
+            option_2_callback[village.name] = partial(self.__show_one_story_to_tell, village, maid)
 
         self.__make_menu(option_2_callback)
 
-        self.show_mate_speech(maid, 'Which nation?')
+    def __show_nations_to_investigate(self, maid):
+        if not self.__get_role().has_told_story:
+            self.pop_some_menus(4)
+            self.show_mate_speech(maid, "Sorry. I'm rather busy right now. Maybe next time?")
+        else:
+            option_2_callback = {}
+            for nation in c.Nation:
+                option_2_callback[f'{nation.name}'] = partial(self.__show_fleet_types_to_investigate, nation.value, maid)
 
-    def __show_waitress_menu(self):
+            self.__make_menu(option_2_callback)
+
+            self.show_mate_speech(maid, 'Which nation?')
+
+    def show_waitress_menu(self):
         role = self.__get_role()
         port = sObjectMgr.get_port(role.map_id)
         if port.maid_id:
             maid = sObjectMgr.get_maid(port.maid_id)
 
             option_2_callback = {
-                'Ask Info': '',
+                'Tell Story': partial(self.__show_stories_to_tell, maid),
                 'Investigate': partial(self.__show_nations_to_investigate, maid),
-                'Tell Story': '',
             }
 
             self.__make_menu(option_2_callback)
@@ -528,7 +553,19 @@ class OptionsDialog:
         else:
             self.__building_speak('There is no waitress in this port.')
 
+    def __request_to_see_waitress(self):
+        port = self.__get_role().get_port()
+        if port.maid_id:
+            maid = sObjectMgr.get_maid(port.maid_id)
+            self.building_speak(f"We have {maid.name} here. "
+                                f"You want to see her? "
+                                f"We charge {c.WAITRESS_COST} for that.")
 
+            pack = pb.SeeWaitress()
+            PacketParamsDialog(self.mgr, self.client, [], pack)
+
+        else:
+            self.__building_speak('There is no waitress here.')
 
     def __show_mates_to_fire_menu(self):
         mates = self.get_mate_mgr().get_mates()

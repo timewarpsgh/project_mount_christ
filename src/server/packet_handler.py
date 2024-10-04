@@ -1038,3 +1038,6 @@ class PacketHandler:
 
     async def handle_Treat(self, treat):
         self.role.treat()
+
+    async def handle_SeeWaitress(self, see_waitress):
+        self.role.see_waitress()

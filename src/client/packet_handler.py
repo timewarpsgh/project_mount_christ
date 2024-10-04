@@ -343,6 +343,7 @@ class PacketHandler:
                 self.__get_graphics().remove_sp_building_bg()
 
                 self.__get_role().has_treated = False
+                self.__get_role().has_told_story = False
 
             # to port
             elif role.is_in_port():
@@ -1025,3 +1026,6 @@ class PacketHandler:
 
     async def handle_Treated(self, pack):
         self.__get_role().has_treated = True
+
+    async def handle_WaitressSeen(self, pack):
+        self.__get_options_dialog().show_waitress_menu()

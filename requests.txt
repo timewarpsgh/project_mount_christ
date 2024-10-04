@@ -34,6 +34,7 @@ TO DO:
 
                     waitress  OK
 
+                    confirmation dialog size change OK
 
 
 

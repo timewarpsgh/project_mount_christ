@@ -213,6 +213,8 @@ class OpCodeType(Enum):
     Sleep = auto()
     Slept = auto()
 
+    BuildingSpeak = auto()
+
 
 def gen_opcode_2_value():
     d = {}

@@ -1419,6 +1419,11 @@ class Role:
             return
 
         if self.has_treated_crew:
+            self.session.send(
+                pb.BuildingSpeak(
+                    text="You can't drink anymore today!",
+                )
+            )
             return
 
         self.mod_money(-total_cost)
@@ -1431,8 +1436,6 @@ class Role:
                 recruited_crew_cnt=self.recruited_crew_cnt
             )
         )
-
-
 
     def __is_cargo_available_in_my_port(self, cargo_id):
         port_map = self.get_map()
@@ -2854,18 +2857,18 @@ class Role:
 
     def recruit_crew(self, ship_id, cnt):
         ship = self.ship_mgr.get_ship(ship_id)
-        cost = cnt * c.CREW_RECRUIT_COST
-
-        if not self.money >= cost:
-            return
 
         if not ship.max_crew >= ship.now_crew + cnt:
             return
 
-        self.money -= cost
-        ship.add_crew(cnt)
+        if cnt > self.recruited_crew_cnt:
+            self.session.send(pb.BuildingSpeak(
+                text=f'Only {self.recruited_crew_cnt} sailors are willing to join you today.'))
 
-        self.session.send(pb.MoneyChanged(money=self.money))
+            return
+
+        self.recruited_crew_cnt -= cnt
+        ship.add_crew(cnt)
         self.session.send(pb.CrewRecruited(ship_id=ship_id, cnt=cnt))
 
     def dismiss_crew(self, ship_id, cnt):

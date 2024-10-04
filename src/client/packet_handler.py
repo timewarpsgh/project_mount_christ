@@ -1011,3 +1011,7 @@ class PacketHandler:
 
     async def handle_Slept(self, pack):
         self.__get_options_dialog().building_speak('Did you have a good sleep last night?')
+
+    async def handle_BuildingSpeak(self, pack):
+        text = pack.text
+        self.__get_options_dialog().building_speak(text)

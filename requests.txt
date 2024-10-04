@@ -18,12 +18,8 @@ TO DO:
                 BAR ON
                     wage payed to crew and mates each 30 days  OK
 
-                    recruit crew
-                        add two variables has_treated_crew, recruited_crew_cnt OK
+                    recruit crew  OK
 
-                        treat crew -> has_treated_crew = True, recruited_crew_cnt = 200   OK
-                        recruit crew
-                        sleep -> has_treated_crew = False, recruited_crew_cnt=0, days += 1  OK
                     meet
                     waitress
 

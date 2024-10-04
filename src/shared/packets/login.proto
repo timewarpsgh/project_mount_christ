@@ -924,3 +924,7 @@ message Sleep {
 
 message Slept {
 }
+
+message BuildingSpeak {
+    required string text = 1;
+}

@@ -329,7 +329,7 @@ class OptionsDialog:
 
         dict = {
             'name': mate_template.name,
-            'nation': mate_template.nation,
+            'nation': c.Nation(mate_template.nation).name,
             '1': '',
             'navigation/accounting/battle': f'{mate_template.navigation}/{mate_template.accounting}/{mate_template.battle}',
             '2': '',

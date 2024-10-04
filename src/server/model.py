@@ -1402,6 +1402,59 @@ class Role:
     recruited_crew_cnt: int=0
     has_treated: bool=False
 
+    def __can_hire_mate(self, mate_template):
+        captain = self.get_flag_ship().get_captain()
+        my_max_stat = max(captain.lv_in_nav, captain.lv_in_acc, captain.lv_in_bat)
+
+        mate_template_max_stat = max(mate_template.lv_in_nav,
+                                     mate_template.lv_in_acc,
+                                     mate_template.lv_in_bat)
+
+        if my_max_stat + 10 >= mate_template_max_stat:
+            return True
+        else:
+            return False
+
+    def hire_mate(self, mate_template_id):
+        port_map = self.get_map()
+        mate_template = port_map.mate_template
+
+        if not mate_template:
+            return
+
+        if not self.has_treated:
+            pack = pb.MateSpeak(
+                mate_template_id=mate_template.id,
+                text=f"Sorry, I'm not interested in working with you.",
+            )
+            self.session.send(pack)
+            return
+
+        if mate_template.id != mate_template_id:
+            return
+
+        if self.mate_mgr.is_mate_in_fleet(mate_template):
+            print('mate already in fleet')
+            return
+
+        if self.__can_hire_mate(mate_template):
+            mate = Mate()
+            mate.init_from_template(mate_template, self.id)
+            self.mate_mgr.add_mate(mate)
+
+            pack = pb.HireMateRes(
+                is_ok=True,
+                mate=mate.gen_mate_pb(),
+            )
+            self.session.send(pack)
+        else:
+            pack = pb.MateSpeak(
+                mate_template_id=mate_template.id,
+                text=f"Go raise your level a bit. "
+                     f"There's not much I can learn from you right now.",
+            )
+            self.session.send(pack)
+
     def sleep(self):
         self.has_treated_crew = False
         self.recruited_crew_cnt = 0

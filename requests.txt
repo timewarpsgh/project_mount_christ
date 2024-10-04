@@ -28,6 +28,8 @@ TO DO:
 
                         show mate nation right OK
 
+                        hire with condition OK
+
 
 
                     waitress

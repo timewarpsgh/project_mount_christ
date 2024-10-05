@@ -1045,3 +1045,7 @@ class PacketHandler:
     async def handle_Gossip(self, gossip):
         npc_id = gossip.npc_id
         self.role.gossip(npc_id)
+
+    async def handle_ViewCaptain(self, view_captain):
+        role_id = view_captain.role_id
+        self.role.view_captain(role_id)

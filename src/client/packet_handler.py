@@ -1029,3 +1029,6 @@ class PacketHandler:
 
     async def handle_WaitressSeen(self, pack):
         self.__get_options_dialog().show_waitress_menu()
+
+    async def handle_CaptainInfo(self, pack):
+        self.__get_options_dialog().show_captain_info(pack)

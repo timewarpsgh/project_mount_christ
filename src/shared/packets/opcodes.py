@@ -223,6 +223,8 @@ class OpCodeType(Enum):
     WaitressSeen = auto()
 
     Gossip = auto()
+    ViewCaptain = auto()
+    CaptainInfo = auto()
 
 
 def gen_opcode_2_value():

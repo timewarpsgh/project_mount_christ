@@ -1475,13 +1475,42 @@ class Role:
         pack = pb.WaitressSeen()
         self.session.send(pack)
 
+    def __get_npc_mgr(self):
+        return self.session.server.npc_mgr
+
     def gossip(self, npc_id):
-        npc = self.session.server.npc_mgr.get_npc(npc_id)
+        npc = self.__get_npc_mgr().get_npc(npc_id)
 
         pack = pb.MateSpeak(
             mate_template_id=npc.mate.mate_template_id,
             text=f"I'm {npc.mate.name} from {c.Nation(npc.mate.nation).name}. "
                  f"I'm heading to {npc.get_target_port_name()}",
+        )
+        self.session.send(pack)
+
+    def view_captain(self, role_id):
+        # is npc
+        if role_id > c.NPC_ROLE_START_ID:
+            npc = self.__get_npc_mgr().get_npc(role_id)
+            mate = npc.mate
+        # is role
+        else:
+            role = self.session.server.get_role(role_id)
+            mate = role.get_flag_ship().get_captain()
+
+        print(f"{role_id=}")
+        print(f"{mate=}")
+
+        pack = pb.CaptainInfo(
+            name=mate.name,
+            nation=mate.nation,
+            navigation=mate.navigation,
+            accounting=mate.accounting,
+            battle=mate.battle,
+            lv_in_nav=mate.lv_in_nav,
+            lv_in_acc=mate.lv_in_acc,
+            lv_in_bat=mate.lv_in_bat,
+            img_id=mate.img_id,
         )
         self.session.send(pack)
 

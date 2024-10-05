@@ -195,9 +195,7 @@ class NpcMgr:
 
         mate = Mate(
             id=mate_model.id,
-            accounting=mate_model.accounting,
             duty_type=mate_model.duty_type,
-            battle=mate_model.battle,
             img_id=mate_model.img_id,
             mate_template_id=mate_model.mate_template_id,
             leadership=mate_model.leadership,
@@ -205,10 +203,19 @@ class NpcMgr:
             name=mate_model.name,
             nation=mate_model.nation,
             fleet=mate_model.fleet,
-            navigation=mate_model.navigation,
+
             points=mate_model.points,
             role_id=mate_model.role_id,
             ship_id=mate_model.ship_id,
+
+            navigation=mate_model.navigation,
+            accounting=mate_model.accounting,
+            battle=mate_model.battle,
+
+            lv_in_acc=mate_model.lv_in_acc,
+            lv_in_bat=mate_model.lv_in_bat,
+            lv_in_nav=mate_model.lv_in_nav,
+
             talent_in_accounting=mate_model.talent_in_accounting,
             talent_in_battle=mate_model.talent_in_battle,
             talent_in_navigation=mate_model.talent_in_navigation,

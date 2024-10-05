@@ -10,7 +10,8 @@ TO DO:
 
             gossip  OK
 
-            inspect  ON
+            view captain  OK
+
 
         in battle
 

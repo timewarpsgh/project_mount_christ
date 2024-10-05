@@ -949,3 +949,20 @@ message WaitressSeen {
 message Gossip {
     required int32 npc_id = 1;
 }
+
+message ViewCaptain {
+    required int32 role_id = 1;
+}
+
+message CaptainInfo {
+    required string name = 1;
+    required int32 nation = 2;
+    required int32 navigation = 3;
+    required int32 accounting = 4;
+    required int32 battle = 5;
+    required int32 lv_in_nav = 6;
+    required int32 lv_in_acc = 7;
+    required int32 lv_in_bat = 8;
+    required string img_id = 9;
+}
+

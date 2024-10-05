@@ -535,6 +535,34 @@ class OptionsDialog:
 
             self.show_mate_speech(maid, 'Which nation?')
 
+    def show_captain_info(self, pack):
+
+        dict = {
+            'name': pack.name,
+            'nation': c.Nation(pack.nation).name,
+            '1': '',
+            'navigation/accounting/battle': f'{pack.navigation}/{pack.accounting}/{pack.battle}',
+            '2': '',
+            'lv in nav/acc/bat': f'{pack.lv_in_nav}/{pack.lv_in_acc}/{pack.lv_in_bat}',
+        }
+
+        # make text from dict
+        text = self.__dict_2_txt(dict)
+
+        # get figure image
+        split_items = pack.img_id.split('_')
+        x = int(split_items[0])
+        y = int(split_items[1])
+
+        mate_image = self.__figure_x_y_2_image(x, y)
+
+        MyPanelWindow(
+            rect=pygame.Rect((59, 12), (350, 400)),
+            ui_manager=self.mgr,
+            text=text,
+            image=mate_image,
+        )
+
     def show_waitress_menu(self):
         role = self.__get_role()
         port = sObjectMgr.get_port(role.map_id)
@@ -1791,6 +1819,9 @@ class OptionsDialog:
     def __view_fleet(self, role_id):
         self.client.send(ViewFleet(role_id=role_id))
 
+    def __view_captain(self, role_id):
+        self.client.send(ViewCaptain(role_id=role_id))
+
     def fight_target(self, role):
         graphics = self.get_graphics()
 
@@ -1927,7 +1958,7 @@ class OptionsDialog:
                 f'{role.name}': '',
                 'View Fleet': partial(self.__view_fleet, role.id),
                 'Gossip': partial(self.__gossip, role.id),
-                'View Captain': '',
+                'View Captain': partial(self.__view_captain, role.id),
                 'Fight': partial(self.fight_target, role),
             }
 

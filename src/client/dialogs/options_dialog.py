@@ -372,7 +372,7 @@ class OptionsDialog:
 
         PacketParamsDialog(self.mgr, self.client, [], pack)
 
-    def __gossip(self, mate_template):
+    def __chat(self, mate_template):
         max_stat_value = max(mate_template.navigation,
                              mate_template.accounting,
                              mate_template.battle
@@ -393,7 +393,7 @@ class OptionsDialog:
 
     def __show_mate_menu(self, mate_template):
         option_2_callback = {
-            'gossip': partial(self.__gossip, mate_template),
+            'chat': partial(self.__chat, mate_template),
             'treat': partial(self.__treat, mate_template),
             'inspect': partial(self.__show_mate_template_panel, mate_template),
             'hire': partial(self.__hire_mate, mate_template),
@@ -1783,6 +1783,11 @@ class OptionsDialog:
     def get_graphics(self):
         return self.client.game.graphics
 
+    def __gossip(self, npc_id):
+        """only with npc"""
+        pack = pb.Gossip(npc_id=npc_id)
+        self.client.send(pack)
+
     def __view_fleet(self, role_id):
         self.client.send(ViewFleet(role_id=role_id))
 
@@ -1921,8 +1926,8 @@ class OptionsDialog:
             option_2_callback = {
                 f'{role.name}': '',
                 'View Fleet': partial(self.__view_fleet, role.id),
+                'Gossip': partial(self.__gossip, role.id),
                 'View Captain': '',
-                'Gossip': '',
                 'Fight': partial(self.fight_target, role),
             }
 

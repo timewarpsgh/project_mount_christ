@@ -19,6 +19,7 @@ from role_models import SESSION as ROLE_SESSION, \
     Ship as ShipModel
 
 from map_mgr import sMapMgr
+from object_mgr import sObjectMgr
 from season_mgr import sSeasonMgr
 from hash_paths import HASH_PATHS
 import login_pb2 as pb
@@ -58,6 +59,15 @@ class Npc(Role):
     # def get_flag_ship(self):
     #     flag_ship = list(self.ship_mgr.id_2_ship.values())[0]
     #     return flag_ship
+
+    def get_target_port_name(self):
+        start_port_name = sObjectMgr.get_port(self.start_port_id).name
+        end_port_name = sObjectMgr.get_port(self.end_port_id).name
+
+        if self.is_outward:
+            return end_port_name
+        else:
+            return start_port_name
 
     def get_nation(self):
         return self.mate.nation
@@ -189,6 +199,7 @@ class NpcMgr:
             duty_type=mate_model.duty_type,
             battle=mate_model.battle,
             img_id=mate_model.img_id,
+            mate_template_id=mate_model.mate_template_id,
             leadership=mate_model.leadership,
             lv=mate_model.lv,
             name=mate_model.name,

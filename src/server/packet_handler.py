@@ -1041,3 +1041,7 @@ class PacketHandler:
 
     async def handle_SeeWaitress(self, see_waitress):
         self.role.see_waitress()
+
+    async def handle_Gossip(self, gossip):
+        npc_id = gossip.npc_id
+        self.role.gossip(npc_id)

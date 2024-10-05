@@ -8,6 +8,9 @@ TO DO:
         at sea
             don't show menu when self is clicked OK
 
+            gossip  OK
+            inspect  ON
+
         in battle
 
 

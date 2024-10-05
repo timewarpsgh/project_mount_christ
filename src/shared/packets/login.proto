@@ -945,3 +945,7 @@ message SeeWaitress {
 
 message WaitressSeen {
 }
+
+message Gossip {
+    required int32 npc_id = 1;
+}

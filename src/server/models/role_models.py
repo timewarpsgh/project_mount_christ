@@ -57,6 +57,7 @@ class Mate(BASE):
 	id = Column(Integer, primary_key=True)
 	role_id = Column(Integer)
 	npc_id = Column(Integer)
+	mate_template_id = Column(Integer)
 
 	name = Column(String)
 	img_id = Column(String)

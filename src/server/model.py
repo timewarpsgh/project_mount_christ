@@ -973,6 +973,7 @@ class Mate:
 
     name: str=None
     img_id: int=None
+    mate_template_id: int=None
     nation: int=None
     fleet: int=None
 
@@ -1123,6 +1124,7 @@ class Mate:
         self.xp_in_bat = mate.xp_in_bat
 
     def gen_mate_pb(self):
+
         mate_pb = pb.Mate(
             id=self.id,
             role_id=self.role_id,
@@ -1471,6 +1473,16 @@ class Role:
         self.mod_money(-c.WAITRESS_COST)
 
         pack = pb.WaitressSeen()
+        self.session.send(pack)
+
+    def gossip(self, npc_id):
+        npc = self.session.server.npc_mgr.get_npc(npc_id)
+
+        pack = pb.MateSpeak(
+            mate_template_id=npc.mate.mate_template_id,
+            text=f"I'm {npc.mate.name} from {c.Nation(npc.mate.nation).name}. "
+                 f"I'm heading to {npc.get_target_port_name()}",
+        )
         self.session.send(pack)
 
     def treat(self):

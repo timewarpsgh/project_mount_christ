@@ -494,6 +494,9 @@ class RoleSP(SP):
         if self.model.role.is_in_battle():
             return
 
+        if self.is_mine:
+            return
+
         self.model.role.graphics.client.game.gui.options_dialog.show_role_menu(self.role)
 
     def change_to_next_frame(self):

@@ -5,18 +5,9 @@ TO DO:
             outside building OK
             in building OK
 
-
-
-
-
-
-
-
-
-
-
-
         at sea
+            don't show menu when self is clicked OK
+
         in battle
 
 

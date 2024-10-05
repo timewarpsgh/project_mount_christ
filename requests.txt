@@ -9,6 +9,7 @@ TO DO:
             don't show menu when self is clicked OK
 
             gossip  OK
+
             inspect  ON
 
         in battle

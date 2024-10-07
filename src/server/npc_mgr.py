@@ -88,7 +88,7 @@ class Npc(Role):
             self.is_outward = True
             self.end_port_id = random.choice(list(HASH_PATHS[self.start_port_id].keys()))
 
-            self.end_port_id = 33 # antwerp
+            # self.end_port_id = 33 # antwerp
 
             path = Path(self.start_port_id, self.end_port_id)
         else:

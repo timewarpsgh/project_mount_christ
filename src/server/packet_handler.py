@@ -984,21 +984,7 @@ class PacketHandler:
     async def handle_InvestigateFleet(self, investigate_fleet):
         nation_id = investigate_fleet.nation_id
         fleet_id = investigate_fleet.fleet_id
-
-        npcs = sNpcMgr.get_npc_by_nation_and_fleet(nation_id, fleet_id)
-        fleets_investigated = []
-        for npc in npcs:
-            fleet_investigated = pb.FleetInvestigated()
-            fleet_investigated.captain_name = npc.mate.name
-            fleet_investigated.now_x = npc.x
-            fleet_investigated.now_y = npc.y
-            fleet_investigated.dest_port_id = npc.end_port_id if npc.is_outward else npc.start_port_id
-            fleet_investigated.cargo_id = npc.ship_mgr.get_ships()[0].cargo_id
-            fleets_investigated.append(fleet_investigated)
-
-        pack = pb.FleetsInvestigated()
-        pack.fleets_investigated.extend(fleets_investigated)
-        self.session.send(pack)
+        self.role.investigate_fleet(nation_id, fleet_id)
 
     async def handle_EquipItem(self, equip_item):
         item_id = equip_item.item_id

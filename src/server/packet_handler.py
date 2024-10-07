@@ -480,6 +480,10 @@ class PacketHandler:
 
         target_role.win(self.role)
 
+    def _handle_gm_cmd_if(self, params):
+        nation_id = int(params[0])
+        fleet_id = int(params[1])
+        self.role.investigate_fleet(nation_id, fleet_id)
 
     def __handle_gm_cmd(self, text):
         split_items = text[1:].split()

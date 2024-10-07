@@ -14,7 +14,7 @@ TO DO:
 
             each nation has 6 fleets ON
                 refactor investigate_fleet OK
-                gm cmd: investigate_fleet
+                gm cmd: if nation_id fleet_id OK
 
         in battle
 

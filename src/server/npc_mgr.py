@@ -29,7 +29,7 @@ import constants as c
 class Path:
     """read only. holds path from one port to another"""
     def __init__(self, start_port_id, end_port_id):
-        self.list_of_points = HASH_PATHS[start_port_id][end_port_id][1:-1]
+        self.list_of_points = HASH_PATHS[start_port_id][end_port_id][2:-2]
 
     def get_length(self):
         return len(self.list_of_points)

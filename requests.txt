@@ -20,6 +20,9 @@ TO DO:
 
                 6 fleets for ned OK
 
+                do not move onto port sp OK
+
+
         in battle
 
 

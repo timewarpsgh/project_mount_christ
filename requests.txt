@@ -26,6 +26,10 @@ TO DO:
 
                 6 fleet for each nation OK
 
+            each npc mate has diff stats ON
+
+            npcs have ships depending on fleet_type ON
+
 
         in battle
 

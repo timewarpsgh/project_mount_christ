@@ -68,7 +68,7 @@ class Ship:
     y: int=None
     dir: int=pb.DirType.N
     target_ship: any=None
-    strategy: pb.AttackMethodType=pb.AttackMethodType.SHOOT
+    strategy: pb.AttackMethodType=None
     steps_left: int=0
 
 

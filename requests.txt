@@ -20,7 +20,7 @@ TO DO:
         in battle
             show enemy ship OK
             npc not moving after 1st round (out of cannon) OK
-
+            npc not dealing shoot damage (battle skill too low) OK
 
 DONE:
 

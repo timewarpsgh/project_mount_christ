@@ -39,7 +39,7 @@ TO DO:
 
 
         in battle
-            show enemy ship ON
+            show enemy ship OK
 
 
 DONE:

@@ -1023,6 +1023,39 @@ class OptionsDialog:
 
         self.client.send(Disconnect())
 
+    def __show_one_enemy_ship_states(self, ship):
+        ship_template = sObjectMgr.get_ship_template(ship.ship_template_id)
+
+        # type_of_guns
+        if ship.type_of_guns:
+            gun_name = sObjectMgr.get_cannon(ship.type_of_guns).name
+        else:
+            gun_name = 'NA'
+
+        dict = {
+            'name/type': f'{ship.name}/{ship_template.name}',
+            '1': '',
+            'tacking/power': f'{ship.tacking}/{ship.power}',
+            'durability': f'{ship.now_durability}/{ship.max_durability}',
+            '2': '',
+            'capacity': f'{ship.capacity}',
+            'guns/max_guns/gun_type': f'{ship.now_guns}/{ship.max_guns}/{gun_name}',
+            'min_crew/crew/max_crew': f'{ship.min_crew}/{ship.now_crew}/{ship.max_crew}',
+        }
+
+        # make text from dict
+        text = self.__dict_2_txt(dict)
+
+        # get ship image
+        ship_image = sAssetMgr.images['ships'][ship_template.name.lower()]
+
+        MyPanelWindow(
+            rect=pygame.Rect((59, 12), (350, 430)),
+            ui_manager=self.mgr,
+            text=text,
+            image=ship_image,
+        )
+
     def __show_one_ship_states(self, ship):
         ship_template = sObjectMgr.get_ship_template(ship.ship_template_id)
 
@@ -1305,15 +1338,14 @@ class OptionsDialog:
         else:
             ship_mgr = self.client.game.graphics.model.role.ship_mgr
 
-        print('#' * 10)
-        print(ship_mgr.id_2_ship)
-
         option_2_callback = {
         }
 
         for id, ship in ship_mgr.id_2_ship.items():
-            print(f'ship name: {ship.name}')
-            option_2_callback[f'{ship.name}'] = partial(self.__show_one_ship_states, ship_mgr.get_ship(id))
+            if is_enemy:
+                option_2_callback[f'{ship.name}'] = partial(self.__show_one_enemy_ship_states, ship_mgr.get_ship(id))
+            else:
+                option_2_callback[f'{ship.name}'] = partial(self.__show_one_ship_states, ship_mgr.get_ship(id))
 
 
         MyMenuWindow(

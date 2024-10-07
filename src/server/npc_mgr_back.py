@@ -259,7 +259,7 @@ class NpcMgr:
                 role_id=ship_model.role_id,
                 ship_template_id=ship_template_id,
                 captain=ship_model.captain,
-                name=str(i),
+                name=i,
 
                 tacking=ship_template.tacking,
                 power=ship_template.power,

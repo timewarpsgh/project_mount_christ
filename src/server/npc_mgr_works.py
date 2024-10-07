@@ -234,57 +234,37 @@ class NpcMgr:
 
         return mate
 
-    def __get_ship_mgr(self, npc_id, fleet_type):
+    def __get_ship_mgr(self, npc_id):
         ship_mgr = ShipMgr(None)
 
         ship_model = ROLE_SESSION.query(ShipModel).filter_by(npc_id=npc_id).first()
 
-        # get ships_cnt and ship_template_id
-        if fleet_type == c.Fleet.MERCHANT.value:
-            ships_cnt = random.randint(4, 6)
-            ship_template_id = random.choice([9, 20])
-        elif fleet_type == c.Fleet.CONVOY.value:
-            ships_cnt = random.randint(6, 8)
-            ship_template_id = random.choice([10, 12])
-        elif fleet_type == c.Fleet.BATTLE.value:
-            ships_cnt = random.randint(8, 10)
-            ship_template_id = random.choice([11, 21])
-
-        ship_template = sObjectMgr.get_ship_template(ship_template_id)
-
-        for i in range(ships_cnt):
+        for i in range(8):
 
             ship = Ship(
                 id=ship_model.id + c.NPC_ROLE_START_ID + i,
-                role_id=ship_model.role_id,
-                ship_template_id=ship_template_id,
+                cannon=ship_model.cannon,
+                capacity=ship_model.capacity,
                 captain=ship_model.captain,
-                name=str(i),
-
-                tacking=ship_template.tacking,
-                power=ship_template.power,
-                material_type=ship_model.material_type,
-
-                now_durability=ship_template.durability,
-                max_durability=ship_template.durability,
-
-                capacity=ship_template.capacity,
-
-                min_crew=ship_template.min_crew,
-                now_crew=ship_template.max_crew,
-                max_crew=ship_template.max_crew,
-
-                max_guns=ship_template.max_guns,
-                now_guns=ship_template.max_guns,
-                type_of_guns=ship_model.type_of_guns,
-
-                water=1,
-                food=1,
-                material=1,
-                cannon=1,
-
-                cargo_cnt=10,
+                cargo_cnt=ship_model.cargo_cnt,
                 cargo_id=None,
+                food=ship_model.food,
+                material=ship_model.material,
+                material_type=ship_model.material_type,
+                max_crew=ship_model.max_crew,
+                max_durability=ship_model.max_durability,
+                max_guns=ship_model.max_guns,
+                min_crew=ship_model.min_crew,
+                name=ship_model.name,
+                now_crew=ship_model.now_crew,
+                now_durability=ship_model.now_durability,
+                now_guns=ship_model.now_guns,
+                power=ship_model.power,
+                role_id=ship_model.role_id,
+                ship_template_id=ship_model.ship_template_id,
+                tacking=ship_model.tacking,
+                type_of_guns=ship_model.type_of_guns,
+                water=ship_model.water,
             )
 
             ship_mgr.add_ship(ship)
@@ -311,17 +291,16 @@ class NpcMgr:
                 y=npc_model.y,
                 dir=npc_model.dir,
                 map_id=npc_model.map_id,
+                ship_mgr=self.__get_ship_mgr(npc_model.id),
                 mate_mgr=self.__get_mate_mgr(npc_model.id),
 
             )
             npc.name = npc.mate.name
 
-
+            npc.ship_mgr.role = npc
             npc.mate_mgr.role = npc
 
             npc.start_port_id = self.__get_start_port_id(npc.mate.nation)
-            npc.ship_mgr = self.__get_ship_mgr(npc_model.id, npc.mate.fleet)
-            npc.ship_mgr.role = npc
 
             self.id_2_npc[npc_model.id] = npc
 

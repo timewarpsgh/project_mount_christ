@@ -16,6 +16,7 @@ TO DO:
             each npc mate has diff stats OK
             npcs have ships depending on fleet_type OK
 
+            don't show npc name OK
 
         in battle
             show enemy ship OK

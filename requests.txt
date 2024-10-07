@@ -24,6 +24,8 @@ TO DO:
 
                 ships * by 8  OK
 
+                6 fleet for each nation OK
+
 
         in battle
 

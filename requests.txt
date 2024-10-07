@@ -13,33 +13,13 @@ TO DO:
             view captain  OK
 
             each nation has 6 fleets ON
-                refactor investigate_fleet OK
-                gm cmd: if nation_id fleet_id OK
-                rand cargo on server start OK
-                rand cargo on port eached OK
-
-                6 fleets for ned OK
-
-                do not move onto port sp OK
-
-                ships * by 8  OK
-
-                6 fleet for each nation OK
-
             each npc mate has diff stats OK
-
             npcs have ships depending on fleet_type OK
-                merchant
-                    4-6  Nao/Flemish Galleon
-                convoy
-                    6-8  Xebec/Carrack
-                battle
-                    8-10 Galleon/Venetian Galeass
-
 
 
         in battle
             show enemy ship OK
+            npc not moving after 1st round (out of cannon) OK
 
 
 DONE:

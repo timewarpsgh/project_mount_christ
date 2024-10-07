@@ -252,6 +252,8 @@ class NpcMgr:
 
         ship_template = sObjectMgr.get_ship_template(ship_template_id)
 
+        # for testing
+        ships_cnt = 2
         for i in range(ships_cnt):
 
             ship = Ship(
@@ -281,7 +283,7 @@ class NpcMgr:
                 water=1,
                 food=1,
                 material=1,
-                cannon=1,
+                cannon=20,
 
                 cargo_cnt=10,
                 cargo_id=None,

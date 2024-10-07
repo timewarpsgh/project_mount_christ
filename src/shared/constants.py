@@ -442,6 +442,15 @@ PORT_ID_2_NATION = {
     Capital.ISTANBUL.value: Nation.OTTOMAN.value,
 }
 
+NATION_ID_2_PORT_ID = {
+    Nation.ENGLAND.value: Capital.LONDON.value,
+    Nation.NETHERLANDS.value: Capital.AMSTERDAM.value,
+    Nation.SPAIN.value: Capital.SEVILLE.value,
+    Nation.PORTUGAL.value: Capital.LISBON.value,
+    Nation.ITALY.value: Capital.GENOA.value,
+    Nation.OTTOMAN.value: Capital.ISTANBUL.value,
+}
+
 class Item(Enum):
     BALM = 1
     LIME_JUICE = 2

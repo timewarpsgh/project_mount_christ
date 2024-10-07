@@ -51,7 +51,7 @@ class Npc(Role):
     ship_mgr: ShipMgr = None
     battle_timer: int = None
 
-    start_port_id: int = 30
+    start_port_id: int = None
     end_port_id: int = 33
     is_outward: bool = True
     now_wp_id: int = 0
@@ -281,6 +281,10 @@ class NpcMgr:
         mate_mgr.add_mate(mate)
         return mate_mgr
 
+    def __get_start_port_id(self, nation_id):
+        start_port_id = c.NATION_ID_2_PORT_ID[nation_id]
+        return start_port_id
+
     def __init_id_2_npc(self):
         for npc_model in WORLD_SESSION.query(NpcModel).all():
             npc = Npc(
@@ -298,6 +302,8 @@ class NpcMgr:
 
             npc.ship_mgr.role = npc
             npc.mate_mgr.role = npc
+
+            npc.start_port_id = self.__get_start_port_id(npc.mate.nation)
 
             self.id_2_npc[npc_model.id] = npc
 

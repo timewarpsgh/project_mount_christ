@@ -18,6 +18,8 @@ TO DO:
                 rand cargo on server start OK
                 rand cargo on port eached OK
 
+                6 fleets for ned OK
+
         in battle
 
 

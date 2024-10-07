@@ -22,6 +22,8 @@ TO DO:
 
                 do not move onto port sp OK
 
+                ships * by 8  OK
+
 
         in battle
 

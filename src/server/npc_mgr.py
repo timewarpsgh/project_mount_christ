@@ -201,7 +201,6 @@ class NpcMgr:
             npc.move_along_path()
             # await npc.update(time_diff)
 
-
     def __get_mate(self, npc_id):
         mate_model = ROLE_SESSION.query(MateModel).filter_by(npc_id=npc_id).first()
 
@@ -238,19 +237,17 @@ class NpcMgr:
     def __get_ship_mgr(self, npc_id):
         ship_mgr = ShipMgr(None)
 
-        ship_models = ROLE_SESSION.query(ShipModel).filter_by(npc_id=npc_id).all()
+        ship_model = ROLE_SESSION.query(ShipModel).filter_by(npc_id=npc_id).first()
 
-        for ship_model in ship_models:
+        for i in range(8):
+
             ship = Ship(
-                id=ship_model.id,
-                accountant=ship_model.accountant,
+                id=ship_model.id + c.NPC_ROLE_START_ID + i,
                 cannon=ship_model.cannon,
                 capacity=ship_model.capacity,
                 captain=ship_model.captain,
                 cargo_cnt=ship_model.cargo_cnt,
                 cargo_id=None,
-                chief_navigator=ship_model.chief_navigator,
-                first_mate=ship_model.first_mate,
                 food=ship_model.food,
                 material=ship_model.material,
                 material_type=ship_model.material_type,

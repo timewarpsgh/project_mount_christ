@@ -38,11 +38,6 @@ class Path:
         return self.list_of_points[id]
 
 
-def get_rand_cargo_id():
-    max_cargo_id = 46
-    return random.randint(1, max_cargo_id)
-
-
 @dataclass
 class Npc(Role):
     id: str = None
@@ -83,6 +78,15 @@ class Npc(Role):
         next_point = self.__get_next_point()
         self.__start_moving_to_next_point(next_point)
 
+    def get_rand_cargo_id(self):
+        max_cargo_id = 46
+        return random.randint(1, max_cargo_id)
+
+    def __randomize_ships_cargo(self):
+        rand_cargo_id = self.get_rand_cargo_id()
+        for ship in self.ship_mgr.get_ships():
+            ship.cargo_id = rand_cargo_id
+
     def __get_next_point(self):
         # get path
         path = None
@@ -95,11 +99,15 @@ class Npc(Role):
             # self.end_port_id = 33 # antwerp
 
             path = Path(self.start_port_id, self.end_port_id)
+
+            self.__randomize_ships_cargo()
         else:
             # get path from start and end ids
             path = Path(self.start_port_id, self.end_port_id)
             if (self.now_wp_id + 1) == path.get_length():
                 self.is_outward = False
+
+                self.__randomize_ships_cargo()
 
         # change index
         if self.is_outward:
@@ -232,8 +240,6 @@ class NpcMgr:
 
         ship_models = ROLE_SESSION.query(ShipModel).filter_by(npc_id=npc_id).all()
 
-        rand_cargo_id = get_rand_cargo_id()
-
         for ship_model in ship_models:
             ship = Ship(
                 id=ship_model.id,
@@ -242,7 +248,7 @@ class NpcMgr:
                 capacity=ship_model.capacity,
                 captain=ship_model.captain,
                 cargo_cnt=ship_model.cargo_cnt,
-                cargo_id=rand_cargo_id,
+                cargo_id=None,
                 chief_navigator=ship_model.chief_navigator,
                 first_mate=ship_model.first_mate,
                 food=ship_model.food,

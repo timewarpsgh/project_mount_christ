@@ -16,7 +16,7 @@ TO DO:
                 refactor investigate_fleet OK
                 gm cmd: if nation_id fleet_id OK
                 rand cargo on server start OK
-                rand cargo on port eached
+                rand cargo on port eached OK
 
         in battle
 

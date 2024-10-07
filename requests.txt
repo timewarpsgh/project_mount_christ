@@ -15,6 +15,8 @@ TO DO:
             each nation has 6 fleets ON
                 refactor investigate_fleet OK
                 gm cmd: if nation_id fleet_id OK
+                rand cargo on server start OK
+                rand cargo on port eached
 
         in battle
 

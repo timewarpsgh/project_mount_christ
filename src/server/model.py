@@ -2391,6 +2391,8 @@ class Role:
 
             # enemy is role
             if self.is_in_battle_with_role():
+                self.__reset_flagship(self.get_flag_ship())
+
                 enemy_role = self.session.packet_handler.get_enemy_role()
                 enemy_role.battle_timer = c.BATTLE_TIMER_IN_SECONDS
 
@@ -2403,6 +2405,8 @@ class Role:
 
             # if enemy is npc
             elif self.is_in_battle_with_npc():
+                self.__reset_flagship(self.get_flag_ship())
+
                 enemy_npc = self.get_enemy()
                 enemy_npc.battle_timer = c.BATTLE_TIMER_IN_SECONDS
 

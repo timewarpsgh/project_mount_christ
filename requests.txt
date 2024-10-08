@@ -22,19 +22,14 @@ TO DO:
 
 
         in battle
-            show enemy ship OK
-            npc not moving after 1st round (out of cannon) OK
-            npc not dealing shoot damage (battle skill too low) OK
+            with npc
+                shoot  OK
+                engage ON
+                    win ships with min_crew OK
 
-            show numbers slower OK
-            dead speed too slow OK
-            shoot dmg min = 1 OK
-            npc cargo cnt OK
-
-            bug fix: client doesn't show ship disappear OK
-
-            don't get npc flagship if its sunk OK
-
+            with role
+                shoot
+                engage
 
 DONE:
 

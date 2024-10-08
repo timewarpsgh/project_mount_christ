@@ -312,7 +312,9 @@ class Ship:
 
     def engage(self, ship):
         self_dmg = ship.__calc_engage_dmg(self)#c.ENGAGE_SELF_DAMAGE
+        self_dmg = c.ENGAGE_SELF_DAMAGE
         target_dmg = self.__calc_engage_dmg(ship)#c.ENGAGE_TARGET_DAMAGE
+        target_dmg = c.ENGAGE_TARGET_DAMAGE
         self.now_crew -= self_dmg
         ship.now_crew -= target_dmg
 
@@ -2525,6 +2527,7 @@ class Role:
             ship.name = self.ship_mgr.get_new_ship_name()
             ship.role_id = self.id
             ship.clear_mates_onboard()
+            ship.now_crew = ship.min_crew
             self.ship_mgr.add_ship(ship)
 
         pack = pb.YouWonNpcBattle()

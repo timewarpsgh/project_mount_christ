@@ -78,10 +78,14 @@ class SpriteSheet():
 
 
 class Text():
-    def __init__(self, text, color=c.BLACK):
+    def __init__(self, text, color=c.BLACK, x=None, y=None):
         self.image = sAssetMgr.font.render(text, True, color)
         self.rect = self.image.get_rect()
 
+        if x is not None:
+            self.rect.x = x
+        if y is not None:
+            self.rect.y = y
 
 class PortNpc():
 
@@ -273,7 +277,47 @@ class BackGround(SP):
             self.__paste_move_marks(battle_ground_img, my_flag_ship, ships_positions)
             self.__paste_attack_marks(battle_ground_img, my_flag_ship)
 
+        # paste ships stats
+        self.__paste_my_ships_stats(battle_ground_img)
+        self.__paste_enemy_ships_stats(battle_ground_img)
+
         self.change_img(battle_ground_img)
+
+    def __paste_enemy_ships_stats(self, battle_ground_img):
+        # ships states
+        for id, ship in enumerate(self.model.get_enemy().ship_mgr.get_ships()):
+            num_text = Text(str(id), c.BLACK,
+                            c.WINDOW_WIDTH - 80, (id + 2) * 20)
+            hp_text = Text(str(ship.now_durability), c.YELLOW,
+                           c.WINDOW_WIDTH - 80 + 20, (id + 2) * 20)
+            crew_text = Text(str(ship.now_crew), c.WHITE,
+                             c.WINDOW_WIDTH - 80 + 40, (id + 2) * 20)
+
+            for item in [num_text, hp_text, crew_text]:
+                battle_ground_img.blit(item.image, item.rect)
+
+    def __paste_my_ships_stats(self, battle_ground_img):
+        # ships states
+        for id, ship in enumerate(self.model.role.ship_mgr.get_ships()):
+            # all ships
+            num_text = Text(str(id), c.BLACK, 10, (id + 2) * 20)
+            hp_text = Text(str(ship.now_durability), c.YELLOW, 30, (id + 2) * 20)
+            crew_text = Text(str(ship.now_crew), c.WHITE, 50, (id + 2) * 20)
+
+            for item in [num_text, hp_text, crew_text]:
+                battle_ground_img.blit(item.image, item.rect)
+
+            # non flag ships
+            if id != 0:
+
+                strategy_name = c.STRATEGY_2_TEXT[ship.strategy] if ship.strategy is not None else ''
+                strategy_text = Text(strategy_name, c.ORANGE, 80, (id + 2) * 20)
+
+                target_name = ship.target_ship.name if ship.target_ship else ''
+                target_text = Text(str(target_name), c.CRIMSON, 130, (id + 2) * 20)
+
+                for item in [strategy_text, target_text]:
+                    battle_ground_img.blit(item.image, item.rect)
 
     def __paste_attack_marks(self, battle_ground_img, my_flag_ship):
         enemy = self.model.get_enemy()

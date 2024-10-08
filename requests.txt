@@ -38,6 +38,8 @@ TO DO:
                 change to engage if out of ammo OK
                 escape when crew or durability low  OK
 
+                cannon reduces after shooting OK
+
 DONE:
 
     each building (crude)  OK

@@ -552,6 +552,8 @@ class PacketHandler:
             if dst_ship.now_durability <= 0:
                 dst_ship.now_durability = 0
 
+            src_ship.cannon -= 1
+
             # show graphics
             pixels = c.BATTLE_TILE_SIZE
             half_ps = pixels // 2

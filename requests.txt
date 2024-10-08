@@ -30,6 +30,10 @@ TO DO:
 
             dead speed too slow OK
 
+            shoot dmg min = 1 OK
+
+            npc cargo cnt ON
+
 DONE:
 
     each building (crude)  OK

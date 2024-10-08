@@ -228,7 +228,7 @@ class Ship:
             dmg = int(dmg * self.now_crew / self.now_guns)
 
         max_dmg = 20
-        min_dmg = 0
+        min_dmg = 1
         if dmg < min_dmg:
             dmg = min_dmg
         if dmg > max_dmg:

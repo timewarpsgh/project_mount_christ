@@ -24,12 +24,13 @@ TO DO:
         in battle
             with npc
                 shoot  OK
-                engage ON
-                    win ships with min_crew OK
+                engage OK
 
             with role
                 shoot
-                engage
+                engage  OK
+
+            reduce storm chance to 0.02 OK
 
 DONE:
 

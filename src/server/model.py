@@ -2200,11 +2200,10 @@ class Role:
                     prev_ship_name = ship.name
                     ship.name = self.ship_mgr.get_new_ship_name()
                     ship.role_id = self.id
-
+                    ship.now_crew = ship.min_crew
                     captain = ship.get_captain()
                     captain.clear_duty()
                     ship.clear_mates_onboard()
-
 
                     self.ship_mgr.add_ship(ship)
 
@@ -2463,7 +2462,7 @@ class Role:
                     self.session.send(pb.AuraAdded(aura_id=aura_id))
 
         # add storm
-        if random.random() < 0.05:
+        if random.random() < 0.02:
             aura_id = c.Aura.STORM.value
             if not self.has_aura(aura_id):
                 self.auras.add(aura_id)

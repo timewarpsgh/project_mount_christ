@@ -29,8 +29,9 @@ TO DO:
             show numbers slower OK
             dead speed too slow OK
             shoot dmg min = 1 OK
-
             npc cargo cnt OK
+
+            bug fix: client doesn't show ship disappear OK
 
 DONE:
 

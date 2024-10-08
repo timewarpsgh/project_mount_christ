@@ -354,10 +354,13 @@ class ShipMgr:
         if ship_id not in self.id_2_ship:
             return
 
-        ship = self.get_ship(ship_id)
-        captain = ship.get_captain()
-        if captain:
-            captain.clear_duty()
+        if self.role.is_npc():
+            pass
+        else:
+            ship = self.get_ship(ship_id)
+            captain = ship.get_captain()
+            if captain:
+                captain.clear_duty()
 
         del self.id_2_ship[ship_id]
 

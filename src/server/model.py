@@ -250,6 +250,7 @@ class Ship:
         self.cannon -= 1
 
         damage = self.__calc_shoot_dmg(ship)#  c.SHOOT_DAMAGE
+        damage = c.SHOOT_DAMAGE
         ship.now_durability -= damage
 
         is_sunk = False

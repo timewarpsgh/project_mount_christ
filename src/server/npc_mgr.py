@@ -253,7 +253,7 @@ class NpcMgr:
         ship_template = sObjectMgr.get_ship_template(ship_template_id)
 
         # for testing
-        ships_cnt = 2
+        # ships_cnt = 2
         for i in range(ships_cnt):
 
             max_cargo = ship_template.capacity - ship_template.max_crew - ship_template.max_guns

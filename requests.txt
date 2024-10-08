@@ -15,6 +15,9 @@ TO DO:
 
             move chat dialog right a little OK
 
+            wait a little more after my ships move ON
+
+
             show mini map
 
 

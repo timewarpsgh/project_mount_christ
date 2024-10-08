@@ -28,10 +28,11 @@ TO DO:
 
             with role
                 shoot (shoot non flagship 1st, dosn't disappear)   OK
-
-
                 engage  OK
 
+            escape needs distance
+                escape npc battle OK
+                escape role battle ON
 
 DONE:
 

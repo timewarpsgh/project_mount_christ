@@ -615,14 +615,7 @@ class PacketHandler:
 
     async def handle_EscapeNpcBattle(self, escape_npc_battle):
         npc_id = escape_npc_battle.npc_id
-
-        self.role.battle_npc_id = None
-
-        self.session.send(EscapedNpcBattle())
-
-        # notify nearby roles
-        sMapMgr.add_object(self.role)
-        self.send_role_appeared_to_nearby_roles()
+        self.role.escape_npc_battle()
 
     async def handle_SellShip(self, sell_ship):
         id = sell_ship.id

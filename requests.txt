@@ -40,6 +40,9 @@ TO DO:
 
                 cannon reduces after shooting OK
 
+                all ships move, after flagship last step OK
+
+
 DONE:
 
     each building (crude)  OK

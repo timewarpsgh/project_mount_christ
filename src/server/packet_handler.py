@@ -660,77 +660,30 @@ class PacketHandler:
 
     async def handle_SetAllShipsTarget(self, set_all_ships_target):
         ship_id = set_all_ships_target.ship_id
-
         self.role.set_all_ships_target(ship_id)
 
     async def handle_SetAllShipsStrategy(self, set_all_ships_strategy):
         strategy = set_all_ships_strategy.attack_method_type
-
         self.role.set_all_ships_strategy(strategy)
 
     async def handle_SetShipTarget(self, set_ship_target):
         ship_id = set_ship_target.ship_id
         target_ship_id = set_ship_target.target_ship_id
-
         self.role.set_ship_target(ship_id, target_ship_id)
 
     async def handle_SetShipStrategy(self, set_ship_strategy):
         ship_id = set_ship_strategy.ship_id
         strategy = set_ship_strategy.attack_method_type
-
         self.role.set_ship_strategy(ship_id, strategy)
 
     async def handle_FlagShipMove(self, flag_ship_move):
         battle_dir_type = flag_ship_move.battle_dir_type
-
-        flag_ship = self.role.get_flag_ship()
-
-        if battle_dir_type == pb.BattleDirType.LEFT:
-            flag_ship.move_to_left()
-        elif battle_dir_type == pb.BattleDirType.RIGHT:
-            flag_ship.move_to_right()
-        elif battle_dir_type == pb.BattleDirType.CUR:
-            flag_ship.move_in_cur_dir()
+        await self.role.flagship_move(battle_dir_type)
 
     async def handle_FlagShipAttack(self, pack):
         attack_method_type = pack.attack_method_type
         target_ship_id = pack.target_ship_id
-
-        flag_ship = self.role.get_flag_ship()
-        enemy = self.role.get_enemy()
-        enemy_flag_ship = enemy.get_flag_ship()
-
-        if target_ship_id:
-            target_ship = enemy.ship_mgr.get_ship(target_ship_id)
-
-        if attack_method_type == pb.AttackMethodType.SHOOT:
-            if flag_ship.can_shoot(target_ship):
-                flag_ship.target_ship = target_ship
-                has_won = await flag_ship.try_to_shoot(enemy, enemy_flag_ship)
-                if not has_won:
-                    await self.role.all_ships_attack_role(include_flagship=False)
-
-        elif attack_method_type == pb.AttackMethodType.ENGAGE:
-            if flag_ship.can_engage(target_ship):
-                flag_ship.target_ship = target_ship
-                has_won = await flag_ship.try_to_engage(enemy, enemy_flag_ship)
-                if not has_won:
-                    await self.role.all_ships_attack_role(include_flagship=False)
-
-        elif attack_method_type == pb.AttackMethodType.HOLD:
-            await self.role.all_ships_attack_role(include_flagship=False)
-
-        # reset flag_ship steps_left
-        flag_ship.reset_steps_left()
-
-        pack = pb.ShipMoved(
-            id=flag_ship.id,
-            x=flag_ship.x,
-            y=flag_ship.y,
-            dir=flag_ship.dir,
-            steps_left=flag_ship.steps_left,
-        )
-        self.session.send(pack)
+        await self.role.flagship_attack(attack_method_type, target_ship_id)
 
     async def handle_ViewFleet(self, view_fleet):
         role_id = view_fleet.role_id

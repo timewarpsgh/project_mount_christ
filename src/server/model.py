@@ -1422,6 +1422,61 @@ class Role:
     recruited_crew_cnt: int=0
     has_treated: bool=False
 
+    def __reset_flagship(self, flag_ship):
+        flag_ship.reset_steps_left()
+
+        pack = pb.ShipMoved(
+            id=flag_ship.id,
+            x=flag_ship.x,
+            y=flag_ship.y,
+            dir=flag_ship.dir,
+            steps_left=flag_ship.steps_left,
+        )
+        self.session.send(pack)
+
+    async def flagship_attack(self, attack_method_type, target_ship_id):
+
+        flag_ship = self.get_flag_ship()
+        enemy = self.get_enemy()
+        enemy_flag_ship = enemy.get_flag_ship()
+
+        if target_ship_id:
+            target_ship = enemy.ship_mgr.get_ship(target_ship_id)
+
+        if attack_method_type == pb.AttackMethodType.SHOOT:
+            if flag_ship.can_shoot(target_ship):
+                flag_ship.target_ship = target_ship
+                has_won = await flag_ship.try_to_shoot(enemy, enemy_flag_ship)
+                if not has_won:
+                    await self.all_ships_attack_role(include_flagship=False)
+
+        elif attack_method_type == pb.AttackMethodType.ENGAGE:
+            if flag_ship.can_engage(target_ship):
+                flag_ship.target_ship = target_ship
+                has_won = await flag_ship.try_to_engage(enemy, enemy_flag_ship)
+                if not has_won:
+                    await self.all_ships_attack_role(include_flagship=False)
+
+        elif attack_method_type == pb.AttackMethodType.HOLD:
+            await self.all_ships_attack_role(include_flagship=False)
+
+        # reset flag_ship steps_left
+        self.__reset_flagship(flag_ship)
+
+    async def flagship_move(self, battle_dir_type):
+        flag_ship = self.get_flag_ship()
+
+        if battle_dir_type == pb.BattleDirType.LEFT:
+            flag_ship.move_to_left()
+        elif battle_dir_type == pb.BattleDirType.RIGHT:
+            flag_ship.move_to_right()
+        elif battle_dir_type == pb.BattleDirType.CUR:
+            flag_ship.move_in_cur_dir()
+
+        if flag_ship.steps_left <= 0:
+            await self.all_ships_attack_role(include_flagship=False)
+            self.__reset_flagship(flag_ship)
+
     def __can_escape_npc_battle(self):
         # distance check
         npc = self.npc_instance

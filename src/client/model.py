@@ -354,9 +354,7 @@ class ShipMgr:
         if ship_id not in self.id_2_ship:
             return
 
-        if self.role.is_npc():
-            pass
-        else:
+        if self.role.is_mine():
             ship = self.get_ship(ship_id)
             captain = ship.get_captain()
             if captain:

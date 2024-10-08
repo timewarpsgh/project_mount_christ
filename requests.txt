@@ -27,10 +27,11 @@ TO DO:
                 engage OK
 
             with role
-                shoot
+                shoot (shoot non flagship 1st, dosn't disappear)   OK
+
+
                 engage  OK
 
-            reduce storm chance to 0.02 OK
 
 DONE:
 

@@ -256,6 +256,10 @@ class NpcMgr:
         ships_cnt = 2
         for i in range(ships_cnt):
 
+            max_cargo = ship_template.capacity - ship_template.max_crew - ship_template.max_guns
+            supply_cnt = 20
+            cargo_cnt = max_cargo - supply_cnt * 4
+
             ship = Ship(
                 id=ship_model.id + c.NPC_ROLE_START_ID + i,
                 role_id=ship_model.role_id,
@@ -280,12 +284,12 @@ class NpcMgr:
                 now_guns=ship_template.max_guns,
                 type_of_guns=ship_model.type_of_guns,
 
-                water=1,
-                food=1,
-                material=1,
-                cannon=20,
+                water=supply_cnt,
+                food=supply_cnt,
+                material=supply_cnt,
+                cannon=supply_cnt,
 
-                cargo_cnt=10,
+                cargo_cnt=cargo_cnt,
                 cargo_id=None,
             )
 

@@ -27,12 +27,10 @@ TO DO:
             npc not dealing shoot damage (battle skill too low) OK
 
             show numbers slower OK
-
             dead speed too slow OK
-
             shoot dmg min = 1 OK
 
-            npc cargo cnt ON
+            npc cargo cnt OK
 
 DONE:
 

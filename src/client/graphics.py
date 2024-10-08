@@ -284,6 +284,9 @@ class BackGround(SP):
         for ship in enemy.ship_mgr.get_ships():
             if not ship.is_alive():
                 continue
+            if my_flag_ship.steps_left <= 0:
+                continue
+
             x, y = ship.get_screen_xy(my_flag_ship)
 
             if my_flag_ship.can_engage(ship):

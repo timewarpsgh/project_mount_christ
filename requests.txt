@@ -43,6 +43,7 @@ TO DO:
                 all ships move, after flagship last step OK
 
                 reset flagship after turn switch OK
+                don't show shoot/engage marks after steps run out OK
 
 DONE:
 

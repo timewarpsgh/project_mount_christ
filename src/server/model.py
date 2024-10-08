@@ -651,6 +651,10 @@ class Ship:
         if has_attacked and is_target_sunk:
 
             if target_ship.id == flag_ship.id:
+
+                if enemy.is_npc():
+                    enemy.ship_mgr.rm_ship(target_ship.id)
+
                 self.role.win(enemy)
                 has_won = True
                 return has_won

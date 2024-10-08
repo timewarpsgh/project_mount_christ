@@ -33,6 +33,9 @@ TO DO:
 
             bug fix: client doesn't show ship disappear OK
 
+            don't get npc flagship if its sunk OK
+
+
 DONE:
 
     each building (crude)  OK

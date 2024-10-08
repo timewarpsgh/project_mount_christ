@@ -805,6 +805,15 @@ class Ship:
             strategy = random.choice([pb.AttackMethodType.SHOOT, pb.AttackMethodType.ENGAGE])
             self.strategy = strategy
 
+        if self.cannon <= 0:
+            self.strategy = pb.AttackMethodType.ENGAGE
+
+        if self.now_crew <= self.min_crew:
+            self.strategy = pb.AttackMethodType.FLEE
+
+        if self.now_durability <= 10:
+            self.strategy = pb.AttackMethodType.FLEE
+
     def set_target_ship(self, ship):
         self.target_ship = ship
 

@@ -34,6 +34,10 @@ TO DO:
                 escape npc battle OK
                 escape role battle OK
 
+            long time battle  ON
+                change to engage if out of ammo OK
+                escape when crew or durability low  OK
+
 DONE:
 
     each building (crude)  OK

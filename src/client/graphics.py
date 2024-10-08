@@ -377,11 +377,13 @@ class BackGround(SP):
 
 
 class ShootDamageNumber(SP):
+
     def __init__(self, number, x, y, color=c.YELLOW):
         image = sAssetMgr.font.render(str(number), True, color)
         super().__init__(image, x, y)
 
-        self.frames = [None] * 60
+        self.frames = [None] * 50
+        self.frame_timer = 0
         scale = 3
         for i in range(len(self.frames)):
             scale -= 0.03
@@ -400,7 +402,10 @@ class ShootDamageNumber(SP):
         self.d_y = 0.15
 
     def update(self, time_diff):
-        self._change_state()
+        self.frame_timer -= time_diff
+        if self.frame_timer <= 0:
+            self.frame_timer = 0.020
+            self._change_state()
 
     def _change_state(self):
         if self.frame_index < len(self.frames) - 1:

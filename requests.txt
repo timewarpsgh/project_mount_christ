@@ -28,6 +28,7 @@ TO DO:
 
             show numbers slower OK
 
+            dead speed too slow OK
 
 DONE:
 

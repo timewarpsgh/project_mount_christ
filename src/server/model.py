@@ -910,6 +910,9 @@ class Ship:
         else:
             speed = int(speed * self.now_crew / self.min_crew)
 
+        if self.now_durability <= 0:
+            speed = 0
+
         if speed <= 0:
             speed = 1
         if speed > 80:
@@ -2005,6 +2008,10 @@ class Role:
         ships = self.ship_mgr.get_ships()
         speeds = [ship.get_speed(dir) for ship in ships]
         fleet_speed = min(speeds)
+
+        if fleet_speed < c.DEAD_SPEED:
+            fleet_speed = c.DEAD_SPEED
+
         return fleet_speed
 
     def stop_moving(self):

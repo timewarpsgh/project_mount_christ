@@ -369,12 +369,12 @@ class MapMgr:
     def add_object(self, object):
         map = self.get_map(object.map_id)
         map.add_object(object)
-        print(f'added role {object.id} to map {map.id}')
+        # print(f'added role {object.id} to map {map.id}')
 
     def rm_object(self, object):
         map = self.get_map(object.map_id)
         map.rm_object(object)
-        print(f'removed role {object.id} from map {map.id}')
+        # print(f'removed role {object.id} from map {map.id}')
 
     def move_object(self, object, old_x, old_y, new_x, new_y):
         map = self.get_map(object.map_id)
@@ -383,7 +383,7 @@ class MapMgr:
     def change_object_map(self, object, old_map_id, old_x, old_y, new_map_id, new_x, new_y):
         old_map = self.get_map(old_map_id)
         old_map.rm_object(object, old_x, old_y)
-        print(f'removed role {object.id} from map {old_map_id}')
+        # print(f'removed role {object.id} from map {old_map_id}')
 
         new_map = self.get_map(new_map_id)
         new_map.add_object(object, new_x, new_y)

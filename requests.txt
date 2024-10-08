@@ -13,6 +13,8 @@ TO DO:
 
             show turn on upper left OK
 
+            move chat dialog right a little OK
+
             show mini map
 
 

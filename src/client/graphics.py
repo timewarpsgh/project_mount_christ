@@ -597,6 +597,12 @@ class HudLeft(SP):
         if not self.model.role:
             return
 
+        # hide while in battle
+        if self.model.role.is_in_battle():
+            self.move_to(-500, 0)
+        else:
+            self.move_to(0, 0)
+
         new_image = self.img_src.copy()
 
         x = 10
@@ -645,6 +651,12 @@ class HudRight(SP):
     def update(self, time_diff):
         if not self.model.role:
             return
+
+        # hide while in battle
+        if self.model.role.is_in_battle():
+            self.move_to(2000, 0)
+        else:
+            self.move_to(c.WINDOW_WIDTH - c.HUD_WIDTH, 0)
 
         new_image = self.img_src.copy()
         x = 10

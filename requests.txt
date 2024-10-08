@@ -1,49 +1,20 @@
 TO DO:
 
     scenes
-        in port
-            outside building OK
-            in building OK
-
-        at sea
-            don't show menu when self is clicked OK
-
-            gossip  OK
-
-            view captain  OK
-
-            each nation has 6 fleets ON
-            each npc mate has diff stats OK
-            npcs have ships depending on fleet_type OK
-
-            don't show npc name OK
-
-            after enter battle, clear menus OK
+        in port  OK
 
 
-        in battle
-            with npc
-                shoot  OK
-                engage OK
+        at sea   OK
 
-            with role
-                shoot (shoot non flagship 1st, dosn't disappear)   OK
-                engage  OK
 
-            escape needs distance
-                escape npc battle OK
-                escape role battle OK
+        in battle ON
+            hide huds OK
+            show my and enemy ships stats on left and right
+            show mini map
 
-            long time battle  ON
-                change to engage if out of ammo OK
-                escape when crew or durability low  OK
 
-                cannon reduces after shooting OK
 
-                all ships move, after flagship last step OK
 
-                reset flagship after turn switch OK
-                don't show shoot/engage marks after steps run out OK
 
 DONE:
 

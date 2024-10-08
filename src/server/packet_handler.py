@@ -637,24 +637,7 @@ class PacketHandler:
         self.role.fight_npc(npc_id)
 
     async def handle_EscapeRoleBattle(self, escape_role_battle):
-
-        # if not self.role.battle_timer:
-        #     return
-
-        target_role = self.session.server.get_role(self.role.battle_role_id)
-
-        target_role.session.send(EscapedRoleBattle())
-        self.session.send(EscapedRoleBattle())
-
-        target_role.battle_role_id = None
-        self.role.battle_role_id = None
-
-        # notify nearby roles
-        sMapMgr.add_object(self.role)
-        sMapMgr.add_object(target_role)
-        self.send_role_appeared_to_nearby_roles()
-        target_role.session.packet_handler.send_role_appeared_to_nearby_roles()
-
+        self.role.escape_role_battle()
 
     def send_to_self_and_enemy(self, pack):
         enemy_role = self.get_enemy_role()

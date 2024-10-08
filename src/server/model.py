@@ -1425,7 +1425,49 @@ class Role:
         else:
             return False
 
+    def __can_escape_role_battle(self):
+        # distance check
+        target_role = self.session.server.get_role(self.battle_role_id)
+        target_flag_ship = target_role.get_flag_ship()
+        my_flag_ship = self.get_flag_ship()
+
+        if abs(my_flag_ship.x - target_flag_ship.x) >= c.ESCAPE_DISTANCE or \
+                abs(my_flag_ship.y - target_flag_ship.y) >= c.ESCAPE_DISTANCE:
+            return True
+        else:
+            return False
+
+    def escape_role_battle(self):
+        if not self.battle_timer:
+            return
+
+        if not self.__can_escape_role_battle():
+            # send chat
+            pack = pb.GotChat(
+                chat_type=pb.ChatType.SYSTEM,
+                text="Need to be far enough from enemy flagship to escape.",
+            )
+            self.session.send(pack)
+            return
+
+        target_role = self.session.server.get_role(self.battle_role_id)
+
+        target_role.session.send(pb.EscapedRoleBattle())
+        self.session.send(pb.EscapedRoleBattle())
+
+        target_role.battle_role_id = None
+        self.battle_role_id = None
+
+        # notify nearby roles
+        sMapMgr.add_object(self)
+        sMapMgr.add_object(target_role)
+        self.session.packet_handler.send_role_appeared_to_nearby_roles()
+        target_role.session.packet_handler.send_role_appeared_to_nearby_roles()
+
     def escape_npc_battle(self):
+        if not self.battle_timer:
+            return
+
         if not self.__can_escape_npc_battle():
             # send chat
             pack = pb.GotChat(

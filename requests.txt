@@ -32,7 +32,7 @@ TO DO:
 
             escape needs distance
                 escape npc battle OK
-                escape role battle ON
+                escape role battle OK
 
 DONE:
 

@@ -898,6 +898,8 @@ class Graphics:
         self.sp_background.change_img(self.imgs['battle_ground'])
         self.sp_background.move_to(0, 0)
 
+        self.get_options_dialog().pop_some_menus(10)
+
     def add_sp_role(self, role):
         # x = (role.x - self.model.role.x) * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_WIDTH // 2
         # y = (role.y - self.model.role.y) * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_HEIGHT // 2

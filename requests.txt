@@ -10,6 +10,9 @@ TO DO:
         in battle ON
             hide huds OK
             show my and enemy ships stats on left and right  OK
+
+            show turn on upper left OK
+
             show mini map
 
 

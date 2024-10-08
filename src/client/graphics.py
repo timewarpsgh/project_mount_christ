@@ -358,10 +358,7 @@ class BackGround(SP):
         else:
             text = 'enemy turn'
 
-        timer_text = Text(f'{text} {int(self.model.role.battle_timer)}', c.YELLOW)
-        timer_text.rect.x = 300
-        timer_text.rect.y = 50
-
+        timer_text = Text(f'{text} {int(self.model.role.battle_timer)}', c.YELLOW, 10, 10)
         battle_ground_img.blit(timer_text.image, timer_text.rect)
 
     def __paste_ships(self, battle_ground_img, my_flag_ship):

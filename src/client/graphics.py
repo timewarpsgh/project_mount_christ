@@ -77,6 +77,14 @@ class SpriteSheet():
         return self.frames
 
 
+class ShipDot():
+    """on mini_map in battle"""
+    def __init__(self, color):
+        self.image = pygame.Surface((c.SHIP_DOT_SIZE, c.SHIP_DOT_SIZE))
+        self.image.fill(color)
+        self.rect = self.image.get_rect()
+
+
 class Text():
     def __init__(self, text, color=c.BLACK, x=None, y=None):
         self.image = sAssetMgr.font.render(text, True, color)
@@ -253,6 +261,12 @@ class BackGround(SP):
         super().__init__(image, x, y, z=0)
         self.model = model
 
+        self.mini_map_bg = pygame.Surface((c.MINI_MAP_SIZE, c.MINI_MAP_SIZE)).convert_alpha()
+        self.mini_map_bg.fill(c.TRANS_GRAY)
+
+        self.my_ship_dot = ShipDot(c.YELLOW)
+        self.enemy_ship_dot = ShipDot(c.RED)
+
     def update(self, time_diff):
         super().update(time_diff)
 
@@ -281,7 +295,42 @@ class BackGround(SP):
         self.__paste_my_ships_stats(battle_ground_img)
         self.__paste_enemy_ships_stats(battle_ground_img)
 
+        # paste mini map
+        self.__paste_mini_map(battle_ground_img)
+
         self.change_img(battle_ground_img)
+
+    def __paste_mini_map(self, battle_ground_img):
+        self.__paste_dots_on_mini_map()
+        battle_ground_img.blit(self.mini_map_bg, (10, 270))
+
+    def __paste_dots_on_mini_map(self):
+
+        # clear
+        self.mini_map_bg.fill(c.TRANS_GRAY)
+
+        # get flag ship
+        flag_ship = self.model.role.get_flag_ship()
+
+        off_set = c.MINI_MAP_SIZE // 2
+
+        # draw my ships dots
+        for id, ship in enumerate(self.model.role.ship_mgr.get_ships()):
+            if ship.name == flag_ship.name:
+                x = off_set
+                y = off_set
+            else:
+                x = (ship.x - flag_ship.x) * 3 + off_set
+                y = (ship.y - flag_ship.y) * 3 + off_set
+
+            self.mini_map_bg.blit(self.my_ship_dot.image, (x, y))
+
+        # draw enemy ships dots
+        for ship in self.model.get_enemy().ship_mgr.get_ships():
+            x = (ship.x - flag_ship.x) * 3 + off_set
+            y = (ship.y - flag_ship.y) * 3 + off_set
+
+            self.mini_map_bg.blit(self.enemy_ship_dot.image, (x, y))
 
     def __paste_enemy_ships_stats(self, battle_ground_img):
         # ships states

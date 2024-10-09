@@ -18,8 +18,9 @@ TO DO:
             bug fix: enemy npc can get turn after all my ships move or time out OK
 
 
-            show mini map
+            show mini map  OK
 
+            if i don't move, my turn timer ends at before 0 ON
 
 
 

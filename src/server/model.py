@@ -2333,9 +2333,21 @@ class Role:
 
         if self.is_role():
             if self.is_in_battle_with_role():
+                ships_cnt = len(self.ship_mgr.get_ships())
+
                 # get ships
                 for id in enemy.get_non_flag_ships_ids():
                     print(f'## non flagship id {id}')
+
+                    # get chance
+                    if random.random() < c.SHIP_CAPTURE_CHANCE:
+                        continue
+
+                    if ships_cnt + 1 > c.MAX_SHIPS_CNT:
+                        break
+
+                    ships_cnt += 1
+
 
                     # add to my role
                     ship = enemy.ship_mgr.get_ship(id)
@@ -2679,7 +2691,7 @@ class Role:
         for ship in self.npc_instance.ship_mgr.get_ships():
 
             # get chance
-            if random.random() < 0.5:
+            if random.random() < c.SHIP_CAPTURE_CHANCE:
                 continue
 
             if ships_cnt + 1 > c.MAX_SHIPS_CNT:

@@ -33,7 +33,9 @@ TO DO:
                 win npc with 50% capture chance OK
                 win role with 50% capture chance OK
 
+            max mates 20 OK
 
+            max items 20
 
 
 DONE:

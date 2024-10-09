@@ -36,6 +36,7 @@ ENGAGE_DAMAGE = 0.5
 
 ESCAPE_DISTANCE = 10
 MAX_SHIPS_CNT = 10
+MAX_MATES_CNT = 20
 SHIP_CAPTURE_CHANCE = 0.5
 #########################################################
 

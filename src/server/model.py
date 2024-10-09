@@ -1590,6 +1590,9 @@ class Role:
         if not mate_template:
             return
 
+        if len(self.mate_mgr.get_mates()) >= c.MAX_MATES_CNT:
+            return
+
         if not self.has_treated:
             pack = pb.MateSpeak(
                 mate_template_id=mate_template.id,

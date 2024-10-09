@@ -17,7 +17,6 @@ TO DO:
 
             bug fix: enemy npc can get turn after all my ships move or time out OK
 
-
             show mini map  OK
 
             if i don't move, my turn timer ends at before 0  OK
@@ -28,14 +27,11 @@ TO DO:
 
             sail, each ship must have a captain OK
 
-            max ships 10 ON
-                buy MAX_SHIPS_CNT  OK
-                win npc with 50% capture chance OK
-                win role with 50% capture chance OK
-
+            max ships 10 OK
             max mates 20 OK
-
             max items 20  OK
+
+            better npcs have better guns, weapons and armors ON
 
 
 DONE:

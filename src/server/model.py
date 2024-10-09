@@ -254,7 +254,7 @@ class Ship:
         self.cannon -= 1
 
         damage = self.__calc_shoot_dmg(ship)#  c.SHOOT_DAMAGE
-        damage = c.SHOOT_DAMAGE
+        # damage = c.SHOOT_DAMAGE
         ship.now_durability -= damage
 
         is_sunk = False
@@ -316,9 +316,9 @@ class Ship:
 
     def engage(self, ship):
         self_dmg = ship.__calc_engage_dmg(self)#c.ENGAGE_SELF_DAMAGE
-        self_dmg = c.ENGAGE_SELF_DAMAGE
+        # self_dmg = c.ENGAGE_SELF_DAMAGE
         target_dmg = self.__calc_engage_dmg(ship)#c.ENGAGE_TARGET_DAMAGE
-        target_dmg = c.ENGAGE_TARGET_DAMAGE
+        # target_dmg = c.ENGAGE_TARGET_DAMAGE
         self.now_crew -= self_dmg
         ship.now_crew -= target_dmg
 

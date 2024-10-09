@@ -22,6 +22,7 @@ TO DO:
 
             if i don't move, my turn timer ends at before 0  OK
 
+            if 8 ships, later ships can't see moving OK
 
 
 

@@ -272,13 +272,13 @@ class BackGround(SP):
 
         # in battle update
         if self.model.role:
-            if not self.model.role.battle_timer:
+            if not self.model.role.is_in_battle():
                 return
 
             if self.model.role.battle_timer > 0:
                 self.model.role.battle_timer -= time_diff
 
-                self.__update_battle_scene()
+            self.__update_battle_scene()
 
     def __update_battle_scene(self):
         battle_ground_img = self.__init_new_battle_ground_img()

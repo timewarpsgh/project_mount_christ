@@ -20,7 +20,7 @@ TO DO:
 
             show mini map  OK
 
-            if i don't move, my turn timer ends at before 0 ON
+            if i don't move, my turn timer ends at before 0  OK
 
 
 

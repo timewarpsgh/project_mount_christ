@@ -2384,6 +2384,7 @@ class Role:
                 role.lose_to_npc()
 
     async def switch_turn_with_enemy(self):
+
         if self.is_role():
 
             # set mine to none
@@ -2441,6 +2442,12 @@ class Role:
 
         # battle timer
         if self.battle_timer:
+
+            # if waited for npc to move (takes more than 0.6s)
+            # time_diff can be several seconds if waited for npc to move
+            if time_diff >= 0.5:
+                time_diff = 0.01
+
             self.battle_timer -= time_diff
 
             if self.battle_timer <= 0:

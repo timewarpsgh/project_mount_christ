@@ -28,6 +28,12 @@ TO DO:
 
             sail, each ship must have a captain OK
 
+            max ships 10 ON
+                buy MAX_SHIPS_CNT  OK
+                win npc
+                win role
+
+            capture ships with a 50% chance ON
 
 
 

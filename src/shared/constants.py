@@ -35,6 +35,8 @@ ENGAGE_SELF_DAMAGE = 1
 ENGAGE_DAMAGE = 0.5
 
 ESCAPE_DISTANCE = 10
+MAX_SHIPS_CNT = 10
+
 #########################################################
 
 NPC_ROLE_START_ID = 2_000_000_000

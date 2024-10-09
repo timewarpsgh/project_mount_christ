@@ -1238,7 +1238,7 @@ class ShipMgr:
         return sum([ship.now_crew for ship in ships])
 
     def get_new_ship_name(self):
-        new_ship_name = str(len(self.id_2_ship) + 1)
+        new_ship_name = str(len(self.id_2_ship))
         return new_ship_name
 
     def init_ships_positions_in_battle(self, is_attacker=True):
@@ -1737,6 +1737,9 @@ class Role:
             return False
 
     def buy_ship(self, ship_template_id):
+
+        if len(self.ship_mgr.get_ships()) >= c.MAX_SHIPS_CNT:
+            return
 
         if not self.__is_ship_available_in_my_port(ship_template_id):
             return

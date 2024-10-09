@@ -30,10 +30,9 @@ TO DO:
 
             max ships 10 ON
                 buy MAX_SHIPS_CNT  OK
-                win npc
-                win role
+                win npc with 50% capture chance OK
+                win role with 50% capture chance ON
 
-            capture ships with a 50% chance ON
 
 
 

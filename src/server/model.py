@@ -2673,7 +2673,20 @@ class Role:
         self.__add_aura_by_chance()
 
     def win_npc(self):
+        ships_cnt = len(self.ship_mgr.get_ships())
+
+        captured_ships = []
         for ship in self.npc_instance.ship_mgr.get_ships():
+
+            # get chance
+            if random.random() < 0.5:
+                continue
+
+            if ships_cnt + 1 > c.MAX_SHIPS_CNT:
+                break
+
+            ships_cnt += 1
+
             new_ship_id = self.session.server.id_mgr.gen_new_ship_id()
             ship.id = new_ship_id
             ship.name = self.ship_mgr.get_new_ship_name()
@@ -2682,8 +2695,10 @@ class Role:
             ship.now_crew = ship.min_crew
             self.ship_mgr.add_ship(ship)
 
+            captured_ships.append(ship)
+
         pack = pb.YouWonNpcBattle()
-        ships_prots = self.npc_instance.ship_mgr.gen_ships_prots()
+        ships_prots = [ship.gen_ship_proto() for ship in captured_ships]
         pack.ships.extend(ships_prots)
         self.session.send(pack)
         self.session.send(pb.EscapedNpcBattle())

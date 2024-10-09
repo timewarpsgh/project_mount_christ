@@ -24,17 +24,29 @@ TO DO:
 
             if 8 ships, later ships can't see moving OK
 
+            when battled with captured ships, OK
+
+            sail, each ship must have a captain ON
+
+
 
 
 DONE:
 
-    each building (crude)  OK
-    bug fix: enter building shows black OK
-    remove exit option for each building OK
+    in battle
+        hide huds OK
+        show my and enemy ships stats on left and right  OK
 
-    move chat dialog up a little OK
+        show turn on upper left OK
 
-    OK dialog bg is black OK
+        move chat dialog right a little OK
+
+        bug fix: enemy npc can get turn after all my ships move or time out OK
+
+
+        show mini map  OK
+
+        if i don't move, my turn timer ends at before 0  OK
 
 cmds
     # compile .proto file

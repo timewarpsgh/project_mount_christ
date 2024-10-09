@@ -187,6 +187,10 @@ class Ship:
 
     def __get_battle_skill(self):
         captain = self.get_captain()
+        if not captain:
+            battle_skill = 0
+            return battle_skill
+
         battle_skill = captain.battle
 
         first_mate = self.get_first_mate()

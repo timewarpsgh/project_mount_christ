@@ -2063,6 +2063,16 @@ class Role:
             self.buy_item(item_id=c.Item.LETTER_OF_MARQUE.value, force_buy=True)
 
     def buy_item(self, item_id, force_buy=False):
+        if len(self.items) >= c.MAX_ITEMS_CNT:
+            # send chat
+            pack = pb.MateSpeak(
+                mate_template_id=1,
+                text=f'max {c.MAX_ITEMS_CNT} items'
+            )
+            self.session.send(pack)
+
+            return
+
         if force_buy:
             pass
         else:

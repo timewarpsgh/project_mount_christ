@@ -35,7 +35,7 @@ TO DO:
 
             max mates 20 OK
 
-            max items 20
+            max items 20  OK
 
 
 DONE:

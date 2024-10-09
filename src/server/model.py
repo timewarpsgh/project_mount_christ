@@ -3245,6 +3245,17 @@ class Role:
         if not flag_ship:
             return
 
+        for ship in self.ship_mgr.get_ships():
+            captain = ship.get_captain()
+            if not captain:
+                self.session.send(
+                    pb.BuildingSpeak(
+                        text=f'One of your ships has no captain.'
+                    )
+                )
+
+                return
+
         # tell port nearby roles
         self.session.packet_handler.send_role_disappeared_to_nearby_roles()
 

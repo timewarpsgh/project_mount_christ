@@ -26,7 +26,7 @@ TO DO:
 
             when battled with captured ships, OK
 
-            sail, each ship must have a captain ON
+            sail, each ship must have a captain OK
 
 
 

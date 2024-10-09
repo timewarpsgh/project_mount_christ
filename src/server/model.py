@@ -2723,6 +2723,8 @@ class Role:
                 self.battle_role.session.send(pack)
 
     async def all_ships_attack_role(self, include_flagship=True):
+        self.battle_timer = None
+
         # get enemy role and flag_ship
         enemy = self.get_enemy()
         enemy_flag_ship = enemy.get_flag_ship()
@@ -2753,7 +2755,6 @@ class Role:
 
         # switch battle timer
         await self.switch_turn_with_enemy()
-
 
     def is_in_port(self):
         if self.map_id != 0 and self.map_id is not None:

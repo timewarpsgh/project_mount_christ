@@ -15,7 +15,7 @@ TO DO:
 
             move chat dialog right a little OK
 
-            wait a little more after my ships move ON
+            bug fix: enemy npc can get turn after all my ships move or time out OK
 
 
             show mini map

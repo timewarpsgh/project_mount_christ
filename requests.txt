@@ -31,7 +31,7 @@ TO DO:
             max mates 20 OK
             max items 20  OK
 
-            better npcs have better guns, weapons and armors ON
+            better npcs have better stats,  guns, weapons and armors OK
 
 
 DONE:

@@ -243,12 +243,15 @@ class NpcMgr:
         if fleet_type == c.Fleet.MERCHANT.value:
             ships_cnt = random.randint(4, 6)
             ship_template_id = random.choice([9, 20])
+            type_of_guns = 2
         elif fleet_type == c.Fleet.CONVOY.value:
             ships_cnt = random.randint(6, 8)
             ship_template_id = random.choice([10, 12])
+            type_of_guns = 4
         elif fleet_type == c.Fleet.BATTLE.value:
             ships_cnt = random.randint(8, 10)
             ship_template_id = random.choice([11, 21])
+            type_of_guns = 6
 
         ship_template = sObjectMgr.get_ship_template(ship_template_id)
 
@@ -282,7 +285,7 @@ class NpcMgr:
 
                 max_guns=ship_template.max_guns,
                 now_guns=ship_template.max_guns,
-                type_of_guns=ship_model.type_of_guns,
+                type_of_guns=type_of_guns,
 
                 water=supply_cnt,
                 food=supply_cnt,
@@ -308,6 +311,19 @@ class NpcMgr:
         start_port_id = c.NATION_ID_2_PORT_ID[nation_id]
         return start_port_id
 
+    def __init_weapon_and_armor(self, npc):
+        fleet = npc.mate.fleet
+
+        if fleet == c.Fleet.MERCHANT.value:
+            npc.weapon = 45
+            npc.armor = 33
+        elif fleet == c.Fleet.CONVOY.value:
+            npc.weapon = 52
+            npc.armor = 35
+        elif fleet == c.Fleet.BATTLE.value:
+            npc.weapon = 48
+            npc.armor = 37
+
     def __init_id_2_npc(self):
         for npc_model in WORLD_SESSION.query(NpcModel).all():
             npc = Npc(
@@ -328,6 +344,9 @@ class NpcMgr:
             npc.start_port_id = self.__get_start_port_id(npc.mate.nation)
             npc.ship_mgr = self.__get_ship_mgr(npc_model.id, npc.mate.fleet)
             npc.ship_mgr.role = npc
+
+            # init weapon and armor based on fleet type
+            self.__init_weapon_and_armor(npc)
 
             self.id_2_npc[npc_model.id] = npc
 

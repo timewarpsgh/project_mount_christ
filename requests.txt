@@ -22,6 +22,9 @@ TO DO:
             can only buy trash gears from item shop OK
 
             get treasure map to get random item ON
+                job house, treasure map, 10 ingots each
+                treasure_map_id from db to client OK
+
 
 DONE:
 

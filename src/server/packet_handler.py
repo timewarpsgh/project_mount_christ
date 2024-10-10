@@ -271,6 +271,7 @@ class PacketHandler:
 
                 has_treated_crew=role.has_treated_crew,
                 recruited_crew_cnt=role.recruited_crew_cnt,
+                treasure_map_id=role.treasure_map_id,
             )
 
 
@@ -319,6 +320,7 @@ class PacketHandler:
             role_entered.money = role.money
             role_entered.items = role.items
             role_entered.notorities = role.notorities
+            role_entered.treasure_map_id = role.treasure_map_id
 
             if role.discovery_ids_json_str:
                 role_entered.discovery_ids_json_str = role.discovery_ids_json_str

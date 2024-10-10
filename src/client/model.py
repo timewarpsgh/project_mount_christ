@@ -542,6 +542,7 @@ class Role:
     notorities: list[int] = None
     has_treated: bool = False
     has_told_story: bool = False
+    treasure_map_id: int = None
 
     def get_port(self):
         return sObjectMgr.get_port(self.map_id)

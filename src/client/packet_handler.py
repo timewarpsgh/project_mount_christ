@@ -176,6 +176,7 @@ class PacketHandler:
                 money=role.money,
                 items=json.loads(role.items),
                 notorities=json.loads(role.notorities),
+                treasure_map_id=role.treasure_map_id,
 
                 graphics = self.client.game.graphics,
             )

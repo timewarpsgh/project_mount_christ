@@ -175,6 +175,7 @@ message RoleEntered {
     repeated int32 seen_grids_64_int32s = 11;
     required string items = 12;
     required string notorities = 13;
+    required int32 treasure_map_id = 14;
 }
 
 message EnterWorldRes {

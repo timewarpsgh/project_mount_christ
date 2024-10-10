@@ -1472,6 +1472,7 @@ class Role:
     has_treated_crew: bool=False
     recruited_crew_cnt: int=0
     has_treated: bool=False
+    treasure_map_id: int=None
 
     def __reset_flagship(self, flag_ship):
         flag_ship.reset_steps_left()

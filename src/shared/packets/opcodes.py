@@ -225,6 +225,7 @@ class OpCodeType(Enum):
     Gossip = auto()
     ViewCaptain = auto()
     CaptainInfo = auto()
+    RandMateSpeak = auto()
 
 
 def gen_opcode_2_value():

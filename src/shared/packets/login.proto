@@ -941,6 +941,10 @@ message MateSpeak {
     required string text = 2;
 }
 
+message RandMateSpeak {
+    required string text = 1;
+}
+
 message SeeWaitress {
 }
 

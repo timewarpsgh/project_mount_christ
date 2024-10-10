@@ -2782,6 +2782,13 @@ class Role:
         )
         self.session.send(pack)
 
+        # mate speak spoil of war
+        pack = pb.RandMateSpeak(
+            text=f'We captured {len(captured_ships)} ships from the enemy.',
+        )
+        self.session.send(pack)
+
+
         self.npc_instance = None
         self.battle_npc_id = None
 

@@ -423,7 +423,7 @@ class MateMgr:
 
     def get_random_mate(self):
         mates = self.get_mates()
-        return random.choice(mates[1:])
+        return random.choice(mates)
 
     def is_mate_in_fleet(self, mate_template):
         mates = self.get_mates()

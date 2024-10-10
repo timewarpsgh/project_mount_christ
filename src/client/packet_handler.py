@@ -1036,3 +1036,8 @@ class PacketHandler:
 
     async def handle_CaptainInfo(self, pack):
         self.__get_options_dialog().show_captain_info(pack)
+
+    async def handle_RandMateSpeak(self, pack):
+        text = pack.text
+        mate = self.get_mate_mgr().get_random_mate()
+        self.__get_options_dialog().show_mate_speech(mate, text)

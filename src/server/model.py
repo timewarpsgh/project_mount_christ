@@ -1257,8 +1257,10 @@ class ShipMgr:
         x_positions = set(range(5, 15))
         y_positions = set(range(5, 15))
 
-        x_sign = random.choice([1, -1])
-        y_sign = random.choice([1, -1])
+        if not is_attacker:
+            attacker = self.role.get_enemy()
+            x_diff = self.role.x - attacker.x
+            y_diff = self.role.y - attacker.y
 
         for id, ship in enumerate(self.id_2_ship.values()):
 
@@ -1281,10 +1283,10 @@ class ShipMgr:
             else:
                 x_pos = random.choice(list(x_positions))
                 x_positions.remove(x_pos)
-                ship.x = x_pos + 10 * x_sign
+                ship.x = x_pos + 10 * x_diff
 
                 y_pos = random.choice(list(y_positions))
-                ship.y = y_pos + 10 * y_sign
+                ship.y = y_pos + 10 * y_diff
 
                 if x_pos % 2 == 0:
                     ship.y += 0.5

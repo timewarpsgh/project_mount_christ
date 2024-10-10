@@ -3,39 +3,13 @@ TO DO:
     scenes
         in port  OK
 
-
         at sea   OK
 
-
         in battle ON
-            hide huds OK
-            show my and enemy ships stats on left and right  OK
-
-            show turn on upper left OK
-
-            move chat dialog right a little OK
-
-            bug fix: enemy npc can get turn after all my ships move or time out OK
-
-            show mini map  OK
-
-            if i don't move, my turn timer ends at before 0  OK
-
-            if 8 ships, later ships can't see moving OK
-
-            when battled with captured ships, OK
-
-            sail, each ship must have a captain OK
-
-            max ships 10 OK
-            max mates 20 OK
-            max items 20  OK
-
-            better npcs have better stats,  weapons and armors, guns,  OK
-
             rand shoot, engage dmg OK
-
             rand initial positions OK
+
+            init pos based on sea distance OK
 
 
 DONE:
@@ -50,10 +24,21 @@ DONE:
 
         bug fix: enemy npc can get turn after all my ships move or time out OK
 
-
         show mini map  OK
 
         if i don't move, my turn timer ends at before 0  OK
+
+        if 8 ships, later ships can't see moving OK
+
+        when battled with captured ships, OK
+
+        sail, each ship must have a captain OK
+
+        max ships 10 OK
+        max mates 20 OK
+        max items 20  OK
+
+        better npcs have better stats,  weapons and armors, guns,  OK
 
 cmds
     # compile .proto file

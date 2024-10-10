@@ -963,6 +963,7 @@ class Graphics:
             x, y = self.role_xy_at_sea_2_xy_on_screen(x, y)
             self.sp_background.move_to(x, y)
 
+        sAssetMgr.play_sea_music()
 
     def change_background_sp_to_port(self, port_id, x, y):
 
@@ -1009,6 +1010,8 @@ class Graphics:
         self.sp_background.move_to(0, 0)
 
         self.get_options_dialog().pop_some_menus(10)
+
+        sAssetMgr.play_battle_music()
 
     def add_sp_role(self, role):
         # x = (role.x - self.model.role.x) * c.PIXELS_COVERED_EACH_MOVE + c.WINDOW_WIDTH // 2

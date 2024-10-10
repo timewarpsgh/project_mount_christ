@@ -13,13 +13,10 @@ TO DO:
 
             view enemy captain OK
             move fight options right OK
-            enemy npc speaks on enter battle
+            enemy npc speaks on enter battle  ON
             enemy npc speaks on losing battle
             win dialog shows captured ships and gold, and item maybe
 
-            battle music OK
-            sea music OK
-            port music OK
 
 DONE:
 

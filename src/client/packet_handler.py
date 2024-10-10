@@ -393,9 +393,6 @@ class PacketHandler:
 
         self.client.game.graphics.change_background_sp_to_battle_ground()
 
-        sAssetMgr.play_battle_music()
-
-
     async def handle_EscapedNpcBattle(self, escaped_npc_battle):
         role = self.__get_role()
 

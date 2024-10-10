@@ -11,6 +11,14 @@ TO DO:
 
             init pos based on sea distance OK
 
+            view enemy captain OK
+            enemy npc speaks on enter battle
+            enemy npc speaks on losing battle
+            win dialog shows captured ships and gold, and item maybe
+
+            battle music
+            sea music
+            port music
 
 DONE:
 

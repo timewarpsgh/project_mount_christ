@@ -1242,32 +1242,6 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
-    def __show_battle_states(self):
-        my_ships = self.get_ship_mgr().get_ships()
-        enemy_ships = self.__get_enemy().ship_mgr.get_ships()
-
-        text = 'num  durability  crew target strategy <br>'
-
-
-        for ship in my_ships:
-            target_name = ship.target_ship.name if ship.target_ship else ''
-            strategy_name = c.STRATEGY_2_TEXT[ship.strategy] if ship.strategy is not None else ''
-
-            text += f'<br>{ship.name}  {ship.now_durability}  ' \
-                    f'{ship.now_crew}  {target_name}  {strategy_name} '
-
-        text += '<br>'
-
-        for ship in enemy_ships:
-            text += f'<br>{ship.name}  {ship.now_durability}  ' \
-                    f'{ship.now_crew}  '
-
-        MyPanelWindow(
-            rect=pygame.Rect((59, 12), (350, 400)),
-            ui_manager=self.mgr,
-            text=text,
-        )
-
     def show_fleet_info(self, ships_template_ids):
         # make window
         rect = pygame.Rect((-20, -20), (c.WINDOW_WIDTH + 40, c.WINDOW_HEIGHT + 40))
@@ -1331,6 +1305,10 @@ class OptionsDialog:
         ships = self.get_ship_mgr().get_ships()
         ships_template_ids = [ship.ship_template_id for ship in ships]
         self.show_fleet_info(ships_template_ids)
+
+    def __view_enemy_captain(self):
+        enemy = self.__get_enemy()
+        self.__view_captain(enemy.id)
 
     def __show_ship_info_menu(self, is_enemy=False):
         if is_enemy:
@@ -1966,14 +1944,13 @@ class OptionsDialog:
     def show_fight_menu(self):
 
         option_2_callback = {
-            'View Battle States': partial(self.__show_battle_states),
+            'View Enemy Captain': partial(self.__view_enemy_captain),
             'View Enemy Ships': partial(self.__show_ship_info_menu, is_enemy=True),
-            'Set All Ships Target': partial(self._set_all_ships_target),
-            'Set All Ships Strategy': partial(self._set_all_ships_strategy),
-            'Set Ship Target': partial(self._set_ship_target),
-            'Set Ship Strategy': partial(self._set_ship_strategy),
+            'All Ships Target': partial(self._set_all_ships_target),
+            'All Ships Strategy': partial(self._set_all_ships_strategy),
+            'Ship Target': partial(self._set_ship_target),
+            'Ship Strategy': partial(self._set_ship_strategy),
             'Escape Battle': partial(self.escape_battle),
-            'All Ships Attack': partial(self.all_ships_attack),
         }
 
         MyMenuWindow(

@@ -1923,6 +1923,8 @@ class Role:
 
     def get_availalbe_items_ids_in_port(self):
         port = self.get_port()
+        if not port.items_ids:
+            return []
 
         ids = port.items_ids.split(' ')
         ids = [int(id) for id in ids]

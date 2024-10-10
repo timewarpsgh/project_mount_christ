@@ -1,4 +1,5 @@
 import pygame
+import random
 import os
 # import from dir
 import sys
@@ -27,9 +28,12 @@ def load_sounds_in_dir(sounds_container, directory, accept=('.ogg')):
 class AssetMgr:
 
     def __init__(self):
+        pygame.init()
+
         self.images = {}
         self.sounds = {}
-        pygame.init()
+        self.music = {}
+
         self.font = pygame.font.Font(r"D:\data\code\python\project_mount_christ\data\fonts\siyuanheiti.ttf", c.FONT_SIZE)
 
     def load_images(self):
@@ -79,6 +83,18 @@ class AssetMgr:
     def load_sounds(self):
         load_sounds_in_dir(self.sounds, f"D:\data\code\python\project_mount_christ\data\sounds\effect")
 
+    def play_battle_music(self):
+        pygame.mixer.music.load('../../data/sounds/music/battle.ogg')
+        pygame.mixer.music.play(-1)
+
+    def play_sea_music(self):
+        music_file_name = random.choice(['sea', 'sea_1'])
+        pygame.mixer.music.load(f'../../data/sounds/music/{music_file_name}.ogg')
+        pygame.mixer.music.play(-1)
+
+    def play_port_music(self):
+        pygame.mixer.music.load('../../data/sounds/music/port.ogg')
+        pygame.mixer.music.play(-1)
 
 
 sAssetMgr = AssetMgr()

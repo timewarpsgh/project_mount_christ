@@ -17,9 +17,9 @@ TO DO:
             enemy npc speaks on losing battle
             win dialog shows captured ships and gold, and item maybe
 
-            battle music
-            sea music
-            port music
+            battle music OK
+            sea music OK
+            port music OK
 
 DONE:
 

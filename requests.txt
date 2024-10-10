@@ -14,7 +14,16 @@ TO DO:
             view enemy captain OK
             move fight options right OK
             enemy npc speaks on enter battle  OK
-            enemy npc speaks on losing battle
+            enemy npc speaks on losing battle OK
+
+                # npc speak
+                pack = pb.MateSpeak(
+                    mate_template_id=self.npc_instance.mate.mate_template_id,
+                    text='You are pretty brave to challenge us.',
+                )
+                self.session.send(pack)
+
+
             win dialog shows captured ships and gold, and item maybe
 
 

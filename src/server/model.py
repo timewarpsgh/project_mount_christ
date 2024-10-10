@@ -2775,6 +2775,13 @@ class Role:
         self.session.send(pack)
         self.session.send(pb.EscapedNpcBattle())
 
+        # npc speak
+        pack = pb.MateSpeak(
+            mate_template_id=self.npc_instance.mate.mate_template_id,
+            text='One day, someone from my nation will revenge for me.',
+        )
+        self.session.send(pack)
+
         self.npc_instance = None
         self.battle_npc_id = None
 

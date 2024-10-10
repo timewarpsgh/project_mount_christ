@@ -18,6 +18,10 @@ TO DO:
 
             win dialog shows captured ships and gold, and item maybe OK
 
+            win npc to get random item OK
+            can only buy trash gears from item shop ON
+
+            get treasure map to get random item ON
 
 DONE:
 

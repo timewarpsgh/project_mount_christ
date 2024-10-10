@@ -2744,6 +2744,23 @@ class Role:
 
         self.__add_aura_by_chance()
 
+    def __add_rand_item(self):
+        if len(self.items) >= c.MAX_ITEMS_CNT:
+            item_name = ''
+            return item_name
+
+        items = sObjectMgr.get_items()
+        item = random.choice(items)
+        self.items.append(item.id)
+
+        self.session.send(
+            pb.ItemAdded(
+                item_id=item.id
+            )
+        )
+
+        return item.name
+
     def win_npc(self):
         ships_cnt = len(self.ship_mgr.get_ships())
 
@@ -2775,6 +2792,9 @@ class Role:
         self.session.send(pack)
         self.session.send(pb.EscapedNpcBattle())
 
+        # add random item
+        item_name = self.__add_rand_item()
+
         # npc speak
         pack = pb.MateSpeak(
             mate_template_id=self.npc_instance.mate.mate_template_id,
@@ -2784,7 +2804,7 @@ class Role:
 
         # mate speak spoil of war
         pack = pb.RandMateSpeak(
-            text=f'We captured {len(captured_ships)} ships from the enemy.',
+            text=f'We captured {len(captured_ships)} ships and {item_name} from the enemy.',
         )
         self.session.send(pack)
 

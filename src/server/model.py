@@ -231,6 +231,9 @@ class Ship:
         else:
             dmg = int(dmg * self.now_crew / self.now_guns)
 
+        # rand effect
+        dmg = self.__rand_dmg(dmg)
+
         max_dmg = 20
         min_dmg = 1
         if dmg < min_dmg:
@@ -305,6 +308,9 @@ class Ship:
         morale = self.ship_mgr.role.morale
         dmg = int(dmg * morale * 0.01)
 
+        # rand effect
+        dmg = self.__rand_dmg(dmg)
+
         max_dmg = 50
         min_dmg = 0
         if dmg < min_dmg:
@@ -312,6 +318,10 @@ class Ship:
         if dmg > max_dmg:
             dmg = max_dmg
 
+        return dmg
+
+    def __rand_dmg(self, dmg):
+        dmg = int(dmg * (random.randint(80, 120) / 100))
         return dmg
 
     def engage(self, ship):

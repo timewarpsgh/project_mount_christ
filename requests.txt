@@ -33,6 +33,9 @@ TO DO:
 
             better npcs have better stats,  weapons and armors, guns,  OK
 
+            rand shoot, engage dmg OK
+
+            rand initial positions
 
 DONE:
 

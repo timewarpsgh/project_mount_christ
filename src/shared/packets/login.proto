@@ -123,6 +123,7 @@ message Ship {
 
   optional float x = 27;
   optional float y = 28;
+  optional DirType dir = 29;
 
 }
 

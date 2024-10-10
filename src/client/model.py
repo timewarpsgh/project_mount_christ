@@ -100,6 +100,7 @@ class Ship:
 
         self.x = prot_ship.x
         self.y = prot_ship.y
+        self.dir = prot_ship.dir
 
     def has_cargo(self):
         if self.cargo_id:

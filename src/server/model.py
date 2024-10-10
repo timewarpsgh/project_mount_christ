@@ -772,6 +772,7 @@ class Ship:
             chief_navigator=self.chief_navigator,
             x=self.x,
             y=self.y,
+            dir=self.dir,
         )
 
         return ship_proto
@@ -1253,18 +1254,52 @@ class ShipMgr:
 
     def init_ships_positions_in_battle(self, is_attacker=True):
         # initial x need to satisfy hex movement
+        x_positions = set(range(5, 15))
+        y_positions = set(range(5, 15))
+
+        x_sign = random.choice([1, -1])
+        y_sign = random.choice([1, -1])
+
         for id, ship in enumerate(self.id_2_ship.values()):
 
             ship.role = self.role
 
+            # attacker
             if is_attacker:
-                ship.x = 5
-                ship.y = 3 + id * 2
+                x_pos = random.choice(list(x_positions))
+                x_positions.remove(x_pos)
+                ship.x = x_pos
+
+                y_pos = random.choice(list(y_positions))
+                ship.y = y_pos
+                if x_pos % 2 == 0:
+                    ship.y += 0.5
+
+                self.__set_ship_dir_from_role_dir(ship)
+
+            # defender
             else:
-                ship.x = 11
-                ship.y = 3 + id * 2
+                x_pos = random.choice(list(x_positions))
+                x_positions.remove(x_pos)
+                ship.x = x_pos + 10 * x_sign
+
+                y_pos = random.choice(list(y_positions))
+                ship.y = y_pos + 10 * y_sign
+
+                if x_pos % 2 == 0:
+                    ship.y += 0.5
+
+                self.__set_ship_dir_from_role_dir(ship)
 
             ship.reset_steps_left()
+
+    def __set_ship_dir_from_role_dir(self, ship):
+        if self.role.dir == pb.DirType.E:
+            ship.dir = pb.DirType.NE
+        elif self.role.dir == pb.DirType.W:
+            ship.dir = pb.DirType.NW
+        else:
+            ship.dir = self.role.dir
 
     def gen_ships_prots(self):
         ships_prots = []

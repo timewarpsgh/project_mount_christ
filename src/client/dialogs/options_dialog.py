@@ -36,7 +36,7 @@ class OptionsDialog:
         )
 
         # buttons to add
-        buttons_texts = ['Buildings', 'Options', 'Fight', 'Cmds', 'Items', 'Mates', 'Ships']
+        buttons_texts = ['Buildings', 'Options', 'Cmds', 'Fight', 'Items', 'Mates', 'Ships']
 
         for id, button_text in enumerate(buttons_texts):
             MyButton(

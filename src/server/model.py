@@ -3458,6 +3458,13 @@ class Role:
         )
         self.session.send(pack)
 
+        # npc speak
+        pack = pb.MateSpeak(
+            mate_template_id=self.npc_instance.mate.mate_template_id,
+            text='You are pretty brave to challenge us.',
+        )
+        self.session.send(pack)
+
     def get_nation(self):
         return self.get_flag_ship().get_captain().nation
 

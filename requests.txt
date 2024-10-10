@@ -13,7 +13,7 @@ TO DO:
 
             view enemy captain OK
             move fight options right OK
-            enemy npc speaks on enter battle  ON
+            enemy npc speaks on enter battle  OK
             enemy npc speaks on losing battle
             win dialog shows captured ships and gold, and item maybe
 

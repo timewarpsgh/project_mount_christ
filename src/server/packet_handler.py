@@ -438,6 +438,13 @@ class PacketHandler:
         )
         self.session.send(pack)
 
+    def _handle_gm_cmd_vil(self, params):
+        village_id = int(params[0])
+        village = sObjectMgr.get_village(village_id)
+        x = village.x
+        y = village.y
+        self.role.change_xy(x, y)
+
     def _handle_gm_cmd_xy(self, params):
         x = int(params[0])
         y = int(params[1])

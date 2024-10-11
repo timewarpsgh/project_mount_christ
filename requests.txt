@@ -27,6 +27,7 @@ TO DO:
 
                 click diary to show treasure map pos OK
                 give rand item when discovering OK
+                gm cmd: .vil village_id OK
 
 DONE:
 

@@ -866,7 +866,7 @@ class OptionsDialog:
     def __building_speak(self, text):
         # make window
         MyPanelWindow(
-            rect=pygame.Rect((248, 0), (264, 124)),
+            rect=pygame.Rect((248, 0), (264, 145)),
             ui_manager=self.mgr,
             text=text,
         )
@@ -1494,7 +1494,7 @@ class OptionsDialog:
 
         return my_x, my_y
 
-    def __show_diary(self):
+    def __show_treasure_map(self):
         role = self.__get_role()
         if role.treasure_map_id:
             id = role.treasure_map_id
@@ -2018,7 +2018,7 @@ class OptionsDialog:
         option_2_callback = {
             'Items': partial(self.show_items),
             'Discoveries': partial(self.__show_discoveries_menu),
-            'Diary': partial(self.__show_diary),
+            'Treasure Map': partial(self.__show_treasure_map),
             'World Map': partial(self.__show_world_map),
             'Port Map': ''
         }

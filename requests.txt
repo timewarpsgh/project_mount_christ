@@ -6,21 +6,6 @@ TO DO:
         at sea   OK
 
         in battle ON
-            rand shoot, engage dmg OK
-            rand initial positions OK
-
-            init pos based on sea distance OK
-
-            view enemy captain OK
-            move fight options right OK
-            enemy npc speaks on enter battle  OK
-            enemy npc speaks on losing battle OK
-
-            win dialog shows captured ships and gold, and item maybe OK
-
-            win npc to get random item OK
-            can only buy trash gears from item shop OK
-
             get treasure map to get random item ON
 
                 treasure_map_id from db to client OK
@@ -28,10 +13,12 @@ TO DO:
                 click diary to show treasure map pos OK
                 give rand item when discovering OK
                 gm cmd: .vil village_id OK
-
-
                 buy from job house, treasure map, 10 ingots each  OK
                 larger buliding speak OK
+
+                show discovery found OK
+
+
 
 DONE:
 

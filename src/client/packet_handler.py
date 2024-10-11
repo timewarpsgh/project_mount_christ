@@ -321,8 +321,11 @@ class PacketHandler:
             text=got_chat.text)
 
     async def handle_Discovered(self, discovered):
-        self.__get_role().discovery_mgr.add(discovered.village_id)
-        # play sound
+        village_id = discovered.village_id
+
+        self.__get_role().discovery_mgr.add(village_id)
+        village = sObjectMgr.get_village(village_id)
+        self.__get_options_dialog().show_one_discovery(village)
         sAssetMgr.sounds['discover'].play()
 
     async def handle_MapChanged(self, map_changed):

@@ -511,7 +511,7 @@ class OptionsDialog:
         }
         self.__make_menu(option_2_callback)
 
-        self.__show_one_discovery(village)
+        self.show_one_discovery(village)
 
     def __show_stories_to_tell(self, maid):
         option_2_callback = {}
@@ -1416,9 +1416,7 @@ class OptionsDialog:
             image=item_img,
         )
 
-
-
-    def __show_one_discovery(self, village):
+    def show_one_discovery(self, village):
 
         split_items = village.img_id.split('_')
         img_x = int(split_items[0])
@@ -1474,7 +1472,7 @@ class OptionsDialog:
 
         for id in self.__get_role().discovery_mgr.ids_set:
             village = sObjectMgr.get_village(id)
-            option_2_callback[village.name] = partial(self.__show_one_discovery, village)
+            option_2_callback[village.name] = partial(self.show_one_discovery, village)
 
         self.__make_menu(option_2_callback)
 

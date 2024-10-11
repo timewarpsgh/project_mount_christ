@@ -18,9 +18,9 @@ TO DO:
                 show discovery found OK
 
                 give xp for finding treasure OK
-
-
                 draw dynamic npcs later than static npcs OK
+
+                after win role, show ships and gold aquired OK
 
 DONE:
 

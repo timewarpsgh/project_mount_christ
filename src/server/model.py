@@ -2463,6 +2463,7 @@ class Role:
         if self.is_role():
             if self.is_in_battle_with_role():
                 ships_cnt = len(self.ship_mgr.get_ships())
+                captured_ships_cnt = 0
 
                 # get ships
                 for id in enemy.get_non_flag_ships_ids():
@@ -2476,7 +2477,7 @@ class Role:
                         break
 
                     ships_cnt += 1
-
+                    captured_ships_cnt += 1
 
                     # add to my role
                     ship = enemy.ship_mgr.get_ship(id)
@@ -2516,6 +2517,19 @@ class Role:
 
                 enemy.battle_role_id = None
                 self.battle_role_id = None
+
+                # mate speak spoil of war
+                pack = pb.RandMateSpeak(
+                    text=f'We captured {captured_ships_cnt} ships '
+                         f'and {amount} gold coins from the enemy.',
+                )
+                self.session.send(pack)
+
+                pack = pb.RandMateSpeak(
+                    text=f'We lost {captured_ships_cnt} ships '
+                         f'and {amount} gold coins to the enemy.',
+                )
+                enemy.session.send(pack)
 
                 # notify nearby roles
                 sMapMgr.add_object(self)

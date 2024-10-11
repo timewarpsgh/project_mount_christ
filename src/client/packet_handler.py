@@ -1042,3 +1042,6 @@ class PacketHandler:
         text = pack.text
         mate = self.get_mate_mgr().get_random_mate()
         self.__get_options_dialog().show_mate_speech(mate, text)
+
+    async def handle_TreasureMapCleared(self, pack):
+        self.__get_role().treasure_map_id = None

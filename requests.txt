@@ -26,7 +26,7 @@ TO DO:
                 treasure_map_id from db to client OK
 
                 click diary to show treasure map pos OK
-
+                give rand item when discovering OK
 
 DONE:
 

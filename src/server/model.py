@@ -1474,6 +1474,55 @@ class Role:
     has_treated: bool=False
     treasure_map_id: int=None
 
+    def make_discovery(self, village_id):
+        village = sObjectMgr.get_village(village_id)
+        distance = 3
+
+        if abs(village.x - self.x) <= distance and abs(village.y - self.y) <= distance:
+
+            # make discovery
+            if village_id not in self.discovery_mgr.get_ids_set():
+
+                self.discovery_mgr.add(village_id)
+
+                pack = pb.GotChat(
+                    origin_name=self.name,
+                    chat_type=pb.ChatType.SYSTEM,
+                    text=f'discovered {village.name}',
+                )
+                self.session.send(pack)
+
+                self.session.send(pb.Discovered(village_id=village_id))
+
+                # earn xp [chief_navigator and all captains]
+                xp_amount = 300
+                flag_ship = self.get_flag_ship()
+                chief_navigator = flag_ship.get_chief_navigator()
+                if chief_navigator:
+                    chief_navigator.earn_xp(xp_amount, pb.DutyType.CHIEF_NAVIGATOR)
+
+                ships = self.ship_mgr.get_ships()
+                for ship in ships:
+                    captain = ship.get_captain()
+                    if captain:
+                        captain.earn_xp(xp_amount, pb.DutyType.CHIEF_NAVIGATOR)
+
+            # find treasure
+            if self.treasure_map_id:
+                if self.treasure_map_id == village_id:
+                    item_name = self.__add_rand_item()
+
+                    # send chat
+                    pack = pb.RandMateSpeak(
+                        text=f'Found {item_name}!',
+                    )
+                    self.session.send(pack)
+
+                    self.treasure_map_id = None
+                    # send treasure map cleared
+                    pack = pb.TreasureMapCleared()
+                    self.session.send(pack)
+
     def __reset_flagship(self, flag_ship):
         flag_ship.reset_steps_left()
 

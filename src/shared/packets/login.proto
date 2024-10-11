@@ -972,3 +972,5 @@ message CaptainInfo {
     required string img_id = 9;
 }
 
+message TreasureMapCleared {
+}

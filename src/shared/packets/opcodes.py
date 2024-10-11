@@ -227,6 +227,8 @@ class OpCodeType(Enum):
     CaptainInfo = auto()
     RandMateSpeak = auto()
 
+    TreasureMapCleared = auto()
+
 
 def gen_opcode_2_value():
     d = {}

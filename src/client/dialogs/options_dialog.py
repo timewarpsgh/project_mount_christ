@@ -1488,10 +1488,13 @@ class OptionsDialog:
 
     def __show_diary(self):
         role = self.__get_role()
-        id = role.treasure_map_id
-        village = sObjectMgr.get_village(id)
-        self.show_msg_panel(f"There seems to be something around "
-                            f"{village.latitude} {village.longitude}")
+        if role.treasure_map_id:
+            id = role.treasure_map_id
+            village = sObjectMgr.get_village(id)
+            self.show_msg_panel(f"There seems to be something around "
+                                f"{village.latitude} {village.longitude}")
+        else:
+            self.show_msg_panel("There is nothing intresting in the diary.")
 
     def __show_world_map(self):
         # image

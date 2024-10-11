@@ -1045,3 +1045,8 @@ class PacketHandler:
 
     async def handle_TreasureMapCleared(self, pack):
         self.__get_role().treasure_map_id = None
+
+    async def handle_TreasureMapBought(self, pack):
+        self.__get_role().treasure_map_id = pack.treasure_map_id
+        self.__get_options_dialog().pop_some_menus(2)
+        self.__get_options_dialog().building_speak('Thank you for your purchase! Good luck!')

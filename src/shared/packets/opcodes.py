@@ -228,6 +228,8 @@ class OpCodeType(Enum):
     RandMateSpeak = auto()
 
     TreasureMapCleared = auto()
+    BuyTreasureMap = auto()
+    TreasureMapBought = auto()
 
 
 def gen_opcode_2_value():

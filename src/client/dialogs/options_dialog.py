@@ -619,6 +619,14 @@ class OptionsDialog:
         pack.nation_id = nation_id
         PacketParamsDialog(self.mgr, self.client, [], pack)
 
+    def __buy_treasure_map(self):
+        self.building_speak("I bought this map from someone a while ago, "
+                            "but never had the time to check it out. "
+                            f"I'm willing to transfer it to you for {c.TREASURE_MAP_COST}.")
+
+        pack = pb.BuyTreasureMap()
+        PacketParamsDialog(self.mgr, self.client, [], pack)
+
     def __show_nations_menu_to_get_info(self):
         option_2_callback = {}
 
@@ -969,7 +977,7 @@ class OptionsDialog:
 
         option_2_callback = {
             'Nation Info': partial(self.__show_nations_menu_to_get_info),
-            '': partial(self.exit_building),
+            'Treasure Map': partial(self.__buy_treasure_map),
         }
 
         MyMenuWindow(

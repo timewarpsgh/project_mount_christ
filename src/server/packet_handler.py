@@ -947,3 +947,6 @@ class PacketHandler:
     async def handle_ViewCaptain(self, view_captain):
         role_id = view_captain.role_id
         self.role.view_captain(role_id)
+
+    async def handle_BuyTreasureMap(self, buy_treasure_map):
+        self.role.buy_treasure_map()

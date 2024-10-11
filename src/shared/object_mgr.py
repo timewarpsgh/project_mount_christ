@@ -1,4 +1,5 @@
 import json
+import random
 
 # import from dir
 import sys
@@ -155,6 +156,10 @@ class ObjectMgr:
 
     def get_village(self, id):
         return self.id_2_village[id]
+
+    def get_rand_village_id(self):
+        village_id = random.randint(1, len(self.id_2_village))
+        return village_id
 
     def get_ship_template(self, id):
         return self.id_2_ship_template[id]

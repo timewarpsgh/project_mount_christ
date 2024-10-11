@@ -22,12 +22,16 @@ TO DO:
             can only buy trash gears from item shop OK
 
             get treasure map to get random item ON
-                job house, treasure map, 10 ingots each
+
                 treasure_map_id from db to client OK
 
                 click diary to show treasure map pos OK
                 give rand item when discovering OK
                 gm cmd: .vil village_id OK
+
+
+                buy from job house, treasure map, 10 ingots each  OK
+
 
 DONE:
 

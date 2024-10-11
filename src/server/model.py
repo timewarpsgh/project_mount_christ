@@ -1474,6 +1474,15 @@ class Role:
     has_treated: bool=False
     treasure_map_id: int=None
 
+    def buy_treasure_map(self):
+        if self.has_enough_money(c.TREASURE_MAP_COST):
+            self.mod_money(-c.TREASURE_MAP_COST)
+            self.treasure_map_id = sObjectMgr.get_rand_village_id()
+            pack = pb.TreasureMapBought(
+                treasure_map_id=self.treasure_map_id
+            )
+            self.session.send(pack)
+
     def make_discovery(self, village_id):
         village = sObjectMgr.get_village(village_id)
         distance = 3

@@ -5,22 +5,15 @@ TO DO:
 
         at sea   OK
 
-        in battle ON
-            get treasure map to get random item ON
+        in battle OK
 
-                treasure_map_id from db to client OK
+        events ON
+            table event: port, building, figure_images, dialogues, reward_type, reward_id  OK
 
-                click diary to show treasure map pos OK
-                give rand item when discovering OK
-                gm cmd: .vil village_id OK
-                buy from job house, treasure map, 10 ingots each  OK
-                larger buliding speak OK
-                show discovery found OK
+            fill event table ON
 
-                give xp for finding treasure OK
-                draw dynamic npcs later than static npcs OK
+            role.event_id = 1 (items/diary)
 
-                after win role, show ships and gold aquired OK
 
 DONE:
 

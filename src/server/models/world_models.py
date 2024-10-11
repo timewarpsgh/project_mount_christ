@@ -193,6 +193,20 @@ class Aura(BASE):
 	description = Column(String)
 
 
+class Event(BASE):
+
+	__tablename__ = 'event'
+
+	id = Column(Integer, primary_key=True)
+
+	port = Column(String)
+	building = Column(String)
+	figure_images = Column(String)
+	dialogues = Column(String)
+	reward_type = Column(String)
+	reward_id = Column(Integer)
+
+
 def create_tables():
 	# ceate all above tables if not there yet
 	engine = create_engine(f'sqlite:///{PATH_TO_DB}')

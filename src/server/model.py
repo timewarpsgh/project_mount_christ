@@ -1508,6 +1508,8 @@ class Role:
                 pack = pb.TreasureMapCleared()
                 self.session.send(pack)
 
+                self.__earn_xp_for_navigation()
+
     def __make_discovery(self, village, village_id):
         # make discovery
         if village_id not in self.discovery_mgr.get_ids_set():
@@ -1523,18 +1525,20 @@ class Role:
 
             self.session.send(pb.Discovered(village_id=village_id))
 
-            # earn xp [chief_navigator and all captains]
-            xp_amount = 300
-            flag_ship = self.get_flag_ship()
-            chief_navigator = flag_ship.get_chief_navigator()
-            if chief_navigator:
-                chief_navigator.earn_xp(xp_amount, pb.DutyType.CHIEF_NAVIGATOR)
+            self.__earn_xp_for_navigation()
 
-            ships = self.ship_mgr.get_ships()
-            for ship in ships:
-                captain = ship.get_captain()
-                if captain:
-                    captain.earn_xp(xp_amount, pb.DutyType.CHIEF_NAVIGATOR)
+    def __earn_xp_for_navigation(self):
+        # earn xp [chief_navigator and all captains]
+        xp_amount = 300
+        flag_ship = self.get_flag_ship()
+        chief_navigator = flag_ship.get_chief_navigator()
+        if chief_navigator:
+            chief_navigator.earn_xp(xp_amount, pb.DutyType.CHIEF_NAVIGATOR)
+        ships = self.ship_mgr.get_ships()
+        for ship in ships:
+            captain = ship.get_captain()
+            if captain:
+                captain.earn_xp(xp_amount, pb.DutyType.CHIEF_NAVIGATOR)
 
     def __reset_flagship(self, flag_ship):
         flag_ship.reset_steps_left()

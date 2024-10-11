@@ -15,8 +15,9 @@ TO DO:
                 gm cmd: .vil village_id OK
                 buy from job house, treasure map, 10 ingots each  OK
                 larger buliding speak OK
-
                 show discovery found OK
+
+                give xp for finding treasure OK
 
 
 

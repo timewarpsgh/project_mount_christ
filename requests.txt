@@ -25,6 +25,8 @@ TO DO:
                 job house, treasure map, 10 ingots each
                 treasure_map_id from db to client OK
 
+                click diary to show treasure map pos OK
+
 
 DONE:
 

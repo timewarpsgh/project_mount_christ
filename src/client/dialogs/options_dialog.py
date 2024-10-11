@@ -852,6 +852,9 @@ class OptionsDialog:
     def __send_sail_request(self):
         self.client.send(Sail())
 
+    def show_msg_panel(self, msg):
+        self.building_speak(msg)
+
     def __building_speak(self, text):
         # make window
         MyPanelWindow(
@@ -1483,6 +1486,13 @@ class OptionsDialog:
 
         return my_x, my_y
 
+    def __show_diary(self):
+        role = self.__get_role()
+        id = role.treasure_map_id
+        village = sObjectMgr.get_village(id)
+        self.show_msg_panel(f"There seems to be something around "
+                            f"{village.latitude} {village.longitude}")
+
     def __show_world_map(self):
         # image
         world_map_image = sAssetMgr.images['world_map']['world_map_from_uw2']
@@ -1997,7 +2007,7 @@ class OptionsDialog:
         option_2_callback = {
             'Items': partial(self.show_items),
             'Discoveries': partial(self.__show_discoveries_menu),
-            'Diary': '',
+            'Diary': partial(self.__show_diary),
             'World Map': partial(self.__show_world_map),
             'Port Map': ''
         }

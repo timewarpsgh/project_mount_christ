@@ -849,7 +849,6 @@ class OptionsDialog:
 
     def exit_building(self):
         self.pop_some_menus(5)
-        self.__get_graphics().add_port_npcs(self.__get_role().map_id)
         self.get_graphics().remove_sp_building_bg()
 
         role = self.__get_role()
@@ -1898,8 +1897,6 @@ class OptionsDialog:
 
                 # self.__show_market_menu()
                 self.get_graphics().sp_background.stop_moving()
-
-                self.__get_graphics().remove_port_npcs()
 
                 self.pop_some_menus(cnt=1)
 

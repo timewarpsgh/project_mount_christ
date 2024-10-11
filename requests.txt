@@ -20,6 +20,7 @@ TO DO:
                 give xp for finding treasure OK
 
 
+                draw dynamic npcs later than static npcs OK
 
 DONE:
 

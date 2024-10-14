@@ -9,11 +9,11 @@ TO DO:
 
         events ON
             table event: port, building, figure_images, dialogues, reward_type, reward_id  OK
+            fill event table OK
 
-            fill event table ON
+            role.event_id = 1 (items/diary)  OK
 
-            role.event_id = 1 (items/diary)
-
+            music OFF  OK
 
 DONE:
 

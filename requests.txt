@@ -10,12 +10,10 @@ TO DO:
             fill event table OK
             music OFF  OK
             client show now event OK
-
             enter building to trigger event OK
-
             event gives rewards sometimes OK
 
-            on exit building, close all menus
+            on exit building, close all menus OK
 
 
 DONE:

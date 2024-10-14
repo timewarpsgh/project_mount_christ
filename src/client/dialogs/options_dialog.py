@@ -849,7 +849,7 @@ class OptionsDialog:
         PacketParamsDialog(self.mgr, self.client, ['amount'], pack)
 
     def exit_building(self):
-        self.pop_some_menus(5)
+        self.pop_some_menus(20)
         self.get_graphics().remove_sp_building_bg()
 
         role = self.__get_role()

@@ -1567,7 +1567,7 @@ class OptionsDialog:
         text = ''
 
         MyPanelWindow(
-            rect=pygame.Rect((10, 10), ((c.PORT_MAP_SIZE + 40), (c.PORT_MAP_SIZE + 40))),
+            rect=pygame.Rect((10, 10), ((c.PORT_MAP_SIZE + 37), (c.PORT_MAP_SIZE + 37))),
             ui_manager=self.mgr,
             text=text,
             image=port_map,

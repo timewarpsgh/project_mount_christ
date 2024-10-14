@@ -20,7 +20,7 @@ TO DO:
             show quest building_name as empty when its 'any' OK
 
             show end of quest OK
-            port map smaller
+            port map smaller OK
 
 DONE:
 

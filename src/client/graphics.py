@@ -1050,8 +1050,11 @@ class Graphics:
         self.id_2_sp_role_name[role.id] = sp_role_name
 
     def add_say_sp(self, role, text):
+        if role.id in self.id_2_sp_say:
+            self.id_2_sp_say[role.id].kill()
+
         x, y = role.get_x_y_between_roles(role, self.model.role)
-        say_sp = SaySP(text, x, y - 10)
+        say_sp = SaySP(text, x, y - c.SAY_SP_Y_OFFSET)
         self.sprites.add(say_sp)
 
         self.id_2_sp_say[role.id] = say_sp
@@ -1076,7 +1079,7 @@ class Graphics:
         self.id_2_sp_role_name[id].move_to_smoothly(x, y, given_time)
 
         if id in self.id_2_sp_say:
-            self.id_2_sp_say[id].move_to_smoothly(x, y - 10, given_time)
+            self.id_2_sp_say[id].move_to_smoothly(x, y - c.SAY_SP_Y_OFFSET, given_time)
 
     def get_options_dialog(self):
         return self.client.game.gui.options_dialog

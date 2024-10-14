@@ -101,6 +101,13 @@ class Server:
     def get_role(self, id):
         return self.id_2_role.get(id)
 
+    def get_roles_by_nation(self, nation):
+        roles = []
+        for role in self.id_2_role.values():
+            if role.nation == nation:
+                roles.append(role)
+        return roles
+
     def get_role_by_name(self, name):
         """ may need to change later"""
         for role in self.id_2_role.values():

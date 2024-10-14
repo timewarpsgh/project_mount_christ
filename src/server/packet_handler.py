@@ -561,7 +561,16 @@ class PacketHandler:
 
         # nation
         elif chat.chat_type == ChatType.NATION:
-            pass
+            nation = self.role.nation
+            roles = self.session.server.get_roles_by_nation(nation)
+
+            for role in roles:
+                pack = GotChat(
+                    origin_name=self.role.name,
+                    chat_type=ChatType.NATION,
+                    text=chat.text,
+                )
+                role.session.send(pack)
 
 
     async def handle_Discover(self, discover):

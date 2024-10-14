@@ -103,3 +103,11 @@ class ChatDialog(MyUIConsoleWindow):
                     remove_line_break=False,
                     escape_html=True
                 )
+
+        elif chat_type == ChatType.NATION:
+            self.add_output_line_to_log(
+                f'NATION {origin_name}: {text}',
+                is_bold=False,
+                remove_line_break=False,
+                escape_html=True
+            )

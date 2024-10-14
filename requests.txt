@@ -13,9 +13,8 @@ TO DO:
             chat
                 say to nearby roles, show text for 3 seconds   OK
                 whisper to one role  OK
-                nation chat ON
-                    role.nation OK
-                world chat
+                nation chat OK
+                world chat  ON
 
                 chat queue max 50
 

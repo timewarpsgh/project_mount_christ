@@ -1474,6 +1474,7 @@ class Role:
     has_treated: bool=False
     treasure_map_id: int=None
     event_id: int=None
+    nation: int=None
 
     def trigger_event(self):
         event = sObjectMgr.get_event(self.event_id)

@@ -544,6 +544,7 @@ class Role:
     has_told_story: bool = False
     treasure_map_id: int = None
     event_id: int = None
+    nation: int = None
 
     def get_port(self):
         return sObjectMgr.get_port(self.map_id)

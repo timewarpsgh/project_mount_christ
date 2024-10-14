@@ -178,6 +178,7 @@ class PacketHandler:
                 notorities=json.loads(role.notorities),
                 treasure_map_id=role.treasure_map_id,
                 event_id=role.event_id,
+                nation=role.nation,
 
                 graphics = self.client.game.graphics,
             )

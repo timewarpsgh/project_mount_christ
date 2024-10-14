@@ -32,7 +32,7 @@ class ChatDialog(MyUIConsoleWindow):
             if not text:
                 return
 
-            # send chats
+            # whisper
             if text.startswith('/w'):
                 split_items = text.split(' ')
                 target_role_name = split_items[1]
@@ -43,6 +43,18 @@ class ChatDialog(MyUIConsoleWindow):
                     text=msg,
                     whisper_target_name=target_role_name,
                 )
+
+            # nation
+            elif text.startswith('/n'):
+                split_items = text.split(' ')
+                msg = ' '.join(split_items[1:])
+
+                pack = Chat(
+                    chat_type=ChatType.NATION,
+                    text=msg,
+                )
+
+            # say
             else:
                 pack = Chat(
                     chat_type=ChatType.SAY,

@@ -273,6 +273,7 @@ class PacketHandler:
                 recruited_crew_cnt=role.recruited_crew_cnt,
                 treasure_map_id=role.treasure_map_id,
                 event_id=role.event_id,
+                nation=role.nation,
             )
 
 
@@ -323,6 +324,7 @@ class PacketHandler:
             role_entered.notorities = role.notorities
             role_entered.treasure_map_id = role.treasure_map_id
             role_entered.event_id = role.event_id
+            role_entered.nation = role.nation
 
             if role.discovery_ids_json_str:
                 role_entered.discovery_ids_json_str = role.discovery_ids_json_str
@@ -510,6 +512,7 @@ class PacketHandler:
             print()
 
     async def handle_Chat(self, chat):
+        # say
         if chat.chat_type == ChatType.SAY:
 
             # handle gm cmds
@@ -528,6 +531,7 @@ class PacketHandler:
             )
             self.send_to_nearby_roles(pack, include_self=True)
 
+        # whisper
         elif chat.chat_type == ChatType.WHISPER:
 
             target_role = self.session.server.get_role_by_name(chat.whisper_target_name)
@@ -554,6 +558,11 @@ class PacketHandler:
                     text=f'{chat.whisper_target_name} not found',
                 )
                 self.session.send(pack)
+
+        # nation
+        elif chat.chat_type == ChatType.NATION:
+            pass
+
 
     async def handle_Discover(self, discover):
         village_id = discover.village_id

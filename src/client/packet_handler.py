@@ -319,7 +319,9 @@ class PacketHandler:
         self.client.game.gui.chat_dialog.add_chat(
             chat_type=got_chat.chat_type,
             origin_name=got_chat.origin_name,
-            text=got_chat.text)
+            text=got_chat.text,
+            whisper_target_name=got_chat.whisper_target_name,
+        )
 
         if got_chat.chat_type == pb.ChatType.SAY:
             role_id = got_chat.role_id

@@ -528,6 +528,33 @@ class PacketHandler:
             )
             self.send_to_nearby_roles(pack, include_self=True)
 
+        elif chat.chat_type == ChatType.WHISPER:
+
+            target_role = self.session.server.get_role_by_name(chat.whisper_target_name)
+            if target_role:
+                pack = GotChat(
+                    origin_name=self.role.name,
+                    chat_type=ChatType.WHISPER,
+                    text=chat.text,
+                )
+                target_role.session.send(pack)
+
+                pack = GotChat(
+                    origin_name=self.role.name,
+                    chat_type=ChatType.WHISPER,
+                    text=chat.text,
+                    whisper_target_name=chat.whisper_target_name,
+                )
+                self.session.send(pack)
+
+            else:
+                # send chat msg
+                pack = GotChat(
+                    chat_type=ChatType.SYSTEM,
+                    text=f'{chat.whisper_target_name} not found',
+                )
+                self.session.send(pack)
+
     async def handle_Discover(self, discover):
         village_id = discover.village_id
         self.role.make_discovery(village_id)

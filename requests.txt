@@ -12,7 +12,7 @@ TO DO:
 
             chat
                 say to nearby roles, show text for 3 seconds   OK
-                whisper to one role
+                whisper to one role  OK
                 nation chat
                 world chat
 

@@ -5,50 +5,12 @@ TO DO:
         at sea   OK
         in battle OK
 
-        events ON
-            table event: port, building, figure_images, dialogues, reward_type, reward_id  OK
-            fill event table OK
-            music OFF  OK
-            client show now event OK
-            enter building to trigger event OK
-            event gives rewards sometimes OK
-
-            on exit building, close all menus OK
-
-            client show port map OK
-
-            show quest building_name as empty when its 'any' OK
-
-            show end of quest OK
-            port map smaller OK
+        events OK
 
 DONE:
 
-    in battle
-        hide huds OK
-        show my and enemy ships stats on left and right  OK
+    events OK
 
-        show turn on upper left OK
-
-        move chat dialog right a little OK
-
-        bug fix: enemy npc can get turn after all my ships move or time out OK
-
-        show mini map  OK
-
-        if i don't move, my turn timer ends at before 0  OK
-
-        if 8 ships, later ships can't see moving OK
-
-        when battled with captured ships, OK
-
-        sail, each ship must have a captain OK
-
-        max ships 10 OK
-        max mates 20 OK
-        max items 20  OK
-
-        better npcs have better stats,  weapons and armors, guns,  OK
 
 cmds
     # compile .proto file

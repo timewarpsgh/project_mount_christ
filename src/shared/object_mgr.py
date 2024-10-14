@@ -200,6 +200,7 @@ class ObjectMgr:
     def get_event(self, id):
         return self.id_2_event[id]
 
+
 # singleton
 sObjectMgr = ObjectMgr()
 print(f'########## inited sObjectMgr')

@@ -102,6 +102,7 @@ class OpCodeType(Enum):
 
     HireMate = auto()
     HireMateRes = auto()
+    MateAdded = auto()
 
     FireMate = auto()
     MateFired = auto()

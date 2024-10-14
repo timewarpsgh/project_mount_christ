@@ -539,6 +539,10 @@ message HireMateRes{
     optional Mate mate = 2;
 }
 
+message MateAdded{
+    required Mate mate = 1;
+}
+
 // fire mate
 message FireMate{
     required int32 mate_id = 1;

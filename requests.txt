@@ -13,7 +13,7 @@ TO DO:
 
             enter building to trigger event OK
 
-            event gives rewards sometimes ON
+            event gives rewards sometimes OK
 
             on exit building, close all menus
 

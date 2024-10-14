@@ -1476,6 +1476,21 @@ class Role:
     event_id: int=None
 
     def trigger_event(self):
+        event = sObjectMgr.get_event(self.event_id)
+
+        if event.reward_type:
+            if event.reward_type == 'Mate':
+                mate_template_id = event.reward_id
+                mate_template = sObjectMgr.get_mate_template(mate_template_id)
+
+                mate = Mate()
+                mate.init_from_template(mate_template, self.id)
+                self.mate_mgr.add_mate(mate)
+                pack = pb.MateAdded(
+                    mate=mate.gen_mate_pb(),
+                )
+                self.session.send(pack)
+
         self.event_id += 1
 
     def buy_treasure_map(self):
@@ -1727,15 +1742,7 @@ class Role:
             return
 
         if self.__can_hire_mate(mate_template):
-            mate = Mate()
-            mate.init_from_template(mate_template, self.id)
-            self.mate_mgr.add_mate(mate)
-
-            pack = pb.HireMateRes(
-                is_ok=True,
-                mate=mate.gen_mate_pb(),
-            )
-            self.session.send(pack)
+            self.__add_mate(mate_template)
         else:
             pack = pb.MateSpeak(
                 mate_template_id=mate_template.id,
@@ -1743,6 +1750,16 @@ class Role:
                      f"There's not much I can learn from you right now.",
             )
             self.session.send(pack)
+
+    def __add_mate(self, mate_template):
+        mate = Mate()
+        mate.init_from_template(mate_template, self.id)
+        self.mate_mgr.add_mate(mate)
+        pack = pb.HireMateRes(
+            is_ok=True,
+            mate=mate.gen_mate_pb(),
+        )
+        self.session.send(pack)
 
     def sleep(self):
         self.has_treated_crew = False

@@ -674,6 +674,10 @@ class PacketHandler:
         else:
             print('failed to hire mate')
 
+    async def handle_MateAdded(self, mate_added):
+        mate = model.Mate(mate_added.mate)
+        self.__get_role().mate_mgr.add_mate(mate)
+
     def get_mate_mgr(self):
         return self.__get_role().mate_mgr
 

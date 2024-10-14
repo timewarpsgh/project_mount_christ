@@ -1505,7 +1505,13 @@ class OptionsDialog:
     def __show_quest(self):
         event_id = self.__get_role().event_id
         event = sObjectMgr.get_event(event_id)
-        self.show_msg_panel(f'Go to {event.port} {event.building}.')
+
+        if event.building == 'any':
+            building_name = ''
+        else:
+            building_name = event.building
+
+        self.show_msg_panel(f'Go to {event.port} {building_name}.')
 
     def __show_discoveries_menu(self):
 

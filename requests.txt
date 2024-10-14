@@ -17,6 +17,8 @@ TO DO:
 
             client show port map OK
 
+            show quest building_name as empty when its 'any' OK
+
 
 DONE:
 

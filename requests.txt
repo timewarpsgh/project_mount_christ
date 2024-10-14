@@ -11,9 +11,10 @@ TO DO:
             table event: port, building, figure_images, dialogues, reward_type, reward_id  OK
             fill event table OK
 
-            role.event_id = 1 (items/diary)  OK
-
             music OFF  OK
+
+            client show now event OK
+
 
 DONE:
 

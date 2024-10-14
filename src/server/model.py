@@ -1473,6 +1473,7 @@ class Role:
     recruited_crew_cnt: int=0
     has_treated: bool=False
     treasure_map_id: int=None
+    event_id: int=None
 
     def buy_treasure_map(self):
         if self.has_enough_money(c.TREASURE_MAP_COST):

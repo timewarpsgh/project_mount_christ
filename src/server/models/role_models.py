@@ -48,6 +48,8 @@ class Role(BASE):
 	has_treated_crew = Column(Boolean)
 	recruited_crew_cnt = Column(Integer)
 	treasure_map_id = Column(Integer)
+	event_id = Column(Integer)
+
 
 class Mate(BASE):
 	# table

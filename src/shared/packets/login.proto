@@ -176,6 +176,7 @@ message RoleEntered {
     required string items = 12;
     required string notorities = 13;
     required int32 treasure_map_id = 14;
+    required int32 event_id = 15;
 }
 
 message EnterWorldRes {

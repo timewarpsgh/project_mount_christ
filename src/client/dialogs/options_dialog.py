@@ -1465,6 +1465,11 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def __show_quest(self):
+        event_id = self.__get_role().event_id
+        event = sObjectMgr.get_event(event_id)
+        self.show_msg_panel(f'Go to {event.port} {event.building}.')
+
     def __show_discoveries_menu(self):
 
         option_2_callback = {}
@@ -2008,11 +2013,11 @@ class OptionsDialog:
             mgr=self.mgr
         )
 
-
     def show_items_menu(self):
         option_2_callback = {
             'Items': partial(self.show_items),
             'Discoveries': partial(self.__show_discoveries_menu),
+            'Quest': partial(self.__show_quest),
             'Treasure Map': partial(self.__show_treasure_map),
             'World Map': partial(self.__show_world_map),
             'Port Map': ''
@@ -2032,7 +2037,6 @@ class OptionsDialog:
             option_2_callback=option_2_callback,
             mgr=self.mgr
         )
-
 
     def show_ships_menu(self):
         option_2_callback = {

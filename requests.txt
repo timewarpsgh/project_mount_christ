@@ -10,6 +10,22 @@ TO DO:
         multiplayer  ON
             role menu, diable some for players  OK
 
+            chat
+                say to nearby roles, show text for 3 seconds   OK
+                whisper to one role
+                nation chat
+                world chat
+
+                chat queue max 50
+
+
+            trade
+                money
+                item
+
+
+
+
 
 DONE:
 

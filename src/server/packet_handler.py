@@ -524,6 +524,7 @@ class PacketHandler:
                 origin_name=self.role.name,
                 chat_type=ChatType.SAY,
                 text=chat.text,
+                role_id=self.role.id,
             )
             self.send_to_nearby_roles(pack, include_self=True)
 

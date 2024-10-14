@@ -321,6 +321,16 @@ class PacketHandler:
             origin_name=got_chat.origin_name,
             text=got_chat.text)
 
+        if got_chat.chat_type == pb.ChatType.SAY:
+            role_id = got_chat.role_id
+
+            if role_id == self.__get_role().id:
+                role = self.__get_role()
+            else:
+                role = self.__get_model().get_role_by_id(role_id)
+
+            self.__get_graphics().add_say_sp(role, got_chat.text)
+
     async def handle_Discovered(self, discovered):
         village_id = discovered.village_id
 
@@ -603,7 +613,6 @@ class PacketHandler:
             role.speed = speed
             role.dir = dir
 
-            print('handling pack StartedMoving')
         else:
             role = self.__get_model().get_role_by_id(id)
             role.map_id = self.__get_role().map_id

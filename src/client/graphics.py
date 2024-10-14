@@ -469,6 +469,20 @@ class BackGround(SP):
         self.model.role.graphics.move_marks = valid_move_marks
 
 
+class SaySP(SP):
+
+    def __init__(self, text, x, y):
+        image = sAssetMgr.font.render(text, True, c.YELLOW)
+        super().__init__(image, x, y, z=3)
+        self.timer = 5
+
+    def update(self, time_diff):
+        self.timer -= time_diff
+        if self.timer <= 0:
+            self.kill()
+
+        super().update(time_diff)
+
 class ShootDamageNumber(SP):
 
     def __init__(self, number, x, y, color=c.YELLOW):
@@ -852,6 +866,7 @@ class Graphics:
 
         self.id_2_sp_role = {}
         self.id_2_sp_role_name = {}
+        self.id_2_sp_say = {}
 
         # move marks in battle
         self.move_marks = []
@@ -1034,6 +1049,13 @@ class Graphics:
         self.id_2_sp_role[role.id] = sp_role
         self.id_2_sp_role_name[role.id] = sp_role_name
 
+    def add_say_sp(self, role, text):
+        x, y = role.get_x_y_between_roles(role, self.model.role)
+        say_sp = SaySP(text, x, y - 10)
+        self.sprites.add(say_sp)
+
+        self.id_2_sp_say[role.id] = say_sp
+
     def rm_sp_role(self, id):
         if id in self.id_2_sp_role:
             self.id_2_sp_role[id].kill()
@@ -1052,6 +1074,9 @@ class Graphics:
 
         self.id_2_sp_role[id].move_to_smoothly(x, y, given_time)
         self.id_2_sp_role_name[id].move_to_smoothly(x, y, given_time)
+
+        if id in self.id_2_sp_say:
+            self.id_2_sp_say[id].move_to_smoothly(x, y - 10, given_time)
 
     def get_options_dialog(self):
         return self.client.game.gui.options_dialog

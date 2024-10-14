@@ -1543,6 +1543,26 @@ class OptionsDialog:
         else:
             self.show_msg_panel("There is nothing intresting in the diary.")
 
+    def __show_port_map(self):
+        if not self.__get_role().is_in_port():
+            return
+
+        # show window
+        graphics = self.__get_graphics()
+        port_map_img = graphics.sp_background.image
+        port_map = pygame.transform.scale(port_map_img, (c.PORT_MAP_SIZE, c.PORT_MAP_SIZE))
+        text = ''
+
+        MyPanelWindow(
+            rect=pygame.Rect((10, 10), ((c.PORT_MAP_SIZE + 40), (c.PORT_MAP_SIZE + 40))),
+            ui_manager=self.mgr,
+            text=text,
+            image=port_map,
+        )
+
+        # play sound
+        sAssetMgr.sounds['map'].play()
+
     def __show_world_map(self):
         # image
         world_map_image = sAssetMgr.images['world_map']['world_map_from_uw2']
@@ -1952,6 +1972,21 @@ class OptionsDialog:
 
                 return
 
+    def show_role_menu(self, role):
+        my_role = self.__get_role()
+        if my_role.can_inspect(role):
+            option_2_callback = {
+                f'{role.name}': '',
+                'View Fleet': partial(self.__view_fleet, role.id),
+                'Gossip': partial(self.__gossip, role.id),
+                'View Captain': partial(self.__view_captain, role.id),
+                'Fight': partial(self.fight_target, role),
+            }
+
+            self.__make_menu(option_2_callback)
+        else:
+            mate = my_role.get_flag_ship().get_captain()
+            self.show_mate_speech(mate, "It's too far away!")
 
     def enter_port(self):
         # get nearby port_id
@@ -1995,11 +2030,7 @@ class OptionsDialog:
             'Exit': partial(self.__exit_game),
         }
 
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
+        self.__make_menu(option_2_callback)
 
     def show_fight_menu(self):
 
@@ -2013,28 +2044,7 @@ class OptionsDialog:
             'Escape Battle': partial(self.escape_battle),
         }
 
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
-
-
-    def show_role_menu(self, role):
-        my_role = self.__get_role()
-        if my_role.can_inspect(role):
-            option_2_callback = {
-                f'{role.name}': '',
-                'View Fleet': partial(self.__view_fleet, role.id),
-                'Gossip': partial(self.__gossip, role.id),
-                'View Captain': partial(self.__view_captain, role.id),
-                'Fight': partial(self.fight_target, role),
-            }
-
-            self.__make_menu(option_2_callback)
-        else:
-            mate = my_role.get_flag_ship().get_captain()
-            self.show_mate_speech(mate, "It's too far away!")
+        self.__make_menu(option_2_callback)
 
     def show_cmds_menu(self):
         option_2_callback = {
@@ -2046,11 +2056,7 @@ class OptionsDialog:
             'Measure Cooridinate': '',
         }
 
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
+        self.__make_menu(option_2_callback)
 
     def show_items_menu(self):
         option_2_callback = {
@@ -2059,7 +2065,7 @@ class OptionsDialog:
             'Quest': partial(self.__show_quest),
             'Treasure Map': partial(self.__show_treasure_map),
             'World Map': partial(self.__show_world_map),
-            'Port Map': ''
+            'Port Map': partial(self.__show_port_map),
         }
 
         self.__make_menu(option_2_callback)
@@ -2071,11 +2077,7 @@ class OptionsDialog:
             'Crew': partial(self.__show_crew_state_menu),
         }
 
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
+        self.__make_menu(option_2_callback)
 
     def show_ships_menu(self):
         option_2_callback = {
@@ -2083,10 +2085,6 @@ class OptionsDialog:
             'Ship Info': partial(self.__show_ship_info_menu),
         }
 
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
+        self.__make_menu(option_2_callback)
 
 

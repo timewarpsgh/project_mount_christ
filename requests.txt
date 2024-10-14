@@ -15,6 +15,8 @@ TO DO:
 
             on exit building, close all menus OK
 
+            client show port map OK
+
 
 DONE:
 

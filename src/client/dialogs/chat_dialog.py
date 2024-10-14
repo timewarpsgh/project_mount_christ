@@ -54,6 +54,16 @@ class ChatDialog(MyUIConsoleWindow):
                     text=msg,
                 )
 
+            # world
+            elif text.startswith('/g'):
+                split_items = text.split(' ')
+                msg = ' '.join(split_items[1:])
+
+                pack = Chat(
+                    chat_type=ChatType.GLOBAL,
+                    text=msg,
+                )
+
             # say
             else:
                 pack = Chat(
@@ -63,6 +73,7 @@ class ChatDialog(MyUIConsoleWindow):
 
             self.client.send(pack)
 
+            # unfocus command entry
             self.command_entry.unfocus()
 
         # call super
@@ -107,6 +118,14 @@ class ChatDialog(MyUIConsoleWindow):
         elif chat_type == ChatType.NATION:
             self.add_output_line_to_log(
                 f'NATION {origin_name}: {text}',
+                is_bold=False,
+                remove_line_break=False,
+                escape_html=True
+            )
+
+        elif chat_type == ChatType.GLOBAL:
+            self.add_output_line_to_log(
+                f'GLOBAL {origin_name}: {text}',
                 is_bold=False,
                 remove_line_break=False,
                 escape_html=True

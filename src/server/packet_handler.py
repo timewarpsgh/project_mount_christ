@@ -572,6 +572,17 @@ class PacketHandler:
                 )
                 role.session.send(pack)
 
+        # world
+        elif chat.chat_type == ChatType.GLOBAL:
+            roles = self.session.server.get_roles()
+
+            for role in roles:
+                pack = GotChat(
+                    origin_name=self.role.name,
+                    chat_type=ChatType.GLOBAL,
+                    text=chat.text,
+                )
+                role.session.send(pack)
 
     async def handle_Discover(self, discover):
         village_id = discover.village_id

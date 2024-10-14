@@ -1996,6 +1996,11 @@ class OptionsDialog:
                 'Fight': partial(self.fight_target, role),
             }
 
+            if role.is_role():
+                del option_2_callback['Gossip']
+                if my_role.is_in_port():
+                    del option_2_callback['Fight']
+
             self.__make_menu(option_2_callback)
         else:
             mate = my_role.get_flag_ship().get_captain()

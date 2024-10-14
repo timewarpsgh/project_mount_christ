@@ -1,6 +1,7 @@
 import random
 import pygame_gui
 import pygame
+import json
 from functools import partial
 
 import sys
@@ -861,6 +862,42 @@ class OptionsDialog:
 
     def show_msg_panel(self, msg):
         self.building_speak(msg)
+
+    def __show_event_dialogs(self, event):
+        name_2_xy = json.loads(event.figure_images)
+        dialogues = json.loads(event.dialogues)
+
+        for dialog in dialogues[::-1]:
+            speaker = dialog[0]
+            speach = dialog[1]
+
+            x, y = name_2_xy[speaker]
+            image = self.__figure_x_y_2_image(x, y)
+
+            MyPanelWindow(
+                rect=pygame.Rect((59, 12), (350, 400)),
+                ui_manager=self.mgr,
+                text=speach,
+                image=image,
+            )
+
+        self.client.send(pb.TriggerEvent())
+        self.__get_role().event_id += 1
+
+    def __trigger_event(self, now_building_name):
+        # if role port and building matches event
+        role = self.__get_role()
+        port = role.get_port()
+        now_port_name = port.name
+
+        # get event
+        event = sObjectMgr.get_event(role.event_id)
+        if event.building == 'any':
+            if event.port == now_port_name:
+                self.__show_event_dialogs(event)
+        else:
+            if event.building == now_building_name and event.port == now_port_name:
+                self.__show_event_dialogs(event)
 
     def __building_speak(self, text):
         # make window
@@ -1910,6 +1947,8 @@ class OptionsDialog:
                 self.__get_role().is_in_building = True
 
                 self.__building_speak('Hello! How may I help you?')
+
+                self.__trigger_event(building_name)
 
                 return
 

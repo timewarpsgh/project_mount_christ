@@ -982,3 +982,6 @@ message BuyTreasureMap {
 message TreasureMapBought {
     required int32 treasure_map_id = 1;
 }
+
+message TriggerEvent {
+}

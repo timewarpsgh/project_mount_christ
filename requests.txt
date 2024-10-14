@@ -2,18 +2,20 @@ TO DO:
 
     scenes
         in port  OK
-
         at sea   OK
-
         in battle OK
 
         events ON
             table event: port, building, figure_images, dialogues, reward_type, reward_id  OK
             fill event table OK
-
             music OFF  OK
-
             client show now event OK
+
+            enter building to trigger event OK
+
+            event gives rewards sometimes ON
+
+            on exit building, close all menus
 
 
 DONE:

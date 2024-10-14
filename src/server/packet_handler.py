@@ -952,3 +952,6 @@ class PacketHandler:
 
     async def handle_BuyTreasureMap(self, buy_treasure_map):
         self.role.buy_treasure_map()
+
+    async def handle_TriggerEvent(self, trigger_event):
+        self.role.trigger_event()

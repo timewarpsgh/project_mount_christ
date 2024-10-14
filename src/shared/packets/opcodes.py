@@ -231,6 +231,8 @@ class OpCodeType(Enum):
     BuyTreasureMap = auto()
     TreasureMapBought = auto()
 
+    TriggerEvent = auto()
+
 
 def gen_opcode_2_value():
     d = {}

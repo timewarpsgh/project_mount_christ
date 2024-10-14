@@ -1475,6 +1475,9 @@ class Role:
     treasure_map_id: int=None
     event_id: int=None
 
+    def trigger_event(self):
+        self.event_id += 1
+
     def buy_treasure_map(self):
         if self.has_enough_money(c.TREASURE_MAP_COST):
             self.mod_money(-c.TREASURE_MAP_COST)

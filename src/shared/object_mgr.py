@@ -198,7 +198,7 @@ class ObjectMgr:
         return self.id_2_aura[id]
 
     def get_event(self, id):
-        return self.id_2_event[id]
+        return self.id_2_event.get(id)
 
 
 # singleton

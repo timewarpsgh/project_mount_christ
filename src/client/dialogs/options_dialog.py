@@ -892,6 +892,9 @@ class OptionsDialog:
 
         # get event
         event = sObjectMgr.get_event(role.event_id)
+        if not event:
+            return
+
         if event.building == 'any':
             if event.port == now_port_name:
                 self.__show_event_dialogs(event)
@@ -1505,6 +1508,10 @@ class OptionsDialog:
     def __show_quest(self):
         event_id = self.__get_role().event_id
         event = sObjectMgr.get_event(event_id)
+
+        if not event:
+            self.show_msg_panel('You have completed the intro quests.')
+            return
 
         if event.building == 'any':
             building_name = ''

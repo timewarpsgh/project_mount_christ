@@ -1,6 +1,6 @@
 import html
 from typing import Union, Optional
-
+import queue
 import pygame
 
 from pygame_gui.core import ObjectID
@@ -92,6 +92,8 @@ class MyUIConsoleWindow(UIWindow):
                                        log_font_info['name'],
                                        bold=True)
 
+        self.msg_queue = queue.Queue()
+
     def set_log_prefix(self, prefix: str) -> None:
         """
         Set the prefix to add before commands when they are displayed in the log.
@@ -137,12 +139,27 @@ class MyUIConsoleWindow(UIWindow):
                              to True, as most people won't be expecting every > or < to be
                              processed as HTML.
         """
-        output_to_log = html.escape(text_to_add) if escape_html else text_to_add
-        line_ending = '' if remove_line_break else '<br>'
-        if is_bold:
-            self.log.append_html_text('<b>' + output_to_log + '</b>' + line_ending)
+        # modify q
+        max_queue_size = 50
+        if self.msg_queue.qsize() < max_queue_size:
+            self.msg_queue.put(text_to_add)
         else:
-            self.log.append_html_text(output_to_log + line_ending)
+            self.msg_queue.get()
+            self.msg_queue.put(text_to_add)
+
+        # clear log
+        self.clear_log()
+
+        # add all msgs in queue to window
+        for msg in list(self.msg_queue.queue):
+            text_to_add = msg
+
+            output_to_log = html.escape(text_to_add) if escape_html else text_to_add
+            line_ending = '' if remove_line_break else '<br>'
+            if is_bold:
+                self.log.append_html_text('<b>' + output_to_log + '</b>' + line_ending)
+            else:
+                self.log.append_html_text(output_to_log + line_ending)
 
     def process_event(self, event: pygame.event.Event) -> bool:
         """

@@ -16,7 +16,7 @@ TO DO:
                 nation chat OK
                 global chat  OK
 
-                chat queue max 50
+                chat queue max 50  OK
 
 
             trade

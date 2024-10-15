@@ -472,7 +472,7 @@ class BackGround(SP):
 class SaySP(SP):
 
     def __init__(self, text, x, y):
-        image = sAssetMgr.font.render(text, True, c.YELLOW)
+        image = sAssetMgr.font.render(text, True, c.WHITE)
         super().__init__(image, x, y, z=3)
         self.timer = 5
 

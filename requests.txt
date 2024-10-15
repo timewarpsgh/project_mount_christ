@@ -20,6 +20,9 @@ TO DO:
 
                 add color to chats OK
 
+                say sp -> white OK
+
+
 
             trade
                 money

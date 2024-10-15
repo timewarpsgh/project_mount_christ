@@ -30,8 +30,8 @@ TO DO:
                 set item  OK
 
                 refactor some client trade packet handlers OK
-                show confirmed ON
-                show item name
+                show confirmed OK
+                show item name ON
 
 
 

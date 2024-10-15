@@ -233,6 +233,15 @@ class OpCodeType(Enum):
     TreasureMapBought = auto()
 
     TriggerEvent = auto()
+    RequestTrade = auto()
+    TradeRequested = auto()
+    AcceptTradeRequest = auto()
+    TradeStart = auto()
+    SetTradeMoney = auto()
+    TradeMoneySet = auto()
+    ConfirmTrade = auto()
+    TradeConfirmed = auto()
+    TradeCompleted = auto()
 
 
 def gen_opcode_2_value():

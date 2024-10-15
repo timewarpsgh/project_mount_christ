@@ -1012,3 +1012,18 @@ class PacketHandler:
 
     async def handle_TriggerEvent(self, trigger_event):
         self.role.trigger_event()
+
+    async def handle_RequestTrade(self, request_trade):
+        role_id = request_trade.role_id
+        self.role.request_trade(role_id)
+
+    async def handle_AcceptTradeRequest(self, accept_trade_request):
+        role_id = accept_trade_request.role_id
+        self.role.accept_trade_request(role_id)
+
+    async def handle_SetTradeMoney(self, set_trade_money):
+        amount = set_trade_money.amount
+        self.role.set_trade_money(amount)
+
+    async def handle_ConfirmTrade(self, confirm_trade):
+        self.role.confirm_trade()

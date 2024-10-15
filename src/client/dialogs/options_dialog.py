@@ -402,6 +402,56 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def __accept_trade_request(self, role_id):
+        pack = pb.AcceptTradeRequest(role_id=role_id)
+        self.client.send(pack)
+
+    def __set_trade_money(self):
+        pack = pb.SetTradeMoney()
+        PacketParamsDialog(self.mgr, self.client, ['amount'], pack)
+
+    def __set_trade_item(self):
+        pass
+
+    def __confirm_trade(self):
+        pack = pb.ConfirmTrade()
+        self.client.send(pack)
+
+    def show_trade_start(self, role_id, role_name):
+        option_2_callback = {
+            'Set Trade Money': partial(self.__set_trade_money),
+            'Set Trade Item': partial(self.__set_trade_item),
+            'Confirm': partial(self.__confirm_trade),
+        }
+        self.__make_menu(option_2_callback)
+
+        my_role = self.__get_role()
+        my_role.trade_role_id = role_id
+
+        target_role = self.get_graphics().model.get_role_by_id(role_id)
+        target_role.trade_role_id = my_role.id
+
+        text = f'Trading with {role_name} \n' \
+               f'You: {my_role.trade_money} coins, ' \
+               f'{my_role.trade_item_id} {my_role.is_trade_confirmed} \n'\
+               \
+               f'{role_name}: {target_role.trade_money} coins, ' \
+               f'{target_role.trade_item_id} {target_role.is_trade_confirmed}'
+
+        MyPanelWindow(
+            rect=pygame.Rect((248, 0), (264, 145)),
+            ui_manager=self.mgr,
+            text=text,
+        )
+
+    def show_trade_request(self, role_id,  role_name):
+        option_2_callback = {
+            f'Trade with {role_name} ?': '',
+            'Yes': partial(self.__accept_trade_request, role_id),
+        }
+
+        self.__make_menu(option_2_callback)
+
     def building_speak(self, text):
         self.__building_speak(text)
 
@@ -1985,6 +2035,9 @@ class OptionsDialog:
 
                 return
 
+    def __request_trade(self, role_id):
+        self.client.send(RequestTrade(role_id=role_id))
+
     def show_role_menu(self, role):
         my_role = self.__get_role()
         if my_role.can_inspect(role):
@@ -2000,6 +2053,7 @@ class OptionsDialog:
                 del option_2_callback['Gossip']
                 if my_role.is_in_port():
                     del option_2_callback['Fight']
+                    option_2_callback['Request Trade'] = partial(self.__request_trade, role.id)
 
             self.__make_menu(option_2_callback)
         else:

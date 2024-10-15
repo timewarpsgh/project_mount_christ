@@ -22,11 +22,12 @@ TO DO:
 
                 say sp -> white OK
 
+                dynamic npc clicked ON
 
-
-            trade
-                money
-                item
+            trade  ON
+                set money OK
+                confirm   OK
+                set item  ON
 
 
 

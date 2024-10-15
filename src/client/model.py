@@ -546,6 +546,11 @@ class Role:
     event_id: int = None
     nation: int = None
 
+    trade_role_id: int = None
+    trade_money: int = 0
+    trade_item_id: int = None
+    is_trade_confirmed: bool = False
+
     def get_port(self):
         return sObjectMgr.get_port(self.map_id)
 

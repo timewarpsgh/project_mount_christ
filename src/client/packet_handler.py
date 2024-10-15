@@ -1070,3 +1070,65 @@ class PacketHandler:
         self.__get_role().treasure_map_id = pack.treasure_map_id
         self.__get_options_dialog().pop_some_menus(2)
         self.__get_options_dialog().building_speak('Thank you for your purchase! Good luck!')
+
+    async def handle_TradeRequested(self, pack):
+        role_id = pack.role_id
+        role_name = pack.role_name
+
+        self.__get_options_dialog().show_trade_request(role_id,  role_name)
+
+    async def handle_TradeStart(self, pack):
+        role_id = pack.role_id
+        role_name = pack.role_name
+
+        my_role = self.__get_role()
+        my_role.trade_money = 0
+        my_role.is_trade_confirmed = False
+
+        target_role = self.__get_graphics().model.get_role_by_id(role_id)
+        target_role.trade_money = 0
+        target_role.is_trade_confirmed = False
+
+        self.__get_options_dialog().show_trade_start(role_id, role_name)
+
+    async def handle_TradeMoneySet(self, pack):
+        role_id = pack.role_id
+        amount = pack.amount
+
+        if role_id == self.__get_role().id:
+            my_role = self.__get_role()
+            my_role.trade_money = amount
+
+            trade_role = self.__get_model().get_role_by_id(my_role.trade_role_id)
+
+            self.__get_options_dialog().pop_some_menus(10)
+            self.__get_options_dialog().show_trade_start(trade_role.id, trade_role.name)
+
+        else:
+            trade_role = self.__get_model().get_role_by_id(role_id)
+            trade_role.trade_money = amount
+
+            self.__get_options_dialog().pop_some_menus(10)
+            self.__get_options_dialog().show_trade_start(trade_role.id, trade_role.name)
+
+    async def handle_TradeConfirmed(self, pack):
+        role_id = pack.role_id
+
+        if role_id == self.__get_role().id:
+            my_role = self.__get_role()
+            my_role.is_trade_confirmed = True
+
+            trade_role = self.__get_model().get_role_by_id(my_role.trade_role_id)
+
+            self.__get_options_dialog().pop_some_menus(10)
+            self.__get_options_dialog().show_trade_start(trade_role.id, trade_role.name)
+
+        else:
+            trade_role = self.__get_model().get_role_by_id(role_id)
+            trade_role.is_trade_confirmed = True
+
+            self.__get_options_dialog().pop_some_menus(10)
+            self.__get_options_dialog().show_trade_start(trade_role.id, trade_role.name)
+
+    async def handle_TradeCompleted(self, pack):
+        self.__get_options_dialog().pop_some_menus(10)

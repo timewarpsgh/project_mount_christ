@@ -1476,6 +1476,87 @@ class Role:
     event_id: int=None
     nation: int=None
 
+    trade_role_id: int=None
+    trade_money: int=0
+    trade_item_id: int=None
+    is_trade_confirmed: bool=False
+
+    def confirm_trade(self):
+        trade_role = self.session.server.get_role(self.trade_role_id)
+
+        self.is_trade_confirmed = True
+
+        pack = pb.TradeConfirmed(
+            role_id=self.id,
+        )
+        self.session.send(pack)
+        trade_role.session.send(pack)
+
+        if trade_role.is_trade_confirmed:
+            self.__complete_trade()
+
+    def __get_trade_role(self):
+        return self.session.server.get_role(self.trade_role_id)
+
+    def __complete_trade(self):
+        trade_role = self.__get_trade_role()
+
+        if self.trade_money != 0:
+            self.mod_money(-self.trade_money)
+            trade_role.mod_money(self.trade_money)
+
+        if trade_role.trade_money != 0:
+            trade_role.mod_money(-trade_role.trade_money)
+            self.mod_money(trade_role.trade_money)
+
+        pack = pb.TradeCompleted()
+        self.session.send(pack)
+        trade_role.session.send(pack)
+
+    def set_trade_money(self, amount):
+        if not self.has_enough_money(amount):
+            return
+
+        self.trade_money = amount
+
+        pack = pb.TradeMoneySet(
+            amount=amount,
+            role_id=self.id,
+        )
+
+        self.session.send(pack)
+        trade_role = self.session.server.get_role(self.trade_role_id)
+        trade_role.session.send(pack)
+
+    def accept_trade_request(self, role_id):
+        role = self.session.server.get_role(role_id)
+
+        pack = pb.TradeStart(
+            role_id=role.id,
+            role_name=role.name,
+        )
+        self.session.send(pack)
+        self.trade_role_id = role_id
+        self.trade_money = 0
+        self.is_trade_confirmed = False
+
+        pack = pb.TradeStart(
+            role_id=self.id,
+            role_name=self.name,
+        )
+        role.session.send(pack)
+        role.trade_role_id = self.id
+        role.trade_money = 0
+        role.is_trade_confirmed = False
+
+    def request_trade(self, role_id):
+        role = self.session.server.get_role(role_id)
+        pack = pb.TradeRequested(
+            role_id=self.id,
+            role_name=self.name,
+        )
+        role.session.send(pack)
+
     def trigger_event(self):
         event = sObjectMgr.get_event(self.event_id)
 

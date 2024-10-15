@@ -991,3 +991,40 @@ message TreasureMapBought {
 
 message TriggerEvent {
 }
+
+message RequestTrade {
+    required int32 role_id = 1;
+}
+
+message TradeRequested {
+    required int32 role_id = 1;
+    required string role_name = 2;
+}
+
+message AcceptTradeRequest {
+    required int32 role_id = 1;
+}
+
+message TradeStart {
+    required int32 role_id = 1;
+    required string role_name = 2;
+}
+
+message SetTradeMoney {
+    required int32 amount = 1;
+}
+
+message TradeMoneySet {
+    required int32 amount = 1;
+    required int32 role_id = 2;
+}
+
+message ConfirmTrade {
+}
+
+message TradeConfirmed {
+    required int32 role_id = 1;
+}
+
+message TradeCompleted {
+}

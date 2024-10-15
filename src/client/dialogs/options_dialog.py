@@ -428,18 +428,22 @@ class OptionsDialog:
         my_role = self.__get_role()
         my_role.trade_role_id = role_id
         my_role_confired_text = 'Confirmed' if my_role.is_trade_confirmed else ''
+        my_role_trade_item_name = sObjectMgr.get_item(my_role.trade_item_id).name \
+            if my_role.trade_item_id else ''
+
 
         target_role = self.get_graphics().model.get_role_by_id(role_id)
         target_role.trade_role_id = my_role.id
         target_role_confired_text = 'Confirmed' if target_role.is_trade_confirmed else ''
-
+        target_role_trade_item_name = sObjectMgr.get_item(target_role.trade_item_id).name \
+            if target_role.trade_item_id else ''
 
         text = f'Trading with {role_name} \n' \
                f'You: {my_role.trade_money} coins, ' \
-               f'{my_role.trade_item_id} {my_role_confired_text} \n'\
+               f'{my_role_trade_item_name}, {my_role_confired_text} \n'\
                \
                f'{role_name}: {target_role.trade_money} coins, ' \
-               f'{target_role.trade_item_id}, {target_role_confired_text}'
+               f'{target_role_trade_item_name}, {target_role_confired_text}'
 
         MyPanelWindow(
             rect=pygame.Rect((248, 0), (264, 145)),

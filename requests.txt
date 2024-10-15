@@ -31,7 +31,7 @@ TO DO:
 
                 refactor some client trade packet handlers OK
                 show confirmed OK
-                show item name ON
+                show item name OK
 
 
 

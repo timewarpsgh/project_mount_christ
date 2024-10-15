@@ -86,6 +86,7 @@ class ChatDialog(MyUIConsoleWindow):
 
             self.add_output_line_to_log(
                 f'{origin_name} {chat_type_str} {text}',
+                color='#ffffff',
                 is_bold=False,
                 remove_line_break=False,
                 escape_html=True
@@ -94,7 +95,8 @@ class ChatDialog(MyUIConsoleWindow):
         elif chat_type == ChatType.SYSTEM:
             self.add_output_line_to_log(
                 f'SYSTEM {text}',
-                is_bold=True,
+                color='#e7e917',
+                is_bold=False,
                 remove_line_break=False,
                 escape_html=True
             )
@@ -103,6 +105,7 @@ class ChatDialog(MyUIConsoleWindow):
             if origin_name == self.client.game.graphics.model.role.name:
                 self.add_output_line_to_log(
                     f'You whispered to {whisper_target_name}: {text}',
+                    color='#d927f5',
                     is_bold=False,
                     remove_line_break=False,
                     escape_html=True
@@ -110,6 +113,7 @@ class ChatDialog(MyUIConsoleWindow):
             else:
                 self.add_output_line_to_log(
                     f'{origin_name} whispers: {text}',
+                    color='#d927f5',
                     is_bold=False,
                     remove_line_break=False,
                     escape_html=True
@@ -118,6 +122,7 @@ class ChatDialog(MyUIConsoleWindow):
         elif chat_type == ChatType.NATION:
             self.add_output_line_to_log(
                 f'NATION {origin_name}: {text}',
+                color='#e9b617',
                 is_bold=False,
                 remove_line_break=False,
                 escape_html=True
@@ -126,6 +131,7 @@ class ChatDialog(MyUIConsoleWindow):
         elif chat_type == ChatType.GLOBAL:
             self.add_output_line_to_log(
                 f'GLOBAL {origin_name}: {text}',
+                color='#17e922',
                 is_bold=False,
                 remove_line_break=False,
                 escape_html=True

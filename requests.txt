@@ -18,6 +18,8 @@ TO DO:
 
                 chat queue max 50  OK
 
+                add color to chats OK
+
 
             trade
                 money

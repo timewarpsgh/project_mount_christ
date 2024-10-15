@@ -2,12 +2,18 @@ import html
 from typing import Union, Optional
 import queue
 import pygame
+from dataclasses import dataclass
 
 from pygame_gui.core import ObjectID
 from pygame_gui.core.interfaces import IUIManagerInterface
 from pygame_gui.elements import UIWindow, UITextBox, UITextEntryLine
 from pygame_gui._constants import UI_TEXT_ENTRY_FINISHED, UI_TEXT_ENTRY_CHANGED
 from pygame_gui._constants import UI_CONSOLE_COMMAND_ENTERED
+
+@dataclass
+class ChatMsg:
+    text: str
+    color: str
 
 
 class MyUIConsoleWindow(UIWindow):
@@ -122,7 +128,9 @@ class MyUIConsoleWindow(UIWindow):
         """
         self.should_logged_commands_escape_html = should_escape
 
-    def add_output_line_to_log(self, text_to_add: str,
+    def add_output_line_to_log(self,
+                               text_to_add: str,
+                               color: str = '#d927f5',
                                is_bold: bool = True,
                                remove_line_break: bool = False,
                                escape_html: bool = True) -> None:
@@ -140,26 +148,34 @@ class MyUIConsoleWindow(UIWindow):
                              processed as HTML.
         """
         # modify q
+        chat_msg = ChatMsg(
+            text=text_to_add,
+            color=color
+        )
+
         max_queue_size = 50
         if self.msg_queue.qsize() < max_queue_size:
-            self.msg_queue.put(text_to_add)
+            self.msg_queue.put(chat_msg)
         else:
             self.msg_queue.get()
-            self.msg_queue.put(text_to_add)
+            self.msg_queue.put(chat_msg)
 
         # clear log
         self.clear_log()
 
         # add all msgs in queue to window
-        for msg in list(self.msg_queue.queue):
-            text_to_add = msg
+        for chat_msg in list(self.msg_queue.queue):
+            text_to_add = chat_msg.text
+            color = chat_msg.color
 
             output_to_log = html.escape(text_to_add) if escape_html else text_to_add
             line_ending = '' if remove_line_break else '<br>'
             if is_bold:
                 self.log.append_html_text('<b>' + output_to_log + '</b>' + line_ending)
             else:
-                self.log.append_html_text(output_to_log + line_ending)
+                text = f'<font color={color}>{output_to_log + line_ending}</font>'
+
+                self.log.append_html_text(text)
 
     def process_event(self, event: pygame.event.Event) -> bool:
         """

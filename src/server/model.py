@@ -1481,6 +1481,20 @@ class Role:
     trade_item_id: int=None
     is_trade_confirmed: bool=False
 
+    def set_trade_item(self, item_id):
+        if not self.has_item(item_id):
+            return
+
+        self.trade_item_id = item_id
+
+        pack = pb.TradeItemSet(
+            item_id=item_id,
+            role_id=self.id,
+        )
+
+        self.session.send(pack)
+        self.__get_trade_role().session.send(pack)
+
     def confirm_trade(self):
         trade_role = self.session.server.get_role(self.trade_role_id)
 
@@ -1501,6 +1515,7 @@ class Role:
     def __complete_trade(self):
         trade_role = self.__get_trade_role()
 
+        # trade money
         if self.trade_money != 0:
             self.mod_money(-self.trade_money)
             trade_role.mod_money(self.trade_money)
@@ -1508,6 +1523,15 @@ class Role:
         if trade_role.trade_money != 0:
             trade_role.mod_money(-trade_role.trade_money)
             self.mod_money(trade_role.trade_money)
+
+        # trade item
+        if self.trade_item_id:
+            self.remove_item(self.trade_item_id)
+            trade_role.add_item(self.trade_item_id)
+
+        if trade_role.trade_item_id:
+            trade_role.remove_item(trade_role.trade_item_id)
+            self.add_item(trade_role.trade_item_id)
 
         pack = pb.TradeCompleted()
         self.session.send(pack)
@@ -1525,8 +1549,7 @@ class Role:
         )
 
         self.session.send(pack)
-        trade_role = self.session.server.get_role(self.trade_role_id)
-        trade_role.session.send(pack)
+        self.__get_trade_role().session.send(pack)
 
     def accept_trade_request(self, role_id):
         role = self.session.server.get_role(role_id)
@@ -1538,6 +1561,7 @@ class Role:
         self.session.send(pack)
         self.trade_role_id = role_id
         self.trade_money = 0
+        self.trade_item_id = None
         self.is_trade_confirmed = False
 
         pack = pb.TradeStart(
@@ -1547,6 +1571,7 @@ class Role:
         role.session.send(pack)
         role.trade_role_id = self.id
         role.trade_money = 0
+        role.trade_item_id = None
         role.is_trade_confirmed = False
 
     def request_trade(self, role_id):
@@ -2281,6 +2306,15 @@ class Role:
         if self.is_in_my_capital():
             self.buy_item(item_id=c.Item.LETTER_OF_MARQUE.value, force_buy=True)
 
+    def add_item(self, item_id):
+        self.items.append(item_id)
+
+        self.session.send(
+            pb.ItemAdded(
+                item_id=item_id
+            )
+        )
+
     def buy_item(self, item_id, force_buy=False):
         if len(self.items) >= c.MAX_ITEMS_CNT:
             # send chat
@@ -2303,20 +2337,8 @@ class Role:
         if self.money < item.buy_price:
             return
 
-        self.money -= item.buy_price
-        self.items.append(item_id)
-
-        self.session.send(
-            pb.MoneyChanged(
-                money=self.money
-            )
-        )
-
-        self.session.send(
-            pb.ItemAdded(
-                item_id=item_id
-            )
-        )
+        self.mod_money(-item.buy_price)
+        self.add_item(item_id)
 
     def invest(self, ingots_cnt):
         if self.money < ingots_cnt * 10000:
@@ -2937,13 +2959,7 @@ class Role:
 
         items = sObjectMgr.get_items()
         item = random.choice(items)
-        self.items.append(item.id)
-
-        self.session.send(
-            pb.ItemAdded(
-                item_id=item.id
-            )
-        )
+        self.add_item(item.id)
 
         return item.name
 

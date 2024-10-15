@@ -1027,3 +1027,7 @@ class PacketHandler:
 
     async def handle_ConfirmTrade(self, confirm_trade):
         self.role.confirm_trade()
+
+    async def handle_SetTradeItem(self, set_trade_item):
+        item_id = set_trade_item.item_id
+        self.role.set_trade_item(item_id)

@@ -27,7 +27,10 @@ TO DO:
             trade  ON
                 set money OK
                 confirm   OK
-                set item  ON
+                set item  OK
+
+                show confirmed ON
+                show item name
 
 
 

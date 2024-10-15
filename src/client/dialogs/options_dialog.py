@@ -411,7 +411,7 @@ class OptionsDialog:
         PacketParamsDialog(self.mgr, self.client, ['amount'], pack)
 
     def __set_trade_item(self):
-        pass
+        self.show_items(is_for_trade=True)
 
     def __confirm_trade(self):
         pack = pb.ConfirmTrade()
@@ -1454,6 +1454,9 @@ class OptionsDialog:
     def __unequip_item(self, item_id):
         self.client.send(UnequipItem(item_id=item_id))
 
+    def __set_item_for_trade(self, item_id):
+        self.client.send(SetTradeItem(item_id=item_id))
+
     def __show_one_item(self, item, is_equiped=False, is_for_item_shop=False):
         # use or equip
         if not is_for_item_shop:
@@ -1533,7 +1536,7 @@ class OptionsDialog:
             image=item_img,
         )
 
-    def show_items(self):
+    def show_items(self, is_for_trade=False):
         option_2_callback = {}
         items_ids = self.__get_role().items
         role = self.__get_role()
@@ -1546,9 +1549,15 @@ class OptionsDialog:
             is_equiped = 'ON' if id == role.weapon or id == role.armor else ''
 
             if count >= 2:
-                option_2_callback[f'{item.name} x {count} {is_equiped}'] = partial(self.__show_one_item, item, is_equiped)
+                if is_for_trade:
+                    option_2_callback[f'{item.name} x {count} {is_equiped}'] = partial(self.__set_item_for_trade, id)
+                else:
+                    option_2_callback[f'{item.name} x {count} {is_equiped}'] = partial(self.__show_one_item, item, is_equiped)
             else:
-                option_2_callback[f'{item.name} {is_equiped}'] = partial(self.__show_one_item, item, is_equiped)
+                if is_for_trade:
+                    option_2_callback[f'{item.name} {is_equiped}'] = partial(self.__set_item_for_trade, id)
+                else:
+                    option_2_callback[f'{item.name} {is_equiped}'] = partial(self.__show_one_item, item, is_equiped)
 
         # sort by name
         option_2_callback = dict(sorted(option_2_callback.items(), key=lambda x: x[0]))

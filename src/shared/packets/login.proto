@@ -1028,3 +1028,12 @@ message TradeConfirmed {
 
 message TradeCompleted {
 }
+
+message SetTradeItem {
+    required int32 item_id = 1;
+}
+
+message TradeItemSet {
+    required int32 item_id = 1;
+    required int32 role_id = 2;
+}

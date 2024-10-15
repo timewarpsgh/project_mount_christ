@@ -1083,10 +1083,12 @@ class PacketHandler:
 
         my_role = self.__get_role()
         my_role.trade_money = 0
+        my_role.trade_item_id = None
         my_role.is_trade_confirmed = False
 
         target_role = self.__get_graphics().model.get_role_by_id(role_id)
         target_role.trade_money = 0
+        target_role.trade_item_id = None
         target_role.is_trade_confirmed = False
 
         self.__get_options_dialog().show_trade_start(role_id, role_name)
@@ -1132,3 +1134,23 @@ class PacketHandler:
 
     async def handle_TradeCompleted(self, pack):
         self.__get_options_dialog().pop_some_menus(10)
+
+    async def handle_TradeItemSet(self, pack):
+        item_id = pack.item_id
+        role_id = pack.role_id
+
+        if role_id == self.__get_role().id:
+            my_role = self.__get_role()
+            my_role.trade_item_id = item_id
+
+            trade_role = self.__get_model().get_role_by_id(my_role.trade_role_id)
+
+            self.__get_options_dialog().pop_some_menus(10)
+            self.__get_options_dialog().show_trade_start(trade_role.id, trade_role.name)
+
+        else:
+            trade_role = self.__get_model().get_role_by_id(role_id)
+            trade_role.trade_item_id = item_id
+
+            self.__get_options_dialog().pop_some_menus(10)
+            self.__get_options_dialog().show_trade_start(trade_role.id, trade_role.name)

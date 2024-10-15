@@ -29,6 +29,7 @@ TO DO:
                 confirm   OK
                 set item  OK
 
+                refactor some client trade packet handlers OK
                 show confirmed ON
                 show item name
 

@@ -1102,16 +1102,12 @@ class PacketHandler:
             my_role.trade_money = amount
 
             trade_role = self.__get_model().get_role_by_id(my_role.trade_role_id)
-
-            self.__get_options_dialog().pop_some_menus(10)
-            self.__get_options_dialog().show_trade_start(trade_role.id, trade_role.name)
-
         else:
             trade_role = self.__get_model().get_role_by_id(role_id)
             trade_role.trade_money = amount
 
-            self.__get_options_dialog().pop_some_menus(10)
-            self.__get_options_dialog().show_trade_start(trade_role.id, trade_role.name)
+        self.__get_options_dialog().pop_some_menus(10)
+        self.__get_options_dialog().show_trade_start(trade_role.id, trade_role.name)
 
     async def handle_TradeConfirmed(self, pack):
         role_id = pack.role_id
@@ -1121,16 +1117,12 @@ class PacketHandler:
             my_role.is_trade_confirmed = True
 
             trade_role = self.__get_model().get_role_by_id(my_role.trade_role_id)
-
-            self.__get_options_dialog().pop_some_menus(10)
-            self.__get_options_dialog().show_trade_start(trade_role.id, trade_role.name)
-
         else:
             trade_role = self.__get_model().get_role_by_id(role_id)
             trade_role.is_trade_confirmed = True
 
-            self.__get_options_dialog().pop_some_menus(10)
-            self.__get_options_dialog().show_trade_start(trade_role.id, trade_role.name)
+        self.__get_options_dialog().pop_some_menus(10)
+        self.__get_options_dialog().show_trade_start(trade_role.id, trade_role.name)
 
     async def handle_TradeCompleted(self, pack):
         self.__get_options_dialog().pop_some_menus(10)
@@ -1142,15 +1134,10 @@ class PacketHandler:
         if role_id == self.__get_role().id:
             my_role = self.__get_role()
             my_role.trade_item_id = item_id
-
             trade_role = self.__get_model().get_role_by_id(my_role.trade_role_id)
-
-            self.__get_options_dialog().pop_some_menus(10)
-            self.__get_options_dialog().show_trade_start(trade_role.id, trade_role.name)
-
         else:
             trade_role = self.__get_model().get_role_by_id(role_id)
             trade_role.trade_item_id = item_id
 
-            self.__get_options_dialog().pop_some_menus(10)
-            self.__get_options_dialog().show_trade_start(trade_role.id, trade_role.name)
+        self.__get_options_dialog().pop_some_menus(10)
+        self.__get_options_dialog().show_trade_start(trade_role.id, trade_role.name)

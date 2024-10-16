@@ -245,6 +245,7 @@ class OpCodeType(Enum):
     SetTradeItem = auto()
     TradeItemSet = auto()
     TradeUnconfirmed = auto()
+    FriendOnlineStateChanged = auto()
 
 
 def gen_opcode_2_value():

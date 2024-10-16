@@ -37,8 +37,7 @@ TO DO:
 
 
                 when role logs in, role gets all other_roles names,ids, onlines
-                role's friends get notified of his login
-                when role logs out, role's friends get notified of his logout
+
 
                 FriendMgr OK
                     self.role_id
@@ -65,6 +64,11 @@ TO DO:
 
                 client show online, no id OK
 
+                role's friends get notified of his login
+                when role logs out, role's friends get notified of his logout
+
+                online notification OK
+                offline notification
 
                 right click to add to friends, max 20
 

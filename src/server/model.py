@@ -56,6 +56,20 @@ class FriendMgr:
             )
             self.id_2_friend[friend.role_id] = friend
 
+        # tell watchers that I am online
+        friends_models = ROLE_SESSION.query(FriendModel).\
+            filter_by(friend=self.role_id).\
+            all()
+        for friend_model in friends_models:
+            watcher_id = friend_model.role_id
+            if server.is_role_online(watcher_id):
+                watcher = server.get_role(watcher_id)
+                pack = pb.FriendOnlineStateChanged(
+                    role_id=self.role_id,
+                    is_online=True,
+                )
+                watcher.session.send(pack)
+
     def gen_proto_friends(self):
         proto_friends = []
 

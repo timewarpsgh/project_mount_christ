@@ -698,6 +698,9 @@ class PacketHandler:
     def get_mate_mgr(self):
         return self.__get_role().mate_mgr
 
+    def get_friend_mgr(self):
+        return self.__get_role().friend_mgr
+
     async def handle_MateFired(self, mate_fired):
         mate_id = mate_fired.mate_id
         mate = self.get_mate_mgr().get_mate(mate_id)
@@ -1156,3 +1159,15 @@ class PacketHandler:
 
         self.__get_options_dialog().pop_some_menus(10)
         self.__get_options_dialog().show_trade_start(trade_role.id, trade_role.name)
+
+    async def handle_FriendOnlineStateChanged(self, pack):
+        role_id = pack.role_id
+        is_online = pack.is_online
+
+        friend = self.get_friend_mgr().get_friend(role_id)
+        if friend:
+            friend.is_online = is_online
+            self.__get_chat_dialog().add_chat(
+                pb.ChatType.SYSTEM,
+                f'{friend.name} is now {"online" if is_online else "offline"}'
+            )

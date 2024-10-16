@@ -50,6 +50,9 @@ class FriendMgr:
                 friends.append(friend)
         return friends
 
+    def get_friend(self, role_id):
+        return self.id_2_friend.get(role_id)
+
 
 @dataclass
 class Ship:

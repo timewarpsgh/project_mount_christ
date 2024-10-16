@@ -1054,3 +1054,8 @@ message TradeItemSet {
 
 message TradeUnconfirmed {
 }
+
+message FriendOnlineStateChanged {
+    required int32 role_id = 1;
+    required bool is_online = 2;
+}

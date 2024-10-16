@@ -40,7 +40,7 @@ TO DO:
                 role's friends get notified of his login
                 when role logs out, role's friends get notified of his logout
 
-                FriendMgr ON
+                FriendMgr OK
                     self.role_id
                     self.id_2_friend
 

@@ -32,9 +32,21 @@ class Friend:
 
 class FriendMgr:
 
-    def __init__(self, role):
-        self.role = role
-        self.id_2_ship = {}
+    def __init__(self, role_id):
+        self.role_id = role_id
+        self.id_2_friend = {}
+
+    def load_from_db():
+        pass
+
+    def add_friend(self, role_id, is_enemy):
+        pass
+
+    def remove_friend(self, role_id):
+        pass
+
+    def get_friends(self, is_enemy):
+        pass
 
 
 @dataclass
@@ -1426,11 +1438,6 @@ class MateMgr:
             ship.first_mate = mate_id
 
 
-
-
-
-
-
 class DiscoveryMgr:
 
     def __init__(self):
@@ -1470,6 +1477,7 @@ class Role:
     ship_mgr: ShipMgr=None
     mate_mgr: MateMgr=None
     discovery_mgr: DiscoveryMgr=None
+    friend_mgr: FriendMgr=None
 
     battle_npc_id: int=None
     battle_role_id: int=None

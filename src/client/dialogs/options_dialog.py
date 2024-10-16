@@ -630,14 +630,16 @@ class OptionsDialog:
         if weapon_id:
             weapon_item = sObjectMgr.get_item(weapon_id)
             option_2_callback[f'Weapon: {weapon_item.name}'] = partial(self.__show_one_item,
-                                                                       weapon_item)
+                                                                       weapon_item,
+                                                                       is_for_view_captain=True)
         else:
             option_2_callback[f'Weapon: NA'] = ''
         armor_id = pack.armor
         if armor_id:
             armor_item = sObjectMgr.get_item(armor_id)
             option_2_callback[f'Armor: {armor_item.name}'] = partial(self.__show_one_item,
-                                                                     armor_item)
+                                                                     armor_item,
+                                                                     is_for_view_captain=True)
         else:
             option_2_callback[f'Armor: NA'] = ''
         self.__make_menu(option_2_callback)
@@ -1485,7 +1487,7 @@ class OptionsDialog:
     def __set_item_for_trade(self, item_id):
         self.client.send(SetTradeItem(item_id=item_id))
 
-    def __show_one_item(self, item, is_equiped=False, is_for_item_shop=False):
+    def __show_one_item(self, item, is_equiped=False, is_for_item_shop=False, is_for_view_captain=False):
         # use or equip
         if not is_for_item_shop:
             if item.item_type == c.ItemType.CONSUMABLE.value:
@@ -1494,16 +1496,19 @@ class OptionsDialog:
                 }
                 self.__make_menu(option_2_callback)
             elif item.item_type in [c.ItemType.WEAPON.value, c.ItemType.ARMOR.value]:
-                if is_equiped:
-                    option_2_callback = {
-                        'Unequip': partial(self.__unequip_item, item.id),
-                    }
-                    self.__make_menu(option_2_callback)
+                if is_for_view_captain:
+                    pass
                 else:
-                    option_2_callback = {
-                        'Equip': partial(self.__equip_item, item.id),
-                    }
-                    self.__make_menu(option_2_callback)
+                    if is_equiped:
+                        option_2_callback = {
+                            'Unequip': partial(self.__unequip_item, item.id),
+                        }
+                        self.__make_menu(option_2_callback)
+                    else:
+                        option_2_callback = {
+                            'Equip': partial(self.__equip_item, item.id),
+                        }
+                        self.__make_menu(option_2_callback)
 
 
         split_items = item.img_id.split('_')

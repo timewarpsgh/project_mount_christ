@@ -43,6 +43,8 @@ TO DO:
 
                 can only equip and unequip in port OK
 
+                view captain gears, don't show equip OK
+
 
 
 

@@ -51,6 +51,9 @@ class Role(BASE):
 	event_id = Column(Integer)
 	nation = Column(Integer)
 
+	weapon = Column(Integer)
+	armor = Column(Integer)
+
 
 class Mate(BASE):
 	# table

@@ -180,6 +180,9 @@ class PacketHandler:
                 event_id=role.event_id,
                 nation=role.nation,
 
+                weapon=role.weapon,
+                armor=role.armor,
+
                 graphics = self.client.game.graphics,
             )
             model_role = self.__get_role()

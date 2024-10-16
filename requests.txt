@@ -34,6 +34,9 @@ TO DO:
                 show item name OK
 
                 after setting trade money/item, unconfirm OK
+
+                role.weapon and role.armor in db OK
+
                 trading equiped items ON
 
 

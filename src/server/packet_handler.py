@@ -274,8 +274,10 @@ class PacketHandler:
                 treasure_map_id=role.treasure_map_id,
                 event_id=role.event_id,
                 nation=role.nation,
-            )
 
+                weapon=role.weapon,
+                armor=role.armor,
+            )
 
             # init seen grids
             self.role.seen_grids = self.__get_matrix_from_seen_grids(role)
@@ -325,6 +327,8 @@ class PacketHandler:
             role_entered.treasure_map_id = role.treasure_map_id
             role_entered.event_id = role.event_id
             role_entered.nation = role.nation
+            role_entered.weapon = role.weapon if role.weapon else 0
+            role_entered.armor = role.armor if role.armor else 0
 
             if role.discovery_ids_json_str:
                 role_entered.discovery_ids_json_str = role.discovery_ids_json_str

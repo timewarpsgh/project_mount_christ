@@ -439,11 +439,11 @@ class OptionsDialog:
             if target_role.trade_item_id else ''
 
         text = f'Trading with {role_name} \n' \
-               f'You: {my_role.trade_money} coins, ' \
-               f'{my_role_trade_item_name}, {my_role_confired_text} \n'\
+               f'You: {my_role.trade_money} coins  ' \
+               f'{my_role_trade_item_name}  {my_role_confired_text} \n'\
                \
-               f'{role_name}: {target_role.trade_money} coins, ' \
-               f'{target_role_trade_item_name}, {target_role_confired_text}'
+               f'{role_name}: {target_role.trade_money} coins   ' \
+               f'{target_role_trade_item_name}  {target_role_confired_text}'
 
         MyPanelWindow(
             rect=pygame.Rect((248, 0), (264, 145)),

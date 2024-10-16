@@ -146,6 +146,7 @@ class Friend(BASE):
 	id = Column(Integer, primary_key=True)
 	role_id = Column(Integer)
 	friend = Column(Integer)
+	friend_name = Column(String)
 	is_enemy = Column(Boolean)
 
 

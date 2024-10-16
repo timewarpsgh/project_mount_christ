@@ -42,7 +42,7 @@ class FriendMgr:
         self.role_id = role_id
         self.id_2_friend = {}
 
-    def load_from_db(self):
+    def load_from_db(self, server):
         friends_models = ROLE_SESSION.query(FriendModel).\
             filter_by(role_id=self.role_id).\
             all()
@@ -50,8 +50,9 @@ class FriendMgr:
         for friend_model in friends_models:
             friend = Friend(
                 role_id=friend_model.friend,
-                name='test_name',
+                name=friend_model.friend_name,
                 is_enemy=friend_model.is_enemy,
+                is_online=server.is_role_online(friend_model.friend),
             )
             self.id_2_friend[friend.role_id] = friend
 

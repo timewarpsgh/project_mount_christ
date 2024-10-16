@@ -315,7 +315,7 @@ class PacketHandler:
 
             # init friend_mgr
             self.role.friend_mgr = model.FriendMgr(self.role.id)
-            self.role.friend_mgr.load_from_db()
+            self.role.friend_mgr.load_from_db(self.session.server)
             proto_friends = self.role.friend_mgr.gen_proto_friends()
 
             # prepare packet to send to client

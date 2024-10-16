@@ -60,6 +60,8 @@ TO DO:
 
                 client show mates/social/friends and enemies  OK
 
+                show friend name OK
+                bats to start t2, and t1 OK
 
                 right click to add to friends, max 20
 

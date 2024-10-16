@@ -92,6 +92,9 @@ class Server:
     def __init_map_maker(self):
         sMapMaker.set_world_piddle()
 
+    def is_role_online(self, role_id):
+        return role_id in self.id_2_role
+
     def get_roles(self):
         return self.id_2_role.values()
 

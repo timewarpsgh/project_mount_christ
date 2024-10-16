@@ -594,7 +594,11 @@ class OptionsDialog:
             self.show_mate_speech(maid, 'Which nation?')
 
     def show_captain_info(self, pack):
+        self.__show_weapon_and_armor_menu(pack)
+        self.__show_captain_info_panel(pack)
 
+    def __show_captain_info_panel(self, pack):
+        # show captain info panel
         dict = {
             'name': pack.name,
             'nation': c.Nation(pack.nation).name,
@@ -611,15 +615,32 @@ class OptionsDialog:
         split_items = pack.img_id.split('_')
         x = int(split_items[0])
         y = int(split_items[1])
-
         mate_image = self.__figure_x_y_2_image(x, y)
-
         MyPanelWindow(
             rect=pygame.Rect((59, 12), (350, 400)),
             ui_manager=self.mgr,
             text=text,
             image=mate_image,
         )
+
+    def __show_weapon_and_armor_menu(self, pack):
+        # show weapon and armor menu
+        option_2_callback = {}
+        weapon_id = pack.weapon
+        if weapon_id:
+            weapon_item = sObjectMgr.get_item(weapon_id)
+            option_2_callback[f'Weapon: {weapon_item.name}'] = partial(self.__show_one_item,
+                                                                       weapon_item)
+        else:
+            option_2_callback[f'Weapon: NA'] = ''
+        armor_id = pack.armor
+        if armor_id:
+            armor_item = sObjectMgr.get_item(armor_id)
+            option_2_callback[f'Armor: {armor_item.name}'] = partial(self.__show_one_item,
+                                                                     armor_item)
+        else:
+            option_2_callback[f'Armor: NA'] = ''
+        self.__make_menu(option_2_callback)
 
     def show_waitress_menu(self):
         role = self.__get_role()

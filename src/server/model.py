@@ -1933,10 +1933,17 @@ class Role:
         if role_id > c.NPC_ROLE_START_ID:
             npc = self.__get_npc_mgr().get_npc(role_id)
             mate = npc.mate
+
+            weapon = npc.weapon
+            armor = npc.armor
+
         # is role
         else:
             role = self.session.server.get_role(role_id)
             mate = role.get_flag_ship().get_captain()
+
+            weapon = role.weapon
+            armor = role.armor
 
         print(f"{role_id=}")
         print(f"{mate=}")
@@ -1951,6 +1958,8 @@ class Role:
             lv_in_acc=mate.lv_in_acc,
             lv_in_bat=mate.lv_in_bat,
             img_id=mate.img_id,
+            weapon=weapon if weapon else 0,
+            armor=armor if armor else 0,
         )
         self.session.send(pack)
 

@@ -37,8 +37,9 @@ TO DO:
 
                 role.weapon and role.armor in db OK
 
-                trading equiped items OK
+                trading equipped items OK
 
+                view captain, shows weapon and armor  OK
 
 
 

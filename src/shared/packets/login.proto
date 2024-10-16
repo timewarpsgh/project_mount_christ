@@ -980,6 +980,8 @@ message CaptainInfo {
     required int32 lv_in_acc = 7;
     required int32 lv_in_bat = 8;
     required string img_id = 9;
+    required int32 weapon = 10;
+    required int32 armor = 11;
 }
 
 message TreasureMapCleared {

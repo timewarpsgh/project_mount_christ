@@ -1875,7 +1875,8 @@ class OptionsDialog:
 
         friends = self.get_friend_mgr().get_friends(is_enemy=is_enemy)
         for friend in friends:
-            option_2_callback[f'{friend.role_id} {friend.name} {friend.is_online}'] = ''
+            online_text = 'ON' if friend.is_online else 'OFF'
+            option_2_callback[f'{friend.name} {online_text}'] = ''
 
         self.__make_menu(option_2_callback)
 

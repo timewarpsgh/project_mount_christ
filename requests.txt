@@ -63,6 +63,9 @@ TO DO:
                 show friend name OK
                 bats to start t2, and t1 OK
 
+                client show online, no id OK
+
+
                 right click to add to friends, max 20
 
 

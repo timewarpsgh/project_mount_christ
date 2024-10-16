@@ -33,6 +33,9 @@ TO DO:
                 show confirmed OK
                 show item name OK
 
+                after setting trade money/item, unconfirm OK
+                trading equiped items ON
+
 
 
 

@@ -1481,6 +1481,31 @@ class Role:
     trade_item_id: int=None
     is_trade_confirmed: bool=False
 
+    def __unconfirm_trade(self):
+        # unconfirm
+        self.is_trade_confirmed = False
+        self.__get_trade_role().is_trade_confirmed = False
+
+        pack = pb.TradeUnconfirmed()
+        self.session.send(pack)
+        self.__get_trade_role().session.send(pack)
+
+    def set_trade_money(self, amount):
+        if not self.has_enough_money(amount):
+            return
+
+        self.trade_money = amount
+
+        pack = pb.TradeMoneySet(
+            amount=amount,
+            role_id=self.id,
+        )
+
+        self.session.send(pack)
+        self.__get_trade_role().session.send(pack)
+
+        self.__unconfirm_trade()
+
     def set_trade_item(self, item_id):
         if not self.has_item(item_id):
             return
@@ -1494,6 +1519,8 @@ class Role:
 
         self.session.send(pack)
         self.__get_trade_role().session.send(pack)
+
+        self.__unconfirm_trade()
 
     def confirm_trade(self):
         trade_role = self.session.server.get_role(self.trade_role_id)
@@ -1536,20 +1563,6 @@ class Role:
         pack = pb.TradeCompleted()
         self.session.send(pack)
         trade_role.session.send(pack)
-
-    def set_trade_money(self, amount):
-        if not self.has_enough_money(amount):
-            return
-
-        self.trade_money = amount
-
-        pack = pb.TradeMoneySet(
-            amount=amount,
-            role_id=self.id,
-        )
-
-        self.session.send(pack)
-        self.__get_trade_role().session.send(pack)
 
     def accept_trade_request(self, role_id):
         role = self.session.server.get_role(role_id)

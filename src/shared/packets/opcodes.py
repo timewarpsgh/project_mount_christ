@@ -244,6 +244,7 @@ class OpCodeType(Enum):
     TradeCompleted = auto()
     SetTradeItem = auto()
     TradeItemSet = auto()
+    TradeUnconfirmed = auto()
 
 
 def gen_opcode_2_value():

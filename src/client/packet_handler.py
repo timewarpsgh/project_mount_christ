@@ -1141,3 +1141,13 @@ class PacketHandler:
 
         self.__get_options_dialog().pop_some_menus(10)
         self.__get_options_dialog().show_trade_start(trade_role.id, trade_role.name)
+
+    async def handle_TradeUnconfirmed(self, pack):
+        my_role = self.__get_role()
+        my_role.is_trade_confirmed = False
+
+        trade_role = self.__get_model().get_role_by_id(my_role.trade_role_id)
+        trade_role.is_trade_confirmed = False
+
+        self.__get_options_dialog().pop_some_menus(10)
+        self.__get_options_dialog().show_trade_start(trade_role.id, trade_role.name)

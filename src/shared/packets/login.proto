@@ -1037,3 +1037,6 @@ message TradeItemSet {
     required int32 item_id = 1;
     required int32 role_id = 2;
 }
+
+message TradeUnconfirmed {
+}

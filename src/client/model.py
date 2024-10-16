@@ -664,7 +664,6 @@ class Role:
 
     def stop_moving(self):
         self.is_moving = False
-        print(f'stopped moving at {self.x} {self.y}')
 
         if self.is_mine():
             pack = pb.StopMoving(

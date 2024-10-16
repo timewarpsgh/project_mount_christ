@@ -35,7 +35,6 @@ class PacketHandler:
 
     async def handle_packet(self, packet):
         packet_name = type(packet).__name__
-        print(f'{packet_name=}')
         try:
             await getattr(self, f'handle_{packet_name}')(packet)
         except Exception as e:
@@ -636,7 +635,6 @@ class PacketHandler:
         src_y = stopped_moving.src_y
         dir = stopped_moving.dir
 
-        print(f'{id} stopped moving at {src_x} {src_y}')
 
         if id == self.__get_role().id:
             role = self.__get_role()

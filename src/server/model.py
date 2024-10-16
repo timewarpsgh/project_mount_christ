@@ -1539,6 +1539,12 @@ class Role:
     def __get_trade_role(self):
         return self.session.server.get_role(self.trade_role_id)
 
+    def __is_item_equiped(self, item_id):
+        if self.weapon == item_id or self.armor == item_id:
+            return True
+        else:
+            return False
+
     def __complete_trade(self):
         trade_role = self.__get_trade_role()
 
@@ -1554,10 +1560,20 @@ class Role:
         # trade item
         if self.trade_item_id:
             self.remove_item(self.trade_item_id)
+
+            if self.__is_item_equiped(self.trade_item_id):
+                if not self.has_item(self.trade_item_id):
+                    self.unequip_item(self.trade_item_id)
+
             trade_role.add_item(self.trade_item_id)
 
         if trade_role.trade_item_id:
             trade_role.remove_item(trade_role.trade_item_id)
+
+            if trade_role.__is_item_equiped(trade_role.trade_item_id):
+                if not trade_role.has_item(trade_role.trade_item_id):
+                    trade_role.unequip_item(trade_role.trade_item_id)
+
             self.add_item(trade_role.trade_item_id)
 
         pack = pb.TradeCompleted()

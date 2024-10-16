@@ -37,7 +37,7 @@ TO DO:
 
                 role.weapon and role.armor in db OK
 
-                trading equiped items ON
+                trading equiped items OK
 
 
 

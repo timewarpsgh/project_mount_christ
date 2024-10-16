@@ -22,6 +22,22 @@ from season_mgr import sSeasonMgr
 
 
 @dataclass
+class Friend:
+
+    role_id: int=None
+    name: str=None
+    is_enemy: bool=False
+    is_online: bool=False
+
+
+class FriendMgr:
+
+    def __init__(self, role):
+        self.role = role
+        self.id_2_ship = {}
+
+
+@dataclass
 class Ship:
 
     id: int=None

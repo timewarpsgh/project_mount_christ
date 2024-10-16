@@ -2309,6 +2309,16 @@ class Role:
         )
 
     def unequip_item(self, item_id):
+        if not self.is_in_port():
+            # send chat
+            pack = pb.GotChat(
+                chat_type=pb.ChatType.SYSTEM,
+                text='You can only equip or unequip items in port.'
+            )
+            self.session.send(pack)
+
+            return
+
         if item_id == self.weapon:
             self.weapon = None
         elif item_id == self.armor:
@@ -2321,6 +2331,16 @@ class Role:
         )
 
     def equip_item(self, item_id):
+        if not self.is_in_port():
+            # send chat
+            pack = pb.GotChat(
+                chat_type=pb.ChatType.SYSTEM,
+                text='You can only equip or unequip items in port.'
+            )
+            self.session.send(pack)
+
+            return
+
         if not self.has_item(item_id):
             return
 

@@ -41,6 +41,8 @@ TO DO:
 
                 view captain, shows weapon and armor  OK
 
+                can only equip and unequip in port OK
+
 
 
 

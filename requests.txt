@@ -58,6 +58,8 @@ TO DO:
 
                 load from db, to server ram, and to client ram OK
 
+                client show mates/social/friends and enemies  OK
+
 
                 right click to add to friends, max 20
 

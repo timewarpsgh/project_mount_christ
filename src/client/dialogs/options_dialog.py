@@ -83,6 +83,9 @@ class OptionsDialog:
     def get_mate_mgr(self):
         return self.client.game.graphics.model.role.mate_mgr
 
+    def get_friend_mgr(self):
+        return self.client.game.graphics.model.role.friend_mgr
+
     def __send_packet_to_get_cargo_cnt_and_sell_price(self, ship_id):
         packet = GetCargoCntAndSellPrice()
         packet.ship_id = ship_id
@@ -1867,6 +1870,23 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def __show_friends(self, is_enemy):
+        option_2_callback = {}
+
+        friends = self.get_friend_mgr().get_friends(is_enemy=is_enemy)
+        for friend in friends:
+            option_2_callback[f'{friend.role_id} {friend.name} {friend.is_online}'] = ''
+
+        self.__make_menu(option_2_callback)
+
+    def __show_social(self):
+        option_2_callback = {
+            'Friends': partial(self.__show_friends, False),
+            'Enemies': partial(self.__show_friends, True),
+        }
+
+        self.__make_menu(option_2_callback)
+
     def __show_crew_state_menu(self):
         role = self.__get_role()
         option_2_callback = {
@@ -2189,6 +2209,7 @@ class OptionsDialog:
             'Mate Info': partial(self.__show_mate_info_menu),
             'Assign Duty': partial(self.__show_mates_to_assign_duty_menu),
             'Crew': partial(self.__show_crew_state_menu),
+            'Social': partial(self.__show_social),
         }
 
         self.__make_menu(option_2_callback)

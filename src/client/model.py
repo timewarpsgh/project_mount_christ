@@ -44,7 +44,11 @@ class FriendMgr:
         pass
 
     def get_friends(self, is_enemy):
-        pass
+        friends = []
+        for friend in self.id_2_friend.values():
+            if friend.is_enemy == is_enemy:
+                friends.append(friend)
+        return friends
 
 
 @dataclass

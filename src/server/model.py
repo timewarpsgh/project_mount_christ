@@ -11,6 +11,7 @@ import copy
 # import from dir
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
 
 import constants as c
 from object_mgr import sObjectMgr
@@ -19,6 +20,11 @@ from map_mgr import sMapMgr
 from helpers import Point, are_vectors_in_same_direction
 from id_mgr import sIdMgr
 from season_mgr import sSeasonMgr
+
+from role_models import \
+    Role as RoleModel, \
+    SESSION as ROLE_SESSION, \
+    Friend as FriendModel
 
 
 @dataclass
@@ -36,8 +42,32 @@ class FriendMgr:
         self.role_id = role_id
         self.id_2_friend = {}
 
-    def load_from_db():
-        pass
+    def load_from_db(self):
+        friends_models = ROLE_SESSION.query(FriendModel).\
+            filter_by(role_id=self.role_id).\
+            all()
+
+        for friend_model in friends_models:
+            friend = Friend(
+                role_id=friend_model.friend,
+                name='test_name',
+                is_enemy=friend_model.is_enemy,
+            )
+            self.id_2_friend[friend.role_id] = friend
+
+    def gen_proto_friends(self):
+        proto_friends = []
+
+        for friend in self.id_2_friend.values():
+            proto_friend = pb.Friend(
+                role_id=friend.role_id,
+                name=friend.name,
+                is_enemy=friend.is_enemy,
+                is_online=friend.is_online,
+            )
+            proto_friends.append(proto_friend)
+
+        return proto_friends
 
     def add_friend(self, role_id, is_enemy):
         pass

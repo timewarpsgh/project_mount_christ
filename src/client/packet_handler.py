@@ -15,7 +15,7 @@ from my_ui_elements import MyMsgWindow, MyMenuWindow
 from dialogs.create_role_dialog import CreateRoleDialog
 from dialogs.options_dialog import OptionsDialog
 from dialogs.chat_dialog import ChatDialog
-from model import Role, ShipMgr, MateMgr, DiscoveryMgr, Npc
+from model import Role, ShipMgr, MateMgr, DiscoveryMgr, FriendMgr, Npc
 import model
 from asset_mgr import sAssetMgr
 from object_mgr import sObjectMgr
@@ -189,6 +189,7 @@ class PacketHandler:
             model_role.ship_mgr = ShipMgr(model_role)
             model_role.mate_mgr = MateMgr(model_role)
             model_role.discovery_mgr = DiscoveryMgr()
+            model_role.friend_mgr = FriendMgr(role.id)
 
             # init ships
             for prot_ship in role.ships:
@@ -199,6 +200,9 @@ class PacketHandler:
             for prot_mate in role.mates:
                 print(f'added mate {prot_mate.id} ######## ')
                 self.__add_mate_to_mate_mgr(prot_mate)
+
+            # init friends
+            model_role.friend_mgr.load_from_packet(role.friends)
 
             # init discoveries
             if role.discovery_ids_json_str:

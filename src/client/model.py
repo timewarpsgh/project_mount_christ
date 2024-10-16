@@ -12,6 +12,42 @@ from object_mgr import sObjectMgr
 
 
 @dataclass
+class Friend:
+
+    role_id: int=None
+    name: str=None
+    is_enemy: bool=False
+    is_online: bool=False
+
+
+class FriendMgr:
+
+    def __init__(self, role_id):
+        self.role_id = role_id
+        self.id_2_friend = {}
+
+    def load_from_packet(self, proto_friends):
+        for proto_friend in proto_friends:
+            friend = Friend(
+                role_id=proto_friend.role_id,
+                name=proto_friend.name,
+                is_enemy=proto_friend.is_enemy,
+                is_online=proto_friend.is_online
+            )
+            self.id_2_friend[friend.role_id] = friend
+
+
+    def add_friend(self, role_id, is_enemy):
+        pass
+
+    def remove_friend(self, role_id):
+        pass
+
+    def get_friends(self, is_enemy):
+        pass
+
+
+@dataclass
 class Ship:
     id: int = None
     role_id: int = None
@@ -524,6 +560,7 @@ class Role:
     ship_mgr: ShipMgr = None
     mate_mgr: MateMgr = None
     discovery_mgr: DiscoveryMgr = None
+    friend_mgr: FriendMgr = None
 
     battle_npc_id: int = None
     battle_role_id: int = None

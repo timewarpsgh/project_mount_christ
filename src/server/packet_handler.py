@@ -313,6 +313,11 @@ class PacketHandler:
             self.__fill_mates_in_ram(self.role, mates)
             proto_mates = self.__gen_proto_mates(self.role.mate_mgr.get_mates())
 
+            # init friend_mgr
+            self.role.friend_mgr = model.FriendMgr(self.role.id)
+            self.role.friend_mgr.load_from_db()
+            proto_friends = self.role.friend_mgr.gen_proto_friends()
+
             # prepare packet to send to client
             role_entered = RoleEntered()
             role_entered.id = role.id
@@ -338,6 +343,7 @@ class PacketHandler:
             # fill ships and mates in protocol
             role_entered.ships.extend(proto_ships)
             role_entered.mates.extend(proto_mates)
+            role_entered.friends.extend(proto_friends)
 
             enter_world_res = EnterWorldRes()
             enter_world_res.is_ok = True
@@ -385,9 +391,7 @@ class PacketHandler:
         x = stop_moving.x
         y = stop_moving.y
         dir = stop_moving.dir
-
         self.role.stopped_moving(x, y, dir)
-
 
     async def handle_Disconnect(self, disconnect):
         print('got disconn packet from client')

@@ -159,6 +159,12 @@ message Mate {
   required int32 xp_in_bat = 22;
 }
 
+message Friend {
+    required int32 role_id = 1;
+    required string name = 2;
+    required bool is_enemy = 3;
+    required bool is_online = 4;
+}
 
 message RoleEntered {
     required int32 id = 1;
@@ -171,16 +177,19 @@ message RoleEntered {
 
     repeated Ship ships = 8;
     repeated Mate mates = 9;
-    optional string discovery_ids_json_str = 10;
-    repeated int32 seen_grids_64_int32s = 11;
-    required string items = 12;
-    required string notorities = 13;
-    required int32 treasure_map_id = 14;
-    required int32 event_id = 15;
-    required int32 nation = 16;
+    repeated Friend friends = 10;
 
-    required int32 weapon = 17;
-    required int32 armor = 18;
+    optional string discovery_ids_json_str = 11;
+    repeated int32 seen_grids_64_int32s = 12;
+    required string items = 13;
+    required string notorities = 14;
+    required int32 treasure_map_id = 15;
+    required int32 event_id = 16;
+    required int32 nation = 17;
+
+    required int32 weapon = 18;
+    required int32 armor = 19;
+
 }
 
 message EnterWorldRes {

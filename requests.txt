@@ -56,6 +56,8 @@ TO DO:
                     is_enemy
                     is_online
 
+                load from db, to server ram, and to client ram OK
+
 
                 right click to add to friends, max 20
 

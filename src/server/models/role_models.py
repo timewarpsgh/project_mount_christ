@@ -138,6 +138,17 @@ class Ship(BASE):
 	cargo_id = Column(Integer)
 
 
+class Friend(BASE):
+	# table
+	__tablename__ = 'friend'
+
+	# id
+	id = Column(Integer, primary_key=True)
+	role_id = Column(Integer)
+	friend = Column(Integer)
+	is_enemy = Column(Boolean)
+
+
 def create_tables():
 	# ceate all above tables if not there yet
 	engine = create_engine(f'sqlite:///{PATH_TO_DB}')

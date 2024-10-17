@@ -64,13 +64,10 @@ TO DO:
 
                 client show online, no id OK
 
-                role's friends get notified of his login
-                when role logs out, role's friends get notified of his logout
-
                 online notification OK
                 offline notification OK
 
-                right click to add to friends, max 20
+                right click to add to friends  OK
 
 
                 right click to add to enemies

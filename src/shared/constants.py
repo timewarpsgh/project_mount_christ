@@ -10,6 +10,9 @@ import login_pb2 as pb
 from helpers import Point
 
 
+MAX_FRIENDS = 50
+MAX_ENEMIES = 20
+
 # seen grids
 SEEN_GRIDS_COLS = 64
 SEEN_GRIDS_ROWS = 32

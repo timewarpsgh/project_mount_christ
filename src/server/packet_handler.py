@@ -314,7 +314,7 @@ class PacketHandler:
             proto_mates = self.__gen_proto_mates(self.role.mate_mgr.get_mates())
 
             # init friend_mgr
-            self.role.friend_mgr = model.FriendMgr(self.role.id)
+            self.role.friend_mgr = model.FriendMgr(self.role, self.role.id)
             self.role.friend_mgr.load_from_db(self.session.server)
             proto_friends = self.role.friend_mgr.gen_proto_friends()
 
@@ -1040,3 +1040,5 @@ class PacketHandler:
         item_id = set_trade_item.item_id
         self.role.set_trade_item(item_id)
 
+    async def handle_AddFriend(self, add_friend):
+        await run_in_threads(self.role.friend_mgr.add_friend, add_friend)

@@ -2101,6 +2101,14 @@ class OptionsDialog:
     def __request_trade(self, role_id):
         self.client.send(RequestTrade(role_id=role_id))
 
+    def __add_friend(self, role, is_enemy):
+        pack = pb.AddFriend(
+            role_id=role.id,
+            name=role.name,
+            is_enemy=is_enemy,
+        )
+        self.client.send(pack)
+
     def show_role_menu(self, role):
         my_role = self.__get_role()
         if my_role.can_inspect(role):
@@ -2117,6 +2125,9 @@ class OptionsDialog:
                 if my_role.is_in_port():
                     del option_2_callback['Fight']
                     option_2_callback['Request Trade'] = partial(self.__request_trade, role.id)
+
+                option_2_callback['Add to Friends'] = partial(self.__add_friend, role, is_enemy=False)
+                option_2_callback['Add to Enemies'] = partial(self.__add_friend, role, is_enemy=True)
 
             self.__make_menu(option_2_callback)
         else:

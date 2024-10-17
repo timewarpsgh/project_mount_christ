@@ -37,8 +37,14 @@ class FriendMgr:
             self.id_2_friend[friend.role_id] = friend
 
 
-    def add_friend(self, role_id, is_enemy):
-        pass
+    def add_friend(self, role_id, name, is_enemy, is_online):
+        friend = Friend(
+            role_id=role_id,
+            name=name,
+            is_enemy=is_enemy,
+            is_online=is_online
+        )
+        self.id_2_friend[role_id] = friend
 
     def remove_friend(self, role_id):
         pass

@@ -1171,3 +1171,15 @@ class PacketHandler:
                 pb.ChatType.SYSTEM,
                 f'{friend.name} is now {"online" if is_online else "offline"}'
             )
+
+    async def handle_FriendAdded(self, pack):
+        role_id = pack.role_id
+        name = pack.name
+        is_enemy = pack.is_enemy
+        is_online = pack.is_online
+
+        self.get_friend_mgr().add_friend(role_id, name, is_enemy, is_online)
+        self.__get_chat_dialog().add_chat(
+            pb.ChatType.SYSTEM,
+            f'{name} added!'
+        )

@@ -1059,3 +1059,16 @@ message FriendOnlineStateChanged {
     required int32 role_id = 1;
     required bool is_online = 2;
 }
+
+message AddFriend {
+    required int32 role_id = 1;
+    required string name = 2;
+    required bool is_enemy = 3;
+}
+
+message FriendAdded {
+    required int32 role_id = 1;
+    required string name = 2;
+    required bool is_enemy = 3;
+    required bool is_online = 4;
+}

@@ -247,6 +247,9 @@ class OpCodeType(Enum):
     TradeUnconfirmed = auto()
     FriendOnlineStateChanged = auto()
 
+    AddFriend = auto()
+    FriendAdded = auto()
+
 
 def gen_opcode_2_value():
     d = {}

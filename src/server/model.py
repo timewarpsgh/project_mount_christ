@@ -38,7 +38,8 @@ class Friend:
 
 class FriendMgr:
 
-    def __init__(self, role_id):
+    def __init__(self, role, role_id):
+        self.role = role
         self.role_id = role_id
         self.id_2_friend = {}
 
@@ -87,8 +88,43 @@ class FriendMgr:
 
         return proto_friends
 
-    def add_friend(self, role_id, is_enemy):
-        pass
+    def add_friend(self, pack):
+        role_id = pack.role_id
+        name = pack.name
+        is_enemy = pack.is_enemy
+
+        if len(self.id_2_friend) >= c.MAX_FRIENDS:
+            return
+
+        if role_id in self.id_2_friend:
+            return
+
+        # add to db
+        friend_model = FriendModel(
+            role_id=self.role_id,
+            friend=role_id,
+            friend_name=name,
+            is_enemy=is_enemy,
+        )
+        ROLE_SESSION.add(friend_model)
+        ROLE_SESSION.commit()
+
+        friend = Friend(
+            role_id=role_id,
+            name=name,
+            is_enemy=is_enemy,
+            is_online=True,
+        )
+        self.id_2_friend[role_id] = friend
+
+        # tell client
+        pack = pb.FriendAdded(
+            role_id=role_id,
+            name=name,
+            is_enemy=is_enemy,
+            is_online=True,
+        )
+        self.role.session.send(pack)
 
     def remove_friend(self, role_id):
         pass

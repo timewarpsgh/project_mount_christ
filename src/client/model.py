@@ -602,6 +602,8 @@ class Role:
     trade_item_id: int = None
     is_trade_confirmed: bool = False
 
+    is_dynamic_port_npc: bool = False
+
     def get_port(self):
         return sObjectMgr.get_port(self.map_id)
 

@@ -10,7 +10,9 @@ TO DO:
 
         chat in chinese, show char selections OK
 
-        save to db, on logout
+        dynamic port npc clicked, show nothing OK
+
+        save to db, on logout  ON
 
 
 

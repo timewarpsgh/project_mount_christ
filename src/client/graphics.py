@@ -609,6 +609,9 @@ class RoleSP(SP):
         if self.is_mine:
             return
 
+        if self.role.is_dynamic_port_npc:
+            return
+
         self.model.role.graphics.client.game.gui.options_dialog.show_role_menu(self.role)
 
     def change_to_next_frame(self):
@@ -1350,6 +1353,7 @@ class Graphics:
             y=building_y,
             dir=pb.DirType.N,
             graphics=self,
+            is_dynamic_port_npc=True,
         )
 
         self.add_sp_role(role)

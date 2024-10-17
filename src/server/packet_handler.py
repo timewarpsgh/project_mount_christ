@@ -363,8 +363,8 @@ class PacketHandler:
         self.session.send(enter_world_res)
         self.session.send(sSeasonMgr.gen_season_changed_pb())
 
-        # enter port for tesing!!!!!!
-        self.role.enter_port(self.role.map_id)
+        # # enter port for tesing!!!!!!
+        self.role.enter_port(self.role.map_id, self.role.x, self.role.y)
 
         # add role to map_mgr
         sMapMgr.add_object(self.role)
@@ -373,7 +373,7 @@ class PacketHandler:
         self.send_role_appeared_to_nearby_roles()
 
         # sail
-        await self.handle_Sail('')
+        # await self.handle_Sail('')
 
     async def handle_GetAvailableCargos(self, get_available_cargos):
         self.role.get_available_cargos()

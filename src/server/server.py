@@ -15,6 +15,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 from shared import Connection
+import constants as c
 
 from object_mgr import sObjectMgr
 from npc_mgr import sNpcMgr
@@ -43,6 +44,11 @@ class Session(Connection):
         if role:
             print(f'{role.name} disconnected!!')
 
+            # save to db
+            if c.SAVE_ON_DISCONNECT:
+                loop = asyncio.get_event_loop()
+                await loop.run_in_executor(EXECUTOR, role.save_to_db)
+
             # tell all watchers that I'm offline
             loop = asyncio.get_event_loop()
             res = await loop.run_in_executor(
@@ -51,7 +57,6 @@ class Session(Connection):
                 self.server,
                 False,
             )
-
 
             nearby_roles = sMapMgr.get_nearby_objects(role)
             sMapMgr.rm_object(role)
@@ -79,8 +84,6 @@ class Session(Connection):
                 pass
 
             await asyncio.sleep(0.01)
-
-
 
     async def main(self):
 

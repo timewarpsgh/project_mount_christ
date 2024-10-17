@@ -10,6 +10,7 @@ import login_pb2 as pb
 from helpers import Point
 
 
+SAVE_ON_DISCONNECT = True
 MAX_FRIENDS = 50
 
 # seen grids

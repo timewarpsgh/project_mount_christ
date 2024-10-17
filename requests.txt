@@ -12,9 +12,13 @@ TO DO:
 
         dynamic port npc clicked, show nothing OK
 
-        save to db, on logout  ON
+    logout
+
+        save to db, on logout  OK
+        SAVE_ON_DISCONNECT OK
 
 
+    login
 
 
 

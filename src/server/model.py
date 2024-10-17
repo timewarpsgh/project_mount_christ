@@ -1606,6 +1606,23 @@ class Role:
     trade_item_id: int=None
     is_trade_confirmed: bool=False
 
+    def save_to_db(self):
+        # save role
+        role_model = ROLE_SESSION.query(RoleModel).filter_by(id=self.id).first()
+
+        role_model.map_id = self.map_id
+        role_model.x = self.x
+        role_model.y = self.y
+        role_model.dir = self.dir
+
+        ROLE_SESSION.commit()
+
+        # save ships
+
+        # save mates
+
+        # save friends
+
     def __unconfirm_trade(self):
         # unconfirm
         self.is_trade_confirmed = False
@@ -2706,7 +2723,7 @@ class Role:
         return True
 
 
-    def enter_port(self, port_id):
+    def enter_port(self, port_id, x=None, y=None):
         self.is_dead = False
         self.starved_days = 0
 
@@ -2716,15 +2733,22 @@ class Role:
         self.map_id = port_id
         harbor_x, harbor_y = sObjectMgr.get_building_xy_in_port(building_id=4, port_id=port_id)
 
-        self.x = harbor_x
-        self.y = harbor_y
+        if x:
+            self.x = x
+        else:
+            self.x = harbor_x
+
+        if y:
+            self.y = y
+        else:
+            self.y = harbor_y
 
         # send map changed packet
         packet = pb.MapChanged(
             role_id=self.id,
             map_id=port_id,
-            x=harbor_x,
-            y=harbor_y,
+            x=self.x,
+            y=self.y,
         )
         self.session.send(packet)
 

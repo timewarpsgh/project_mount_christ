@@ -1676,10 +1676,11 @@ class OptionsDialog:
         world_map_image = sAssetMgr.images['world_map']['world_map_from_uw2']
 
         # shrink image
-        world_map_image = pygame.transform.scale(world_map_image, (c.WINDOW_WIDTH, c.WINDOW_HEIGHT - 80))  # 800, 400
+        world_map_image = pygame.transform.scale(world_map_image, (c.WINDOW_WIDTH, c.WINDOW_HEIGHT - 120))  # 720, 360
+        world_map_image_rect = world_map_image.get_rect()
 
-        grid_size = 13
-        strict_grid_size = 12.5
+        strict_grid_size = world_map_image_rect.width / c.SEEN_GRIDS_COLS
+        grid_size = int(strict_grid_size) + 1
 
         map_mosaic = sAssetMgr.images['world_map']['map_mosaic']
         map_mosaic = pygame.transform.scale(map_mosaic, (grid_size, grid_size))
@@ -1695,6 +1696,7 @@ class OptionsDialog:
         # iterate through matrix
         rows, cols = matrix.shape
 
+        # hide unseen_grids
         for x in range(rows):
             for y in range(cols):
                 if matrix[x][y] == 0:
@@ -1711,8 +1713,8 @@ class OptionsDialog:
             my_x = self.__get_role().x
             my_y = self.__get_role().y
 
-        my_x = int(720 * (my_x / 2160))
-        my_y = int(400 * (my_y / 1080))
+        my_x = int(world_map_image_rect.width * (my_x / c.WORLD_MAP_COLUMNS))
+        my_y = int(world_map_image_rect.height * (my_y / c.WORLD_MAP_ROWS))
         print(my_x, my_y)
 
         # rand x,y based on instrument
@@ -1720,14 +1722,10 @@ class OptionsDialog:
 
         world_map_image.blit(my_position_img, (my_x, my_y))
 
-
-        image_rect = world_map_image.get_rect()
-        text = ''
-
         MyPanelWindow(
-            rect=pygame.Rect((-20, -20), (image_rect.width + 40, image_rect.height + 30)),
+            rect=pygame.Rect((-20, -20), (world_map_image_rect.width + 40, world_map_image_rect.height + 30)),
             ui_manager=self.mgr,
-            text=text,
+            text='',
             image=world_map_image,
         )
 

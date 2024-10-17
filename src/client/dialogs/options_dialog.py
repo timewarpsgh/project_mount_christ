@@ -1695,12 +1695,12 @@ class OptionsDialog:
         # iterate through matrix
         rows, cols = matrix.shape
 
-        # for x in range(rows):
-        #     for y in range(cols):
-        #         if matrix[x][y] == 0:
-        #             # paste figure image onto img
-        #             start_x_y = (start_y + int(y * strict_grid_size), start_x + int(x * strict_grid_size))
-        #             world_map_image.blit(map_mosaic, start_x_y)
+        for x in range(rows):
+            for y in range(cols):
+                if matrix[x][y] == 0:
+                    # paste figure image onto img
+                    start_x_y = (start_y + int(y * strict_grid_size), start_x + int(x * strict_grid_size))
+                    world_map_image.blit(map_mosaic, start_x_y)
 
         # get my_x y based on location
         if self.__get_role().is_in_port():

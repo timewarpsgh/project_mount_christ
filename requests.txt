@@ -16,6 +16,8 @@ TO DO:
 
         save to db, on logout  OK
         SAVE_ON_DISCONNECT OK
+        grids saved OK
+        seen grids, not showing right ON
 
 
     login

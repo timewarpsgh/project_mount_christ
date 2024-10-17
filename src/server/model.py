@@ -1614,6 +1614,11 @@ class Role:
         role_model.x = self.x
         role_model.y = self.y
         role_model.dir = self.dir
+        role_model.money = self.money
+        role_model.bank_money = self.bank_money
+
+        role_model.discovery_ids_json_str = json.dumps(list(self.discovery_mgr.get_ids_set()))
+        role_model.seen_grids = json.dumps(self.seen_grids.tolist())
 
         ROLE_SESSION.commit()
 

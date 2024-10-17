@@ -19,6 +19,12 @@ TO DO:
         grids saved OK
         seen grids, not showing right OK
 
+        save role OK
+        save ships
+        save mates
+        save friends
+
+
     login
 
 

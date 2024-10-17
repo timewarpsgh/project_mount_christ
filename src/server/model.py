@@ -1620,6 +1620,18 @@ class Role:
         role_model.discovery_ids_json_str = json.dumps(list(self.discovery_mgr.get_ids_set()))
         role_model.seen_grids = json.dumps(self.seen_grids.tolist())
 
+        role_model.pay_days = self.pay_days
+        role_model.days_at_sea = self.days_at_sea
+        role_model.items = json.dumps(self.items)
+        role_model.notorities = json.dumps(self.notorities)
+        role_model.has_treated_crew = self.has_treated_crew
+        role_model.recruited_crew_cnt = self.recruited_crew_cnt
+        role_model.treasue_map_id = self.treasure_map_id
+        role_model.event_id = self.event_id
+        role_model.nation = self.nation
+        role_model.weapon = self.weapon
+        role_model.armor = self.armor
+
         ROLE_SESSION.commit()
 
         # save ships

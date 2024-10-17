@@ -11,7 +11,6 @@ from helpers import Point
 
 
 MAX_FRIENDS = 50
-MAX_ENEMIES = 20
 
 # seen grids
 SEEN_GRIDS_COLS = 64

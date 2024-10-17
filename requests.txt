@@ -70,8 +70,6 @@ TO DO:
                 right click to add to friends  OK
 
 
-                right click to add to enemies
-
 
 DONE:
 

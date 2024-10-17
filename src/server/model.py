@@ -109,6 +109,7 @@ class FriendMgr:
         ROLE_SESSION.add(friend_model)
         ROLE_SESSION.commit()
 
+        # modify ram
         friend = Friend(
             role_id=role_id,
             name=name,

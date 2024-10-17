@@ -1040,5 +1040,8 @@ class PacketHandler:
         item_id = set_trade_item.item_id
         self.role.set_trade_item(item_id)
 
-    async def handle_AddFriend(self, add_friend):
-        await run_in_threads(self.role.friend_mgr.add_friend, add_friend)
+    async def handle_AddFriend(self, pack):
+        await run_in_threads(self.role.friend_mgr.add_friend, pack)
+
+    async def handle_RemoveFriend(self, pack):
+        await run_in_threads(self.role.friend_mgr.remove_friend, pack)

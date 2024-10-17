@@ -1870,13 +1870,23 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def __remove_friend(self, role_id):
+        pack = pb.RemoveFriend(role_id=role_id)
+        self.client.send(pack)
+
+    def __show_friend_menu(self, role_id):
+        option_2_callback = {
+            'Remove': partial(self.__remove_friend, role_id),
+        }
+        self.__make_menu(option_2_callback)
+
     def __show_friends(self, is_enemy):
         option_2_callback = {}
 
         friends = self.get_friend_mgr().get_friends(is_enemy=is_enemy)
         for friend in friends:
             online_text = 'ON' if friend.is_online else 'OFF'
-            option_2_callback[f'{friend.name} {online_text}'] = ''
+            option_2_callback[f'{friend.name} {online_text}'] = partial(self.__show_friend_menu, friend.role_id)
 
         self.__make_menu(option_2_callback)
 

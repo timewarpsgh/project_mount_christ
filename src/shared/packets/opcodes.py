@@ -249,6 +249,8 @@ class OpCodeType(Enum):
 
     AddFriend = auto()
     FriendAdded = auto()
+    RemoveFriend = auto()
+    FriendRemoved = auto()
 
 
 def gen_opcode_2_value():

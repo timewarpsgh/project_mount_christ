@@ -1183,3 +1183,15 @@ class PacketHandler:
             pb.ChatType.SYSTEM,
             f'{name} added!'
         )
+
+    async def handle_FriendRemoved(self, pack):
+        role_id = pack.role_id
+
+        friend_mgr = self.get_friend_mgr()
+        friend = friend_mgr.get_friend(role_id)
+        friend_mgr.remove_friend(role_id)
+        self.__get_chat_dialog().add_chat(
+            pb.ChatType.SYSTEM,
+            f'{friend.name} removed!'
+        )
+        self.__get_options_dialog().pop_some_menus(2)

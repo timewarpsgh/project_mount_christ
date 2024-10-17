@@ -127,8 +127,24 @@ class FriendMgr:
         )
         self.role.session.send(pack)
 
-    def remove_friend(self, role_id):
-        pass
+    def remove_friend(self, pack):
+        role_id = pack.role_id
+
+        # remove from db
+        friend_model = ROLE_SESSION.query(FriendModel).\
+            filter_by(role_id=self.role_id, friend=role_id).\
+            first()
+        ROLE_SESSION.delete(friend_model)
+        ROLE_SESSION.commit()
+
+        # modify ram
+        self.id_2_friend.pop(role_id)
+
+        # tell client
+        pack = pb.FriendRemoved(
+            role_id=role_id,
+        )
+        self.role.session.send(pack)
 
     def get_friends(self, is_enemy):
         pass

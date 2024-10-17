@@ -47,7 +47,8 @@ class FriendMgr:
         self.id_2_friend[role_id] = friend
 
     def remove_friend(self, role_id):
-        pass
+        if role_id in self.id_2_friend:
+            del self.id_2_friend[role_id]
 
     def get_friends(self, is_enemy):
         friends = []

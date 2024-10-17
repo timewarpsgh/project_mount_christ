@@ -1072,3 +1072,11 @@ message FriendAdded {
     required bool is_enemy = 3;
     required bool is_online = 4;
 }
+
+message RemoveFriend {
+    required int32 role_id = 1;
+}
+
+message FriendRemoved {
+    required int32 role_id = 1;
+}

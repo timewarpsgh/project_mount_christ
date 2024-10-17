@@ -69,6 +69,7 @@ TO DO:
 
                 right click to add to friends  OK
 
+                remove friends OK
 
 
 DONE:

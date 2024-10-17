@@ -68,7 +68,7 @@ TO DO:
                 when role logs out, role's friends get notified of his logout
 
                 online notification OK
-                offline notification ON
+                offline notification OK
 
                 right click to add to friends, max 20
 

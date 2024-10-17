@@ -56,9 +56,12 @@ class FriendMgr:
             )
             self.id_2_friend[friend.role_id] = friend
 
+        self.tell_watchers_my_online_state(server, is_online=True)
+
+    def tell_watchers_my_online_state(self, server, is_online):
         # tell watchers that I am online
-        friends_models = ROLE_SESSION.query(FriendModel).\
-            filter_by(friend=self.role_id).\
+        friends_models = ROLE_SESSION.query(FriendModel). \
+            filter_by(friend=self.role_id). \
             all()
         for friend_model in friends_models:
             watcher_id = friend_model.role_id
@@ -66,7 +69,7 @@ class FriendMgr:
                 watcher = server.get_role(watcher_id)
                 pack = pb.FriendOnlineStateChanged(
                     role_id=self.role_id,
-                    is_online=True,
+                    is_online=is_online,
                 )
                 watcher.session.send(pack)
 

@@ -23,6 +23,8 @@ from map_maker import sMapMaker
 from map_mgr import sMapMgr
 from season_mgr import sSeasonMgr
 
+EXECUTOR = ThreadPoolExecutor()
+
 
 class Session(Connection):
 
@@ -35,12 +37,22 @@ class Session(Connection):
 
         self.previous_time = asyncio.get_event_loop().time()
 
-
-
-    def on_disconnect(self):
+    async def on_disconnect(self):
         print('someone disconnectd!!!!')
         role = self.packet_handler.role
         if role:
+            print(f'{role.name} disconnected!!')
+
+            # tell all watchers that I'm offline
+            loop = asyncio.get_event_loop()
+            res = await loop.run_in_executor(
+                EXECUTOR,
+                role.friend_mgr.tell_watchers_my_online_state,
+                self.server,
+                False,
+            )
+
+
             nearby_roles = sMapMgr.get_nearby_objects(role)
             sMapMgr.rm_object(role)
 
@@ -123,7 +135,7 @@ class Server:
 
     def rm_role(self, id):
         del self.id_2_role[id]
-        print(f'role removed! now {self.id_2_role=}')
+        # print(f'role removed! now {self.id_2_role=}')
 
     def get_nearby_roles(self, role_id):
         nearby_roles = []
@@ -148,10 +160,14 @@ class Server:
         self.add_session(session)
         try:
             await session.main()
-        except Exception as e:
 
-            print(f'some error occured: {e}')
+        except ConnectionResetError as e:
+            print("A ConnectionResetError occurred:", e)
+
+        except Exception as e:
+            print(f'some error occured in func client_connected: {e}')
             traceback.print_exc()
+
         else:
             pass
 

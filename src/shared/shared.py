@@ -61,13 +61,13 @@ class Connection:
 
             # if disconn
             if bytes == b'':
-                self.on_disconnect()
+                await self.on_disconnect()
                 break
 
             self.receive_packets(bytes)
             await self.process_got_packets()
 
-    def on_disconnect(self):
+    async def on_disconnect(self):
         """virtual(to be implemented by sub_class)"""
         pass
 

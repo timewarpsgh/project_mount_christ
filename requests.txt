@@ -6,70 +6,14 @@ TO DO:
         in battle OK
 
         events OK
+        multiplayer  OK
 
-        multiplayer  ON
-            role menu, diable some for players  OK
+        chat in chinese, show char selections OK
 
-            chat
-                say to nearby roles, show text for 3 seconds   OK
-                whisper to one role  OK
-                nation chat OK
-                global chat  OK
-
-                chat queue max 50  OK
-
-                add color to chats OK
-
-                say sp -> white OK
-
-                dynamic npc clicked ON
-
-            trade  ON
-                trade panel, don't show punctuations OK
-
-            social
-                table friend OK
-                    id  role_id friend is_enemy
-                    1   1       2      0
-                    2   1       3      0
-
-                    3   2       1      0
+        save to db, on logout
 
 
-                when role logs in, role gets all other_roles names,ids, onlines
 
-
-                FriendMgr OK
-                    self.role_id
-                    self.id_2_friend
-
-                    load_from_db()
-                    add_friend(role_id, is_enemy)
-                    remove_friend(role_id)
-                    get_friends(is_enemy)
-
-
-                Friend OK
-                    role_id
-                    name
-                    is_enemy
-                    is_online
-
-                load from db, to server ram, and to client ram OK
-
-                client show mates/social/friends and enemies  OK
-
-                show friend name OK
-                bats to start t2, and t1 OK
-
-                client show online, no id OK
-
-                online notification OK
-                offline notification OK
-
-                right click to add to friends  OK
-
-                remove friends OK
 
 
 DONE:

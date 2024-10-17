@@ -2,6 +2,7 @@ import pygame_gui
 import pygame
 from functools import partial
 import html
+import os
 from pygame_gui._constants import UI_TEXT_ENTRY_FINISHED, UI_TEXT_ENTRY_CHANGED
 from pygame_gui._constants import UI_CONSOLE_COMMAND_ENTERED
 
@@ -11,6 +12,10 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\client')
 
 from login_pb2 import *
 from my_ui_console_window import MyUIConsoleWindow
+
+
+os.environ["SDL_IME_SHOW_UI"] = "1"
+
 
 class ChatDialog(MyUIConsoleWindow):
 

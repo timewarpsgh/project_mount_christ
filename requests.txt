@@ -26,6 +26,9 @@ TO DO:
 
     menu window, height + OK
 
+    remove text box line OK
+
+
 
 DONE:
 

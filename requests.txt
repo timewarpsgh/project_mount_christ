@@ -20,7 +20,7 @@ TO DO:
         seen grids, not showing right OK
 
         save role OK
-        save ships
+        save ships OK
         save mates
         save friends
 

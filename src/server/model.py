@@ -22,9 +22,12 @@ from id_mgr import sIdMgr
 from season_mgr import sSeasonMgr
 
 from role_models import \
-    Role as RoleModel, \
     SESSION as ROLE_SESSION, \
+    Role as RoleModel, \
+    Ship as ShipModel, \
+    Mate as MateModel, \
     Friend as FriendModel
+
 
 
 @dataclass
@@ -1607,6 +1610,65 @@ class Role:
     is_trade_confirmed: bool=False
 
     def save_to_db(self):
+        self.__save_role()
+
+        # save ships
+        self.__save_ships()
+        # save mates
+        self.__save_mates()
+
+        # save friends
+        self.__save_friends()
+
+    def __save_ships(self):
+        # clear ships in db
+        ROLE_SESSION.query(ShipModel).filter_by(role_id=self.id).delete()
+        ROLE_SESSION.commit()
+
+        # add ships in ram to db
+        for ship in self.ship_mgr.get_ships():
+            ship_model = ShipModel(
+                id=ship.id,
+                role_id=self.id,
+                name=ship.name,
+                ship_template_id=ship.ship_template_id,
+                material_type=ship.material_type,
+
+                captain=ship.captain,
+                accountant=ship.accountant,
+                first_mate=ship.first_mate,
+                chief_navigator=ship.chief_navigator,
+
+                now_durability=ship.now_durability,
+                max_durability=ship.max_durability,
+                tacking=ship.tacking,
+                power=ship.power,
+                capacity=ship.capacity,
+                now_crew=ship.now_crew,
+                min_crew=ship.min_crew,
+                max_crew=ship.max_crew,
+                now_guns=ship.now_guns,
+                type_of_guns=ship.type_of_guns,
+                max_guns=ship.max_guns,
+                water=ship.water,
+                food=ship.food,
+                material=ship.material,
+                cannon=ship.cannon,
+                cargo_cnt=ship.cargo_cnt,
+                cargo_id=ship.cargo_id,
+            )
+
+            ROLE_SESSION.add(ship_model)
+
+        ROLE_SESSION.commit()
+
+    def __save_mates(self):
+        pass
+
+    def __save_friends(self):
+        pass
+
+    def __save_role(self):
         # save role
         role_model = ROLE_SESSION.query(RoleModel).filter_by(id=self.id).first()
 
@@ -1616,10 +1678,8 @@ class Role:
         role_model.dir = self.dir
         role_model.money = self.money
         role_model.bank_money = self.bank_money
-
         role_model.discovery_ids_json_str = json.dumps(list(self.discovery_mgr.get_ids_set()))
         role_model.seen_grids = json.dumps(self.seen_grids.tolist())
-
         role_model.pay_days = self.pay_days
         role_model.days_at_sea = self.days_at_sea
         role_model.items = json.dumps(self.items)
@@ -1633,12 +1693,6 @@ class Role:
         role_model.armor = self.armor
 
         ROLE_SESSION.commit()
-
-        # save ships
-
-        # save mates
-
-        # save friends
 
     def __unconfirm_trade(self):
         # unconfirm
@@ -2838,6 +2892,7 @@ class Role:
                     captain.clear_duty()
                     ship.clear_mates_onboard()
 
+                    ship.id = sIdMgr.gen_new_ship_id()
                     self.ship_mgr.add_ship(ship)
 
                     ship_proto = ship.gen_ship_proto()

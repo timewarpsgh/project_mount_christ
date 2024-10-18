@@ -5,11 +5,12 @@ from functools import partial
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\client\dialogs')
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 from login_pb2 import *
 from my_ui_elements import MyButton
 from create_account_dialog import CreateAccountDialog
-
+import constants as c
 
 AUTO_CLICK_LOGIN = False
 
@@ -20,8 +21,8 @@ class LoginDialog:
         self.client = client
 
         # add ui window
-        width = 300
-        height = 300
+        width = c.LOGIN_WINDOW_WIDTH
+        height = c.LOGIN_WINDOW_HEIGHT
         self.ui_window = pygame_gui.elements.UIWindow(
             rect=pygame.Rect((0, 0), (width, height)),
             manager=self.mgr,
@@ -36,7 +37,7 @@ class LoginDialog:
 
         # add buttion to manager
         self.login_button = MyButton(
-            relative_rect=pygame.Rect((0, 0), (100, 50)),
+            relative_rect=pygame.Rect((0, 0), (100, c.LOGIN_BUTTON_HEIGHT)),
             text='登录',
             manager=self.mgr,
             container=panel,
@@ -61,7 +62,7 @@ class LoginDialog:
 
         # add buttion to manager
         self.no_account_button = MyButton(
-            relative_rect=pygame.Rect((0, 200), (100, 50)),
+            relative_rect=pygame.Rect((0, 150), (100, c.LOGIN_BUTTON_HEIGHT)),
             text='注册',
             manager=self.mgr,
             container=panel,

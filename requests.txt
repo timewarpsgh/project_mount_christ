@@ -30,7 +30,7 @@ TO DO:
 
     login dialog bg OK
 
-    smaller login dialog ON
+    smaller login dialog OK
 
 
 DONE:

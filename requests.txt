@@ -28,6 +28,9 @@ TO DO:
 
     remove text box line OK
 
+    login dialog bg OK
+
+    smaller login dialog ON
 
 
 DONE:

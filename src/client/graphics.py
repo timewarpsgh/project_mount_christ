@@ -1228,6 +1228,13 @@ class Graphics:
 
     def draw(self, window_surface):
         if not self.client.packet_handler.is_in_game:
+            # draw login_bg
+            scaled_login_bg =  pygame.transform.scale(
+                sAssetMgr.images['buildings']['login_bg'],
+                (c.WINDOW_WIDTH, c.WINDOW_HEIGHT)
+            )
+            window_surface.blit(scaled_login_bg, (0, 0))
+
             return
 
         # draw 1st background

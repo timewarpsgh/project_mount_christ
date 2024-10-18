@@ -24,6 +24,8 @@ TO DO:
 
     msg windows have bg now (using my_panel_windows) OK
 
+    menu window, height + OK
+
 
 DONE:
 

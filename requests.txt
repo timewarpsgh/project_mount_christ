@@ -21,7 +21,7 @@ TO DO:
 
         save role OK
         save ships OK
-        save mates
+        save mates OK
         save friends
 
 

@@ -1612,12 +1612,8 @@ class Role:
     def save_to_db(self):
         self.__save_role()
 
-        # save ships
         self.__save_ships()
-        # save mates
         self.__save_mates()
-
-        # save friends
         self.__save_friends()
 
     def __save_ships(self):
@@ -1663,7 +1659,43 @@ class Role:
         ROLE_SESSION.commit()
 
     def __save_mates(self):
-        pass
+        # clear mates in db
+        ROLE_SESSION.query(MateModel).filter_by(role_id=self.id).delete()
+        ROLE_SESSION.commit()
+
+        # add mates in ram to db
+        for mate in self.mate_mgr.get_mates():
+            mate_model = MateModel(
+                id=mate.id,
+                role_id=self.id,
+                mate_template_id=mate.mate_template_id,
+                name=mate.name,
+                img_id=mate.img_id,
+
+                nation=mate.nation,
+                fleet=mate.fleet,
+                lv=mate.lv,
+                points=mate.points,
+                duty_type=mate.duty_type,
+                ship_id=mate.ship_id,
+                leadership=mate.leadership,
+                navigation=mate.navigation,
+                accounting=mate.accounting,
+                battle=mate.battle,
+                talent_in_navigation=mate.talent_in_navigation,
+                talent_in_accounting=mate.talent_in_accounting,
+                talent_in_battle=mate.talent_in_battle,
+                lv_in_nav=mate.lv_in_nav,
+                lv_in_acc=mate.lv_in_acc,
+                lv_in_bat=mate.lv_in_bat,
+                xp_in_nav=mate.xp_in_nav,
+                xp_in_acc=mate.xp_in_acc,
+                xp_in_bat=mate.xp_in_bat,
+            )
+
+            ROLE_SESSION.add(mate_model)
+
+        ROLE_SESSION.commit()
 
     def __save_friends(self):
         pass

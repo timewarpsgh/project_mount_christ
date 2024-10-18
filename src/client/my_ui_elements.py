@@ -24,14 +24,9 @@ def only_show_top_window(mgr):
 class MyMsgWindow:
 
     def __init__(self, msg, mgr):
-        msg_windows = pygame_gui.windows.ui_message_window.UIMessageWindow(
-            rect=pygame.Rect((0, 300), (250, 160)),
-            manager=mgr,
-            window_title='',
-            html_message=msg,
-        )
-
-        msg_windows.dismiss_button.set_text('OK')
+        MyPanelWindow(rect=pygame.Rect((0, 300), (250, 160)),
+                      ui_manager=mgr,
+                      text=msg)
 
 
 class MyMenuWindow:

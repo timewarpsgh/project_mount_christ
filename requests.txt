@@ -22,6 +22,8 @@ TO DO:
 
     UI for creat account (enable_title_bar) OK
 
+    msg windows have bg now (using my_panel_windows) OK
+
 
 DONE:
 

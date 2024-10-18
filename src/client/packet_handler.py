@@ -2,6 +2,7 @@ from functools import partial
 import json
 import traceback
 import numpy as np
+import pygame
 import asyncio
 
 # import from dir
@@ -11,7 +12,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 from login_pb2 import *
 import login_pb2 as pb
-from my_ui_elements import MyMsgWindow, MyMenuWindow
+from my_ui_elements import MyMsgWindow, MyMenuWindow, MyPanelWindow
 from dialogs.create_role_dialog import CreateRoleDialog
 from dialogs.options_dialog import OptionsDialog
 from dialogs.chat_dialog import ChatDialog

@@ -1088,6 +1088,9 @@ class Graphics:
         return self.client.game.gui.options_dialog
 
     def process_event(self, event):
+        if not self.model.role:
+            return
+
         # when mouse clicked, check if any sprite clicked
         if event.type == pygame.MOUSEBUTTONDOWN:
             for sprite in self.sprites:  # Assuming all_sprites is a Group of your sprites
@@ -1174,6 +1177,9 @@ class Graphics:
 
         # mouse clicks
         elif event.type == pygame.MOUSEBUTTONDOWN:
+            if not self.model.role:
+                return
+
             if not self.model.role.is_in_battle():
                 return
 

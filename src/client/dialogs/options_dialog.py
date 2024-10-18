@@ -1847,16 +1847,17 @@ class OptionsDialog:
         PacketParamsDialog(self.mgr, self.client, ['int_value'], pack)
 
     def __show_duty_types_menu(self, mate):
-        flag_ship = self.__get_role().get_flag_ship()
-        ship_id = flag_ship.id
         option_2_callback = {
             'Captain': partial(self.__show_ships_to_assign_duty_menu, mate),
         }
 
-        if mate.name != self.__get_role().name:
-            option_2_callback['Navigator'] = partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.CHIEF_NAVIGATOR)
-            option_2_callback['Accountant'] = partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.ACCOUNTANT)
-            option_2_callback['First Mate'] = partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.FIRST_MATE)
+        flag_ship = self.__get_role().get_flag_ship()
+        if flag_ship:
+            ship_id = flag_ship.id
+            if mate.name != self.__get_role().name:
+                option_2_callback['Navigator'] = partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.CHIEF_NAVIGATOR)
+                option_2_callback['Accountant'] = partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.ACCOUNTANT)
+                option_2_callback['First Mate'] = partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.FIRST_MATE)
 
         self.__make_menu(option_2_callback)
 

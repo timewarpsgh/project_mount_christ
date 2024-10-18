@@ -162,19 +162,112 @@ class PacketHandler:
         if role_model:
             return NewRoleRes.NewRoleResType.NAME_EXISTS
         else:
-            new_obj = RoleModel(
-                name=new_role.name,
-                world_id=new_role.world_id,
-                account_id=self.account_id,
-                map_id=2,
-                x=4,
-                y=2,
-            )
-
-            ROLE_SESSION.add(new_obj)
-            ROLE_SESSION.commit()
-
+            id_of_new_role = self.__create_role(new_role)
+            new_mate_id = self.__create_mate(new_role, id_of_new_role)
+            # self.__create_ship(new_role, id_of_new_role, new_mate_id)
             return NewRoleRes.NewRoleResType.OK
+
+    def __create_ship(self, new_role, id_of_new_role, new_mate_id):
+        ship_template_id = 1
+        ship_template = sObjectMgr.get_ship_template(ship_template_id)
+
+        ship_model = ShipModel(
+            id=sIdMgr.gen_new_ship_id(),
+            role_id=id_of_new_role,
+            name='0',
+            ship_template_id=ship_template_id,
+            material_type=1,
+            captain=new_mate_id,
+
+            now_durability=ship_template.durability,
+            max_durability=ship_template.durability,
+
+            tacking=ship_template.tacking,
+            power=ship_template.power,
+
+            capacity=ship_template.capacity,
+
+            now_crew=ship_template.min_crew,
+            min_crew=ship_template.min_crew,
+            max_crew=ship_template.max_crew,
+
+            now_guns=0,
+            type_of_guns=1,
+            max_guns=ship_template.max_guns,
+
+            water=0,
+            food=0,
+            material=0,
+            cannon=0,
+
+            cargo_cnt=0,
+            cargo_id=0,
+
+        )
+        ROLE_SESSION.add(ship_model)
+        ROLE_SESSION.commit()
+
+    def __create_mate(self, new_role, id_of_new_role):
+
+        new_mate_id = sIdMgr.gen_new_mate_id()
+        mate_model = MateModel(
+            id=new_mate_id,
+            role_id=id_of_new_role,
+            name=new_role.name,
+            img_id='1_1',
+            nation=1,
+            navigation=1,
+            accounting=1,
+            battle=1,
+            talent_in_navigation=0,
+            talent_in_accounting=0,
+            talent_in_battle=0,
+            lv_in_nav=1,
+            lv_in_acc=1,
+            lv_in_bat=1,
+            xp_in_nav=0,
+            xp_in_acc=0,
+            xp_in_bat=0,
+        )
+        ROLE_SESSION.add(mate_model)
+        ROLE_SESSION.commit()
+
+        return new_mate_id
+
+    def __create_role(self, new_role):
+        new_obj = RoleModel(
+            name=new_role.name,
+            world_id=new_role.world_id,
+            account_id=self.account_id,
+            map_id=30,
+            x=56,
+            y=71,
+            dir=0,
+            money=0,
+            bank_money=2000,
+            discovery_ids_json_str=json.dumps([]),
+            seen_grids=json.dumps(c.INITIAL_SEEN_GRIDS),
+            pay_days=0,
+            days_at_sea=0,
+            items=json.dumps([]),
+            notorities=json.dumps([0] * 6),
+            has_treated_crew=False,
+            recruited_crew_cnt=0,
+            treasure_map_id=0,
+            event_id=1,
+            nation=1,
+            weapon=None,
+            armor=None,
+        )
+        ROLE_SESSION.add(new_obj)
+
+        # get id of new_obj
+        ROLE_SESSION.flush()
+        id_of_new_role = new_obj.id
+
+        ROLE_SESSION.commit()
+
+        return id_of_new_role
 
     async def handle_NewRole(self, new_role):
         res_type = await run_in_threads(self.__create_new_role, new_role)
@@ -182,7 +275,6 @@ class PacketHandler:
         new_role_res = NewRoleRes()
         new_role_res.new_role_res_type = res_type
         self.session.send(new_role_res)
-
 
     def __fill_ships_in_ram(self, role, ships):
 
@@ -773,15 +865,15 @@ class PacketHandler:
 
         # can't replace captain of flagship
         flag_ship = self.role.get_flag_ship()
-        if ship_id == flag_ship.id and duty_type == pb.DutyType.CAPTAIN:
-            # send chat msg
-            pack = pb.GotChat(
-                chat_type=pb.ChatType.SYSTEM,
-                text='can\'t replace captain of flagship',
-            )
-            self.session.send(pack)
-            return
-
+        if flag_ship:
+            if ship_id == flag_ship.id and duty_type == pb.DutyType.CAPTAIN:
+                # send chat msg
+                pack = pb.GotChat(
+                    chat_type=pb.ChatType.SYSTEM,
+                    text='can\'t replace captain of flagship',
+                )
+                self.session.send(pack)
+                return
 
         self.role.mate_mgr.assign_duty(mate_id, ship_id, duty_type)
 

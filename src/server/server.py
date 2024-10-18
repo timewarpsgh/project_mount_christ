@@ -48,6 +48,7 @@ class Session(Connection):
             if c.SAVE_ON_DISCONNECT:
                 loop = asyncio.get_event_loop()
                 await loop.run_in_executor(EXECUTOR, role.save_to_db)
+                print(f'{role.name} saved to db!!')
 
             # tell all watchers that I'm offline
             loop = asyncio.get_event_loop()

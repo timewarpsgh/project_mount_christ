@@ -20,9 +20,18 @@ class LoginDialog:
         self.client = client
 
         # add ui window
+        width = 300
+        height = 300
         self.ui_window = pygame_gui.elements.UIWindow(
-            rect=pygame.Rect((0, 0), (300, 300)),
+            rect=pygame.Rect((0, 0), (width, height)),
             manager=self.mgr,
+        )
+
+        # add panel
+        panel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect((0, 0), (width, height)),
+            manager=self.mgr,
+            container=self.ui_window,
         )
 
         # add buttion to manager
@@ -30,7 +39,7 @@ class LoginDialog:
             relative_rect=pygame.Rect((0, 0), (100, 50)),
             text='登录',
             manager=self.mgr,
-            container=self.ui_window,
+            container=panel,
             on_click=partial(self.login),
         )
 
@@ -39,7 +48,7 @@ class LoginDialog:
             relative_rect=pygame.Rect((0, 50), (100, 50)),
             initial_text=self.client.account_and_password,
             manager=self.mgr,
-            container=self.ui_window,
+            container=panel,
         )
 
         # add entry box
@@ -47,15 +56,15 @@ class LoginDialog:
             relative_rect=pygame.Rect((0, 100), (100, 50)),
             initial_text=self.client.account_and_password,
             manager=self.mgr,
-            container=self.ui_window,
+            container=panel,
         )
 
         # add buttion to manager
         self.no_account_button = MyButton(
             relative_rect=pygame.Rect((0, 200), (100, 50)),
-            text='没有账号？',
+            text='注册',
             manager=self.mgr,
-            container=self.ui_window,
+            container=panel,
             on_click=partial(self.__make_create_account_dialog),
         )
 

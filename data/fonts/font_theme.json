@@ -102,7 +102,8 @@
     {
          "misc":
          {
-             "enable_title_bar": "0"
+             "enable_title_bar": "1",
+             "title_bar_height": "16"
          }
     },
     "selection_list":

@@ -20,8 +20,7 @@ TO DO:
 
     init with a mate OK
 
-    login
-
+    UI for creat account (enable_title_bar) OK
 
 
 DONE:

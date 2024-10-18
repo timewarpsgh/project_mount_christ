@@ -18,9 +18,18 @@ class CreateRoleDialog:
         self.world_id = world_id
 
         # add ui window
+        width = 300
+        height = 300
         self.ui_window = pygame_gui.elements.UIWindow(
-            rect=pygame.Rect((0, 0), (300, 300)),
+            rect=pygame.Rect((0, 0), (width, height)),
             manager=self.mgr,
+        )
+
+        # add panel
+        panel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect((0, 0), (width, height)),
+            manager=self.mgr,
+            container=self.ui_window,
         )
 
         # add buttion to manager
@@ -28,7 +37,7 @@ class CreateRoleDialog:
             relative_rect=pygame.Rect((0, 0), (100, 50)),
             text='创建角色',
             manager=self.mgr,
-            container=self.ui_window,
+            container=panel,
             on_click=partial(self.__create_role),
         )
 
@@ -37,7 +46,7 @@ class CreateRoleDialog:
             relative_rect=pygame.Rect((0, 50), (100, 50)),
             initial_text='角色名',
             manager=self.mgr,
-            container=self.ui_window,
+            container=panel,
         )
 
     def __create_role(self):

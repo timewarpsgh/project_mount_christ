@@ -18,9 +18,18 @@ class CreateAccountDialog:
         self.client = client
 
         # add ui window
+        width = 300
+        height = 300
         self.ui_window = pygame_gui.elements.UIWindow(
-            rect=pygame.Rect((0, 0), (300, 300)),
+            rect=pygame.Rect((0, 0), (width, height)),
             manager=self.mgr,
+        )
+
+        # add panel
+        panel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect((0, 0), (width, height)),
+            manager=self.mgr,
+            container=self.ui_window,
         )
 
         # add buttion to manager
@@ -28,7 +37,7 @@ class CreateAccountDialog:
             relative_rect=pygame.Rect((0, 0), (100, 50)),
             text='创建账号',
             manager=self.mgr,
-            container=self.ui_window,
+            container=panel,
             on_click=partial(self.__create_account),
         )
 
@@ -37,7 +46,7 @@ class CreateAccountDialog:
             relative_rect=pygame.Rect((0, 50), (100, 50)),
             initial_text='账号1',
             manager=self.mgr,
-            container=self.ui_window,
+            container=panel,
         )
 
         # add entry box
@@ -45,7 +54,7 @@ class CreateAccountDialog:
             relative_rect=pygame.Rect((0, 100), (100, 50)),
             initial_text='密码1',
             manager=self.mgr,
-            container=self.ui_window,
+            container=panel,
         )
 
     def __create_account(self):

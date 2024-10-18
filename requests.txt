@@ -22,7 +22,8 @@ TO DO:
         save role OK
         save ships OK
         save mates OK
-        save friends
+        save friends OK
+
 
 
     login

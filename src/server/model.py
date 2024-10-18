@@ -1698,6 +1698,9 @@ class Role:
         ROLE_SESSION.commit()
 
     def __save_friends(self):
+        """
+        no need, as friends in db are modified in real time
+        """
         pass
 
     def __save_role(self):

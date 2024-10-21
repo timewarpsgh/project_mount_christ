@@ -165,6 +165,7 @@ class PacketHandler:
             id_of_new_role = self.__create_role(new_role)
             new_mate_id = self.__create_mate(new_role, id_of_new_role)
             # self.__create_ship(new_role, id_of_new_role, new_mate_id)
+
             return NewRoleRes.NewRoleResType.OK
 
     def __create_ship(self, new_role, id_of_new_role, new_mate_id):
@@ -275,6 +276,10 @@ class PacketHandler:
         new_role_res = NewRoleRes()
         new_role_res.new_role_res_type = res_type
         self.session.send(new_role_res)
+
+        if res_type == NewRoleRes.NewRoleResType.OK:
+            pack = pb.GetRolesInWorld(world_id=1)
+            await self.handle_GetRolesInWorld(pack)
 
     def __fill_ships_in_ram(self, role, ships):
 

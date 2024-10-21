@@ -4,6 +4,8 @@ TO DO:
 
     login show pwd as * OK
 
+    after new role created, show the role in the role list OK
+
 
 
 

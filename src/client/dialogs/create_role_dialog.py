@@ -53,8 +53,16 @@ class CreateRoleDialog:
     def __create_role(self):
         print(f'send __create_role packet for {self.world_id=}')
         new_role = NewRole()
-        new_role.name = self.entry_box_role_name.get_text()
+
         new_role.world_id = self.world_id
+
+        new_role.name = self.entry_box_role_name.get_text()
+        new_role.nation = 2
+        new_role.talent_in_nav = 1
+        new_role.talent_in_acc = 1
+        new_role.talent_in_bat = 1
+        new_role.img_id = '1_2'
+
         self.client.send(new_role)
 
 

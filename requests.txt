@@ -17,7 +17,7 @@ TO DO:
         figure_id, select from imgs
 
         backend   OK
-        frontend  send static data to backend ON
+        frontend  send static data to backend OK
         frontend  send dynamic data to backend ON
 
 

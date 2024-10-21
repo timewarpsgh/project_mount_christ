@@ -2412,7 +2412,7 @@ class Role:
         return ids
 
     def get_nation(self):
-        return self.get_flag_ship().get_captain().nation
+        return self.nation
 
     def is_in_my_capital(self):
         if self.map_id in c.PORT_ID_2_NATION :
@@ -3651,6 +3651,10 @@ class Role:
 
     def get_discount(self):
         flag_ship = self.get_flag_ship()
+
+        if not flag_ship:
+            return 0
+
         accountant = flag_ship.get_accountant()
         captain = flag_ship.get_captain()
 
@@ -4016,7 +4020,7 @@ class Role:
         self.session.send(pack)
 
     def get_nation(self):
-        return self.get_flag_ship().get_captain().nation
+        return self.nation
 
     def fight_role(self, role_id):
         target_role = self.session.server.get_role(role_id)

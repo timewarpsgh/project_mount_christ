@@ -1,36 +1,10 @@
 TO DO:
 
-    scenes
-        in port  OK
-        at sea   OK
-        in battle OK
+    no ship bug check OK
 
-        events OK
-        multiplayer  OK
+    login show pwd as * ON
 
-        chat in chinese, show char selections OK
 
-        dynamic port npc clicked, show nothing OK
-
-    logging out triggers save to db OK
-
-    create account OK
-
-    create character OK
-
-    init with a mate OK
-
-    UI for creat account (enable_title_bar) OK
-
-    msg windows have bg now (using my_panel_windows) OK
-
-    menu window, height + OK
-
-    remove text box line OK
-
-    login dialog bg OK
-
-    smaller login dialog OK
 
 
 DONE:

@@ -1478,7 +1478,7 @@ class MateMgr:
         return self.id_2_mate.get(mate_id)
 
     def get_mates(self):
-        return self.id_2_mate.values()
+        return list(self.id_2_mate.values())
 
     def is_mate_in_fleet(self, mate_template):
         mates = self.get_mates()
@@ -2188,7 +2188,11 @@ class Role:
         # is role
         else:
             role = self.session.server.get_role(role_id)
-            mate = role.get_flag_ship().get_captain()
+            flag_ship = role.get_flag_ship()
+            if flag_ship:
+                mate = flag_ship.get_captain()
+            else:
+                mate = role.mate_mgr.get_mates()[0]
 
             weapon = role.weapon
             armor = role.armor

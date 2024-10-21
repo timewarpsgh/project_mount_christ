@@ -1,3 +1,5 @@
+import random
+
 import pygame_gui
 import pygame
 from functools import partial
@@ -5,10 +7,28 @@ from functools import partial
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\client')
 
 from login_pb2 import *
-from my_ui_elements import MyButton, MyMsgWindow
+from my_ui_elements import MyButton, MyMsgWindow, MyPanelWindow
 import constants as c
+from asset_mgr import sAssetMgr
+
+
+def figure_x_y_2_image(x=8, y=8):
+    figure_width = 65
+    figure_height = 81
+
+    figures_image = sAssetMgr.images['figures']['figures']
+
+
+    figure_surface = pygame.Surface((figure_width, figure_height))
+    x_coord = -figure_width * (x - 1) - 3
+    y_coord = -figure_height * (y - 1) - 3
+    rect = pygame.Rect(x_coord, y_coord, figure_width, figure_height)
+    figure_surface.blit(figures_image, rect)
+
+    return figure_surface
 
 
 class CreateRoleDialog:
@@ -48,7 +68,7 @@ class CreateRoleDialog:
             on_click=partial(self.__create_role),
         )
 
-        # add entry box
+        # name
         self.entry_box_role_name = pygame_gui.elements.UITextEntryBox(
             relative_rect=pygame.Rect((0, 50), (100, 50)),
             initial_text='角色名',
@@ -56,6 +76,7 @@ class CreateRoleDialog:
             container=panel,
         )
 
+        # nation
         self.nation_menu = pygame_gui.elements.UIDropDownMenu(
             options_list=[nation.name for nation in c.Nation],
             starting_option=c.Nation.ENGLAND.name,
@@ -63,6 +84,36 @@ class CreateRoleDialog:
             manager=self.mgr,
             container=panel)
 
+        # talents
+        self.__add_talent_buttons(panel)
+
+        # img
+        self.img_x = 2
+        self.img_y = 2
+        image = figure_x_y_2_image(self.img_x, self.img_y)
+        self.figure_img = pygame_gui.elements.UIImage(
+            pygame.Rect((0, 240), (image.get_rect().size)),
+            image,
+            self.mgr,
+            container=panel
+        )
+
+        # randomize button
+        self.login_button = MyButton(
+            relative_rect=pygame.Rect((80, 260), (100, 50)),
+            text='Randomize',
+            manager=self.mgr,
+            container=panel,
+            on_click=partial(self.__randomize_img),
+        )
+
+    def __randomize_img(self):
+        self.img_x = random.randint(1, 16)
+        self.img_y = random.randint(1, 8)
+
+        self.figure_img.set_image(figure_x_y_2_image(self.img_x, self.img_y))
+
+    def __add_talent_buttons(self, panel):
         # points
         self.points_label = pygame_gui.elements.UILabel(
             relative_rect=pygame.Rect((0, 160), (150, 20)),
@@ -70,7 +121,6 @@ class CreateRoleDialog:
             manager=self.mgr,
             container=panel,
         )
-
         MyButton(
             relative_rect=pygame.Rect((150, 160), (70, 20)),
             text='Reset',
@@ -81,14 +131,12 @@ class CreateRoleDialog:
 
         # Talent in navigation
         label_width = 150
-
         self.nav_label = pygame_gui.elements.UILabel(
             relative_rect=pygame.Rect((0, 180), (label_width, 20)),
             text=f'Talent in nav: {self.talent_in_nav}',
             manager=self.mgr,
             container=panel,
         )
-
         MyButton(
             relative_rect=pygame.Rect((label_width + 20, 180), (40, 20)),
             text='+',
@@ -104,7 +152,6 @@ class CreateRoleDialog:
             manager=self.mgr,
             container=panel,
         )
-
         MyButton(
             relative_rect=pygame.Rect((label_width + 20, 200), (40, 20)),
             text='+',
@@ -120,7 +167,6 @@ class CreateRoleDialog:
             manager=self.mgr,
             container=panel,
         )
-
         MyButton(
             relative_rect=pygame.Rect((label_width + 20, 220), (40, 20)),
             text='+',
@@ -190,7 +236,7 @@ class CreateRoleDialog:
         new_role.talent_in_nav = self.talent_in_nav
         new_role.talent_in_acc = self.talent_in_acc
         new_role.talent_in_bat = self.talent_in_bat
-        new_role.img_id = '1_2'
+        new_role.img_id = f'{self.img_x}_{self.img_y}'
 
         self.client.send(new_role)
 

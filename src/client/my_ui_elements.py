@@ -66,14 +66,14 @@ class MyMenuWindow:
 class MyButton:
 
     def __init__(self, relative_rect, text, manager, container, on_click):
-        button = pygame_gui.elements.UIButton(
+        self.button = pygame_gui.elements.UIButton(
             relative_rect=relative_rect,
             text=text,
             manager=manager,
             container=container,
         )
 
-        button.on_click = on_click
+        self.button.on_click = on_click
 
 class MyPanelWindow():
     """displays info"""

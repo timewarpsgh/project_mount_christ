@@ -21,6 +21,7 @@ TO DO:
         frontend  send dynamic data to backend ON
 
             choose talent OK
+            choose img OK
 
 
 

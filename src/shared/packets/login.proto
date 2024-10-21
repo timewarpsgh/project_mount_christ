@@ -63,8 +63,13 @@ message GetRolesInWorldRes {
 
 // new role
 message NewRole {
-    required string name = 1;
-    required int32 world_id = 2;
+    required int32 world_id = 1;
+    required string name = 2;
+    required int32 nation = 3;
+    required int32 talent_in_nav = 4;
+    required int32 talent_in_acc = 5;
+    required int32 talent_in_bat = 6;
+    required string img_id = 7;
 }
 
 message NewRoleRes {

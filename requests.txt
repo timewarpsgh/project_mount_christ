@@ -6,7 +6,22 @@ TO DO:
 
     after new role created, show the role in the role list OK
 
+    create_role ON
+        name OK
+        nation, select from 6 nations
+        talents, 3 points
+            talent_in_nav 0   +
+            talent_in_acc 0   +
+            talent_in_bat 0   +
 
+        figure_id, select from imgs
+
+        backend   OK
+        frontend  send static data to backend ON
+        frontend  send dynamic data to backend ON
+
+
+    consumptions at sea, at least 1 per day ON
 
 
 DONE:

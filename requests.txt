@@ -23,6 +23,10 @@ TO DO:
             choose talent OK
             choose img OK
 
+        text entry line bg OK
+
+        chat msg while typing, color -> white ON
+
 
 
     consumptions at sea, at least 1 per day ON

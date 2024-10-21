@@ -49,6 +49,12 @@
             "name": "MS Gothic",
             "size": "15",
             "regular_path":"../../data/fonts/siyuanheiti.ttf"
+        },
+        "colours":
+        {
+            "dark_bg": "#00000000",
+            "normal_text": "#000000",
+            "normal_border": "#00000000"
         }
     },
     "text_entry_box":

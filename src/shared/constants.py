@@ -471,6 +471,7 @@ NATION_ID_2_PORT_ID = {
     Nation.OTTOMAN.value: Capital.ISTANBUL.value,
 }
 
+
 class Item(Enum):
     BALM = 1
     LIME_JUICE = 2
@@ -507,4 +508,4 @@ class TimeType(Enum):
     NIGHT = 'night'
 
 if __name__ == '__main__':
-    print(Nation.ENGLAND.name)
+    print(list(TalentType.ALL_NAVIGATION.value))

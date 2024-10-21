@@ -125,5 +125,12 @@
                "path": "../../data/imgs/buildings/huge_panel_canvas.png"
              }
          }
+    },
+    "label":
+    {
+         "colours": {
+             "normal_text": "#000000"
+         }
     }
+
 }

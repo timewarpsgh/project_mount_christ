@@ -2472,6 +2472,9 @@ class Role:
     def mod_money(self, amount):
         self.money += amount
 
+        if self.money <= 0:
+            self.money = 0
+
         self.session.send(
             pb.MoneyChanged(
                 money=self.money
@@ -3232,7 +3235,10 @@ class Role:
 
         # pay mates
         total_mates = len(self.mate_mgr.get_mates())
-        mates_payment = total_mates * c.MATE_WAGE
+        if total_mates <= 4:
+            mates_payment = 0
+        else:
+            mates_payment = (total_mates - 4) * c.MATE_WAGE
 
         total_payment = crew_payment + mates_payment
         self.mod_money(-total_payment)

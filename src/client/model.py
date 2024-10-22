@@ -441,6 +441,9 @@ class ShipMgr:
 
         total_crew = self.get_total_crew()
 
+        if total_crew <= 0:
+            total_crew = 1
+
         days_based_on_water = total_water // (total_crew * c.SUPPLY_CONSUMPTION_PER_PERSON)
         days_based_on_food = total_food // (total_crew * c.SUPPLY_CONSUMPTION_PER_PERSON)
 
@@ -696,6 +699,9 @@ class Role:
 
     def start_moving(self, dir):
         if self.is_in_port():
+            if self.is_moving and self.dir == dir:
+                return
+
             self.is_moving = True
             self.dir = dir
             self.move_timer = 0

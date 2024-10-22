@@ -1,36 +1,23 @@
 TO DO:
 
-    no ship bug check OK
+    test play ON
+        Tommy lv and talent (nav)
+        Charlie lv and talent (bat)
+        storm sound effect
 
-    login show pwd as * OK
+        wage to crew and mates at early game,
 
-    after new role created, show the role in the role list OK
+        initial money -> 5000
 
-    create_role ON
-        name OK
-        nation, select from 6 nations
-        talents, 3 points
-            talent_in_nav 0   +
-            talent_in_acc 0   +
-            talent_in_bat 0   +
+        in port speed increases suddenly bug  OK
 
-        figure_id, select from imgs
+        ship lv required
 
-        backend   OK
-        frontend  send static data to backend OK
-        frontend  send dynamic data to backend ON
+        chat dialog suddenly disappears bug
 
-            choose talent OK
-            choose img OK
+        no negative money  OK
 
-        text entry line bg OK
-
-        chat msg while typing, color -> white OK
-
-
-
-    consumptions at sea, at least 1 per day OK
-
+        show xp to next lv
 
 DONE:
 

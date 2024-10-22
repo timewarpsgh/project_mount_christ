@@ -21,6 +21,15 @@ TO DO:
 
         stromed to death msg
 
+        capitals sell more items
+
+
+
+        can't enter captown
+
+        need to see one cargo's sell price in all regions  ON
+
+
 DONE:
 
     events OK

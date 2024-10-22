@@ -3106,6 +3106,9 @@ class Role:
         total_crew = self.ship_mgr.get_total_crew()
         total_comsumption = int(total_crew * c.SUPPLY_CONSUMPTION_PER_PERSON * self.ration / 100)
 
+        if total_comsumption <= 0:
+            total_comsumption = 1
+
         if self.has_aura(c.Aura.RATS.value):
             total_comsumption *= 2
 

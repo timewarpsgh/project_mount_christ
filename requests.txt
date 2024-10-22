@@ -17,6 +17,7 @@ TO DO:
 
         no negative money  OK
 
+
         show xp to next lv
 
 DONE:

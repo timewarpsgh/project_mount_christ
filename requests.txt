@@ -25,7 +25,7 @@ TO DO:
 
         text entry line bg OK
 
-        chat msg while typing, color -> white ON
+        chat msg while typing, color -> white OK
 
 
 

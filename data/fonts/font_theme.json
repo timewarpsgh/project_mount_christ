@@ -84,7 +84,8 @@
     {
          "colours":
          {
-             "dark_bg": "#19191940"
+             "dark_bg": "#19191940",
+             "normal_text": "#ffffff"
          }
     },
     "#console_window":

@@ -2260,8 +2260,13 @@ class Role:
         )
 
     def __is_cargo_available_in_my_port(self, cargo_id):
+
         port_map = self.get_map()
         port = self.get_port()
+
+        if port.specialty_id == cargo_id:
+            return True
+
         cargo_template = sObjectMgr.get_cargo_template(cargo_id)
 
         economy_diff = port_map.economy_index - port.economy
@@ -3682,6 +3687,7 @@ class Role:
 
     def buy_cargo(self, cargo_id, cnt, ship_id):
         if not self.__is_cargo_available_in_my_port(cargo_id):
+            print("cargo not available in this port")
             return
 
         # get cost

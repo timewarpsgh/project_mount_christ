@@ -9,16 +9,17 @@ TO DO:
 
         initial money -> 5000
 
-        in port speed increases suddenly bug  OK
 
         ship lv required
 
         chat dialog suddenly disappears bug
 
-        no negative money  OK
-
 
         show xp to next lv
+
+        can't buy porcelain bug OK
+
+        stromed to death msg
 
 DONE:
 

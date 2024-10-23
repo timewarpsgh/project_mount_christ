@@ -1085,3 +1085,9 @@ message RemoveFriend {
 message FriendRemoved {
     required int32 role_id = 1;
 }
+
+message ShowWinImg {
+}
+
+message ShowLoseImg {
+}

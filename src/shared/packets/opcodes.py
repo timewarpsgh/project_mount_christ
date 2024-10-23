@@ -252,6 +252,9 @@ class OpCodeType(Enum):
     RemoveFriend = auto()
     FriendRemoved = auto()
 
+    ShowWinImg = auto()
+    ShowLoseImg = auto()
+
 
 def gen_opcode_2_value():
     d = {}

@@ -21,6 +21,8 @@ TO DO:
         stormed to death msg  OK
         gm cmd: .die OK
 
+        show win battle and lose battle panel window OK
+
 
 DONE:
 

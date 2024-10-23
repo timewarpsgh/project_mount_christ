@@ -1217,3 +1217,19 @@ class PacketHandler:
             f'{friend.name} removed!'
         )
         self.__get_options_dialog().pop_some_menus(2)
+
+    async def handle_ShowWinImg(self, pack):
+        MyPanelWindow(
+            rect=pygame.Rect(0, 0, 400, 400),
+            ui_manager=self.client.game.gui.mgr,
+            text='The enemy has been defeated!',
+            image=sAssetMgr.images['conditions']['win_battle'],
+        )
+
+    async def handle_ShowLoseImg(self, pack):
+        MyPanelWindow(
+            rect=pygame.Rect(0, 0, 400, 400),
+            ui_manager=self.client.game.gui.mgr,
+            text='You have been defeated by the enenmy!',
+            image=sAssetMgr.images['conditions']['lose_battle'],
+        )

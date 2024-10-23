@@ -2975,12 +2975,14 @@ class Role:
                          f'and {amount} gold coins from the enemy.',
                 )
                 self.session.send(pack)
+                self.session.send(pb.ShowWinImg())
 
                 pack = pb.RandMateSpeak(
                     text=f'We lost {captured_ships_cnt} ships '
                          f'and {amount} gold coins to the enemy.',
                 )
                 enemy.session.send(pack)
+                enemy.session.send(pb.ShowLoseImg())
 
                 # notify nearby roles
                 sMapMgr.add_object(self)
@@ -3342,6 +3344,8 @@ class Role:
         )
         self.session.send(pack)
 
+        # show win img
+        self.session.send(pb.ShowWinImg())
 
         self.npc_instance = None
         self.battle_npc_id = None
@@ -3371,6 +3375,7 @@ class Role:
         self.__lose_money_due_to_death()
 
         self.session.send(pb.EscapedNpcBattle())
+        self.session.send(pb.ShowLoseImg())
 
         self.npc_instance = None
         self.battle_npc_id = None

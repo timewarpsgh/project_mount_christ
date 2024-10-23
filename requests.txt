@@ -4,9 +4,6 @@ TO DO:
         Tommy lv and talent (nav)
         Charlie lv and talent (bat)
 
-
-
-
         initial money -> 5000
 
 
@@ -17,18 +14,11 @@ TO DO:
 
         show xp to next lv
 
-
-        stromed to death msg
-
         capitals sell more items
         some ports have item ids not found
 
-        at sea aura: OK
 
-
-
-
-
+        stormed to death msg  OK
 
 
 DONE:

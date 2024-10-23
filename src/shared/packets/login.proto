@@ -730,7 +730,7 @@ message SupplyConsumed {
     required int32 now_cnt = 3;
 }
 
-message YouStarvedToDeath {
+message YouDied {
 }
 
 message ShipFieldChanged {

@@ -857,8 +857,14 @@ class PacketHandler:
         ship = self.__get_role().ship_mgr.get_ship(ship_id)
         setattr(ship, supply_name, now_cnt)
 
-    async def handle_YouStarvedToDeath(self, pack):
-        self.__get_chat_dialog().add_chat(pb.ChatType.SYSTEM, 'You starved to death!')
+    async def handle_YouDied(self, pack):
+        MyPanelWindow(
+            rect=pygame.Rect(0, 0, 400, 400),
+            ui_manager=self.client.game.gui.mgr,
+            text='You have lost your life. '
+                 'Your story will be remembered and studied by those to come.',
+            image=sAssetMgr.images['conditions']['sunk'],
+        )
 
     async def handle_ShipFieldChanged(self, pack):
         ship_id = pack.ship_id

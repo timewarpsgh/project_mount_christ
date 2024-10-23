@@ -3104,7 +3104,7 @@ class Role:
 
         # starve
         if self.health <= 0:
-            self.__starve()
+            self.__die()
 
         self.session.send(pb.RoleFieldSet(key='morale', int_value=self.morale))
         self.session.send(pb.RoleFieldSet(key='health', int_value=self.health))
@@ -3276,11 +3276,11 @@ class Role:
         if not is_food_enough or not is_water_enough:
             self.starved_days += 1
             if self.starved_days >= 2:
-                self.__starve()
+                self.__die()
         else:
             self.__change_morale_and_health()
 
-        self.__take_damage_from_strom()
+        self.__take_damage_from_storm()
 
         self.__add_aura_by_chance()
 
@@ -3443,7 +3443,7 @@ class Role:
         else:
             return False
 
-    def __take_damage_from_strom(self):
+    def __take_damage_from_storm(self):
         if self.has_aura(c.Aura.STORM.value):
             for ship in self.ship_mgr.get_ships():
                 ship.now_durability -= int(ship.max_durability * 0.4)
@@ -3461,16 +3461,16 @@ class Role:
 
             flag_ship = self.get_flag_ship()
             if flag_ship.now_durability <= 0:
-                self.__starve()
+                self.__die()
 
     def __lose_money_due_to_death(self):
         self.mod_money(-int(self.money * 0.5))
 
-    def __starve(self):
+    def __die(self):
         self.is_dead = True
         self.fleet_speed = c.DEAD_SPEED
         self.start_moving(self.x, self.y, self.dir)
-        self.session.send(pb.YouStarvedToDeath())
+        self.session.send(pb.YouDied())
 
         self.ship_mgr.clear_crew()
 

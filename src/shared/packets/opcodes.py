@@ -140,7 +140,7 @@ class OpCodeType(Enum):
     OneDayPassedAtSea = auto()
     SupplyConsumed = auto()
 
-    YouStarvedToDeath = auto()
+    YouDied = auto()
     ShipFieldChanged = auto()
 
     SetRoleField = auto()

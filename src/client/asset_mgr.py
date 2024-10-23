@@ -80,6 +80,10 @@ class AssetMgr:
         path_to_player_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\player"
         load_images_in_dir(self.images['player'], path_to_player_imgs)
 
+        self.images['conditions'] = {}
+        path_to_conditions_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\conditions"
+        load_images_in_dir(self.images['conditions'], path_to_conditions_imgs)
+
     def load_sounds(self):
         load_sounds_in_dir(self.sounds, f"D:\data\code\python\project_mount_christ\data\sounds\effect")
 

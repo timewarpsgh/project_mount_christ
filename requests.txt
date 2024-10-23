@@ -3,10 +3,7 @@ TO DO:
     test play ON
         light galley costs 2100 OK
 
-        Tommy lv and talent (nav)
-        Charlie lv and talent (bat)
-
-        initial money -> 5000
+        quest mates lv and talent OK
 
 
         ship lv required

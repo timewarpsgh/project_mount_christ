@@ -71,6 +71,10 @@ class PortMap:
         if self.id % 2 == 0:
             mate_template_id = self.id // 2
             mate_template = sObjectMgr.get_mate_template(mate_template_id)
+
+            if mate_template_id <= 4:
+                return None
+
             return mate_template
         else:
             return None

@@ -17,7 +17,7 @@ def load_images_in_dir(dict, path_to_dir, accept=('.png', '.jpg', '.bmp', '.gif'
             img = img.convert_alpha()
             dict[name] = img
 
-def load_sounds_in_dir(sounds_container, directory, accept=('.ogg')):
+def load_sounds_in_dir(sounds_container, directory, accept=('.ogg', '.mp3')):
     """loads all imgs in dir into image_contrainer"""
     for sound in os.listdir(directory):
         name, ext = os.path.splitext(sound)

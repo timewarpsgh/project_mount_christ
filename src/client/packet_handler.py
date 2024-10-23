@@ -988,12 +988,22 @@ class PacketHandler:
         role = self.__get_role()
         role.auras.add(aura_id)
 
+        # good auras
         if aura_id in [c.Aura.PRAYER.value, c.Aura.DONATION.value]:
             return
 
         mate = self.get_mate_mgr().get_random_mate()
         aura = sObjectMgr.get_aura(aura_id)
-        self.__get_options_dialog().show_mate_speech(mate, f'Captain, we got {aura.name}.')
+
+        # bad auras
+        if aura_id == c.Aura.STORM.value:
+            self.__get_options_dialog().show_mate_speech(mate, f'A storm is coming! What are we gonna do?')
+            sAssetMgr.sounds['lightning'].play()
+        elif aura_id == c.Aura.RATS.value:
+            self.__get_options_dialog().show_mate_speech(mate, f'We found rats eating our food!')
+            sAssetMgr.sounds['rats'].play()
+        elif aura_id == c.Aura.SCURVY.value:
+            self.__get_options_dialog().show_mate_speech(mate, f'Some of us have scurvy!')
 
     async def handle_AuraRemoved(self, pack):
         aura_id = pack.aura_id

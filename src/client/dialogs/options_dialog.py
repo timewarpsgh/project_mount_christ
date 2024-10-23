@@ -1939,10 +1939,21 @@ class OptionsDialog:
 
         PacketParamsDialog(self.mgr, self.client, ['cnt'], buy_cargo)
 
+    def __show_sell_prices(self, cargo_id):
+        cargo_template = sObjectMgr.get_cargo_template(cargo_id)
+        economy_id_2_sell_price = json.loads(cargo_template.sell_price)
+
+        option_2_callback = {}
+        for economy_id, sell_price in economy_id_2_sell_price.items():
+            option_2_callback[f'{c.MARKETS[int(economy_id)]} {sell_price}'] = ''
+
+        self.__make_menu(option_2_callback)
+
     def __show_ships_to_load_cargo_menu(self, cargo_id):
         ship_mgr = self.client.game.graphics.model.role.ship_mgr
 
         option_2_callback = {
+            'Sell Prices': partial(self.__show_sell_prices, cargo_id),
         }
 
         for ship_id, ship in ship_mgr.id_2_ship.items():

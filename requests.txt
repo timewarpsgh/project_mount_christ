@@ -2,7 +2,6 @@ TO DO:
 
     test play ON
         light galley costs 2100 OK
-
         quest mates lv and talent OK
 
 

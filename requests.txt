@@ -14,7 +14,7 @@ TO DO:
 
         show xp to next lv
 
-        capitals sell more items
+        capitals sell more items  OK
         some ports have item ids not found   OK
 
 

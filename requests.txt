@@ -19,6 +19,7 @@ TO DO:
 
 
         stormed to death msg  OK
+        gm cmd: .die OK
 
 
 DONE:

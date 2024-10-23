@@ -568,6 +568,9 @@ class PacketHandler:
     def _handle_gm_cmd_win_npc(self, params):
         self.role.win_npc()
 
+    def _handle_gm_cmd_die(self, params):
+        self.role.die()
+
     def _handle_gm_cmd_lose_to_npc(self, params):
         # lose all except flag ship
         self.role.lose_to_npc()

@@ -127,9 +127,23 @@ class OptionsDialog:
         if len(option_2_callback) == 0:
             self.__building_speak('You seem to have no cargo to sell.')
 
+    def is_window_essential(self, window):
+        object_ids = window.get_object_ids()
+        if '#console_window' in object_ids or '#options_window' in object_ids:
+            return True
+        return False
+
     def pop_some_menus(self, cnt):
+        # reset windows if top window is essential
+        stacked_windows = self.mgr.get_window_stack().get_stack()
+        top_window = stacked_windows[-1]
+        if self.is_window_essential(top_window) and len(stacked_windows) != 2:
+            self.mgr.get_window_stack().clear()
+            self.client.packet_handler.init_essential_windows()
+
         for i in range(cnt):
             stacked_windows = self.mgr.get_window_stack().get_stack()
+
             if len(stacked_windows) >= 3:
                 top_window = stacked_windows.pop()
                 top_window.kill()

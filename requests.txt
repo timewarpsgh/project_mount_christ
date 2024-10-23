@@ -14,7 +14,7 @@ TO DO:
             asign captain checks ship lv OK
 
 
-        chat dialog suddenly disappears bug
+        chat dialog suddenly disappears bug   OK
 
 
         show xp to next lv

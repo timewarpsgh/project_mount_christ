@@ -222,9 +222,7 @@ class PacketHandler:
             # clear gui
             self.client.game.gui.mgr.clear_and_reset()
             # init options dialog
-            self.client.game.gui.options_dialog = OptionsDialog(self.client.game.gui.mgr, self.client)
-            # init chat dialog
-            self.client.game.gui.chat_dialog = ChatDialog(self.client.game.gui.mgr, self.client)
+            self.init_essential_windows()
 
             # set is_in_game for client
             self.is_in_game = True
@@ -234,6 +232,10 @@ class PacketHandler:
                 msg='failed to enter world!',
                 mgr=self.client.game.gui.mgr
             )
+
+    def init_essential_windows(self):
+        self.client.game.gui.options_dialog = OptionsDialog(self.client.game.gui.mgr, self.client)
+        self.client.game.gui.chat_dialog = ChatDialog(self.client.game.gui.mgr, self.client)
 
     async def handle_RoleAppeared(self, role_appeared):
         print(f'!!!!get packet role_appeared for '

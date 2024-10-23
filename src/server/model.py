@@ -2591,7 +2591,7 @@ class Role:
         )
 
     def get_lv(self):
-        mate = self.get_flag_ship().get_captain()
+        mate = self.mate_mgr.get_mates()[0]
         lv = max(mate.lv_in_nav, mate.lv_in_acc, mate.lv_in_bat)
         return lv
 

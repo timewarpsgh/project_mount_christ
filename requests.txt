@@ -6,6 +6,8 @@ TO DO:
 
         item lv required OK
 
+        client show max lv OK
+
         ship lv required  ON
 
         chat dialog suddenly disappears bug

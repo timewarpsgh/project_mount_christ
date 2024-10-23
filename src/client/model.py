@@ -616,6 +616,11 @@ class Role:
         else:
             return False
 
+    def get_lv(self):
+        mate = self.mate_mgr.get_mates()[0]
+        lv = max(mate.lv_in_nav, mate.lv_in_acc, mate.lv_in_bat)
+        return lv
+
     def unequip_item(self, item_id):
         if item_id == self.weapon:
             self.weapon = None

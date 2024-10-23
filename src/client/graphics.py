@@ -718,8 +718,9 @@ class HudLeft(SP):
         new_image.blit(Text('Spring').image, (x, 142))
 
         if self.model.role.is_in_port():
+            lv = self.model.role.get_lv()
 
-            new_image.blit(Text('Lv \n  1').image, (x, 240))
+            new_image.blit(Text(f'Lv \n  {lv}').image, (x, 240))
 
             ingots = Text(f'Gold Ingots \n  {self.model.role.money // 10000}').image
             coins = Text(  f'Gold Coins \n  {self.model.role.money % 10000}').image

@@ -15,13 +15,7 @@ TO DO:
         show xp to next lv
 
         capitals sell more items
-        some ports have item ids not found
-
-
-        stormed to death msg  OK
-        gm cmd: .die OK
-
-        show win battle and lose battle panel window OK
+        some ports have item ids not found   OK
 
 
 DONE:

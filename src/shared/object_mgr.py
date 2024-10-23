@@ -183,7 +183,7 @@ class ObjectMgr:
         return self.id_2_cannon.values()
 
     def get_item(self, id):
-        return self.id_2_item[id]
+        return self.id_2_item.get(id)
 
     def get_items(self):
         return list(self.id_2_item.values())

@@ -2417,7 +2417,7 @@ class Role:
             return []
 
         ids = port.items_ids.split(' ')
-        ids = [int(id) for id in ids]
+        ids = [int(id) for id in ids if sObjectMgr.get_item(int(id))]
         return ids
 
     def get_nation(self):

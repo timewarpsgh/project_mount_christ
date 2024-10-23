@@ -679,6 +679,12 @@ class Role:
         else:
             return False
 
+    def is_in_supply_port(self):
+        if self.is_in_port():
+            if self.map_id > 100:
+                return True
+        return False
+
     def is_at_sea(self):
         if self.map_id == 0 and not self.is_in_battle():
             return True

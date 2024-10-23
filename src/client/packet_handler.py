@@ -376,8 +376,13 @@ class PacketHandler:
             elif role.is_in_port():
                 port = sObjectMgr.get_port(role.map_id)
                 print(f'entered port {port.name}')
-                self.__get_graphics().add_port_npcs(role.map_id)
-                self.__get_graphics().add_dynamic_port_npcs(role.map_id)
+
+                if role.is_in_supply_port():
+                    pass
+                else:
+                    self.__get_graphics().add_port_npcs(role.map_id)
+                    self.__get_graphics().add_dynamic_port_npcs(role.map_id)
+
                 self.client.game.graphics.change_background_sp_to_port(role.map_id, role.x, role.y)
 
                 sAssetMgr.play_port_music()

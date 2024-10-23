@@ -21,12 +21,12 @@ TO DO:
         stromed to death msg
 
         capitals sell more items
+        some ports have item ids not found
 
 
 
-        can't enter captown
+        can't enter capetown OK
 
-        need to see one cargo's sell price in all regions  OK
 
 
 DONE:

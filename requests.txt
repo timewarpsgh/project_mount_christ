@@ -11,6 +11,9 @@ TO DO:
         ship lv required  ON
             client show ship lv OK
 
+            asign captain checks ship lv OK
+
+
         chat dialog suddenly disappears bug
 
 

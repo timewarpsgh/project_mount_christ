@@ -869,6 +869,19 @@ class PacketHandler:
         ship_id = assign_duty.ship_id
         duty_type = assign_duty.duty_type
 
+        # lv required
+        if duty_type == pb.DutyType.CAPTAIN:
+            ship = self.role.ship_mgr.get_ship(ship_id)
+            ship_template = sObjectMgr.get_ship_template(ship.ship_template_id)
+            if self.role.get_lv() < ship_template.lv:
+                # send chat msg
+                pack = pb.GotChat(
+                    chat_type=pb.ChatType.SYSTEM,
+                    text=f'lv required: {ship_template.lv}',
+                )
+                self.session.send(pack)
+                return
+
         # can't replace captain of flagship
         flag_ship = self.role.get_flag_ship()
         if flag_ship:

@@ -2006,6 +2006,7 @@ class OptionsDialog:
             'max_guns': f'{ship_template.max_guns}',
             'min_crew/max_crew': f'{ship_template.min_crew}/{ship_template.max_crew}',
             'max_cargo': f'{ship_template.capacity - ship_template.max_crew - ship_template.max_guns}',
+            'lv_required': f'{ship_template.lv}',
         }
 
         # make text from dict

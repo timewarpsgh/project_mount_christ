@@ -122,6 +122,7 @@ class ShipTemplate(BASE):
 	buy_price = Column(Integer)
 
 	required_industry_value = Column(Integer)
+	lv = Column(Integer)
 
 
 class ItemTemplate(BASE):

@@ -9,6 +9,7 @@ TO DO:
         client show max lv OK
 
         ship lv required  ON
+            client show ship lv OK
 
         chat dialog suddenly disappears bug
 

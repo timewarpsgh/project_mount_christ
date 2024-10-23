@@ -1526,8 +1526,10 @@ class OptionsDialog:
 
         if item.item_type == c.ItemType.WEAPON.value:
             dict['effect'] = f'For all ships, shoot and engage damage to targets increased by {item.effect}%.'
+            dict['lv required'] = f'Lv required: {item.lv}'
         elif item.item_type == c.ItemType.ARMOR.value:
             dict['effect'] = f'For all ships, Shoot and engage damage from enemy ships reduced by {item.effect}%.'
+            dict['lv required'] = f'Lv required: {item.lv}'
 
         # make text from dict
         text = ''

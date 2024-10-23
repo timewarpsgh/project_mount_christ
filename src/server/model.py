@@ -2590,6 +2590,11 @@ class Role:
             )
         )
 
+    def get_lv(self):
+        mate = self.get_flag_ship().get_captain()
+        lv = max(mate.lv_in_nav, mate.lv_in_acc, mate.lv_in_bat)
+        return lv
+
     def equip_item(self, item_id):
         if not self.is_in_port():
             # send chat
@@ -2605,6 +2610,10 @@ class Role:
             return
 
         item = sObjectMgr.get_item(item_id)
+
+        if self.get_lv() < item.lv:
+            return
+
         if item.item_type == c.ItemType.WEAPON.value:
             self.weapon = item_id
         elif item.item_type == c.ItemType.ARMOR.value:

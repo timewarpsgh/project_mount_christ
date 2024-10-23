@@ -4,13 +4,18 @@ TO DO:
         light galley costs 2100 OK
         quest mates lv and talent OK
 
+        item lv required OK
 
-        ship lv required
+        ship lv required  ON
 
         chat dialog suddenly disappears bug
 
 
         show xp to next lv
+
+        lv up process
+
+        reasonable xp amount gained
 
 
 DONE:

@@ -736,7 +736,7 @@ class PacketHandler:
 
         mate = self.get_mate_mgr().get_mate(mate_id)
         mate.xp_earned(duty_type, amount)
-        text = f"{mate.name} earned {amount} xp in {c.INT_2_DUTY_NAME[duty_type]}"
+        text = f"{mate.name} earned {amount} xp in {c.DUTY_NAME_2_XP_NAME[c.INT_2_DUTY_NAME[duty_type]]}"
         self.__get_chat_dialog().add_chat(pb.ChatType.SYSTEM, text)
 
     async def handle_LvUped(self, lv_uped):
@@ -753,7 +753,7 @@ class PacketHandler:
         sAssetMgr.sounds['lv_up'].play()
 
         # show chat
-        text = f"{mate.name} lv uped to {lv} in {c.INT_2_DUTY_NAME[duty_type]}"
+        text = f"{mate.name} advanced to lv {lv} in {c.DUTY_NAME_2_XP_NAME[c.INT_2_DUTY_NAME[duty_type]]}"
         self.__get_chat_dialog().add_chat(pb.ChatType.SYSTEM, text)
 
     async def handle_SeasonChanged(self, season_changed):

@@ -368,6 +368,13 @@ INT_2_DUTY_NAME = {
     4: 'first mate',
 }
 
+DUTY_NAME_2_XP_NAME = {
+    'chief navigator': 'nav',
+    'accountant': 'acc',
+    'first mate': 'bat',
+}
+
+
 LV_2_MAX_XP = {
     1: 400,
     2: 900,

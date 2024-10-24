@@ -3778,7 +3778,7 @@ class Role:
         self.session.send(pack)
 
     def __get_xp_amount_from_prfoit(self, profit):
-        xp = c.TRADE_XP_FACTOR * profit // 100
+        xp = int(c.TRADE_XP_FACTOR * profit // 100)
         return xp
 
     def sell_cargo(self, ship_id, cargo_id, cnt):

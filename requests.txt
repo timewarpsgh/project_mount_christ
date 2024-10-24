@@ -1,33 +1,14 @@
 TO DO:
 
     test play ON
-        light galley costs 2100 OK
-        quest mates lv and talent OK
-
-        item lv required OK
-
-        client show max lv OK
-
-        ship lv required  ON
-            client show ship lv OK
-
-            asign captain checks ship lv OK
-
-
-        chat dialog suddenly disappears bug   OK
-
-        press enter twice OK
-
-
-        show xp to next lv OK
-
-        ship info better UI OK
-
-        show ship speed on client OK
-
-        lv up process
 
         reasonable xp amount gained
+            trade  OK
+                proportional to profit
+            discover  OK
+                200 * navigation_skill
+            battle    ON
+
 
 
 DONE:

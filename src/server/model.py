@@ -1931,12 +1931,23 @@ class Role:
             self.__earn_xp_for_navigation()
 
     def __earn_xp_for_navigation(self):
-        # earn xp [chief_navigator and all captains]
-        xp_amount = 300
+
+        # cal xp_amount
         flag_ship = self.get_flag_ship()
+        captain_of_flag_ship = flag_ship.get_captain()
+        navigation_skill = captain_of_flag_ship.navigation
         chief_navigator = flag_ship.get_chief_navigator()
+
+        if chief_navigator:
+            navigation_skill = max(navigation_skill, chief_navigator.navigation)
+
+        xp_amount = 200 * navigation_skill
+
+        # chief_navigator earn xp
         if chief_navigator:
             chief_navigator.earn_xp(xp_amount, pb.DutyType.CHIEF_NAVIGATOR)
+
+        # captains earn xp
         ships = self.ship_mgr.get_ships()
         for ship in ships:
             captain = ship.get_captain()

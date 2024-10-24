@@ -16,6 +16,8 @@ TO DO:
 
         chat dialog suddenly disappears bug   OK
 
+        press enter twice OK
+
 
         show xp to next lv
 

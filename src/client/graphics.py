@@ -1103,6 +1103,10 @@ class Graphics:
             if event.key == pygame.K_RETURN:
                 if not self.client.game.gui.chat_dialog.command_entry.is_focused:
                     self.client.game.gui.chat_dialog.command_entry.focus()
+                else:
+                    text = self.client.game.gui.chat_dialog.command_entry.get_text()
+                    if not text:
+                        self.client.game.gui.chat_dialog.command_entry.unfocus()
 
         # don't check keys if chat cursor is on
         if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:

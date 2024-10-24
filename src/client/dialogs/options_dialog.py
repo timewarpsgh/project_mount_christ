@@ -1255,7 +1255,8 @@ class OptionsDialog:
             gun_name = 'NA'
 
         dict = {
-            'name/type/captain': f'{ship.name}/{ship_template.name}/{captain_name}',
+            ' ': f'{ship.name}    {ship_template.name}',
+            'captain': f'{captain_name}',
             'nav/acc/first mate': f'{aids}',
             '1': '',
             'tacking/power/speed': f'{ship.tacking}/{ship.power}',
@@ -1264,6 +1265,7 @@ class OptionsDialog:
             'capacity': f'{ship.capacity}',
             'guns/max_guns/gun_type': f'{ship.now_guns}/{ship.max_guns}/{gun_name}',
             'min_crew/crew/max_crew': f'{ship.min_crew}/{ship.now_crew}/{ship.max_crew}',
+            '3': '',
             'max_cargo': f'{ship.get_max_cargo()}',
             'cargo/cnt': f'{cargo_name}/{ship.cargo_cnt}',
             'food/water/lumber/shot': f'{ship.food}/{ship.water}/{ship.material}/{ship.cannon}',
@@ -1277,7 +1279,7 @@ class OptionsDialog:
         ship_image = sAssetMgr.images['ships'][ship_template.name.lower()]
 
         MyPanelWindow(
-            rect=pygame.Rect((59, 12), (350, 450)),
+            rect=pygame.Rect((59, 0), (350, 500)),
             ui_manager=self.mgr,
             text=text,
             image=ship_image,

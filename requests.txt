@@ -21,6 +21,8 @@ TO DO:
 
         show xp to next lv OK
 
+        ship info better UI OK
+
         lv up process
 
         reasonable xp amount gained

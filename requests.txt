@@ -8,6 +8,11 @@ TO DO:
 
         show xp earned msg right OK
 
+        world  map edge
+        fight only available in battle
+        cmds ON
+
+
 DONE:
 
     events OK

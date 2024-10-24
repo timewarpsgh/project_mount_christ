@@ -1254,12 +1254,13 @@ class OptionsDialog:
         else:
             gun_name = 'NA'
 
+
         dict = {
             ' ': f'{ship.name}    {ship_template.name}',
             'captain': f'{captain_name}',
             'nav/acc/first mate': f'{aids}',
             '1': '',
-            'tacking/power/speed': f'{ship.tacking}/{ship.power}',
+            'tacking/power/base_speed': f'{ship.tacking}/{ship.power}/{ship.get_base_speed_in_knots()}',
             'durability': f'{ship.now_durability}/{ship.max_durability}',
             '2': '',
             'capacity': f'{ship.capacity}',
@@ -1473,9 +1474,9 @@ class OptionsDialog:
 
         for id, ship in ship_mgr.id_2_ship.items():
             if is_enemy:
-                option_2_callback[f'{ship.name}'] = partial(self.__show_one_enemy_ship_states, ship_mgr.get_ship(id))
+                option_2_callback[f'{ship.name} '] = partial(self.__show_one_enemy_ship_states, ship_mgr.get_ship(id))
             else:
-                option_2_callback[f'{ship.name}'] = partial(self.__show_one_ship_states, ship_mgr.get_ship(id))
+                option_2_callback[f'{ship.name} {ship.get_base_speed_in_knots()} knots'] = partial(self.__show_one_ship_states, ship_mgr.get_ship(id))
 
 
         MyMenuWindow(

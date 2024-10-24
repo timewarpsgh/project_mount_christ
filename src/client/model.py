@@ -174,6 +174,37 @@ class Ship:
         mate = self.get_mate(self.chief_navigator)
         return mate
 
+    def get_base_speed_in_knots(self):
+        """
+        depends on ship and mate
+        """
+
+        # ship conditions
+        tacking = self.tacking
+        power = self.power
+
+        # navigation skill
+        navigation = 0
+        captain = self.get_captain()
+        if captain:
+            navigation = captain.navigation
+        chief_navigator = self.get_chief_navigator()
+        if chief_navigator:
+            navigation = max(captain.navigation, chief_navigator.navigation)
+
+        # calc base_speed(about 100 max)
+        base_speed = (tacking + power + navigation) * 0.25
+
+        base_speed_in_knots = base_speed / c.SPEED_2_KNOTS_FACTOR
+
+        if self.now_crew >= self.min_crew:
+            pass
+        else:
+            base_speed_in_knots = base_speed_in_knots * self.now_crew / self.min_crew
+
+        base_speed_in_knots = round(base_speed_in_knots, 2)
+        return base_speed_in_knots
+
     def get_accountant(self):
         if not self.accountant:
             return None

@@ -23,6 +23,8 @@ TO DO:
 
         ship info better UI OK
 
+        show ship speed on client OK
+
         lv up process
 
         reasonable xp amount gained

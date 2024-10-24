@@ -1289,7 +1289,10 @@ class OptionsDialog:
             if k.isdigit():
                 text += f'<br>'
             else:
-                text += f'{k}: {v}<br>'
+                if k.startswith(' ') and k.endswith(' '):
+                    text += f'{v}<br>'
+                else:
+                    text += f'{k}: {v}<br>'
         return text
 
     def __get_enemy(self):
@@ -1792,21 +1795,20 @@ class OptionsDialog:
         else:
             duty_name = 'NA'
 
-        print(f'mate.duty_type: {mate.duty_type}')
-        print(f'mate.ship_id: {mate.ship_id}')
-
         dict = {
-            'name/nation': f"{mate.name}/{c.Nation(mate.nation).name}",
-            'duty/ship': f'{duty_name}/{ship_name}',
+            ' ': f"{mate.name}",
+            '  ': f'{c.Nation(mate.nation).name}',
+            '   ': f'{duty_name} on {ship_name}',
             '1': '',
-            'lv in nav/acc/bat': f"{mate.lv_in_nav}/{mate.lv_in_acc}/{mate.lv_in_bat}",
-            '2': '',
-            'xp in nav/acc/bat': f"{mate.xp_in_nav}/{mate.xp_in_acc}/{mate.xp_in_bat}",
-            '3': '',
-            'navigation/accounting/battle': f"{mate.navigation}/{mate.accounting}/{mate.battle}",
-            '4': '',
-            'talent in navigation/accounting/battle':
-                f"{mate.talent_in_navigation}/{mate.talent_in_accounting}/{mate.talent_in_battle}",
+            '    ': '                nav   acc   bat',
+            'lv':  f"          {mate.lv_in_nav}   {mate.lv_in_acc}   {mate.lv_in_bat}",
+
+            'value': f" {mate.navigation}   {mate.accounting}   {mate.battle}",
+            'talent': f"{mate.talent_in_navigation}   {mate.talent_in_accounting}   {mate.talent_in_battle}",
+            'xp': f"         "
+                  f"{mate.xp_in_nav}/{c.LV_2_MAX_XP[mate.lv_in_nav]}   "
+                  f"{mate.xp_in_acc}/{c.LV_2_MAX_XP[mate.lv_in_acc]}   "
+                  f"{mate.xp_in_bat}/{c.LV_2_MAX_XP[mate.lv_in_bat]}",
         }
 
         # make text from dict

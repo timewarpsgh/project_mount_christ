@@ -19,7 +19,7 @@ TO DO:
         press enter twice OK
 
 
-        show xp to next lv
+        show xp to next lv OK
 
         lv up process
 

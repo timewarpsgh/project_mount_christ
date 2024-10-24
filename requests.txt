@@ -4,7 +4,9 @@ TO DO:
 
         reasonable xp amount gained  OK
 
+        chat + : OK
 
+        show xp earned msg right ON
 
 
 DONE:

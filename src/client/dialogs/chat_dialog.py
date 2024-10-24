@@ -90,7 +90,7 @@ class ChatDialog(MyUIConsoleWindow):
             chat_type_str = 'says'
 
             self.add_output_line_to_log(
-                f'{origin_name} {chat_type_str} {text}',
+                f'{origin_name}: {text}',
                 color='#ffffff',
                 is_bold=False,
                 remove_line_break=False,
@@ -99,7 +99,7 @@ class ChatDialog(MyUIConsoleWindow):
 
         elif chat_type == ChatType.SYSTEM:
             self.add_output_line_to_log(
-                f'SYSTEM {text}',
+                f'SYSTEM: {text}',
                 color='#e7e917',
                 is_bold=False,
                 remove_line_break=False,

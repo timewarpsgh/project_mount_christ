@@ -7,7 +7,9 @@ TO DO:
         chat + : OK
 
         show xp earned msg right ON
-
+            discover
+            trade
+            battle
 
 DONE:
 

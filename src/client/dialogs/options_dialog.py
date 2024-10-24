@@ -1476,7 +1476,8 @@ class OptionsDialog:
             if is_enemy:
                 option_2_callback[f'{ship.name} '] = partial(self.__show_one_enemy_ship_states, ship_mgr.get_ship(id))
             else:
-                option_2_callback[f'{ship.name} {ship.get_base_speed_in_knots()} knots'] = partial(self.__show_one_ship_states, ship_mgr.get_ship(id))
+                option_2_callback[f'{ship.name}     {ship.get_base_speed_in_knots()} knots'] = \
+                    partial(self.__show_one_ship_states, ship_mgr.get_ship(id))
 
 
         MyMenuWindow(

@@ -1941,7 +1941,7 @@ class Role:
         if chief_navigator:
             navigation_skill = max(navigation_skill, chief_navigator.navigation)
 
-        xp_amount = 200 * navigation_skill
+        xp_amount = int(200 * navigation_skill * c.DISCOVER_XP_FACTOR)
 
         # chief_navigator earn xp
         if chief_navigator:
@@ -3375,7 +3375,7 @@ class Role:
         self.session.packet_handler.send_role_appeared_to_nearby_roles()
 
         # earn xp
-        xp_amount = 300
+        xp_amount = self.__calc_battle_xp_amount(captured_ships)
         flag_ship = self.get_flag_ship()
         first_mate = flag_ship.get_first_mate()
         if first_mate:
@@ -3386,6 +3386,24 @@ class Role:
             captain = ship.get_captain()
             if captain:
                 captain.earn_xp(xp_amount, pb.DutyType.FIRST_MATE)
+
+    def __calc_battle_xp_amount(self, captured_ships):
+        # get total_capacity
+        total_capacity = sum([ship.capacity for ship in captured_ships])
+
+        # get battle_skill
+        flag_ship = self.get_flag_ship()
+        captain_of_flag_ship = flag_ship.get_captain()
+        battle_skill = captain_of_flag_ship.battle
+
+        first_mate = flag_ship.get_first_mate()
+        if first_mate:
+            battle_skill = max(battle_skill, first_mate.battle)
+
+        # cal xp
+        xp_amount = int(total_capacity * battle_skill * 0.1 * c.BATTLE_XP_FACTOR)
+
+        return xp_amount
 
     def lose_to_npc(self):
         for id in self.get_non_flag_ships_ids():
@@ -3760,7 +3778,7 @@ class Role:
         self.session.send(pack)
 
     def __get_xp_amount_from_prfoit(self, profit):
-        xp = profit // 100
+        xp = c.TRADE_XP_FACTOR * profit // 100
         return xp
 
     def sell_cargo(self, ship_id, cargo_id, cnt):

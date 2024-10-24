@@ -2,12 +2,8 @@ TO DO:
 
     test play ON
 
-        reasonable xp amount gained
-            trade  OK
-                proportional to profit
-            discover  OK
-                200 * navigation_skill
-            battle    ON
+        reasonable xp amount gained  OK
+
 
 
 

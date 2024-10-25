@@ -1002,7 +1002,7 @@ class OptionsDialog:
     def __building_speak(self, text):
         # make window
         MyPanelWindow(
-            rect=pygame.Rect((248, 0), (264, 145)),
+            rect=pygame.Rect((248, -10), (264, 145)),
             ui_manager=self.mgr,
             text=text,
         )

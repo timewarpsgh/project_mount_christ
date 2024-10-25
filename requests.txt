@@ -9,6 +9,8 @@ TO DO:
 
         don't show battle msg OK
 
+        building bg, remove chat box OK
+
 DONE:
 
     events OK

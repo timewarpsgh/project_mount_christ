@@ -1015,8 +1015,8 @@ class Graphics:
         building_bg_img = pygame.transform.scale(building_bg_img, building_bg_img.get_rect().size)  # 800, 400
 
         building_bg_img.blit(sAssetMgr.images['buildings'][building_name], (5, 5))
-        figure_image_width = sAssetMgr.images['buildings'][building_name].get_rect().width
-        building_bg_img.blit(sAssetMgr.images['buildings']['building_chat'], (figure_image_width + 10, 5))
+        # figure_image_width = sAssetMgr.images['buildings'][building_name].get_rect().width
+        # building_bg_img.blit(sAssetMgr.images['buildings']['building_chat'], (figure_image_width + 10, 5))
 
         # draw on layer 2
         self.sp_building_bg = SP(building_bg_img, c.HUD_WIDTH, 0, z=2)

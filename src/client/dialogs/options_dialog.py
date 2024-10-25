@@ -1166,8 +1166,46 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
-    def __exit_game(self):
+    def __pause_effect(self):
+        for sound in sAssetMgr.sounds.values():
+            sound.set_volume(0)
 
+    def __resume_effect(self):
+        for sound in sAssetMgr.sounds.values():
+            sound.set_volume(1)
+
+    def __show_effect_menu(self):
+        option_2_callback = {
+            'Pause': partial(self.__pause_effect),
+            'Resume': partial(self.__resume_effect),
+        }
+
+        self.__make_menu(option_2_callback)
+
+    def __pause_music(self):
+        pygame.mixer.music.set_volume(0)
+
+    def __resume_music(self):
+        pygame.mixer.music.set_volume(1)
+
+    def __show_music_menu(self):
+        option_2_callback = {
+            'Pause': partial(self.__pause_music),
+            'Resume': partial(self.__resume_music),
+        }
+
+        self.__make_menu(option_2_callback)
+
+    def __show_sounds_menu(self):
+        option_2_callback = {
+            'Effect': partial(self.__show_effect_menu),
+            'Music': partial(self.__show_music_menu),
+            '': '',
+        }
+
+        self.__make_menu(option_2_callback)
+
+    def __exit_game(self):
         self.client.send(Disconnect())
 
     def __show_one_enemy_ship_states(self, ship):
@@ -2207,8 +2245,7 @@ class OptionsDialog:
     def show_options_menu(self):
         option_2_callback = {
             'Language(L)': '',
-            'Sounds': '',
-            'Hot Keys': '',
+            'Sounds': partial(self.__show_sounds_menu),
             'Exit': partial(self.__exit_game),
         }
 

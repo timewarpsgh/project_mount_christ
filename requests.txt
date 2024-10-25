@@ -2,17 +2,7 @@ TO DO:
 
     test play ON
 
-        reasonable xp amount gained  OK
-        chat + : OK
-        show xp earned msg right OK
-        world  map edge  OK
-        fight only available in battle OK
-
-
-        cmds ON
-            press G to search OK
-            Measure Cooridinate OK
-
+        options/ sounds OK
 
 DONE:
 

@@ -5,6 +5,7 @@ TO DO:
 
         ration morale/health OK
 
+        show auros with color OK
 
 DONE:
 

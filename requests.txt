@@ -9,7 +9,9 @@ TO DO:
         show xp earned msg right OK
 
         world  map edge  OK
-        fight only available in battle
+
+
+        fight only available in battle OK
         cmds ON
 
 

@@ -2223,6 +2223,10 @@ class OptionsDialog:
 
     def show_fight_menu(self):
 
+        if not self.__get_role().is_in_battle():
+            self.show_msg_panel('You are not in battle.')
+            return
+
         option_2_callback = {
             'View Enemy Captain': partial(self.__view_enemy_captain),
             'View Enemy Ships': partial(self.__show_ship_info_menu, is_enemy=True),

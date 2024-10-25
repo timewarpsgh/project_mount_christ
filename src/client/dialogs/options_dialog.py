@@ -1728,13 +1728,7 @@ class OptionsDialog:
                     world_map_image.blit(map_mosaic, start_x_y)
 
         # get my_x y based on location
-        if self.__get_role().is_in_port():
-            port = sObjectMgr.get_port(self.__get_role().map_id)
-            my_x = port.x
-            my_y = port.y
-        else:
-            my_x = self.__get_role().x
-            my_y = self.__get_role().y
+        my_x, my_y = self.__get_my_world_xy()
 
         my_x = int(world_map_image_rect.width * (my_x / c.WORLD_MAP_COLUMNS))
         my_y = int(world_map_image_rect.height * (my_y / c.WORLD_MAP_ROWS))
@@ -1754,6 +1748,16 @@ class OptionsDialog:
 
         # sound
         sAssetMgr.sounds['map'].play()
+
+    def __get_my_world_xy(self):
+        if self.__get_role().is_in_port():
+            port = sObjectMgr.get_port(self.__get_role().map_id)
+            my_x = port.x
+            my_y = port.y
+        else:
+            my_x = self.__get_role().x
+            my_y = self.__get_role().y
+        return my_x, my_y
 
     def show_available_cargos_menu(self, get_available_cargos_res):
         option_2_callback = {
@@ -1831,6 +1835,11 @@ class OptionsDialog:
             text=text,
             image=mate_image,
         )
+
+    def __measure_coordinate(self):
+        my_x, my_y = self.__get_my_world_xy()
+        longitude, latitude = self.__calc_longitude_and_latitude(my_x, my_y)
+        self.show_msg_panel(f'{longitude}, {latitude}')
 
     def try_to_discover(self):
         x = self.client.game.graphics.model.role.x
@@ -2228,7 +2237,7 @@ class OptionsDialog:
             'Enter/Exit Building (F)': partial(self.enter_building),
             'Enter Port (P)': partial(self.enter_port),
             'Search (G)': partial(self.try_to_discover),
-            'Measure Cooridinate': '',
+            'Measure Cooridinate': partial(self.__measure_coordinate),
         }
 
         self.__make_menu(option_2_callback)

@@ -1,8 +1,10 @@
 TO DO:
 
     test play ON
-
         options/ sounds OK
+
+        ration morale/health OK
+
 
 DONE:
 

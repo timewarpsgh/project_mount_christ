@@ -730,19 +730,22 @@ class HudLeft(SP):
         elif self.model.role.is_at_sea():
             # show supplies
             role = self.model.role
-            new_image.blit(Text(f"R/M/H \n  "
-                                f"{role.ration}/{role.morale}/{role.health}").image, (x, 240))
+            new_image.blit(Text(f"Ration \n  "
+                                f"{role.ration}").image, (x, 230))
+
+            new_image.blit(Text(f'Morale/Health \n  '
+                                f'{role.morale}/{role.health}').image, (x, 270))
 
             ship_mgr = self.model.role.ship_mgr
 
             food_water = Text(f"Food/Water \n  "
                               f"{ship_mgr.get_total_supply(pb.SupplyType.FOOD)}/"
                               f"{ship_mgr.get_total_supply(pb.SupplyType.WATER)}").image
-            material_cannon = Text(f"Material/Cannon \n  "
+            material_cannon = Text(f"Material/Shot \n  "
                               f"{ship_mgr.get_total_supply(pb.SupplyType.MATERIAL)}/"
                               f"{ship_mgr.get_total_supply(pb.SupplyType.CANNON)}").image
-            new_image.blit(food_water, (x, 280))
-            new_image.blit(material_cannon, (x, 320))
+            new_image.blit(food_water, (x, 310))
+            new_image.blit(material_cannon, (x, 350))
 
         name = Text( f'{self.model.role.name}  {time_diff}').image
         new_image.blit(name, (x, 400))

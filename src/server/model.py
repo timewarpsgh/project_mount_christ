@@ -3246,7 +3246,7 @@ class Role:
                     self.session.send(pb.AuraAdded(aura_id=aura_id))
 
         # add storm
-        if random.random() < 0.02 or 1:
+        if random.random() < 0.02:
             aura_id = c.Aura.STORM.value
             if not self.has_aura(aura_id):
                 self.auras.add(aura_id)

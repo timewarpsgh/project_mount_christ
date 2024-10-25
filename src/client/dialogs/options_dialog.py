@@ -1832,7 +1832,7 @@ class OptionsDialog:
             image=mate_image,
         )
 
-    def __try_to_discover(self):
+    def try_to_discover(self):
         x = self.client.game.graphics.model.role.x
         y = self.client.game.graphics.model.role.y
 
@@ -1982,22 +1982,6 @@ class OptionsDialog:
             option_2_callback[ship.name] = partial(self.__show_cargo_cnt_to_load_to_ship_dialog, cargo_id, ship_id)
 
         self.__make_menu(option_2_callback)
-
-    def __fight_npc(self):
-        PacketParamsDialog(
-            mgr=self.mgr,
-            client=self.client,
-            params_names=['npc_id'],
-            packet=FightNpc(),
-        )
-
-    def __fight_role(self):
-        PacketParamsDialog(
-            mgr=self.mgr,
-            client=self.client,
-            params_names=['role_id'],
-            packet=FightRole(),
-        )
 
     def escape_battle(self):
         battle_npc_id = self.__get_role().battle_npc_id
@@ -2241,11 +2225,9 @@ class OptionsDialog:
 
     def show_cmds_menu(self):
         option_2_callback = {
-            'Enter Building (F)': partial(self.enter_building),
-            'Enter Port (M)': partial(self.enter_port),
-            'Go Ashore (G)': partial(self.__try_to_discover),
-            'Fight Npc (B)': partial(self.__fight_npc),
-            'Fight Role (B)': partial(self.__fight_role),
+            'Enter/Exit Building (F)': partial(self.enter_building),
+            'Enter Port (P)': partial(self.enter_port),
+            'Search (G)': partial(self.try_to_discover),
             'Measure Cooridinate': '',
         }
 

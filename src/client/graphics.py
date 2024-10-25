@@ -1164,9 +1164,9 @@ class Graphics:
                 elif self.model.role.is_in_battle():
                     self.get_options_dialog().escape_battle()
 
-            if event.key == pygame.K_l:
-                if self.model.role.is_in_battle():
-                    self.get_options_dialog().all_ships_attack()
+            if event.key == pygame.K_g:
+                if self.model.role.is_at_sea():
+                    self.get_options_dialog().try_to_discover()
 
             if event.key == pygame.K_f:
                 if self.model.role.is_in_building:

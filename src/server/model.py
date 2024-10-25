@@ -406,13 +406,13 @@ class Ship:
         )
         self.role.send_to_self_and_enemy(pack)
 
-        pack = pb.GotChat(
-            text=f"{self.name} at {self.x} {self.y} "
-                 f"shot {ship.name} at {ship.x} {ship.y} "
-                 f"and dealt {damage} damage",
-            chat_type=pb.ChatType.SYSTEM
-        )
-        self.role.send_to_self_and_enemy(pack)
+        # pack = pb.GotChat(
+        #     text=f"{self.name} at {self.x} {self.y} "
+        #          f"shot {ship.name} at {ship.x} {ship.y} "
+        #          f"and dealt {damage} damage",
+        #     chat_type=pb.ChatType.SYSTEM
+        # )
+        # self.role.send_to_self_and_enemy(pack)
 
         return damage, is_sunk
 
@@ -484,12 +484,12 @@ class Ship:
         )
         self.role.send_to_self_and_enemy(pack)
 
-        pack = pb.GotChat(
-            text=f"{self.name} at {self.x} {self.y} engaged {ship.name} at {ship.x} {ship.y} "
-                 f"and dealt {self_dmg} to self and {target_dmg} to enemy ",
-            chat_type=pb.ChatType.SYSTEM
-        )
-        self.role.send_to_self_and_enemy(pack)
+        # pack = pb.GotChat(
+        #     text=f"{self.name} at {self.x} {self.y} engaged {ship.name} at {ship.x} {ship.y} "
+        #          f"and dealt {self_dmg} to self and {target_dmg} to enemy ",
+        #     chat_type=pb.ChatType.SYSTEM
+        # )
+        # self.role.send_to_self_and_enemy(pack)
 
         return is_self_dead, is_target_dead
 

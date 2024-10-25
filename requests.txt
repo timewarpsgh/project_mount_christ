@@ -7,6 +7,8 @@ TO DO:
 
         show auros with color OK
 
+        don't show battle msg OK
+
 DONE:
 
     events OK

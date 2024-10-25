@@ -538,8 +538,6 @@ class PacketHandler:
             dst_damage = ship_attacked.dst_damage
             src_damage = ship_attacked.src_damage
 
-            print(f'ships engaged {src_id} {dst_id} {src_damage} {dst_damage}')
-
             src_ship = self.__get_model().get_ship_in_battle_by_id(src_id)
             dst_ship = self.__get_model().get_ship_in_battle_by_id(dst_id)
             my_flag_ship = self.__get_role().get_flag_ship()

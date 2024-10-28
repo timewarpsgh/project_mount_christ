@@ -3,7 +3,8 @@ TO DO:
     change sp ON
         role in port OK
         ship at sea  OK
-
+        battle scene ON
+            bg OK
 
 
 

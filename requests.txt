@@ -1,15 +1,11 @@
 TO DO:
 
-    test play ON
-        options/ sounds OK
+    change sp ON
+        role in port OK
+        ship at sea
 
-        ration morale/health OK
 
-        show auros with color OK
 
-        don't show battle msg OK
-
-        building bg, remove chat box OK
 
 DONE:
 

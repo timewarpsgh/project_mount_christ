@@ -3,20 +3,12 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="1">
   <image source="../imgs/ship_in_battle/my_ships/up_0.png" width="32" height="32"/>
-  <animation>
-   <frame tileid="1" duration="100"/>
-   <frame tileid="2" duration="100"/>
-  </animation>
  </tile>
  <tile id="2">
   <image source="../imgs/ship_in_battle/my_ships/up_1.png" width="32" height="32"/>
  </tile>
  <tile id="3">
   <image source="../imgs/ship_in_battle/my_ships/down_0.png" width="32" height="32"/>
-  <animation>
-   <frame tileid="3" duration="100"/>
-   <frame tileid="4" duration="100"/>
-  </animation>
  </tile>
  <tile id="4">
   <image source="../imgs/ship_in_battle/my_ships/down_1.png" width="32" height="32"/>

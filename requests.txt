@@ -7,13 +7,9 @@ TO DO:
             bg OK
             ships in battle OK
             ships at sea OK
-            port sprites ON
-                man
-                woman
+            port sprites OK
 
-                dog
-                oldman
-                merchant
+
 
 
 

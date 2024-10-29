@@ -5,6 +5,8 @@ TO DO:
         ship at sea  OK
         battle scene ON
             bg OK
+            ships in battle OK
+
 
 
 

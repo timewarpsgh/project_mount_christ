@@ -3,11 +3,11 @@ TO DO:
     change sp ON
         role in port OK
         ship at sea  OK
-        battle scene ON
-            bg OK
-            ships in battle OK
-            ships at sea OK
-            port sprites OK
+        battle scene OK
+
+        hud ON
+            my own ship sprites OK
+
 
 
 

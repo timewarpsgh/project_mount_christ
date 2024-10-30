@@ -9,6 +9,8 @@ TO DO:
             my own ship sprites OK
             show enemy ship in battle as red OK
 
+            at sea ship dirs add diagonal OK
+
 
 
 

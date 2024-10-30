@@ -550,10 +550,10 @@ class RoleSP(SP):
                 pb.DirType.S : [x_y_to_image(5, 2), x_y_to_image(6, 2)],
                 pb.DirType.W : [x_y_to_image(7, 2), x_y_to_image(8, 2)],
 
-                pb.DirType.NW: [x_y_to_image(7, 2), x_y_to_image(8, 2)],
-                pb.DirType.NE: [x_y_to_image(3, 2), x_y_to_image(4, 2)],
-                pb.DirType.SW: [x_y_to_image(7, 2), x_y_to_image(8, 2)],
-                pb.DirType.SE: [x_y_to_image(3, 2), x_y_to_image(4, 2)],
+                pb.DirType.NW: [x_y_to_image(7, 3), x_y_to_image(8, 3)],
+                pb.DirType.NE: [x_y_to_image(5, 3), x_y_to_image(6, 3)],
+                pb.DirType.SW: [x_y_to_image(1, 3), x_y_to_image(2, 3)],
+                pb.DirType.SE: [x_y_to_image(3, 3), x_y_to_image(4, 3)],
 
             },
             'in_port': {
@@ -580,10 +580,10 @@ class RoleSP(SP):
                 pb.DirType.S: [x_y_to_image(5, 4), x_y_to_image(6, 4)],
                 pb.DirType.W: [x_y_to_image(7, 4), x_y_to_image(8, 4)],
 
-                pb.DirType.NW: [x_y_to_image(7, 4), x_y_to_image(8, 4)],
-                pb.DirType.NE: [x_y_to_image(3, 4), x_y_to_image(4, 4)],
-                pb.DirType.SW: [x_y_to_image(7, 4), x_y_to_image(8, 4)],
-                pb.DirType.SE: [x_y_to_image(3, 4), x_y_to_image(4, 4)],
+                pb.DirType.NW: [x_y_to_image(7, 3), x_y_to_image(8, 3)],
+                pb.DirType.NE: [x_y_to_image(5, 3), x_y_to_image(6, 3)],
+                pb.DirType.SW: [x_y_to_image(1, 3), x_y_to_image(2, 3)],
+                pb.DirType.SE: [x_y_to_image(3, 3), x_y_to_image(4, 3)],
 
             },
         }

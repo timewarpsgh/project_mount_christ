@@ -437,7 +437,7 @@ class BackGround(SP):
             battle_ground_img.blit(ship_in_battle_img, (x, y))
 
             if ship.is_alive():
-                ship_name_text = Text(f'{id}', c.YELLOW)
+                ship_name_text = Text(f'{id}', c.RED)
                 battle_ground_img.blit(ship_name_text.image, (x, y))
 
             ships_positions.append([x, y])

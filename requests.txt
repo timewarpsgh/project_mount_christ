@@ -12,6 +12,7 @@ TO DO:
                     bar OK
                     harbor OK
                     drydock OK
+                    church OK
 
 
 

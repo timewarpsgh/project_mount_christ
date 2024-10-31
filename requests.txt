@@ -9,6 +9,11 @@ TO DO:
                 building bg  OK
                 builidng figures ON
                     market OK
+                    bar OK
+                    harbor OK
+
+
+
 
 
         at sea

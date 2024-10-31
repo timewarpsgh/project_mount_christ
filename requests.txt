@@ -1,13 +1,19 @@
 TO DO:
 
     change sp ON
-        role in port OK
-        ship at sea  OK
-        battle scene OK
 
-        hud OK
+        in battle OK
 
-        enter port bug OK
+        in port ON
+            in building ON
+                building bg  OK
+                builidng figures ON
+                    market OK
+
+
+        at sea
+
+
 
 
 

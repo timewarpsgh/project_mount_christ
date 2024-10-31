@@ -7,6 +7,9 @@ TO DO:
 
         hud OK
 
+        enter port bug OK
+
+
 
 
 

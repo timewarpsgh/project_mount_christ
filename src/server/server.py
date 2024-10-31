@@ -167,6 +167,7 @@ class Server:
 
         except ConnectionResetError as e:
             print("A ConnectionResetError occurred:", e)
+            print(self.addr_2_session)
 
         except Exception as e:
             print(f'some error occured in func client_connected: {e}')

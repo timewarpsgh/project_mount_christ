@@ -669,6 +669,9 @@ class RoleSP(SP):
             elif self.role.is_woman_in_port():
                 self.change_img(self.frames['woman_in_port'][self.role.dir][0])
             else:
+                if self.role.dir not in self.frames['in_port']:
+                    self.role.dir = pb.DirType.N
+
                 self.change_img(self.frames['in_port'][self.role.dir][0])
 
             self.is_using_port_img = True

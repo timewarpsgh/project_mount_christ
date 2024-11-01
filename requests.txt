@@ -7,12 +7,9 @@ TO DO:
         in port ON
             in building ON
                 building bg  OK
-                builidng figures ON
-                    market OK
-                    bar OK
-                    harbor OK
-                    drydock OK
-                    church OK
+                builidng figures OK
+
+
 
 
 

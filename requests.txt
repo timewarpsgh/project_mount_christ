@@ -4,10 +4,9 @@ TO DO:
 
         in battle OK
 
-        in port ON
-            in building ON
-                building bg  OK
-                builidng figures OK
+        ships ON
+
+        mates
 
 
 

@@ -1317,6 +1317,9 @@ class OptionsDialog:
         # get ship image
         ship_image = sAssetMgr.images['ships'][ship_template.name.lower()]
 
+        # reszie
+        # ship_image = pygame.transform.scale(ship_image, (260, 100))
+
         MyPanelWindow(
             rect=pygame.Rect((59, 0), (350, 500)),
             ui_manager=self.mgr,

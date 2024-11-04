@@ -4,32 +4,8 @@ TO DO:
 
         in battle OK
 
-        ships ON
-            xebecs ON
-              pinnace OK
-              xebec  OK
-            galleys
-                light galley  OK
-                la reale      OK
-                flemish galleon  OK
-                venetian galeass OK
+        ships OK
 
-            square ships
-                full rigged ship  OK
-                barge OK
-                frigate OK
-                galleon OK
-                buss OK
-                carrack  OK
-                nao
-                sloop
-                brigantine
-                talette
-                dhow
-                caravela latina
-                caravela redonda
-                balsa
-                hansa cog
 
         mates
 

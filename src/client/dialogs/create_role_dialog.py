@@ -23,8 +23,8 @@ def figure_x_y_2_image(x=8, y=8):
 
 
     figure_surface = pygame.Surface((figure_width, figure_height))
-    x_coord = -figure_width * (x - 1) - 3
-    y_coord = -figure_height * (y - 1) - 3
+    x_coord = -figure_width * (x - 1)
+    y_coord = -figure_height * (y - 1)
     rect = pygame.Rect(x_coord, y_coord, figure_width, figure_height)
     figure_surface.blit(figures_image, rect)
 

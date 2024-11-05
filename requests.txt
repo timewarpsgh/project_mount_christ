@@ -7,7 +7,8 @@ TO DO:
         ships OK
 
 
-        mates
+        new figures tile set (removed edge) OK
+        mates ON
 
 
 

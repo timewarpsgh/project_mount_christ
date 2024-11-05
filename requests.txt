@@ -8,7 +8,9 @@ TO DO:
 
 
         new figures tile set (removed edge) OK
-        mates ON
+
+        mates sprite sheet OK
+
 
 
 

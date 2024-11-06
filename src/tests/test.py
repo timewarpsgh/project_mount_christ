@@ -1,29 +1,30 @@
 from PIL import Image
-import os
 
-def combine_images(input_dir, output_path, sprite_width=65, sprite_height=81, rows=8, cols=16):
-    # Create a new blank image with the size to hold all small images
-    big_image = Image.new('RGB', (cols * sprite_width, rows * sprite_height))
+def extract_sprites(sprite_sheet_path, output_folder, sprite_width=49, sprite_height=49):
+    # Open the sprite sheet
+    sprite_sheet = Image.open(sprite_sheet_path)
+    sheet_width, sheet_height = sprite_sheet.size
 
-    # Iterate over each file in the input directory
-    for i in range(rows * cols):
-        filename = f"{i}.jpeg"
-        img_path = os.path.join(input_dir, filename)
-        if os.path.exists(img_path):
-            # Open the image
-            img = Image.open(img_path)
+    # Calculate the number of sprites in the sheet
+    sprites_per_row = sheet_width // sprite_width
+    sprites_per_column = sheet_height // sprite_height
 
-            # Calculate the position to paste the image
-            row = i // cols
-            col = i % cols
+    # Extract each sprite
+    sprite_index = 0
+    for row in range(sprites_per_column):
+        for col in range(sprites_per_row):
+            # Calculate the position of the sprite
             left = col * sprite_width
             upper = row * sprite_height
+            right = left + sprite_width
+            lower = upper + sprite_height
 
-            # Paste the image into the big image
-            big_image.paste(img, (left, upper))
+            # Crop the sprite
+            sprite = sprite_sheet.crop((left, upper, right, lower))
 
-    # Save the big image to the output path
-    big_image.save(output_path)
+            # Save the sprite as a PNG file
+            sprite.save(f"{output_folder}/{sprite_index}.png", "PNG")
+            sprite_index += 1
 
 # Example usage
-combine_images(r'C:\Users\陈林\Downloads\test_output', r'C:\Users\陈林\Downloads\big_image.jpeg')
+extract_sprites(r"C:\Users\陈林\Downloads\discoveries_and_items.png", r"C:\Users\陈林\Downloads\old_items")

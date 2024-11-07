@@ -15,7 +15,7 @@ TO DO:
 
         discoveries OK
 
-        items ON
+        items OK
 
 
 

@@ -11,9 +11,11 @@ TO DO:
 
         mates sprite sheet OK
 
-        items ON
 
-        discoveries ON
+
+        discoveries OK
+
+        items ON
 
 
 

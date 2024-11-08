@@ -1552,6 +1552,14 @@ class OptionsDialog:
     def __set_item_for_trade(self, item_id):
         self.client.send(SetTradeItem(item_id=item_id))
 
+    def __item_img_id_2_xy(self, img_id):
+        cols = 16
+
+        img_x = (img_id % cols) + 1
+        img_y = (img_id // cols) + 1
+
+        return img_x, img_y
+
     def __show_one_item(self, item, is_equiped=False, is_for_item_shop=False, is_for_view_captain=False):
         # use or equip
         if not is_for_item_shop:
@@ -1575,10 +1583,12 @@ class OptionsDialog:
                         }
                         self.__make_menu(option_2_callback)
 
-
-        split_items = item.img_id.split('_')
-        img_x = int(split_items[0])
-        img_y = int(split_items[1])
+        if item.img_id.isdigit():
+            img_x, img_y = self.__item_img_id_2_xy(int(item.img_id))
+        else:
+            split_items = item.img_id.split('_')
+            img_x = int(split_items[0])
+            img_y = int(split_items[1])
 
         # dict
         dict = {
@@ -1610,9 +1620,12 @@ class OptionsDialog:
 
     def show_one_discovery(self, village):
 
-        split_items = village.img_id.split('_')
-        img_x = int(split_items[0])
-        img_y = int(split_items[1])
+        if village.img_id.isdigit():
+            img_x, img_y = self.__item_img_id_2_xy(int(item.img_id))
+        else:
+            split_items = village.img_id.split('_')
+            img_x = int(split_items[0])
+            img_y = int(split_items[1])
 
         # dict
         dict = {

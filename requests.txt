@@ -19,7 +19,9 @@ TO DO:
 
         item imgs point to right item ON
             items imgs use ids OK
-            villages
+            villages imgs use ids  OK
+
+
 
 
 

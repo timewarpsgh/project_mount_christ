@@ -3,12 +3,22 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "sadgasdg.tsx",
+    "activeFile": "",
     "expandedProjectPaths": [
         "."
     ],
     "fileStates": {
+        "adsgasg.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "asgdsg.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "dasg.tsx": {
+            "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
@@ -29,17 +39,20 @@
             }
         }
     },
-    "last.imagePath": "D:/data/code/python/project_mount_christ/data/imgs/discoveries_and_items",
-    "map.height": 1,
+    "last.imagePath": "C:/Users/陈林/Downloads",
+    "map.height": 8,
     "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 81,
-    "map.tileWidth": 65,
-    "map.width": 1,
+    "map.tileHeight": 49,
+    "map.tileWidth": 49,
+    "map.width": 16,
     "openFiles": [
-        "sadgasdg.tsx"
+        "adsgasg.tsx",
+        "dasg.tsx"
     ],
     "project": "untitled.tiled-project",
     "recentFiles": [
+        "adsgasg.tsx",
+        "dasg.tsx",
         "sadgasdg.tsx",
         "asgdsg.tsx",
         "untitled.tmx",
@@ -49,5 +62,6 @@
     "tileset.tileSize": {
         "height": 49,
         "width": 49
-    }
+    },
+    "tileset.type": 1
 }

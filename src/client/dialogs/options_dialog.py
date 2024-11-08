@@ -1621,7 +1621,7 @@ class OptionsDialog:
     def show_one_discovery(self, village):
 
         if village.img_id.isdigit():
-            img_x, img_y = self.__item_img_id_2_xy(int(item.img_id))
+            img_x, img_y = self.__item_img_id_2_xy(int(village.img_id))
         else:
             split_items = village.img_id.split('_')
             img_x = int(split_items[0])

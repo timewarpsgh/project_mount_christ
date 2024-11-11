@@ -2,9 +2,9 @@ TO DO:
 
     change sp ON
 
-        sea map ON
+        sea map OK
 
-            sea map always use one tileset OK
+
 
 
         port maps

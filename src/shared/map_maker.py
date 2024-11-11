@@ -316,7 +316,7 @@ class MapMaker():
                 self.time_of_day_index = 0
 
             # for testing
-            self.time_of_day_index = 0
+            # self.time_of_day_index = 1
 
             print(f'{self.time_of_day=}')
             partial_world_map_img = self.partial_world_maps[self.time_of_day.value]

@@ -5,7 +5,7 @@ TO DO:
         sea map OK
 
 
-
+        condition imgs OK
 
         port maps
 

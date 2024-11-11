@@ -3,12 +3,17 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "untitled.tmx",
     "expandedProjectPaths": [
         "."
     ],
     "fileStates": {
         "adsgasg.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "agadg.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1,
             "scaleInEditor": 1
@@ -31,37 +36,38 @@
             "scaleInEditor": 1
         },
         "untitled.tmx": {
-            "scale": 6.518461538461538,
-            "selectedLayer": 0,
+            "scale": 1.5,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 25.772952560774137,
-                "y": 66.96365352843993
+                "x": 768,
+                "y": 922.6666666666666
             }
         }
     },
-    "last.imagePath": "C:/Users/陈林/Downloads",
-    "map.height": 8,
+    "last.imagePath": "C:/Users/陈林/Downloads/Serene_Village_revamped_v1.9/SERENE_VILLAGE_REVAMPED",
+    "map.height": 96,
     "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 49,
-    "map.tileWidth": 49,
-    "map.width": 16,
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 96,
     "openFiles": [
-        "adsgasg.tsx",
-        "dasg.tsx"
+        "agadg.tsx",
+        "untitled.tmx"
     ],
     "project": "untitled.tiled-project",
     "recentFiles": [
-        "adsgasg.tsx",
+        "agadg.tsx",
+        "untitled.tmx",
         "dasg.tsx",
+        "adsgasg.tsx",
         "sadgasdg.tsx",
         "asgdsg.tsx",
-        "untitled.tmx",
         "figures.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 49,
-        "width": 49
+        "height": 16,
+        "width": 16
     },
-    "tileset.type": 1
+    "tileset.type": 0
 }

@@ -315,6 +315,9 @@ class MapMaker():
             if self.time_of_day_index >= 4:
                 self.time_of_day_index = 0
 
+            # for testing
+            self.time_of_day_index = 0
+
             print(f'{self.time_of_day=}')
             partial_world_map_img = self.partial_world_maps[self.time_of_day.value]
             role.graphics.sp_background.change_img(partial_world_map_img)

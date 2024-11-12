@@ -993,6 +993,11 @@ class Graphics:
     def change_background_sp_to_port(self, port_id, x, y):
 
         port_piddle, port_map = sMapMaker.make_port_piddle_and_map(port_id, sMapMaker.get_time_of_day())
+
+        # for testing
+        path_to_port_img = r'D:\data\code\python\project_mount_christ\data\imgs\my_ports\map_test.png'
+        port_map = pygame.image.load(path_to_port_img).convert_alpha()
+
         self.sp_background.change_img(port_map)
 
         # so port img looks right after enter port

@@ -3,11 +3,12 @@ TO DO:
     change sp ON
 
         sea map OK
-
-
         condition imgs OK
 
-        port maps
+        port maps ON
+            test my london ON
+                use my london img (change_background_sp_to_port) OK
+
 
 
 

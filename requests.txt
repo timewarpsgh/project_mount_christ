@@ -8,6 +8,21 @@ TO DO:
         port maps ON
             test my london ON
                 use my london img (change_background_sp_to_port) OK
+                day/night plan (day 1st, modify day to get night) OK
+                building type symbols (draw your own) OK
+
+                use my collision ON
+
+                7 port styles (bulding types)
+                    japan OK
+                    china OK
+                    india
+                    africa
+                    northen europe
+                    mid europe
+                    mediterranean OK
+
+                building type symbols
 
 
 

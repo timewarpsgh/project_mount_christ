@@ -143,6 +143,10 @@ MAX_WORLD_MSG_TO_DISPLAY = 10
 
 # tiles
 WALKABLE_TILES = set(range(1, 40))
+
+# # for testing
+WALKABLE_TILES = {-1}
+
 SAILABLE_TILES = set(range(1, 33))
 WALKABLE_TILES_FOR_ASIA = set(range(1, 47))
 PARTIAL_WORLD_MAP_TILES = 73

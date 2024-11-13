@@ -17,6 +17,6 @@ def make_image_dimmer(image_path, output_path, dim_factor=0.5):
 
 
 # Example usage
-image_path = r'D:\data\code\python\project_mount_christ\data\imgs\world_map\day.png'
-output_path = r'D:\data\code\python\project_mount_christ\data\imgs\world_map\day_dimmed.png'
+image_path = r'D:\data\code\python\project_mount_christ\data\imgs\my_ports\map_test.png'
+output_path = r'D:\data\code\python\project_mount_christ\data\imgs\my_ports\map_test_dimmed.png'
 make_image_dimmer(image_path, output_path, dim_factor=0.4)

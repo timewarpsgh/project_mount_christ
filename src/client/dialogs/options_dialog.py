@@ -2149,6 +2149,10 @@ class OptionsDialog:
 
             b_x, b_y = sObjectMgr.get_building_xy_in_port(building_id, port_id)
 
+            if building_id == 4:
+                print(f'b_x: {b_x}, b_y: {b_y}')
+                print(f'x: {x}, y: {y}')
+
             if x == b_x and y == b_y:
                 if sMapMaker.get_time_of_day() == c.TimeType.NIGHT:
                     if building_name not in [c.Building.HARBOR.name.lower(),

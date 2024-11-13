@@ -1,5 +1,6 @@
 import random
-
+import csv
+import numpy as np
 import pygame
 import sys
 from enum import Enum, auto
@@ -19,6 +20,17 @@ from model import Role
 FONT_SIZE = 16
 YELLOW = (255, 255, 0)
 RED = (255, 0, 0)
+
+
+def csv_to_numpy_matrix(file_path):
+    matrix = np.zeros((96, 96))
+
+    with open(file_path, 'r') as file:
+        reader = csv.reader(file)
+        for i, row in enumerate(reader):
+            matrix[i] = np.array(row)
+
+    return matrix
 
 
 def get_image(sheet, x, y, width, height, colorkey=(0,0,0), scale=1):
@@ -998,7 +1010,13 @@ class Graphics:
         path_to_port_img = r'D:\data\code\python\project_mount_christ\data\imgs\my_ports\map_test.png'
         port_map = pygame.image.load(path_to_port_img).convert_alpha()
 
+
+        file_path = r'D:\data\code\python\project_mount_christ\data\imgs\my_ports\test_london_collision.csv'
+        sMapMaker.port_piddle = csv_to_numpy_matrix(file_path)
+
         self.sp_background.change_img(port_map)
+
+        ##########
 
         # so port img looks right after enter port
         self.sp_background.start_time = None

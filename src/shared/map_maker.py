@@ -3,8 +3,8 @@ from PIL import Image
 
 # add relative directory to python_path
 import sys, os
-sys.path.append(r'/src/shared/packets')
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared'))
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
+# sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared'))
 
 import login_pb2 as pb
 
@@ -54,7 +54,7 @@ class MapMaker():
 
         if save_img:
             print('port img saved!!!')
-            port_map_pil_img.save(f"test_port_img.png")
+            port_map_pil_img.save(f"D:\data\imgs\port_imgs\\{i}.png")
 
         self.time_of_day = time_type
 
@@ -281,6 +281,46 @@ class MapMaker():
         # ret
         return False
 
+    def can_move_in_port_back(self, map_id, now_x, now_y, dir):
+
+        piddle = self.port_piddle
+
+        # x and y reversed!!!!
+        y = now_x
+        x = now_y
+
+        # basic 4 directions
+        if dir == pb.DirType.N:
+            if now_y <= 0:
+                return False
+
+            if piddle[now_y - 1, now_x] in c.WALKABLE_TILES and piddle[now_y - 1, now_x + 1] in c.WALKABLE_TILES:
+                return True
+
+        elif dir == pb.DirType.S:
+            if now_y >= c.PORT_MAP_EDGE:
+                return False
+
+            if piddle[x + 2, y] in c.WALKABLE_TILES and piddle[x + 2, y + 1] in c.WALKABLE_TILES:
+                return True
+
+        elif dir == pb.DirType.W:
+            if now_x <= 0:
+                return False
+
+            if piddle[x + 1, y - 1] in c.WALKABLE_TILES:
+                return True
+
+        elif dir == pb.DirType.E:
+            if now_x >= c.PORT_MAP_EDGE:
+                return False
+
+            if piddle[x + 1, y + 2] in c.WALKABLE_TILES:
+                return True
+
+        # ret
+        return False
+
     def can_move_at_sea(self, now_x, now_y, dir):
         # get piddle
         piddle = self.world_map_piddle
@@ -328,8 +368,7 @@ sMapMaker = MapMaker()
 
 if __name__ == '__main__':
     map_maker = MapMaker()
-    map_maker.set_world_piddle()
-    map_maker.set_world_map_tiles()
-    map_maker.make_partial_world_map(500,	240, save_img=True)
+    for i in range(1, 102):
+        map_maker.make_port_piddle_and_map(i, c.TimeType.DAY)
 
 

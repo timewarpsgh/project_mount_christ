@@ -33,6 +33,22 @@ def csv_to_numpy_matrix(file_path):
     return matrix
 
 
+def dim_image(image, dim_factor=0.5):
+    # Ensure the dim factor is between 0 and 1
+    dim_factor = np.clip(dim_factor, 0, 1)
+
+    # Convert the Pygame surface to a numpy array
+    image_array = pygame.surfarray.pixels3d(image)
+
+    # Apply the dim factor to the image
+    dimmed_array = (image_array * dim_factor).astype(np.uint8)
+
+    # Create a new Pygame surface from the dimmed array
+    dimmed_image = pygame.surfarray.make_surface(dimmed_array)
+
+    return dimmed_image
+
+
 def get_image(sheet, x, y, width, height, colorkey=(0,0,0), scale=1):
     image = pygame.Surface([width, height])
     rect = image.get_rect()
@@ -1002,17 +1018,34 @@ class Graphics:
 
         sAssetMgr.play_sea_music()
 
+    def get_my_port_piddle_and_map(self, port_id, time_of_day):
+        # get img
+        if time_of_day != c.TimeType.NIGHT:
+            path_to_port_img = f'D:\data\code\python\project_mount_christ\data\imgs\my_ports\\{port_id}\\day.png'
+            port_map = pygame.image.load(path_to_port_img).convert_alpha()
+
+            if time_of_day == c.TimeType.DAY:
+                dim_factor = 1.0
+            elif time_of_day == c.TimeType.DAWN:
+                dim_factor = 0.8
+            elif time_of_day == c.TimeType.DUSK:
+                dim_factor = 0.6
+
+            port_map = dim_image(port_map, dim_factor)
+        else:
+            path_to_port_img = f'D:\data\code\python\project_mount_christ\data\imgs\my_ports\\{port_id}\\night.png'
+            port_map = pygame.image.load(path_to_port_img).convert_alpha()
+
+        # get piddle
+        file_path = f'D:\data\code\python\project_mount_christ\data\imgs\my_ports\\{port_id}\\collision.csv'
+        port_piddle = csv_to_numpy_matrix(file_path)
+        sMapMaker.port_piddle = port_piddle
+
+        return port_piddle, port_map
+
     def change_background_sp_to_port(self, port_id, x, y):
-
         port_piddle, port_map = sMapMaker.make_port_piddle_and_map(port_id, sMapMaker.get_time_of_day())
-
-        # for testing
-        path_to_port_img = r'D:\data\code\python\project_mount_christ\data\imgs\my_ports\map_test.png'
-        port_map = pygame.image.load(path_to_port_img).convert_alpha()
-
-
-        file_path = r'D:\data\code\python\project_mount_christ\data\imgs\my_ports\test_london_collision.csv'
-        sMapMaker.port_piddle = csv_to_numpy_matrix(file_path)
+        port_piddle, port_map = self.get_my_port_piddle_and_map(port_id, sMapMaker.get_time_of_day())
 
         self.sp_background.change_img(port_map)
 

@@ -11,18 +11,36 @@ TO DO:
                 day/night plan (day 1st, modify day to get night) OK
                 building type symbols (draw your own) OK
 
-                use my collision ON
+                more smooth transition between tiles ON
 
-                7 port styles (bulding types)
+                7 port styles (bulding types)  OK
                     japan OK
                     china OK
-                    india
-                    africa
-                    northen europe
-                    mid europe
+                    india OK
+
+                    africa OK
+                    northen europe OK
+                    mid europe OK
                     mediterranean OK
 
+
+                draw london map OK
+                london 4 times of day OK
+
+
                 building type symbols
+                    MARKET = 1
+                    BAR = 2
+                    DRY_DOCK = 3
+                    HARBOR = 4
+                    INN = 5
+                    PALACE = 6
+                    JOB_HOUSE = 6
+                    MSC = 7
+                    BANK = 8
+                    ITEM_SHOP = 9
+                    CHURCH = 10
+                    FORTUNE_HOUSE = 11
 
 
 

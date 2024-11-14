@@ -251,7 +251,9 @@ ID_2_BUILDING_TYPE = {
     5: 'inn',
     6: 'palace',
     7: 'job_house',
+
     8: 'msc',
+
     9: 'bank',
     10: 'item_shop',
     11: 'church',

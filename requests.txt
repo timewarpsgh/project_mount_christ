@@ -25,7 +25,11 @@ TO DO:
 
 
                 draw london map OK
-                london 4 times of day OK
+                    london 4 times of day OK
+                    london building locations OK
+
+
+                    collision
 
 
                 building type symbols

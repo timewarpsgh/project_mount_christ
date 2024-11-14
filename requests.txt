@@ -27,9 +27,9 @@ TO DO:
                 draw london map OK
                     london 4 times of day OK
                     london building locations OK
+                    collision OK
+                    tint color OK
 
-
-                    collision
 
 
                 building type symbols

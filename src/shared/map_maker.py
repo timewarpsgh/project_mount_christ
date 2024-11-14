@@ -235,7 +235,7 @@ class MapMaker():
         return sea_img
 
 
-    def can_move_in_port(self, map_id, now_x, now_y, dir):
+    def can_move_in_port_back(self, map_id, now_x, now_y, dir):
 
         piddle = self.port_piddle
 
@@ -281,7 +281,7 @@ class MapMaker():
         # ret
         return False
 
-    def can_move_in_port_back(self, map_id, now_x, now_y, dir):
+    def can_move_in_port(self, map_id, now_x, now_y, dir):
 
         piddle = self.port_piddle
 
@@ -289,33 +289,35 @@ class MapMaker():
         y = now_x
         x = now_y
 
+        edge_len = 16
+
         # basic 4 directions
         if dir == pb.DirType.N:
-            if now_y <= 0:
+            if now_y <= edge_len:
                 return False
 
             if piddle[now_y - 1, now_x] in c.WALKABLE_TILES and piddle[now_y - 1, now_x + 1] in c.WALKABLE_TILES:
                 return True
 
         elif dir == pb.DirType.S:
-            if now_y >= c.PORT_MAP_EDGE:
+            if now_y >= (c.PORT_MAP_EDGE - edge_len + 6):
                 return False
 
             if piddle[x + 2, y] in c.WALKABLE_TILES and piddle[x + 2, y + 1] in c.WALKABLE_TILES:
                 return True
 
         elif dir == pb.DirType.W:
-            if now_x <= 0:
+            if now_x <= edge_len:
                 return False
 
-            if piddle[x + 1, y - 1] in c.WALKABLE_TILES:
+            if piddle[now_y + 1, now_x - 1] in c.WALKABLE_TILES and piddle[now_y, now_x - 1] in c.WALKABLE_TILES:
                 return True
 
         elif dir == pb.DirType.E:
-            if now_x >= c.PORT_MAP_EDGE:
+            if now_x >= c.PORT_MAP_EDGE - edge_len:
                 return False
 
-            if piddle[x + 1, y + 2] in c.WALKABLE_TILES:
+            if piddle[now_y + 1, now_x + 2] in c.WALKABLE_TILES and piddle[now_y, now_x + 2] in c.WALKABLE_TILES:
                 return True
 
         # ret

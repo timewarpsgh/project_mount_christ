@@ -1,6 +1,7 @@
 import random
 import csv
 import numpy as np
+from PIL import Image, ImageEnhance
 import pygame
 import sys
 from enum import Enum, auto
@@ -31,6 +32,31 @@ def csv_to_numpy_matrix(file_path):
             matrix[i] = np.array(row)
 
     return matrix
+
+
+def pil_to_pygame(image):
+    """Convert a PIL image to a Pygame surface."""
+    mode = image.mode
+    size = image.size
+    data = image.tobytes()
+
+    return pygame.image.fromstring(data, size, mode)
+
+
+def tint_image(image_path, tint_color):
+    # Open the image
+    image = Image.open(image_path).convert('RGBA')
+
+    # Create a new image with the same size and the tint color
+    tint_image = Image.new('RGBA', image.size, tint_color)
+
+    # Blend the original image with the tint image
+    blended_image = Image.blend(image, tint_image, alpha=0.3)
+
+    # Convert the blended PIL image to a Pygame surface
+    pygame_surface = pil_to_pygame(blended_image)
+
+    return pygame_surface
 
 
 def dim_image(image, dim_factor=0.5):
@@ -1026,18 +1052,27 @@ class Graphics:
 
             if time_of_day == c.TimeType.DAY:
                 dim_factor = 1.0
+                port_map = dim_image(port_map, dim_factor)
             elif time_of_day == c.TimeType.DAWN:
-                dim_factor = 0.8
-            elif time_of_day == c.TimeType.DUSK:
-                dim_factor = 0.6
+                tint_color = (39, 178, 245)
+                port_map = tint_image(path_to_port_img, tint_color)
 
-            port_map = dim_image(port_map, dim_factor)
+                dim_factor = 0.8
+                port_map = dim_image(port_map, dim_factor)
+            elif time_of_day == c.TimeType.DUSK:
+                tint_color = (255, 165, 0)  # Orange color with 50% (128) opacity
+                port_map = tint_image(path_to_port_img, tint_color)
+
+                dim_factor = 0.6
+                port_map = dim_image(port_map, dim_factor)
+
+
         else:
             path_to_port_img = f'D:\data\code\python\project_mount_christ\data\imgs\my_ports\\{port_id}\\night.png'
             port_map = pygame.image.load(path_to_port_img).convert_alpha()
 
         # get piddle
-        file_path = f'D:\data\code\python\project_mount_christ\data\imgs\my_ports\\{port_id}\\collision.csv'
+        file_path = f'D:\data\code\python\project_mount_christ\data\imgs\my_ports\\{port_id}\\{port_id}_collision.csv'
         port_piddle = csv_to_numpy_matrix(file_path)
         sMapMaker.port_piddle = port_piddle
 

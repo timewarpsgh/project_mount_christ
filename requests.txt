@@ -30,9 +30,31 @@ TO DO:
                     collision OK
                     tint color OK
 
-
-
                 building type symbols  OK
+
+
+                amsterdam ON
+                    collision OK
+
+                    building positions
+                        ID_2_BUILDING_TYPE = {
+                                1: 'market',
+                                2: 'bar',
+                                3: 'dry_dock',
+                                4: 'harbor',
+                                5: 'inn',
+                                6: 'palace',
+                                7: 'job_house',
+
+                                8: 'msc',
+
+                                9: 'bank',
+                                10: 'item_shop',
+                                11: 'church',
+                                12: 'fortune_house',
+                        }
+
+
 
 
 

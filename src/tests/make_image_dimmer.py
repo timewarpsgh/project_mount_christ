@@ -17,7 +17,7 @@ def make_image_dimmer(image_path, output_path, dim_factor=0.5):
 
 
 # Example usage
-port_id = 33
+port_id = 36
 
 image_path = f'D:\data\code\python\project_mount_christ\data\imgs\my_ports\\{port_id}\\day.png'
 output_path = f'D:\data\code\python\project_mount_christ\data\imgs\my_ports\\{port_id}\\day_dimmed.png'

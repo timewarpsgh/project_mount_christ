@@ -43,13 +43,8 @@ TO DO:
 
                   night image OK
 
-                hamburg
-                    day image ON
-                    collision
+                hamburg OK
 
-                    location
-
-                    night image
 
 
 

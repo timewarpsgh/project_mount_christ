@@ -16,9 +16,16 @@ def make_image_dimmer(image_path, output_path, dim_factor=0.5):
     cv2.imwrite(output_path, dimmed_image)
 
 
-# Example usage
-port_id = 36
+def dim_port_image(port_id):
+    image_path = f'D:\data\code\python\project_mount_christ\data\imgs\my_ports\\{port_id}\\day.png'
+    output_path = f'D:\data\code\python\project_mount_christ\data\imgs\my_ports\\{port_id}\\day_dimmed.png'
+    make_image_dimmer(image_path, output_path, dim_factor=0.4)
 
-image_path = f'D:\data\code\python\project_mount_christ\data\imgs\my_ports\\{port_id}\\day.png'
-output_path = f'D:\data\code\python\project_mount_christ\data\imgs\my_ports\\{port_id}\\day_dimmed.png'
-make_image_dimmer(image_path, output_path, dim_factor=0.4)
+
+def main():
+    port_id = 31
+    dim_port_image(port_id)
+
+
+if __name__ == '__main__':
+    main()

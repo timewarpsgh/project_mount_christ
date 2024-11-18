@@ -42,14 +42,24 @@ TO DO:
                   night image
 
                 hamburg OK
-
                 bristol OK
-
                 Bordeaux OK
-
                 Nantes OK
-
                 Dublin OK
+                Copenhagen (35) OK
+                Oslo (37) OK
+                Stockholm (38) OK
+                Lubeck (39) OK
+
+                Danzig (40) OK
+
+
+
+
+
+
+
+
 
 
 

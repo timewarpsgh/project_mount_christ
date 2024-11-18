@@ -36,16 +36,22 @@ TO DO:
                 amsterdam OK
 
                 antwerp OK
-                  day image OK
-                  collision OK
-
-                  location OK
-
-                  night image OK
+                  day image
+                  collision
+                  location
+                  night image
 
                 hamburg OK
 
                 bristol OK
+
+                Bordeaux OK
+
+                Nantes OK
+
+                Dublin OK
+
+
 
 
 

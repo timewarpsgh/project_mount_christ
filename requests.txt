@@ -53,6 +53,9 @@ TO DO:
 
                 Danzig (40) OK
 
+                Riga (41) OK
+                Bergen (42)  OK
+
 
 
 

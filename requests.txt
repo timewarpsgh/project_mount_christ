@@ -41,20 +41,23 @@ TO DO:
                   location
                   night image
 
-                hamburg OK
-                bristol OK
-                Bordeaux OK
-                Nantes OK
-                Dublin OK
-                Copenhagen (35) OK
-                Oslo (37) OK
-                Stockholm (38) OK
-                Lubeck (39) OK
 
-                Danzig (40) OK
+                lisbon (1) OK
+                Seville (2) OK
 
-                Riga (41) OK
-                Bergen (42)  OK
+                Barcelona (4) OK
+                Valencia (7) OK
+                Marseille (8) OK
+                Pisa (10) OK
+
+
+
+
+
+
+
+
+
 
 
 

@@ -50,6 +50,38 @@ TO DO:
                 Marseille (8) OK
                 Pisa (10) OK
                 Naples (11) OK
+                Syracuse (12) OK
+                Palma (13) OK
+                Venice (14) OK
+                Ragusa (15) OK
+                Candia (16) OK
+                Athens (17) OK
+                Salonika (18) OK
+                Kaffa (24) OK
+                Azov (25) OK
+                Ceuta (27) OK
+
+                Genoa (9) OK
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

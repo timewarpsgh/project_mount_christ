@@ -42,26 +42,44 @@ TO DO:
                   night image
 
 
-                lisbon (1) OK
-                Seville (2) OK
 
-                Barcelona (4) OK
-                Valencia (7) OK
-                Marseille (8) OK
-                Pisa (10) OK
-                Naples (11) OK
-                Syracuse (12) OK
-                Palma (13) OK
-                Venice (14) OK
-                Ragusa (15) OK
-                Candia (16) OK
-                Athens (17) OK
-                Salonika (18) OK
-                Kaffa (24) OK
-                Azov (25) OK
-                Ceuta (27) OK
 
-                Genoa (9) OK
+
+                Caracas (43) OK
+                Cartegena (44) OK
+                Havana (45) OK
+                Margarita (46) OK
+                Panama (47) OK
+                Porto Velho (48) OK
+                Santo Domingo (49) OK
+                Veracruz (50) OK
+                Jamaica (51) OK
+                Guatemala (52) OK
+                Pernambuco (53) OK
+                Rio de Janeiro (54) ON
+                  day image
+                  collision
+                  location
+                  night image
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

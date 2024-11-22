@@ -56,11 +56,43 @@ TO DO:
                 Jamaica (51) OK
                 Guatemala (52) OK
                 Pernambuco (53) OK
-                Rio de Janeiro (54) ON
-                  day image
-                  collision
-                  location
-                  night image
+                Rio de Janeiro (54) OK
+                Maracaibo (55) OK
+                Santiago (56) OK
+                Cayenne (57) OK
+                Madeira (58) OK
+                Santa Cruz (59) OK
+                San Jorge (60) OK
+                Bissau (61) OK
+                Luanda (62) OK
+                Argin (63) OK
+                Bathurst (64) OK
+                Timbuktu (65) OK
+                Abidjan (66) OK
+                Sofala (67) OK
+                Malindi (68) OK
+                Mogadishu (69) ON
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

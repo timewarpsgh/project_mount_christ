@@ -54,7 +54,19 @@ TO DO:
                     6 (india)
 
 
-                istanbul (3)  ON
+                istanbul (3)  OK
+                Algiers (5) OK
+                Tunis (6) OK
+                Alexandria (19) OK
+                Jaffa (20) OK
+                Beirut (21) OK
+                Nicosia (22) OK
+                Tripoli (23) OK
+                Trebizond (26) ON
+
+
+
+
 
 
 

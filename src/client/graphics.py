@@ -1045,6 +1045,9 @@ class Graphics:
         sAssetMgr.play_sea_music()
 
     def get_my_port_piddle_and_map(self, port_id, time_of_day):
+        if port_id >= 101:
+            port_id = 101
+
         # get img
         if time_of_day != c.TimeType.NIGHT:
             path_to_port_img = f'D:\data\code\python\project_mount_christ\data\imgs\my_ports\\{port_id}\\day.png'
@@ -1096,6 +1099,9 @@ class Graphics:
             self.remove_port_npcs()
             self.remove_dynamic_port_npcs()
         else:
+            if self.model.role.is_in_supply_port():
+                return
+
             port_id = self.model.role.map_id
 
             if not self.port_npcs:

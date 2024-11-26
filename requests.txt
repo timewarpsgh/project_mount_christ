@@ -62,7 +62,17 @@ TO DO:
                 Beirut (21) OK
                 Nicosia (22) OK
                 Tripoli (23) OK
-                Trebizond (26) ON
+                Trebizond (26) OK
+                Aden (73) OK
+                Hormuz (74) OK
+                Massawa (75) OK
+                Cairo (76) OK
+                Basra (77) OK
+                Mecca (78) OK
+                Quatar (79) OK
+                Shiraz (80) OK
+                Muscat (81) OK
+
 
 
 

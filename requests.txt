@@ -45,33 +45,23 @@ TO DO:
 
                 tile set
                     0 OK
+                    2 OK
                     1 OK
                     3 OK
+                    6 OK
 
-                    2 (istanbul)  ON
                     4 (china)
                     5 (japan)
-                    6 (india)
+
+                Diu (82) OK
+                Cochin (83) OK
+                Ceylon (84) OK
+                Goa (86) OK
+                Calicut (93) OK
 
 
-                istanbul (3)  OK
-                Algiers (5) OK
-                Tunis (6) OK
-                Alexandria (19) OK
-                Jaffa (20) OK
-                Beirut (21) OK
-                Nicosia (22) OK
-                Tripoli (23) OK
-                Trebizond (26) OK
-                Aden (73) OK
-                Hormuz (74) OK
-                Massawa (75) OK
-                Cairo (76) OK
-                Basra (77) OK
-                Mecca (78) OK
-                Quatar (79) OK
-                Shiraz (80) OK
-                Muscat (81) OK
+
+
 
 
 

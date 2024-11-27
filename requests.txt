@@ -5,36 +5,10 @@ TO DO:
         sea map OK
         condition imgs OK
 
-        port maps ON
-            test my london ON
-                use my london img (change_background_sp_to_port) OK
-                day/night plan (day 1st, modify day to get night) OK
-                building type symbols (draw your own) OK
+        port maps OK
 
-                more smooth transition between tiles ON
+        ship at sea, remove noise pixels OK
 
-                7 port styles (bulding types)  OK
-                    japan OK
-                    china OK
-                    india OK
-
-                    africa OK
-                    northen europe OK
-                    mid europe OK
-                    mediterranean OK
-
-
-                draw london map OK
-                    london 4 times of day OK
-                    london building locations OK
-                    collision OK
-                    tint color OK
-
-                building type symbols  OK
-
-
-                amsterdam OK
-                all port maps OK
 
 
 

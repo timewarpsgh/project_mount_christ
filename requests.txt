@@ -50,16 +50,19 @@ TO DO:
                     3 OK
                     6 OK
 
-                    4 (china) ON
-                    5 (japan)
+                    4 (china) OK
+                    5 (japan) ON
 
 
 
-                china port maps OK
-                    Zeiton (95) OK
-                    Macao (96) OK
-                    Hanoi (97) OK
-                    Changan (98) OK
+                japan port maps OK
+                    Sakai (99) OK
+
+
+
+                    Nagasaki (100) OK
+
+
 
 
 

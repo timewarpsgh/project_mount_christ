@@ -34,33 +34,8 @@ TO DO:
 
 
                 amsterdam OK
+                all port maps OK
 
-                antwerp OK
-                  day image
-                  collision
-                  location
-                  night image
-
-
-
-                tile set
-                    0 OK
-                    2 OK
-                    1 OK
-                    3 OK
-                    6 OK
-
-                    4 (china) OK
-                    5 (japan) ON
-
-
-
-                japan port maps OK
-                    Sakai (99) OK
-
-
-
-                    Nagasaki (100) OK
 
 
 

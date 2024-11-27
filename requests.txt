@@ -50,14 +50,16 @@ TO DO:
                     3 OK
                     6 OK
 
-                    4 (china)
+                    4 (china) ON
                     5 (japan)
 
-                Diu (82) OK
-                Cochin (83) OK
-                Ceylon (84) OK
-                Goa (86) OK
-                Calicut (93) OK
+
+
+                china port maps OK
+                    Zeiton (95) OK
+                    Macao (96) OK
+                    Hanoi (97) OK
+                    Changan (98) OK
 
 
 

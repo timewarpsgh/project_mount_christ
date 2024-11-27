@@ -23,7 +23,7 @@ def dim_port_image(port_id):
 
 
 def main():
-    port_id = 93
+    port_id = 98
     dim_port_image(port_id)
 
 

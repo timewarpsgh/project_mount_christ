@@ -391,7 +391,7 @@ class BackGround(SP):
         for id, ship in enumerate(self.model.get_enemy().ship_mgr.get_ships()):
             num_text = Text(str(id), c.BLACK,
                             c.WINDOW_WIDTH - 80, (id + 2) * 20)
-            hp_text = Text(str(ship.now_durability), c.YELLOW,
+            hp_text = Text(str(ship.now_durability), c.ORANGE,
                            c.WINDOW_WIDTH - 80 + 20, (id + 2) * 20)
             crew_text = Text(str(ship.now_crew), c.WHITE,
                              c.WINDOW_WIDTH - 80 + 40, (id + 2) * 20)
@@ -404,7 +404,7 @@ class BackGround(SP):
         for id, ship in enumerate(self.model.role.ship_mgr.get_ships()):
             # all ships
             num_text = Text(str(id), c.BLACK, 10, (id + 2) * 20)
-            hp_text = Text(str(ship.now_durability), c.YELLOW, 30, (id + 2) * 20)
+            hp_text = Text(str(ship.now_durability), c.ORANGE, 30, (id + 2) * 20)
             crew_text = Text(str(ship.now_crew), c.WHITE, 50, (id + 2) * 20)
 
             for item in [num_text, hp_text, crew_text]:
@@ -467,6 +467,19 @@ class BackGround(SP):
     def __paste_ships(self, battle_ground_img, my_flag_ship):
         ships_positions = []
 
+        # bg for ship number
+        width = 10
+        height = 17
+
+        my_color = (255, 255, 0, 200)
+        bg_for_my_ship_number = pygame.Surface((width, height), pygame.SRCALPHA)
+        bg_for_my_ship_number.fill(my_color)
+
+        enemy_color = (255, 0, 0, 200)
+        bg_for_enemy_ship_number = pygame.Surface((width, height), pygame.SRCALPHA)
+        bg_for_enemy_ship_number.fill(enemy_color)
+
+
         # my ships
         my_ships = self.model.role.ship_mgr.id_2_ship.values()
         for id, ship in enumerate(my_ships):
@@ -477,7 +490,9 @@ class BackGround(SP):
             battle_ground_img.blit(ship_in_battle_img, (x, y))
 
             if ship.is_alive():
-                ship_name_text = Text(f'{id}', c.WHITE)
+                battle_ground_img.blit(bg_for_my_ship_number, (x, y))
+
+                ship_name_text = Text(f'{id}', c.BLACK)
                 battle_ground_img.blit(ship_name_text.image, (x , y))
 
             ships_positions.append([x, y])
@@ -491,7 +506,8 @@ class BackGround(SP):
             battle_ground_img.blit(ship_in_battle_img, (x, y))
 
             if ship.is_alive():
-                ship_name_text = Text(f'{id}', c.RED)
+                battle_ground_img.blit(bg_for_enemy_ship_number, (x, y))
+                ship_name_text = Text(f'{id}', c.BLACK)
                 battle_ground_img.blit(ship_name_text.image, (x, y))
 
             ships_positions.append([x, y])
@@ -539,7 +555,7 @@ class SaySP(SP):
 
 class ShootDamageNumber(SP):
 
-    def __init__(self, number, x, y, color=c.YELLOW):
+    def __init__(self, number, x, y, color=c.ORANGE):
         image = sAssetMgr.font.render(str(number), True, color)
         super().__init__(image, x, y)
 
@@ -1360,7 +1376,7 @@ class Graphics:
                 if sprite.z == layer:
                     window_surface.blit(sprite.image, sprite.rect)
 
-    def show_damage(self, damage, x, y, color=c.YELLOW):
+    def show_damage(self, damage, x, y, color=c.ORANGE):
         shoot_damage_number = ShootDamageNumber(damage, x, y, color)
         self.sprites.add(shoot_damage_number)
 

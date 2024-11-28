@@ -799,7 +799,7 @@ class OptionsDialog:
         self.__make_menu(option_2_callback)
 
         self.__show_one_item(item, is_for_item_shop=True)
-        self.__building_speak(f'I want to buy this for {price}.')
+        self.__building_speak(f"I'm willing to buy this for {price}.")
 
     def show_available_items(self, items_ids, prices):
         option_2_callback = {}

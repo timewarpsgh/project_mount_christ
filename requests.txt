@@ -17,6 +17,10 @@ TO DO:
 
         fleet info bg OK
 
+        ships images OK
+
+
+
 
 
 

@@ -827,7 +827,7 @@ class HudRight(SP):
             self.move_to(c.WINDOW_WIDTH - c.HUD_WIDTH, 0)
 
         new_image = self.img_src.copy()
-        x = 10
+        x = 15
 
         # in port
         if self.model.role.is_in_port():
@@ -853,7 +853,7 @@ class HudRight(SP):
                 my_x = x + id * 30
                 new_image.blit(Text(f'{aura.name[:3]}', color=c.ORANGE).image, (my_x, 20))
 
-            start_y = 75
+            start_y = 80
             d_y = 45
 
             speed = self.model.role.speed

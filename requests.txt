@@ -11,6 +11,8 @@ TO DO:
 
         change fleet bg OK
 
+        right hud text, move right a bit OK
+
 
 
 

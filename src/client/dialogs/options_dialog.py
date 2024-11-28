@@ -1492,6 +1492,9 @@ class OptionsDialog:
                     image_width + + image_width // 2
                 y = row * image_height + c.WINDOW_HEIGHT // 2 - image_height
 
+            if ships_cnt == 10:
+                x -= image_width
+
             rect = pygame.Rect((x, y), (image_width, image_height))
             pygame_gui.elements.UIImage(rect, image, ui_manager, container=ui_window)
 

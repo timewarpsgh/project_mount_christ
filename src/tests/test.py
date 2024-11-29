@@ -1,15 +1,8 @@
-import json
+img_id = 36
 
+cols = 16
 
-locations = {
-    "1": {"x": 49, "y": 49},
-    "2": {"x": 60, "y": 41},
-    "3": {"x": 23, "y": 73},
-    "4": {"x": 50, "y": 64},
-    "5": {"x": 34, "y": 49},
-    "7": {"x": 46, "y": 32},
-    "10": {"x": 30, "y": 29}
-}
+img_x = (img_id % cols) + 1
+img_y = (img_id // cols) + 1
 
-s = json.dumps(locations)
-print(s)
+print(img_x, img_y)

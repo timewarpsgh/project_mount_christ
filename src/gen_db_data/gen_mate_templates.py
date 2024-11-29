@@ -54,15 +54,15 @@ def init_mate_templates():
 
     for mate in mates:
 
-        # init rand talents
-        talents = ['talent_in_navigation', 'talent_in_accounting', 'talent_in_battle']
-        for talent in talents:
-            rand_one_talent(mate, talent)
-
-        # init lvs
-        lvs = ['lv_in_nav', 'lv_in_acc', 'lv_in_bat']
-        for lv in lvs:
-            rand_one_lv(mate, lv)
+        # # init rand talents
+        # talents = ['talent_in_navigation', 'talent_in_accounting', 'talent_in_battle']
+        # for talent in talents:
+        #     rand_one_talent(mate, talent)
+        #
+        # # init lvs
+        # lvs = ['lv_in_nav', 'lv_in_acc', 'lv_in_bat']
+        # for lv in lvs:
+        #     rand_one_lv(mate, lv)
 
         # lv up to these lvs based on talents
         fields = ['navigation', 'accounting', 'battle']

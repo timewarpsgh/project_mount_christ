@@ -1,23 +1,18 @@
 TO DO:
 
-    change sp ON
+    data integrity ON
+        ships OK
+        mates ON
+            use id instead of image_x_y OK
+            sync mate templates to mates for npc OK
 
-        sea map OK
-        condition imgs OK
 
-        port maps OK
 
-        ship at sea, remove noise pixels OK
+        maids
+        items
+        discoveries
 
-        change fleet bg OK
 
-        right hud text, move right a bit OK
-        in battle ship images OK
-        10 ships fleet info OK
-
-        fleet info bg OK
-
-        ships images OK
 
 
 

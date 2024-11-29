@@ -359,11 +359,15 @@ class OptionsDialog:
         text = self.__dict_2_txt(dict)
 
         # get figure image
-        split_items = mate_template.img_id.split('_')
-        x = int(split_items[0])
-        y = int(split_items[1])
+        # get mate image
+        if mate_template.img_id.isdigit():
+            img_x, img_y = self.__item_img_id_2_xy(int(mate_template.img_id))
+        else:
+            split_items = mate_template.img_id.split('_')
+            img_x = int(split_items[0])
+            img_y = int(split_items[1])
 
-        mate_image = self.__figure_x_y_2_image(x, y)
+        mate_image = self.__figure_x_y_2_image(img_x, img_x)
 
         MyPanelWindow(
             rect=pygame.Rect((59, 12), (350, 400)),
@@ -481,9 +485,12 @@ class OptionsDialog:
 
     def show_mate_speech(self, mate, speech):
         # get image_x and y
-        split_items = mate.img_id.split('_')
-        x = int(split_items[0])
-        y = int(split_items[1])
+        if mate.img_id.isdigit():
+            x, y = self.__item_img_id_2_xy(int(mate.img_id))
+        else:
+            split_items = mate.img_id.split('_')
+            x = int(split_items[0])
+            y = int(split_items[1])
 
         # get figure image
         mate_image = self.__figure_x_y_2_image(x, y)
@@ -629,9 +636,12 @@ class OptionsDialog:
         text = self.__dict_2_txt(dict)
 
         # get figure image
-        split_items = pack.img_id.split('_')
-        x = int(split_items[0])
-        y = int(split_items[1])
+        if pack.img_id.isdigit():
+            x, y = self.__item_img_id_2_xy(int(pack.img_id))
+        else:
+            split_items = pack.img_id.split('_')
+            x = int(split_items[0])
+            y = int(split_items[1])
         mate_image = self.__figure_x_y_2_image(x, y)
         MyPanelWindow(
             rect=pygame.Rect((59, 12), (350, 400)),
@@ -1835,8 +1845,8 @@ class OptionsDialog:
             self.__building_speak('Plus tax, these are the best prices you can have.')
 
     def __figure_x_y_2_image(self, x=8, y=8):
-        figure_width = 65
-        figure_height = 81
+        figure_width = c.FIGURE_WIDTH
+        figure_height = c.FIGURE_HEIGHT
 
         figures_image = sAssetMgr.images['figures']['figures']
         figure_surface = pygame.Surface((figure_width, figure_height))
@@ -1879,12 +1889,17 @@ class OptionsDialog:
         # make text from dict
         text = self.__dict_2_txt(dict)
 
-        # get ship image
-        split_items = mate.img_id.split('_')
-        x = int(split_items[0])
-        y = int(split_items[1])
+        # get mate image
+        if mate.img_id.isdigit():
+            print(f'img id is digit')
+            img_x, img_y = self.__item_img_id_2_xy(int(mate.img_id))
+            print(f'img_x: {img_x}, img_y: {img_y}')
+        else:
+            split_items = mate.img_id.split('_')
+            img_x = int(split_items[0])
+            img_y = int(split_items[1])
 
-        mate_image = self.__figure_x_y_2_image(x, y)
+        mate_image = self.__figure_x_y_2_image(img_x, img_y)
 
         MyPanelWindow(
             rect=pygame.Rect((59, 12), (350, 400)),

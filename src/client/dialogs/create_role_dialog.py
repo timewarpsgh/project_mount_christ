@@ -16,8 +16,8 @@ from asset_mgr import sAssetMgr
 
 
 def figure_x_y_2_image(x=8, y=8):
-    figure_width = 65
-    figure_height = 81
+    figure_width = c.FIGURE_WIDTH
+    figure_height = c.FIGURE_HEIGHT
 
     figures_image = sAssetMgr.images['figures']['figures']
 

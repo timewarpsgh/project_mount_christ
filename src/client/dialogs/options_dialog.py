@@ -1835,8 +1835,8 @@ class OptionsDialog:
             self.__building_speak('Plus tax, these are the best prices you can have.')
 
     def __figure_x_y_2_image(self, x=8, y=8):
-        figure_width = 65
-        figure_height = 81
+        figure_width = c.FIGURE_WIDTH
+        figure_height = c.FIGURE_HEIGHT
 
         figures_image = sAssetMgr.images['figures']['figures']
         figure_surface = pygame.Surface((figure_width, figure_height))

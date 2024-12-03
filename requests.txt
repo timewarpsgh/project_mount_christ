@@ -2,7 +2,7 @@ TO DO:
 
     data integrity ON
         ships OK
-        mates ON
+        mates OK
             use id instead of image_x_y OK
             sync mate templates to mates for npc OK
             view mate bug OK
@@ -14,7 +14,9 @@ TO DO:
 
         maids names and locations OK
 
-        items
+        items  ON
+
+
         discoveries
 
 

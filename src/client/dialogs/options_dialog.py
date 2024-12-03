@@ -1891,9 +1891,7 @@ class OptionsDialog:
 
         # get mate image
         if mate.img_id.isdigit():
-            print(f'img id is digit')
             img_x, img_y = self.__item_img_id_2_xy(int(mate.img_id))
-            print(f'img_x: {img_x}, img_y: {img_y}')
         else:
             split_items = mate.img_id.split('_')
             img_x = int(split_items[0])

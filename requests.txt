@@ -7,6 +7,10 @@ TO DO:
             sync mate templates to mates for npc OK
             view mate bug OK
 
+            create new role OK
+
+            building bg ON
+
 
         maids
         items

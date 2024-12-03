@@ -46,7 +46,7 @@ class CreateRoleDialog:
 
         # add ui window
         width = c.LOGIN_WINDOW_WIDTH
-        height = c.LOGIN_WINDOW_HEIGHT * 1.5
+        height = c.LOGIN_WINDOW_HEIGHT * 1.6
         self.ui_window = pygame_gui.elements.UIWindow(
             rect=pygame.Rect((0, 0), (width, height)),
             manager=self.mgr,

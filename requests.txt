@@ -5,7 +5,7 @@ TO DO:
         mates ON
             use id instead of image_x_y OK
             sync mate templates to mates for npc OK
-
+            view mate bug OK
 
 
         maids

@@ -367,7 +367,7 @@ class OptionsDialog:
             img_x = int(split_items[0])
             img_y = int(split_items[1])
 
-        mate_image = self.__figure_x_y_2_image(img_x, img_x)
+        mate_image = self.__figure_x_y_2_image(img_x, img_y)
 
         MyPanelWindow(
             rect=pygame.Rect((59, 12), (350, 400)),

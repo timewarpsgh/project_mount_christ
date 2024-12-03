@@ -12,7 +12,8 @@ TO DO:
             building bg, more clear OK
 
 
-        maids
+        maids names and locations OK
+
         items
         discoveries
 

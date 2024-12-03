@@ -9,7 +9,7 @@ TO DO:
 
             create new role OK
 
-            building bg ON
+            building bg, more clear OK
 
 
         maids

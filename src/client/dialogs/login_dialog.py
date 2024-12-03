@@ -12,7 +12,7 @@ from my_ui_elements import MyButton
 from create_account_dialog import CreateAccountDialog
 import constants as c
 
-AUTO_CLICK_LOGIN = False
+AUTO_CLICK_LOGIN = True
 
 class LoginDialog:
 

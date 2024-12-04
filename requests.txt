@@ -14,7 +14,7 @@ TO DO:
 
         maids names and locations OK
 
-        items  ON
+        items: change  name and description  OK
 
 
         discoveries

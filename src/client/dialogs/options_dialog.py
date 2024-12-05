@@ -1656,7 +1656,7 @@ class OptionsDialog:
 
 
         MyPanelWindow(
-            rect=pygame.Rect((59, 50), (350, 400)),
+            rect=pygame.Rect((59, -5), (400, 500)),
             ui_manager=self.mgr,
             text=text,
             image=item_img,

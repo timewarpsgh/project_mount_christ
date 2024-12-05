@@ -17,7 +17,8 @@ TO DO:
         items: change  name and description  OK
 
 
-        discoveries
+        discoveries: change descriptions OK
+
 
 
 

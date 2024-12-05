@@ -20,7 +20,7 @@ TO DO:
         discoveries: change descriptions OK
 
 
-
+        change aura color OK
 
 
 

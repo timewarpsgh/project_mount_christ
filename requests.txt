@@ -7,7 +7,18 @@ TO DO:
 
 
 
-        discoveries
+        discoveries ON
+            to change to something else
+                stone ball -> devil's cave
+                stonehenge -> The Milky Way
+                Nasiped -> red parrot
+                burning water -> black water
+                plant worm ->  Gilt Bronze Seal
+                Namahage -> fuji mountain
+                Great Auk -> green land shark
+
+                Temple of the Sun -> Nazca lines  ON
+
 
 
 

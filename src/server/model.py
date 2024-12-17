@@ -1891,8 +1891,9 @@ class Role:
         distance = 3
 
         if abs(village.x - self.x) <= distance and abs(village.y - self.y) <= distance:
-            self.__make_discovery(village, village_id)
             self.__find_treasure(village_id)
+            self.__make_discovery(village, village_id)
+
 
     def __find_treasure(self, village_id):
         # find treasure

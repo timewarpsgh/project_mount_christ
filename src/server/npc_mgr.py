@@ -315,7 +315,7 @@ class NpcMgr:
         fleet = npc.mate.fleet
 
         if fleet == c.Fleet.MERCHANT.value:
-            npc.weapon = 45
+            npc.weapon = 44
             npc.armor = 33
         elif fleet == c.Fleet.CONVOY.value:
             npc.weapon = 52

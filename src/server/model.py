@@ -3314,6 +3314,16 @@ class Role:
 
         items = sObjectMgr.get_items()
         item = random.choice(items)
+
+        # high lv gears are rare to find
+        if item.lv:
+            if item.lv >= 30:
+                if random.random() < 1/item.lv:
+                    pass
+                else:
+                    # give oil of benediction instead
+                    item = sObjectMgr.get_item(1)
+
         self.add_item(item.id)
 
         return item.name

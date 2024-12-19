@@ -4,26 +4,9 @@ TO DO:
         ships OK
         mates OK
         maids OK
-        items
-            weapons
-            armors
-            instruments
-            consumables
-            treasures
+        items OK
 
-            higl lv weapons and armors cannot be bought
-
-            capitals: 1 2 3 4 32 50
-                lv 1 weapon   50
-                lv 1 armor    32
-                lv 1 instrument 4
-                rat poison 3
-                oil of benediction 1
-                lime juice 2
-
-
-            other ports:
-                3 random items except high lv equipments
+        high lv gears are rare to find OK
 
 
 

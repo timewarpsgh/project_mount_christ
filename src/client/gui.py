@@ -32,8 +32,8 @@ class Gui:
             if not hasattr(event.ui_element, 'option_2_callback'):
                 return
             # call corresponding func
-            if not event.ui_element.option_2_callback[event.text]:
-                return
+            # if not event.ui_element.option_2_callback[event.text]:
+            #     return
             event.ui_element.option_2_callback[event.text]()
 
         # esc pressed

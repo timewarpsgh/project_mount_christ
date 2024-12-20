@@ -1,150 +1,21 @@
 TO DO:
 
-    data integrity ON
-        ships OK
-        mates OK
-        maids OK
-        items OK
+    disconn handling ON
 
-        high lv gears are rare to find OK
+        normal ON
+            user exit game in port OK
 
 
 
+        abnormal
+            bug exit in port OK
 
+            exit at sea, not allowed OK
+            exit in battle, not allowed OK
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            force exit at sea, save
+            for exit in battle, lose to npc/role, login to find dead at sea
 
 
 

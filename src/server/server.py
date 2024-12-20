@@ -166,8 +166,13 @@ class Server:
             await session.main()
 
         except ConnectionResetError as e:
+            print("user exited due to bug!!!!")
             print("A ConnectionResetError occurred:", e)
             print(self.addr_2_session)
+
+            if session.addr in self.addr_2_session:
+                await session.on_disconnect()
+
 
         except Exception as e:
             print(f'some error occured in func client_connected: {e}')

@@ -14,8 +14,15 @@ TO DO:
             exit in battle, not allowed OK
 
 
-            force exit at sea, save
-            for exit in battle, lose to npc/role, login to find dead at sea
+            force exit at sea OK
+                lose all non-flagships ON
+                teleport back to london OK
+
+
+            force exit in battle OK
+                lose to role,   OK
+                lose to npc,    OK
+                teleport back to london OK
 
 
 

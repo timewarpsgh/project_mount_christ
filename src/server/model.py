@@ -3416,10 +3416,16 @@ class Role:
 
         return xp_amount
 
-    def lose_to_npc(self):
+    def remove_non_flag_ships(self):
         for id in self.get_non_flag_ships_ids():
+            ship = self.ship_mgr.get_ship(id)
+            captain = ship.get_captain()
+            captain.clear_duty()
             self.ship_mgr.rm_ship(id)
             self.session.send(pb.ShipRemoved(id=id))
+
+    def lose_to_npc(self):
+        self.remove_non_flag_ships()
 
         self.__lose_money_due_to_death()
 

@@ -31,9 +31,12 @@ class Gui:
         if event.type == pygame_gui.UI_SELECTION_LIST_NEW_SELECTION:
             if not hasattr(event.ui_element, 'option_2_callback'):
                 return
+
+            # for testing force exit (click msc in buildings)
+            if not event.ui_element.option_2_callback[event.text]:
+                return
+
             # call corresponding func
-            # if not event.ui_element.option_2_callback[event.text]:
-            #     return
             event.ui_element.option_2_callback[event.text]()
 
         # esc pressed

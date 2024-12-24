@@ -1,13 +1,96 @@
 TO DO:
 
-    disconn handling ON
+    disconn handling OK
 
-        normal ON
-            user exit game in port OK
+    story ON
+
+        lv 1, finding mates, trade
+
+        lv 10, focus on exploration
+            Naples, bar,
+                Tommy: So, it's called Mount Vesuvius right?
+                John: Right.
+                Charlie: Mount Vesurvivors?
+                Amy: Mount Vesuvius...
+                Charlie: Yep, that's what I mean.
+                Tommy: Located at 40N 14e.
+                John: I like your writing style. Everything is organized and it's easy
+                      to find and recognize the details. But what's the point of
+                      writing all the discoveries down? After seeing one, I just remember it.
+                Tommy: It's for people who don't have a chance to see for themselves
+                      like Mr. Gary. I know words often fail at capturing the elegance of a discovery,
+                      but they have their advantages.
+                Amy: Like they are cheap?
+                Charlie: Like they can not be dangerous?
+                Tommy: Like they can last long if they are written properly.
+
+                Someone: Do you guys know Pompei?
+                Charlie: Pompei?
+                Someone: It's a city close to Mount Vesuvius. The whole city was destroyed by the
+                       eruption of Mount Vesuvius a long time ago. Many people were buried under
+                       ashes.
+                Amy: uh...
+                Tommy: An eruption might be a sight to watch from a distance, but if you get too
+                       close, you get yourself in trouble.
+
+                Someone: Do you guys know Mount Fuji?
+                Charlie: What's that?
+                Tommy: I hear it's a volcano in Japan.
+                Someone: Yes. I once passed it on my ship many years ago. It was a cloudy day.
+                        The peak was covered in fog. It was just beautiful. I remember it's at around
+                        39N	139e.
+
+            Sakai, bar,
+                Tommy: Mount Fuji, 39N	139e.
+                John: Tommy, what's so interesting about volcanoes? We came all the way here, and
+                      just saw another volcano.
+                Tommy: If you have seen enough examples of volcanoes, when you see a new volcano,
+                      you can predict this new volcano's behavior based on the examples. Acurate
+                      predictions can save lives.
+                Amy: Wow.
+                Charlie: Wow...
 
 
 
-        abnormal exits OK
+
+
+
+        lv 20, while exploring, overhears his's father's killer, Nicolás Fernández
+            english sailors speak evil of him, he should be killed
+            pursue Nicolas
+
+            Caracas, bar
+                Sebastian: Robert. Robert... Robert!!! Wake the heck up! I can't believe
+                    you got drunk. This is the first time I see you drunk.
+                Robert: Oh, Sebastian. Sebastian... My dearest brother.
+                Sebastian: Are... are you crying? My goodness. You gotta be crying.
+                    I can't believe you are crying. I can't believe the world's most notorius
+                    and handsome pirate is crying. Has Betty left you?
+                Robert: You know nothing. Sebastion. Take a look at this incredible post.
+                Sebastian: Whaaat? Looks like the English Navy has just added another person
+                     to the wanted list. This Nicolás Fernández of the Spanish Navy. A bounty
+                     of 1100 Gold Ingots will be kindly provided for anyone who can bring him
+                     to London, dead or alive. 1100? I remember your bounty is 1050.
+                Robert: I'm ruined. I'm done. My life has just met its lowest valley. I'm no
+                     longer the most wanted man in the world!
+                Sebastioon: That's true. You are second now. Congratulations! You may enjoy
+                    a longer life due to the shift of the world's attention.
+                Robert: ... Thank you, my brother. I feel better now, regardless of whether
+                    a longer life is worth living.
+
+
+
+
+
+
+
+        lv 30, found Nicolas, heavily wounded in an inn. his mates try their best to
+            protect him, evidence indicates he's an honorable man
+
+            decides to forgive him
+
+        lv 40, the end, John makes a tomb on an island, speaks to his father, in response to
+            the letter at the beginning of the game
 
 
 

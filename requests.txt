@@ -55,7 +55,7 @@ TO DO:
 
 
 
-        lv 20, while exploring, overhears his's father's killer, Nicolás Fernández
+        lv 20, while exploring, overhears his's father's killer, Nicolas Fernandez
             english sailors speak evil of him, he should be killed
             pursue Nicolas
 
@@ -68,7 +68,7 @@ TO DO:
                     and handsome pirate is crying. Has Betty left you?
                 Robert: You know nothing. Sebastion. Take a look at this incredible post.
                 Sebastian: Whaaat? Looks like the English Navy has just added another person
-                     to the wanted list. This Nicolás Fernández of the Spanish Navy. A bounty
+                     to the wanted list. This Nicolas Fernandez of the Spanish Navy. A bounty
                      of 1100 Gold Ingots will be kindly provided for anyone who can bring him
                      to London, dead or alive. 1100? I remember your bounty is 1050.
                 Robert: I'm ruined. I'm done. My life has just met its lowest valley. I'm no
@@ -77,6 +77,54 @@ TO DO:
                     a longer life due to the shift of the world's attention.
                 Robert: ... Thank you, my brother. I feel better now, regardless of whether
                     a longer life is worth living.
+
+                Robert: Now, when I come to think of it, I wonder how this Nicolas Fernandez
+                    managed to surpass my position.
+                Sebastion: I heard the Spanish Navy caught the English Navy by surprise
+                    some time ago. The English Navy suffered significant loss. Five ships of the line
+                    were sunk. One ship was heavily damaged but still managed to escape
+                    in rather desperate situations. Even
+                    the Spanish talked about this ship with astonishment.
+                Sebastion: Ah... I remember.
+                Sebastion: Endurance. It's HMS Endurance.
+                Sebastion: You may have plundered lots of English merchant ships without arms.
+                    Nicolas Fernandez most likely commanded a fleet that dealt a heavy blow to
+                    the formidable English Navy.
+                Robert: I see. I'll practice more. I'll get up tomorrow at 4 am. And you'll come
+                    with me.
+
+            Caracas, inn
+                Amy: These pirates are kind of cute.
+                Charlie: 1100, isn't it? 1100 gold ingots for the head of Nicolas Fernandez.
+                    I'm interested. Robert's bounty of 1050 looks OK but he seems weak. He's
+                    not worth my time.
+                Tommy: I like your confidence. But don't underestimate Nicolas. You have no
+                    idea what you are dealing with.
+                John: Let's find out what we are dealing with.
+                Tommy: Alright. Alright. But where is he?
+                Amy: My friend Mila works at the bar in Havana. That bar's often filled with
+                    Spanish sailors. She might know.
+                John: Let's go.
+
+            Havana, bar
+                Amy: Hey, Mila. Mila! It's Amy!
+                Mila: Oh, Amy! Is that really you? I'm so happy to see you again!
+                    Have you come for the tobacco here?
+                Amy: Tobacco... I almost forgot. Havana has the best tobacco in the world.
+                    If we trade ...
+                Charlie: Um.. Um... Nicolas. Nicolas...
+                Amy: Aye. Right. Do you know a Spanish guy called Nicolas Fernandez?
+                Mila: Admiral Fernandez of the Spanish Navy? Of course. His fleet just sailed
+                    south from here about a week ago. I hurried to the harbor and witnessed the
+                    departure. There were 10 battle ships, all fully armored. The sailors lined
+                    up by the side of the ships and soluted the harbor just as the sun rised
+                    above the horizon in a partly cloudy day. The clouds were purple, red, and
+                    golden.
+                Amy: Do you know where he's headed?
+                Mila: I heard multiple versions of their destination. They are likely all fake.
+                Amy: True. You don't easily predict the operation of a navy fleet.
+                    Thank you anyway.
+                Mila: You are welcome.
 
 
 
@@ -88,6 +136,14 @@ TO DO:
             protect him, evidence indicates he's an honorable man
 
             decides to forgive him
+
+
+            Dili, bar
+
+
+
+
+
 
         lv 40, the end, John makes a tomb on an island, speaks to his father, in response to
             the letter at the beginning of the game

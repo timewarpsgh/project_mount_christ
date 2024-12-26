@@ -56,8 +56,7 @@ TO DO:
 
 
         lv 20, while exploring, overhears his's father's killer, Nicolas Fernandez
-            english sailors speak evil of him, he should be killed
-            pursue Nicolas
+               decides to pursue Nicolas
 
             Caracas, bar
                 Sebastian: Robert. Robert... Robert!!! Wake the heck up! I can't believe
@@ -117,7 +116,7 @@ TO DO:
                 Mila: Admiral Fernandez of the Spanish Navy? Of course. His fleet just sailed
                     south from here about a week ago. I hurried to the harbor and witnessed the
                     departure. There were 10 battle ships, all fully armored. The sailors lined
-                    up by the side of the ships and soluted the harbor just as the sun rised
+                    up by the side of the ships and soluted the harbor just as the sun rose
                     above the horizon in a partly cloudy day. The clouds were purple, red, and
                     golden.
                 Amy: Do you know where he's headed?
@@ -128,10 +127,6 @@ TO DO:
 
 
 
-
-
-
-
         lv 30, found Nicolas, heavily wounded in an inn. his mates try their best to
             protect him, evidence indicates he's an honorable man
 
@@ -139,9 +134,78 @@ TO DO:
 
 
             Dili, bar
+                Charlie: I love the beer here. They must have added spice in it.
+                Amy: John, can you open the window a bit more? I think the warm breeze should
+                    be good for all of us.
+                John: Sure.
+                Tommy: I found a strange crab on the beach this morning. It has a shell on its back.
+                    When it saw a bigger shell, it replaced its original shell with the bigger shell.
+                Amy: Did you congratulate the crab for moving to a bigger house?
 
+                Sailor A: We have been on this little island for 2 weeks. I'm getting bored.
+                    When are we leaving?
+                Sailor B: Have you not heard? Admiral Fernandez was shot in the thigh by a poisonous
+                    arrow a few days ago while exploring the island. He's still unconscious at the inn.
+                    The culprit, most likely someone from the local tribe, remains unidentified.
+                Sailor A: Jesus Christ. God bless admiral Fernandez. I can't imagine a world without him.
+                    None of us would have survived to this day if not for his sake.
+                Sailor B: He's a tough guy. And we have doctor Sanchez. He'll be fine. Just give hime some
+                    time.
 
+            Dili, harbor
+                Charlie: After all this seeking around the edges of the world, he's finally within our reach.
+                Tommy: His room must be heavily guarded.
+                Charlie: Not really if you lure the guards away.
+                Tommy: How?
+                Charlie: Can you wear like a local and send an arrow to his window? But don't
+                    run too fast, lest the guards lose you.
+                Amy: Sounds like a good idea.
+                John: Then we should be able to handle any remaining guards.
 
+            Dili, inn
+                Charlie: Tommy, are you ready?
+                Tommy: Yep.
+                Charlie: 3
+                Charlie: 2
+                Charlie: 1
+                Charlie: Go!
+                Guard A: Who's there!
+                Guard B: Another arrow? Looks like the culprit is back. You stay here. Others, follow me!
+                Guard A: Yes Sir.
+                Guard A: Ah...
+                Charlie: So easy.
+                Sanchez: Guards! Guards!!! ... Who are you? What do you want?
+                Charlie: We are your enemy. We want the head of admiral Fernandez. You must be
+                    his doctor. We just want him. If you step aside, we'll leave you be.
+
+                Sanchez: Yes. I'm his doctor. I think you came at the perfect time.
+                    He's right there on his bed. And I promise you, there will be no resistance
+                    of any kind.
+                John: So he's still unconscious.
+                Sanchez: If you had come earlier today, you would have seen him sitting on bed. I
+                    just did a third operation which removed his entire right leg to deal with the infection.
+                    I have tried my best, but the infection kept coming back. I have not lived up to his
+                    trust in me. I'm not even sure if he will make it this time.
+                    I hope he will, so his daughter can see his father again.
+                Amy: He has a daughter?
+                Sanchez: Garcia, if I remember correct. I've only seen her a few times, when she was born,
+                    when she was just beginning to speak. Now she's about your age I guess.
+                Charlie: You have no idea how many lives he took from the English Navy. And ... What's
+                    lying on the bed is 1100 gold ingots.
+                Charlie: One thousand plus one hundred... gold ingots.
+                Charlie: How often do you see that many ingots lying on a bed?
+                Charlie: Amy, how many rounds of trading do we need to make a profit equal to
+                    that amount?
+                Amy: No... No!!! Charlie, you can't do that.
+                Charlie: Of course I can. Just close your eyes. Doctor, step aside. You stand no
+                 chance against me.
+                John: Charlie.
+                Charlie: What?
+                John: We can't do that. I want his head as you do. But it's just his job to fight the English Navy, like it's
+                    the English Navy's job to fight the Spanish Navy. If you want the bounty,
+                    win him at sea.
+                Amy: Let's go Charlie.
+                Charlie: ... Aye. Aye..
 
 
 

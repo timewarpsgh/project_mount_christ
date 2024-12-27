@@ -1695,7 +1695,7 @@ class OptionsDialog:
         event = sObjectMgr.get_event(event_id)
 
         if not event:
-            self.show_msg_panel('You have completed the intro quests.')
+            self.show_msg_panel('You have completed the quests. Thank you.')
             return
 
         if event.building == 'any':

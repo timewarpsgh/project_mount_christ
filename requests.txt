@@ -10,12 +10,9 @@ TO DO:
 
     test travel OK
     test battle OK
-
-
-
     season change OK
 
-    change Pteranodon to something else
+    change Pteranodon to African Fish Eagle OK
 
 
 

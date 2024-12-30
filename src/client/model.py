@@ -972,6 +972,7 @@ class SeasonMgr:
     current_speed: int = None
 
     def change_season(self, season, wind_dir, wind_speed, current_dir, current_speed):
+        print(self.season)
         self.season = season
         self.wind_dir = wind_dir
         self.wind_speed = wind_speed

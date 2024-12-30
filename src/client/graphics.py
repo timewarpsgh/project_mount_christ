@@ -787,8 +787,9 @@ class HudLeft(SP):
 
         x = 10
 
+        season_text = c.INT_2_SEASON[self.model.season_mgr.season]
         new_image.blit(Text('Century 16').image, (x, 18))
-        new_image.blit(Text('Spring').image, (x, 142))
+        new_image.blit(Text(season_text.capitalize()).image, (x, 142))
 
         if self.model.role.is_in_port():
             lv = self.model.role.get_lv()

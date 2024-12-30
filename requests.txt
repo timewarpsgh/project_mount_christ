@@ -8,11 +8,12 @@ TO DO:
 
     menu window can show many discoveries OK
 
-    test tarvel ON
+    test travel OK
+    test battle OK
 
 
 
-
+    season change OK
 
     change Pteranodon to something else
 

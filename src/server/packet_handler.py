@@ -339,8 +339,10 @@ class PacketHandler:
             # turn bit_str with 32 bits into a int32 number
             int_num = int(bit_str, 2)
 
+            print(int_num)
             ints[i] = int_num
 
+        print(len(ints))
         return ints
 
     def __enter_world(self, enter_world):

@@ -2,10 +2,16 @@ TO DO:
 
     disconn handling OK
 
-    story ON
-        add lv requirement for quests OK
-        show lv required for quests OK
+    story OK
 
+    seen grids too big OK
+    test tarvel ON
+
+
+
+    show many discoveries
+
+    change Pteranodon to something else
 
 
 

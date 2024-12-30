@@ -207,6 +207,7 @@ class Event(BASE):
 	dialogues = Column(String)
 	reward_type = Column(String)
 	reward_id = Column(Integer)
+	lv = Column(Integer)
 
 
 def create_tables():

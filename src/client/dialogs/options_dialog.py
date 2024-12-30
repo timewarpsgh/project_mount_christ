@@ -1002,6 +1002,9 @@ class OptionsDialog:
         if not event:
             return
 
+        if event.lv > role.get_lv():
+            return
+
         if event.building == 'any':
             if event.port == now_port_name:
                 self.__show_event_dialogs(event)
@@ -1703,7 +1706,10 @@ class OptionsDialog:
         else:
             building_name = event.building
 
-        self.show_msg_panel(f'Go to {event.port} {building_name}.')
+        if event.lv > self.__get_role().get_lv():
+            self.show_msg_panel(f'Requires lv {event.lv}')
+        else:
+            self.show_msg_panel(f'Go to {event.port} {building_name}.')
 
     def __show_discoveries_menu(self):
 

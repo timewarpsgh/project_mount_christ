@@ -37,6 +37,9 @@ class MyMenuWindow:
         if len_of_options <= 2:
             len_of_options = 3
 
+        if len_of_options >= 16:
+            len_of_options = 16
+
         height = len_of_options * 20 + 60
 
         ui_window = pygame_gui.elements.UIWindow(

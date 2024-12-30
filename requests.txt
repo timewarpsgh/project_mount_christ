@@ -6,12 +6,13 @@ TO DO:
 
     seen grids too big OK
 
+    menu window can show many discoveries OK
 
     test tarvel ON
 
 
 
-    show many discoveries ON
+
 
     change Pteranodon to something else
 

@@ -5,11 +5,13 @@ TO DO:
     story OK
 
     seen grids too big OK
+
+
     test tarvel ON
 
 
 
-    show many discoveries
+    show many discoveries ON
 
     change Pteranodon to something else
 

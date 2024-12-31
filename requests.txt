@@ -1,20 +1,12 @@
 TO DO:
 
-    disconn handling OK
+    quest, Mozambic -> Madeira OK
 
-    story OK
+    test play
 
-    seen grids too big OK
+    chinese support
 
-    menu window can show many discoveries OK
-
-    test travel OK
-    test battle OK
-    season change OK
-
-    change Pteranodon to African Fish Eagle OK
-
-
+    deploy
 
 
 

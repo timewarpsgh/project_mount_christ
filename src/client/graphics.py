@@ -1303,6 +1303,8 @@ class Graphics:
             if event.key == pygame.K_n:
                 if not self.model.role.is_in_building:
                     self.get_options_dialog().show_port_map()
+                else:
+                    print('is in building!!')
 
             if event.key == pygame.K_m:
                 if not self.model.role.is_in_building:

@@ -445,7 +445,7 @@ class ShipMgr:
         del self.id_2_ship[ship_id]
 
     def get_ship(self, ship_id):
-        return self.id_2_ship[ship_id]
+        return self.id_2_ship.get(ship_id)
 
     def get_ships(self):
         return self.id_2_ship.values()

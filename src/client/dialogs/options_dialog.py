@@ -1867,7 +1867,10 @@ class OptionsDialog:
         if mate.ship_id:
 
             ship = self.get_ship_mgr().get_ship(mate.ship_id)
-            ship_name = ship.name
+            if ship:
+                ship_name = ship.name
+            else:
+                ship_name = 'NA'
         else:
             ship_name = 'NA'
 

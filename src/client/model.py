@@ -965,7 +965,7 @@ class Npc(Role):
 
 
 class SeasonMgr:
-    season: pb.SeasonType = None
+    season: pb.SeasonType = pb.SeasonType.SPRING
     wind_dir: int = None
     wind_speed: int = None
     current_dir: int = None

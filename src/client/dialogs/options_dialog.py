@@ -1747,7 +1747,7 @@ class OptionsDialog:
         else:
             self.show_msg_panel("There is nothing intresting in the diary.")
 
-    def __show_port_map(self):
+    def show_port_map(self):
         if not self.__get_role().is_in_port():
             return
 
@@ -1767,7 +1767,7 @@ class OptionsDialog:
         # play sound
         sAssetMgr.sounds['map'].play()
 
-    def __show_world_map(self):
+    def show_world_map(self):
         # image
         world_map_image = sAssetMgr.images['world_map']['world_map_from_uw2']
 
@@ -2327,8 +2327,8 @@ class OptionsDialog:
             'Discoveries': partial(self.__show_discoveries_menu),
             'Quest': partial(self.__show_quest),
             'Treasure Map': partial(self.__show_treasure_map),
-            'World Map': partial(self.__show_world_map),
-            'Port Map': partial(self.__show_port_map),
+            'World Map(M)': partial(self.show_world_map),
+            'Port Map(N)': partial(self.show_port_map),
         }
 
         self.__make_menu(option_2_callback)

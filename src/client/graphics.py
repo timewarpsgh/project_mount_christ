@@ -1299,6 +1299,12 @@ class Graphics:
                 else:
                     self.get_options_dialog().enter_building()
 
+            if event.key == pygame.K_n:
+                self.get_options_dialog().show_port_map()
+
+            if event.key == pygame.K_m:
+                self.get_options_dialog().show_world_map()
+
         # key up
         elif event.type == pygame.KEYUP:
             if event.key in [pygame.K_d, pygame.K_a, pygame.K_w, pygame.K_s]:

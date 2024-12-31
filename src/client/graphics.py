@@ -988,7 +988,8 @@ class Graphics:
 
     def move_port_bg(self, x, y):
         x, y = self.role_xy_in_port_2_xy_on_screen(x, y)
-        self.sp_background.move_to_smoothly(x, y, given_time=0.2)
+        # given_time depends on port_speed
+        self.sp_background.move_to_smoothly(x, y, given_time=0.1)
 
     def move_sea_bg(self, x, y):
         print('xx', x, y)

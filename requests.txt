@@ -4,6 +4,7 @@ TO DO:
 
     test play ON
         when N/M pressed, dont open map when in building OK
+        port npc move based on PORT_SPEED OK
 
 
     deploy

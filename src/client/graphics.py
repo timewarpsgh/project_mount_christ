@@ -1300,10 +1300,12 @@ class Graphics:
                     self.get_options_dialog().enter_building()
 
             if event.key == pygame.K_n:
-                self.get_options_dialog().show_port_map()
+                if not self.model.role.is_in_building:
+                    self.get_options_dialog().show_port_map()
 
             if event.key == pygame.K_m:
-                self.get_options_dialog().show_world_map()
+                if not self.model.role.is_in_building:
+                    self.get_options_dialog().show_world_map()
 
         # key up
         elif event.type == pygame.KEYUP:

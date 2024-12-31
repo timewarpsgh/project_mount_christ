@@ -3,9 +3,7 @@ TO DO:
     quest, Mozambic -> Madeira OK
 
     test play ON
-        hotkey
-        M->world map, OK
-        N->port map   OK
+        when N/M pressed, dont open map when in building OK
 
 
     deploy

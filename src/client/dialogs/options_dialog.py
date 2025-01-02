@@ -1062,7 +1062,8 @@ class OptionsDialog:
         option_2_callback = {}
 
         for ship in ships:
-            option_2_callback[f'{ship.name}'] = partial(self.__load_supply, ship.id, supply_name)
+            option_2_callback[f'{ship.name} [{getattr(ship, supply_name)}]'] = \
+                partial(self.__load_supply, ship.id, supply_name)
 
         self.__make_menu(option_2_callback)
 

@@ -5,10 +5,12 @@ TO DO:
     test play ON
         when N/M pressed, dont open map when in building OK
         port npc move based on PORT_SPEED OK
+        show supply cnt in harbor OK
+
         after enter port, can't press N ON
         M not working at sea sometimes
 
-        show supply cnt in harbor
+
         show crew cnt in bar
 
 

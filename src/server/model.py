@@ -3693,8 +3693,14 @@ class Role:
             available_cargo.cut_price = self.__get_modified_buy_price(port.specialty_price)
             available_cargos.append(available_cargo)
 
+        if self.is_in_allied_port() and self.has_tax_free_permit():
+            has_right_tax_free_permit = True
+        else:
+            has_right_tax_free_permit = False
+
         pack = pb.GetAvailableCargosRes()
         pack.available_cargos.extend(available_cargos)
+        pack.has_right_tax_free_permit = has_right_tax_free_permit
         self.session.send(pack)
 
     def __get_modified_sell_price(self, sell_price):

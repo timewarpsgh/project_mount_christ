@@ -229,6 +229,7 @@ message AvailableCargo {
 
 message GetAvailableCargosRes {
     repeated AvailableCargo available_cargos = 1;
+    required bool has_right_tax_free_permit = 2;
 }
 
 

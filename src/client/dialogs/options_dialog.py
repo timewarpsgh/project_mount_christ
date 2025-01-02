@@ -1842,10 +1842,9 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
-        #
-        have_tax_free_permit = c.Item.TAX_FREE_PERMIT.value in self.__get_role().items
+        has_right_tax_free_permit = get_available_cargos_res.has_right_tax_free_permit
 
-        if self.__get_role().has_tax_free_permit():
+        if has_right_tax_free_permit:
             self.__building_speak('Oh, you have a Tax Free Permit! OK. '
                                   'These are the best prices you can have.')
         else:

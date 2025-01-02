@@ -10,7 +10,9 @@ TO DO:
         after enter port, can't press N OK
         M not working at sea sometimes OK
 
-        tax permit not right ON
+        market say tax permit not right OK
+
+        exits bergen, can't move ON
 
 
         show crew cnt in bar

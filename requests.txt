@@ -7,8 +7,10 @@ TO DO:
         port npc move based on PORT_SPEED OK
         show supply cnt in harbor OK
 
-        after enter port, can't press N ON
-        M not working at sea sometimes
+        after enter port, can't press N OK
+        M not working at sea sometimes OK
+
+        tax permit not right ON
 
 
         show crew cnt in bar

@@ -360,6 +360,8 @@ class PacketHandler:
             role.x = map_changed.x
             role.y = map_changed.y
 
+            role.is_in_building = False
+
             # to sea
             if role.is_at_sea():
                 self.__get_graphics().sp_background.stop_moving()

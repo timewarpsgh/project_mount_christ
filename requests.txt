@@ -14,6 +14,26 @@ TO DO:
 
         exits bergen, can't move OK
 
+        more items to trade, except Gold, when rich  ON
+
+            Gold OK
+            Nutmeg 1000, 3000
+            Tea 1000, 3000
+            Wine 300, 1000
+            arms 500, 1500
+
+            Tobacco 600, 1200
+            Coffee 600, 1500
+
+            mates:
+              33
+              29  Madeira
+              11  Nicosia
+              27  Rio de Janeiro
+
+
+        save ration
+        unload supply, show now cnt
 
 
 

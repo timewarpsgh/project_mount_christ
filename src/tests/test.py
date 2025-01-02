@@ -1,10 +1,19 @@
-import random
-import copy
+MARKETS =  [
+    'Iberia',
+    'Northern Europe',
+    'The Mediterranean',
+    'North Africa',
+    'Ottoman Empire',
+    'West Africa',
+    'Central America',
+    'South America',
+    'East Africa',
+    'Middle East',
+    'India',
+    'Southeast Asia',
+    'Far East',
+]
 
-TILES_AROUND_PORTS = [[2, 0], [2, 1], [2, -1], [-2, 0],
-                      [-2, 1], [-2, -1],[0, 2], [1, 2],
-                      [-1, 2], [0, -2], [1, -2], [-1, -2]]
-new = copy.copy(TILES_AROUND_PORTS)
-random.shuffle(new)
 
-print(new)
+for id, name in enumerate(MARKETS):
+    print(f'{name} {id}')

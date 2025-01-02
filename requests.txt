@@ -12,7 +12,9 @@ TO DO:
 
         market say tax permit not right OK
 
-        exits bergen, can't move ON
+        exits bergen, can't move OK
+
+
 
 
         show crew cnt in bar

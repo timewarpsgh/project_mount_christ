@@ -3951,7 +3951,10 @@ class Role:
     def __get_sailable_x_y_around_port(self, port_tile_x, port_tile_y):
         matrix = sMapMaker.world_map_piddle
         deltas = c.TILES_AROUND_PORTS
-        for delta in deltas:
+        new_deltas = copy.copy(deltas)
+        random.shuffle(new_deltas)
+
+        for delta in new_deltas:
             test_tile_x = port_tile_x + delta[1]
             test_tile_y = port_tile_y + delta[0]
             if int(matrix[test_tile_y, test_tile_x]) in c.SAILABLE_TILES:

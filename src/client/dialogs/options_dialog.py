@@ -551,7 +551,7 @@ class OptionsDialog:
         option_2_callback = {}
 
         for ship in ships:
-            option_2_callback[f'{ship.name}'] = partial(self.__dismiss_crew, ship.id)
+            option_2_callback[f'{ship.name} [{ship.now_crew}]'] = partial(self.__dismiss_crew, ship.id)
 
         self.__make_menu(option_2_callback)
 
@@ -566,7 +566,7 @@ class OptionsDialog:
         option_2_callback = {}
 
         for ship in ships:
-            option_2_callback[f'{ship.name}'] = partial(self.__recruit_crew, ship.id)
+            option_2_callback[f'{ship.name} [{ship.now_crew}]'] = partial(self.__recruit_crew, ship.id)
 
         self.__make_menu(option_2_callback)
 

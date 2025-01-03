@@ -33,13 +33,8 @@ TO DO:
 
 
         save ration to db OK
-
-
         unload supply, show now cnt OK
-
-
-
-        show crew cnt in bar
+        show crew cnt in bar OK
 
 
     deploy

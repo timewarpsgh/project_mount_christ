@@ -1381,8 +1381,18 @@ class ShipMgr:
         return sum([ship.now_crew for ship in ships])
 
     def get_new_ship_name(self):
+        ships = self.get_ships()
+        names_set = set([ship.name for ship in ships])
+
         new_ship_name = str(len(self.id_2_ship))
-        return new_ship_name
+
+        if new_ship_name in names_set:
+            for i in range(20):
+                if str(i) not in names_set:
+                    new_ship_name = str(i)
+                    return new_ship_name
+        else:
+            return new_ship_name
 
     def init_ships_positions_in_battle(self, is_attacker=True):
         # initial x need to satisfy hex movement

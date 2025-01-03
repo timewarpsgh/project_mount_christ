@@ -1534,7 +1534,16 @@ class OptionsDialog:
             if is_enemy:
                 option_2_callback[f'{ship.name} '] = partial(self.__show_one_enemy_ship_states, ship_mgr.get_ship(id))
             else:
-                option_2_callback[f'{ship.name}     {ship.get_base_speed_in_knots()} knots'] = \
+
+                ship_txt = f'{ship.name}     {ship.get_base_speed_in_knots()} knots'
+
+                if ship_txt in option_2_callback:
+                    print('ship name in dict !!!!!!!')
+                    ship_txt += f'({id})'
+                else:
+                    pass
+
+                option_2_callback[ship_txt] = \
                     partial(self.__show_one_ship_states, ship_mgr.get_ship(id))
 
 

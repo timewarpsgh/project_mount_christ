@@ -372,6 +372,7 @@ class PacketHandler:
 
                 weapon=role.weapon,
                 armor=role.armor,
+                ration=role.ration,
             )
 
             # init seen grids
@@ -429,6 +430,7 @@ class PacketHandler:
             role_entered.nation = role.nation
             role_entered.weapon = role.weapon if role.weapon else 0
             role_entered.armor = role.armor if role.armor else 0
+            role_entered.ration = role.ration if role.ration else 100
 
             if role.discovery_ids_json_str:
                 role_entered.discovery_ids_json_str = role.discovery_ids_json_str

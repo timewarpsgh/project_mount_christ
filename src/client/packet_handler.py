@@ -182,6 +182,7 @@ class PacketHandler:
 
                 weapon=role.weapon,
                 armor=role.armor,
+                ration=role.ration,
 
                 graphics = self.client.game.graphics,
             )

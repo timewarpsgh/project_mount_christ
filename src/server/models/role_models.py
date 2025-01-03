@@ -53,6 +53,7 @@ class Role(BASE):
 
 	weapon = Column(Integer)
 	armor = Column(Integer)
+	ration = Column(Integer)
 
 
 class Mate(BASE):

@@ -32,7 +32,7 @@ TO DO:
               27  Rio de Janeiro
 
 
-        save ration  ON
+        save ration to db OK
 
 
         unload supply, show now cnt

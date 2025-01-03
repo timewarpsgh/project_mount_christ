@@ -194,6 +194,7 @@ message RoleEntered {
 
     required int32 weapon = 18;
     required int32 armor = 19;
+    required int32 ration = 20;
 
 }
 

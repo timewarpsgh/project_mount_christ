@@ -1726,6 +1726,7 @@ class Role:
         role_model.nation = self.nation
         role_model.weapon = self.weapon
         role_model.armor = self.armor
+        role_model.ration = self.ration
 
         ROLE_SESSION.commit()
 

@@ -43,10 +43,15 @@ TO DO:
 
         don't gen same name when buying ship OK
 
-        after selling ship with captain, clear duty ON
+        after selling ship with captain, clear duty OK
 
 
-        can't name ship as numbers ON
+        health goes to 100 after enter port OK
+
+        anchor land to deal with storm ON
+
+        invest to immediately change port alliance
+        view port price index by region
 
 
 

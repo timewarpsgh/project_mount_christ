@@ -2862,6 +2862,9 @@ class Role:
                 continue
             self.remove_aura(aura_id)
 
+    def __refresh_health(self):
+        self.health = 100
+
     def can_enter_port(self, port_id):
         port_map = sMapMgr.get_map(port_id)
         if not port_map.allied_nation:
@@ -2886,6 +2889,7 @@ class Role:
         self.starved_days = 0
 
         self.__clear_auras()
+        self.__refresh_health()
 
         # change map_id
         self.map_id = port_id

@@ -1,19 +1,4 @@
-MARKETS =  [
-    'Iberia',
-    'Northern Europe',
-    'The Mediterranean',
-    'North Africa',
-    'Ottoman Empire',
-    'West Africa',
-    'Central America',
-    'South America',
-    'East Africa',
-    'Middle East',
-    'India',
-    'Southeast Asia',
-    'Far East',
-]
+print(1)
 
-
-for id, name in enumerate(MARKETS):
-    print(f'{name} {id}')
+if not 0:
+    pass

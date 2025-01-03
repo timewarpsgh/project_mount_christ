@@ -39,9 +39,11 @@ TO DO:
         ship name not right after login OK
 
         show ships with duplicate names OK
-        after selling ship, assign duty bug ON
+
 
         don't gen same name when buying ship OK
+
+        after selling ship with captain, clear duty ON
 
 
         can't name ship as numbers ON

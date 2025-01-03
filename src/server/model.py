@@ -1168,6 +1168,8 @@ class Mate:
     def clear_duty(self):
         self.duty_type = None
         self.ship_id = None
+        pack = pb.DutyCleared(mate_id=self.id)
+        self.mate_mgr.role.session.send(pack)
 
     def earn_xp(self, amount, duty_type):
         pack = pb.XpEarned(
@@ -1371,7 +1373,7 @@ class ShipMgr:
 
 
     def get_ship(self, ship_id):
-        return self.id_2_ship[ship_id]
+        return self.id_2_ship.get(ship_id)
 
     def get_ships(self):
         return list(self.id_2_ship.values())
@@ -1505,15 +1507,16 @@ class MateMgr:
         # clear prev ship
         if mate.ship_id and mate.duty_type:
             prev_ship = self.role.ship_mgr.get_ship(mate.ship_id)
-            prev_duty = mate.duty_type
-            if prev_duty == pb.DutyType.CAPTAIN:
-                prev_ship.captain = None
-            elif prev_duty == pb.DutyType.CHIEF_NAVIGATOR:
-                prev_ship.chief_navigator = None
-            elif prev_duty == pb.DutyType.ACCOUNTANT:
-                prev_ship.accountant = None
-            elif prev_duty == pb.DutyType.FIRST_MATE:
-                prev_ship.first_mate = None
+            if prev_ship:
+                prev_duty = mate.duty_type
+                if prev_duty == pb.DutyType.CAPTAIN:
+                    prev_ship.captain = None
+                elif prev_duty == pb.DutyType.CHIEF_NAVIGATOR:
+                    prev_ship.chief_navigator = None
+                elif prev_duty == pb.DutyType.ACCOUNTANT:
+                    prev_ship.accountant = None
+                elif prev_duty == pb.DutyType.FIRST_MATE:
+                    prev_ship.first_mate = None
 
         # clear prev mate's duty
         if duty_type == pb.DutyType.CAPTAIN:
@@ -2401,6 +2404,11 @@ class Role:
             return
 
         ship = self.ship_mgr.get_ship(id)
+        captain = ship.get_captain()
+        if captain:
+            captain.clear_duty()
+
+
         ship_template = sObjectMgr.get_ship_template(ship.ship_template_id)
         sell_price = int(ship_template.buy_price / 2)
 

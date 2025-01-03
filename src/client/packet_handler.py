@@ -727,6 +727,11 @@ class PacketHandler:
 
         self.__get_options_dialog().pop_some_menus(3)
 
+    async def handle_DutyCleared(self, duty_cleared):
+        mate_id = duty_cleared.mate_id
+
+        mate = self.get_mate_mgr().get_mate(mate_id)
+        mate.clear_duty()
     def __get_chat_dialog(self):
         return self.client.game.gui.chat_dialog
 

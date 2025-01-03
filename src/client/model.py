@@ -189,7 +189,7 @@ class Ship:
         if captain:
             navigation = captain.navigation
         chief_navigator = self.get_chief_navigator()
-        if chief_navigator:
+        if captain and chief_navigator:
             navigation = max(captain.navigation, chief_navigator.navigation)
 
         # calc base_speed(about 100 max)
@@ -524,15 +524,16 @@ class MateMgr:
         # clear prev ship
         if mate.ship_id and mate.duty_type:
             prev_ship = self.role.ship_mgr.get_ship(mate.ship_id)
-            prev_duty = mate.duty_type
-            if prev_duty == pb.DutyType.CAPTAIN:
-                prev_ship.captain = None
-            elif prev_duty == pb.DutyType.CHIEF_NAVIGATOR:
-                prev_ship.chief_navigator = None
-            elif prev_duty == pb.DutyType.ACCOUNTANT:
-                prev_ship.accountant = None
-            elif prev_duty == pb.DutyType.FIRST_MATE:
-                prev_ship.first_mate = None
+            if prev_ship:
+                prev_duty = mate.duty_type
+                if prev_duty == pb.DutyType.CAPTAIN:
+                    prev_ship.captain = None
+                elif prev_duty == pb.DutyType.CHIEF_NAVIGATOR:
+                    prev_ship.chief_navigator = None
+                elif prev_duty == pb.DutyType.ACCOUNTANT:
+                    prev_ship.accountant = None
+                elif prev_duty == pb.DutyType.FIRST_MATE:
+                    prev_ship.first_mate = None
 
         # clear prev mate's duty
         if duty_type == pb.DutyType.CAPTAIN:

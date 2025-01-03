@@ -593,6 +593,10 @@ message DutyAssigned {
     required DutyType duty_type = 3;
 }
 
+message DutyCleared {
+    required int32 mate_id = 1;
+}
+
 // XpEarned
 message XpEarned {
     required int32 mate_id = 1;

@@ -109,6 +109,7 @@ class OpCodeType(Enum):
 
     AssignDuty = auto()
     DutyAssigned = auto()
+    DutyCleared = auto()
 
     XpEarned = auto()
     LvUped = auto()

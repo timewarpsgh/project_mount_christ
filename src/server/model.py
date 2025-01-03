@@ -3861,8 +3861,12 @@ class Role:
         ship = self.ship_mgr.get_ship(id)
 
         ships = self.ship_mgr.get_ships()
-        for ship in ships:
-            if ship.name == name:
+        print('######### ships names:')
+        print(f'{id} {name}')
+        for my_ship in ships:
+            print(my_ship.name)
+
+            if my_ship.name == name:
                 return
 
         ship.name = name

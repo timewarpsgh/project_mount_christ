@@ -36,8 +36,9 @@ TO DO:
         unload supply, show now cnt OK
         show crew cnt in bar OK
         if in building, don't process hotkeys OK
+        ship name not right after login OK
         can't name ship as numbers ON
-        ship name not right after login ON
+
 
 
 

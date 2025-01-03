@@ -1241,6 +1241,16 @@ class Graphics:
 
         # key down
         if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_f:
+                if self.model.role.is_in_building:
+                    self.get_options_dialog().exit_building()
+                else:
+                    self.get_options_dialog().enter_building()
+
+            if self.model.role.is_in_building:
+                return
+
+
             # movements
             if event.key == pygame.K_d:
                 # move east
@@ -1293,12 +1303,6 @@ class Graphics:
             if event.key == pygame.K_g:
                 if self.model.role.is_at_sea():
                     self.get_options_dialog().try_to_discover()
-
-            if event.key == pygame.K_f:
-                if self.model.role.is_in_building:
-                    self.get_options_dialog().exit_building()
-                else:
-                    self.get_options_dialog().enter_building()
 
             if event.key == pygame.K_n:
                 if not self.model.role.is_in_building:

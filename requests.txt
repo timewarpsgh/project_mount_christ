@@ -26,8 +26,8 @@ TO DO:
             Coffee 600, 1500
 
             mates:
-              33
-              29  Madeira
+              33  Abidjan
+              29  Madeira OK
               11  Nicosia
               27  Rio de Janeiro
 
@@ -35,6 +35,11 @@ TO DO:
         save ration to db OK
         unload supply, show now cnt OK
         show crew cnt in bar OK
+        if in building, don't process hotkeys OK
+        can't name ship as numbers ON
+        ship name not right after login ON
+
+
 
 
     deploy

@@ -14,7 +14,7 @@ TO DO:
 
         exits bergen, can't move OK
 
-        more items to trade, except Gold, when rich  ON
+        more items to trade, except Gold, when rich  OK
 
             Gold OK
             Nutmeg 1000, 3000
@@ -32,7 +32,9 @@ TO DO:
               27  Rio de Janeiro
 
 
-        save ration
+        save ration  ON
+
+
         unload supply, show now cnt
 
 

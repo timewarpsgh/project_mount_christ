@@ -35,7 +35,7 @@ TO DO:
         save ration to db OK
 
 
-        unload supply, show now cnt
+        unload supply, show now cnt OK
 
 
 

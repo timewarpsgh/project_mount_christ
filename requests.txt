@@ -53,6 +53,9 @@ TO DO:
         invest to immediately change port alliance
         view port price index by region
 
+        show villages ordered by name OK
+        show long menus bigger ON
+
 
 
 

@@ -1725,8 +1725,17 @@ class OptionsDialog:
 
         option_2_callback = {}
 
+        # get all villages
+        villages = []
+
         for id in self.__get_role().discovery_mgr.ids_set:
             village = sObjectMgr.get_village(id)
+            villages.append(village)
+
+        # sort villages by village.name
+        villages = sorted(villages, key=lambda x: x.name)
+
+        for village in villages:
             option_2_callback[village.name] = partial(self.show_one_discovery, village)
 
         self.__make_menu(option_2_callback)

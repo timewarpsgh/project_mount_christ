@@ -60,7 +60,7 @@ TO DO:
 
         village description punctuation ’ to '  OK
 
-        village text window, a little wider ON
+        village text window, a little wider OK
 
 
 

@@ -2585,6 +2585,12 @@ class Role:
     def pray(self):
         self.add_aura(c.Aura.PRAYER.value)
 
+    def land(self):
+        if sMapMaker.can_land(self.x, self.y):
+            self.remove_aura(c.Aura.STORM.value)
+        else:
+            pass
+
     def use_item(self, item_id):
         if not self.has_item(item_id):
             return

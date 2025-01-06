@@ -256,6 +256,8 @@ class OpCodeType(Enum):
     ShowWinImg = auto()
     ShowLoseImg = auto()
 
+    Land = auto()
+
 
 def gen_opcode_2_value():
     d = {}

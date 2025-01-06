@@ -1314,6 +1314,9 @@ class Graphics:
                 if not self.model.role.is_in_building:
                     self.get_options_dialog().show_world_map()
 
+            if event.key == pygame.K_l:
+                    self.get_options_dialog().land()
+
         # key up
         elif event.type == pygame.KEYUP:
             if event.key in [pygame.K_d, pygame.K_a, pygame.K_w, pygame.K_s]:

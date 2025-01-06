@@ -62,6 +62,8 @@ TO DO:
 
         village text window, a little wider OK
 
+        land to deal with storm OK
+
 
 
 

@@ -1943,6 +1943,10 @@ class OptionsDialog:
         longitude, latitude = self.__calc_longitude_and_latitude(my_x, my_y)
         self.show_msg_panel(f'{longitude}, {latitude}')
 
+    def land(self):
+        # send land packet
+        self.client.send(pb.Land())
+
     def try_to_discover(self):
         x = self.client.game.graphics.model.role.x
         y = self.client.game.graphics.model.role.y
@@ -2342,6 +2346,7 @@ class OptionsDialog:
             'Enter/Exit Building (F)': partial(self.enter_building),
             'Enter Port (P)': partial(self.enter_port),
             'Search (G)': partial(self.try_to_discover),
+            'Land (L)': partial(self.land),
             'Measure Cooridinate': partial(self.__measure_coordinate),
         }
 

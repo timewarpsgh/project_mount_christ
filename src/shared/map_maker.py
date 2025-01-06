@@ -341,6 +341,20 @@ class MapMaker():
 
         return True
 
+    def can_land(self, now_x, now_y):
+        if self.can_move_at_sea(now_x, now_y, pb.DirType.N) and \
+                self.can_move_at_sea(now_x, now_y, pb.DirType.S) and \
+                self.can_move_at_sea(now_x, now_y, pb.DirType.E) and \
+                self.can_move_at_sea(now_x, now_y, pb.DirType.W) and \
+                self.can_move_at_sea(now_x, now_y, pb.DirType.NE) and \
+                self.can_move_at_sea(now_x, now_y, pb.DirType.NW) and \
+                self.can_move_at_sea(now_x, now_y, pb.DirType.SE) and \
+                self.can_move_at_sea(now_x, now_y, pb.DirType.SW):
+
+            return False
+        else:
+            return True
+
     def get_alt_dir_at_sea(self, now_x, now_y, now_dir):
         for alt_direction in c.NOW_DIRECT_2_ALTERNATIVE_DIRECTS[now_dir]:
             if self.can_move_at_sea(now_x, now_y, alt_direction):

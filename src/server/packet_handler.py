@@ -1098,6 +1098,9 @@ class PacketHandler:
         item_id = use_item.item_id
         self.role.use_item(item_id)
 
+    async def handle_Land(self, land):
+        self.role.land()
+
     async def handle_Pray(self, pray):
         self.role.pray()
 

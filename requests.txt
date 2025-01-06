@@ -58,6 +58,11 @@ TO DO:
         tell story, show villages in order OK
 
 
+        village description punctuation ’ to '  OK
+
+        village text window, a little wider ON
+
+
 
 
 

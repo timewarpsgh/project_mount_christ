@@ -54,7 +54,8 @@ TO DO:
         view port price index by region
 
         show villages ordered by name OK
-        show long menus bigger ON
+        show long menus bigger OK
+        tell story, show villages in order OK
 
 
 

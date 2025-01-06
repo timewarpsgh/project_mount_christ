@@ -598,8 +598,9 @@ class OptionsDialog:
     def __show_stories_to_tell(self, maid):
         option_2_callback = {}
 
-        for id in self.__get_role().discovery_mgr.ids_set:
-            village = sObjectMgr.get_village(id)
+        villages = self.__get_villages_in_order()
+
+        for village in villages:
             option_2_callback[village.name] = partial(self.__show_one_story_to_tell, village, maid)
 
         self.__make_menu(option_2_callback)
@@ -1721,11 +1722,7 @@ class OptionsDialog:
         else:
             self.show_msg_panel(f'Go to {event.port} {building_name}.')
 
-    def __show_discoveries_menu(self):
-
-        option_2_callback = {}
-
-        # get all villages
+    def __get_villages_in_order(self):
         villages = []
 
         for id in self.__get_role().discovery_mgr.ids_set:
@@ -1734,6 +1731,14 @@ class OptionsDialog:
 
         # sort villages by village.name
         villages = sorted(villages, key=lambda x: x.name)
+
+        return villages
+
+    def __show_discoveries_menu(self):
+
+        option_2_callback = {}
+
+        villages = self.__get_villages_in_order()
 
         for village in villages:
             option_2_callback[village.name] = partial(self.show_one_discovery, village)

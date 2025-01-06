@@ -37,10 +37,10 @@ class MyMenuWindow:
         if len_of_options <= 2:
             len_of_options = 3
 
-        if len_of_options >= 16:
-            len_of_options = 16
+        if len_of_options >= 14:
+            len_of_options = 14
 
-        height = len_of_options * 20 + 60
+        height = len_of_options * 20 + 70
 
         ui_window = pygame_gui.elements.UIWindow(
             rect=pygame.Rect((c.WINDOW_WIDTH - 265, 120), (280, height)),
@@ -57,7 +57,7 @@ class MyMenuWindow:
 
         worlds_menu = pygame_gui.elements.UISelectionList(
             item_list=list(option_2_callback.keys()),
-            relative_rect=pygame.Rect((0, 0), (245, height)),
+            relative_rect=pygame.Rect((0, 0), (245, height+30)),
             manager=mgr,
             container=panel,
         )

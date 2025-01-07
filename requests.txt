@@ -64,7 +64,9 @@ TO DO:
 
         land to deal with storm OK
 
+        don't show aids for non-flagships OK
 
+        supply show all ON
 
 
 

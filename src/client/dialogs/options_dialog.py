@@ -1326,6 +1326,9 @@ class OptionsDialog:
 
         }
 
+        if captain_name != self.__get_role().name:
+            del dict['nav/acc/first mate']
+
         # make text from dict
         text = self.__dict_2_txt(dict)
 

@@ -1242,10 +1242,11 @@ class Graphics:
         # key down
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_f:
-                if self.model.role.is_in_building:
-                    self.get_options_dialog().exit_building()
-                else:
-                    self.get_options_dialog().enter_building()
+                if self.model.role.is_in_port():
+                    if self.model.role.is_in_building:
+                        self.get_options_dialog().exit_building()
+                    else:
+                        self.get_options_dialog().enter_building()
 
             if self.model.role.is_in_building:
                 return

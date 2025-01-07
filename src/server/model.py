@@ -366,6 +366,9 @@ class Ship:
         # rand effect
         dmg = self.__rand_dmg(dmg)
 
+        # multiply by factor
+        dmg *= 2
+
         max_dmg = 20
         min_dmg = 1
         if dmg < min_dmg:
@@ -3501,7 +3504,12 @@ class Role:
                 if ship.id == my_flag_ship.id:
                     continue
 
-            ship.set_random_target_ship(enemy)
+            # set target ship
+            if self.is_npc():
+                ship.target_ship = enemy.get_random_ship()
+            else:
+                ship.set_random_target_ship(enemy)
+
             ship.set_random_strategy()
             ship.reset_steps_left()
 

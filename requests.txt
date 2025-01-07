@@ -68,6 +68,9 @@ TO DO:
 
         supply show all OK
 
+        increase shoot dmg by 2x OK
+        npc select random target each turn OK
+
 
 
     deploy

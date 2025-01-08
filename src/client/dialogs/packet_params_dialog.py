@@ -47,7 +47,9 @@ class PacketParamsDialog:
                 container=panel,
             )
             entry_box.focus()
-            entry_box.unfocus()
+
+            if len(params_names) >= 2:
+                entry_box.unfocus()
 
             setattr(self, param_name, entry_box)
 

@@ -79,6 +79,11 @@ TO DO:
 
         ui, supply changed -> show supply menu OK
 
+        OK menu, can input number directly OK
+
+        ui, recruit crew -> show crew menu OK
+
+
         menu clicking on clicked item
 
 

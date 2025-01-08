@@ -200,8 +200,8 @@ class OptionsDialog:
 
         option_2_callback = {
             'Treat Crew': partial(self.__confirm_treat_crew),
-            'Recruit Crew': partial(self.__show_ships_to_recruit_crew_menu),
-            'Dismiss Crew': partial(self.__show_ships_to_dismiss_crew_menu),
+            'Recruit Crew': partial(self.show_ships_to_recruit_crew_menu),
+            'Dismiss Crew': partial(self.show_ships_to_dismiss_crew_menu),
             'Meet': partial(self.__get_mate_in_port),
             'Fire Mate': partial(self.__show_mates_to_fire_menu),
             'Waitress': partial(self.__request_to_see_waitress),
@@ -546,7 +546,7 @@ class OptionsDialog:
 
         PacketParamsDialog(self.mgr, self.client, ['cnt'], pack)
 
-    def __show_ships_to_dismiss_crew_menu(self):
+    def show_ships_to_dismiss_crew_menu(self):
         ships = self.get_ship_mgr().get_ships()
         option_2_callback = {}
 
@@ -561,7 +561,7 @@ class OptionsDialog:
 
         self.building_speak(f'You want to treat the entire crew? Our beer is {c.BEER_COST} each.')
 
-    def __show_ships_to_recruit_crew_menu(self):
+    def show_ships_to_recruit_crew_menu(self):
         ships = self.get_ship_mgr().get_ships()
         option_2_callback = {}
 

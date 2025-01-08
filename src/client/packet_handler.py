@@ -833,6 +833,7 @@ class PacketHandler:
         ship.now_crew += cnt
 
         self.__get_options_dialog().pop_some_menus(2)
+        self.__get_options_dialog().show_ships_to_recruit_crew_menu()
 
     async def handle_CrewDismissed(self, pack):
         ship_id = pack.ship_id
@@ -842,6 +843,7 @@ class PacketHandler:
         ship.now_crew -= cnt
 
         self.__get_options_dialog().pop_some_menus(2)
+        self.__get_options_dialog().show_ships_to_dismiss_crew_menu()
 
     async def handle_SupplyChanged(self, pack):
         ship_id = pack.ship_id

@@ -1049,7 +1049,7 @@ class OptionsDialog:
 
         PacketParamsDialog(self.mgr, self.client, ['cnt'], pack)
 
-    def __show_ships_to_unload_supply(self, supply_name):
+    def show_ships_to_unload_supply(self, supply_name):
         ships = self.get_ship_mgr().get_ships()
         option_2_callback = {}
 
@@ -1058,7 +1058,7 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
-    def __show_ships_to_load_supply(self, supply_name):
+    def show_ships_to_load_supply(self, supply_name):
         ships = self.get_ship_mgr().get_ships()
         option_2_callback = {}
 
@@ -1070,20 +1070,20 @@ class OptionsDialog:
 
     def __show_unload_supply_menu(self):
         option_2_callback = {
-            'Food': partial(self.__show_ships_to_unload_supply, 'food'),
-            'Water': partial(self.__show_ships_to_unload_supply, 'water'),
-            'Material': partial(self.__show_ships_to_unload_supply, 'material'),
-            'Cannon': partial(self.__show_ships_to_unload_supply, 'cannon'),
+            'Food': partial(self.show_ships_to_unload_supply, 'food'),
+            'Water': partial(self.show_ships_to_unload_supply, 'water'),
+            'Material': partial(self.show_ships_to_unload_supply, 'material'),
+            'Cannon': partial(self.show_ships_to_unload_supply, 'cannon'),
         }
 
         self.__make_menu(option_2_callback)
 
     def __show_load_supply_menu(self):
         option_2_callback = {
-            f"Food {c.SUPPLY_2_COST['food']}": partial(self.__show_ships_to_load_supply, 'food'),
-            f"Water {c.SUPPLY_2_COST['water']}": partial(self.__show_ships_to_load_supply, 'water'),
-            f"Material {c.SUPPLY_2_COST['material']}": partial(self.__show_ships_to_load_supply, 'material'),
-            f"Cannon {c.SUPPLY_2_COST['cannon']}": partial(self.__show_ships_to_load_supply, 'cannon'),
+            f"Food {c.SUPPLY_2_COST['food']}": partial(self.show_ships_to_load_supply, 'food'),
+            f"Water {c.SUPPLY_2_COST['water']}": partial(self.show_ships_to_load_supply, 'water'),
+            f"Material {c.SUPPLY_2_COST['material']}": partial(self.show_ships_to_load_supply, 'material'),
+            f"Cannon {c.SUPPLY_2_COST['cannon']}": partial(self.show_ships_to_load_supply, 'cannon'),
         }
 
         self.__make_menu(option_2_callback)

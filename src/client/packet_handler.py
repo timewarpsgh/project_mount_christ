@@ -849,9 +849,21 @@ class PacketHandler:
         cnt = pack.cnt
 
         ship = self.__get_role().ship_mgr.get_ship(ship_id)
+        prev_cnt = getattr(ship, supply_name)
+
+        if prev_cnt < cnt:
+            is_loading = True
+        else:
+            is_loading = False
+
+
         setattr(ship, supply_name, cnt)
 
         self.__get_options_dialog().pop_some_menus(2)
+        if is_loading:
+            self.__get_options_dialog().show_ships_to_load_supply(supply_name)
+        else:
+            self.__get_options_dialog().show_ships_to_unload_supply(supply_name)
 
     async def handle_OneDayPassedAtSea(self, pack):
         days_at_sea = pack.days_at_sea

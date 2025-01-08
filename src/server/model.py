@@ -940,7 +940,17 @@ class Ship:
         self.first_mate = ship.first_mate
         self.chief_navigator = ship.chief_navigator
 
+    def set_nearest_target_ship(self, enemy):
+        ships = enemy.ship_mgr.get_ships()
+        smallest_distance = 10000
+        for ship in ships:
+            distance = abs(ship.x - self.x) + abs(ship.y - self.y)
+            if distance < smallest_distance:
+                smallest_distance = distance
+                self.target_ship = ship
 
+        if not self.target_ship.is_alive():
+            self.target_ship = enemy.get_random_ship()
     def set_random_target_ship(self, enemy):
         if not self.target_ship:
             self.target_ship = enemy.get_random_ship()
@@ -3506,7 +3516,7 @@ class Role:
 
             # set target ship
             if self.is_npc():
-                ship.target_ship = enemy.get_random_ship()
+                ship.set_nearest_target_ship(enemy)
             else:
                 ship.set_random_target_ship(enemy)
 

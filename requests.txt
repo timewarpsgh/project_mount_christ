@@ -72,6 +72,15 @@ TO DO:
         npc select random target each turn OK
 
 
+        npc ships not fighting much OK
+
+
+        when npc target my ship with no crew, division by 0 bug ON
+
+        ui, supply changed -> show supply menu OK
+
+        menu clicking on clicked item
+
 
     deploy
 

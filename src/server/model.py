@@ -3967,12 +3967,13 @@ class Role:
     def load_supply(self, ship_id, supply_name, cnt):
         ship = self.ship_mgr.get_ship(ship_id)
 
+        if not ship.can_load(cnt):
+            # can load this smaller cnt now
+            cnt = ship.get_max_cargo() - ship.cargo_cnt - ship.get_supply_cnt()
+
         # get cost
         cost = cnt * c.SUPPLY_2_COST[supply_name]
         if not self.money >= cost:
-            return
-
-        if not ship.can_load(cnt):
             return
 
         self.money -= cost

@@ -83,6 +83,8 @@ TO DO:
 
         fleet info OK
 
+        supply cnt , more than max means max OK
+
 
         menu clicking on clicked item
 

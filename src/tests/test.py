@@ -1,4 +1,3 @@
-s = '6 '
+steps = 42 // 10 - 2
 
-res = s.isdigit()
-print(res)
+print(steps)

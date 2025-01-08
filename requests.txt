@@ -95,9 +95,11 @@ TO DO:
 
         in battle, show hp right OK
 
-        higher navigation -> more steps in battle ON
+        higher navigation -> more steps in battle OK
 
-
+        move shoot right a bit ON
+        enter battle with just won ships (test)
+        recuit crew to max
 
 
 

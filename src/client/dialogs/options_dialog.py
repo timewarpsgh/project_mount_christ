@@ -2219,6 +2219,9 @@ class OptionsDialog:
             self.client.send(FightRole(role_id=role.id))
 
     def enter_building(self):
+        if self.__get_role().is_at_sea():
+            return
+
         x = self.__get_role().x
         y = self.__get_role().y
 

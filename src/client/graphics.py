@@ -414,10 +414,10 @@ class BackGround(SP):
             if id != 0:
 
                 strategy_name = c.STRATEGY_2_TEXT[ship.strategy] if ship.strategy is not None else ''
-                strategy_text = Text(strategy_name, c.ORANGE, 90, (id + 2) * 20)
+                strategy_text = Text(strategy_name, c.ORANGE, 100, (id + 2) * 20)
 
                 target_name = ship.target_ship.name if ship.target_ship else ''
-                target_text = Text(str(target_name), c.CRIMSON, 140, (id + 2) * 20)
+                target_text = Text(str(target_name), c.CRIMSON, 150, (id + 2) * 20)
 
                 for item in [strategy_text, target_text]:
                     battle_ground_img.blit(item.image, item.rect)

@@ -290,10 +290,10 @@ class Ship:
 
     def __calc_steps(self):
         base_speed = self.__get_base_speed()
-        steps = int(base_speed // 20) + 1
+        steps = int(base_speed // 8) - 2
 
         min_steps = 1
-        max_steps = 8
+        max_steps = 9
 
         if steps < min_steps:
             steps = min_steps
@@ -369,7 +369,7 @@ class Ship:
         # multiply by factor
         dmg *= 2
 
-        max_dmg = 20
+        max_dmg = 30
         min_dmg = 1
         if dmg < min_dmg:
             dmg = min_dmg
@@ -782,8 +782,7 @@ class Ship:
 
         # move and check is_in_range
         has_attacked = False
-        left_steps = 3
-        for i in range(left_steps):
+        for i in range(self.steps_left):
             await asyncio.sleep(0.3)
 
             if self.is_target_in_range(target_ship):
@@ -824,8 +823,7 @@ class Ship:
 
         # move and check is_in_range
         has_attacked = False
-        left_steps = 3
-        for i in range(left_steps):
+        for i in range(self.steps_left):
             await asyncio.sleep(0.3)
 
             if self.is_target_in_range(target_ship, is_for_engage=True):
@@ -851,14 +849,12 @@ class Ship:
         return has_won
 
     async def __try_to_flee(self):
-        left_steps = 3
-        for i in range(left_steps):
+        for i in range(self.steps_left):
             self.move_further(self.target_ship)
             await asyncio.sleep(0.3)
 
     async def __try_to_hold(self):
-        left_steps = 3
-        for i in range(left_steps):
+        for i in range(self.steps_left):
             pass
             await asyncio.sleep(0.3)
 

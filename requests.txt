@@ -73,15 +73,15 @@ TO DO:
 
 
         npc ships not fighting much OK
-
-
-        when npc target my ship with no crew, division by 0 bug ON
-
         ui, supply changed -> show supply menu OK
 
         OK menu, can input number directly OK
 
         ui, recruit crew -> show crew menu OK
+
+        when npc target my ship with no crew, division by 0 bug ON
+
+        fleet info OK
 
 
         menu clicking on clicked item

@@ -1516,7 +1516,7 @@ class OptionsDialog:
             rect = pygame.Rect((x, y), (image_width, image_height))
             pygame_gui.elements.UIImage(rect, image, ui_manager, container=ui_window)
 
-    def __show_fleet_info(self):
+    def __show_fleet(self):
         ships = self.get_ship_mgr().get_ships()
         ships_template_ids = [ship.ship_template_id for ship in ships]
         self.show_fleet_info(ships_template_ids)
@@ -1524,6 +1524,24 @@ class OptionsDialog:
     def __view_enemy_captain(self):
         enemy = self.__get_enemy()
         self.__view_captain(enemy.id)
+
+    def __show_fleet_info_menu(self):
+        ships = self.get_ship_mgr().get_ships()
+        dict = {}
+        dict[' '] = f'durabiliy crew guns [supply] cargo'
+        for ship in ships:
+            dict[ship.name] = f'{ship.now_durability}  {ship.now_crew}  {ship.now_guns}  ' \
+                              f'[{ship.food}  {ship.water}  {ship.material}  {ship.cannon}]  ' \
+                              f'{ship.cargo_cnt}'
+
+        # make text from dict
+        text = self.__dict_2_txt(dict)
+
+        MyPanelWindow(
+            rect=pygame.Rect((59, 0), (350, 500)),
+            ui_manager=self.mgr,
+            text=text,
+        )
 
     def __show_ship_info_menu(self, is_enemy=False):
         if is_enemy:
@@ -2379,7 +2397,8 @@ class OptionsDialog:
 
     def show_ships_menu(self):
         option_2_callback = {
-            'Fleet Info': partial(self.__show_fleet_info),
+            'Fleet': partial(self.__show_fleet),
+            'Fleet Info': partial(self.__show_fleet_info_menu),
             'Ship Info': partial(self.__show_ship_info_menu),
         }
 

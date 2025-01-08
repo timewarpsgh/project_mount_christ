@@ -1528,17 +1528,23 @@ class OptionsDialog:
     def __show_fleet_info_menu(self):
         ships = self.get_ship_mgr().get_ships()
         dict = {}
-        dict[' '] = f'durabiliy crew guns [supply] cargo'
+        dict[' '] = f'name: durabiliy crew guns [supply] cargo speed captain'
         for ship in ships:
-            dict[ship.name] = f'{ship.now_durability}  {ship.now_crew}  {ship.now_guns}  ' \
+            captain = ship.get_captain()
+            if captain:
+                captain_name = captain.name
+            else:
+                captain_name = ''
+
+            dict[f'{ship.name} '] = f'{ship.now_durability}  {ship.now_crew}  {ship.now_guns}  ' \
                               f'[{ship.food}  {ship.water}  {ship.material}  {ship.cannon}]  ' \
-                              f'{ship.cargo_cnt}'
+                              f'{ship.cargo_cnt}  {ship.get_base_speed_in_knots()} knots  {captain_name}'
 
         # make text from dict
         text = self.__dict_2_txt(dict)
 
         MyPanelWindow(
-            rect=pygame.Rect((59, 0), (350, 500)),
+            rect=pygame.Rect((59, 0), (600, 500)),
             ui_manager=self.mgr,
             text=text,
         )

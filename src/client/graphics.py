@@ -390,11 +390,11 @@ class BackGround(SP):
         # ships states
         for id, ship in enumerate(self.model.get_enemy().ship_mgr.get_ships()):
             num_text = Text(str(id), c.BLACK,
-                            c.WINDOW_WIDTH - 80, (id + 2) * 20)
+                            c.WINDOW_WIDTH - 100, (id + 2) * 20)
             hp_text = Text(str(ship.now_durability), c.ORANGE,
-                           c.WINDOW_WIDTH - 80 + 20, (id + 2) * 20)
+                           c.WINDOW_WIDTH - 100 + 30, (id + 2) * 20)
             crew_text = Text(str(ship.now_crew), c.WHITE,
-                             c.WINDOW_WIDTH - 80 + 40, (id + 2) * 20)
+                             c.WINDOW_WIDTH - 100 + 60, (id + 2) * 20)
 
             for item in [num_text, hp_text, crew_text]:
                 battle_ground_img.blit(item.image, item.rect)
@@ -404,8 +404,8 @@ class BackGround(SP):
         for id, ship in enumerate(self.model.role.ship_mgr.get_ships()):
             # all ships
             num_text = Text(str(id), c.BLACK, 10, (id + 2) * 20)
-            hp_text = Text(str(ship.now_durability), c.ORANGE, 30, (id + 2) * 20)
-            crew_text = Text(str(ship.now_crew), c.WHITE, 50, (id + 2) * 20)
+            hp_text = Text(str(ship.now_durability), c.ORANGE, 40, (id + 2) * 20)
+            crew_text = Text(str(ship.now_crew), c.WHITE, 70, (id + 2) * 20)
 
             for item in [num_text, hp_text, crew_text]:
                 battle_ground_img.blit(item.image, item.rect)
@@ -414,10 +414,10 @@ class BackGround(SP):
             if id != 0:
 
                 strategy_name = c.STRATEGY_2_TEXT[ship.strategy] if ship.strategy is not None else ''
-                strategy_text = Text(strategy_name, c.ORANGE, 80, (id + 2) * 20)
+                strategy_text = Text(strategy_name, c.ORANGE, 90, (id + 2) * 20)
 
                 target_name = ship.target_ship.name if ship.target_ship else ''
-                target_text = Text(str(target_name), c.CRIMSON, 130, (id + 2) * 20)
+                target_text = Text(str(target_name), c.CRIMSON, 140, (id + 2) * 20)
 
                 for item in [strategy_text, target_text]:
                     battle_ground_img.blit(item.image, item.rect)
@@ -785,7 +785,7 @@ class HudLeft(SP):
 
         new_image = self.img_src.copy()
 
-        x = 10
+        x = 5
 
         season_text = c.INT_2_SEASON[self.model.season_mgr.season]
         new_image.blit(Text('Century 16').image, (x, 18))
@@ -821,7 +821,7 @@ class HudLeft(SP):
             new_image.blit(food_water, (x, 310))
             new_image.blit(material_cannon, (x, 350))
 
-        name = Text( f'{self.model.role.name}  {time_diff}').image
+        name = Text( f'{self.model.role.name}').image
         new_image.blit(name, (x, 400))
 
         self.change_img(new_image)

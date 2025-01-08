@@ -242,15 +242,15 @@ class NpcMgr:
         # get ships_cnt and ship_template_id
         if fleet_type == c.Fleet.MERCHANT.value:
             ships_cnt = random.randint(4, 6)
-            ship_template_id = random.choice([9, 20])
-            type_of_guns = 2
+            ship_template_id = random.choice([9, 22])
+            type_of_guns = 4
         elif fleet_type == c.Fleet.CONVOY.value:
             ships_cnt = random.randint(6, 8)
-            ship_template_id = random.choice([10, 12])
-            type_of_guns = 4
+            ship_template_id = random.choice([4, 10, 12, 20])
+            type_of_guns = 5
         elif fleet_type == c.Fleet.BATTLE.value:
             ships_cnt = random.randint(8, 10)
-            ship_template_id = random.choice([11, 21])
+            ship_template_id = random.choice([11, 21, 15, 16, 17])
             type_of_guns = 6
 
         ship_template = sObjectMgr.get_ship_template(ship_template_id)

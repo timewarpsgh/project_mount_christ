@@ -2210,8 +2210,9 @@ class Role:
 
         pack = pb.MateSpeak(
             mate_template_id=npc.mate.mate_template_id,
-            text=f"I'm {npc.mate.name} from {c.Nation(npc.mate.nation).name}. "
-                 f"I'm heading to {npc.get_target_port_name()}",
+            text=f"I'm {npc.mate.name} commanding a {c.Fleet(npc.mate.fleet).name.lower()} "
+                 f"fleet for {c.Nation(npc.mate.nation).name}. "
+                 f"We are heading to {npc.get_target_port_name()}.",
         )
         self.session.send(pack)
 

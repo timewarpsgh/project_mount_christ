@@ -1528,7 +1528,7 @@ class OptionsDialog:
     def __show_fleet_info_menu(self):
         ships = self.get_ship_mgr().get_ships()
         dict = {}
-        dict[' '] = f'name: durabiliy crew guns [supply] cargo speed captain'
+        dict[' '] = f'  durabiliy crew guns [supply] cargo speed captain'
         for ship in ships:
             captain = ship.get_captain()
             if captain:

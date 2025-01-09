@@ -753,7 +753,7 @@ class PacketHandler:
         value = lv_uped.value
 
         mate = self.get_mate_mgr().get_mate(mate_id)
-        mate.lv_uped(duty_type, lv, xp, value)
+        prev_value = mate.lv_uped(duty_type, lv, xp, value)
 
         # play sound lv_up
         sAssetMgr.sounds['lv_up'].play()
@@ -761,6 +761,11 @@ class PacketHandler:
         # show chat
         text = f"{mate.name} advanced to lv {lv} in {c.DUTY_NAME_2_XP_NAME[c.INT_2_DUTY_NAME[duty_type]]}"
         self.__get_chat_dialog().add_chat(pb.ChatType.SYSTEM, text)
+
+        # mate speak
+        speech = f"I advanced to lv {lv} in {c.DUTY_NAME_2_XP_NAME[c.INT_2_DUTY_NAME[duty_type]]}. " \
+                f"Ability value increased from {prev_value} to {value}"
+        self.__get_options_dialog().show_mate_speech(mate, speech)
 
     async def handle_SeasonChanged(self, season_changed):
         season = season_changed.season

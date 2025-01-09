@@ -101,6 +101,8 @@ TO DO:
 
         recuit crew to max  OK
 
+        modify battle exp  OK
+        mate speak when mate lv uped OK
 
 
 

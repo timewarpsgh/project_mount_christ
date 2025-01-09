@@ -3438,8 +3438,13 @@ class Role:
                 captain.earn_xp(xp_amount, pb.DutyType.FIRST_MATE)
 
     def __calc_battle_xp_amount(self, captured_ships):
-        # get total_capacity
-        total_capacity = sum([ship.capacity for ship in captured_ships])
+        # get total_exp_value
+        total_exp_value = 0
+        for ship in captured_ships:
+            ship_template = sObjectMgr.get_ship_template(ship.ship_template_id)
+            lv = ship_template.lv
+            exp_value = int(ship.capacity * lv / 10)
+            total_exp_value += exp_value
 
         # get battle_skill
         flag_ship = self.get_flag_ship()
@@ -3451,7 +3456,7 @@ class Role:
             battle_skill = max(battle_skill, first_mate.battle)
 
         # cal xp
-        xp_amount = int(total_capacity * battle_skill * 0.1 * c.BATTLE_XP_FACTOR)
+        xp_amount = int(total_exp_value * battle_skill * 0.1 * c.BATTLE_XP_FACTOR)
 
         return xp_amount
 

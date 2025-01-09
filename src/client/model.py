@@ -407,17 +407,23 @@ class Mate:
         if duty_type == pb.DutyType.CHIEF_NAVIGATOR:
             self.lv_in_nav = lv
             self.xp_in_nav = xp
+            prev_value = self.navigation
             self.navigation = value
 
         elif duty_type == pb.DutyType.ACCOUNTANT:
             self.lv_in_acc = lv
             self.xp_in_acc = xp
+            prev_value = self.accounting
             self.accounting = value
 
         elif duty_type == pb.DutyType.FIRST_MATE:
             self.lv_in_bat = lv
             self.xp_in_bat = xp
+            prev_value = self.battle
             self.battle = value
+
+        return prev_value
+
 
 class ShipMgr:
 

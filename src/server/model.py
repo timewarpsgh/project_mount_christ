@@ -3459,7 +3459,8 @@ class Role:
         for id in self.get_non_flag_ships_ids():
             ship = self.ship_mgr.get_ship(id)
             captain = ship.get_captain()
-            captain.clear_duty()
+            if captain:
+                captain.clear_duty()
             self.ship_mgr.rm_ship(id)
             self.session.send(pb.ShipRemoved(id=id))
 

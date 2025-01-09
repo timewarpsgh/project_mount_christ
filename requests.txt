@@ -97,9 +97,9 @@ TO DO:
 
         higher navigation -> more steps in battle OK
 
-        move shoot right a bit ON
-        enter battle with just won ships (test)
-        recuit crew to max
+        move shoot right a bit OK
+
+        recuit crew to max  ON
 
 
 

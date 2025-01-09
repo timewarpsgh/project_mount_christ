@@ -104,6 +104,8 @@ TO DO:
         modify battle exp  OK
         mate speak when mate lv uped OK
 
+        trade goods max sell price 2000 OK
+
 
 
 

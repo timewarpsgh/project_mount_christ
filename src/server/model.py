@@ -3939,8 +3939,8 @@ class Role:
     def recruit_crew(self, ship_id, cnt):
         ship = self.ship_mgr.get_ship(ship_id)
 
-        if not ship.max_crew >= ship.now_crew + cnt:
-            return
+        if ship.now_crew + cnt > ship.max_crew:
+            cnt = ship.max_crew - ship.now_crew
 
         if cnt > self.recruited_crew_cnt:
             self.session.send(pb.BuildingSpeak(

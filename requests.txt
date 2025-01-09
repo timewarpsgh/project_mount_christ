@@ -99,7 +99,8 @@ TO DO:
 
         move shoot right a bit OK
 
-        recuit crew to max  ON
+        recuit crew to max  OK
+
 
 
 

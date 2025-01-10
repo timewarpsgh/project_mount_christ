@@ -170,6 +170,9 @@ class NpcMgr:
     def get_npc(self, id):
         return self.id_2_npc.get(id)
 
+    def get_all_npcs(self):
+        return list(self.id_2_npc.values())
+
     def get_npc_by_nation_and_fleet(self, nation_id, fleet_id):
         npcs = []
         for npc in self.id_2_npc.values():

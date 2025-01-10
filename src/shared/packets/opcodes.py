@@ -258,6 +258,9 @@ class OpCodeType(Enum):
 
     Land = auto()
 
+    BuyWanted = auto()
+    WantedBought = auto()
+
 
 def gen_opcode_2_value():
     d = {}

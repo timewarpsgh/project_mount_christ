@@ -728,6 +728,25 @@ class OptionsDialog:
         pack.nation_id = nation_id
         PacketParamsDialog(self.mgr, self.client, [], pack)
 
+    def __show_wanted_dialogue(self, fleet_type):
+        self.building_speak(f"I know your contry's primary threat at the moment. "
+                            f"For {c.WANTED_COST}, I can share with you this information "
+                            f"and notify "
+                            f"your country that you are dealing with this.")
+
+        pack = pb.BuyWanted()
+        pack.fleet_type = fleet_type.value
+        PacketParamsDialog(self.mgr, self.client, [], pack)
+
+    def __show_wanted_menu(self):
+        options = {
+            'Merchant Fleet': partial(self.__show_wanted_dialogue, c.Fleet.MERCHANT),
+            'Convoy Fleet': partial(self.__show_wanted_dialogue, c.Fleet.CONVOY),
+            'Battle Fleet': partial(self.__show_wanted_dialogue, c.Fleet.BATTLE),
+        }
+
+        self.__make_menu(options)
+
     def __buy_treasure_map(self):
         self.building_speak("I bought this map from someone a while ago, "
                             "but never had the time to check it out. "
@@ -1016,7 +1035,7 @@ class OptionsDialog:
     def __building_speak(self, text):
         # make window
         MyPanelWindow(
-            rect=pygame.Rect((248, -10), (264, 160)),
+            rect=pygame.Rect((248, -10), (264, 180)),
             ui_manager=self.mgr,
             text=text,
         )
@@ -1129,6 +1148,7 @@ class OptionsDialog:
         option_2_callback = {
             'Nation Info': partial(self.__show_nations_menu_to_get_info),
             'Treasure Map': partial(self.__buy_treasure_map),
+            'Wanted': partial(self.__show_wanted_menu),
         }
 
         MyMenuWindow(

@@ -111,14 +111,16 @@ TO DO:
         can lv up multiple lvs each time OK
         MAX LV 60 OK
 
-        job house
+        job house  OK
             wanted
                 merchant fleet
                 convoy
                 battle
 
-        items
+        items   ON
             wanted
+
+        persist wanted_id
 
         winning a wanted fleet,
             gives more exp

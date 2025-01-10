@@ -1260,3 +1260,17 @@ class PacketHandler:
             text='You have been defeated by the enenmy!',
             image=sAssetMgr.images['conditions']['lose_battle'],
         )
+
+    async def handle_WantedBought(self, pack):
+        wanted_mate_template_id = pack.wanted_mate_template_id
+
+        self.__get_role().wanted_mate_template_id = wanted_mate_template_id
+
+        # pop windows
+        self.__get_options_dialog().pop_some_menus(2)
+        # building speak
+        mate_template = sObjectMgr.get_mate_template(wanted_mate_template_id)
+        self.__get_options_dialog().building_speak(
+            f'You country is after {mate_template.name} '
+            f'from {c.Nation(mate_template.nation).name}!'
+        )

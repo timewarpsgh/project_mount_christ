@@ -132,6 +132,7 @@ TIME_OF_DAY_OPTIONS = ['dawn', 'day', 'dusk', 'night']
 PORT_COUNT = 130
 
 DEFECT_COST = 200000
+WANTED_COST = 100_000
 DEFECT_LV = 15
 SUPPLY_LOW_ALERT_DAYS = 10
 EACH_DAY_PASS = 1
@@ -532,4 +533,4 @@ class TimeType(Enum):
     NIGHT = 'night'
 
 if __name__ == '__main__':
-    print(list(TalentType.ALL_NAVIGATION.value))
+    print(Nation(1).name)

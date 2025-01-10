@@ -1169,3 +1169,8 @@ class PacketHandler:
 
     async def handle_RemoveFriend(self, pack):
         await run_in_threads(self.role.friend_mgr.remove_friend, pack)
+
+    async def handle_BuyWanted(self, pack):
+        fleet_type = pack.fleet_type
+
+        self.role.buy_wanted(fleet_type)

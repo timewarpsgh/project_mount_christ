@@ -1100,3 +1100,11 @@ message ShowLoseImg {
 
 message Land {
 }
+
+message BuyWanted {
+    required int32 fleet_type = 1;
+}
+
+message WantedBought {
+    required int32 wanted_mate_template_id = 1;
+}

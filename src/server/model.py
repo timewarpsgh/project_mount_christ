@@ -1657,6 +1657,7 @@ class Role:
     recruited_crew_cnt: int=0
     has_treated: bool=False
     treasure_map_id: int=None
+    wanted_mate_template_id: int=None
     event_id: int=None
     nation: int=None
 
@@ -1942,6 +1943,26 @@ class Role:
                 treasure_map_id=self.treasure_map_id
             )
             self.session.send(pack)
+
+    def buy_wanted(self, fleet_type):
+        if not self.has_enough_money(c.WANTED_COST):
+            return
+
+        npcs = self.session.server.npc_mgr.get_all_npcs()
+
+        random.shuffle(npcs)
+
+        for npc in npcs:
+            if npc.mate.nation != self.nation:
+                if npc.mate.fleet == fleet_type:
+                    self.wanted_mate_template_id = npc.mate.mate_template_id
+                    self.mod_money(-c.WANTED_COST)
+                    # send pack
+                    pack = pb.WantedBought(
+                        wanted_mate_template_id=self.wanted_mate_template_id,
+                    )
+                    self.session.send(pack)
+                    return
 
     def make_discovery(self, village_id):
         village = sObjectMgr.get_village(village_id)

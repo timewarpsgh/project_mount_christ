@@ -641,6 +641,7 @@ class Role:
     has_treated: bool = False
     has_told_story: bool = False
     treasure_map_id: int = None
+    wanted_mate_template_id: int = None
     event_id: int = None
     nation: int = None
 

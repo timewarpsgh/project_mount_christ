@@ -117,7 +117,7 @@ TO DO:
                 convoy
                 battle
 
-        items   ON
+        items   OK
             wanted
 
         persist wanted_id

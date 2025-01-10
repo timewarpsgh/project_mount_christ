@@ -1808,6 +1808,19 @@ class OptionsDialog:
 
         return my_x, my_y
 
+    def __show_wanted(self):
+        role = self.__get_role()
+        wanted_mate_template_id = role.wanted_mate_template_id
+
+        if wanted_mate_template_id:
+            mate_template = sObjectMgr.get_mate_template(wanted_mate_template_id)
+            self.show_msg_panel(
+                f'{mate_template.name} '
+                f'from {c.Nation(mate_template.nation).name}!'
+            )
+        else:
+            self.show_msg_panel("It's blank.")
+
     def __show_treasure_map(self):
         role = self.__get_role()
         if role.treasure_map_id:
@@ -2408,6 +2421,7 @@ class OptionsDialog:
             'Discoveries': partial(self.__show_discoveries_menu),
             'Quest': partial(self.__show_quest),
             'Treasure Map': partial(self.__show_treasure_map),
+            'Wanted': partial(self.__show_wanted),
             'World Map(M)': partial(self.show_world_map),
             'Port Map(N)': partial(self.show_port_map),
         }

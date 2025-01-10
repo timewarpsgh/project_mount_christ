@@ -1268,8 +1268,6 @@ class Mate:
                 )
                 self.mate_mgr.role.session.send(pack)
 
-
-
     def lv_up(self, duty_type, xp_at_next_lv):
         talent_chance = 0.5
 

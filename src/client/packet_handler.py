@@ -764,7 +764,7 @@ class PacketHandler:
         self.__get_chat_dialog().add_chat(pb.ChatType.SYSTEM, text)
 
         # mate speak
-        speech = f"I advanced to lv {lv} from {prev_lv} in {c.DUTY_NAME_2_XP_NAME[c.INT_2_DUTY_NAME[duty_type]]}. " \
+        speech = f"I advanced from lv {prev_lv} to {lv} in {c.DUTY_NAME_2_XP_NAME[c.INT_2_DUTY_NAME[duty_type]]}. " \
                 f"Ability value increased from {prev_value} to {value}"
         self.__get_options_dialog().show_mate_speech(mate, speech)
 

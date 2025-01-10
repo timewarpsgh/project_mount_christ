@@ -1182,6 +1182,14 @@ class Mate:
 
     def earn_xp(self, amount, duty_type):
 
+        # send pack
+        pack = pb.XpEarned(
+            mate_id=self.id,
+            duty_type=duty_type,
+            amount=amount
+        )
+        self.mate_mgr.role.session.send(pack)
+
         if duty_type == pb.DutyType.CHIEF_NAVIGATOR:
             if self.lv_in_nav >= c.MAX_LV:
                 return
@@ -1260,13 +1268,7 @@ class Mate:
                 )
                 self.mate_mgr.role.session.send(pack)
 
-        # send pack
-        pack = pb.XpEarned(
-            mate_id=self.id,
-            duty_type=duty_type,
-            amount=amount
-        )
-        self.mate_mgr.role.session.send(pack)
+
 
     def lv_up(self, duty_type, xp_at_next_lv):
         talent_chance = 0.5
@@ -1284,7 +1286,7 @@ class Mate:
 
         elif duty_type == pb.DutyType.ACCOUNTANT:
             self.lv_in_acc += 1
-            self.xp_in_acc = 0
+            self.xp_in_acc = xp_at_next_lv
 
             # hard increase
             self.accounting += 1
@@ -1295,7 +1297,7 @@ class Mate:
 
         elif duty_type == pb.DutyType.FIRST_MATE:
             self.lv_in_bat += 1
-            self.xp_in_bat = 0
+            self.xp_in_bat = xp_at_next_lv
 
             # hard increase
             self.battle += 1

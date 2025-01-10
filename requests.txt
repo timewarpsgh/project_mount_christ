@@ -127,7 +127,9 @@ TO DO:
             gives more exp
             clears wanted
 
-        bat not lving up continuously ON
+        bat not lving up continuously OK
+
+        refactor earn_xp and lv_up  ON
 
 
 

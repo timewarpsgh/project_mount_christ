@@ -127,7 +127,7 @@ TO DO:
             gives more exp
             clears wanted
 
-
+        bat not lving up continuously ON
 
 
 

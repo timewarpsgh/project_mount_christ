@@ -1109,3 +1109,6 @@ message BuyWanted {
 message WantedBought {
     required int32 wanted_mate_template_id = 1;
 }
+
+message WantedCleared {
+}

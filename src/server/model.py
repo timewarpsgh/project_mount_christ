@@ -3486,6 +3486,9 @@ class Role:
         if is_npc_wanted:
             xp_amount *= c.WANTED_XP_FACTOR
             self.wanted_mate_template_id = None
+            # send pack
+            pack = pb.WantedCleared()
+            self.session.send(pack)
 
 
         flag_ship = self.get_flag_ship()

@@ -1275,3 +1275,6 @@ class PacketHandler:
             f'You country is after {mate_template.name} '
             f'from {c.Nation(mate_template.nation).name}!'
         )
+
+    async def handle_WantedCleared(self, pack):
+        self.__get_role().wanted_mate_template_id = None

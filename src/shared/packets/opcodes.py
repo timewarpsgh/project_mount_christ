@@ -260,7 +260,7 @@ class OpCodeType(Enum):
 
     BuyWanted = auto()
     WantedBought = auto()
-
+    WantedCleared = auto()
 
 def gen_opcode_2_value():
     d = {}

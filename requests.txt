@@ -106,6 +106,24 @@ TO DO:
 
         trade goods max sell price 2000 OK
 
+        adjust panel height OK
+
+        can lv up multiple lvs each time ON
+
+        job house
+            wanted
+                merchant fleet
+                convoy
+                battle
+
+        items
+            wanted
+
+        winning a wanted fleet,
+            gives more exp
+            clears wanted
+
+
 
 
 

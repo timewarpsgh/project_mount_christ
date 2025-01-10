@@ -120,7 +120,8 @@ TO DO:
         items   OK
             wanted
 
-        persist wanted_id
+        persist wanted_id OK
+
 
         winning a wanted fleet,
             gives more exp

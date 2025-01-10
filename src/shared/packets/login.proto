@@ -189,12 +189,13 @@ message RoleEntered {
     required string items = 13;
     required string notorities = 14;
     required int32 treasure_map_id = 15;
-    required int32 event_id = 16;
-    required int32 nation = 17;
+    required int32 wanted_mate_template_id = 16;
+    required int32 event_id = 17;
+    required int32 nation = 18;
 
-    required int32 weapon = 18;
-    required int32 armor = 19;
-    required int32 ration = 20;
+    required int32 weapon = 19;
+    required int32 armor = 20;
+    required int32 ration = 21;
 
 }
 

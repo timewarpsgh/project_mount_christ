@@ -1779,6 +1779,7 @@ class Role:
         role_model.has_treated_crew = self.has_treated_crew
         role_model.recruited_crew_cnt = self.recruited_crew_cnt
         role_model.treasue_map_id = self.treasure_map_id
+        role_model.wanted_mate_template_id = self.wanted_mate_template_id
         role_model.event_id = self.event_id
         role_model.nation = self.nation
         role_model.weapon = self.weapon

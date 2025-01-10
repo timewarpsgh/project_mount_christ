@@ -1181,6 +1181,86 @@ class Mate:
         self.mate_mgr.role.session.send(pack)
 
     def earn_xp(self, amount, duty_type):
+
+        if duty_type == pb.DutyType.CHIEF_NAVIGATOR:
+            if self.lv_in_nav >= c.MAX_LV:
+                return
+
+            self.xp_in_nav += amount
+
+            has_lved_up = False
+            while self.xp_in_nav >= c.LV_2_MAX_XP[self.lv_in_nav]:
+                if self.lv_in_nav >= c.MAX_LV:
+                    break
+
+                xp_at_next_lv = self.xp_in_nav - c.LV_2_MAX_XP[self.lv_in_nav]
+                self.lv_up(duty_type, xp_at_next_lv)
+                has_lved_up = True
+
+            if has_lved_up:
+                # send pack
+                pack = pb.LvUped(
+                    mate_id=self.id,
+                    duty_type=duty_type,
+                    lv=self.lv_in_nav,
+                    xp=self.xp_in_nav,
+                    value=self.navigation,
+                )
+                self.mate_mgr.role.session.send(pack)
+
+        elif duty_type == pb.DutyType.ACCOUNTANT:
+            if self.lv_in_acc >= c.MAX_LV:
+                return
+
+            self.xp_in_acc += amount
+
+            has_lved_up = False
+            while self.xp_in_acc >= c.LV_2_MAX_XP[self.lv_in_acc]:
+                if self.lv_in_acc >= c.MAX_LV:
+                    break
+
+                xp_at_next_lv = self.xp_in_acc - c.LV_2_MAX_XP[self.lv_in_acc]
+                self.lv_up(duty_type, xp_at_next_lv)
+                has_lved_up = True
+
+            if has_lved_up:
+                # send pack
+                pack = pb.LvUped(
+                    mate_id=self.id,
+                    duty_type=duty_type,
+                    lv=self.lv_in_acc,
+                    xp=self.xp_in_acc,
+                    value=self.accounting,
+                )
+                self.mate_mgr.role.session.send(pack)
+
+        elif duty_type == pb.DutyType.FIRST_MATE:
+            if self.lv_in_bat >= c.MAX_LV:
+                return
+
+            self.xp_in_bat += amount
+
+            has_lved_up = False
+            while self.xp_in_bat >= c.LV_2_MAX_XP[self.lv_in_bat]:
+                if self.lv_in_bat >= c.MAX_LV:
+                    break
+
+                xp_at_next_lv = self.xp_in_bat - c.LV_2_MAX_XP[self.lv_in_bat]
+                self.lv_up(duty_type, xp_at_next_lv)
+                has_lved_up = True
+
+            if has_lved_up:
+                # send pack
+                pack = pb.LvUped(
+                    mate_id=self.id,
+                    duty_type=duty_type,
+                    lv=self.lv_in_bat,
+                    xp=self.xp_in_bat,
+                    value=self.battle,
+                )
+                self.mate_mgr.role.session.send(pack)
+
+        # send pack
         pack = pb.XpEarned(
             mate_id=self.id,
             duty_type=duty_type,
@@ -1188,28 +1268,12 @@ class Mate:
         )
         self.mate_mgr.role.session.send(pack)
 
-        if duty_type == pb.DutyType.CHIEF_NAVIGATOR:
-            self.xp_in_nav += amount
-
-            if self.xp_in_nav >= c.LV_2_MAX_XP[self.lv_in_nav]:
-                self.lv_up(duty_type)
-
-        elif duty_type == pb.DutyType.ACCOUNTANT:
-            self.xp_in_acc += amount
-            if self.xp_in_acc >= c.LV_2_MAX_XP[self.lv_in_acc]:
-                self.lv_up(duty_type)
-
-        elif duty_type == pb.DutyType.FIRST_MATE:
-            self.xp_in_bat += amount
-            if self.xp_in_bat >= c.LV_2_MAX_XP[self.lv_in_bat]:
-                self.lv_up(duty_type)
-
-    def lv_up(self, duty_type):
+    def lv_up(self, duty_type, xp_at_next_lv):
         talent_chance = 0.5
 
         if duty_type == pb.DutyType.CHIEF_NAVIGATOR:
             self.lv_in_nav += 1
-            self.xp_in_nav = 0
+            self.xp_in_nav = xp_at_next_lv
 
             # hard increase
             self.navigation += 1
@@ -1217,16 +1281,6 @@ class Mate:
             # increase navigation by change
             if random.random() < talent_chance:
                 self.navigation += self.talent_in_navigation
-
-            # send pack
-            pack = pb.LvUped(
-                mate_id=self.id,
-                duty_type=duty_type,
-                lv=self.lv_in_nav,
-                xp=self.xp_in_nav,
-                value=self.navigation,
-            )
-            self.mate_mgr.role.session.send(pack)
 
         elif duty_type == pb.DutyType.ACCOUNTANT:
             self.lv_in_acc += 1
@@ -1239,16 +1293,6 @@ class Mate:
             if random.random() < talent_chance:
                 self.accounting += self.talent_in_accounting
 
-            # send pack
-            pack = pb.LvUped(
-                mate_id=self.id,
-                duty_type=duty_type,
-                lv=self.lv_in_acc,
-                xp=self.xp_in_acc,
-                value=self.accounting,
-            )
-            self.mate_mgr.role.session.send(pack)
-
         elif duty_type == pb.DutyType.FIRST_MATE:
             self.lv_in_bat += 1
             self.xp_in_bat = 0
@@ -1259,16 +1303,6 @@ class Mate:
             # increase battle by change
             if random.random() < talent_chance:
                 self.battle += self.talent_in_battle
-
-            # send pack
-            pack = pb.LvUped(
-                mate_id=self.id,
-                duty_type=duty_type,
-                lv=self.lv_in_bat,
-                xp=self.xp_in_bat,
-                value=self.battle,
-            )
-            self.mate_mgr.role.session.send(pack)
 
     def load_from_db(self, mate):
         self.id = mate.id

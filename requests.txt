@@ -108,7 +108,8 @@ TO DO:
 
         adjust panel height OK
 
-        can lv up multiple lvs each time ON
+        can lv up multiple lvs each time OK
+        MAX LV 60 OK
 
         job house
             wanted

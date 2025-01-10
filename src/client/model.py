@@ -405,24 +405,30 @@ class Mate:
 
     def lv_uped(self, duty_type, lv, xp, value):
         if duty_type == pb.DutyType.CHIEF_NAVIGATOR:
+            prev_lv = self.lv_in_nav
             self.lv_in_nav = lv
             self.xp_in_nav = xp
             prev_value = self.navigation
             self.navigation = value
 
+
         elif duty_type == pb.DutyType.ACCOUNTANT:
+            prev_lv = self.lv_in_acc
             self.lv_in_acc = lv
             self.xp_in_acc = xp
             prev_value = self.accounting
             self.accounting = value
 
+
         elif duty_type == pb.DutyType.FIRST_MATE:
+            prev_lv = self.lv_in_bat
             self.lv_in_bat = lv
             self.xp_in_bat = xp
             prev_value = self.battle
             self.battle = value
 
-        return prev_value
+
+        return prev_value, prev_lv
 
 
 class ShipMgr:

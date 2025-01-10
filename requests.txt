@@ -123,7 +123,7 @@ TO DO:
         persist wanted_id OK
 
 
-        winning a wanted fleet,
+        winning a wanted fleet,  OK
             gives more exp
             clears wanted
 

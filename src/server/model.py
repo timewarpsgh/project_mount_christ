@@ -3473,6 +3473,7 @@ class Role:
         # show win img
         self.session.send(pb.ShowWinImg())
 
+        is_npc_wanted = self.npc_instance.mate.mate_template_id == self.wanted_mate_template_id
         self.npc_instance = None
         self.battle_npc_id = None
 
@@ -3482,6 +3483,11 @@ class Role:
 
         # earn xp
         xp_amount = self.__calc_battle_xp_amount(captured_ships)
+        if is_npc_wanted:
+            xp_amount *= c.WANTED_XP_FACTOR
+            self.wanted_mate_template_id = None
+
+
         flag_ship = self.get_flag_ship()
         first_mate = flag_ship.get_first_mate()
         if first_mate:

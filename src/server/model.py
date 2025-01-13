@@ -331,9 +331,15 @@ class Ship:
 
         return battle_skill
 
+    def __calc_battle_skill_advantage(self, ship):
+        battle_skill_advantage = self.__get_battle_skill() - int(ship.__get_battle_skill() * 0.3)
+        if battle_skill_advantage <= 10:
+            battle_skill_advantage = 10
+        return battle_skill_advantage
+
     def __calc_shoot_dmg(self, ship):
-        # get battle_skill
-        battle_skill = self.__get_battle_skill()
+        # get battle_skill_advantage
+        battle_skill_advantage = self.__calc_battle_skill_advantage(ship)
 
         # get gun_dmg from gun_type
         cannon = sObjectMgr.get_cannon(self.type_of_guns)
@@ -351,7 +357,7 @@ class Ship:
             armor_ratio = 1
 
         # calc dmg
-        dmg = int(self.now_guns * gun_dmg * battle_skill * 0.01 * 0.1 * weapon_ratio / armor_ratio)
+        dmg = int(self.now_guns * gun_dmg * battle_skill_advantage * 0.01 * 0.1 * weapon_ratio / armor_ratio)
 
         # morale effect
         morale = self.ship_mgr.role.morale
@@ -420,8 +426,8 @@ class Ship:
         return damage, is_sunk
 
     def __calc_engage_dmg(self, ship):
-        # get battle_skill
-        battle_skill = self.__get_battle_skill()
+        # get battle_skill_advantage
+        battle_skill_advantage = self.__calc_battle_skill_advantage(ship)
 
         # get crew_ratio
         if self.ship_mgr.role.weapon:
@@ -437,7 +443,7 @@ class Ship:
         crew_ratio = (self.now_crew * weapon_ratio) / (ship.now_crew * armor_ratio)
 
         # calc dmg
-        dmg = int(self.now_crew * crew_ratio * battle_skill * 0.01 // 4)
+        dmg = int(self.now_crew * crew_ratio * battle_skill_advantage * 0.01 // 4)
 
         # morale effect
         morale = self.ship_mgr.role.morale

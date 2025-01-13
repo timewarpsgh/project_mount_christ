@@ -129,6 +129,13 @@ TO DO:
 
         bat not lving up continuously OK
 
+        hire mates OK
+
+        shoot dmg depends on enemy battle skill OK
+
+
+        after winning, all ships have at least min_crew ON
+
 
     deploy
 

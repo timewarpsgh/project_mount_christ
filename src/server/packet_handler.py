@@ -427,7 +427,7 @@ class PacketHandler:
             role_entered.items = role.items
             role_entered.notorities = role.notorities
             role_entered.treasure_map_id = role.treasure_map_id
-            role_entered.wanted_mate_template_id = role.wanted_mate_template_id
+            role_entered.wanted_mate_template_id = role.wanted_mate_template_id if role.wanted_mate_template_id else 0
             role_entered.event_id = role.event_id
             role_entered.nation = role.nation
             role_entered.weapon = role.weapon if role.weapon else 0

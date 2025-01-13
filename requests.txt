@@ -133,9 +133,9 @@ TO DO:
 
         shoot dmg depends on enemy battle skill OK
 
-
-        after winning, all ships have at least min_crew ON
-
+        use of an allied port ? ON
+            200 crew recruitment
+            50% repair price
 
     deploy
 

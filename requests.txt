@@ -144,7 +144,8 @@ TO DO:
         buildings OK
 
         ships OK
-        mate info ON
+        mate info OK
+
 
 
 

@@ -1964,12 +1964,15 @@ class OptionsDialog:
         else:
             duty_name = 'NA'
 
+        s = tr(str(c.Nation(mate.nation).name))
+        print(f'xxxxx {s}')
+
         dict = {
             ' ': f"{mate.name}",
-            '  ': f'{c.Nation(mate.nation).name}',
-            '   ': f'{duty_name} on {ship_name}',
+            '  ': f'{tr(str(c.Nation(mate.nation).name))}',
+            '   ': f'{tr(duty_name)} on {ship_name}',
             '1': '',
-            '    ': '                nav   acc   bat',
+            '    ': tr('                nav   acc   bat'),
             'lv':  f"          {mate.lv_in_nav}   {mate.lv_in_acc}   {mate.lv_in_bat}",
 
             'value': f" {mate.navigation}   {mate.accounting}   {mate.battle}",
@@ -2099,9 +2102,9 @@ class OptionsDialog:
     def __show_crew_state_menu(self):
         role = self.__get_role()
         option_2_callback = {
-            f'Ration {role.ration}': partial(self.__set_ration),
-            f'Morale {role.morale}': '',
-            f'Health {role.health}': '',
+            f'{tr("Ration")} {role.ration}': partial(self.__set_ration),
+            f'{tr("Morale")} {role.morale}': '',
+            f'{tr("Health")} {role.health}': '',
         }
         self.__make_menu(option_2_callback)
 

@@ -34,12 +34,12 @@ dic = {
         'Fleet Speed': '舰队航速',
         'Flag': '国籍',
             # nations
-            'England': '英格兰',
-            'Holland': '荷兰',
-            'Portugal': '葡萄牙',
-            'Spain': '西班牙',
-            'Italy': '意大利',
-            'Turkey': '土耳其',
+            'england': '英格兰',
+            'netherlands': '荷兰',
+            'portugal': '葡萄牙',
+            'spain': '西班牙',
+            'italy': '意大利',
+            'ottoman': '奥斯曼',
 
             # ships
             'Atakabune' : '安宅船',
@@ -91,6 +91,7 @@ dic = {
         'accountant': '会计',
         'first mate': '大副',
         'first_mate': '大副',
+        'Navigator': '领航员',
         'chief navigator': '水手长',
         'chief_navigator': '水手长',
     'Mate Info': '船长情况',
@@ -124,11 +125,16 @@ dic = {
 
     'Assign Duty': '委任',
     'Social': '社交',
-
+        'Friends': '好友',
+        'Enemies': '黑名单',
     'Ration': '配给',
     'Morale': '士气',
     'Health': '健康',
 
+    '                nav   acc   bat': '                航海术   会计   战斗',
+    'value': '能力值',
+    'talent': '天赋',
+    'xp': '经验值',
 
     # items
     'Equipments': '装备',

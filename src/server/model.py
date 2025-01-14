@@ -3809,7 +3809,7 @@ class Role:
             cargo_template = sObjectMgr.get_cargo_template(port.specialty_id)
             available_cargo = pb.AvailableCargo()
             available_cargo.id = cargo_template.id
-            available_cargo.name = F'{cargo_template.name}*'
+            available_cargo.name = F'{cargo_template.name}'
             available_cargo.price = port.specialty_price
             available_cargo.cut_price = self.__get_modified_buy_price(port.specialty_price)
             available_cargos.append(available_cargo)

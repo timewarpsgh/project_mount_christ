@@ -5,10 +5,11 @@ from functools import partial
 import sys
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\client\dialogs')
+sys.path.append(r'D:\data\code\python\project_mount_christ\src\client')
 
 from login_pb2 import *
 from my_ui_elements import MyButton
-
+from translator import sTr, tr
 
 class PacketParamsDialog:
 
@@ -42,7 +43,7 @@ class PacketParamsDialog:
             # add entry box
             entry_box = pygame_gui.elements.UITextEntryBox(
                 relative_rect=pygame.Rect((0, 40 * i), (100, 40)),
-                placeholder_text=param_name,
+                placeholder_text=tr(param_name),
                 manager=self.mgr,
                 container=panel,
             )

@@ -146,7 +146,11 @@ TO DO:
         ships OK
         mate info OK
 
-        harbor ON
+        harbor OK
+        market OK
+        dry dock OK
+
+
 
 
 

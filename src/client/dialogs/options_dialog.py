@@ -112,7 +112,7 @@ class OptionsDialog:
         pack = pb.Invest()
         PacketParamsDialog(self.mgr, self.client, ['ingots_cnt'], pack)
 
-        self.building_speak("You want to invest?")
+        self.building_speak(tr("How many ingots do you want to invest?"))
 
     def __show_investment_state_menu(self):
         option_2_callback = {
@@ -135,7 +135,7 @@ class OptionsDialog:
         self.__make_menu(option_2_callback)
 
         if len(option_2_callback) == 0:
-            self.__building_speak('You seem to have no cargo to sell.')
+            self.__building_speak(tr('You seem to have no cargo to sell.'))
 
     def is_window_essential(self, window):
         object_ids = window.get_object_ids()
@@ -233,7 +233,7 @@ class OptionsDialog:
 
         self.__show_one_ship_states(ship)
 
-        self.building_speak(f'Are you sure you want to sell {ship.name}?')
+        self.building_speak(f'{tr("You do want to sell")} {ship.name}?')
 
 
     def __show_ships_to_sell(self):
@@ -292,7 +292,7 @@ class OptionsDialog:
         option_2_callback = {}
 
         for cannon in sObjectMgr.get_cannons():
-            option_2_callback[f'{cannon.name} {cannon.price}'] = partial(self.__change_ship_weapon, ship_id, cannon.id)
+            option_2_callback[f'{tr(cannon.name)} {cannon.price}'] = partial(self.__change_ship_weapon, ship_id, cannon.id)
 
         self.__make_menu(option_2_callback)
 
@@ -859,7 +859,7 @@ class OptionsDialog:
         option_2_callback = {}
 
         for id, nation in enumerate(c.Nation):
-            option_2_callback[f'{nation.name} {nations_investments[id]}'] = ''
+            option_2_callback[f'{tr(nation.name)} {nations_investments[id]}'] = ''
 
         self.__make_menu(option_2_callback)
 
@@ -1049,7 +1049,7 @@ class OptionsDialog:
     def __show_confirm_sail_dialog(self):
         flag_ship = self.__get_role().get_flag_ship()
         if not flag_ship:
-            self.__building_speak(f"You don't have a flag ship. ")
+            self.__building_speak(tr(f"You don't have a flag ship."))
             return
 
         pack = pb.Sail()
@@ -1057,8 +1057,8 @@ class OptionsDialog:
 
         days = self.__get_role().ship_mgr.calc_days_at_sea()
 
-        self.__building_speak(f'You can sail for about {days} days. '
-                              f'Are you sure you want to sail?')
+        self.__building_speak(f'{tr("You can sail for about")} {days} {tr("days")}. '
+                              f'{tr("Are you sure you want to sail?")}')
 
     def __unload_supply(self, ship_id, supply_name):
         pack = pb.UnloadSupply()
@@ -1097,23 +1097,23 @@ class OptionsDialog:
         option_2_callback = {
             'Food': partial(self.show_ships_to_unload_supply, 'food'),
             'Water': partial(self.show_ships_to_unload_supply, 'water'),
-            'Material': partial(self.show_ships_to_unload_supply, 'material'),
-            'Cannon': partial(self.show_ships_to_unload_supply, 'cannon'),
+            'Lumber': partial(self.show_ships_to_unload_supply, 'material'),
+            'Shot': partial(self.show_ships_to_unload_supply, 'cannon'),
         }
 
         self.__make_menu(option_2_callback)
 
     def __show_load_supply_menu(self):
         option_2_callback = {
-            f"Food {c.SUPPLY_2_COST['food']}": partial(self.show_ships_to_load_supply, 'food'),
-            f"Water {c.SUPPLY_2_COST['water']}": partial(self.show_ships_to_load_supply, 'water'),
-            f"Material {c.SUPPLY_2_COST['material']}": partial(self.show_ships_to_load_supply, 'material'),
-            f"Cannon {c.SUPPLY_2_COST['cannon']}": partial(self.show_ships_to_load_supply, 'cannon'),
+            f"{tr('Food')} {c.SUPPLY_2_COST['food']}": partial(self.show_ships_to_load_supply, 'food'),
+            f"{tr('Water')} {c.SUPPLY_2_COST['water']}": partial(self.show_ships_to_load_supply, 'water'),
+            f"{tr('Lumber')} {c.SUPPLY_2_COST['material']}": partial(self.show_ships_to_load_supply, 'material'),
+            f"{tr('Shot')} {c.SUPPLY_2_COST['cannon']}": partial(self.show_ships_to_load_supply, 'cannon'),
         }
 
         self.__make_menu(option_2_callback)
 
-        self.building_speak('What do you want to load to your ship? Water is free.')
+        self.building_speak(tr('What do you want to load to your ship? Water is free.'))
 
     def show_harbor_menu(self):
         self.__add_building_bg('harbor')
@@ -1920,7 +1920,7 @@ class OptionsDialog:
 
     def show_available_cargos_menu(self, get_available_cargos_res):
         option_2_callback = {
-            f'{cargo.name} {cargo.price} -> {cargo.cut_price}':
+            f'{tr(cargo.name)} {cargo.price} -> {cargo.cut_price}':
                 partial(self.__show_ships_to_load_cargo_menu, cargo.id)
                for cargo in get_available_cargos_res.available_cargos
         }
@@ -1930,10 +1930,10 @@ class OptionsDialog:
         has_right_tax_free_permit = get_available_cargos_res.has_right_tax_free_permit
 
         if has_right_tax_free_permit:
-            self.__building_speak('Oh, you have a Tax Free Permit! OK. '
-                                  'These are the best prices you can have.')
+            self.__building_speak(tr('Oh, you have a Tax Free Permit! OK. '
+                                  'These are the best prices you can have.'))
         else:
-            self.__building_speak('Plus tax, these are the best prices you can have.')
+            self.__building_speak(tr('Plus tax, these are the best prices you can have.'))
 
     def __figure_x_y_2_image(self, x=8, y=8):
         figure_width = c.FIGURE_WIDTH
@@ -2147,7 +2147,7 @@ class OptionsDialog:
 
         option_2_callback = {}
         for economy_id, sell_price in economy_id_2_sell_price.items():
-            option_2_callback[f'{c.MARKETS[int(economy_id)]} {sell_price}'] = ''
+            option_2_callback[f'{tr(c.MARKETS[int(economy_id)])} {sell_price}'] = ''
 
         self.__make_menu(option_2_callback)
 
@@ -2182,7 +2182,7 @@ class OptionsDialog:
         ship_template = sObjectMgr.get_ship_template(template_id)
 
         dict = {
-            'type': f'{ship_template.name}',
+            'type': f'{tr(ship_template.name)}',
             'tacking': f'{ship_template.tacking}',
             'power': f'{ship_template.power}',
             'durability': f'{ship_template.durability}',
@@ -2214,7 +2214,7 @@ class OptionsDialog:
 
         self.__show_ship_template(template_id)
 
-        self.__building_speak(f"I charge {price} for this ship. No negotiation please.")
+        self.__building_speak(f"{price}. {tr('No negotiation please.')}")
 
     def show_ships_to_buy_menu(self, ships_to_buy):
         option_2_callback = {

@@ -39,7 +39,7 @@ dic = {
             'portugal': '葡萄牙',
             'spain': '西班牙',
             'italy': '意大利',
-            'ottoman': '奥斯曼',
+            'ottoman': '奥斯曼帝国',
 
             # ships
             'Atakabune' : '安宅船',
@@ -50,23 +50,20 @@ dic = {
             'Caravela Redonda' : '方形帆卡拉维尔帆船',
             'Carrack' : '武装帆船',
             'Dhow' : '轻型阿拉伯帆船',
-            'Flemish Galleon' : '佛兰德帆船',
+            'Galley' : '中型排浆帆船',
             'Galleon' : '西班牙大帆船',
             'Hansa Cog' : '汉萨柯克帆船',
-            'Junk' : '中式帆船',
-            'Kansen' : '日式帆船',
-            'La Reale' : '法兰德斯排桨帆船',
+            'La Reale' : '小型排桨帆船',
             'Light Galley' : '轻型排桨帆船',
-            'Nao' : '中型帆船',
+            'Nao' : '武装商船',
             'Pinnace' : '北海多桅帆船',
-            'Sloop' : '单桅纵帆船',
+            'Sloop' : '斯鲁普帆船',
             'Talette' : '单桅帆船',
-            'Venetian Galeass' : '威尼斯炮舰',
+            'Heavy Galley' : '重型排浆帆船',
             'Xebec' : '多桅阿拉伯帆船',
-            'Barge' : '三桅大型帆船',
-            'Full Rigged Ship' : '战列舰',
+            'Battle Ship' : '战列舰',
+            'Cruiser' : '巡洋舰',
             'Frigate' : '护卫舰',
-            'Tekkousen' : '铁甲船',
 
     'ship info': '船只情况',
         'captain': '船长',
@@ -447,7 +444,11 @@ dic = {
         'unload supply': '卸下补给',
             'food': '食物',
             'water': '淡水',
+            'lumber': '资材',
+            'shot': '弹药',
             'ok': '确定',
+
+        'What do you want to load to your ship? Water is free.': '想要补给什么？水是免费的。',
 
         # inn
         'Check In': '入住',
@@ -1370,7 +1371,22 @@ dic = {
 
         # dynamic npcs
     'Have you been to': '你有没有去过',
-    'Do you like this place? ... How about me?': '喜欢这个地方吗？... 那我呢？',
+
+    "You don't have a flag ship.": '您没有旗舰。',
+    "You can sail for about": '您可以航行大约',
+    "Are you sure you want to sail?": '您确定要出发吗？',
+    "How many ingots do you want to invest?": '您想要投资多少金块？',
+    'By Nation': '国家',
+    'By Person': '个人',
+    'You seem to have no cargo to sell.': '您似乎没有货物可以出售。',
+    'Plus tax, these are the best prices you can have.': '加上税率，以下是我能接受的最低价格。',
+    'Oh, you have a Tax Free Permit! OK. These are the best prices you can have.': '噢，您有免税证！好吧，以下是我能接受的最低价格。',
+    'Sell Prices': '卖价',
+    'lv_required': '需要等级',
+    'No negotiation please.': '不讲价， 谢谢。',
+    'has been fixed': '修好了',
+    'Its max durability is now': '它的最大耐久度现在是',
+    "You do want to sell": '你真的想要出售',
 
 
 }

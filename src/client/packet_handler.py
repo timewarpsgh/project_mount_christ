@@ -20,6 +20,7 @@ from model import Role, ShipMgr, MateMgr, DiscoveryMgr, FriendMgr, Npc
 import model
 from asset_mgr import sAssetMgr
 from object_mgr import sObjectMgr
+from translator import sTr, tr
 import constants as c
 
 
@@ -793,8 +794,7 @@ class PacketHandler:
         ship.now_durability = max_durability
 
         self.__get_options_dialog().building_speak(
-            f"{ship.name} has been fixed. It's max_durability is now {max_durability}. "
-            f"We have tried our best.")
+            f"{ship.name} {tr('has been fixed')}. {tr('Its max durability is now')} {max_durability}.")
 
     async def handle_ShipRenamed(self, ship_renamed):
         id = ship_renamed.id

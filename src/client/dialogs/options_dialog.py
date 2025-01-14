@@ -18,6 +18,7 @@ from packet_params_dialog import PacketParamsDialog
 from my_ui_elements import MyMenuWindow, MyPanelWindow
 from asset_mgr import sAssetMgr
 from map_maker import sMapMaker
+from translator import sTr
 
 from object_mgr import sObjectMgr
 import constants as c
@@ -39,10 +40,15 @@ class OptionsDialog:
         # buttons to add
         buttons_texts = ['Buildings', 'Options', 'Cmds', 'Fight', 'Items', 'Mates', 'Ships']
 
+        if c.INCLUDE_BUILDINGS_MENU:
+            pass
+        else:
+            buttons_texts[0] = ' '
+
         for id, button_text in enumerate(buttons_texts):
             MyButton(
                 relative_rect=pygame.Rect((0 + id * 100, 0), (120, 60)),
-                text=button_text,
+                text=sTr.tr(button_text),
                 manager=self.mgr,
                 container=self.ui_window,
                 on_click=partial(self.__open_menu, button_text),

@@ -11,6 +11,7 @@ from helpers import Point
 
 
 SAVE_ON_DISCONNECT = True
+INCLUDE_BUILDINGS_MENU = True
 MAX_FRIENDS = 50
 
 # seen grids

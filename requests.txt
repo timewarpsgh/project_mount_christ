@@ -133,9 +133,13 @@ TO DO:
 
         shoot dmg depends on enemy battle skill OK
 
-        use of an allied port ? ON
-            200 crew recruitment
-            50% repair price
+        include buildings option OK
+
+
+    translate to chinese ON
+        menu OK
+        menu items ON
+
 
     deploy
 

@@ -85,6 +85,8 @@ dic = {
         'from ship num': '从船只编号',
         'to ship num': '到船只编号',
 
+    'You are not in battle.': '没有在战斗状态。',
+
     # mates
     'Admiral Info': '提督情况',
         'name': '名字',

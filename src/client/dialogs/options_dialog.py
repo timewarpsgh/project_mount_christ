@@ -2394,7 +2394,7 @@ class OptionsDialog:
     def show_fight_menu(self):
 
         if not self.__get_role().is_in_battle():
-            self.show_msg_panel('You are not in battle.')
+            self.show_msg_panel(tr('You are not in battle.'))
             return
 
         option_2_callback = {

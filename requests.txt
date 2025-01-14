@@ -146,6 +146,8 @@ TO DO:
         ships OK
         mate info OK
 
+        harbor ON
+
 
 
 

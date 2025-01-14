@@ -1387,6 +1387,12 @@ dic = {
     'has been fixed': '修好了',
     'Its max durability is now': '它的最大耐久度现在是',
     "You do want to sell": '你真的想要出售',
-
+    'Hello! How may I help you?': '你好！我能为您做点什么？',
+    "You want to treat the entire crew? Each beer costs": '您要招待所有船员吗？每瓶啤酒的价格是',
+    "You can't drink anymore today!": '您今天不能再喝了！',
+"Your crew were grateful for your hospitality.": '船员们对您的慷慨十分感激。',
+"local sailors seem willing to join your fleet.": '名本地船员表示想要加入您的舰队。',
+"Captain, how's life on land?": '船长，岸上的生活怎么样？',
+'You do want to fire me?': '您真的要解雇我吗？',
 
 }

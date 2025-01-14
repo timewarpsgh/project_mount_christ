@@ -505,7 +505,7 @@ class OptionsDialog:
         MyPanelWindow(
             rect=pygame.Rect((59, 12), (350, 400)),
             ui_manager=self.mgr,
-            text=speech,
+            text=tr(speech),
             image=mate_image,
         )
 
@@ -518,7 +518,7 @@ class OptionsDialog:
         for mate in mates:
             if mate.name == role_name:
                 continue
-            speech = "Captain, how's life in port? "
+            speech = "Captain, how's life on land?"
             option_2_callback[f'{mate.name}'] = partial(self.show_mate_speech, mate, speech)
         
         if mate_template and not self.get_mate_mgr().is_mate_in_fleet(mate_template):
@@ -538,7 +538,7 @@ class OptionsDialog:
         }
 
         self.__make_menu(option_2_callback)
-        self.show_mate_speech(mate, 'Are you sure you want to fire me?')
+        self.show_mate_speech(mate, 'You do want to fire me?')
 
     def __recruit_crew(self, ship_id):
         pack = pb.RecruitCrew()
@@ -565,7 +565,7 @@ class OptionsDialog:
         pack = pb.TreatCrew()
         PacketParamsDialog(self.mgr, self.client, [], pack)
 
-        self.building_speak(f'You want to treat the entire crew? Our beer is {c.BEER_COST} each.')
+        self.building_speak(f'{tr("You want to treat the entire crew? Each beer costs")} {c.BEER_COST}.')
 
     def show_ships_to_recruit_crew_menu(self):
         ships = self.get_ship_mgr().get_ships()
@@ -1043,7 +1043,7 @@ class OptionsDialog:
         MyPanelWindow(
             rect=pygame.Rect((248, -10), (264, 180)),
             ui_manager=self.mgr,
-            text=text,
+            text=tr(text),
         )
 
     def __show_confirm_sail_dialog(self):
@@ -2306,7 +2306,7 @@ class OptionsDialog:
 
                 self.__get_role().is_in_building = True
 
-                self.__building_speak('Hello! How may I help you?')
+                self.__building_speak(tr('Hello! How may I help you?'))
 
                 self.__trigger_event(building_name)
 

@@ -73,9 +73,13 @@ class OptionsDialog:
             getattr(self, f'show_{button_text.lower()}_menu')()
 
     def __make_menu(self, dict):
+        translated_dict = {}
+        for key, value in dict.items():
+            translated_dict[sTr.tr(key)] = value
+
         MyMenuWindow(
             title='',
-            option_2_callback=dict,
+            option_2_callback=translated_dict,
             mgr=self.mgr
         )
 

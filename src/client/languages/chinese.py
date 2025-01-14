@@ -27,6 +27,7 @@ dic = {
     'buildings': '建筑',
 
     # ships
+    'fleet': '舰队',
     'fleet info': '舰队情况',
         'Fleet Speed': '舰队航速',
         'Flag': '国籍',
@@ -119,6 +120,14 @@ dic = {
             'courage/swordplay': '勇气/剑术',
             'accounting/gunnery/navigation': '会计/炮术/导航',
 
+    'Assign Duty': '委任',
+    'Social': '社交',
+
+    'Ration': '配给',
+    'Morale': '士气',
+    'Health': '健康',
+
+
     # items
     'Equipments': '装备',
         'weapon': '武器',
@@ -154,22 +163,24 @@ dic = {
         'Abandon Quest': '放弃次要任务',
             'Quest abandoned.': '任务已放弃',
             'I have no quest to abandon.': '我没有任务需要放弃。',
-            
-            
 
-    'World Map': '世界地图',
-    'Port Map': '港口地图',
+    'Quest': '任务',
+    'Treasure Map': '藏宝图',
+    'Wanted': '通缉',
+    'World Map(M)': '世界地图(M)',
+    'Port Map(N)': '港口地图(N)',
 
     # cmds
-    'Enter Building (F)': '进入建筑 (F)',
-    'Enter Port (M)': '进入港口 (M)',
-    'Go Ashore (G)': '探索村落 (G)',
+    'Enter/Exit Building (F)': '进入/退出 建筑(F)',
+    'Enter Port (P)': '进入港口(P)',
+    'Search (G)': '探索(G)',
         'We found': "发现了",
         'and': "和",
         'Got': "获得了",
         'exp': "经验值",
         'Can''t find anything.': "什么也没有发现。",
-        
+
+    'Land (L)': '登录(L)',
 
     'Battle (B)': '战斗 (B)',
         "Target too far!": '目标太远了！',
@@ -236,7 +247,6 @@ dic = {
         "merchant": "商船",
         "convoy": "护卫",
         "battle": "战舰",
-        "fleet": "队 ",
         "from": "来自",
         "We are heading to": "我们正前往",
     'Gossip ': '交涉',

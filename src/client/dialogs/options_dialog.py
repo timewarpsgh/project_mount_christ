@@ -330,7 +330,7 @@ class OptionsDialog:
         for ship in ships:
             option_2_callback[f'{ship.name}'] = partial(self.__remodel_ship, ship.id)
 
-        self.__make_menu(option_2_callback)
+
 
     def show_dry_dock_menu(self):
         self.__add_building_bg('dry_dock')
@@ -343,11 +343,7 @@ class OptionsDialog:
             '': partial(self.exit_building),
         }
 
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
+        self.__make_menu(option_2_callback)
 
     def __show_mate_template_panel(self, mate_template):
         if not self.__get_role().has_treated:
@@ -1135,7 +1131,7 @@ class OptionsDialog:
         self.__add_building_bg('inn')
 
         option_2_callback = {
-            'Sleep': partial(self.__sleep),
+            'Check In': partial(self.__sleep),
             'Port Info': partial(self.__get_port_info),
             '': partial(self.exit_building),
         }
@@ -1161,11 +1157,7 @@ class OptionsDialog:
             'Wanted': partial(self.__show_wanted_menu),
         }
 
-        MyMenuWindow(
-            title='',
-            option_2_callback=option_2_callback,
-            mgr=self.mgr
-        )
+        self.__make_menu(option_2_callback)
 
     def show_bank_menu(self):
         self.__add_building_bg('bank')

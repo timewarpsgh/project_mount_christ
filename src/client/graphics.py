@@ -16,6 +16,7 @@ import constants as c
 from asset_mgr import sAssetMgr
 from map_maker import sMapMaker
 from object_mgr import sObjectMgr
+from translator import sTr
 from model import Role
 
 FONT_SIZE = 16
@@ -414,7 +415,7 @@ class BackGround(SP):
             if id != 0:
 
                 strategy_name = c.STRATEGY_2_TEXT[ship.strategy] if ship.strategy is not None else ''
-                strategy_text = Text(strategy_name, c.ORANGE, 100, (id + 2) * 20)
+                strategy_text = Text(sTr.tr(strategy_name), c.ORANGE, 100, (id + 2) * 20)
 
                 target_name = ship.target_ship.name if ship.target_ship else ''
                 target_text = Text(str(target_name), c.CRIMSON, 150, (id + 2) * 20)
@@ -788,34 +789,34 @@ class HudLeft(SP):
         x = 5
 
         season_text = c.INT_2_SEASON[self.model.season_mgr.season]
-        new_image.blit(Text('Century 16').image, (x, 18))
-        new_image.blit(Text(season_text.capitalize()).image, (x, 142))
+        new_image.blit(Text(sTr.tr('Century 16')).image, (x, 18))
+        new_image.blit(Text(sTr.tr(season_text.capitalize())).image, (x, 142))
 
         if self.model.role.is_in_port():
             lv = self.model.role.get_lv()
 
             new_image.blit(Text(f'Lv \n  {lv}').image, (x, 240))
 
-            ingots = Text(f'Gold Ingots \n  {self.model.role.money // 10000}').image
-            coins = Text(  f'Gold Coins \n  {self.model.role.money % 10000}').image
+            ingots = Text(f'{sTr.tr("Gold Ingots")} \n  {self.model.role.money // 10000}').image
+            coins = Text(f'{sTr.tr("Gold Coins")} \n  {self.model.role.money % 10000}').image
             new_image.blit(ingots, (x, 280))
             new_image.blit(coins, (x, 320))
 
         elif self.model.role.is_at_sea():
             # show supplies
             role = self.model.role
-            new_image.blit(Text(f"Ration \n  "
+            new_image.blit(Text(f'{sTr.tr("Ration")} \n  '
                                 f"{role.ration}").image, (x, 230))
 
-            new_image.blit(Text(f'Morale/Health \n  '
+            new_image.blit(Text(f'{sTr.tr("Morale/Health")} \n  '
                                 f'{role.morale}/{role.health}').image, (x, 270))
 
             ship_mgr = self.model.role.ship_mgr
 
-            food_water = Text(f"Food/Water \n  "
+            food_water = Text(f"{sTr.tr('Food/Water')} \n  "
                               f"{ship_mgr.get_total_supply(pb.SupplyType.FOOD)}/"
                               f"{ship_mgr.get_total_supply(pb.SupplyType.WATER)}").image
-            material_cannon = Text(f"Material/Shot \n  "
+            material_cannon = Text(f"{sTr.tr('Material/Shot')} \n  "
                               f"{ship_mgr.get_total_supply(pb.SupplyType.MATERIAL)}/"
                               f"{ship_mgr.get_total_supply(pb.SupplyType.CANNON)}").image
             new_image.blit(food_water, (x, 310))
@@ -853,15 +854,15 @@ class HudRight(SP):
 
             region = c.REGIONS[port.region_id] if port.region_id is not None else ''
 
-            new_image.blit(Text(f'{port.name}').image, (x, 5))
-            new_image.blit(Text(f'{region}').image, (x, 20))
+            new_image.blit(Text(f'{sTr.tr(port.name)}').image, (x, 5))
+            new_image.blit(Text(f'{sTr.tr(region)}').image, (x, 20))
 
-            new_image.blit(Text(f'Economy \n  {port.economy}').image, (x, 120))
-            new_image.blit(Text(f'Industry \n  {port.industry}').image, (x, 160))
+            new_image.blit(Text(f'{sTr.tr("Economy")} \n  {port.economy}').image, (x, 120))
+            new_image.blit(Text(f'{sTr.tr("Industry")} \n  {port.industry}').image, (x, 160))
 
         # at sea
         elif self.model.role.is_at_sea():
-            new_image.blit(Text(f'At Sea').image, (x, 5))
+            new_image.blit(Text(f'{sTr.tr("At Sea")}').image, (x, 5))
 
             # auras
             for id, aura in enumerate(self.model.role.auras):
@@ -874,8 +875,8 @@ class HudRight(SP):
             d_y = 45
 
             speed = self.model.role.speed
-            new_image.blit(Text(f'Speed \n  {speed/c.SPEED_2_KNOTS_FACTOR} Knots').image, (x, start_y))
-            new_image.blit(Text(f'Days \n  {self.model.role.days_at_sea}').image, (x, start_y + d_y * 1))
+            new_image.blit(Text(f'{sTr.tr("Speed")} \n  {speed/c.SPEED_2_KNOTS_FACTOR} {sTr.tr("Knots")}').image, (x, start_y))
+            new_image.blit(Text(f'{sTr.tr("Days")} \n  {self.model.role.days_at_sea}').image, (x, start_y + d_y * 1))
 
             season_mgr = self.model.season_mgr
             season = season_mgr.season
@@ -884,7 +885,7 @@ class HudRight(SP):
             current_dir = season_mgr.current_dir
             current_speed = season_mgr.current_speed
 
-            new_image.blit(Text(f'Season \n  {c.INT_2_SEASON[season]}').image, (x, start_y + d_y * 2))
+            new_image.blit(Text(f'{sTr.tr("Season")} \n  {sTr.tr(c.INT_2_SEASON[season])}').image, (x, start_y + d_y * 2))
 
             # wind
             wind_angle = wind_dir * 45
@@ -894,7 +895,7 @@ class HudRight(SP):
             )
             new_image.blit(rotated_image, (x + 20, 230))
 
-            new_image.blit(Text(f'Wind \n  {wind_speed}').image, (x, start_y + d_y * 3))
+            new_image.blit(Text(f'{sTr.tr("Wind")} \n  {wind_speed}').image, (x, start_y + d_y * 3))
             
             # current
             current_angle = current_dir * 45
@@ -905,7 +906,7 @@ class HudRight(SP):
             new_image.blit(rotated_image, (x + 20, 275))
             
             
-            new_image.blit(Text(f'Current \n  {current_speed}').image, (x, start_y + d_y * 4))
+            new_image.blit(Text(f'{sTr.tr("Current")} \n  {current_speed}').image, (x, start_y + d_y * 4))
 
 
         else:

@@ -206,15 +206,19 @@ dic = {
     'Exit': '退出游戏',
 
     # battle
+    'View Enemy Captain': '观察敌方船长',
     'View Enemy Ships': '观察敌方船只',
     'All Ships Target': '所有船只目标',
     'All Ships Strategy': '所有船只策略',
-        'escape': '撤退',
-    'One Ship Target': '单船目标',
+        'flee': '撤退',
+        'hold': '不动',
+    'Ship Target': '船只目标',
         'My Ships': '我方船只',
         'Targets': '目标',
-    'One Ship Strategy': '单船策略',
+    'Ship Strategy': '船只策略',
     'Escape Battle': '撤离战场',
+
+
 
     # ...
 
@@ -331,6 +335,7 @@ dic = {
                         "The investment state of this port has changed.": "本港的投资情况改变了。",
 
         # bar
+        'Treat Crew': '招待船员',
         'Recruit Crew': '招募船员',
             'count': '数量',
             'ship_num': '船只编号',
@@ -375,7 +380,7 @@ dic = {
             "No, kid. You don't want to build a ship from scratch. " \
               "It takes too much time and resource. Just grab a used one.": "不，孩子。 你不会想造新船的。<br>"\
                                                                             "时间成本太高了。买个二手的它不好吗？",
-        'Used Ship': '买旧船',
+        'Buy Ship': '购买船只',
             "Have a look. These are the kinds of ships we offer.": "看看吧。我们现在有这些船。",
 
             'type': "类型",
@@ -469,88 +474,9 @@ dic = {
             "If you want a ship, go earn it.": "想要一艘船？那你要自己想办法了。",
 
         # job house
-        'Job Assignment': '找工作',
-        "Don't know what to do? I have a few suggestions for you.": "不知道该干什么？ 我这儿有些建议。",
-            'Discover': '探索任务',
-                "I heard there's something interesting at": "我听说有什么东西在",
-                "Would you like to go and investigate? ": "您想去调查一下吗？",
-                "Quest accepted.": "接受了任务。",
-                "Oh! Have you finished your quest?": "噢！您的任务完成了？",
-            'Trade': '贸易任务',
-                "glass beads": "玻璃珠",
-                    "Kids in West and East Africa are crazy about glass beads. " \
-                       "Amsterdam produces tons of them. You can also get " \
-                       "them from the mediterranean.": "非洲的孩子们对玻璃珠十分着迷。<br>"
-                                                       "阿姆斯特丹盛产玻璃珠。<br>"
-                                                       "当然，地中海也能买到。",
-                "spice of life": "香料",
-                    "You can get spice from South East Asia for about 3 gold coins each " \
-                     "and sell them for more than 100 in Northern Europe.": "东南亚的香料非常便宜， <br>"
-                                                                            "单价大概3个金币。 <br>"
-                                                                            "它们在北欧可以卖出100多金币哪。",
-                "sleepy?": "困吗？",
-                    "You can get tobacco from Havana or Caracas for about 35 gold coins each " \
-                        "and sell them for about 250 in the Far East. " \
-                        "You can get tea from India or the Far East for about 20 gold coins each " \
-                        "and sell them for about 220 in Northern Europe. " \
-                        "You can get coffee from the Middle East for about 35 gold coins each " \
-                        "and sell them for about 340 in the Ottoman Empire. ": "可以从哈瓦那或者加拉加斯以35个金币<br>"
-                                                                               "买到烟草，<br>"
-                                                                               "再到远东以大约250个金币卖出。<br>"
-                                                                               "可以从印度或者远东以20个金币买到茶叶，<br>"
-                                                                               "再到北欧以大约220个金币卖出。<br>"
-                                                                               "可以从中东以35个金币买到咖啡，<br>"
-                                                                               "再到奥斯曼帝国以大约340个金币卖出。<br>",
-                "feels good": "感觉不错",
-                    "You can get silk from Zeiton for about 30 gold coins each " \
-                     "and sell them for about 250 in Northern Europe.": "可以从广州以30个金币买到丝绸，<br>"
-                                                                               "再到北欧以大约250个金币卖出。<br>",
-                "luxury": "真奢侈",
-                    "You can get coral from South East Asia for about 50 gold coins each " \
-                        "and sell them for about 280 in Europe. " \
-                       "You can get ivory from some Afrian ports for about 70 gold coins each " \
-                        "and sell them for about 300 in the Far East. Do you know Timbuktu?" \
-                       "You can get pearl from the Far East for about 60 gold coins each " \
-                        "and sell them for about 320 in Northern Europe. ": "可以从东南亚以50个金币买到珊瑚<br>"
-                                                                               "再到欧洲以大约280个金币卖出。<br>"
-                                                                               "可以从非洲以70个金币买到象牙，<br>"
-                                                                               "再到远东以大约300个金币卖出。<br>"
-                                                                               "可以从远东以60个金币买到珍珠，<br>"
-                                                                               "再到北欧以大约320个金币卖出。<br>",
-                "mixed": "什么都有",
-                    "You can get velvet from Iberia for about 80 gold coins each " \
-                        "and sell them for about 310 in the Far East. " \
-                        "You can get amber from Aden for about 100 gold coins each " \
-                        "and sell them for about 320 in the Mediterranean" \
-                        "You can get art from the Far East for about 120 gold coins each " \
-                        "and sell them for about 400 in Europe. Athens and Cairo also sells art.": "可以从伊比利亚以80个金币买到天鹅绒<br>"
-                                                                                                   "再到远东以大约310个金币卖出。<br>"
-                                                                                                   "可以从亚丁以100个金币买到琥珀，<br>"
-                                                                                                   "再到地中海以大约320个金币卖出。<br>"
-                                                                                                   "可以从远东以120个金币买到艺术品，<br>"
-                                                                                                   "再到欧洲以大约400个金币卖出。<br>"
-                                                                                                   "雅典和开罗也产艺术品。",
-                "delicate": "易碎",
-                    "You can get glassware from Venice or Copenhagen for about 180 gold coins each " \
-                        "and sell them for about 450 in the Far East. ": "可以从威尼斯或者哥本哈根<br>"
-                                                                         "以180个金币买到玻璃器皿<br>"
-                                                                         "再到远东以大约450个金币卖出。<br>",
-                "shiny": "闪闪发亮",
-                    "You can get gold from Africa, Veracruz or Rio de Janeiro " \
-                        "and sell them for about 1100 in Northern Europe. " \
-                        "But, please be cautious. There are pirates out there.": "您可以考虑从非洲、维拉克鲁斯<br>"
-                                                                                 "或者里约热内卢<br>"
-                                                                                 "购入黄金。是的,就是你想的那个黄金。<br>"
-                                                                                 "再到北欧以大约1100个金币卖出。<br>"
-                                                                                 "但是，请务必小心谨慎。<br>"
-                                                                                 "遇到海盗就不妙了。<br>"
-                                                                                 "别哭着来找我。",
-                
-            'Fight': '战斗任务',
-                "I don't have much information on that. " \
-                    "But why don't you talk with the bar girls?": "这方面的信息我也不太了解。 您为什么不去酒馆里问问呢？",
-        'Country Info': '国家情况',
-            "Go to your capital and ask your ruler about this. ": "这个嘛。 你要去问下你的国王了。",
+        'Nation Info': '国家情报',
+        'Treasure Map': '藏宝图',
+        'Wanted': '通缉',
 
         # misc
             "Entry is by invitation only.": "需要有邀请才能进入。",
@@ -626,10 +552,14 @@ dic = {
 
     # huds
         # left hud
-        'A.D. 1492': '公元 1492年',
-        'Godspeed': '一路顺风',
+        'Century 16': '16世纪',
         'Gold Ingots': '金块',
         'Gold Coins': '金币',
+
+        'Spring': '春季',
+        'Summer': '夏季',
+        'Fall': '秋季',
+        'Winter': '冬季',
 
         # right hud
             # in port
@@ -637,6 +567,15 @@ dic = {
             'Industry': '工业指数',
 
                 # regions
+                'Europe': '欧洲',
+                'New World': '美洲',
+                'West Africa': '西非',
+                'East Africa': '东非',
+                'Middle East': '中东',
+                'India': '印度',
+                'Southeast Asia': '东南亚',
+                'Far East': '远东',
+
                 'Iberia': '伊比利亚',
                 'Northern Europe': '北欧',
                 'The Mediterranean': '地中海',
@@ -655,10 +594,16 @@ dic = {
             'At Sea': '海上',
             'Speed': '航速',
             'knots': '节',
-            'Max Days': '可续航天数',
-            'Days Spent': '已航行天数',
-            'Wind': '风速|风向',
-            'Wave': '流速|流向',
+            'Days': '已航行天数',
+            'Wind': '风',
+            'Current': '流',
+
+            'Season': '季节',
+
+            'Ration': '配给',
+            'Morale/Health': '士气/健康',
+            'Food/Water': '食物/水',
+            'Material/Shot': '资材/弹药',
 
         # hud in battle
         'Please Wait...': '请等待...',

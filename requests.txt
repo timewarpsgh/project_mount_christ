@@ -139,7 +139,10 @@ TO DO:
     translate to chinese ON
         menu OK
         menu items OK
-        HUD ON
+        HUD OK
+        in battle OK
+        buildings OK
+
 
 
     deploy

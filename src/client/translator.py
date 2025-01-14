@@ -35,5 +35,8 @@ def main():
 # singleton
 sTr = Translator()
 
+def tr(content):
+    return sTr.tr(content)
+
 if __name__ == '__main__':
     main()

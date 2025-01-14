@@ -143,6 +143,9 @@ TO DO:
         in battle OK
         buildings OK
 
+        ships OK
+        mate info ON
+
 
 
     deploy

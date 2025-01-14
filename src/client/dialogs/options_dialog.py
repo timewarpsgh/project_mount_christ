@@ -18,7 +18,7 @@ from packet_params_dialog import PacketParamsDialog
 from my_ui_elements import MyMenuWindow, MyPanelWindow
 from asset_mgr import sAssetMgr
 from map_maker import sMapMaker
-from translator import sTr
+from translator import sTr, tr
 
 from object_mgr import sObjectMgr
 import constants as c
@@ -1331,7 +1331,7 @@ class OptionsDialog:
 
 
         dict = {
-            ' ': f'{ship.name}    {ship_template.name}',
+            ' ': f'{ship.name}    {tr(ship_template.name)}',
             'captain': f'{captain_name}',
             'nav/acc/first mate': f'{aids}',
             '1': '',
@@ -1376,7 +1376,7 @@ class OptionsDialog:
                 if k.startswith(' ') and k.endswith(' '):
                     text += f'{v}<br>'
                 else:
-                    text += f'{k}: {v}<br>'
+                    text += f'{tr(k)}: {v}<br>'
         return text
 
     def __get_enemy(self):
@@ -1550,7 +1550,7 @@ class OptionsDialog:
     def __show_fleet_info_menu(self):
         ships = self.get_ship_mgr().get_ships()
         dict = {}
-        dict[' '] = f'  durabiliy crew guns [supply] cargo speed captain'
+        dict[' '] = sTr.tr('  durability crew guns [supply] cargo speed captain')
         for ship in ships:
             captain = ship.get_captain()
             if captain:
@@ -1560,7 +1560,7 @@ class OptionsDialog:
 
             dict[f'{ship.name} '] = f'{ship.now_durability}  {ship.now_crew}  {ship.now_guns}  ' \
                               f'[{ship.food}  {ship.water}  {ship.material}  {ship.cannon}]  ' \
-                              f'{ship.cargo_cnt}  {ship.get_base_speed_in_knots()} knots  {captain_name}'
+                              f'{ship.cargo_cnt}  {ship.get_base_speed_in_knots()} {sTr.tr("knots")}  {captain_name}'
 
         # make text from dict
         text = self.__dict_2_txt(dict)
@@ -1585,7 +1585,7 @@ class OptionsDialog:
                 option_2_callback[f'{ship.name} '] = partial(self.__show_one_enemy_ship_states, ship_mgr.get_ship(id))
             else:
 
-                ship_txt = f'{ship.name}     {ship.get_base_speed_in_knots()} knots'
+                ship_txt = f'{ship.name}     {ship.get_base_speed_in_knots()} {sTr.tr("knots")}'
 
                 if ship_txt in option_2_callback:
                     print('ship name in dict !!!!!!!')

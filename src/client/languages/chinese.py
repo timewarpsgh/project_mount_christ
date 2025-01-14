@@ -29,6 +29,8 @@ dic = {
     # ships
     'fleet': '舰队',
     'fleet info': '舰队情况',
+        '  durability crew guns [supply] cargo speed captain': '  耐久度 船员 火炮 [补给] 货物 航速 船长',
+
         'Fleet Speed': '舰队航速',
         'Flag': '国籍',
             # nations
@@ -67,16 +69,16 @@ dic = {
             'Tekkousen' : '铁甲船',
 
     'ship info': '船只情况',
-        'name/type/captain': '船名/类型/船长',
-        'tacking/power/speed': '转向/推进/航速',
+        'captain': '船长',
+        'nav/acc/first mate': '领航员/会计/大副',
+        'tacking/power/base_speed': '转向/推进/基础航速',
         'durability': '耐久',
         'capacity': '载重',
-        'guns/max_guns': '当前炮位/最大炮位数',
+        'guns/max_guns/gun_type': '当前炮位/最大炮位数/火炮类型',
         'min_crew/crew/max_crew': '最少船员/当前船员/最大船员',
-        'useful_capacity': '有效载重',
-        'supplies': '补给',
-        'F': '食物',
-        'W': '淡水',
+        'max_cargo': '最大载货量',
+        'cargo/cnt': '货物/数量',
+        'food/water/lumber/shot': '食物/水/资材/弹药',
 
     'swap ships': '交换船只',
 

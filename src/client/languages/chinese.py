@@ -1464,6 +1464,11 @@ f'We are out of supply!': '我们的补给不够了！',
 'Storm': '风暴',
 'Pra': '祷',
 'Don': '捐',
+'You have completed the quests. Thank you.': '您已完成所有任务。谢谢。',
+"Go to": '前往',
+'There seems to be something around': '好像有什么东西在',
+"It's blank.": '空的。',
+
 
 
 }

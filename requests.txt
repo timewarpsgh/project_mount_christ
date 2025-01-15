@@ -36,6 +36,14 @@ TO DO:
 
         disasters OK
 
+        quest OK
+
+        treasure map OK
+
+        wanted OK
+
+        language  option ON
+
 
 
 

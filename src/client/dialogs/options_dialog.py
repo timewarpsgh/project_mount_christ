@@ -1767,7 +1767,7 @@ class OptionsDialog:
         if event.lv > self.__get_role().get_lv():
             self.show_msg_panel(f'Requires lv {event.lv}')
         else:
-            self.show_msg_panel(f'Go to {event.port} {building_name}.')
+            self.show_msg_panel(f'{tr("Go to")} {tr(event.port)} {tr(building_name)}.')
 
     def __get_villages_in_order(self):
         villages = []
@@ -1816,7 +1816,7 @@ class OptionsDialog:
             mate_template = sObjectMgr.get_mate_template(wanted_mate_template_id)
             self.show_msg_panel(
                 f'{mate_template.name} '
-                f'from {c.Nation(mate_template.nation).name}!'
+                f'from {tr(c.Nation(mate_template.nation).name)}!'
             )
         else:
             self.show_msg_panel("It's blank.")
@@ -1826,10 +1826,10 @@ class OptionsDialog:
         if role.treasure_map_id:
             id = role.treasure_map_id
             village = sObjectMgr.get_village(id)
-            self.show_msg_panel(f"There seems to be something around "
+            self.show_msg_panel(f"{tr('There seems to be something around')} "
                                 f"{village.latitude} {village.longitude}")
         else:
-            self.show_msg_panel("There is nothing intresting in the diary.")
+            self.show_msg_panel("It's blank.")
 
     def show_port_map(self):
         if not self.__get_role().is_in_port():

@@ -149,7 +149,8 @@ TO DO:
         harbor OK
         market OK
         dry dock OK
-        bar ON
+        bar OK
+        inn ON
 
 
 

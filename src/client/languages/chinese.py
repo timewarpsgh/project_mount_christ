@@ -1394,5 +1394,18 @@ dic = {
 "local sailors seem willing to join your fleet.": '名本地船员表示想要加入您的舰队。',
 "Captain, how's life on land?": '船长，岸上的生活怎么样？',
 'You do want to fire me?': '您真的要解雇我吗？',
+'You want to see': '您想要见',
+'We charge': '我们收取',
+'Farewell, captain, I wish you all the best!': '再见，船长，祝您一切顺利！',
+'There is no waitress here.': '这儿没有服务员。',
+'Wow! Interesting! I wish I could see it with my own eyes.': '哇噢！有意思!真想亲眼见到。',
+'Which nation?': '哪个国家？',
+'Which fleet?': '什么舰队？',
+    'I heard': '我听说',
+    'was at around': '在',
+    'heading to': '正前往',
+    'with': '载着',
+"Sorry. I'm rather busy right now. Maybe next time?": '抱歉。我现在很忙。也许下次？',
+
 
 }

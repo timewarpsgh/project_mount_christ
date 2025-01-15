@@ -590,7 +590,7 @@ class OptionsDialog:
 
     def __tell_story(self, maid):
         self.pop_some_menus(7)
-        self.show_mate_speech(maid, 'Wow! Interesting! Wish I could see it with my own eyes.')
+        self.show_mate_speech(maid, 'Wow! Interesting! I wish I could see it with my own eyes.')
         self.__get_role().has_told_story = True
 
     def __show_one_story_to_tell(self, village, maid):
@@ -691,18 +691,17 @@ class OptionsDialog:
 
             self.__make_menu(option_2_callback)
 
-            self.show_mate_speech(maid, f"I'm {maid.name}. How are you?")
+            self.show_mate_speech(maid, f"How are you?")
 
         else:
-            self.__building_speak('There is no waitress in this port.')
+            self.__building_speak('There is no waitress here.')
 
     def __request_to_see_waitress(self):
         port = self.__get_role().get_port()
         if port.maid_id:
             maid = sObjectMgr.get_maid(port.maid_id)
-            self.building_speak(f"We have {maid.name} here. "
-                                f"You want to see her? "
-                                f"We charge {c.WAITRESS_COST} for that.")
+            self.building_speak(f"{tr('You want to see')} {maid.name}? "
+                                f"{tr('We charge')} {c.WAITRESS_COST}.")
 
             pack = pb.SeeWaitress()
             PacketParamsDialog(self.mgr, self.client, [], pack)
@@ -821,9 +820,9 @@ class OptionsDialog:
             cargo_name = sObjectMgr.get_cargo_template(fleet.cargo_id).name
 
             self.show_mate_speech(maid,
-              f'I heard {fleet.captain_name} was at around '
-              f'{longitude} {latitude}, heading to {port_name} '
-              f'with {cargo_name}')
+              f'{tr("I heard")} {fleet.captain_name} {tr("was at around")} '
+              f'{longitude} {latitude}, {tr("heading to")} {tr(port_name)} '
+              f'{tr("with")} {tr(cargo_name)}')
 
     def show_item_sell_price(self, item_id, price):
         item = sObjectMgr.get_item(item_id)

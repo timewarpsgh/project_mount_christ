@@ -717,7 +717,7 @@ class PacketHandler:
         mate = self.get_mate_mgr().get_mate(mate_id)
         self.__get_options_dialog().pop_some_menus(3)
         self.__get_options_dialog().show_mate_speech(mate,
-             'Farewell, captain, I will you and your crew all the best!')
+             'Farewell, captain, I wish you all the best!')
         self.get_mate_mgr().rm_mate(mate_id)
 
     async def handle_DutyAssigned(self, duty_assigned):

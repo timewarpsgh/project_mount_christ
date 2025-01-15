@@ -1,141 +1,5 @@
 TO DO:
 
-    quest, Mozambic -> Madeira OK
-
-    test play ON
-        when N/M pressed, dont open map when in building OK
-        port npc move based on PORT_SPEED OK
-        show supply cnt in harbor OK
-
-        after enter port, can't press N OK
-        M not working at sea sometimes OK
-
-        market say tax permit not right OK
-
-        exits bergen, can't move OK
-
-        more items to trade, except Gold, when rich  OK
-
-            Gold OK
-            Nutmeg 1000, 3000
-            Tea 1000, 3000
-            Wine 300, 1000
-            arms 500, 1500
-
-            Tobacco 600, 1200
-            Coffee 600, 1500
-
-            mates:
-              33  Abidjan
-              29  Madeira OK
-              11  Nicosia
-              27  Rio de Janeiro
-
-
-        save ration to db OK
-        unload supply, show now cnt OK
-        show crew cnt in bar OK
-        if in building, don't process hotkeys OK
-        ship name not right after login OK
-
-        show ships with duplicate names OK
-
-
-        don't gen same name when buying ship OK
-
-        after selling ship with captain, clear duty OK
-
-
-        health goes to 100 after enter port OK
-
-        anchor land to deal with storm ON
-
-        invest to immediately change port alliance
-        view port price index by region
-
-        show villages ordered by name OK
-        show long menus bigger OK
-        tell story, show villages in order OK
-
-
-        village description punctuation ’ to '  OK
-
-        village text window, a little wider OK
-
-        land to deal with storm OK
-
-        don't show aids for non-flagships OK
-
-        supply show all OK
-
-        increase shoot dmg by 2x OK
-        npc select random target each turn OK
-
-
-        npc ships not fighting much OK
-        ui, supply changed -> show supply menu OK
-
-        OK menu, can input number directly OK
-
-        ui, recruit crew -> show crew menu OK
-
-        fleet info OK
-
-        supply cnt , more than max means max OK
-
-        fleet info show speed and captain OK
-
-        npc fleet gossip fleet type OK
-
-        when npc target my ship with no crew, division by 0 bug OK
-
-        left hud, text move left a little OK
-
-        ship info, show all ships OK
-
-        in battle, show hp right OK
-
-        higher navigation -> more steps in battle OK
-
-        move shoot right a bit OK
-
-        recuit crew to max  OK
-
-        modify battle exp  OK
-        mate speak when mate lv uped OK
-
-        trade goods max sell price 2000 OK
-
-        adjust panel height OK
-
-        can lv up multiple lvs each time OK
-        MAX LV 60 OK
-
-        job house  OK
-            wanted
-                merchant fleet
-                convoy
-                battle
-
-        items   OK
-            wanted
-
-        persist wanted_id OK
-
-
-        winning a wanted fleet,  OK
-            gives more exp
-            clears wanted
-
-        bat not lving up continuously OK
-
-        hire mates OK
-
-        shoot dmg depends on enemy battle skill OK
-
-        include buildings option OK
-
-
     translate to chinese ON
         menu OK
         menu items OK
@@ -162,6 +26,10 @@ TO DO:
         church OK
 
         fortune house OK
+
+        at sea, view enemy OK
+
+        win enemy ON
 
 
 

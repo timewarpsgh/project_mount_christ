@@ -631,8 +631,8 @@ class OptionsDialog:
     def __show_captain_info_panel(self, pack):
         # show captain info panel
         dict = {
-            'name': pack.name,
-            'nation': c.Nation(pack.nation).name,
+            'name': tr(pack.name),
+            'nation': tr(c.Nation(pack.nation).name),
             '1': '',
             'navigation/accounting/battle': f'{pack.navigation}/{pack.accounting}/{pack.battle}',
             '2': '',
@@ -663,19 +663,19 @@ class OptionsDialog:
         weapon_id = pack.weapon
         if weapon_id:
             weapon_item = sObjectMgr.get_item(weapon_id)
-            option_2_callback[f'Weapon: {weapon_item.name}'] = partial(self.__show_one_item,
+            option_2_callback[f'{tr("Weapon")}: {weapon_item.name}'] = partial(self.__show_one_item,
                                                                        weapon_item,
                                                                        is_for_view_captain=True)
         else:
-            option_2_callback[f'Weapon: NA'] = ''
+            option_2_callback[f'{tr("Weapon")}: NA'] = ''
         armor_id = pack.armor
         if armor_id:
             armor_item = sObjectMgr.get_item(armor_id)
-            option_2_callback[f'Armor: {armor_item.name}'] = partial(self.__show_one_item,
+            option_2_callback[f'{tr("Armor")}: {armor_item.name}'] = partial(self.__show_one_item,
                                                                      armor_item,
                                                                      is_for_view_captain=True)
         else:
-            option_2_callback[f'Armor: NA'] = ''
+            option_2_callback[f'{tr("Armor")}: NA'] = ''
         self.__make_menu(option_2_callback)
 
     def show_waitress_menu(self):
@@ -2327,13 +2327,13 @@ class OptionsDialog:
             option_2_callback = {
                 f'{role.name}': '',
                 'View Fleet': partial(self.__view_fleet, role.id),
-                'Gossip': partial(self.__gossip, role.id),
+                'Gossip ': partial(self.__gossip, role.id),
                 'View Captain': partial(self.__view_captain, role.id),
                 'Fight': partial(self.fight_target, role),
             }
 
             if role.is_role():
-                del option_2_callback['Gossip']
+                del option_2_callback['Gossip ']
                 if my_role.is_in_port():
                     del option_2_callback['Fight']
                     option_2_callback['Request Trade'] = partial(self.__request_trade, role.id)

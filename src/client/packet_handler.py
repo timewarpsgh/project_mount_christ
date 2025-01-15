@@ -765,8 +765,8 @@ class PacketHandler:
         self.__get_chat_dialog().add_chat(pb.ChatType.SYSTEM, text)
 
         # mate speak
-        speech = f"I advanced from lv {prev_lv} to {lv} in {c.DUTY_NAME_2_XP_NAME[c.INT_2_DUTY_NAME[duty_type]]}. " \
-                f"Ability value increased from {prev_value} to {value}"
+        speech = f"{tr('I advanced from lv')} {prev_lv} to {lv} in {tr(c.DUTY_NAME_2_XP_NAME[c.INT_2_DUTY_NAME[duty_type]])}. " \
+                f"{tr('Ability value increased from')} {prev_value} to {value}"
         self.__get_options_dialog().show_mate_speech(mate, speech)
 
     async def handle_SeasonChanged(self, season_changed):
@@ -889,8 +889,7 @@ class PacketHandler:
         MyPanelWindow(
             rect=pygame.Rect(0, 0, 400, 400),
             ui_manager=self.client.game.gui.mgr,
-            text='You have lost your life. '
-                 'Your story will be remembered and studied by those to come.',
+            text=tr('You have lost your life. Your story will be remembered and studied by those to come.'),
             image=sAssetMgr.images['conditions']['sunk'],
         )
 
@@ -1250,7 +1249,7 @@ class PacketHandler:
         MyPanelWindow(
             rect=pygame.Rect(0, 0, 400, 400),
             ui_manager=self.client.game.gui.mgr,
-            text='The enemy has been defeated!',
+            text=tr('The enemy has been defeated!'),
             image=sAssetMgr.images['conditions']['win_battle'],
         )
 
@@ -1258,7 +1257,7 @@ class PacketHandler:
         MyPanelWindow(
             rect=pygame.Rect(0, 0, 400, 400),
             ui_manager=self.client.game.gui.mgr,
-            text='You have been defeated by the enenmy!',
+            text=tr('You have been defeated by the enenmy!'),
             image=sAssetMgr.images['conditions']['lose_battle'],
         )
 

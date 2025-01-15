@@ -576,10 +576,10 @@ dic = {
         'Gold Ingots': '金块',
         'Gold Coins': '金币',
 
-        'Spring': '春季',
-        'Summer': '夏季',
-        'Fall': '秋季',
-        'Winter': '冬季',
+        'spring': '春季',
+        'summer': '夏季',
+        'fall': '秋季',
+        'winter': '冬季',
 
         # right hud
             # in port

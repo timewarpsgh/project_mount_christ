@@ -16,7 +16,7 @@ import constants as c
 from asset_mgr import sAssetMgr
 from map_maker import sMapMaker
 from object_mgr import sObjectMgr
-from translator import sTr
+from translator import sTr, tr
 from model import Role
 
 FONT_SIZE = 16
@@ -885,7 +885,7 @@ class HudRight(SP):
             current_dir = season_mgr.current_dir
             current_speed = season_mgr.current_speed
 
-            new_image.blit(Text(f'{sTr.tr("Season")} \n  {sTr.tr(c.INT_2_SEASON[season])}').image, (x, start_y + d_y * 2))
+            new_image.blit(Text(f'{sTr.tr("Season")} \n  {tr(c.INT_2_SEASON[season])}').image, (x, start_y + d_y * 2))
 
             # wind
             wind_angle = wind_dir * 45

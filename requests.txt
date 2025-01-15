@@ -30,10 +30,13 @@ TO DO:
         at sea, view enemy OK
 
         win enemy OK
+        can be hungry for more days OK
+
+        season at sea OK
 
         disasters ON
 
-        can be hungry for more days OK
+
 
 
 

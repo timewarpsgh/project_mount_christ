@@ -1093,7 +1093,7 @@ class PacketHandler:
             f'{recruited_crew_cnt} {tr("local sailors seem willing to join your fleet.")}')
 
     async def handle_Slept(self, pack):
-        self.__get_options_dialog().building_speak('Did you have a good sleep last night?')
+        self.__get_options_dialog().building_speak('Did you sleep well last night?')
 
     async def handle_BuildingSpeak(self, pack):
         text = pack.text
@@ -1272,8 +1272,8 @@ class PacketHandler:
         # building speak
         mate_template = sObjectMgr.get_mate_template(wanted_mate_template_id)
         self.__get_options_dialog().building_speak(
-            f'You country is after {mate_template.name} '
-            f'from {c.Nation(mate_template.nation).name}!'
+            f'{tr("You country is after")} {mate_template.name} '
+            f'{tr("from")} {tr(c.Nation(mate_template.nation).name)}!'
         )
 
     async def handle_WantedCleared(self, pack):

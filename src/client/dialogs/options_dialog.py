@@ -734,10 +734,9 @@ class OptionsDialog:
         PacketParamsDialog(self.mgr, self.client, [], pack)
 
     def __show_wanted_dialogue(self, fleet_type):
-        self.building_speak(f"I know your contry's primary threat at the moment. "
-                            f"For {c.WANTED_COST}, I can share with you this information "
-                            f"and notify "
-                            f"your country that you are dealing with this.")
+        self.building_speak(f"{tr('I know the primary threat for your country at the moment.')} "
+                            f"{tr('If you pay')} {c.WANTED_COST}, "
+                            f"{tr('I can share with you this information and notify your country that you are dealing with this.')}")
 
         pack = pb.BuyWanted()
         pack.fleet_type = fleet_type.value
@@ -753,9 +752,9 @@ class OptionsDialog:
         self.__make_menu(options)
 
     def __buy_treasure_map(self):
-        self.building_speak("I bought this map from someone a while ago, "
-                            "but never had the time to check it out. "
-                            f"I'm willing to transfer it to you for {c.TREASURE_MAP_COST}.")
+        self.building_speak(
+            f"{tr('I bought this map from someone a while ago, but never had the time to check it out. I can transfer it to you for')} {c.TREASURE_MAP_COST}."
+        )
 
         pack = pb.BuyTreasureMap()
         PacketParamsDialog(self.mgr, self.client, [], pack)
@@ -869,26 +868,26 @@ class OptionsDialog:
         }
 
         for id, port_name in enumerate(port_names):
-            option_2_callback[f'{port_name} {price_indexes[id]}'] = ''
+            option_2_callback[f'{tr(port_name)} {price_indexes[id]}'] = ''
 
         self.__make_menu(option_2_callback)
 
         # building speak number of allied ports
-        self.__building_speak(f'{c.Nation(nation_id).name} has {len(port_names)} allied ports at the moment.')
+        self.__building_speak(f'{tr(c.Nation(nation_id).name)} {tr("has")} {len(port_names)} {tr("allied ports at the moment")}.')
 
     def show_port_info(self, price_index, economy_index, industry_index, allied_nation):
 
         nation_name = c.Nation(allied_nation).name
 
         option_2_callback = {
-            f'Price Index {price_index}': '',
-            f'Economy Index {economy_index}': '',
-            f'Industry Index {industry_index}': '',
+            f'{tr("Price Index")} {price_index}': '',
+            f'{tr("Economy Index")} {economy_index}': '',
+            f'{tr("Industry Index")} {industry_index}': '',
         }
 
         self.__make_menu(option_2_callback)
 
-        self.__building_speak(f'We are allied to {nation_name} at the moment.')
+        self.__building_speak(f'{tr("We are currently allied to")} {tr(nation_name)}.')
 
     def __buy_letter_of_marque(self):
         self.client.send(BuyLetterOfMarque())
@@ -904,7 +903,7 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
-        self.__building_speak('Letter of Marque costs 50000 coins. Is that OK?')
+        self.__building_speak(f'{tr("Letter of Marque")}  50000. {tr("Is that OK?")}')
 
     def __show_tax_free_permit_price(self):
 
@@ -914,7 +913,7 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
-        self.__building_speak('Tax Free Permit costs 50000 coins. Is that OK?')
+        self.__building_speak(f'{tr("Tax Free Permit")} {tr("costs")} 50000. {tr("Is that OK?")}')
 
     def __get_item_sell_price(self, item_id):
         self.client.send(GetItemSellPrice(item_id=item_id))
@@ -952,7 +951,7 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
-        self.building_speak("I'm sorry, but the King is busy at the moment. What do you want?")
+        self.building_speak("I'm sorry, the King is busy at the moment. What do you want?")
 
     def __show_donate_dialog(self):
         self.__building_speak('How many ingots do you want to donate? '

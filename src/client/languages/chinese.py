@@ -306,6 +306,8 @@ dic = {
             "gold coins and": "金币和",
             "exp for": "经验值， 卖出",
 
+        'Economy Index': '商业指数',
+        'Industry Index': '工业指数',
         'price index': '物价指数',
             'The price index of this port is': '本港的物价指数是',
             'Any cargo you buy or sell will be affected by this index.': "您购买或卖出任何商品的价格均"
@@ -461,7 +463,10 @@ dic = {
             "Didn't see anything interesting.": '好像没看到啥嘛。',
 
         # palace
-        'Meet Ruler': '召见国王',
+        'Meet Ruler': '觐见国王',
+        'Buy Tax Free Permit': '购买免税证',
+        'Buy Letter of Marque': '购买私掠证',
+        "I'm sorry, the King is busy at the moment. What do you want?": '抱歉，国王现在很忙。您想要什么？',
             "Hello": "你好",
             "Are you interested in our allied ports": "对我们的同盟港感兴趣？",
 
@@ -1406,6 +1411,20 @@ dic = {
     'heading to': '正前往',
     'with': '载着',
 "Sorry. I'm rather busy right now. Maybe next time?": '抱歉。我现在很忙。也许下次？',
-
-
+'Did you sleep well last night?': '昨晚睡得好吗？',
+"We are currently allied to": '我们当前的同盟国是',
+"Is that OK?": '可以吗？',
+"Letter of Marque": '私掠证',
+"Tax Free Permit": '免税证',
+'Please take good care of these documents. I hear mice like them and they break easily if they get wet.' : '请妥善保管这份文件。我听说老鼠喜欢咬这个。此外，如果湿了的话也容易破损。',
+'I know the primary threat for your country at the moment.': '我知道您国家目前的主要威胁。',
+'If you pay': '如果您支付',
+'I can share with you this information and notify your country that you are dealing with this.' : '我愿意与您分享这个信息，并通知您的国家您正在处理这个威胁。',
+'I bought this map from someone a while ago, but never had the time to check it out. I can transfer it to you for': '我之前从某人那儿收购了这张地图，但一直没有机会使用它。我可以转交给您，如果您愿意支付',
+'I charge 1000 coins for this information. Is that OK?': '这条信息需要花费1000枚金币。可以吗？',
+"has": '有',
+"allied ports at the moment": '个同盟港目前',
+'Thank you for your purchase! Good luck!': '感谢您的购买！好运！',
+"You country is after": '您的国家正盯着',
+"from": '他来自',
 }

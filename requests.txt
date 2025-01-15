@@ -150,7 +150,16 @@ TO DO:
         market OK
         dry dock OK
         bar OK
-        inn ON
+        inn OK
+        palace OK
+
+        job house OK
+
+        bank ON
+
+
+
+
 
 
 

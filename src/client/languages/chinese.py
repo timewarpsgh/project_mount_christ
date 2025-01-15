@@ -501,10 +501,13 @@ dic = {
         'Check Balance': '查看余额',
             "Your current balance is": "您当前的余额是",
         'Deposit': '存入',
-            "Dear customer, how much would you like to deposit?": "亲爱的顾客， 您需要存入多少呢？",
+            "How much would you like to deposit?": "您需要存入多少呢？",
              'amount': '数量',
         'Withdraw': '取出',
-            "Dear customer, how much would you like to withdraw from your account?": "亲爱的顾客， 您想要取出多少？",
+            "How much would you like to withdraw?": "您想要取出多少？",
+            "Thank you! Now your balance is": '谢谢！您当前的余额是',
+            "Here you are! Now your balance is": '拿好！您当前的余额是',
+
         'Borrow': '贷款',
             "It seems you still have some left in your account.": "好像您还有存款未用吧。",
             "Yes. We're happy to lend you up to": "是的，我们很乐意贷款给您最多",
@@ -1427,4 +1430,5 @@ dic = {
 'Thank you for your purchase! Good luck!': '感谢您的购买！好运！',
 "You country is after": '您的国家正盯着',
 "from": '他来自',
+"Your balance is": '您的当前余额是',
 }

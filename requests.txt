@@ -155,7 +155,9 @@ TO DO:
 
         job house OK
 
-        bank ON
+        bank OK
+
+        item shop
 
 
 

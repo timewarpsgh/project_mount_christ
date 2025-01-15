@@ -1068,17 +1068,17 @@ class PacketHandler:
 
     async def handle_YourBalance(self, pack):
         balance = pack.balance
-        self.__get_options_dialog().building_speak(f'Your balance is {balance}.')
+        self.__get_options_dialog().building_speak(f'{tr("Your balance is")} {balance}.')
 
     async def handle_Deposited(self, pack):
         balance = pack.balance
         self.__get_options_dialog().pop_some_menus(2)
-        self.__get_options_dialog().building_speak(f'Thank you! Now your balance is {balance}.')
+        self.__get_options_dialog().building_speak(f'{tr("Thank you! Now your balance is")} {balance}.')
 
     async def handle_Withdrawn(self, pack):
         balance = pack.balance
         self.__get_options_dialog().pop_some_menus(2)
-        self.__get_options_dialog().building_speak(f'Here you are! Now your balance is {balance}.')
+        self.__get_options_dialog().building_speak(f'{tr("Here you are! Now your balance is")} {balance}.')
 
     async def handle_Invested(self, pack):
         self.__get_options_dialog().pop_some_menus(2)

@@ -159,7 +159,10 @@ TO DO:
 
         item shop OK
 
-        church
+        church OK
+
+        fortune house ON
+
 
 
 

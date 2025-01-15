@@ -1432,4 +1432,7 @@ dic = {
 "from": '他来自',
 "Your balance is": '您的当前余额是',
 'I can buy this for': '我愿意为这个支付',
+'May God bless you in all your endeavors.': '愿上帝保佑您。',
+'How many ingots do you want to donate? Any amount is appreciated.': '您想要捐赠多少金块？任何数量我们都感激不尽。',
+'Thank you for your donation!': '感谢您的捐赠！',
 }

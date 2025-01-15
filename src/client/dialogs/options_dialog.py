@@ -833,7 +833,7 @@ class OptionsDialog:
         self.__make_menu(option_2_callback)
 
         self.__show_one_item(item, is_for_item_shop=True)
-        self.__building_speak(f"I'm willing to buy this for {price}.")
+        self.__building_speak(f"{tr('I can buy this for')} {price}.")
 
     def show_available_items(self, items_ids, prices):
         option_2_callback = {}
@@ -841,7 +841,7 @@ class OptionsDialog:
         for id, item_id in enumerate(items_ids):
             item = sObjectMgr.get_item(item_id)
             prcie = prices[id]
-            option_2_callback[f'{item.name} {prcie}'] = partial(self.__show_item_to_buy, item)
+            option_2_callback[f'{tr(item.name)} {prcie}'] = partial(self.__show_item_to_buy, item)
 
         self.__make_menu(option_2_callback)
 
@@ -931,9 +931,9 @@ class OptionsDialog:
                 continue
 
             if count >= 2:
-                option_2_callback[f'{item.name} x {count}'] = partial(self.__get_item_sell_price, item.id)
+                option_2_callback[f'{tr(item.name)} x {count}'] = partial(self.__get_item_sell_price, item.id)
             else:
-                option_2_callback[f'{item.name}'] = partial(self.__get_item_sell_price, item.id)
+                option_2_callback[f'{tr(item.name)}'] = partial(self.__get_item_sell_price, item.id)
 
         # sort by name
         option_2_callback = dict(sorted(option_2_callback.items(), key=lambda x: x[0]))

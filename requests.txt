@@ -157,7 +157,9 @@ TO DO:
 
         bank OK
 
-        item shop
+        item shop OK
+
+        church
 
 
 

@@ -1431,4 +1431,5 @@ dic = {
 "You country is after": '您的国家正盯着',
 "from": '他来自',
 "Your balance is": '您的当前余额是',
+'I can buy this for': '我愿意为这个支付',
 }

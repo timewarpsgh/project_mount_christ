@@ -42,7 +42,15 @@ TO DO:
 
         wanted OK
 
-        language  option ON
+        language  option OK
+
+        mates names OK
+
+        maid names OK
+
+        items ON
+            weapon effects
+
 
 
 

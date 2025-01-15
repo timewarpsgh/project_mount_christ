@@ -18,7 +18,7 @@ from packet_params_dialog import PacketParamsDialog
 from my_ui_elements import MyMenuWindow, MyPanelWindow
 from asset_mgr import sAssetMgr
 from map_maker import sMapMaker
-from translator import sTr, tr
+from translator import sTr, tr, Language
 
 from object_mgr import sObjectMgr
 import constants as c
@@ -700,7 +700,7 @@ class OptionsDialog:
         port = self.__get_role().get_port()
         if port.maid_id:
             maid = sObjectMgr.get_maid(port.maid_id)
-            self.building_speak(f"{tr('You want to see')} {maid.name}? "
+            self.building_speak(f"{tr('You want to see')} {tr(maid.name)}? "
                                 f"{tr('We charge')} {c.WAITRESS_COST}.")
 
             pack = pb.SeeWaitress()
@@ -1231,6 +1231,17 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
+    def __change_language(self, lan):
+        sTr.set_to_language(lan)
+
+    def __show_language_menu(self):
+        option_2_callback = {
+            'English': partial(self.__change_language, Language.ENGLISH),
+            'Chinese': partial(self.__change_language, Language.CHINESE),
+        }
+
+        self.__make_menu(option_2_callback)
+
     def __show_sounds_menu(self):
         option_2_callback = {
             'Effect': partial(self.__show_effect_menu),
@@ -1330,14 +1341,14 @@ class OptionsDialog:
 
         dict = {
             ' ': f'{ship.name}    {tr(ship_template.name)}',
-            'captain': f'{captain_name}',
+            'captain': f'{tr(captain_name)}',
             'nav/acc/first mate': f'{aids}',
             '1': '',
             'tacking/power/base_speed': f'{ship.tacking}/{ship.power}/{ship.get_base_speed_in_knots()}',
             'durability': f'{ship.now_durability}/{ship.max_durability}',
             '2': '',
             'capacity': f'{ship.capacity}',
-            'guns/max_guns/gun_type': f'{ship.now_guns}/{ship.max_guns}/{gun_name}',
+            'guns/max_guns/gun_type': f'{ship.now_guns}/{ship.max_guns}/{tr(gun_name)}',
             'min_crew/crew/max_crew': f'{ship.min_crew}/{ship.now_crew}/{ship.max_crew}',
             '3': '',
             'max_cargo': f'{ship.get_max_cargo()}',
@@ -1558,7 +1569,7 @@ class OptionsDialog:
 
             dict[f'{ship.name} '] = f'{ship.now_durability}  {ship.now_crew}  {ship.now_guns}  ' \
                               f'[{ship.food}  {ship.water}  {ship.material}  {ship.cannon}]  ' \
-                              f'{ship.cargo_cnt}  {ship.get_base_speed_in_knots()} {sTr.tr("knots")}  {captain_name}'
+                              f'{ship.cargo_cnt}  {ship.get_base_speed_in_knots()} {sTr.tr("knots")}  {tr(captain_name)}'
 
         # make text from dict
         text = self.__dict_2_txt(dict)
@@ -1666,8 +1677,8 @@ class OptionsDialog:
 
         # dict
         dict = {
-            'name': item.name,
-            'description': item.description,
+            'name': tr(item.name),
+            'description': tr(item.description),
         }
 
         if item.item_type == c.ItemType.WEAPON.value:
@@ -1737,14 +1748,14 @@ class OptionsDialog:
 
             if count >= 2:
                 if is_for_trade:
-                    option_2_callback[f'{item.name} x {count} {is_equiped}'] = partial(self.__set_item_for_trade, id)
+                    option_2_callback[f'{tr(item.name)} x {count} {is_equiped}'] = partial(self.__set_item_for_trade, id)
                 else:
-                    option_2_callback[f'{item.name} x {count} {is_equiped}'] = partial(self.__show_one_item, item, is_equiped)
+                    option_2_callback[f'{tr(item.name)} x {count} {is_equiped}'] = partial(self.__show_one_item, item, is_equiped)
             else:
                 if is_for_trade:
-                    option_2_callback[f'{item.name} {is_equiped}'] = partial(self.__set_item_for_trade, id)
+                    option_2_callback[f'{tr(item.name)} {is_equiped}'] = partial(self.__set_item_for_trade, id)
                 else:
-                    option_2_callback[f'{item.name} {is_equiped}'] = partial(self.__show_one_item, item, is_equiped)
+                    option_2_callback[f'{tr(item.name)} {is_equiped}'] = partial(self.__show_one_item, item, is_equiped)
 
         # sort by name
         option_2_callback = dict(sorted(option_2_callback.items(), key=lambda x: x[0]))
@@ -1815,7 +1826,7 @@ class OptionsDialog:
         if wanted_mate_template_id:
             mate_template = sObjectMgr.get_mate_template(wanted_mate_template_id)
             self.show_msg_panel(
-                f'{mate_template.name} '
+                f'{tr(mate_template.name)} '
                 f'from {tr(c.Nation(mate_template.nation).name)}!'
             )
         else:
@@ -1966,17 +1977,16 @@ class OptionsDialog:
         print(f'xxxxx {s}')
 
         dict = {
-            ' ': f"{mate.name}",
+            ' ': f"{tr(mate.name)}",
             '  ': f'{tr(str(c.Nation(mate.nation).name))}',
             '   ': f'{tr(duty_name)} on {ship_name}',
             '1': '',
             '    ': tr('                nav   acc   bat'),
-            'lv':  f"          {mate.lv_in_nav}   {mate.lv_in_acc}   {mate.lv_in_bat}",
+            'lv': f"{mate.lv_in_nav}   {mate.lv_in_acc}   {mate.lv_in_bat}",
 
-            'value': f" {mate.navigation}   {mate.accounting}   {mate.battle}",
+            'value': f"{mate.navigation}   {mate.accounting}   {mate.battle}",
             'talent': f"{mate.talent_in_navigation}   {mate.talent_in_accounting}   {mate.talent_in_battle}",
-            'xp': f"         "
-                  f"{mate.xp_in_nav}/{c.LV_2_MAX_XP[mate.lv_in_nav]}   "
+            'xp': f"{mate.xp_in_nav}/{c.LV_2_MAX_XP[mate.lv_in_nav]}   "
                   f"{mate.xp_in_acc}/{c.LV_2_MAX_XP[mate.lv_in_acc]}   "
                   f"{mate.xp_in_bat}/{c.LV_2_MAX_XP[mate.lv_in_bat]}",
         }
@@ -2382,7 +2392,7 @@ class OptionsDialog:
 
     def show_options_menu(self):
         option_2_callback = {
-            'Language(L)': '',
+            'Language(L)': partial(self.__show_language_menu),
             'Sounds': partial(self.__show_sounds_menu),
             'Exit': partial(self.__exit_game),
         }

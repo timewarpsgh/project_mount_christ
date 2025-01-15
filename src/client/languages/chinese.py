@@ -1456,8 +1456,14 @@ f'Some of us have scurvy!': '有人得了坏血病！',
 'bat': '战斗',
 'lv increased:': '等级提升了:',
 'Ability value increased:': '能力值提升了',
-    'name/type': '船名/类型',
-    'tacking/power': '转向/推进',
+'name/type': '船名/类型',
+'tacking/power': '转向/推进',
 f'We are out of supply!': '我们的补给不够了！',
+'Rat': '鼠',
+'Scu': '坏',
+'Storm': '风暴',
+'Pra': '祷',
+'Don': '捐',
+
 
 }

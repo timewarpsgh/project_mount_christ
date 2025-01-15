@@ -869,7 +869,7 @@ class HudRight(SP):
                 aura = sObjectMgr.get_aura(aura)
 
                 my_x = x + id * 30
-                new_image.blit(Text(f'{aura.name[:3]}', color=c.CRIMSON).image, (my_x, 20))
+                new_image.blit(Text(f'{tr(aura.name[:3])}', color=c.CRIMSON).image, (my_x, 20))
 
             start_y = 80
             d_y = 45

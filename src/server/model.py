@@ -3385,6 +3385,12 @@ class Role:
             self.pay_days = 0
             self.__pay_crew_and_mates()
 
+    def __send_hungry_msg(self):
+        pack = pb.RandMateSpeak(
+            text=f'We are out of supply!',
+        )
+        self.session.send(pack)
+
     def __pass_one_day_at_sea(self):
         self.days_at_sea += 1
         self.session.send(pb.OneDayPassedAtSea(days_at_sea=self.days_at_sea))
@@ -3399,7 +3405,8 @@ class Role:
 
         if not is_food_enough or not is_water_enough:
             self.starved_days += 1
-            if self.starved_days >= 2:
+            self.__send_hungry_msg()
+            if self.starved_days >= 3:
                 self.die()
         else:
             self.__change_morale_and_health()

@@ -29,7 +29,8 @@ TO DO:
 
         at sea, view enemy OK
 
-        win enemy ON
+        win enemy OK
+
 
 
 

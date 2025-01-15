@@ -765,8 +765,8 @@ class PacketHandler:
         self.__get_chat_dialog().add_chat(pb.ChatType.SYSTEM, text)
 
         # mate speak
-        speech = f"{tr('I advanced from lv')} {prev_lv} to {lv} in {tr(c.DUTY_NAME_2_XP_NAME[c.INT_2_DUTY_NAME[duty_type]])}. " \
-                f"{tr('Ability value increased from')} {prev_value} to {value}"
+        speech = f"{tr(c.DUTY_NAME_2_XP_NAME[c.INT_2_DUTY_NAME[duty_type]])} {tr('lv increased:')} {prev_lv} -> {lv}. " \
+                f"{tr('Ability value increased:')} {prev_value} -> {value}."
         self.__get_options_dialog().show_mate_speech(mate, speech)
 
     async def handle_SeasonChanged(self, season_changed):

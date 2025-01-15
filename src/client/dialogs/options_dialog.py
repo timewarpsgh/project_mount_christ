@@ -1253,13 +1253,13 @@ class OptionsDialog:
             gun_name = 'NA'
 
         dict = {
-            'name/type': f'{ship.name}/{ship_template.name}',
+            'name/type': f'{ship.name}/{tr(ship_template.name)}',
             '1': '',
             'tacking/power': f'{ship.tacking}/{ship.power}',
             'durability': f'{ship.now_durability}/{ship.max_durability}',
             '2': '',
             'capacity': f'{ship.capacity}',
-            'guns/max_guns/gun_type': f'{ship.now_guns}/{ship.max_guns}/{gun_name}',
+            'guns/max_guns/gun_type': f'{ship.now_guns}/{ship.max_guns}/{tr(gun_name)}',
             'min_crew/crew/max_crew': f'{ship.min_crew}/{ship.now_crew}/{ship.max_crew}',
         }
 

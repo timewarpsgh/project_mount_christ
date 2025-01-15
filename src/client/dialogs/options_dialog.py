@@ -2115,7 +2115,7 @@ class OptionsDialog:
         }
 
         for id, notority in enumerate(notorities):
-            option_2_callback[f'{c.Nation(id+1).name} {notority}'] = ''
+            option_2_callback[f'{tr(c.Nation(id+1).name)} {notority}'] = ''
 
         self.__make_menu(option_2_callback)
 

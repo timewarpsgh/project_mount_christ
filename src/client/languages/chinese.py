@@ -1435,4 +1435,5 @@ dic = {
 'May God bless you in all your endeavors.': '愿上帝保佑您。',
 'How many ingots do you want to donate? Any amount is appreciated.': '您想要捐赠多少金块？任何数量我们都感激不尽。',
 'Thank you for your donation!': '感谢您的捐赠！',
+'Notorities': '敌意',
 }

@@ -161,7 +161,7 @@ TO DO:
 
         church OK
 
-        fortune house ON
+        fortune house OK
 
 
 

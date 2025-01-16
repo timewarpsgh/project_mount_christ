@@ -1,4 +1,25 @@
-li = [["navy guy", "You are John, right?"], ["I", "Yes, I am."], ["navy guy", "I'm the captain of HMS Endurance... You two look so much alike... I'm sorry to inform you that your father, carpenter on board Eagle, died bravely during battle with the Spanish Navy. He was buried at sea. We found this letter in his wardrobe, which must have been written in advance. Here, take it and be strong."], ["I", "He? .... Thank you."], ["the letter", "Dear John, my son, when you are reading this letter, that means I've gone to the moon to meet your mom. Poor kid. I will no longer be able to guide you nor protect you. I will no longer kick you in an attempt to get you right. You are on yourself now. I have not been a successful sailor, serving as a carpenter for the majority of my life. Don't be like me."], ["the letter", "I saved my wage as much as possible so that the figure in my bank account might some day be able to fund a ship. Now, it's yours. Use it wisely."], ["the letter", "Do you remember Tommy Branson? His father is an old friend of mine. I believe he'll be interested in joining you. He knows the way in the water as well as any professional navigator. He's likely still working at the bar in Amsterdam. You two should help and take care of each other."], ["the letter", "John, you have been a sweet boy. It's been an honor to be your father. Take care."]]
+li = [["Charlie", "Nice beach!"],
+ ["Amy", "I like the sands and the waves here."],
+ ["Tommy", "Oh. Look, there's a cross over there."],
+ ["Amy", "Edward Smith, carpenter on HMS Endurance, 1564-1605."],
+ ["John", "I erected this for my dad. He lost his life in battle and was buried at sea. I made this just so I have a place to mourn him."],
+ ["John", "Dear Dad, How are you?"],
+ ["John", "How's life at the bottom of the ocean? Have you discovered Atlantis?"],
+ ["John", "The world in which I live has changed a lot. Many discoveries have been made. It's a much more convenient world than it used to be."],
+ ["John", "I've grown up. I think I'm a little taller than you were now. I've made new friends like Charlie and Amy. I did visit Tommy, and we are still helping each other out. I've read many interesting books and visited many beautiful places. I hope you saw them through my eyes."],
+ ["John", "You've been a wonderful dad. I'm grateful for having you in my life. I like your parenting style. Sometimes strict, but other times we were like friends. I liked to share with you my discoveries."],
+ ["John", "I wish to become someone like you. I'll try."]
+]
+
+
+
+
+
+
+
+d = {}
 
 for i in li:
-    print(i[-1])
+    d[i[-1]] = ''
+
+print(d)

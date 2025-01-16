@@ -352,8 +352,8 @@ class OptionsDialog:
             return
 
         dict = {
-            'name': mate_template.name,
-            'nation': c.Nation(mate_template.nation).name,
+            'name': tr(mate_template.name),
+            'nation': tr(c.Nation(mate_template.nation).name),
             '1': '',
             'navigation/accounting/battle': f'{mate_template.navigation}/{mate_template.accounting}/{mate_template.battle}',
             '2': '',
@@ -392,9 +392,9 @@ class OptionsDialog:
         port = self.__get_port()
 
         self.building_speak(
-            f"We have the best {port.wine} in the world. "
-            f"Price is one gold ingot each. "
-            f"Want one? ")
+            f"{tr('We have the best')} {tr(port.wine)}. "
+            f"{tr('Price is one gold ingot each. Want one?')}"
+        )
 
         pack = pb.Treat()
 
@@ -415,8 +415,8 @@ class OptionsDialog:
 
         self.show_mate_speech(
             mate_template,
-            f"How are you? I'm {mate_template.name} from {c.Nation(mate_template.nation).name}. "
-            f"{text}"
+            f"{tr('Hello! I am')} {tr(mate_template.name)} {tr('from')} {tr(c.Nation(mate_template.nation).name)}. "
+            f"{tr(text)}"
         )
 
     def __show_mate_menu(self, mate_template):
@@ -819,7 +819,7 @@ class OptionsDialog:
             cargo_name = sObjectMgr.get_cargo_template(fleet.cargo_id).name
 
             self.show_mate_speech(maid,
-              f'{tr("I heard")} {fleet.captain_name} {tr("was at around")} '
+              f'{tr("I heard")} {tr(fleet.captain_name)} {tr("was at around")} '
               f'{longitude} {latitude}, {tr("heading to")} {tr(port_name)} '
               f'{tr("with")} {tr(cargo_name)}')
 

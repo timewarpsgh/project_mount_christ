@@ -2734,13 +2734,22 @@ class Role:
             )
         )
 
+    def __send_not_in_capital(self):
+        self.session.send(
+            pb.BuildingSpeak(text=f'You are not in your capital.')
+        )
+
     def buy_tax_free_permit(self):
         if self.is_in_my_capital():
             self.buy_item(item_id=c.Item.TAX_FREE_PERMIT.value, force_buy=True)
+        else:
+            self.__send_not_in_capital()
 
     def buy_letter_of_marque(self):
         if self.is_in_my_capital():
             self.buy_item(item_id=c.Item.LETTER_OF_MARQUE.value, force_buy=True)
+        else:
+            self.__send_not_in_capital()
 
     def add_item(self, item_id):
         self.items.append(item_id)

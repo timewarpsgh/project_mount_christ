@@ -1008,7 +1008,7 @@ class OptionsDialog:
             MyPanelWindow(
                 rect=pygame.Rect((59, 12), (350, 400)),
                 ui_manager=self.mgr,
-                text=speach,
+                text=tr(speach),
                 image=image,
             )
 

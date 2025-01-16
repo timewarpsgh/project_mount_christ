@@ -58,8 +58,11 @@ TO DO:
 
         buildings OK
 
+        quest ON
+            just ended madeira OK
 
 
+        login scene ON
 
 
 

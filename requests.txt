@@ -48,8 +48,13 @@ TO DO:
 
         maid names OK
 
-        items ON
-            weapon effects
+        items OK
+
+        villages OK
+
+        bar, meet new mate ON
+
+
 
 
 

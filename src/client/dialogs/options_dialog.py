@@ -465,12 +465,12 @@ class OptionsDialog:
         target_role_trade_item_name = sObjectMgr.get_item(target_role.trade_item_id).name \
             if target_role.trade_item_id else ''
 
-        text = f'Trading with {role_name} \n' \
-               f'You: {my_role.trade_money} coins  ' \
-               f'{my_role_trade_item_name}  {my_role_confired_text} \n'\
+        text = f'{tr("Trading with")} {role_name} \n' \
+               f'{tr("You")}: {my_role.trade_money} {tr("coins")}  ' \
+               f'{tr(my_role_trade_item_name)}  {tr(my_role_confired_text)} \n'\
                \
-               f'{role_name}: {target_role.trade_money} coins   ' \
-               f'{target_role_trade_item_name}  {target_role_confired_text}'
+               f'{role_name}: {target_role.trade_money} {tr("coins")}   ' \
+               f'{tr(target_role_trade_item_name)}  {tr(target_role_confired_text)}'
 
         MyPanelWindow(
             rect=pygame.Rect((248, 0), (264, 145)),
@@ -480,7 +480,7 @@ class OptionsDialog:
 
     def show_trade_request(self, role_id,  role_name):
         option_2_callback = {
-            f'Trade with {role_name} ?': '',
+            f'{tr("Trade with")} {role_name} ?': '',
             'Yes': partial(self.__accept_trade_request, role_id),
         }
 

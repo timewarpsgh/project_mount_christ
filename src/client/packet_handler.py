@@ -1289,5 +1289,24 @@ class PacketHandler:
                  f"{tr('fleet for')} {tr(c.Nation(mate.nation).name)}. " \
                  f"{tr('We are heading to')} {tr(target_port)}."
 
+        self.__get_options_dialog().show_mate_speech(mate, speech)
 
+    async def handle_NpcLootInfo(self, pack):
+        num_ships = pack.num_ships
+        item_name = pack.item_name
+
+        mate = self.get_mate_mgr().get_random_mate()
+        speech = f'{tr("We captured")} {num_ships} {tr("ships and")} {tr(item_name)}.'
+        self.__get_options_dialog().show_mate_speech(mate, speech)
+
+    async def handle_RoleLootInfo(self, pack):
+        num_ships = pack.num_ships
+        num_coins = pack.num_coins
+        is_won = pack.is_won
+
+        mate = self.get_mate_mgr().get_random_mate()
+        if is_won:
+            speech = f'{tr("We captured")} {num_ships} {tr("ships and")} {num_coins} {tr("gold coins.")}.'
+        else:
+            speech = f'{tr("We lost")} {num_ships} {tr("ships and")} {num_coins} {tr("gold coins.")}.'
         self.__get_options_dialog().show_mate_speech(mate, speech)

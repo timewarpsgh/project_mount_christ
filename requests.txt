@@ -75,7 +75,10 @@ TO DO:
                     view captain OK
                     gossip OK
 
+                    win npc OK
 
+
+        PVP OK
 
 
 

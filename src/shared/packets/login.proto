@@ -1117,5 +1117,15 @@ message GossipResult {
     required int32 mate_template_id = 1;
     required string fleet_name = 2;
     required string target_port = 3;
+}
 
+message NpcLootInfo {
+    required int32 num_ships = 1;
+    required string item_name = 2;
+}
+
+message RoleLootInfo {
+    required int32 num_ships = 1;
+    required int32 num_coins = 2;
+    required bool is_won = 3;
 }

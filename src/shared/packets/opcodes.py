@@ -263,6 +263,8 @@ class OpCodeType(Enum):
     WantedCleared = auto()
 
     GossipResult = auto()
+    NpcLootInfo = auto()
+    RoleLootInfo = auto()
 
 def gen_opcode_2_value():
     d = {}

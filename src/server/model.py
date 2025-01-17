@@ -3101,18 +3101,34 @@ class Role:
                 self.battle_role_id = None
 
                 # mate speak spoil of war
-                pack = pb.RandMateSpeak(
-                    text=f'We captured {captured_ships_cnt} ships '
-                         f'and {amount} gold coins from the enemy.',
+                # pack = pb.RandMateSpeak(
+                #     text=f'We captured {captured_ships_cnt} ships '
+                #          f'and {amount} gold coins.',
+                # )
+                # self.session.send(pack)
+
+                pack = pb.RoleLootInfo(
+                    num_ships=captured_ships_cnt,
+                    num_coins=amount,
+                    is_won=True,
                 )
                 self.session.send(pack)
+
                 self.session.send(pb.ShowWinImg())
 
-                pack = pb.RandMateSpeak(
-                    text=f'We lost {captured_ships_cnt} ships '
-                         f'and {amount} gold coins to the enemy.',
+                # pack = pb.RandMateSpeak(
+                #     text=f'We lost {captured_ships_cnt} ships '
+                #          f'and {amount} gold coins.',
+                # )
+                # enemy.session.send(pack)
+
+                pack = pb.RoleLootInfo(
+                    num_ships=captured_ships_cnt,
+                    num_coins=amount,
+                    is_won=False,
                 )
                 enemy.session.send(pack)
+
                 enemy.session.send(pb.ShowLoseImg())
 
                 # notify nearby roles
@@ -3486,11 +3502,12 @@ class Role:
         )
         self.session.send(pack)
 
-        # mate speak spoil of war
-        pack = pb.RandMateSpeak(
-            text=f'We captured {len(captured_ships)} ships and {item_name} from the enemy.',
+        pack = pb.NpcLootInfo(
+            num_ships=len(captured_ships),
+            item_name=item_name,
         )
         self.session.send(pack)
+
 
         # show win img
         self.session.send(pb.ShowWinImg())

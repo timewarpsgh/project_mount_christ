@@ -1271,7 +1271,7 @@ class PacketHandler:
         # building speak
         mate_template = sObjectMgr.get_mate_template(wanted_mate_template_id)
         self.__get_options_dialog().building_speak(
-            f'{tr("You country is after")} {mate_template.name} '
+            f'{tr("You country is after")} {tr(mate_template.name)} '
             f'{tr("from")} {tr(c.Nation(mate_template.nation).name)}!'
         )
 

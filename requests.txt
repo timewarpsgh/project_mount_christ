@@ -63,11 +63,18 @@ TO DO:
         login scene OK
 
 
-        text placement ON
+        text placement OK
             fleet info OK
             mate info OK
 
         translate rest
+
+            all buildings OK
+
+                at sea
+                    view captain
+                    gossip
+
 
 
 

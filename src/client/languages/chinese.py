@@ -1631,4 +1631,6 @@ f'You are not in your capital.': '这不是您的首都吧。',
     'cargo': '货物',
     'speed': '速度',
     'lv_up_xp': '升级经验',
+f"Thank you so much! We'll definitely put that to good use!": '非常感谢！我们会好好利用的！',
+f'One of your ships has no captain.': '您有艘船没有船长。',
 }

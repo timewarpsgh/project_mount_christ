@@ -2043,7 +2043,7 @@ class OptionsDialog:
         if flag_ship:
             ship_id = flag_ship.id
             if mate.name != self.__get_role().name:
-                option_2_callback['Navigator'] = partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.CHIEF_NAVIGATOR)
+                option_2_callback['Chief Navigator'] = partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.CHIEF_NAVIGATOR)
                 option_2_callback['Accountant'] = partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.ACCOUNTANT)
                 option_2_callback['First Mate'] = partial(self.__assign_duty, mate.id, ship_id, pb.DutyType.FIRST_MATE)
 

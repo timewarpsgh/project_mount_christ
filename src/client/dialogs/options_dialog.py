@@ -1562,7 +1562,7 @@ class OptionsDialog:
         dict[' '] = sTr.tr('  durability crew guns [supply] cargo speed captain')
         # make text from dict
         MyFleetPanelWindow(
-            rect=pygame.Rect((30, 0), (700, 500)),
+            rect=pygame.Rect((20, 0), (700, 500)),
             ui_manager=self.mgr,
             ships=list(ships),
         )

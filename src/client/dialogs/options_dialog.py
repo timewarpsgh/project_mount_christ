@@ -663,7 +663,7 @@ class OptionsDialog:
         weapon_id = pack.weapon
         if weapon_id:
             weapon_item = sObjectMgr.get_item(weapon_id)
-            option_2_callback[f'{tr("Weapon")}: {weapon_item.name}'] = partial(self.__show_one_item,
+            option_2_callback[f'{tr("Weapon")}: {tr(weapon_item.name)}'] = partial(self.__show_one_item,
                                                                        weapon_item,
                                                                        is_for_view_captain=True)
         else:
@@ -671,7 +671,7 @@ class OptionsDialog:
         armor_id = pack.armor
         if armor_id:
             armor_item = sObjectMgr.get_item(armor_id)
-            option_2_callback[f'{tr("Armor")}: {armor_item.name}'] = partial(self.__show_one_item,
+            option_2_callback[f'{tr("Armor")}: {tr(armor_item.name)}'] = partial(self.__show_one_item,
                                                                      armor_item,
                                                                      is_for_view_captain=True)
         else:

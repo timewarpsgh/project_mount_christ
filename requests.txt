@@ -72,7 +72,7 @@ TO DO:
             all buildings OK
 
                 at sea
-                    view captain
+                    view captain OK
                     gossip
 
 

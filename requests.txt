@@ -63,7 +63,11 @@ TO DO:
         login scene OK
 
 
+        text placement ON
+            fleet info OK
+            mate info ON
 
+        translate rest
 
 
 

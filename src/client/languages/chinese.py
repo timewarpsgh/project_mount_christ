@@ -1626,4 +1626,8 @@ f'You are not in your capital.': '这不是您的首都吧。',
 'Please spend all points': '请使用所有点数',
 'name exits!': '名字已存在！',
 'new role created!': '角色创建成功！',
+    'dura': '耐久度',
+    'guns': '炮位',
+    'cargo': '货物',
+    'speed': '速度',
 }

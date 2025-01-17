@@ -19,7 +19,7 @@ from game import Game
 
 
 IS_GAME_ON = True
-ACCOUNT_AND_PWD = None
+ACCOUNT_AND_PWD = 't1'
 
 class Client(Connection):
 

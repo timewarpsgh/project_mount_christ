@@ -8,6 +8,7 @@ sys.path.append(r'D:\data\code\python\project_mount_christ\src\client')
 sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 
 import constants as c
+from translator import sTr, tr
 
 def only_show_top_window(mgr):
 
@@ -88,11 +89,15 @@ class MyPanelWindow():
             window_display_title='',
         )
 
+        self.ui_window = ui_window
+
         panel = pygame_gui.elements.UIPanel(
             relative_rect=pygame.Rect((0, 0), (rect.width, rect.height)),
             manager=ui_manager,
             container=ui_window,
         )
+
+        self.panel = panel
 
         # image
         if image:
@@ -118,4 +123,71 @@ class MyPanelWindow():
                 wrap_to_height=True,
                 container=panel
             )
+
+
+class MyFleetPanelWindow():
+    def __init__(self, rect, ui_manager, ships):
+
+        ui_window = pygame_gui.elements.UIWindow(
+            rect=rect,
+            manager=ui_manager,
+            window_display_title='',
+        )
+
+        panel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect((0, 0), (rect.width, rect.height)),
+            manager=ui_manager,
+            container=ui_window,
+        )
+
+
+        # text boxes
+        start_x = -50
+        start_y = 0
+        delta_x = 52
+        delta_y = 20
+
+        # fileds
+        fields = ['name', 'dura', 'crew', 'guns',
+                  'food', 'water', 'lumber', 'shot',
+                  'cargo', 'speed', 'captain']
+        for field in fields:
+            start_x += delta_x
+
+            pygame_gui.elements.UITextBox(
+                html_text=str(tr(field)),
+                relative_rect=pygame.Rect(start_x, start_y, 200, 20),
+                manager=ui_manager,
+                wrap_to_height=True,
+                container=panel
+            )
+
+        # ships
+        for ship in ships:
+            start_y += delta_y
+            start_x = -50
+            captain = ship.get_captain()
+            if captain:
+                captain_name = captain.name
+            else:
+                captain_name = ''
+
+            attributes = [
+                ship.name, ship.now_durability, ship.now_crew, ship.now_guns,
+                ship.food, ship.water, ship.material, ship.cannon,
+                ship.cargo_cnt, ship.get_base_speed_in_knots(),
+                tr(captain_name)
+            ]
+
+            for attribute in attributes:
+                start_x += delta_x
+
+                pygame_gui.elements.UITextBox(
+                    html_text=str(attribute),
+                    relative_rect=pygame.Rect(start_x, start_y, 200, 20),
+                    manager=ui_manager,
+                    wrap_to_height=True,
+                    container=panel
+                )
+
 

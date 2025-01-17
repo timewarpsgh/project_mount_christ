@@ -1560,12 +1560,54 @@ class OptionsDialog:
         ships = self.get_ship_mgr().get_ships()
         dict = {}
         dict[' '] = sTr.tr('  durability crew guns [supply] cargo speed captain')
+        for ship in ships:
+            captain = ship.get_captain()
+            if captain:
+                captain_name = captain.name
+            else:
+                captain_name = ''
+
+            dict[f'{ship.name} '] = f'{ship.now_durability}  {ship.now_crew}  {ship.now_guns}  ' \
+                              f'[{ship.food}  {ship.water}  {ship.material}  {ship.cannon}]  ' \
+                              f'{ship.cargo_cnt}  {ship.get_base_speed_in_knots()} {sTr.tr("knots")}  {tr(captain_name)}'
+
         # make text from dict
-        MyFleetPanelWindow(
-            rect=pygame.Rect((30, 0), (700, 500)),
+        text = self.__dict_2_txt(dict)
+
+        window = MyPanelWindow(
+            rect=pygame.Rect((59, 0), (600, 500)),
             ui_manager=self.mgr,
-            ships=list(ships),
+            text=None,
         )
+
+        # show alighed texts
+        start_x = 0
+        start_y = 0
+
+        for ship in ships:
+            start_y += 20
+            start_x = 0
+            captain = ship.get_captain()
+            if captain:
+                captain_name = captain.name
+            else:
+                captain_name = ''
+
+            attributes = [{ship.now_durability}, {ship.now_crew}, {ship.now_guns}, f'[{ship.food},{ship.water},{ship.material},{ship.cannon}], {ship.cargo_cnt}, {ship.get_base_speed_in_knots()} {sTr.tr("knots")}, {tr(captain_name)}']
+
+
+
+            for attribute in attributes:
+                start_x += 20
+
+                pygame_gui.elements.UITextBox(
+                    html_text=attribute,
+                    relative_rect=pygame.Rect(start_x, start_y, 60, 20),
+                    # pygame.Rect(0, image.get_rect().height, 320, 10)
+                    manager=self.mgr,
+                    wrap_to_height=True,
+                    container=window.panel
+                )
 
 
     def __show_ship_info_menu(self, is_enemy=False):

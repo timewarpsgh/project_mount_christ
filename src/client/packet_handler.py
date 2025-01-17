@@ -1277,3 +1277,17 @@ class PacketHandler:
 
     async def handle_WantedCleared(self, pack):
         self.__get_role().wanted_mate_template_id = None
+
+    async def handle_GossipResult(self, pack):
+        mate_template_id = pack.mate_template_id
+        fleet_name = pack.fleet_name
+        target_port = pack.target_port
+
+        mate = sObjectMgr.get_mate_template(mate_template_id)
+
+        speech = f"{tr('I am')} {tr(mate.name)} {tr('commanding a')} {tr(fleet_name)} " \
+                 f"{tr('fleet for')} {tr(c.Nation(mate.nation).name)}. " \
+                 f"{tr('We are heading to')} {tr(target_port)}."
+
+
+        self.__get_options_dialog().show_mate_speech(mate, speech)

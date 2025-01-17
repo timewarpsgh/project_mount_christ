@@ -2266,13 +2266,13 @@ class Role:
     def gossip(self, npc_id):
         npc = self.__get_npc_mgr().get_npc(npc_id)
 
-        pack = pb.MateSpeak(
+        pack = pb.GossipResult(
             mate_template_id=npc.mate.mate_template_id,
-            text=f"I'm {npc.mate.name} commanding a {c.Fleet(npc.mate.fleet).name.lower()} "
-                 f"fleet for {c.Nation(npc.mate.nation).name}. "
-                 f"We are heading to {npc.get_target_port_name()}.",
+            fleet_name=c.Fleet(npc.mate.fleet).name.lower(),
+            target_port=npc.get_target_port_name(),
         )
         self.session.send(pack)
+
 
     def view_captain(self, role_id):
         # is npc

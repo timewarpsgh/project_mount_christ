@@ -73,7 +73,7 @@ TO DO:
 
                 at sea
                     view captain OK
-                    gossip
+                    gossip OK
 
 
 

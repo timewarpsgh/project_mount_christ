@@ -1112,3 +1112,10 @@ message WantedBought {
 
 message WantedCleared {
 }
+
+message GossipResult {
+    required int32 mate_template_id = 1;
+    required string fleet_name = 2;
+    required string target_port = 3;
+
+}

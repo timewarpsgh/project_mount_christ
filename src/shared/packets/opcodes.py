@@ -262,6 +262,8 @@ class OpCodeType(Enum):
     WantedBought = auto()
     WantedCleared = auto()
 
+    GossipResult = auto()
+
 def gen_opcode_2_value():
     d = {}
     for type in OpCodeType:

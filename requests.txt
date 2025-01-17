@@ -1,86 +1,11 @@
 TO DO:
 
-    translate to chinese ON
-        menu OK
-        menu items OK
-        HUD OK
-        in battle OK
-        buildings OK
-
-        ships OK
-        mate info OK
-
-        harbor OK
-        market OK
-        dry dock OK
-        bar OK
-        inn OK
-        palace OK
-
-        job house OK
-
-        bank OK
-
-        item shop OK
-
-        church OK
-
-        fortune house OK
-
-        at sea, view enemy OK
-
-        win enemy OK
-        can be hungry for more days OK
-
-        season at sea OK
-
-        disasters OK
-
-        quest OK
-
-        treasure map OK
-
-        wanted OK
-
-        language  option OK
-
-        mates names OK
-
-        maid names OK
-
-        items OK
-
-        villages OK
-
-        bar, meet new mate OK
-
-        buy tax free permit, foreign OK
-
-        buildings OK
-
-        quests OK
-
-        login scene OK
-
-
-        text placement OK
-            fleet info OK
-            mate info OK
-
         translate rest
 
-            all buildings OK
 
-                at sea
-                    view captain OK
-                    gossip OK
+            PVP OK
 
-                    win npc OK
-
-
-        PVP OK
-
-        after losing to role, speed slow OK
+            after losing to role, speed slow OK
 
 
 

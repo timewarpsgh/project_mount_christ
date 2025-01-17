@@ -89,15 +89,11 @@ class MyPanelWindow():
             window_display_title='',
         )
 
-        self.ui_window = ui_window
-
         panel = pygame_gui.elements.UIPanel(
             relative_rect=pygame.Rect((0, 0), (rect.width, rect.height)),
             manager=ui_manager,
             container=ui_window,
         )
-
-        self.panel = panel
 
         # image
         if image:
@@ -191,3 +187,69 @@ class MyFleetPanelWindow():
                 )
 
 
+class MyMatePanelWindow():
+    """displays info"""
+    def __init__(self, rect, ui_manager, image, mate, text):
+
+        ui_window = pygame_gui.elements.UIWindow(
+            rect=rect,
+            manager=ui_manager,
+            window_display_title='',
+        )
+
+        panel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect((0, 0), (rect.width, rect.height)),
+            manager=ui_manager,
+            container=ui_window,
+        )
+
+
+
+        pygame_gui.elements.UIImage(
+            pygame.Rect((0, 0), (image.get_rect().size)),
+            image,
+            ui_manager,
+            container=panel,
+            anchors={'top': 'top', 'bottom': 'bottom',
+                   'left': 'left', 'right': 'right'})
+
+        # text box
+
+        if image:
+            y = image.get_rect().height
+        else:
+            y = 0
+
+        pygame_gui.elements.UITextBox(
+            html_text=text,
+            relative_rect=pygame.Rect(-5, y, rect.width - 30, rect.height), #pygame.Rect(0, image.get_rect().height, 320, 10)
+            manager=ui_manager,
+            wrap_to_height=True,
+            container=panel
+        )
+
+        # text boxes
+        lines = [
+            ['', 'nav', 'acc', 'bat'],
+            ['lv', mate.lv_in_nav, mate.lv_in_acc, mate.lv_in_bat],
+            ['value', mate.navigation, mate.accounting, mate.battle],
+            ['talent', mate.talent_in_navigation, mate.talent_in_accounting, mate.talent_in_battle],
+            ['xp', mate.xp_in_nav, mate.xp_in_acc, mate.xp_in_bat],
+            ['lv_up_xp', c.LV_2_MAX_XP[mate.lv_in_nav], c.LV_2_MAX_XP[mate.lv_in_acc], c.LV_2_MAX_XP[mate.lv_in_bat]]
+        ]
+
+        start_x = -60
+        start_y = 150
+
+        for line in lines:
+            start_y += 20
+            start_x = -60
+            for attribute in line:
+                start_x += 70
+                pygame_gui.elements.UITextBox(
+                    html_text=tr(str(attribute)),
+                    relative_rect=pygame.Rect(start_x, start_y, 200, 20),
+                    manager=ui_manager,
+                    wrap_to_height=True,
+                    container=panel
+                )

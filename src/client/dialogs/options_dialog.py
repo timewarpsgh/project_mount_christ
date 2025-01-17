@@ -15,7 +15,7 @@ import login_pb2 as pb
 from my_ui_elements import MyButton, only_show_top_window
 from create_account_dialog import CreateAccountDialog
 from packet_params_dialog import PacketParamsDialog
-from my_ui_elements import MyMenuWindow, MyPanelWindow, MyFleetPanelWindow
+from my_ui_elements import MyMenuWindow, MyPanelWindow, MyFleetPanelWindow, MyMatePanelWindow
 from asset_mgr import sAssetMgr
 from map_maker import sMapMaker
 from translator import sTr, tr, Language
@@ -1558,15 +1558,12 @@ class OptionsDialog:
 
     def __show_fleet_info_menu(self):
         ships = self.get_ship_mgr().get_ships()
-        dict = {}
-        dict[' '] = sTr.tr('  durability crew guns [supply] cargo speed captain')
-        # make text from dict
+
         MyFleetPanelWindow(
             rect=pygame.Rect((20, 0), (700, 500)),
             ui_manager=self.mgr,
             ships=list(ships),
         )
-
 
     def __show_ship_info_menu(self, is_enemy=False):
         if is_enemy:
@@ -1969,14 +1966,6 @@ class OptionsDialog:
             '  ': f'{tr(str(c.Nation(mate.nation).name))}',
             '   ': f'{tr(duty_name)} on {ship_name}',
             '1': '',
-            '    ': tr('                nav   acc   bat'),
-            'lv': f"{mate.lv_in_nav}   {mate.lv_in_acc}   {mate.lv_in_bat}",
-
-            'value': f"{mate.navigation}   {mate.accounting}   {mate.battle}",
-            'talent': f"{mate.talent_in_navigation}   {mate.talent_in_accounting}   {mate.talent_in_battle}",
-            'xp': f"{mate.xp_in_nav}/{c.LV_2_MAX_XP[mate.lv_in_nav]}   "
-                  f"{mate.xp_in_acc}/{c.LV_2_MAX_XP[mate.lv_in_acc]}   "
-                  f"{mate.xp_in_bat}/{c.LV_2_MAX_XP[mate.lv_in_bat]}",
         }
 
         # make text from dict
@@ -1992,11 +1981,12 @@ class OptionsDialog:
 
         mate_image = self.__figure_x_y_2_image(img_x, img_y)
 
-        MyPanelWindow(
+        MyMatePanelWindow(
             rect=pygame.Rect((59, 12), (350, 400)),
             ui_manager=self.mgr,
-            text=text,
             image=mate_image,
+            mate=mate,
+            text=text,
         )
 
     def __measure_coordinate(self):

@@ -65,7 +65,7 @@ TO DO:
 
         text placement ON
             fleet info OK
-            mate info ON
+            mate info OK
 
         translate rest
 

@@ -1630,4 +1630,5 @@ f'You are not in your capital.': '这不是您的首都吧。',
     'guns': '炮位',
     'cargo': '货物',
     'speed': '速度',
+    'lv_up_xp': '升级经验',
 }

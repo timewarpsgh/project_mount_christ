@@ -13,6 +13,7 @@ from login_pb2 import *
 from my_ui_elements import MyButton, MyMsgWindow, MyPanelWindow
 import constants as c
 from asset_mgr import sAssetMgr
+from translator import sTr, tr
 
 
 def figure_x_y_2_image(x=8, y=8):
@@ -78,11 +79,12 @@ class CreateRoleDialog:
 
         # nation
         self.nation_menu = pygame_gui.elements.UIDropDownMenu(
-            options_list=[nation.name for nation in c.Nation],
-            starting_option=c.Nation.ENGLAND.name,
+            options_list=[tr(nation.name) for nation in c.Nation],
+            starting_option=tr(c.Nation.ENGLAND.name),
             relative_rect=pygame.Rect((0, 100), (130, 50)),
             manager=self.mgr,
-            container=panel)
+            container=panel
+        )
 
         # talents
         self.__add_talent_buttons(panel)
@@ -92,7 +94,7 @@ class CreateRoleDialog:
         self.img_y = 2
         image = figure_x_y_2_image(self.img_x, self.img_y)
         self.figure_img = pygame_gui.elements.UIImage(
-            pygame.Rect((0, 240), (image.get_rect().size)),
+            pygame.Rect((0, 250), (image.get_rect().size)),
             image,
             self.mgr,
             container=panel
@@ -101,7 +103,7 @@ class CreateRoleDialog:
         # randomize button
         self.login_button = MyButton(
             relative_rect=pygame.Rect((80, 260), (100, 50)),
-            text='Randomize',
+            text=tr('Randomize'),
             manager=self.mgr,
             container=panel,
             on_click=partial(self.__randomize_img),
@@ -114,16 +116,21 @@ class CreateRoleDialog:
         self.figure_img.set_image(figure_x_y_2_image(self.img_x, self.img_y))
 
     def __add_talent_buttons(self, panel):
+
+        text_box_width = 160
+
         # points
-        self.points_label = pygame_gui.elements.UILabel(
-            relative_rect=pygame.Rect((0, 160), (150, 20)),
-            text=f'Points: {self.points}',
+        self.points_label = pygame_gui.elements.UITextBox(
+            html_text=f'{tr("Points")}: {self.points}',
+            relative_rect=pygame.Rect((0, 160), (text_box_width, 20)),
             manager=self.mgr,
-            container=panel,
+            wrap_to_height=True,
+            container=panel
         )
+
         MyButton(
             relative_rect=pygame.Rect((150, 160), (70, 20)),
-            text='Reset',
+            text=tr('Reset'),
             manager=self.mgr,
             container=panel,
             on_click=partial(self.__reset_points),
@@ -131,12 +138,14 @@ class CreateRoleDialog:
 
         # Talent in navigation
         label_width = 150
-        self.nav_label = pygame_gui.elements.UILabel(
-            relative_rect=pygame.Rect((0, 180), (label_width, 20)),
-            text=f'Talent in nav: {self.talent_in_nav}',
+        self.nav_label = pygame_gui.elements.UITextBox(
+            html_text=f'{tr("Talent in nav")}: {self.talent_in_nav}',
+            relative_rect=pygame.Rect((0, 180), (text_box_width, 20)),
             manager=self.mgr,
-            container=panel,
+            wrap_to_height=True,
+            container=panel
         )
+
         MyButton(
             relative_rect=pygame.Rect((label_width + 20, 180), (40, 20)),
             text='+',
@@ -146,12 +155,14 @@ class CreateRoleDialog:
         )
 
         # Talent in accounting
-        self.acc_label = pygame_gui.elements.UILabel(
-            relative_rect=pygame.Rect((0, 200), (label_width, 20)),
-            text=f'Talent in acc: {self.talent_in_acc}',
+        self.acc_label = pygame_gui.elements.UITextBox(
+            html_text=f'{tr("Talent in acc")}: {self.talent_in_acc}',
+            relative_rect=pygame.Rect((0, 200), (text_box_width, 20)),
             manager=self.mgr,
-            container=panel,
+            wrap_to_height=True,
+            container=panel
         )
+
         MyButton(
             relative_rect=pygame.Rect((label_width + 20, 200), (40, 20)),
             text='+',
@@ -161,12 +172,14 @@ class CreateRoleDialog:
         )
 
         # Talent in battle
-        self.bat_label = pygame_gui.elements.UILabel(
-            relative_rect=pygame.Rect((0, 220), (label_width, 20)),
-            text=f'Talent in bat: {self.talent_in_bat}',
+        self.bat_label = pygame_gui.elements.UITextBox(
+            html_text=f'{tr("Talent in bat")}: {self.talent_in_bat}',
+            relative_rect=pygame.Rect((0, 220), (text_box_width, 20)),
             manager=self.mgr,
-            container=panel,
+            wrap_to_height=True,
+            container=panel
         )
+
         MyButton(
             relative_rect=pygame.Rect((label_width + 20, 220), (40, 20)),
             text='+',
@@ -180,64 +193,68 @@ class CreateRoleDialog:
             return
 
         self.talent_in_nav += 1
-        self.nav_label.set_text(f'Talent in nav: {self.talent_in_nav}')
+        self.nav_label.set_text(f'{tr("Talent in nav")}: {self.talent_in_nav}')
 
         self.points -= 1
-        self.points_label.set_text(f'Points: {self.points}')
+        self.points_label.set_text(f'{tr("Points")}: {self.points}')
 
     def __add_acc(self):
         if self.points <= 0:
             return
 
         self.talent_in_acc += 1
-        self.acc_label.set_text(f'Talent in acc: {self.talent_in_acc}')
+        self.acc_label.set_text(f'{tr("Talent in acc")}: {self.talent_in_acc}')
 
         self.points -= 1
-        self.points_label.set_text(f'Points: {self.points}')
+        self.points_label.set_text(f'{tr("Points")}: {self.points}')
 
     def __add_bat(self):
         if self.points <= 0:
             return
 
         self.talent_in_bat += 1
-        self.bat_label.set_text(f'Talent in bat: {self.talent_in_bat}')
+        self.bat_label.set_text(f'{tr("Talent in bat")}: {self.talent_in_bat}')
 
         self.points -= 1
-        self.points_label.set_text(f'Points: {self.points}')
+        self.points_label.set_text(f'{tr("Points")}: {self.points}')
 
     def __reset_points(self):
         self.points = 3
-        self.points_label.set_text(f'Points: {self.points}')
+        self.points_label.set_text(f'{tr("Points")}: {self.points}')
 
         self.talent_in_nav = 0
-        self.nav_label.set_text(f'Talent in nav: {self.talent_in_nav}')
+        self.nav_label.set_text(f'{tr("Talent in nav")}: {self.talent_in_nav}')
 
         self.talent_in_acc = 0
-        self.acc_label.set_text(f'Talent in acc: {self.talent_in_acc}')
+        self.acc_label.set_text(f'{tr("Talent in acc")}: {self.talent_in_acc}')
 
         self.talent_in_bat = 0
-        self.bat_label.set_text(f'Talent in bat: {self.talent_in_bat}')
+        self.bat_label.set_text(f'{tr("Talent in bat")}: {self.talent_in_bat}')
+
+    def __get_nation_id(self):
+        nation_names = [tr(nation.name) for nation in c.Nation]
+        for id, name in enumerate(nation_names):
+            if name == self.nation_menu.selected_option:
+                nation_id = id + 1
+                return nation_id
 
     def __create_role(self):
         if self.points > 0:
             # message box
-            MyMsgWindow('Please spend all points', self.mgr)
+            MyMsgWindow(tr('Please spend all points'), self.mgr)
 
             return
 
 
         print(f'send __create_role packet for {self.world_id=}')
         new_role = NewRole()
-
         new_role.world_id = self.world_id
-
         new_role.name = self.entry_box_role_name.get_text()
-        new_role.nation = c.Nation[self.nation_menu.selected_option].value
+        new_role.nation = self.__get_nation_id()
         new_role.talent_in_nav = self.talent_in_nav
         new_role.talent_in_acc = self.talent_in_acc
         new_role.talent_in_bat = self.talent_in_bat
         new_role.img_id = f'{self.img_x}_{self.img_y}'
-
         self.client.send(new_role)
 
 

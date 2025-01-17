@@ -177,15 +177,17 @@ class Server:
             print("A ConnectionResetError occurred:", e)
             print(self.addr_2_session)
 
-            if session.packet_handler.role.is_at_sea():
-                session.packet_handler.role.remove_non_flag_ships()
-                session.packet_handler._handle_gm_cmd_map([30])
-            elif session.packet_handler.role.is_in_battle_with_role():
-                session.packet_handler._handle_gm_cmd_lose_to_role('')
-                session.packet_handler._handle_gm_cmd_map([30])
-            elif session.packet_handler.role.is_in_battle_with_npc():
-                session.packet_handler._handle_gm_cmd_lose_to_npc('')
-                session.packet_handler._handle_gm_cmd_map([30])
+            if session.packet_handler.role:
+
+                if session.packet_handler.role.is_at_sea():
+                    session.packet_handler.role.remove_non_flag_ships()
+                    session.packet_handler._handle_gm_cmd_map([30])
+                elif session.packet_handler.role.is_in_battle_with_role():
+                    session.packet_handler._handle_gm_cmd_lose_to_role('')
+                    session.packet_handler._handle_gm_cmd_map([30])
+                elif session.packet_handler.role.is_in_battle_with_npc():
+                    session.packet_handler._handle_gm_cmd_lose_to_npc('')
+                    session.packet_handler._handle_gm_cmd_map([30])
 
             await session.disconnect()
 

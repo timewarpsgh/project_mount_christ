@@ -42,6 +42,8 @@ class Gui:
         # esc pressed
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
+                if not self.options_dialog:
+                    return
                 self.options_dialog.pop_some_menus(cnt=1)
 
 

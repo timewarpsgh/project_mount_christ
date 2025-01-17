@@ -60,8 +60,7 @@ TO DO:
 
         quests OK
 
-        login scene ON
-
+        login scene OK
 
 
 

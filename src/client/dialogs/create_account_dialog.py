@@ -44,14 +44,14 @@ class CreateAccountDialog:
         # add entry box
         self.entry_box_account = pygame_gui.elements.UITextEntryLine(
             relative_rect=pygame.Rect((0, 50), (100, 50)),
-            initial_text='账号1',
+            initial_text='账号',
             manager=self.mgr,
             container=panel,
         )
 
         self.entry_box_password = pygame_gui.elements.UITextEntryLine(
             relative_rect=pygame.Rect((0, 100), (100, 50)),
-            initial_text='',
+            initial_text='密码',
             manager=self.mgr,
             container=panel,
         )

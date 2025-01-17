@@ -495,17 +495,21 @@ class PacketHandler:
     async def handle_Disconnect(self, disconnect):
         print('got disconn packet from client')
 
-        if self.role.is_in_port():
+        if not self.role:
             self.session.writer.close()
             await self.session.writer.wait_closed()
-            # self.session.on_disconnect()
         else:
-            # send chat
-            pack = pb.GotChat(
-                chat_type=pb.ChatType.SYSTEM,
-                text=f'Please exit when in a port.',
-            )
-            self.session.send(pack)
+            if self.role.is_in_port():
+                self.session.writer.close()
+                await self.session.writer.wait_closed()
+                # self.session.on_disconnect()
+            else:
+                # send chat
+                pack = pb.GotChat(
+                    chat_type=pb.ChatType.SYSTEM,
+                    text=f'Please exit when in a port.',
+                )
+                self.session.send(pack)
 
     async def handle_BuyCargo(self, buy_cargo):
         cargo_id = buy_cargo.cargo_id

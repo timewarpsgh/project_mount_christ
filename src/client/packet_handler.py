@@ -48,16 +48,16 @@ class PacketHandler:
 
     async def handle_NewAccountRes(self, new_account_res):
         if new_account_res.new_account_res_type == NewAccountRes.NewAccountResType.OK:
-            MyMsgWindow(msg='new account created!', mgr=self.client.game.gui.mgr)
+            MyMsgWindow(msg=tr('New account created!'), mgr=self.client.game.gui.mgr)
         else:
-            MyMsgWindow(msg='account name exists!', mgr=self.client.game.gui.mgr)
+            MyMsgWindow(msg=tr('Account name exists!'), mgr=self.client.game.gui.mgr)
 
     async def handle_LoginRes(self, login_res):
         if login_res.login_res_type == LoginRes.LoginResType.OK:
             get_worlds = GetWorlds()
             self.client.send(get_worlds)
         else:
-            MyMsgWindow(msg='account or password not right!', mgr=self.client.game.gui.mgr)
+            MyMsgWindow(msg=tr('Account or Password not right!'), mgr=self.client.game.gui.mgr)
 
     def __get_roles_in_world(self, world_id):
         get_roles_in_world = GetRolesInWorld()
@@ -93,10 +93,10 @@ class PacketHandler:
         option_2_callback = {role.name: partial(self.__enter_world, role.id)
                              for role in get_roles_in_world_res.roles}
 
-        option_2_callback['create_role'] = partial(self.__make_create_role_dialog)
+        option_2_callback[tr('create_role')] = partial(self.__make_create_role_dialog)
 
         menu = MyMenuWindow(
-            title='choose role',
+            title=tr('choose role'),
             option_2_callback=option_2_callback,
             mgr=self.client.game.gui.mgr
         )
@@ -114,12 +114,12 @@ class PacketHandler:
         if new_role_res.new_role_res_type == NewRoleRes.NewRoleResType.OK:
             print(f'new role created!')
             MyMsgWindow(
-                msg='new role created!',
+                msg=tr('new role created!'),
                 mgr=self.client.game.gui.mgr
             )
         else:
             MyMsgWindow(
-                msg='name exits!',
+                msg=tr('name exits!'),
                 mgr=self.client.game.gui.mgr
             )
 

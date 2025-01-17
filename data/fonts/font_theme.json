@@ -1,4 +1,12 @@
 {
+    "label": {
+        "font": {
+          "name": "MS Gothic",
+          "size": "14",
+          "regular_path": "../../data/fonts/siyuanheiti.ttf"
+        }
+    },
+
     "button": {
         "font": {
           "name": "MS Gothic",

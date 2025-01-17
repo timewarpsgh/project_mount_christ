@@ -3090,7 +3090,7 @@ class Role:
 
                 # get half of target's money
                 amount = enemy.money // 2
-                enemy.mod_money(-amount)
+                enemy.die()
                 self.mod_money(amount)
 
                 # tell client
@@ -3100,13 +3100,6 @@ class Role:
                 enemy.battle_role_id = None
                 self.battle_role_id = None
 
-                # mate speak spoil of war
-                # pack = pb.RandMateSpeak(
-                #     text=f'We captured {captured_ships_cnt} ships '
-                #          f'and {amount} gold coins.',
-                # )
-                # self.session.send(pack)
-
                 pack = pb.RoleLootInfo(
                     num_ships=captured_ships_cnt,
                     num_coins=amount,
@@ -3115,12 +3108,6 @@ class Role:
                 self.session.send(pack)
 
                 self.session.send(pb.ShowWinImg())
-
-                # pack = pb.RandMateSpeak(
-                #     text=f'We lost {captured_ships_cnt} ships '
-                #          f'and {amount} gold coins.',
-                # )
-                # enemy.session.send(pack)
 
                 pack = pb.RoleLootInfo(
                     num_ships=captured_ships_cnt,
@@ -3576,7 +3563,7 @@ class Role:
     def lose_to_npc(self):
         self.remove_non_flag_ships()
 
-        self.__lose_money_due_to_death()
+        self.die()
 
         self.session.send(pb.EscapedNpcBattle())
         self.session.send(pb.ShowLoseImg())

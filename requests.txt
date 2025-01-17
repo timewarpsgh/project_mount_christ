@@ -80,6 +80,8 @@ TO DO:
 
         PVP OK
 
+        after losing to role, speed slow OK
+
 
 
 

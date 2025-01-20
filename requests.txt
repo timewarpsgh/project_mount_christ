@@ -14,9 +14,7 @@ TO DO:
 
 
     deploy  ON
-        delete some files ON
-
-        my turn in battle, translate OK
+        delete some files OK
 
         client exe
 

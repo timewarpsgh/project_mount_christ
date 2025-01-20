@@ -1101,7 +1101,11 @@ class Graphics:
         return port_piddle, port_map
 
     def change_background_sp_to_port(self, port_id, x, y):
-        port_piddle, port_map = sMapMaker.make_port_piddle_and_map(port_id, sMapMaker.get_time_of_day())
+        if sMapMaker.get_time_of_day() == 'random':
+            time_type = random.choice(list(c.TimeType))
+            sMapMaker.time_of_day = time_type
+
+        # port_piddle, port_map = sMapMaker.make_port_piddle_and_map(port_id, sMapMaker.get_time_of_day())
         port_piddle, port_map = self.get_my_port_piddle_and_map(port_id, sMapMaker.get_time_of_day())
 
         self.sp_background.change_img(port_map)

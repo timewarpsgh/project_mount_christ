@@ -8,17 +8,13 @@ TO DO:
             after losing to role, speed slow OK
 
 
+        music OK
 
 
 
+    deploy  ON
 
 
-
-
-
-
-
-    deploy
 
 
 

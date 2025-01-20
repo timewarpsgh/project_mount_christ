@@ -23,7 +23,9 @@ class Game:
         self.client = client
 
         pygame.init()
-        pygame.display.set_caption('Quick Start')
+        icon = pygame.image.load(r'D:\data\code\python\project_mount_christ\src\client\ship.ico')
+        pygame.display.set_icon(icon)
+        pygame.display.set_caption('UW2OL')
 
         self.window_surface = pygame.display.set_mode((c.WINDOW_WIDTH, c.WINDOW_HEIGHT),
                                                       pygame.DOUBLEBUF | pygame.HWSURFACE)

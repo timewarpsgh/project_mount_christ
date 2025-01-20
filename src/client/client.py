@@ -31,8 +31,9 @@ class Client(Connection):
 
         self.account_and_password = ACCOUNT_AND_PWD
 
-    def on_disconnect(self):
+    async def on_disconnect(self):
         exit()
+
 
     async def gui_co(self):
         if IS_GAME_ON:

@@ -16,7 +16,7 @@ TO DO:
     deploy  ON
         delete some files OK
 
-        client exe
+        client exe OK
 
         server to cloud
 

@@ -187,7 +187,7 @@ dic = {
         'exp': "经验值",
         'Can''t find anything.': "什么也没有发现。",
 
-    'Land (L)': '登录(L)',
+    'Land (L)': '登路(L)',
 
     'Battle (B)': '战斗 (B)',
         "Target too far!": '目标太远了！',

@@ -14,6 +14,13 @@ TO DO:
 
 
     deploy  ON
+        delete some files ON
+
+        my turn in battle, translate OK
+
+        client exe
+
+        server to cloud
 
 
 

@@ -1650,4 +1650,8 @@ f'One of your ships has no captain.': '您有艘船没有船长。',
 "It's too far away!": '太远啦！',
 "gold coins.": '枚金币',
 "We lost": '失去了',
+'your turn': '我方回合',
+'enemy turn': '对方回合',
+'Need to be far enough from enemy flagship to escape.': '需要离敌方旗舰足够远才能逃离战场。',
+
 }

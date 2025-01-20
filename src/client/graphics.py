@@ -458,9 +458,9 @@ class BackGround(SP):
 
     def __paste_battle_timer(self, battle_ground_img):
         if self.model.role.is_battle_timer_mine:
-            text = 'your turn'
+            text = tr('your turn')
         else:
-            text = 'enemy turn'
+            text = tr('enemy turn')
 
         timer_text = Text(f'{text} {int(self.model.role.battle_timer)}', c.YELLOW, 10, 10)
         battle_ground_img.blit(timer_text.image, timer_text.rect)

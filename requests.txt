@@ -27,6 +27,7 @@ TO DO:
 
             absolute path used for assets OK
 
+            translate OK
 
         server to cloud
 

@@ -43,9 +43,9 @@ class Client(Connection):
             return
 
     async def main(self):
-        # conn
+        # conn '114.55.91.56' 'localhost'
         reader, writer = await asyncio.open_connection(
-            'localhost', 12345)
+            '114.55.91.56', 12345)
         self.reader = reader
         self.writer = writer
 

@@ -202,7 +202,7 @@ class Server:
 
     async def main(self):
         server = await asyncio.start_server(
-            self.client_connected, 'localhost', 12345)
+            self.client_connected, '0.0.0.0', 12345)
 
         addrs = ', '.join(str(sock.getsockname()) for sock in server.sockets)
         print(f'Serving on {addrs}')

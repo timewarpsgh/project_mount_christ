@@ -29,7 +29,11 @@ TO DO:
 
             translate OK
 
-        server to cloud
+
+            client only OK
+            server only OK
+
+        server to cloud  OK
 
 
 

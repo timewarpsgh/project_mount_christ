@@ -13,9 +13,9 @@ class FullPacket:
 
     def __init__(self, probuf_obj):
         opcode_value = self.__protbuf_obj_2_opcode_value(probuf_obj)
-        two_bytes_for_opcode = opcode_value.to_bytes(2)
+        two_bytes_for_opcode = opcode_value.to_bytes(2, byteorder='big')
         bytes_for_obj = probuf_obj.SerializeToString()
-        two_bytes_for_obj_len = len(bytes_for_obj).to_bytes(2)
+        two_bytes_for_obj_len = len(bytes_for_obj).to_bytes(2, byteorder='big')
         self.__bytes = two_bytes_for_opcode + two_bytes_for_obj_len + bytes_for_obj
 
     def get_bytes(self):
@@ -72,7 +72,7 @@ class Connection:
         pass
 
     def __opcode_2_protbuf_obj(self, opcode_bytes):
-        opcode_type_value = int.from_bytes(opcode_bytes)
+        opcode_type_value = int.from_bytes(opcode_bytes, byteorder='big')
         return eval(VALUE_2_OPCODE[opcode_type_value])()
 
     def receive_packets(self, bytes):
@@ -81,7 +81,7 @@ class Connection:
         while len(self.__bytes_buffer) >= 4:
             opcode_bytes = self.__bytes_buffer[:2]
             obj_len_bytes = self.__bytes_buffer[2:4]
-            obj_bytes_cnt = int.from_bytes(obj_len_bytes)
+            obj_bytes_cnt = int.from_bytes(obj_len_bytes, byteorder='big')
 
             if len(self.__bytes_buffer) >= 4 + obj_bytes_cnt:
                 obj_bytes = self.__bytes_buffer[4:4 + obj_bytes_cnt]

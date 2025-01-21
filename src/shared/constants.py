@@ -10,6 +10,9 @@ import login_pb2 as pb
 from helpers import Point
 
 
+HOST = '114.55.91.56'
+PORT = 12345
+
 SAVE_ON_DISCONNECT = True
 INCLUDE_BUILDINGS_MENU = False
 MAX_FRIENDS = 50
@@ -227,10 +230,6 @@ EXPENSIVE_EQUIPMENTS_IDS = {36, 37, 42, 43, 48}
 
 
 # network
-HOST = 'localhost'
-PORT = 8082
-REMOTE_HOST = '122.112.204.50'  #'175.27.138.5'
-REMOTE_PORT = 8082
 HEADER_SIZE = 4
 OBJECT_SIZE = 4
 

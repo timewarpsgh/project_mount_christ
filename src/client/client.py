@@ -10,7 +10,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared', 'packets
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared'))
 
 from login_pb2 import *
-
+import constants as c
 
 
 from shared import Connection
@@ -43,9 +43,8 @@ class Client(Connection):
             return
 
     async def main(self):
-        # conn '114.55.91.56' 'localhost'
         reader, writer = await asyncio.open_connection(
-            '114.55.91.56', 12345)
+            c.HOST, c.PORT)
         self.reader = reader
         self.writer = writer
 

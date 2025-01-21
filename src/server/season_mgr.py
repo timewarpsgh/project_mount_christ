@@ -3,8 +3,9 @@ import asyncio
 
 # import from dir
 import sys
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared', 'packets'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared'))
 
 import constants as c
 import login_pb2 as pb

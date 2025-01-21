@@ -7,10 +7,13 @@ import json
 
 # import from dir
 import sys
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\server')
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), 'models'))
+sys.path.append(os.path.dirname(__file__))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared', 'packets'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared'))
+
+
 from world_models import Npc as NpcModel, \
     SESSION as WORLD_SESSION
 

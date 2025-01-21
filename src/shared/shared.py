@@ -1,9 +1,9 @@
 from queue import Queue
 import asyncio
-
+import os
 # import from dir
 import sys
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
+sys.path.append(os.path.join(os.path.dirname(__file__), 'packets'))
 
 from login_pb2 import *
 from opcodes import OPCODE_2_VALUE, VALUE_2_OPCODE

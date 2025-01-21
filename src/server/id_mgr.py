@@ -2,7 +2,9 @@ import json
 
 # import from dir
 import sys
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
+import os
+
+sys.path.append(os.path.join(os.path.dirname(__file__), 'models'))
 
 
 from role_models import SESSION as ROLE_SESSION, \

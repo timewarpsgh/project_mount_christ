@@ -10,8 +10,9 @@ import copy
 
 # import from dir
 import sys
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'models'))
 
 import constants as c
 from object_mgr import sObjectMgr

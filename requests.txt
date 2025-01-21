@@ -18,6 +18,13 @@ TO DO:
 
         client exe OK
 
+        use relative path ON
+            shared OK
+            server OK
+
+
+            client ON
+
         server to cloud
 
 

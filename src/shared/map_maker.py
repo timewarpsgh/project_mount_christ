@@ -3,8 +3,7 @@ from PIL import Image
 
 # add relative directory to python_path
 import sys, os
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
-# sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'packets'))
 
 import login_pb2 as pb
 

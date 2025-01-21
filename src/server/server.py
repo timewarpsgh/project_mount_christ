@@ -11,9 +11,10 @@ from packet_handler import PacketHandler
 
 # import from dir
 import sys
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared', 'packets'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared'))
 
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
 from shared import Connection
 import constants as c
 

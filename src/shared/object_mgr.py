@@ -1,9 +1,9 @@
 import json
 import random
-
+import os
 # import from dir
 import sys
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\server\models')
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'server', 'models'))
 
 from world_models import Port, CargoTemplate, ShipTemplate, MateTemplate, ItemTemplate, \
     Cannon, Village, Maid, Aura, Event, \

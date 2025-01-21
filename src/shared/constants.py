@@ -1,9 +1,9 @@
 import random
-
+import os
 import sys
 
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
+sys.path.append(os.path.join(os.path.dirname(__file__), 'packets'))
+sys.path.append(os.path.dirname(__file__))
 
 from enum import Enum, auto
 import login_pb2 as pb

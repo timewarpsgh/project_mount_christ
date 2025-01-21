@@ -1,11 +1,11 @@
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, BLOB, create_engine
 from sqlalchemy.orm import sessionmaker
 import sqlalchemy
-
+import os
 import json
 
 
-PATH_TO_DB = r'D:\data\code\python\project_mount_christ\data\logon_db.sqlite'
+PATH_TO_DB = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'data', 'logon_db.sqlite')
 BASE = sqlalchemy.orm.declarative_base()
 
 

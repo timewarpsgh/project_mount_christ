@@ -25,7 +25,8 @@ TO DO:
 
             client OK
 
-            absolute path used for assets ON
+            absolute path used for assets OK
+
 
         server to cloud
 

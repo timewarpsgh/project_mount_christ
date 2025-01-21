@@ -919,7 +919,7 @@ class HudRight(SP):
 class Graphics:
 
     def __init__(self, client=None, model=None):
-        self.font = pygame.font.Font(r"D:\data\code\python\project_mount_christ\data\fonts\siyuanheiti.ttf", FONT_SIZE)
+        self.font = pygame.font.Font(r"..\..\data\fonts\siyuanheiti.ttf", FONT_SIZE)
 
         # client
         self.client = client
@@ -970,11 +970,11 @@ class Graphics:
     def __load_images(self):
         imgs = {}
 
-        imgs['background'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\port.png')
-        imgs['role'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\role.png')
-        imgs['hud'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\hud.png')
-        imgs['sea'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\sea.png')
-        imgs['battle_ground'] = self.__load_image(r'D:\data\code\python\project_mount_christ\data\imgs\in_battle\battle.PNG')
+        imgs['background'] = self.__load_image(r'..\..\data\imgs\port.png')
+        imgs['role'] = self.__load_image(r'..\..\data\imgs\role.png')
+        imgs['hud'] = self.__load_image(r'..\..\data\imgs\hud.png')
+        imgs['sea'] = self.__load_image(r'..\..\data\imgs\sea.png')
+        imgs['battle_ground'] = self.__load_image(r'..\..\data\imgs\in_battle\battle.PNG')
 
         return imgs
 
@@ -1070,7 +1070,7 @@ class Graphics:
 
         # get img
         if time_of_day != c.TimeType.NIGHT:
-            path_to_port_img = f'D:\data\code\python\project_mount_christ\data\imgs\my_ports\\{port_id}\\day.png'
+            path_to_port_img = f'..\..\data\imgs\my_ports\\{port_id}\\day.png'
             port_map = pygame.image.load(path_to_port_img).convert_alpha()
 
             if time_of_day == c.TimeType.DAY:
@@ -1091,11 +1091,11 @@ class Graphics:
 
 
         else:
-            path_to_port_img = f'D:\data\code\python\project_mount_christ\data\imgs\my_ports\\{port_id}\\night.png'
+            path_to_port_img = f'..\..\data\imgs\my_ports\\{port_id}\\night.png'
             port_map = pygame.image.load(path_to_port_img).convert_alpha()
 
         # get piddle
-        file_path = f'D:\data\code\python\project_mount_christ\data\imgs\my_ports\\{port_id}\\{port_id}_collision.csv'
+        file_path = f'..\..\data\imgs\my_ports\\{port_id}\\{port_id}_collision.csv'
         port_piddle = csv_to_numpy_matrix(file_path)
         sMapMaker.port_piddle = port_piddle
 

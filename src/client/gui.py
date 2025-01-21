@@ -1,6 +1,6 @@
 import pygame_gui
 import pygame
-
+import os
 from dialogs.login_dialog import LoginDialog
 from dialogs.create_account_dialog import CreateAccountDialog
 
@@ -8,9 +8,11 @@ class Gui:
     def __init__(self, client):
         self.client = client
 
+        font_theme_path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'fonts', 'font_theme.json')
+
         self.mgr = pygame_gui.UIManager(
             (800, 600),
-            r'D:\data\code\python\project_mount_christ\data\fonts\font_theme.json',
+            font_theme_path,
         )
 
         self.login_diglog = LoginDialog(self.mgr, client)

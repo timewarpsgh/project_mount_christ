@@ -36,58 +36,58 @@ class AssetMgr:
         self.sounds = {}
         self.music = {}
 
-        self.font = pygame.font.Font(r"D:\data\code\python\project_mount_christ\data\fonts\siyuanheiti.ttf", c.FONT_SIZE)
+        self.font = pygame.font.Font(r"../../data\fonts\siyuanheiti.ttf", c.FONT_SIZE)
 
     def load_images(self):
         self.images['ships'] = {}
 
-        path_to_ships_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\ships"
+        path_to_ships_imgs = r"..\..\data\imgs\ships"
         load_images_in_dir(self.images['ships'], path_to_ships_imgs)
 
         self.images['figures'] = {}
-        path_to_figures_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\figures"
+        path_to_figures_imgs = r"..\..\data\imgs\figures"
         load_images_in_dir(self.images['figures'], path_to_figures_imgs)
 
         self.images['discoveries_and_items'] = {}
-        path_to_discoveries_and_items_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\discoveries_and_items"
+        path_to_discoveries_and_items_imgs = r"..\..\data\imgs\discoveries_and_items"
         load_images_in_dir(self.images['discoveries_and_items'], path_to_discoveries_and_items_imgs)
 
         self.images['world_map'] = {}
-        path_to_world_map_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\world_map"
+        path_to_world_map_imgs = r"..\..\data\imgs\world_map"
 
         load_images_in_dir(self.images['world_map'], path_to_world_map_imgs)
 
         self.images['ship_in_battle'] = {}
-        path_to_world_map_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\ship_in_battle"
+        path_to_world_map_imgs = r"..\..\data\imgs\ship_in_battle"
         load_images_in_dir(self.images['ship_in_battle'], path_to_world_map_imgs)
 
         self.images['ship_in_battle']['enemy'] = {}
-        path_to_world_map_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\ship_in_battle\enemy"
+        path_to_world_map_imgs = r"..\..\data\imgs\ship_in_battle\enemy"
         load_images_in_dir(self.images['ship_in_battle']['enemy'], path_to_world_map_imgs)
 
         self.images['in_battle'] = {}
-        path_to_in_battle_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\in_battle"
+        path_to_in_battle_imgs = r"..\..\data\imgs\in_battle"
         load_images_in_dir(self.images['in_battle'], path_to_in_battle_imgs)
 
         self.images['huds'] = {}
-        path_to_huds_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\huds"
+        path_to_huds_imgs = r"..\..\data\imgs\huds"
         load_images_in_dir(self.images['huds'], path_to_huds_imgs)
 
         self.images['buildings'] = {}
-        path_to_buildings_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\buildings"
+        path_to_buildings_imgs = r"..\..\data\imgs\buildings"
         load_images_in_dir(self.images['buildings'], path_to_buildings_imgs)
 
         # load player
         self.images['player'] = {}
-        path_to_player_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\player"
+        path_to_player_imgs = r"..\..\data\imgs\player"
         load_images_in_dir(self.images['player'], path_to_player_imgs)
 
         self.images['conditions'] = {}
-        path_to_conditions_imgs = r"D:\data\code\python\project_mount_christ\data\imgs\conditions"
+        path_to_conditions_imgs = r"..\..\data\imgs\conditions"
         load_images_in_dir(self.images['conditions'], path_to_conditions_imgs)
 
     def load_sounds(self):
-        load_sounds_in_dir(self.sounds, f"D:\data\code\python\project_mount_christ\data\sounds\effect")
+        load_sounds_in_dir(self.sounds, f"..\..\data\sounds\effect")
 
     def play_battle_music(self):
         if c.IS_MUSIC_ON:

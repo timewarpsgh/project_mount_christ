@@ -1,10 +1,11 @@
 import random
 import sys
+import os
 import math
 from dataclasses import dataclass
 import login_pb2 as pb
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared', 'packets'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared'))
 
 import constants as c
 from map_maker import sMapMaker

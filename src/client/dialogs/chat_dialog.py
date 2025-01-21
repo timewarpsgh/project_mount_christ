@@ -7,8 +7,9 @@ from pygame_gui._constants import UI_TEXT_ENTRY_FINISHED, UI_TEXT_ENTRY_CHANGED
 from pygame_gui._constants import UI_CONSOLE_COMMAND_ENTERED
 
 import sys
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\client')
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'shared', 'packets'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from login_pb2 import *
 from my_ui_console_window import MyUIConsoleWindow

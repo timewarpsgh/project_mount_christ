@@ -4,12 +4,13 @@ import numpy as np
 from PIL import Image, ImageEnhance
 import pygame
 import sys
+import os
 from enum import Enum, auto
 from login_pb2 import *
 import login_pb2 as pb
 
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared', 'packets'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared'))
 
 import constants as c
 

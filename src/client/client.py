@@ -6,13 +6,13 @@ import asyncio
 
 from packet_handler import PacketHandler
 
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared\packets')
-
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared', 'packets'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared'))
 
 from login_pb2 import *
 
 
-sys.path.append(r'D:\data\code\python\project_mount_christ\src\shared')
+
 from shared import Connection
 
 from game import Game

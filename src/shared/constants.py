@@ -9,8 +9,9 @@ from enum import Enum, auto
 import login_pb2 as pb
 from helpers import Point
 
+IS_DEV = False
 VERSION = '1.1'
-HOST = 'localhost' #'114.55.91.56'
+HOST = '114.55.91.56' #'114.55.91.56' 'localhost'
 PORT = 12345
 
 SAVE_ON_DISCONNECT = True

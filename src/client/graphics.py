@@ -1289,23 +1289,27 @@ class Graphics:
 
             # test key
             if event.key == pygame.K_t:
-                self.model.role.is_moving = False
-                self.sp_background.start_time = None
-                self.client.send(FightRole(role_id=2))
+                if c.IS_DEV:
+                    self.model.role.is_moving = False
+                    self.sp_background.start_time = None
+                    self.client.send(FightRole(role_id=2))
 
             if event.key == pygame.K_y:
-                self.model.role.is_moving = False
-                self.sp_background.start_time = None
-                self.client.send(FightNpc(npc_id=2000000001))
+                if c.IS_DEV:
+                    self.model.role.is_moving = False
+                    self.sp_background.start_time = None
+                    self.client.send(FightNpc(npc_id=2000000001))
 
             if event.key == pygame.K_p:
 
                 if self.model.role.is_in_port():
-                    self.client.send(Sail())
+                    if c.IS_DEV:
+                        self.client.send(Sail())
                 elif self.model.role.is_at_sea():
                     self.get_options_dialog().enter_port()
                 elif self.model.role.is_in_battle():
-                    self.get_options_dialog().escape_battle()
+                    if c.IS_DEV:
+                        self.get_options_dialog().escape_battle()
 
             if event.key == pygame.K_g:
                 if self.model.role.is_at_sea():

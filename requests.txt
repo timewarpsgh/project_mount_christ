@@ -44,7 +44,10 @@ TO DO:
 
         check client and server version OK
 
-
+        release 1.1 OK
+            prepare local OK
+            update server OK
+            update client.rar OK
 
 
 

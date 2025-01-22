@@ -42,6 +42,9 @@ TO DO:
         https site, uw2ol.site OK
         fast download OK
 
+        check client and server version OK
+
+
 
 
 

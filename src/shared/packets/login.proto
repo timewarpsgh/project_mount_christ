@@ -18,12 +18,14 @@ message NewAccountRes {
 message Login {
     required string account = 1;
     required string password = 2;
+    required string version = 3;
 }
 
 message LoginRes {
     enum LoginResType {
         OK = 0;
         WRONG_PASSWORD_OR_ACCOUNT = 1;
+        VERSION_NOT_RIGHT = 2;
     }
 
     required LoginResType login_res_type = 1;

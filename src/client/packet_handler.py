@@ -57,6 +57,8 @@ class PacketHandler:
         if login_res.login_res_type == LoginRes.LoginResType.OK:
             get_worlds = GetWorlds()
             self.client.send(get_worlds)
+        elif login_res.login_res_type == LoginRes.LoginResType.VERSION_NOT_RIGHT:
+            MyMsgWindow(msg=tr('Need to update! Please download new client.'), mgr=self.client.game.gui.mgr)
         else:
             MyMsgWindow(msg=tr('Account or Password not right!'), mgr=self.client.game.gui.mgr)
 

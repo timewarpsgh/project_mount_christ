@@ -94,6 +94,10 @@ class PacketHandler:
         self.session.send(new_account_res)
 
     def __get_login_res(self, login):
+        if login.version != c.VERSION:
+            return LoginRes.LoginResType.VERSION_NOT_RIGHT
+
+
         account = LOGON_SESSION.query(Account).filter_by(
             account=login.account,
             password=login.password).first()

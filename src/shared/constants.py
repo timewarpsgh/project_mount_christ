@@ -9,8 +9,8 @@ from enum import Enum, auto
 import login_pb2 as pb
 from helpers import Point
 
-
-HOST = '114.55.91.56'
+VERSION = '1.1'
+HOST = 'localhost' #'114.55.91.56'
 PORT = 12345
 
 SAVE_ON_DISCONNECT = True
@@ -103,7 +103,6 @@ SAVE_ON_CONNECTION_LOST = True
 SET_ONLINE_TO_TRUE_ON_LOGIN = True
 REMOTE_ON = True
 DEVELOPER_MODE_ON = False
-VERSION = 1.1
 
 # in battle
 THINK_TIME_IN_BATTLE = 30

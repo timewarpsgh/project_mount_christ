@@ -49,6 +49,8 @@ TO DO:
             update server OK
             update client.rar OK
 
+        edit site text OK
+
 
 
 

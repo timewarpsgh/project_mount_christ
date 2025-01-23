@@ -262,6 +262,7 @@ class PacketHandler:
             treasure_map_id=0,
             event_id=1,
             nation=new_role.nation,
+            ration=100,
         )
         ROLE_SESSION.add(new_obj)
 

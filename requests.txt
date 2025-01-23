@@ -54,6 +54,10 @@ TO DO:
         cythonize py files and then use pyinstaller OK
 
 
+        real test ON
+            day not changing (new account, ration) OK
+            trans only 0 sailors are willing to join you
+
 
 
 

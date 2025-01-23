@@ -40,7 +40,7 @@ class OptionsDialog:
         # buttons to add
         buttons_texts = ['Buildings', 'Options', 'Cmds', 'Fight', 'Items', 'Mates', 'Ships']
 
-        if c.INCLUDE_BUILDINGS_MENU:
+        if c.IS_DEV:
             pass
         else:
             buttons_texts[0] = ' '

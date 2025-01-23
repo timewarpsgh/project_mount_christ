@@ -23,7 +23,7 @@ class Game:
         self.client = client
 
         pygame.init()
-        game_icon_path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'imgs', 'game_icon', 'ship.ico')
+        game_icon_path = '../../data/imgs/game_icon/ship.ico'
         icon = pygame.image.load(game_icon_path)
         pygame.display.set_icon(icon)
         pygame.display.set_caption('UW2OL')

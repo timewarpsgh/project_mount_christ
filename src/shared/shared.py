@@ -61,7 +61,9 @@ class Connection:
 
             # if disconn
             if bytes == b'':
+
                 await self.on_disconnect()
+
                 break
 
             self.receive_packets(bytes)

@@ -51,6 +51,9 @@ TO DO:
 
         edit site text OK
 
+        cythonize py files and then use pyinstaller OK
+
+
 
 
 

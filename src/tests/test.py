@@ -1,134 +1,123 @@
 import os
-import requests
-import hashlib
-import sys
-import zipfile
-from pathlib import Path
+import shutil
+from setuptools import setup
+from Cython.Build import cythonize
 
-# Configuration
-server_url = "https://your-server.com"  # Base URL to the server for patches and manifest
-local_version_file = "client_version.txt"  # Local version file to store current version
-local_dir = "game_client"  # Directory containing the client files
-manifest_url = server_url + "/manifest.json"  # URL to the server's manifest (contains patch info)
+def convert_py_to_pyd(py_file_path):
+    """
+    Converts a .py file to a .pyd file using Cython, keeping the original filename.
+    Deletes temporary .c files and the original .py file after compilation.
 
-def get_local_version():
-    """Get the local version of the game from a version file."""
-    if os.path.exists(local_version_file):
-        with open(local_version_file, "r") as file:
-            return file.read().strip()
-    return None
+    Args:
+        py_file_path (str): Path to the .py file.
 
-def download_file(url, destination):
-    """Download a file from the server to the local destination."""
-    print(f"Downloading {url}...")
-    response = requests.get(url, stream=True)
-    response.raise_for_status()  # Ensure the request was successful
+    Returns:
+        str: Path to the generated .pyd file.
+    """
+    # Ensure the input file exists
+    if not os.path.exists(py_file_path):
+        raise FileNotFoundError(f"The file {py_file_path} does not exist.")
 
-    with open(destination, "wb") as file:
-        for chunk in response.iter_content(chunk_size=8192):
-            file.write(chunk)
-    print(f"Downloaded to {destination}")
+    print(f'processing {py_file_path}')
 
-def download_patch(patch_url, destination):
-    """Download a patch file and extract it."""
-    download_file(patch_url, destination)
-    print(f"Extracting patch {destination}...")
-    with zipfile.ZipFile(destination, 'r') as zip_ref:
-        zip_ref.extractall(local_dir)
-    print(f"Patch applied successfully from {destination}.")
+    # Get the directory and base name of the .py file
+    directory, filename = os.path.split(py_file_path)
+    base_name, _ = os.path.splitext(filename)
 
-def verify_file_integrity(file_path, expected_hash):
-    """Verify a file's integrity using SHA256 checksum."""
-    sha256_hash = hashlib.sha256()
+    # Create a .pyx file from the .py file
+    pyx_file_path = os.path.join(directory, f"{base_name}.pyx")
+    shutil.copyfile(py_file_path, pyx_file_path)
 
-    with open(file_path, "rb") as f:
-        for byte_block in iter(lambda: f.read(4096), b""):
-            sha256_hash.update(byte_block)
+    # Create a setup.py script to compile the .pyx file
+    setup_script = f"""
+from setuptools import setup
+from Cython.Build import cythonize
 
-    file_hash = sha256_hash.hexdigest()
-    if file_hash == expected_hash:
-        return True
-    else:
-        print(f"Integrity check failed for {file_path}. Expected: {expected_hash}, Found: {file_hash}")
-        return False
+setup(
+    ext_modules=cythonize("{pyx_file_path}")
+)
+"""
+    setup_file_path = os.path.join(directory, "setup.py")
+    with open(setup_file_path, "w") as f:
+        f.write(setup_script)
 
-def check_for_updates():
-    """Check if there are updates available by comparing the local and remote version."""
-    local_version = get_local_version()
-    if local_version is None:
-        print("Local version not found. Installing the game...")
-        return True  # No version, consider it outdated
+    # Compile the .pyx file into a .pyd file
+    os.chdir(directory)
+    os.system(f"python {setup_file_path} build_ext --inplace")
 
-    print(f"Current local version: {local_version}")
+    # Locate the generated .pyd file
+    pyd_file_path = None
+    for file in os.listdir(directory):
+        if file.endswith(".pyd") and file.startswith(base_name):
+            pyd_file_path = os.path.join(directory, file)
+            break
 
-    try:
-        response = requests.get(manifest_url)
-        response.raise_for_status()
-        manifest = response.json()
+    if not pyd_file_path:
+        raise RuntimeError("Failed to generate the .pyd file.")
 
-        remote_version = manifest.get("version")
-        if remote_version > local_version:
-            print(f"New version available: {remote_version}")
-            return True
-        else:
-            print("No update needed. Your client is up to date.")
-            return False
-    except requests.exceptions.RequestException as e:
-        print(f"Error checking for updates: {e}")
-        return False
+    # Rename the .pyd file to match the original .py file name
+    final_pyd_path = os.path.join(directory, f"{base_name}.pyd")
+    os.rename(pyd_file_path, final_pyd_path)
 
-def download_and_apply_updates():
-    """Download and apply necessary updates."""
-    try:
-        response = requests.get(manifest_url)
-        response.raise_for_status()
-        manifest = response.json()
+    # Clean up temporary files
+    os.remove(pyx_file_path)
+    os.remove(setup_file_path)
+    build_dir = os.path.join(directory, "build")
+    if os.path.exists(build_dir):
+        shutil.rmtree(build_dir)
 
-        for patch in manifest.get("patches", []):
-            patch_url = patch.get("url")
-            file_name = patch.get("file_name")
-            expected_hash = patch.get("sha256")
+    # Delete the .c file generated by Cython
+    c_file_path = os.path.join(directory, f"{base_name}.c")
+    if os.path.exists(c_file_path):
+        os.remove(c_file_path)
 
-            # Download patch and apply it
-            patch_file = Path(local_dir) / f"{file_name}.zip"
-            download_patch(patch_url, patch_file)
+    # Delete the original .py file
+    os.remove(py_file_path)
 
-            # Verify the integrity of the patched file
-            patched_file_path = Path(local_dir) / file_name
-            if not verify_file_integrity(patched_file_path, expected_hash):
-                print(f"Failed to verify the integrity of the patch for {file_name}.")
-                return False
+    return final_pyd_path
 
-        # Update local version file
-        new_version = manifest.get("version")
-        with open(local_version_file, "w") as file:
-            file.write(new_version)
-        print(f"Client updated to version {new_version}.")
-        return True
 
-    except requests.exceptions.RequestException as e:
-        print(f"Error downloading patches: {e}")
-        return False
+def process_py_files(directory, given_function):
+    """
+    Recursively finds all .py files in the given directory and applies a function to each file.
 
-def start_game():
-    """Start the game after verifying the integrity of files and updating."""
-    print("Starting the game...")
-    # Add your game start logic here, for example:
-    # subprocess.run(["python", "game.py"])  # Replace with your actual game startup command
+    Args:
+        directory (str): The root directory to search for .py files.
+        given_function (function): A function to apply to each .py file. The function should accept
+                                   a single argument (the path to the .py file).
+
+    Returns:
+        None
+    """
+    # Ensure the directory exists
+    if not os.path.exists(directory):
+        raise FileNotFoundError(f"The directory {directory} does not exist.")
+
+    # Walk through the directory recursively
+    for root, _, files in os.walk(directory):
+        for file in files:
+            # Check if the file has a .py extension
+            if file.endswith(".py") and file not in ['asset_mgr.py', 'translator.py']:
+                # Construct the full path to the .py file
+                py_file_path = os.path.join(root, file)
+                # Apply the given function to the .py file
+                given_function(py_file_path)
+
+def print_file_path(file_path):
+    print(f"Processing: {file_path}")
+
 
 def main():
-    """Main launcher logic."""
-    if check_for_updates():
-        if download_and_apply_updates():
-            start_game()
-        else:
-            print("Update failed. Exiting.")
-            sys.exit(1)
-    else:
-        start_game()
+
+
+    # Specify the directory to search for .py files
+    target_directory = r"D:\data\code\python\client_only_encripted\src"
+
+    # Call the function to process all .py files
+    process_py_files(target_directory, convert_py_to_pyd)
+
 
 if __name__ == "__main__":
     main()
-
-
+    # convert_py_to_pyd(r"D:\data\code\python\client_only_encripted\src\client\packet_handler.py")
 

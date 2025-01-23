@@ -4,7 +4,16 @@ import sqlalchemy
 import os
 import json
 
-PATH_TO_DB = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'data', 'world_db.sqlite')
+# PATH_TO_DB = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'data', 'world_db.sqlite')
+# PATH_TO_DB = r'D:\data\code\python\project_mount_christ\data\world_db.sqlite'
+
+# get PATH_TO_DB
+split_items = os.getcwd().split(os.sep)
+split_items = split_items[:-2]
+split_items.extend(['data', 'world_db.sqlite'])
+PATH_TO_DB = os.sep.join(split_items)
+
+# print(PATH_TO_DB)
 BASE = sqlalchemy.orm.declarative_base()
 
 

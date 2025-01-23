@@ -58,7 +58,7 @@ TO DO:
             day not changing (new account, ration) OK
             trans only 0 sailors are willing to join you OK
 
-
+        release v1.2 OK
 
 
 
@@ -84,4 +84,25 @@ libs needed:
         protobuf
     back end
         asyncio, sqlalchemy
+
+release steps:
+    c.VERSION ++
+    set c.IS_DEV = False
+
+    update server
+        run update_server_only.py
+        sync server files to ali server
+        restart server
+
+
+    update client
+        run update_client_only.py
+        copy client_only dir to client_only_encrypted dir
+        py to pyd [py_to_pyd.py]
+        to exe [ pyinstaller .\client.spec ]
+        copy exe to client_only_release dir
+        test exe works in release dir
+        zip to client_test.rar
+        upload client_test.rar to ali object storage
+        now, users can download the new client
 

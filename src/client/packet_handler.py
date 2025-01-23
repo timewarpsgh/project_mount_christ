@@ -1313,3 +1313,11 @@ class PacketHandler:
         else:
             speech = f'{tr("We lost")} {num_ships} {tr("ships and")} {num_coins} {tr("gold coins.")}.'
         self.__get_options_dialog().show_mate_speech(mate, speech)
+
+    async def handle_OnlyThisManyCrew(self, pack):
+        crew_cnt = pack.crew_cnt
+
+        # building speak
+        self.__get_options_dialog().building_speak(
+            f'{tr("Only")} {crew_cnt} {tr("sailors are willing to join you today")}.'
+        )

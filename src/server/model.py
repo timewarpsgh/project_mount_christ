@@ -4040,9 +4040,9 @@ class Role:
             cnt = ship.max_crew - ship.now_crew
 
         if cnt > self.recruited_crew_cnt:
-            self.session.send(pb.BuildingSpeak(
-                text=f'Only {self.recruited_crew_cnt} sailors are willing to join you today.'))
-
+            self.session.send(
+                pb.OnlyThisManyCrew(crew_cnt=self.recruited_crew_cnt)
+            )
             return
 
         self.recruited_crew_cnt -= cnt

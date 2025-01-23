@@ -1655,5 +1655,7 @@ f'One of your ships has no captain.': '您有艘船没有船长。',
 'Need to be far enough from enemy flagship to escape.': '需要离敌方旗舰足够远才能逃离战场。',
 f'Please exit when in a port.': '请在港口退出。',
 'Need to update! Please download new client.': '需要更新！请下载最新客户端。',
+"Only": '只有',
+"sailors are willing to join you today": '名水手今天愿意加入您的舰队',
 
 }

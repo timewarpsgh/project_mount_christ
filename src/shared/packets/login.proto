@@ -1131,3 +1131,7 @@ message RoleLootInfo {
     required int32 num_coins = 2;
     required bool is_won = 3;
 }
+
+message OnlyThisManyCrew {
+    required int32 crew_cnt = 1;
+}

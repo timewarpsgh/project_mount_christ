@@ -265,6 +265,7 @@ class OpCodeType(Enum):
     GossipResult = auto()
     NpcLootInfo = auto()
     RoleLootInfo = auto()
+    OnlyThisManyCrew = auto()
 
 def gen_opcode_2_value():
     d = {}

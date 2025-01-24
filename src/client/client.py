@@ -19,7 +19,10 @@ from game import Game
 
 
 IS_GAME_ON = True
-ACCOUNT_AND_PWD = ''
+if c.IS_DEV:
+    ACCOUNT_AND_PWD = 't1'
+else:
+    ACCOUNT_AND_PWD = ''
 
 class Client(Connection):
 
@@ -32,7 +35,7 @@ class Client(Connection):
         self.account_and_password = ACCOUNT_AND_PWD
 
     async def on_disconnect(self):
-        exit()
+        sys.exit(0)
 
 
     async def gui_co(self):

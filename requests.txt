@@ -1,64 +1,18 @@
 TO DO:
 
-        translate rest
-
-
-            PVP OK
-
-            after losing to role, speed slow OK
-
-
-        music OK
-
-
-
-
-    deploy  ON
-        delete some files OK
-
-        client exe OK
-
-        use relative path ON
-            shared OK
-            server OK
-
-
-            client OK
-
-            absolute path used for assets OK
-
-            translate OK
-
-
-            client only OK
-            server only OK
-
-        server to cloud  OK
-
-        encrypt src using cython OK
-
-        have a website to download on us server OK
-
-        https site, uw2ol.site OK
-        fast download OK
-
-        check client and server version OK
-
-        release 1.1 OK
-            prepare local OK
-            update server OK
-            update client.rar OK
-
-        edit site text OK
-
-        cythonize py files and then use pyinstaller OK
-
-
-        real test ON
-            day not changing (new account, ration) OK
-            trans only 0 sailors are willing to join you OK
-
         release v1.2 OK
+
+        to fix:
+           enter battle bug OK
+
+           sell sound too loud OK
+
+           tr
+                cargo name in ship
+                sell cargo name in market
+                paid to crew
+                earned xp
+                found item
 
 
 

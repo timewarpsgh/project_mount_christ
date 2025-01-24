@@ -24,7 +24,10 @@ from game import Game
 
 
 IS_GAME_ON = True
-ACCOUNT_AND_PWD = ''
+if c.IS_DEV:
+    ACCOUNT_AND_PWD = 't1'
+else:
+    ACCOUNT_AND_PWD = ''
 
 class Client(Connection):
 

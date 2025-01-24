@@ -4219,6 +4219,15 @@ class Role:
         self.ship_mgr.init_ships_positions_in_battle(is_attacker=True)
         npc_instance.ship_mgr.init_ships_positions_in_battle(is_attacker=False)
 
+        # init battle_timer (updated each session update)
+        self.battle_timer = c.BATTLE_TIMER_IN_SECONDS
+
+        pack = pb.BattleTimerStarted(
+            battle_timer=self.battle_timer,
+            role_id=self.id,
+        )
+        self.session.send(pack)
+
         pack = pb.EnteredBattleWithNpc(
             npc_id=npc_id,
             ships=npc_instance.ship_mgr.gen_ships_prots(),
@@ -4237,15 +4246,6 @@ class Role:
                 dir=ship.dir,
                 steps_left=ship.steps_left,
             ))
-
-        # init battle_timer (updated each session update)
-        self.battle_timer = c.BATTLE_TIMER_IN_SECONDS
-
-        pack = pb.BattleTimerStarted(
-            battle_timer=self.battle_timer,
-            role_id=self.id,
-        )
-        self.session.send(pack)
 
         # npc speak
         pack = pb.MateSpeak(

@@ -1047,6 +1047,10 @@ class PacketHandler:
         role = self.__get_role()
         role.auras.remove(aura_id)
 
+        # play sound
+        sAssetMgr.sounds['debuff_removed'].play()
+
+
     async def handle_AuraCleared(self, pack):
         role = self.__get_role()
         role.auras.clear()

@@ -4249,9 +4249,15 @@ class Role:
             ))
 
         # npc speak
+
+        if self.npc_instance.mate.lv_in_bat >= self.get_flag_ship().get_captain().lv_in_bat:
+            npc_speech = 'Are you out of your mind? You have no chance.'
+        else:
+            npc_speech = 'Are you trying to bully us?'
+
         pack = pb.MateSpeak(
             mate_template_id=self.npc_instance.mate.mate_template_id,
-            text='You are pretty brave to challenge us.',
+            text=npc_speech,
         )
         self.session.send(pack)
 

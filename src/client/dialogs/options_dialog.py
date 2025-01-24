@@ -1231,13 +1231,16 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
-    def __change_language(self, lan):
+    def change_language(self, lan):
         sTr.set_to_language(lan)
+
+        self.mgr.get_window_stack().clear()
+        self.client.packet_handler.init_essential_windows()
 
     def __show_language_menu(self):
         option_2_callback = {
-            'English': partial(self.__change_language, Language.ENGLISH),
-            'Chinese': partial(self.__change_language, Language.CHINESE),
+            'English': partial(self.change_language, Language.ENGLISH),
+            'Chinese': partial(self.change_language, Language.CHINESE),
         }
 
         self.__make_menu(option_2_callback)
@@ -2374,7 +2377,7 @@ class OptionsDialog:
 
     def show_options_menu(self):
         option_2_callback = {
-            'Language(L)': partial(self.__show_language_menu),
+            'Language(J)': partial(self.__show_language_menu),
             'Sounds': partial(self.__show_sounds_menu),
             'Exit': partial(self.__exit_game),
         }

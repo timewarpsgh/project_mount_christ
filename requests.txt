@@ -5,6 +5,8 @@ TO DO:
 
         update site OK
 
+        hot key to change language OK
+
 
 
 

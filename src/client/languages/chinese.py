@@ -201,7 +201,7 @@ dic = {
         "Our current coordinate is": "我们目前的位置是",
 
     # options
-    'Language(L)': '语言(L)',
+    'Language(J)': '语言(J)',
         'English': '英语',
         'Chinese': '中文',
     'Sounds': '音频',

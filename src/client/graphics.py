@@ -17,7 +17,7 @@ import constants as c
 from asset_mgr import sAssetMgr
 from map_maker import sMapMaker
 from object_mgr import sObjectMgr
-from translator import sTr, tr
+from translator import sTr, tr, Language
 from model import Role
 
 FONT_SIZE = 16
@@ -1327,6 +1327,12 @@ class Graphics:
 
             if event.key == pygame.K_l:
                     self.get_options_dialog().land()
+
+            if event.key == pygame.K_j:
+                if sTr.to_language == Language.ENGLISH:
+                    self.get_options_dialog().change_language(Language.CHINESE)
+                else:
+                    self.get_options_dialog().change_language(Language.ENGLISH)
 
         # key up
         elif event.type == pygame.KEYUP:

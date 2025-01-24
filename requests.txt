@@ -11,7 +11,9 @@ TO DO:
            tr
                 cargo name in ship OK
 
-                sell cargo name in market
+                sell cargo name in market OK
+
+
                 paid to crew
                 earned xp
                 found item

@@ -179,7 +179,7 @@ class OptionsDialog:
         ship_id = cargo_to_sell_in_ship.ship_id
 
         option_2_callback = {
-            f'{cargo_name} [{cnt}] {sell_price}->{modified_sell_price}': partial(self.__ask_cargo_cnt_to_sell, cargo_id, ship_id),
+            f'{tr(cargo_name)} [{cnt}] {sell_price}->{modified_sell_price}': partial(self.__ask_cargo_cnt_to_sell, cargo_id, ship_id),
         }
 
         self.__make_menu(option_2_callback)

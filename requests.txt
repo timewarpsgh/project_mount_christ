@@ -1,33 +1,8 @@
 TO DO:
 
         release v1.2 OK
+        release v1.3 ON
 
-        to fix:
-           enter battle bug OK
-
-           sell sound too loud OK
-
-
-           tr
-                cargo name in ship OK
-
-                sell cargo name in market OK
-
-                earned xp OK
-
-
-                found item OK
-
-                paid to crew  OK
-
-                show total items OK
-
-                use item sound OK
-
-                you are brave to challenge us / more words OK
-
-
-                bad translations OK
 
 
 

@@ -9,8 +9,8 @@ from enum import Enum, auto
 import login_pb2 as pb
 from helpers import Point
 
-IS_DEV = True
-VERSION = '1.2'
+IS_DEV = False
+VERSION = '1.3'
 
 if IS_DEV:
     HOST = 'localhost'

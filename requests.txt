@@ -1,7 +1,10 @@
 TO DO:
 
         release v1.2 OK
-        release v1.3 ON
+        release v1.3 OK
+
+        update site OK
+
 
 
 

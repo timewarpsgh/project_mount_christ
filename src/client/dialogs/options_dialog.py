@@ -1328,7 +1328,7 @@ class OptionsDialog:
 
         # only show 3 aids for flagshi
         if captain_name == self.__get_role().name:
-            aids = f'{chief_navigator_name}/{accountant_name}/{first_mate_name}'
+            aids = f'{tr(chief_navigator_name)}/{tr(accountant_name)}/{tr(first_mate_name)}'
         else:
             aids = ''
 
@@ -1352,7 +1352,7 @@ class OptionsDialog:
             'min_crew/crew/max_crew': f'{ship.min_crew}/{ship.now_crew}/{ship.max_crew}',
             '3': '',
             'max_cargo': f'{ship.get_max_cargo()}',
-            'cargo/cnt': f'{cargo_name}/{ship.cargo_cnt}',
+            'cargo/cnt': f'{tr(cargo_name)}/{ship.cargo_cnt}',
             'food/water/lumber/shot': f'{ship.food}/{ship.water}/{ship.material}/{ship.cannon}',
 
         }

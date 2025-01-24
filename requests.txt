@@ -9,7 +9,8 @@ TO DO:
 
 
            tr
-                cargo name in ship
+                cargo name in ship OK
+
                 sell cargo name in market
                 paid to crew
                 earned xp

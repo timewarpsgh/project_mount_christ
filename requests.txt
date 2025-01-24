@@ -20,9 +20,9 @@ TO DO:
 
                 paid to crew  OK
 
-                show total items ON
+                show total items OK
 
-
+                use item sound ON
 
 
 

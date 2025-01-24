@@ -1724,6 +1724,10 @@ class OptionsDialog:
         items_ids = self.__get_role().items
         role = self.__get_role()
 
+        items_cnt = len(items_ids)
+
+        option_2_callback[f'{items_cnt}/{c.MAX_ITEMS_CNT}'] = ''
+
         for id in items_ids:
             item = sObjectMgr.get_item(id)
 

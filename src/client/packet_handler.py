@@ -747,7 +747,7 @@ class PacketHandler:
 
         mate = self.get_mate_mgr().get_mate(mate_id)
         mate.xp_earned(duty_type, amount)
-        text = f"{mate.name} earned {amount} xp in {c.DUTY_NAME_2_XP_NAME[c.INT_2_DUTY_NAME[duty_type]]}"
+        text = f"{tr(mate.name)} {tr('earned')} {amount} {tr('xp')} in {tr(c.DUTY_NAME_2_XP_NAME[c.INT_2_DUTY_NAME[duty_type]])}"
         self.__get_chat_dialog().add_chat(pb.ChatType.SYSTEM, text)
 
     async def handle_LvUped(self, lv_uped):
@@ -764,7 +764,7 @@ class PacketHandler:
         sAssetMgr.sounds['lv_up'].play()
 
         # show chat
-        text = f"{mate.name} advanced to lv {lv} from {prev_lv} in {c.DUTY_NAME_2_XP_NAME[c.INT_2_DUTY_NAME[duty_type]]}"
+        text = f"{tr(mate.name)} {tr('advanced to')} lv {lv} from {prev_lv} in {tr(c.DUTY_NAME_2_XP_NAME[c.INT_2_DUTY_NAME[duty_type]])}"
         self.__get_chat_dialog().add_chat(pb.ChatType.SYSTEM, text)
 
         # mate speak
@@ -1321,3 +1321,18 @@ class PacketHandler:
         self.__get_options_dialog().building_speak(
             f'{tr("Only")} {crew_cnt} {tr("sailors are willing to join you today")}.'
         )
+
+    async def handle_FoundItem(self, pack):
+        item_name = pack.item_name
+
+        # rand mate speak
+        mate = self.get_mate_mgr().get_random_mate()
+        self.__get_options_dialog().show_mate_speech(mate, f'{tr("Found")} {tr(item_name)}!')
+
+    async def handle_PaidWage(self, pack):
+        crew_payment = pack.crew_payment
+        mates_payment = pack.mates_payment
+
+        # rand mate speak
+        mate = self.get_mate_mgr().get_random_mate()
+        self.__get_options_dialog().show_mate_speech(mate, f'{tr("Paid")} {crew_payment} {tr("to crew and")} {mates_payment} {tr("to mates")}!')

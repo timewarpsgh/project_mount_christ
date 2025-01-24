@@ -1988,8 +1988,8 @@ class Role:
                 item_name = self.__add_rand_item()
 
                 # send chat
-                pack = pb.RandMateSpeak(
-                    text=f'Found {item_name}!',
+                pack = pb.FoundItem(
+                    item_name=item_name,
                 )
                 self.session.send(pack)
 
@@ -3386,11 +3386,12 @@ class Role:
         self.mod_money(-total_payment)
 
         # send chat
-        pack = pb.GotChat(
-            chat_type=pb.ChatType.SYSTEM,
-            text=f'paid {crew_payment} to crew and {mates_payment} to mates',
+        pack = pb.PaidWage(
+            crew_payment=crew_payment,
+            mates_payment=mates_payment,
         )
         self.session.send(pack)
+
 
     def __modify_pay_days(self):
         self.pay_days += 1

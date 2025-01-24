@@ -1657,5 +1657,12 @@ f'Please exit when in a port.': '请在港口退出。',
 'Need to update! Please download new client.': '需要更新！请下载最新客户端。',
 "Only": '只有',
 "sailors are willing to join you today": '名水手今天愿意加入您的舰队',
+'earned': '获得',
+'advanced to': '提升到',
+"Found": '发现',
+"Paid": '支付了',
+"to crew and": '给水手们和',
+"to mates": '给船长们',
+
 
 }

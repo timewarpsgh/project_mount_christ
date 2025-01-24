@@ -13,10 +13,21 @@ TO DO:
 
                 sell cargo name in market OK
 
+                earned xp OK
 
-                paid to crew
-                earned xp
-                found item
+
+                found item OK
+
+                paid to crew  OK
+
+                show total items ON
+
+
+
+
+
+
+
 
 
 

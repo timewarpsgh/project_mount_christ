@@ -266,6 +266,8 @@ class OpCodeType(Enum):
     NpcLootInfo = auto()
     RoleLootInfo = auto()
     OnlyThisManyCrew = auto()
+    FoundItem = auto()
+    PaidWage = auto()
 
 def gen_opcode_2_value():
     d = {}

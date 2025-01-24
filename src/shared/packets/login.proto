@@ -1135,3 +1135,12 @@ message RoleLootInfo {
 message OnlyThisManyCrew {
     required int32 crew_cnt = 1;
 }
+
+message FoundItem {
+    required string item_name = 1;
+}
+
+message PaidWage {
+    required int32 crew_payment = 1;
+    required int32 mates_payment = 2;
+}

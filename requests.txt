@@ -13,6 +13,8 @@ TO DO:
 
 
 
+        repeat buy cargo BUG OK
+        update server model.py OK
 
 
 

@@ -308,8 +308,21 @@ class Ship:
         self.steps_left = self.__calc_steps()  # c.STEPS_LEFT
 
     def add_cargo(self, cargo_id, cargo_cnt):
-        self.cargo_id = cargo_id
-        self.cargo_cnt = cargo_cnt
+        if self.cargo_id:
+            if cargo_id != self.cargo_id:
+                # send chat
+                self.ship_mgr.role.session.send(pb.GotChat(
+                    text=f'Can only hold one type of cargo.',
+                    chat_type=pb.ChatType.SYSTEM,
+                ))
+                return False
+            else:
+                self.cargo_cnt += cargo_cnt
+                return True
+        else:
+            self.cargo_id = cargo_id
+            self.cargo_cnt = cargo_cnt
+            return True
 
     def remove_cargo(self, cargo_id, cargo_cnt):
         if self.cargo_id == cargo_id:
@@ -3929,8 +3942,11 @@ class Role:
             return
 
         # update ram
+        is_ok = ship.add_cargo(cargo_id, cnt)
+        if not is_ok:
+            return
+
         self.money -= cost
-        ship.add_cargo(cargo_id, cnt)
 
         # tell client
         pack = pb.MoneyChanged(money=self.money)
@@ -3938,8 +3954,8 @@ class Role:
 
         pack = pb.ShipCargoChanged(
             ship_id=ship_id,
-            cargo_id=cargo_id,
-            cnt=cnt,
+            cargo_id=ship.cargo_id,
+            cnt=ship.cargo_cnt,
         )
         self.session.send(pack)
 

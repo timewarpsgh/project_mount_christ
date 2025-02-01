@@ -1665,7 +1665,9 @@ f'Please exit when in a port.': '请在港口退出。',
 "to mates": '给船长们',
 'Are you out of your mind? You have no chance.': '你是不是疯了？你没有机会的。',
 'Are you trying to bully us?': '要欺负我们吗？',
-    'Can only hold one type of cargo.': '只能装载一种货物。',
+'Can only hold one type of cargo.': '只能装载一种货物。',
+'Base Economy': '基础商业指数',
+'Base Industry': '基础工业指数',
 
 
 }

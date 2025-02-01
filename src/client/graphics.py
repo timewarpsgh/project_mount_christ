@@ -846,7 +846,7 @@ class HudRight(SP):
             self.move_to(c.WINDOW_WIDTH - c.HUD_WIDTH, 0)
 
         new_image = self.img_src.copy()
-        x = 15
+        x = 5
 
         # in port
         if self.model.role.is_in_port():
@@ -858,8 +858,8 @@ class HudRight(SP):
             new_image.blit(Text(f'{sTr.tr(port.name)}').image, (x, 5))
             new_image.blit(Text(f'{sTr.tr(region)}').image, (x, 20))
 
-            new_image.blit(Text(f'{sTr.tr("Economy")} \n  {port.economy}').image, (x, 120))
-            new_image.blit(Text(f'{sTr.tr("Industry")} \n  {port.industry}').image, (x, 160))
+            new_image.blit(Text(f'{sTr.tr("Base Economy")} \n  {port.economy}').image, (x, 120))
+            new_image.blit(Text(f'{sTr.tr("Base Industry")} \n  {port.industry}').image, (x, 160))
 
         # at sea
         elif self.model.role.is_at_sea():

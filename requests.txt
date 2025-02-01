@@ -10,11 +10,15 @@ TO DO:
         update client OK
 
         take some photos OK
-
-
-
         repeat buy cargo BUG OK
         update server model.py OK
+
+
+
+        price index name OK
+
+        invest mechanism ON
+
 
 
 

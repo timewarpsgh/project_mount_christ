@@ -2609,7 +2609,7 @@ class Role:
         return False
 
     def withdraw(self, amount):
-        if not self.is_in_allied_port() and not self.get_map().is_bank_enabled:
+        if not self.is_in_allied_port() and not self.get_map().allow_withdraw:
             # send chat
             pack = pb.BuildingSpeak(
                 text='Sorry. The governor of this port has restricted this opration.'
@@ -4436,7 +4436,7 @@ class Role:
         else:
             return
 
-        port_map.is_bank_enabled = pack.is_bank_enabled
+        port_map.allow_withdraw = pack.allow_withdraw
 
         self.session.send(pb.PopSomeMenus(cnt=1))
         self.session.send(pb.BuildingSpeak(

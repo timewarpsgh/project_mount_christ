@@ -22,7 +22,7 @@ class PacketParamsDialog:
 
         # add ui window
 
-        height = len(params_names) * 40 + 40 * 2
+        height = len(params_names) * 40 + 48 * 2
         width = 180
 
         ui_window = pygame_gui.elements.UIWindow(

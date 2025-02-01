@@ -32,7 +32,7 @@ class PortMap:
 
         self.same_nation_tax = 0
         self.other_nation_tax = 0
-        self.is_bank_enabled = 1
+        self.allow_withdraw = 1
 
     def __init_price_index(self):
         return random.randint(80, 120)

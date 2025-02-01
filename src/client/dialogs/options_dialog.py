@@ -201,7 +201,7 @@ class OptionsDialog:
         parcket = pb.SetPortStates()
 
         PacketParamsDialog(self.mgr, self.client,
-                           ['same_nation_tax', 'other_nation_tax', 'is_bank_enabled'],
+                           ['same_nation_tax', 'other_nation_tax', 'allow_withdraw'],
                            parcket
         )
 

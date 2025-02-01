@@ -1342,5 +1342,5 @@ class PacketHandler:
         self.__get_options_dialog().show_mate_speech(mate, f'{tr("Paid")} {crew_payment} {tr("to crew and")} {mates_payment} {tr("to mates")}!')
 
     async def handle_ShowGovernorOptions(self, pack):
-        self.__get_options_dialog().building_speak(f'Ah... Welcome, governor!')
+        self.__get_options_dialog().building_speak(f'Ah... Welcome, governor! Rates should be between 0 and 50. 1 means yes and 0 means no. Can only disable withdraw for foreingers.')
         self.__get_options_dialog().show_governor_options()

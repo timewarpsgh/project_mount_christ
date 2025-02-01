@@ -1669,13 +1669,14 @@ f'Please exit when in a port.': '请在港口退出。',
 'Base Economy': '基础商业指数',
 'Base Industry': '基础工业指数',
 'You are not the governor of this port.': '您不是此港口的总督。',
-f'Ah... Welcome, governor!': '啊...欢迎总督大人！',
+f'Ah... Welcome, governor! Rates should be between 0 and 50. 1 means yes and 0 means no. Can only disable withdraw for foreingers.': '啊...欢迎总督大人！税率需要在0到50间。1=是，0=否 。禁用取款功能仅对外国人有效。',
 f'Manage Port': '管理港口',
 f'same_nation_tax': '本国税率',
 f'other_nation_tax': '别国税率',
 f'is_bank_enabled': '是否启动银行',
 'As you wish.': '如您所愿。',
 'Sorry. The governor of this port has restricted this opration.': '抱歉。本港的总督限制了此操作。',
+'allow_withdraw': '是否允许取款',
 
 
 }

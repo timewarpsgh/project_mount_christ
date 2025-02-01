@@ -1675,6 +1675,7 @@ f'same_nation_tax': '本国税率',
 f'other_nation_tax': '别国税率',
 f'is_bank_enabled': '是否启动银行',
 'As you wish.': '如您所愿。',
+'Sorry. The governor of this port has restricted this opration.': '抱歉。本港的总督限制了此操作。',
 
 
 }

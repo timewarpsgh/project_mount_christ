@@ -1,6 +1,5 @@
-a = 4
+is_enabled = 9
 
-if 3 <= a <= 6:
+
+if not is_enabled:
     print(True)
-else:
-    print(False)

@@ -38,7 +38,7 @@ TO DO:
 
         limit ration to 0-50 OK
 
-        disable bank for other nation
+        disable bank for other nation OK
 
 
 

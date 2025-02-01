@@ -48,6 +48,8 @@ TO DO:
 
         repeat buy cargo BUG OK
 
+        release 1.4 OK
+
 
 
 

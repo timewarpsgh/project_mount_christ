@@ -1677,6 +1677,12 @@ f'is_bank_enabled': '是否启动银行',
 'As you wish.': '如您所愿。',
 'Sorry. The governor of this port has restricted this opration.': '抱歉。本港的总督限制了此操作。',
 'allow_withdraw': '是否允许取款',
+"Bank received": '银行收到了',
+"due to": '因为',
+'buying': '购买了',
+'selling': '出售了',
+
+
 
 
 }

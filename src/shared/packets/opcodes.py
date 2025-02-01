@@ -271,6 +271,7 @@ class OpCodeType(Enum):
     ManagePort = auto()
     ShowGovernorOptions = auto()
     SetPortStates = auto()
+    GotTax = auto()
 
 def gen_opcode_2_value():
     d = {}

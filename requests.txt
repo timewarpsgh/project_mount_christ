@@ -40,7 +40,7 @@ TO DO:
 
         disable bank for other nation OK
 
-        translate ON
+        translate OK
 
 
 

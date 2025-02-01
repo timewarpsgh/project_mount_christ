@@ -3993,10 +3993,12 @@ class Role:
         if governor_role:
             governor_role.bank_money += tax_amount
             # tell governor
-            pack = pb.GotChat(
-                chat_type=pb.ChatType.SYSTEM,
-                text=f'Bank received {tax_amount} due to {self.name} '
-                     f'buying {cargo_template.name} from {port.name}',
+            pack = pb.GotTax(
+                amount=tax_amount,
+                role_name=self.name,
+                is_buy=True,
+                cargo_name=cargo_template.name,
+                port_name=port.name,
             )
             governor_role.session.send(pack)
 
@@ -4050,10 +4052,12 @@ class Role:
         if governor_role:
             governor_role.bank_money += tax_amount
             # tell governor
-            pack = pb.GotChat(
-                chat_type=pb.ChatType.SYSTEM,
-                text=f'Bank received {tax_amount} due to {self.name} '
-                     f'selling {cargo_template.name} to {port.name}',
+            pack = pb.GotTax(
+                amount=tax_amount,
+                role_name=self.name,
+                is_buy=False,
+                cargo_name=cargo_template.name,
+                port_name=port.name,
             )
             governor_role.session.send(pack)
 

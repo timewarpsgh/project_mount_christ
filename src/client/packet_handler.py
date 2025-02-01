@@ -1344,3 +1344,20 @@ class PacketHandler:
     async def handle_ShowGovernorOptions(self, pack):
         self.__get_options_dialog().building_speak(f'Ah... Welcome, governor! Rates should be between 0 and 50. 1 means yes and 0 means no. Can only disable withdraw for foreingers.')
         self.__get_options_dialog().show_governor_options()
+
+    async def handle_GotTax(self, pack):
+        amount = pack.amount
+        role_name = pack.role_name
+        buy_or_sell = 'buying' if pack.is_buy else 'selling'
+        cargo_name = pack.cargo_name
+        port_name = pack.port_name
+
+        # add to chat
+
+        text = f'{tr("Bank received")} {amount} {tr("due to")} {role_name} ' \
+               f'{tr(buy_or_sell)} {tr(cargo_name)} {tr("from")} {tr(port_name)}.'
+
+        self.__get_chat_dialog().add_chat(
+            pb.ChatType.SYSTEM,
+            text,
+        )

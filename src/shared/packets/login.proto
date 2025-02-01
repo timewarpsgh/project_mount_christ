@@ -1151,8 +1151,16 @@ message ManagePort {
 message ShowGovernorOptions {
 }
 
-message SetPortStates{
+message SetPortStates {
     required int32 same_nation_tax = 1;
     required int32 other_nation_tax = 2;
     required int32 allow_withdraw = 3;
+}
+
+message GotTax {
+    required int32 amount = 1;
+    required string role_name = 2;
+    required bool is_buy = 3;
+    required string cargo_name = 4;
+    required string port_name = 5;
 }

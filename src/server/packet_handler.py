@@ -1003,15 +1003,26 @@ class PacketHandler:
 
         allied_ports_ids = []
         price_indexes = []
+        same_nation_rates = []
+        other_nation_rates = []
+        governors = []
+
         port_maps = sMapMgr.get_port_maps()
         for port in port_maps:
             if port.allied_nation == nation_id:
                 allied_ports_ids.append(port.id)
                 price_indexes.append(port.price_index)
+                same_nation_rates.append(port.same_nation_tax)
+                other_nation_rates.append(port.other_nation_tax)
+                governor_name = port.governor_name if port.governor_name else 'NA'
+                governors.append(governor_name)
 
         pack = pb.NationAlliedPorts()
         pack.port_ids.extend(allied_ports_ids)
         pack.price_indexes.extend(price_indexes)
+        pack.same_nation_rates.extend(same_nation_rates)
+        pack.other_nation_rates.extend(other_nation_rates)
+        pack.governors.extend(governors)
         pack.nation_id = nation_id
         self.session.send(pack)
 

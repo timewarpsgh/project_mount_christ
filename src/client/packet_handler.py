@@ -939,10 +939,15 @@ class PacketHandler:
     async def handle_NationAlliedPorts(self, pack):
         port_ids = pack.port_ids
         price_indexes = pack.price_indexes
+        same_nation_rates = pack.same_nation_rates
+        other_nation_rates = pack.other_nation_rates
+        governors = pack.governors
         nation_id = pack.nation_id
 
         self.__get_options_dialog().pop_some_menus(2)
-        self.__get_options_dialog().show_nation_allied_ports(port_ids, price_indexes, nation_id)
+        self.__get_options_dialog().show_nation_allied_ports(
+            port_ids, price_indexes, nation_id,
+            same_nation_rates, other_nation_rates, governors)
 
     async def handle_NationsInvestments(self, pack):
         investments = pack.investments

@@ -782,6 +782,9 @@ message NationAlliedPorts {
     repeated int32 port_ids = 1;
     repeated int32 price_indexes = 2;
     required int32 nation_id = 3;
+    repeated int32 same_nation_rates = 4;
+    repeated int32 other_nation_rates = 5;
+    repeated string governors = 6;
 }
 
 message GetNationsInvestments {

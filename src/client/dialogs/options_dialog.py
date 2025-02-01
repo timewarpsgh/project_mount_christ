@@ -877,14 +877,16 @@ class OptionsDialog:
 
         self.__make_menu(option_2_callback)
 
-    def show_nation_allied_ports(self, port_ids, price_indexes, nation_id):
+    def show_nation_allied_ports(self, port_ids, price_indexes, nation_id,
+                                 same_nation_rates, other_nation_rates, governors):
         port_names = [sObjectMgr.get_port(port_id).name for port_id in port_ids]
 
         option_2_callback = {
         }
 
         for id, port_name in enumerate(port_names):
-            option_2_callback[f'{tr(port_name)} {price_indexes[id]}'] = ''
+            option_2_callback[f'{tr(port_name)} {price_indexes[id]} ' \
+                              f'{same_nation_rates[id]}% {other_nation_rates[id]}% {governors[id]}'] = ''
 
         self.__make_menu(option_2_callback)
 

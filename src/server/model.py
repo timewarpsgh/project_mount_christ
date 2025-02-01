@@ -3960,7 +3960,7 @@ class Role:
 
         # not enough space
         ship = self.ship_mgr.get_ship(ship_id)
-        if not ship.get_max_cargo() >= cnt + ship.get_supply_cnt():
+        if not ship.can_load(cnt):
             print("not enough space")
             return
 

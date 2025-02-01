@@ -46,6 +46,7 @@ TO DO:
 
         see tax from job house OK
 
+        repeat buy cargo BUG OK
 
 
 

@@ -1668,6 +1668,13 @@ f'Please exit when in a port.': '请在港口退出。',
 'Can only hold one type of cargo.': '只能装载一种货物。',
 'Base Economy': '基础商业指数',
 'Base Industry': '基础工业指数',
+'You are not the governor of this port.': '您不是此港口的总督。',
+f'Ah... Welcome, governor!': '啊...欢迎总督大人！',
+f'Manage Port': '管理港口',
+f'same_nation_tax': '本国税率',
+f'other_nation_tax': '别国税率',
+f'is_bank_enabled': '是否启动银行',
+'As you wish.': '如您所愿。',
 
 
 }

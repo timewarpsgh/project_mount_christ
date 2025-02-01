@@ -30,6 +30,10 @@ class PortMap:
 
         self.governor_name = None
 
+        self.same_nation_tax = 0
+        self.other_nation_tax = 0
+        self.is_bank_enabled = 1
+
     def __init_price_index(self):
         return random.randint(80, 120)
 
@@ -135,7 +139,7 @@ class PortMap:
         if roles_names:
             new_governor_name = roles_names[0]
         else:
-            new_governor_name = None
+            new_governor_name = self.governor_name
 
         return new_governor_name
 

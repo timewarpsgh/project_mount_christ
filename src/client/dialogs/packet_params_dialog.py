@@ -23,7 +23,7 @@ class PacketParamsDialog:
         # add ui window
 
         height = len(params_names) * 40 + 40 * 2
-        width = 140
+        width = 180
 
         ui_window = pygame_gui.elements.UIWindow(
             rect=pygame.Rect((100, 200), (width, height)),
@@ -42,7 +42,7 @@ class PacketParamsDialog:
         for i, param_name in enumerate(params_names):
             # add entry box
             entry_box = pygame_gui.elements.UITextEntryBox(
-                relative_rect=pygame.Rect((0, 40 * i), (100, 40)),
+                relative_rect=pygame.Rect((0, 40 * i), (140, 40)),
                 placeholder_text=tr(param_name),
                 manager=self.mgr,
                 container=panel,

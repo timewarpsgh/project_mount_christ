@@ -20,6 +20,25 @@ TO DO:
         invest mechanism ON
 
 
+            change a port's allied nation
+            become governor of a port
+            governor skills ON
+                tax for same nation 0-50%
+                tax for other nation 0-50%
+
+                disable bank for other nation
+
+                each buy/sell,
+                if governor is online:
+                    add tax amount to governor bank
+                    and notify governor
+                else:
+                    pass
+
+
+        limit ration to 0-50 OK
+
+        disable bank for other nation
 
 
 

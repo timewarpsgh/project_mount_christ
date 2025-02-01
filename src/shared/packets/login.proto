@@ -1144,3 +1144,15 @@ message PaidWage {
     required int32 crew_payment = 1;
     required int32 mates_payment = 2;
 }
+
+message ManagePort {
+}
+
+message ShowGovernorOptions {
+}
+
+message SetPortStates{
+    required int32 same_nation_tax = 1;
+    required int32 other_nation_tax = 2;
+    required int32 is_bank_enabled = 3;
+}

@@ -1340,3 +1340,7 @@ class PacketHandler:
         # rand mate speak
         mate = self.get_mate_mgr().get_random_mate()
         self.__get_options_dialog().show_mate_speech(mate, f'{tr("Paid")} {crew_payment} {tr("to crew and")} {mates_payment} {tr("to mates")}!')
+
+    async def handle_ShowGovernorOptions(self, pack):
+        self.__get_options_dialog().building_speak(f'Ah... Welcome, governor!')
+        self.__get_options_dialog().show_governor_options()

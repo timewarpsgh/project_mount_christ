@@ -1184,5 +1184,10 @@ class PacketHandler:
 
     async def handle_BuyWanted(self, pack):
         fleet_type = pack.fleet_type
-
         self.role.buy_wanted(fleet_type)
+
+    async def handle_ManagePort(self, pack):
+        self.role.manage_port()
+
+    async def handle_SetPortStates(self, pack):
+        self.role.set_port_states(pack)

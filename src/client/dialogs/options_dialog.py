@@ -192,6 +192,21 @@ class OptionsDialog:
         self.__get_role().is_in_building = True
         self.__get_graphics().add_sp_building_bg(building_name)
 
+    def __manage_port(self):
+        # send pack
+        self.client.send(pb.ManagePort())
+
+    def show_governor_options(self):
+        # params pack
+        parcket = pb.SetPortStates()
+
+        PacketParamsDialog(self.mgr, self.client,
+                           ['same_nation_tax', 'other_nation_tax', 'is_bank_enabled'],
+                           parcket
+        )
+
+
+
     def show_market_menu(self):
         self.__add_building_bg('market')
 
@@ -200,6 +215,7 @@ class OptionsDialog:
             'Sell': partial(self.__show_ships_with_cargo_to_sell),
             'Investment State': partial(self.__show_investment_state_menu),
             'Invest': partial(self.__show_invest_dialog),
+            'Manage Port': partial(self.__manage_port),
             '': partial(self.exit_building),
         }
 

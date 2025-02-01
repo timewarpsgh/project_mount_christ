@@ -1,5 +1,6 @@
-a = 'today'
-b = 'nice'
+a = 4
 
-print(hash('today'))
-print(hash(b))
+if 3 <= a <= 6:
+    print(True)
+else:
+    print(False)

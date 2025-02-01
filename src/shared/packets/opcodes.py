@@ -268,6 +268,9 @@ class OpCodeType(Enum):
     OnlyThisManyCrew = auto()
     FoundItem = auto()
     PaidWage = auto()
+    ManagePort = auto()
+    ShowGovernorOptions = auto()
+    SetPortStates = auto()
 
 def gen_opcode_2_value():
     d = {}

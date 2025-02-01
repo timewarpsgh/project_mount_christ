@@ -105,6 +105,7 @@ class Server:
     def __init__(self):
         self.addr_2_session = {}
         self.id_2_role = {}
+        self.name_2_role = {}
 
         self.id_mgr = sIdMgr
         self.__init_map_maker()
@@ -134,16 +135,17 @@ class Server:
 
     def get_role_by_name(self, name):
         """ may need to change later"""
-        for role in self.id_2_role.values():
-            if role.name == name:
-                return role
-        return None
+        return self.name_2_role.get(name)
 
     def add_role(self, id, role):
         self.id_2_role[id] = role
+        self.name_2_role[role.name] = role
 
     def rm_role(self, id):
+        role = self.id_2_role[id]
+        del self.name_2_role[role.name]
         del self.id_2_role[id]
+
         # print(f'role removed! now {self.id_2_role=}')
 
     def get_nearby_roles(self, role_id):
@@ -158,6 +160,8 @@ class Server:
         self.addr_2_session[session.addr] = session
         print(f'\n#### !!new connection, now self.connected_clients: '
               f'{self.addr_2_session}\n')
+        print(f'##### now id_2_role  ####')
+        print(self.id_2_role)
 
     def rm_session(self, addr):
         del self.addr_2_session[addr]

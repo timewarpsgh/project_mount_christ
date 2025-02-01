@@ -3809,7 +3809,7 @@ class Role:
         else:
             return False
 
-    def __get_modified_buy_price(self, price):
+    def __get_modified_buy_price(self, price, port_map):
         ratio = self.__get_ratio_from_price_index()
 
         if self.is_in_allied_port() and self.has_tax_free_permit():
@@ -3817,11 +3817,17 @@ class Role:
         else:
             tax_ratio = 1
 
+        if self.is_in_allied_port():
+            tax_ratio += port_map.same_nation_tax / 100
+        else:
+            tax_ratio += port_map.other_nation_tax / 100
+
         return int(price * (1 - self.get_discount()) * ratio * tax_ratio)
 
     def get_available_cargos(self):
         # get cargo by region_id
         port = self.get_port()
+        port_map = self.get_map()
         cargo_ids = sObjectMgr.get_cargo_ids(port.economy_id)
         available_cargos = []
 
@@ -3836,7 +3842,7 @@ class Role:
 
             price = json.loads(cargo_template.buy_price)[str(port.economy_id)]
             available_cargo.price = price
-            available_cargo.cut_price = self.__get_modified_buy_price(price)
+            available_cargo.cut_price = self.__get_modified_buy_price(price, port_map)
             available_cargos.append(available_cargo)
 
         # add specialty of this port
@@ -3846,7 +3852,7 @@ class Role:
             available_cargo.id = cargo_template.id
             available_cargo.name = F'{cargo_template.name}'
             available_cargo.price = port.specialty_price
-            available_cargo.cut_price = self.__get_modified_buy_price(port.specialty_price)
+            available_cargo.cut_price = self.__get_modified_buy_price(port.specialty_price, port_map)
             available_cargos.append(available_cargo)
 
         if self.is_in_allied_port() and self.has_tax_free_permit():
@@ -3859,13 +3865,20 @@ class Role:
         pack.has_right_tax_free_permit = has_right_tax_free_permit
         self.session.send(pack)
 
-    def __get_modified_sell_price(self, sell_price):
+    def __get_modified_sell_price(self, sell_price, port_map):
         ratio = self.__get_ratio_from_price_index()
 
         if self.is_in_allied_port() and self.has_tax_free_permit():
             tax_ratio = 1.1
         else:
             tax_ratio = 1
+
+
+        if self.is_in_allied_port():
+            tax_ratio -= port_map.same_nation_tax / 100
+        else:
+            tax_ratio -= port_map.other_nation_tax / 100
+
 
         return int(sell_price * (1 + self.get_discount()) * ratio * tax_ratio)
 
@@ -3878,6 +3891,7 @@ class Role:
         # get sell price
         cargo_template = sObjectMgr.get_cargo_template(ship.cargo_id)
         port = self.get_port()
+        port_map = self.get_map()
         sell_price = json.loads(cargo_template.sell_price)[str(port.economy_id)]
 
         pack = pb.CargoToSellInShip()
@@ -3885,7 +3899,7 @@ class Role:
         pack.cargo_name = cargo_template.name
         pack.cnt = ship.cargo_cnt
         pack.sell_price = sell_price
-        pack.modified_sell_price = self.__get_modified_sell_price(sell_price)
+        pack.modified_sell_price = self.__get_modified_sell_price(sell_price, port_map)
         pack.ship_id = ship_id
         self.session.send(pack)
 
@@ -3918,6 +3932,7 @@ class Role:
         economy_id_str_2_buy_price = json.loads(cargo_template.buy_price)
 
         port = self.get_port()
+        port_map = self.get_map()
 
         if str(port.economy_id) in economy_id_str_2_buy_price:
             buy_price = economy_id_str_2_buy_price[str(port.economy_id)]
@@ -3927,7 +3942,7 @@ class Role:
             print("port dosen't have this cargo")
             return
 
-        modified_buy_price = self.__get_modified_buy_price(buy_price)
+        modified_buy_price = self.__get_modified_buy_price(buy_price, port_map)
         cost = cnt * modified_buy_price
 
         # not enough money
@@ -3959,6 +3974,24 @@ class Role:
         )
         self.session.send(pack)
 
+        # give tax to governor of port
+        if self.is_in_allied_port():
+            tax_ratio = port_map.same_nation_tax / 100
+        else:
+            tax_ratio = port_map.other_nation_tax / 100
+        tax_amount = int(cost / (1 + tax_ratio/100) * tax_ratio)
+
+        governor_role = self.session.server.get_role_by_name(port_map.governor_name)
+        if governor_role:
+            governor_role.bank_money += tax_amount
+            # tell governor
+            pack = pb.GotChat(
+                chat_type=pb.ChatType.SYSTEM,
+                text=f'Bank received {tax_amount} due to {self.name} '
+                     f'buying {cargo_template.name} from {port.name}',
+            )
+            governor_role.session.send(pack)
+
     def __get_xp_amount_from_prfoit(self, profit):
         xp = int(c.TRADE_XP_FACTOR * profit // 100)
         return xp
@@ -3974,8 +4007,9 @@ class Role:
         # get sell price
         cargo_template = sObjectMgr.get_cargo_template(cargo_id)
         port = self.get_port()
+        port_map = self.get_map()
         sell_price = json.loads(cargo_template.sell_price)[str(port.economy_id)]
-        modified_sell_price = self.__get_modified_sell_price(sell_price)
+        modified_sell_price = self.__get_modified_sell_price(sell_price, port_map)
 
         # change ram
         profit = cnt * modified_sell_price
@@ -3996,6 +4030,25 @@ class Role:
                                               cargo_id=ship.cargo_id,
                                               cnt=ship.cargo_cnt))
         self.session.send(pb.PopSomeMenus(cnt=2))
+
+        # give tax to governor of port
+        if self.is_in_allied_port():
+            tax_ratio = port_map.same_nation_tax / 100
+        else:
+            tax_ratio = port_map.other_nation_tax / 100
+
+        tax_amount = int(profit / (1 - tax_ratio/100) * tax_ratio)
+        governor_role = self.session.server.get_role_by_name(port_map.governor_name)
+        if governor_role:
+            governor_role.bank_money += tax_amount
+            # tell governor
+            pack = pb.GotChat(
+                chat_type=pb.ChatType.SYSTEM,
+                text=f'Bank received {tax_amount} due to {self.name} '
+                     f'selling {cargo_template.name} to {port.name}',
+            )
+            governor_role.session.send(pack)
+
 
     def repair_ship(self, ship_id):
         ship = self.ship_mgr.get_ship(ship_id)
@@ -4351,6 +4404,36 @@ class Role:
         )
         self.session.send(pack)
         target_role.session.send(pack)
+
+    def manage_port(self):
+        port_map = self.get_map()
+        if port_map.governor_name == self.name:
+            self.session.send(pb.ShowGovernorOptions())
+        else:
+            self.session.send(pb.BuildingSpeak(
+                text='You are not the governor of this port.',
+            ))
+
+    def set_port_states(self, pack):
+        port_map = self.get_map()
+        if port_map.governor_name != self.name:
+            return
+
+        if 0 <= pack.same_nation_tax <= c.MAX_TAX_RATE:
+            port_map.same_nation_tax = pack.same_nation_tax
+        else:
+            return
+        if 0 <= pack.other_nation_tax <= c.MAX_TAX_RATE:
+            port_map.other_nation_tax = pack.other_nation_tax
+        else:
+            return
+
+        port_map.is_bank_enabled = pack.is_bank_enabled
+
+        self.session.send(pb.PopSomeMenus(cnt=1))
+        self.session.send(pb.BuildingSpeak(
+            text='As you wish.',
+        ))
 
 
 class Model:

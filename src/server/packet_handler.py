@@ -986,6 +986,9 @@ class PacketHandler:
             economy_index=port_map.economy_index,
             industry_index=port_map.industry_index,
             allied_nation=port_map.allied_nation,
+            governor=port_map.governor_name if port_map.governor_name else 'NA',
+            same_nation_tax=port_map.same_nation_tax,
+            other_nation_tax=port_map.other_nation_tax,
         )
         self.session.send(pack)
 

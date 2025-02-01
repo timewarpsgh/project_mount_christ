@@ -891,7 +891,8 @@ class OptionsDialog:
         # building speak number of allied ports
         self.__building_speak(f'{tr(c.Nation(nation_id).name)} {tr("has")} {len(port_names)} {tr("allied ports at the moment")}.')
 
-    def show_port_info(self, price_index, economy_index, industry_index, allied_nation):
+    def show_port_info(self, price_index, economy_index, industry_index, allied_nation,
+                       governor, same_nation_tax, other_nation_tax):
 
         nation_name = c.Nation(allied_nation).name
 
@@ -899,6 +900,9 @@ class OptionsDialog:
             f'{tr("Price Index")} {price_index}': '',
             f'{tr("Economy Index")} {economy_index}': '',
             f'{tr("Industry Index")} {industry_index}': '',
+            f'{tr("Governor")} {governor}': '',
+            f'{tr("Same Nation Tax")} {same_nation_tax}%': '',
+            f'{tr("Other Nation Tax")} {other_nation_tax}%': '',
         }
 
         self.__make_menu(option_2_callback)

@@ -769,6 +769,9 @@ message PortInfo{
     required int32 economy_index = 2;
     required int32 industry_index = 3;
     required int32 allied_nation = 4;
+    required string governor = 5;
+    required int32 same_nation_tax = 6;
+    required int32 other_nation_tax = 7;
 }
 
 message GetNationInfo {

@@ -1681,6 +1681,9 @@ f'is_bank_enabled': '是否启动银行',
 "due to": '因为',
 'buying': '购买了',
 'selling': '出售了',
+"Governor": '总督',
+"Same Nation Tax": '本国税率',
+"Other Nation Tax": '别国税率',
 
 
 

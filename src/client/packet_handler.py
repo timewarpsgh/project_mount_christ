@@ -927,9 +927,13 @@ class PacketHandler:
         economy_index = pack.economy_index
         industry_index = pack.industry_index
         allied_nation = pack.allied_nation
+        governor = pack.governor
+        same_nation_tax = pack.same_nation_tax
+        other_nation_tax = pack.other_nation_tax
 
         self.__get_options_dialog().show_port_info(
-            price_index, economy_index, industry_index, allied_nation
+            price_index, economy_index, industry_index, allied_nation,
+            governor, same_nation_tax, other_nation_tax
         )
 
     async def handle_NationAlliedPorts(self, pack):

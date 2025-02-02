@@ -50,6 +50,10 @@ TO DO:
 
         release 1.4 OK
 
+        add key instruction on site OK
+
+        press m/n again to close map
+
 
 
 

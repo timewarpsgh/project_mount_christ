@@ -54,6 +54,9 @@ TO DO:
 
         press m/n again to close map OK
 
+        update client OK
+
+
 
 
 

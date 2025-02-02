@@ -52,7 +52,7 @@ TO DO:
 
         add key instruction on site OK
 
-        press m/n again to close map
+        press m/n again to close map OK
 
 
 

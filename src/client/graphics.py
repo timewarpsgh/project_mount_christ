@@ -961,6 +961,8 @@ class Graphics:
         self.dynamic_port_npcs = []
         self.dynamic_port_npc_update_timer = 0
 
+        self.is_world_map_on = False
+        self.is_port_map_on = False
 
     def clear_marks(self):
         self.move_marks = []
@@ -1317,13 +1319,23 @@ class Graphics:
 
             if event.key == pygame.K_n:
                 if not self.model.role.is_in_building:
-                    self.get_options_dialog().show_port_map()
+                    if self.is_port_map_on:
+                        self.get_options_dialog().pop_some_menus(1)
+                        self.is_port_map_on = False
+                    else:
+                        self.get_options_dialog().show_port_map()
+                        self.is_port_map_on = True
                 else:
                     print('is in building!!')
 
             if event.key == pygame.K_m:
                 if not self.model.role.is_in_building:
-                    self.get_options_dialog().show_world_map()
+                    if self.is_world_map_on:
+                        self.get_options_dialog().pop_some_menus(1)
+                        self.is_world_map_on = False
+                    else:
+                        self.get_options_dialog().show_world_map()
+                        self.is_world_map_on = True
 
             if event.key == pygame.K_l:
                     self.get_options_dialog().land()

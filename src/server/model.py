@@ -3375,7 +3375,7 @@ class Role:
 
         # add scurvy
         if self.days_at_sea >= 30:
-            if random.random() < 0.15:
+            if random.random() < 0.10:
                 aura_id = c.Aura.SCURVY.value
                 if not self.has_aura(aura_id):
                     self.auras.add(aura_id)

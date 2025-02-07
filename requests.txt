@@ -56,6 +56,9 @@ TO DO:
 
         update client OK
 
+        scurvy chance: 15% -> 10% OK
+
+        每个等级要与目标船长对应等级相差不超过10级
 
 
 

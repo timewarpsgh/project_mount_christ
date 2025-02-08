@@ -58,7 +58,7 @@ TO DO:
 
         scurvy chance: 15% -> 10% OK
 
-        每个等级要与目标船长对应等级相差不超过10级
+        if governor of port, can hire mate with 12 instead of 10 fewer min lv OK
 
 
 

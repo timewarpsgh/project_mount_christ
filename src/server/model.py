@@ -2206,7 +2206,12 @@ class Role:
                                      mate_template.lv_in_acc,
                                      mate_template.lv_in_bat)
 
-        if my_max_stat + 10 >= mate_template_max_stat:
+        lv_diff = 10
+
+        if self.get_map().governor_name == self.name:
+            lv_diff = 12
+
+        if my_max_stat + lv_diff >= mate_template_max_stat:
             return True
         else:
             return False

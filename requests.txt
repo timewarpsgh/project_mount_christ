@@ -60,7 +60,7 @@ TO DO:
 
         if governor of port, can hire mate with 12 instead of 10 fewer min lv OK
 
-
+        close sessions that have closed OK
 
 
 DONE:

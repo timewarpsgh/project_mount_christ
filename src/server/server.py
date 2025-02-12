@@ -204,6 +204,12 @@ class Server:
         else:
             pass
 
+        finally:
+            print("Closing the connection:")
+            print(writer.get_extra_info('peername'))
+            writer.close()
+            await writer.wait_closed()  # Ensure the connection is fully closed
+
     async def main(self):
         server = await asyncio.start_server(
             self.client_connected, '0.0.0.0', c.PORT)

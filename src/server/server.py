@@ -41,7 +41,10 @@ class Session(Connection):
 
     async def on_disconnect(self):
         print('client wants to disconnect')
-        pass
+        print("Closing the connection:")
+        print(self.writer.get_extra_info('peername'))
+        self.writer.close()
+        await self.writer.wait_closed()  # Ensure the connection is fully closed
 
     async def disconnect(self):
         print('someone disconnectd!!!!')

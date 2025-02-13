@@ -1684,6 +1684,7 @@ f'is_bank_enabled': '是否启动银行',
 "Governor": '总督',
 "Same Nation Tax": '本国税率',
 "Other Nation Tax": '别国税率',
+'sto': '雷',
 
 
 

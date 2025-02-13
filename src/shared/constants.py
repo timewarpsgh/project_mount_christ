@@ -9,7 +9,7 @@ from enum import Enum, auto
 import login_pb2 as pb
 from helpers import Point
 
-IS_DEV = True
+IS_DEV = False
 VERSION = '1.4'
 
 if IS_DEV:

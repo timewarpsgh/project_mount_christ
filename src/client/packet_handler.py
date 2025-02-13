@@ -1042,13 +1042,33 @@ class PacketHandler:
 
         # bad auras
         if aura_id == c.Aura.STORM.value:
-            self.__get_options_dialog().show_mate_speech(mate, f'A storm is coming! What are we gonna do?')
+            # self.__get_options_dialog().show_mate_speech(mate, f'A storm is coming! What are we gonna do?')
             sAssetMgr.sounds['lightning'].play()
+            MyPanelWindow(
+                rect=pygame.Rect(0, 0, 400, 400),
+                ui_manager=self.client.game.gui.mgr,
+                text=tr('A storm is coming! What are we gonna do?'),
+                image=sAssetMgr.images['conditions']['storm'],
+            )
         elif aura_id == c.Aura.RATS.value:
-            self.__get_options_dialog().show_mate_speech(mate, f'We found rats eating our food!')
+            # self.__get_options_dialog().show_mate_speech(mate, f'We found rats eating our food!')
+            MyPanelWindow(
+                rect=pygame.Rect(0, 0, 400, 400),
+                ui_manager=self.client.game.gui.mgr,
+                text=tr(f'We found rats eating our food!'),
+                image=sAssetMgr.images['conditions']['rats'],
+            )
+
             sAssetMgr.sounds['rats'].play()
         elif aura_id == c.Aura.SCURVY.value:
-            self.__get_options_dialog().show_mate_speech(mate, f'Some of us have scurvy!')
+
+            MyPanelWindow(
+                rect=pygame.Rect(0, 0, 400, 400),
+                ui_manager=self.client.game.gui.mgr,
+                text=tr(f'Some of us have scurvy!'),
+                image=sAssetMgr.images['conditions']['scurvy'],
+            )
+            # self.__get_options_dialog().show_mate_speech(mate, f'Some of us have scurvy!')
 
     async def handle_AuraRemoved(self, pack):
         aura_id = pack.aura_id

@@ -63,6 +63,11 @@ TO DO:
         close sessions that have closed OK
         deal with telnet connections OK
 
+
+
+        releae new client (new condition imgs) OK
+
+
 DONE:
 
     events OK

@@ -1785,8 +1785,16 @@ class Role:
         role_model = ROLE_SESSION.query(RoleModel).filter_by(id=self.id).first()
 
         role_model.map_id = self.map_id
-        role_model.x = self.x
-        role_model.y = self.y
+
+        # prevent saving x,y ouside port matirx range
+        if 0 <= self.x <= 95 and 0 <= self.y <= 95:
+            role_model.x = self.x
+            role_model.y = self.y
+        else:
+            x, y = sObjectMgr.get_building_xy_in_port(1, self.map_id)
+            role_model.x = x
+            role_model.y = y
+
         role_model.dir = self.dir
         role_model.money = self.money
         role_model.bank_money = self.bank_money
